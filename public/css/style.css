@@ -14,7 +14,7 @@ body {
 
 /* Navigation */
 .nav_underline {
-    border-bottom: 3px green solid;
+    border-bottom: 3px red solid;
 }
 .regBlock a {
     color: white;
