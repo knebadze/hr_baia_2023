@@ -13,8 +13,12 @@ body {
 }
 
 /* Navigation */
-.carousel_margin_top {
-    margin-top: 150px;
+.employedVacancies {
+    margin-top: 75px;
+}
+
+.newUserPhotos {
+    margin-top: 30px;
 }
 
 .nav_underline {
@@ -26,8 +30,17 @@ body {
 }
 
 .logButton {
+    color: black;
     margin-right: 1rem;
     margin-left: 1rem;
+}
+
+.logButton a, .regButton a {
+    color: black;
+}
+
+.logButton a:hover, .regButton a:hover {
+    color: white;
 }
 
 .regButton {
@@ -35,11 +48,84 @@ body {
 }
 
 /* Welcome Page */
-.user_border {
-    border: 1px red solid;
-    border-radius: 10px;
+/* Employed & Vacancies Block */
+.employedVacancies {
+    background-color: #fdfff5;
 }
 
+.employedNumber, .vacanciesNumbers, .searchWelcomePage, .jobSearch {
+    text-align: center;
+}
+
+.jobSearch {
+    margin-top: 25px;
+    margin-bottom: 20px;
+}
+
+/* New User's Photos */
+.newUserInfo {
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.newUserInfo, .newUserInfo a {
+    text-decoration: none;
+    font-size: 12px;
+    border-radius: 15px;
+}
+
+.newUserInfo .card, .newUserInfo .card img {
+    border-top-left-radius: 25px;
+}
+
+.newUserInfo .card {
+    border-bottom-right-radius: 25px;
+}
+
+/* Active Vacancy */
+.activeVacancy a {
+    text-decoration: none;
+}
+
+.activeVacancy {
+    margin-bottom: 25px;
+    background-color: #fdfff5;
+}
+
+.activeVacancyTitle #blink {
+    text-align: center;
+    font-weight: bold;
+    color: #1c87c9;
+    transition: 1.0s;
+  }
+
+.activeVacancy .card {
+    margin-bottom: 25px;
+}
+
+.activeVacancy .card:hover {
+    background-color: rgb(28,135,201, 0.1);
+}
+
+.activeVacancy .card-body p {
+    margin-bottom: 0;
+}
+
+.viewActiveVacancy h3 {
+    margin-top: 25px;
+    text-align: center;
+    color: white;
+}
+
+.viewActiveVacancy a h3 span{
+    background-color: #1c87c9;
+    border-radius: 10px;
+    padding: 1%;
+}
+
+.viewActiveVacancy a h3 span:hover {
+    background-color: rgb(28,135,201, 0.9);
+}
 
 /* Media */
 @media only screen and (max-width: 1024px) {

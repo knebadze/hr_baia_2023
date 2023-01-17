@@ -40,9 +40,9 @@
             @auth
                 <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
             @else
-                <button class="btn btn-primary logButton"><a href="{{ route('login') }}">შესვლა</a></button>
+                <button class="btn btn-outline-primary logButton"><a href="{{ route('login') }}">შესვლა</a></button>
                 @if (Route::has('register'))
-                <button class="btn btn-success regButton"><a href="{{ route('register') }}">რეგისტრაცია</a>
+                <button class="btn btn-outline-success regButton"><a href="{{ route('register') }}">რეგისტრაცია</a>
                 @endif
             @endauth
         @endif
