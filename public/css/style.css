@@ -1,0 +1,49 @@
+@font-face {
+    font-family: nino;
+    src: url("/fonts/nino.ttf");
+}
+
+@font-face {
+    font-family: mtavruli;
+    src: url("/fonts/mtavruli.ttf");
+  }
+
+body {
+    font-family: mtavruli !important;
+}
+
+/* Navigation */
+.nav_underline {
+    border-bottom: 3px #5e2dfa solid;
+}
+.regBlock a {
+    color: white;
+    text-decoration: none;
+}
+
+.logButton {
+    margin-right: 1rem;
+    margin-left: 1rem;
+}
+
+.regButton {
+    margin-right: 1rem;
+}
+
+
+/* Media */
+@media only screen and (max-width: 1024px) {
+
+}
+
+@media only screen and (max-width: 768px) {
+    .logButton {
+        margin-right: 0rem;
+        margin-left: 0rem;
+        margin-bottom: 1rem;
+    }
+    
+    .regButton {
+        margin-right: 0rem;
+    }
+}
