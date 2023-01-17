@@ -13,39 +13,28 @@
           <a class="nav-link" href="#">ანკეტები</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">სამუშაოები</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">კომპანიის ვაკანსიები</a>
+          <a class="nav-link" href="#">ვაკანსიები</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">ჩვენს შესახებ</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">წესები და პირობები</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="#">ბლოგი</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">დაგვიკავშირდით</a>
+          <a class="nav-link" href="#">კონტაქტი</a>
         </li>
       </ul>
 
-      <ul class="navbar-nav mr-auto langImg">
-          <li class="nav-item">
-              <a class="nav-link" href=""> <img src="images\geo.png"> </a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link" href=""> <img src="images\eng.png"></a>
-          </li>
+      <ul class="navbar-nav mr-right langImg">
+        <li class="nav-item">
+            <a class="nav-link" href=""> <img src="images\geo.png"> </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href=""> <img src="images\eng.png"></a>
+        </li>
       </ul>
-      
 
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="მოძებნე..." aria-label="Search">
-        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">ძებნა</button>
-      </form>
       <ul class="navbar-nav mr-right regBlock">
         @if (Route::has('login'))
             @auth
@@ -58,5 +47,6 @@
             @endauth
         @endif
       </ul>
+
     </div>
   </nav>
