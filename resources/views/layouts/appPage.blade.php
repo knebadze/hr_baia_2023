@@ -18,6 +18,7 @@
 <body>
 
     @include('inc.header')
+    @yield('content')
     
 </body>
 </html>
