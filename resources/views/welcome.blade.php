@@ -24,7 +24,7 @@
             <div class="col-md-4 searchWelcomePage">
                 <form class="form-inline float-right">
                   <input class="form-control mr-sm-2" type="search" placeholder="ჩაწერე..." aria-label="Search">
-                  <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">ძებნა</button>
+                  <button class="btn btn-primary my-2 my-sm-0" type="submit">ძებნა</button>
                 </form>
             </div>
     
@@ -268,7 +268,7 @@
         <div class="row">
 
             <div class="col-md-12">
-                <p class="candidate">კანდიდატებს ეძებთ</p>
+                <p class="candidate">კანდიდატებს ეძებთ?!</p>
                 <h4>შეავსეთ მოკლე ანკეტა</h4>
                 <p>და 30 წუთში ავტომატურად ჩანიშნეთ სასურველ კადრებთან ონლაინ გასაუბრება...</p>
                 <button class="btn btn-success">განათავსეთ ვაკანსია</button>
