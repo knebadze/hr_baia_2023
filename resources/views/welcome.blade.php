@@ -1,7 +1,8 @@
 @extends('layouts.appPage')
 
 @section('content')
-<section class="employedVacancies">
+
+<section class="employedVacancies bg-image-vacancy" style="background-image: url(images/bg.png);">
     <div class="container">
         <div class="row">
             <div class="col-md-12 jobSearch">
@@ -122,7 +123,7 @@
                         <p class="card-text">უბანი: საბურთალო</p>
                         <p class="card-text">ანაზღაურება: 600₾</p>
                         <a href="#" class="card-link">სულან</a>
-                        <a href="#" class="card-link"><p style="color: #00D100">დავინტერესდი</p></a>  
+                        <a href="#" class="card-link"><p class="activeInterest"><span>დავინტერესდი</span></p></a>  
                     </div>
                 </div>
             </div>
@@ -136,7 +137,7 @@
                         <p class="card-text">ცვლა: დღის გრაფიკი</p>
                         <p class="card-text">ანაზღაურება: 500₾</p>
                         <a href="#" class="card-link">ვალერი</a>
-                        <a href="#" class="card-link"><p style="color: #00D100">დავინტერესდი</p></a>  
+                        <a href="#" class="card-link"><p class="activeInterest"><span>დავინტერესდი</span></p></a>   
                     </div>
                 </div>
             </div>
@@ -150,7 +151,7 @@
                         <p class="card-text">უბანი: ლისი</p>
                         <p class="card-text">ანაზღაურება: 800₾</p>
                         <a href="#" class="card-link">ნატალია</a>
-                        <a href="#" class="card-link"><p style="color: #00D100">დავინტერესდი</p></a>  
+                        <a href="#" class="card-link"><p class="activeInterest"><span>დავინტერესდი</span></p></a>   
                     </div>
                 </div>
             </div>
@@ -164,7 +165,7 @@
                         <p class="card-text">უბანი: ლისი</p>
                         <p class="card-text">ანაზღაურება: 150₾</p>
                         <a href="#" class="card-link">ხათუნა</a>
-                        <a href="#" class="card-link"><p style="color: #00D100">დავინტერესდი</p></a>  
+                        <a href="#" class="card-link"><p class="activeInterest"><span>დავინტერესდი</span></p></a> 
                     </div>
                 </div>
             </div>
@@ -178,7 +179,7 @@
                         <p class="card-text">უბანი: ვარკეთილი</p>
                         <p class="card-text">ანაზღაურება: 540₾</p>
                         <a href="#" class="card-link">გიორგი</a>
-                        <a href="#" class="card-link"><p style="color: #00D100">დავინტერესდი</p></a>  
+                        <a href="#" class="card-link"><p class="activeInterest"><span>დავინტერესდი</span></p></a>  
                     </div>
                 </div>
             </div>
@@ -192,23 +193,32 @@
                         <p class="card-text">უბანი: ლისი</p>
                         <p class="card-text">ანაზღაურება: 350₾</p>
                         <a href="#" class="card-link">სალომე</a>
-                        <a href="#" class="card-link"><p style="color: #00D100">დავინტერესდი</p></a>  
+                        <a href="#" class="card-link"><p class="activeInterest"><span>დავინტერესდი</span></p></a>   
                     </div>
                 </div>
             </div>
 
             <div class="col-md-12">
-            <div class="viewActiveVacancy">
-                <a href=""><h3><span>დაათვალიერეთ ყველა ვაკანსია</span></h3></a>
-            </div>
+                <div class="viewActiveVacancy">
+                    <h3><span><a href="">დაათვალიერეთ ყველა ვაკანსია</a></span></h3>
+                </div>
             </div>
 
         </div>
     </div>
 </section>
 
-
-<h1>ADD FOOTER</h1>
+<section class="jobSearchTop" style="background-image: url(images/login-bg.png)">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <h3>სამუშაოს ეძებ?</h3>
+                <p>არ გადადო, რატომ ხვალ - დაიწყე სამუშაო დღესვე</p>
+                <a href="#"><button class="btn btn-success">დაიწყე დღესვე</button></a>
+            </div>
+        </div>
+    </div>
+</section>
 
 {{-- Blink Script --}}
 <script type="text/javascript">
