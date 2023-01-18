@@ -45,10 +45,6 @@ body {
     margin-top: 75px;
 }
 
-/* .employedVacancies {
-    background-color: #fdfff5;
-} */
-
 .bg-image-vacancy {
     height: inherit;
     background-position: center center;
@@ -70,7 +66,7 @@ body {
     margin-bottom: 20px;
 }
 
-/* New User's Photos */
+/* New User's Photos Block */
 .newUserPhotos {
     margin-top: 30px;
 }
@@ -98,7 +94,7 @@ body {
     border-bottom-right-radius: 25px;
 }
 
-/* Active Vacancy */
+/* Active Vacancy Block */
 .activeInterest span {
     border-radius: 5px;
     padding-left: 2%;
@@ -156,12 +152,12 @@ body {
     background-color: rgb(28,135,201, 0.9);
 }
 
-/* Job Search */
+/* Job Search Block */
 .jobSearchTop {
     text-align: center;
 }
 
-.bg-image-job-search{
+.bg-image-job-search {
     height: inherit;
     background-position: center center;
     background-repeat: no-repeat;
@@ -170,11 +166,84 @@ body {
 }
 
 .jobSearchTop h3 {
+    font-weight: bold;
     padding-top: 5%;
 }
 
 .jobSearchTop {
     padding-bottom: 5%;
+}
+
+/* Outstanding Block */
+.outstanding {
+    padding-bottom: 5%;
+    background-color: #fdfff5;
+}
+
+.outstanding .card {
+    width: 30rem;
+}
+
+.outstanding h3 {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 5%;
+    margin-bottom: 3%;
+    color: coral;
+}
+
+.outstanding .card h5 a {
+    color: black;
+}
+
+.outstanding .card h5 a:hover {
+    color: #1c87c9;
+}
+
+.outstanding .card img {
+    width: 100px;
+}
+
+.outstanding .card span {
+    background-color: #00D100;
+    padding-left: 1%;
+    padding-right: 1%;
+    border-radius: 5px;
+    color: white;
+}
+
+.outstanding .card a {
+    text-decoration: none;
+}
+
+.outstandingJobs span {
+    background-color: #1c87c9;
+    padding: 1%;
+    border-radius: 10px;
+}
+
+.outstandingJobs a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Anketa Block */
+.fillAnketa {
+    text-align: center;
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
+
+.fillAnketa .candidate {
+    color: #00D100;
+}
+
+.bg-image-anketa {
+    height: inherit;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 /* Media */

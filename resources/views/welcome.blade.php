@@ -200,7 +200,7 @@
 
             <div class="col-md-12">
                 <div class="viewActiveVacancy">
-                    <h3><span><a href="">დაათვალიერეთ ყველა ვაკანსია</a></span></h3>
+                    <h3><span><a href="">ყველა ვაკანსია</a></span></h3>
                 </div>
             </div>
 
@@ -208,7 +208,7 @@
     </div>
 </section>
 
-<section class="jobSearchTop" style="background-image: url(images/login-bg.png)">
+<section class="jobSearchTop bg-image-job-search" style="background-image: url(images/login-bg.png)">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -216,6 +216,64 @@
                 <p>არ გადადო, რატომ ხვალ - დაიწყე სამუშაო დღესვე</p>
                 <a href="#"><button class="btn btn-success">დაიწყე დღესვე</button></a>
             </div>
+        </div>
+    </div>
+</section>
+
+<section class="outstanding">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-12">
+                <h3>გამორჩეული ვაკანსიები</h3>
+            </div>
+
+            <div class="col-md-6 d-flex justify-content-center">
+                <div class="card" style="width: 30rem;">
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="">მესაჭიროება ოჯახში დამხმარე</a></h5>
+                        <img src="images/user.png" class="card-img-top" alt="...">
+                        <p class="card-text"><a href="">სულან მამოიანი</a> - თბილისი</p>
+                        <p class="card-text"><span>დავინტერესდი</span></p>
+                        <a href="#" class="btn btn-primary">დეტალების ნახვა</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 d-flex justify-content-center">
+                <div class="card" style="width: 30rem;">
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="">ძიძა</a></h5>
+                        <img src="images/user.png" class="card-img-top" alt="...">
+                        <p class="card-text"><a href>ეკა ლიპარტელიანი</a> - თბილისი</p>
+                        <p class="card-text"><span>დავინტერესდი</span></p>
+                        <a href="#" class="btn btn-primary">დეტალების ნახვა</a>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="outstandingJobs">
+                    <h3><span><a href="">ყველა გამორჩეული ვაკანსია</a></span></h3>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+<section class="fillAnketa bg-image-anketa" style="background-image: url(images/login-bg2.png)">
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-md-12">
+                <p class="candidate">კანდიდატებს ეძებთ</p>
+                <h4>შეავსეთ მოკლე ანკეტა</h4>
+                <p>და 30 წუთში ავტომატურად ჩანიშნეთ სასურველ კადრებთან ონლაინ გასაუბრება...</p>
+                <button class="btn btn-success">განათავსეთ ვაკანსია</button>
+            </div>
+
         </div>
     </div>
 </section>
