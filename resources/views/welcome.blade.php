@@ -11,20 +11,25 @@
         </div>
         <div class="row">
     
-            <div class="col-md-4 employedNumber">
+            <div class="col-md-6 employedNumber">
                 <p>დასაქმებულები</p>
                 <p>1200</p>
             </div>
     
-            <div class="col-md-4 vacanciesNumbers">
+            <div class="col-md-6 vacanciesNumbers float-right">
                 <p>ვაკანსიები</p>
                 <p>2765</p>
             </div>
     
-            <div class="col-md-4 searchWelcomePage">
-                <form class="form-inline float-right">
-                  <input class="form-control mr-sm-2" type="search" placeholder="ჩაწერე..." aria-label="Search">
-                  <button class="btn btn-primary my-2 my-sm-0" type="submit">ძებნა</button>
+            <div class="col-md-12 searchWelcomePage">
+                <form class="mr-2 my-auto w-100 d-inline-block order-1">
+                    <div class="input-group">
+                        <input type="text" class="form-control" 
+                        placeholder="შეიყვანეთ მოვალეობები ან სასურეველი სამუშაოს სათაური">
+                        <button class="btn btn-success" type="button">
+                            მოძებნე სამუშაო
+                        </button>
+                    </div>
                 </form>
             </div>
     
@@ -200,7 +205,7 @@
 
             <div class="col-md-12">
                 <div class="viewActiveVacancy">
-                    <h3><span><a href="">ყველა ვაკანსია</a></span></h3>
+                    <h4><span><a href="">დაათვალიერეთ ყველა აქტიური ვაკანსია</a></span></h4>
                 </div>
             </div>
 
@@ -225,7 +230,7 @@
         <div class="row">
 
             <div class="col-md-12">
-                <h3>გამორჩეული ვაკანსიები</h3>
+                <h4>გამორჩეული ვაკანსიები</h4>
             </div>
 
             <div class="col-md-6 d-flex justify-content-center">
@@ -248,14 +253,13 @@
                         <p class="card-text"><a href>ეკა ლიპარტელიანი</a> - თბილისი</p>
                         <p class="card-text"><span>დავინტერესდი</span></p>
                         <a href="#" class="btn btn-primary">დეტალების ნახვა</a>
-                    </div>
-                    
+                    </div> 
                 </div>
             </div>
 
             <div class="col-md-12">
                 <div class="outstandingJobs">
-                    <h3><span><a href="">ყველა გამორჩეული ვაკანსია</a></span></h3>
+                    <h4><span><a href="">ყველა გამორჩეული ვაკანსია</a></span></h4>
                 </div>
             </div>
             
@@ -271,7 +275,7 @@
                 <p class="candidate">კანდიდატებს ეძებთ?!</p>
                 <h4>შეავსეთ მოკლე ანკეტა</h4>
                 <p>და 30 წუთში ავტომატურად ჩანიშნეთ სასურველ კადრებთან ონლაინ გასაუბრება...</p>
-                <button class="btn btn-success">განათავსეთ ვაკანსია</button>
+                <button class="btn btn-success"><h5>განათავსეთ ვაკანსია</h5></button>
             </div>
 
         </div>

@@ -28,10 +28,12 @@
 
       <ul class="navbar-nav mr-right langImg">
         <li class="nav-item">
-            <a class="nav-link" href=""> <img src="images\geo.png"> </a>
+          <a class="nav-link" href=""> ქართული </a>
+            {{-- <a class="nav-link" href=""> <img src="images\geo.png"></a> --}}
         </li>
         <li class="nav-item">
-            <a class="nav-link" href=""> <img src="images\eng.png"></a>
+          <a class="nav-link" href=""> English </a>
+            {{-- <a class="nav-link" href=""> <img src="images\eng.png"></a> --}}
         </li>
       </ul>
 
@@ -40,9 +42,9 @@
             @auth
                 <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
             @else
-                <button class="btn btn-outline-primary logButton"><a href="{{ route('login') }}">შესვლა</a></button>
+                <button class="btn btn-success logButton"><a href="{{ route('login') }}">შესვლა</a></button>
                 @if (Route::has('register'))
-                <button class="btn btn-outline-success regButton"><a href="{{ route('register') }}">რეგისტრაცია</a>
+                <button class="btn regButton"><a href="{{ route('register') }}">რეგისტრაცია</a>
                 @endif
             @endauth
         @endif

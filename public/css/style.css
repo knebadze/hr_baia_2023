@@ -14,30 +14,36 @@ body {
 
 /* Navigation */
 .nav_underline {
-    border-bottom: 1px #007bff solid;
+    border-bottom: 1px #5e2dfa solid;
 }
 .regBlock a {
     color: white;
     text-decoration: none;
 }
 
+.regButton {
+    background-color: #5e2dfa;
+    border-radius: 25px;
+}
+
+.regButton:hover {
+    background-color: #4e24d4;
+}
+
 .logButton {
+    border-radius: 25px;
     color: black;
     margin-right: 1rem;
     margin-left: 1rem;
 }
 
-.logButton a, .regButton a {
-    color: black;
-}
+
 
 .logButton a:hover, .regButton a:hover {
     color: white;
 }
 
-.regButton {
-    margin-right: 1rem;
-}
+
 
 /* Welcome Page */
 /* Employed & Vacancies Block */
@@ -53,11 +59,11 @@ body {
     background-attachment: fixed;
 }
 
-.employedNumber, .vacanciesNumbers, .searchWelcomePage, .jobSearch {
+.employedNumber, .vacanciesNumbers, .jobSearch {
     text-align: center;
 }
 
-.vacanciesNumbers {
+.searchWelcomePage {
     margin-bottom: 75px;
 }
 
@@ -72,7 +78,7 @@ body {
 }
 
 .newUserInfo {
-    margin-top: 20px;
+    padding-top: 3%;
     background-color: #fdfff5;
 }
 
@@ -119,7 +125,7 @@ body {
 .activeVacancyTitle #blink {
     text-align: center;
     font-weight: bold;
-    color: #1c87c9;
+    color: #5e2dfa;
     transition: 1.0s;
   }
 
@@ -135,21 +141,21 @@ body {
     margin-bottom: 0;
 }
 
-.viewActiveVacancy h3 {
+.viewActiveVacancy h4 {
     margin-bottom: 40px;
     margin-top: 25px;
     text-align: center;
 }
 
-.viewActiveVacancy h3 span a {
+.viewActiveVacancy h4 span a {
     color: white;
-    background-color: #1c87c9;
-    border-radius: 10px;
+    background-color: #5e2dfa;
+    border-radius: 20px;
     padding: 1%;
 }
 
-.viewActiveVacancy a h3 span:hover {
-    background-color: rgb(28,135,201, 0.9);
+.viewActiveVacancy h4 span a:hover {
+    background-color: black;
 }
 
 /* Job Search Block */
@@ -184,7 +190,7 @@ body {
     width: 30rem;
 }
 
-.outstanding h3 {
+.outstanding h4 {
     text-align: center;
     font-weight: bold;
     margin-top: 5%;
@@ -217,9 +223,13 @@ body {
 }
 
 .outstandingJobs span {
-    background-color: #1c87c9;
+    background-color: #5e2dfa;
     padding: 1%;
-    border-radius: 10px;
+    border-radius: 20px;
+}
+
+.outstandingJobs h4 span:hover{
+    background-color: black;
 }
 
 .outstandingJobs a {
@@ -236,6 +246,10 @@ body {
 
 .fillAnketa .candidate {
     color: #00D100;
+}
+
+.fillAnketa button {
+    border-radius: 20px;
 }
 
 .bg-image-anketa {
