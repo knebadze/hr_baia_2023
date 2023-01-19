@@ -98,6 +98,7 @@ body {
 
 .newUserInfo .card {
     border-bottom-right-radius: 25px;
+    margin-bottom: 10px;
 }
 
 /* Active Vacancy Block */
@@ -134,7 +135,7 @@ body {
 }
 
 .activeVacancy .card:hover {
-    background-color: rgb(28,135,201, 0.1);
+    background-color: rgb(94, 45, 250, 0.1);
 }
 
 .activeVacancy .card-body p {
@@ -195,7 +196,13 @@ body {
     font-weight: bold;
     margin-top: 5%;
     margin-bottom: 3%;
-    color: coral;
+}
+
+.topVacancyTitle #blink_2 {
+    text-align: center;
+    font-weight: bold;
+    color: red;
+    transition: 1.0s;
 }
 
 .outstanding .card h5 a {
@@ -220,6 +227,10 @@ body {
 
 .outstanding .card a {
     text-decoration: none;
+}
+
+.outstanding .card {
+    margin-bottom: 25px;
 }
 
 .outstandingJobs span {
@@ -259,6 +270,93 @@ body {
     background-size: cover;
     background-attachment: fixed;
 }
+
+/* Subscribe Block */
+.subscribe {
+    padding: 30px 0;
+    background-color: #17d27c;
+    margin-bottom: 50px;;
+}
+
+#send_subscription_form {
+    background-color: black;
+    color: white;
+    font-weight: bold;
+}
+
+.activeVacancySubscribe {
+    color: white;
+    font-weight: bold;
+}
+
+
+/* ------------------------------------------------------ */
+/* Footer */
+.footer {
+    background-color: #18212e;
+}
+
+.footer h5 {
+    color: white;
+}
+
+.footerFastLinks a, .footerCategoryLinks a, .footerProfLinks a {
+    color: #ccc;
+    text-decoration: none;
+    display: block;
+    padding: 3px 0;
+    font-size: 14px;
+}
+
+.footerFastLinks a:hover, .footerCategoryLinks a:hover, .footerProfLinks a:hover {
+    color: #5e2dfa;
+}
+
+.footerContactInfo a {
+    color: white;
+    text-decoration: none;
+}
+
+.footerContactInfo {
+    color: white;
+}
+
+.footerFacebook {
+    font-size: 32px;
+}
+
+.footerFacebook:hover {
+    color: #00a8ff;
+}
+
+.footerMarkerParameter, .footerEmailParameter, .footerPhoneParameter {
+    margin-bottom: 0px;
+}
+
+.footerMail p a:hover, .footerPhone p a:hover {
+    color: #17d27c;
+}
+
+.footerMail i, .footerPhone i, .footerMarker i {
+    font-size: 24px;
+    margin-right: 8px;
+}
+
+.footerCopyright {
+    background-color: #fff;
+}
+
+.footerCopyright span {
+    color: #17d27c;
+}
+
+.footerCopyrightImage {
+    width: 100%;
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+/* ------------------------------------------------------ */
 
 /* Media */
 @media only screen and (max-width: 1024px) {

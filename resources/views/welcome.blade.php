@@ -229,11 +229,11 @@
     <div class="container">
         <div class="row">
 
-            <div class="col-md-12">
-                <h4>გამორჩეული ვაკანსიები</h4>
+            <div class="col-md-12 topVacancyTitle">
+                <h4 id="blink_2">გამორჩეული ვაკანსიები</h4>
             </div>
 
-            <div class="col-md-6 d-flex justify-content-center">
+            <div class="col-md-4 d-flex justify-content-center">
                 <div class="card" style="width: 30rem;">
                     <div class="card-body">
                         <h5 class="card-title"><a href="">მესაჭიროება ოჯახში დამხმარე</a></h5>
@@ -245,12 +245,24 @@
                 </div>
             </div>
 
-            <div class="col-md-6 d-flex justify-content-center">
+            <div class="col-md-4 d-flex justify-content-center">
                 <div class="card" style="width: 30rem;">
                     <div class="card-body">
                         <h5 class="card-title"><a href="">ძიძა</a></h5>
                         <img src="images/user.png" class="card-img-top" alt="...">
                         <p class="card-text"><a href>ეკა ლიპარტელიანი</a> - თბილისი</p>
+                        <p class="card-text"><span>დავინტერესდი</span></p>
+                        <a href="#" class="btn btn-primary">დეტალების ნახვა</a>
+                    </div> 
+                </div>
+            </div>
+
+            <div class="col-md-4 d-flex justify-content-center">
+                <div class="card" style="width: 30rem;">
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="">მზარეული</a></h5>
+                        <img src="images/user.png" class="card-img-top" alt="...">
+                        <p class="card-text"><a href>მზია თოფურია</a> - თბილისი</p>
                         <p class="card-text"><span>დავინტერესდი</span></p>
                         <a href="#" class="btn btn-primary">დეტალების ნახვა</a>
                     </div> 
@@ -282,6 +294,31 @@
     </div>
 </section>
 
+<section class="subscribe">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-4">
+                <h5 class="mt-2 activeVacancySubscribe">აქტიური ვაკანსიების გამოწერა</h5>
+            </div>
+            
+            <div class="col-md-8">
+                <form method="post" action="http://hrbaia.ge/subscribe-newsletter" name="subscribe_newsletter_form" id="subscribe_newsletter_form">
+                    <input type="hidden" name="_token" value=""> 
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="სახელი" name="name" id="name" required="required">
+                        <input type="text" class="form-control" placeholder="ელ.ფოსტა" name="email" id="email" required="required">
+                        <div class="input-group-append">
+                            <button class="btn btn-default" type="button" id="send_subscription_form">გამოწერა</button>			  
+                        </div>
+                    </div> 
+                </form>
+            </div>
+
+        </div>
+    </div>
+</section>
+
 {{-- Blink Script --}}
 <script type="text/javascript">
   var blink = document.getElementById('blink');
@@ -289,5 +326,11 @@
     blink.style.opacity = (blink.style.opacity == 0 ? 1 : 0);
   }, 1000);
 </script>
+<script type="text/javascript">
+    var blink_2 = document.getElementById('blink_2');
+    setInterval(function() {
+      blink_2.style.opacity = (blink_2.style.opacity == 0 ? 1 : 0);
+    }, 1000);
+  </script>
 
 @endsection
