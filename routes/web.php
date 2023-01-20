@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\MainController;
+use App\Http\Controllers\QuestionnaireController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,9 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [MainController::class, 'index'])->name('welcome');
+Route::get('questionnaire', [QuestionnaireController::class, 'index'])->name('questionnaire');
 
 Auth::routes();
 

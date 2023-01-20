@@ -37,13 +37,9 @@ body {
     margin-left: 1rem;
 }
 
-
-
 .logButton a:hover, .regButton a:hover {
     color: white;
 }
-
-
 
 /* Welcome Page */
 /* Employed & Vacancies Block */
@@ -291,6 +287,43 @@ body {
 
 
 /* ------------------------------------------------------ */
+/* Anketa Page */
+/* ------------------------------------------------------ */
+
+.firstTitle {
+    margin-top: 75px;
+    padding-top: 4%;
+    padding-bottom: 3%;
+    color: white;
+}
+
+.firstTitle a {
+    color: white;
+}
+
+.firstTitle span {
+    color: #5e2dfa;
+}
+
+.anketaPageLiveSearch {
+    padding: 20px 0;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+}
+
+.bg-image-firstTitle {
+    height: inherit;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.anketaPageLiveSearchOne input, .anketaPageLiveSearchTwo input {
+    height: 50px;
+}
+/* ------------------------------------------------------ */
 /* Footer */
 .footer {
     background-color: #18212e;
@@ -372,5 +405,10 @@ body {
     
     .regButton {
         margin-right: 0rem;
+    }
+
+    /* Anketa Page - FirstTitle Block*/
+    .anketaPageLiveSearchOne {
+        margin-bottom: 5px;
     }
 }

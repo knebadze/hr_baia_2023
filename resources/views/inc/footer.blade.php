@@ -138,16 +138,18 @@
   
         </div>
       </div>
-    </div>
+
   
-    <div class="row footerCopyright">
-        <div class="col-md-8 footer-copyright text-center py-3">
-            <p>© 2023 Copyright: <span>MK Group</span></p>
+        <div class="row footerCopyright">
+            <div class="col-md-8 footer-copyright text-center py-3">
+                <p>© 2023 Copyright: By <span>MK Group</span></p>
+            </div>
+            <div class="col-md-4 footerCopyrightImage">
+                <img class="mx-auto d-block" src="images/payment-icons.png">
+            </div>
         </div>
-        <div class="col-md-4 footerCopyrightImage">
-            <img class="mx-auto d-block" src="images/payment-icons.png">
-        </div>
+        
     </div>
-  
-  </footer>
+
+</footer>
   <!-- Footer -->

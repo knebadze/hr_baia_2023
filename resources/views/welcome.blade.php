@@ -1,5 +1,7 @@
 @extends('layouts.appPage')
-
+@section('title-block')
+{{('Home')}}
+@endsection
 @section('content')
 
 <section class="employedVacancies bg-image-vacancy" style="background-image: url(images/bg.png);">
@@ -16,7 +18,7 @@
                 <p>1200</p>
             </div>
     
-            <div class="col-md-6 vacanciesNumbers float-right">
+            <div class="col-md-6 vacanciesNumbers">
                 <p>ვაკანსიები</p>
                 <p>2765</p>
             </div>
@@ -219,7 +221,7 @@
             <div class="col-md-12">
                 <h3>სამუშაოს ეძებ?</h3>
                 <p>არ გადადო, რატომ ხვალ - დაიწყე სამუშაო დღესვე</p>
-                <a href="#"><button class="btn btn-success">დაიწყე დღესვე</button></a>
+                <a href="{{ route('register') }}"><button class="btn btn-success">დაიწყე დღესვე</button></a>
             </div>
         </div>
     </div>

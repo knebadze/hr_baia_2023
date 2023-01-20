@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light nav_underline">
-    <a class="navbar-brand" href="#"><img src="{{url('logo_img/baia_logo.png')}}" width="50" height="50" class="d-inline-block align-top" alt=""></a>
+    <a class="navbar-brand" href="{{ route('welcome')}}"><img src="{{url('logo_img/baia_logo.png')}}" width="50" height="50" class="d-inline-block align-top" alt=""></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -7,10 +7,10 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="#">მთავარი</a>
+          <a class="nav-link" href="{{ route('welcome')}}">მთავარი</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">ანკეტები</a>
+          <a class="nav-link" href="{{ route('questionnaire')}}">ანკეტები</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">ვაკანსიები</a>
