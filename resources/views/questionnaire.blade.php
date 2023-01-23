@@ -41,6 +41,21 @@
 <section class="anketaUsers">
   <div class="container">
     <div class="row">
+        
+        <div class="col-md-6 searchListAnketa forMobile">
+
+            <div class="card">
+              <img class="card-img-top" src="images/no_image.png" alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title"><a href="">სალომე</a></h5>
+                <p class="card-text"><i class="fa fa-clock-o"></i> 5დღის წინ</p>
+                <p class="card-text">ასაკი: 31</p>
+                <p class="card-text">ქვეყანა: საქართველო</p>
+                <h6><a href="#" class="btn btn-outline-primary">პროფილის ნახვა</a></h6>
+              </div>
+            </div>
+    
+          </div>
 
       <div class="col-md-3 col-sm-6">
 
@@ -188,7 +203,7 @@
 
       </div>
 
-      <div class="col-md-6 searchListAnketa">
+      <div class="col-md-6 searchListAnketa forDesktop">
 
         <div class="card">
           <img class="card-img-top" src="images/no_image.png" alt="Card image cap">
@@ -197,7 +212,7 @@
             <p class="card-text"><i class="fa fa-clock-o"></i> 5დღის წინ</p>
             <p class="card-text">ასაკი: 31</p>
             <p class="card-text">ქვეყანა: საქართველო</p>
-            <h6><a href="#" class="btn btn-outline-primary">სრულად</a></h6>
+            <h6><a href="#" class="btn btn-outline-primary">პროფილის ნახვა</a></h6>
           </div>
         </div>
 

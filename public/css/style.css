@@ -414,6 +414,81 @@ body {
     color: white;
 }
 
+.forMobile {
+    display: none;
+}
+
+
+
+
+
+/* Media */
+@media only screen and (max-width: 1024px) {
+
+}
+
+@media only screen and (max-width: 768px) {
+    .logButton {
+        margin-right: 0rem;
+        margin-left: 0rem;
+        margin-bottom: 1rem;
+    }
+    
+    .regButton {
+        margin-right: 0rem;
+    }
+
+    /* Anketa Page - FirstTitle Block*/
+    .anketaPageLiveSearchOne {
+        margin-bottom: 5px;
+    }
+    .searchListAnketaName {
+        text-align: center;
+    }
+
+}
+
+@media only screen and (max-width: 426px) {
+
+    .forMobile {
+        display: inline;
+        padding-bottom: 5%;
+    }
+
+    .forDesktop {
+        display: none;
+    }
+
+    .searchListAnketaName {
+        text-align: center;
+    }
+
+    .searchListAnketa img {
+        position: relative;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .searchListAnketa h6 {
+        text-align: center;
+    }
+
+    .searchListAnketa h5, .searchListAnketa p {
+        text-align: center;
+        padding-left: 0%;
+        line-height: 11px;
+    }
+
+}
+
+@media only screen and (max-width: 376px) {
+
+}
+
+@media only screen and (max-width: 320px) {
+
+}
+
+
 
 
 /* ------------------------------------------------------ */
@@ -483,44 +558,3 @@ body {
 }
 
 /* ------------------------------------------------------ */
-
-/* Media */
-@media only screen and (max-width: 1024px) {
-
-}
-
-@media only screen and (max-width: 768px) {
-    .logButton {
-        margin-right: 0rem;
-        margin-left: 0rem;
-        margin-bottom: 1rem;
-    }
-    
-    .regButton {
-        margin-right: 0rem;
-    }
-
-    /* Anketa Page - FirstTitle Block*/
-    .anketaPageLiveSearchOne {
-        margin-bottom: 5px;
-    }
-    .searchListAnketaName {
-        text-align: center;
-    }
-
-}
-
-@media only screen and (max-width: 426px) {
-    .searchListAnketaName {
-        text-align: center;
-    }
-
-}
-
-@media only screen and (max-width: 376px) {
-
-}
-
-@media only screen and (max-width: 320px) {
-
-}
