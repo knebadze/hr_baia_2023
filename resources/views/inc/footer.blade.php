@@ -1,155 +1,131 @@
 
-<footer class="page-footer font-small footer">
-    <div class="container-fluid text-md-left">
-      <div class="row">
-  
-        <div class="col-md-3 mx-auto">
-  
-            <h5 class="font-weight-bold text-uppercase mt-3 mb-4">სწრაფი ლინკები</h5>
-    
-            <ul class="list-unstyled footerFastLinks">
-                <li>
-                    <a href="#!"><i class="fa fa-caret-right"></i> მთავარი</a>
-                </li>
-                <li>
-                    <a href="#!"><i class="fa fa-caret-right"></i> კონტაქტი</a>
-                </li>
-                <li>
-                    <a href="#!"><i class="fa fa-caret-right"></i> განათავსეთ ვაკანსია</a>
-                </li>
-                <li>
-                    <a href="#!"><i class="fa fa-caret-right"></i> ხ.დ.კ.</a>
-                </li>
-                <li>
-                    <a href="#!"><i class="fa fa-caret-right"></i> ჩვენს შესახებ.</a>
-                </li>
-                <li>
-                    <a href="#!"><i class="fa fa-caret-right"></i> წესები და პირობები</a>
-                </li>
-            </ul>
-  
-        </div>
-  
-        <hr class="clearfix w-100 d-md-none">
-  
-        <div class="col-md-3 mx-auto">
-  
-            <h5 class="font-weight-bold text-uppercase mt-3 mb-4">კატეგორიის მიხედვით</h5>
-    
-            <ul class="list-unstyled footerCategoryLinks">
-                <li>
-                    <a href="#!"><i class="fa fa-caret-right"></i> ბარმენი</a>
-                </li>
-                <li>
-                    <a href="#!"><i class="fa fa-caret-right"></i> დაცვის თანამშრომლები</a>
-                </li>
-                <li>
-                    <a href="#!"><i class="fa fa-caret-right"></i> ექიმები</a>
-                </li>
-                <li>
-                    <a href="#!"><i class="fa fa-caret-right"></i> მზარეულის დამხმარე</a>
-                </li>
-                <li>
-                    <a href="#!"><i class="fa fa-caret-right"></i> კონსულტანტი</a>
-                </li>
-                <li>
-                    <a href="#!"><i class="fa fa-caret-right"></i> მოლარე-ოპერატორი</a>
-                </li>
-                <li>
-                    <a href="#!"><i class="fa fa-caret-right"></i> ძიძა</a>
-                </li>
-                <li>
-                    <a href="#!"><i class="fa fa-caret-right"></i> იურისტები / ადვოკატები</a>
-                </li>
-                <li>
-                    <a href="#!"><i class="fa fa-caret-right"></i> მენეჯერი</a>
-                </li>
-                <li>
-                    <a href="#!"><i class="fa fa-caret-right"></i> ავადმყოფის მომვლელი</a>
-                </li>
-            </ul>
-  
-        </div>
-  
-        <hr class="clearfix w-100 d-md-none">
-  
-        <div class="col-md-3 mx-auto">
-  
-          <h5 class="font-weight-bold text-uppercase mt-3 mb-4">პროფესიების მიხედვით</h5>
-  
-            <ul class="list-unstyled footerProfLinks">
-                <li>
-                    <a href="#!"><i class="fa fa-caret-right"></i> პროფესია</a>
-                </li>
-                <li>
-                    <a href="#!"><i class="fa fa-caret-right"></i> პროფესია</a>
-                </li>
-                <li>
-                    <a href="#!"><i class="fa fa-caret-right"></i> პროფესია</a>
-                </li>
-                <li>
-                    <a href="#!"><i class="fa fa-caret-right"></i> პროფესია</a>
-                </li>
-                <li>
-                    <a href="#!"><i class="fa fa-caret-right"></i> პროფესია</a>
-                </li>
-                <li>
-                    <a href="#!"><i class="fa fa-caret-right"></i> პროფესია</a>
-                </li>
-                <li>
-                    <a href="#!"><i class="fa fa-caret-right"></i> პროფესია</a>
-                </li>
-                <li>
-                    <a href="#!"><i class="fa fa-caret-right"></i> პროფესია</a>
-                </li>
-            </ul>
-  
-        </div>
-  
-        <hr class="clearfix w-100 d-md-none">
-  
-        <div class="col-md-3 mx-auto">
-  
-          <h5 class="font-weight-bold text-uppercase mt-3 mb-4">დაგვიკავშირდით</h5>
-  
-            <ul class="list-unstyled footerContactInfo">
-                <li class="footerMarker">
-                    <p class="footerMarkerParameter"><i class="fa fa-address-card" aria-hidden="true">
-                    </i> Adderss:</p>
-                    <p>I: ვაჟა-ფშაველას გამზირი - 76B II: არჩილ ჯორჯაძის ქუჩა N5</p>
-                </li>
-                <li class="footerMail">
-                    <p class="footerEmailParameter"><i class="fa fa-envelope" aria-hidden="true">
-                    </i> Email:</p>
-                    <p><a href="mailto:support@hrbaia.com">
-                    support@hrbaia.com</p></a>
-                </li>
-                <li class="footerPhone">
-                    <p class="footerPhoneParameter"><i class="fa fa-phone-square" aria-hidden="true">
-                    </i> Phone:
-                    <p><a href="tel:+995 598857657">
-                    +995 598857657</p></a>
-                </li>
-                <li>
-                    <a href="https://www.facebook.com/saagentobaia1" class="footerFacebook" target="_blank">
-                    <i class="fa fa-facebook-square" aria-hidden="true"></i></a>
-                </li>
-            </ul>
-  
-        </div>
-      </div>
 
-  
-        <div class="row footerCopyright">
-            <div class="col-md-8 footer-copyright text-center py-3">
-                <p>© 2023 Copyright: By <span>MK Group</span></p>
-            </div>
-            <div class="col-md-4 footerCopyrightImage">
-                <img class="mx-auto d-block" src="images/payment-icons.png">
+  <!-- FOOTER START -->
+<footer class="footer-dark" style="background-image: url(images/f-bg.jpg);">
+    <div class="container">
+
+        <!-- NEWS LETTER SECTION START -->
+        <div class="ftr-nw-content">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="ftr-nw-title">
+                        Join our email subscription now to get updates
+                        on new jobs and notifications.
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <form>
+                        <div class="ftr-nw-form">
+                            <input name="news-letter" class="form-control" placeholder="Enter Your Email" type="text">
+                            <button class="ftr-nw-subcribe-btn">Subscribe Now</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-        
+        <!-- NEWS LETTER SECTION END -->
+        <!-- FOOTER BLOCKES START -->
+        <div class="footer-top">
+            <div class="row">
+
+                <div class="col-lg-3 col-md-12">
+
+                    <div class="widget widget_about">
+                        <div class="logo-footer clearfix">
+                            <a href="index.html"><img src="images/logo-light.png" alt=""></a>
+                        </div>
+                        <p>Many desktop publishing packages and web page editors now.</p>
+                        <ul class="ftr-list">
+                            <li><p><span>Address :</span>65 Sunset CA 90026, USA </p></li>
+                            <li><p><span>Email :</span>example@max.com</p></li>
+                            <li><p><span>Call :</span>555-555-1234</p></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-9 col-md-12">
+                    <div class="row">
+
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="widget widget_services ftr-list-center">
+                                <h3 class="widget-title">For Candidate</h3>
+                                <ul>
+                                    <li><a href="dashboard.html">User Dashboard</a></li>
+                                    <li><a href="dash-resume-alert.html">Alert resume</a></li>
+                                    <li><a href="candidate-grid.html">Candidates</a></li>
+                                    <li><a href="blog-list.html">Blog List</a></li>
+                                    <li><a href="blog-single.html">Blog single</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="widget widget_services ftr-list-center">
+                                <h3 class="widget-title">For Employers</h3>
+                                <ul>
+                                    <li><a href="dash-post-job.html">Post Jobs</a></li>
+                                    <li><a href="blog-grid.html">Blog Grid</a></li>
+                                    <li><a href="contact.html">Contact</a></li>
+                                    <li><a href="job-list.html">Jobs Listing</a></li>
+                                    <li><a href="job-detail.html">Jobs details</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="widget widget_services ftr-list-center">
+                                <h3 class="widget-title">Helpful Resources</h3>
+                                <ul>
+                                    <li><a href="faq.html">FAQs</a></li>
+                                    <li><a href="employer-detail.html">Employer detail</a></li>
+                                    <li><a href="dash-my-profile.html">Profile</a></li>
+                                    <li><a href="error-404.html">404 Page</a></li>
+                                    <li><a href="pricing.html">Pricing</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="widget widget_services ftr-list-center">
+                                <h3 class="widget-title">Quick Links</h3>
+                                <ul>
+                                    <li><a href="index.html">Home</a></li>
+                                    <li><a href="about-1.html">About us</a></li>
+                                    <li><a href="dash-bookmark.html">Bookmark</a></li>
+                                    <li><a href="job-grid.html">Jobs</a></li>
+                                    <li><a href="employer-list.html">Employer</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <!-- FOOTER COPYRIGHT -->
+        <div class="footer-bottom">
+
+            <div class="footer-bottom-info">
+
+                <div class="footer-copy-right">
+                    <span class="copyrights-text">Copyright © 2022 by thewebmax All Rights Reserved.</span>
+                </div>
+                <ul class="social-icons">
+                    <li><a href="javascript:void(0);" class="fab fa-facebook-f"></a></li>
+                    <li><a href="javascript:void(0);" class="fab fa-twitter"></a></li>
+                    <li><a href="javascript:void(0);" class="fab fa-instagram"></a></li>
+                    <li><a href="javascript:void(0);" class="fab fa-youtube"></a></li>
+                </ul>
+
+            </div>
+
+        </div>
+
     </div>
 
 </footer>
-  <!-- Footer -->
+<!-- FOOTER END -->
+
