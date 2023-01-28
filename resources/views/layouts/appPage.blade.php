@@ -186,8 +186,8 @@
                                 <span class="modal-f-title">Login or Sign up with</span>
                                 <ul class="twm-modal-social">
                                     <li><a href="javascript.html" class="facebook-clr"><i class="fab fa-facebook-f"></i></a></li>
-                                    <li><a href="javascript.html" class="twitter-clr"><i class="fab fa-twitter"></i></a></li>
-                                    <li><a href="javascript.html" class="linkedin-clr"><i class="fab fa-linkedin-in"></i></a></li>
+                                    {{-- <li><a href="javascript.html" class="twitter-clr"><i class="fab fa-twitter"></i></a></li> --}}
+                                    {{-- <li><a href="javascript.html" class="linkedin-clr"><i class="fab fa-linkedin-in"></i></a></li> --}}
                                     <li><a href="{{ route('auth.social.redirect', 'google') }}" class="google-clr"><i class="fab fa-google"></i></a></li>
                                 </ul>
                             </div>
@@ -302,8 +302,8 @@
                                 <span class="modal-f-title">Login or Sign up with</span>
                                 <ul class="twm-modal-social">
                                     <li><a href="javascript.html" class="facebook-clr"><i class="fab fa-facebook-f"></i></a></li>
-                                    <li><a href="javascript.html" class="twitter-clr"><i class="fab fa-twitter"></i></a></li>
-                                    <li><a href="javascript.html" class="linkedin-clr"><i class="fab fa-linkedin-in"></i></a></li>
+                                    {{-- <li><a href="javascript.html" class="twitter-clr"><i class="fab fa-twitter"></i></a></li> --}}
+                                    {{-- <li><a href="javascript.html" class="linkedin-clr"><i class="fab fa-linkedin-in"></i></a></li> --}}
                                     <li><a href="{{ route('auth.social.redirect', 'google') }}" class="google-clr"><i class="fab fa-google"></i></a></li>
                                 </ul>
                             </div>
