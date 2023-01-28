@@ -3,10 +3,11 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -18,8 +19,18 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'role_id',
+        'user_type_id',
         'name',
         'email',
+        'phone',
+        'date_of_birth',
+        'gender_id',
+        'avatar',
+        'provider',
+        'provider_id',
+        'provider_token',
+        'is_active',
         'password',
     ];
 
@@ -31,6 +42,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'provider_token'
     ];
 
     /**
@@ -41,4 +53,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function setProviderTokenAttribute($value)
+    {
+        $this->attributes['provider_token'] = Crypt::encryptString($value);
+    }
+
+    public function getProviderTokenAttribute($value)
+    {
+        // $this->provider_token;
+        return Crypt::deCrypt($value);
+    }
 }
