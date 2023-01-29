@@ -164,7 +164,8 @@
         </div>
     </div>
     <!--Banner End-->
-
+    <how-work></how-work>
+{{--
     <!-- HOW IT WORK SECTION START -->
     <div class="section-full p-t120 p-b90 site-bg-white twm-how-it-work-area">
 
@@ -227,7 +228,7 @@
         </div>
 
     </div>
-    <!-- HOW IT WORK SECTION END -->
+    <!-- HOW IT WORK SECTION END --> --}}
 
     <!-- JOBS CATEGORIES SECTION START -->
     <div class="section-full p-t120 p-b90 site-bg-gray twm-job-categories-area">
