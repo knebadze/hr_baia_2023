@@ -92,6 +92,7 @@
                             <ul class="sub-menu">
                                 <li><a href="job-grid.html">ინდივიდუალური</a></li>
                                 <li><a href="job-grid.html">კომპანიის</a></li>
+                                <li><a href="job-grid-with-map.html">ვაკანსიები რუკაზე</a></li>
                                 {{-- <li><a href="job-grid.html">Jobs Grid</a></li>
                                 <li><a href="job-grid-with-map.html">Jobs Grid with Map</a></li>
                                 <li><a href="job-list.html">Jobs List</a></li>
