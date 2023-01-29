@@ -189,14 +189,14 @@
                         @guest
                             <div class="twm-nav-btn-left">
                                 <a class="twm-nav-sign-up" data-bs-toggle="modal" href="#sign_up_popup" role="button">
-                                    <i class="feather-log-in"></i>
+                                    <i class="feather-user-plus"></i>
                                     რეგისტრაცია
                                 </a>
                             </div>
-                            
+
                             <div class="twm-nav-btn-right">
                                 <a href="#sign_up_popup2" class="twm-nav-post-a-job" data-bs-toggle="modal">
-                                    {{-- <i class="feather-briefcase"></i> --}}
+                                    <i class="feather-log-in"></i>
                                     შესვლა
                                 </a>
                             </div>
