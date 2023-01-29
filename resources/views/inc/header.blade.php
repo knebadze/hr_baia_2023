@@ -193,8 +193,9 @@
                                     რეგისტრაცია
                                 </a>
                             </div>
+                            
                             <div class="twm-nav-btn-right">
-                                <a href="dash-post-job.html" class="twm-nav-post-a-job">
+                                <a href="#sign_up_popup2" class="twm-nav-post-a-job" data-bs-toggle="modal">
                                     {{-- <i class="feather-briefcase"></i> --}}
                                     შესვლა
                                 </a>
