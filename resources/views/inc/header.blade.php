@@ -185,7 +185,7 @@
                     </div> --}}
                     <div class="extra-cell">
                         <div class="header-nav-btn-section">
-
+                        @guest
                             <div class="twm-nav-btn-left">
                                 <a class="twm-nav-sign-up" data-bs-toggle="modal" href="#sign_up_popup" role="button">
                                     <i class="feather-log-in"></i>
@@ -198,6 +198,24 @@
                                     შესვლა
                                 </a>
                             </div>
+                        @else
+                        <div class="twm-nav-btn-left">
+                            <a class="twm-nav-sign-up" data-bs-toggle="modal" href="{{ route('logout') }}" role="button"
+                            onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+                                <i class="feather-log-out"></i>
+                                გასვლა
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </div>
+                        <div class="twm-nav-btn-right">
+                            <a href="dash-post-job.html" class="twm-nav-post-a-job">
+                                <i class="feather-briefcase"></i> Post a job
+                            </a>
+                        </div>
+                        @endguest
                         </div>
                     </div>
 
