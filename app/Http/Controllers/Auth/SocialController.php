@@ -18,48 +18,66 @@ class SocialController extends Controller
     }
 
     public function callback($provider){
-        try {
-            $providerUser = Socialite::driver($provider)->user();
-            // dd($providerUser);
+        // try {
+        //     $providerUser = Socialite::driver($provider)->user();
+        //     // dd($providerUser);
 
-            // $user = User::updateOrCreate([
-            //     'provider' => $provider,
-            //     'provider_id' => $providerUser->id,
-            // ], [
-            //     'name' => $providerUser->name,
-            //     'email' => $providerUser->email,
-            //     'avatar' => $providerUser->avatar,
-            //     'provider_token' => $providerUser->token,
-            //     'password' => Hash::make(Str::random(8)),
+        //     // $user = User::updateOrCreate([
+        //     //     'provider' => $provider,
+        //     //     'provider_id' => $providerUser->id,
+        //     // ], [
+        //     //     'name' => $providerUser->name,
+        //     //     'email' => $providerUser->email,
+        //     //     'avatar' => $providerUser->avatar,
+        //     //     'provider_token' => $providerUser->token,
+        //     //     'password' => Hash::make(Str::random(8)),
 
-            //     // 'google_token' => $googleUser->token,
-            //     // 'github_refresh_token' => $googleUser->refreshToken,
-            // ]);
-            // dd($user);
-            $user = User::where([
-                'provider' => $provider,
-                'provider_id' => $providerUser->id,
-            ])->first();
+        //     //     // 'google_token' => $googleUser->token,
+        //     //     // 'github_refresh_token' => $googleUser->refreshToken,
+        //     // ]);
+        //     // dd($user);
+        //     $user = User::where([
+        //         'provider' => $provider,
+        //         'provider_id' => $providerUser->id,
+        //     ])->first();
 
-            if (!$user) {
-                $user = User::create([
-                    'name' => $providerUser->name,
-                    'email' => $providerUser->email,
-                    'avatar' => $providerUser->avatar,
-                    'password' => Hash::make(Str::random(8)),
-                    'provider' => $provider,
-                    'provider_id' => $providerUser->id,
-                    'provider_token' => $providerUser->token,
+        //     if (!$user) {
+        //         $user = User::create([
+        //             'name_en' => $providerUser->name,
+        //             'email' => $providerUser->email,
+        //             'avatar' => $providerUser->avatar,
+        //             'password' => Hash::make(Str::random(8)),
+        //             'provider' => $provider,
+        //             'provider_id' => $providerUser->id,
+        //             'provider_token' => $providerUser->token,
 
-                ]);
+        //         ]);
 
-            }
-            // dd($user);
-            Auth::login($user);
+        //     }
+        //     // dd($user);
+        //     Auth::login($user);
 
-            return redirect()->route('home');
-        }catch(Throwable $e){
-            // return redirect()->route('login')->withErrors('error');
-        }
+        //     return redirect()->route('home');
+        // }catch(Throwable $e){
+        //     // return redirect()->route('login')->withErrors('error');
+        // }
+        $providerUser = Socialite::driver($provider)->user();
+
+        $user = User::updateOrCreate([
+            'provider' => $provider,
+            'provider_id' => $providerUser->id,
+        ], [
+            'name_en' => $providerUser->name,
+            'email' => $providerUser->email,
+            'avatar' => $providerUser->avatar,
+            'password' => Hash::make(Str::random(8)),
+            //             'provider' => $provider,
+            //             'provider_id' => $providerUser->id,
+            'provider_token' => $providerUser->token,
+        ]);
+
+        Auth::login($user);
+
+        return redirect('/home');
     }
 }

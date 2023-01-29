@@ -17,7 +17,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('role_id')->default(3)->constrained();
             $table->foreignId('user_type_id')->default(4)->constrained();
-            $table->string('name');
+            $table->string('name_ka')->nullable();
+            $table->string('name_en')->nullable();
+            $table->string('name_ru')->nullable();
             $table->string('email')->unique();
             $table->string('phone')->nullable()->unique();
             $table->date('date_of_birth')->nullable();
@@ -27,7 +29,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('provider')->nullable();
             $table->string('provider_id')->nullable();
-            $table->string('provider_token')->nullable();
+            $table->string('provider_token', 1000)->nullable();
             $table->tinyInteger('is_active')->default(1);
             $table->rememberToken();
             $table->timestamps();
