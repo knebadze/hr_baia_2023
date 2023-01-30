@@ -110,7 +110,7 @@
                                 <li><a href="candidate-chat.html">Chat</a></li>
                             </ul>
                         </li> --}}
-                        <li><a href="blog.html">ბლოგი</a></li>
+                        <li><a href="{{ url ('blog') }}">ბლოგი</a></li>
                         {{-- <li class="has-child"><a href="javascript:;">ბლოგი</a>
                             <ul class="sub-menu">
                                 <li><a href="blog.html">Blog</a></li>
