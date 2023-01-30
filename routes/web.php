@@ -6,6 +6,9 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\IndividualController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\MapvacancieController;
+use App\Http\Controllers\AboutController;
+
+
 use App\Http\Controllers\Auth\SocialController;
 
 /*
@@ -23,6 +26,7 @@ Route::get('/', [MainController::class, 'index'])->name('welcome');
 Route::get('/individual', [IndividualController::class, 'index'])->name('individual');
 Route::get('/company', [CompanyController::class, 'index'])->name('company');
 Route::get('/onmap', [MapvacancieController::class, 'index'])->name('onmap');
+Route::get('/about', [AboutController::class, 'index'])->name('about');
 
 Auth::routes();
 

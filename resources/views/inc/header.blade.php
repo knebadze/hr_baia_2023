@@ -9,7 +9,7 @@
                 <div class="logo-header">
                     <div class="logo-header-inner logo-header-one">
                         <a href="{{ url ('/') }}">
-                        <img src="images/logo-dark.png" alt="">
+                        <img src="images/logo-baia.png" alt="" style="max-height: 50px">
                         </a>
                     </div>
                 </div>
@@ -73,7 +73,7 @@
                                 <li><a href="employer-account-professional.html">Register Professionals</a></li>
                             </ul>
                         </li> --}}
-                        <li><a href="about-1.html">ჩვენს შესახებ</a></li>
+                        <li><a href="{{ url ('about') }}">ჩვენს შესახებ</a></li>
                         {{-- <li class="has-child"><a href="javascript:;">page</a>
                             <ul class="sub-menu">
                                 <li><a href="about-1.html">About Us</a></li>
@@ -88,7 +88,7 @@
                                 <li><a href="icons.html">Icons</a></li>
                             </ul>
                         </li> --}}
-                        <li><a href="candidate-grid.html">კანდიდატები</a></li>
+                        <li><a href="{{ url ('candidate') }}">კანდიდატები</a></li>
                         {{-- <li class="has-child"><a href="javascript:;">კანდიდატები</a>
                             <ul class="sub-menu">
                                 <li><a href="candidate-grid.html">Candidates Grid</a></li>
