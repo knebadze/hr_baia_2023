@@ -1,4 +1,32 @@
 @charset "UTF-8";
+
+@font-face {
+    font-family: nino;
+    src: url("/fonts/nino.ttf");
+}
+
+@font-face {
+    font-family: mtavruli;
+    src: url("/fonts/mtavruli.ttf");
+  }
+
+body {
+    font-family: nino !important;
+}
+
+.activeClass a {
+  color: #5e2dfa !important;
+  font-weight: bold !important;
+}
+
+.languageBlock {
+  padding-left: 100px;
+  margin-top: 5px;
+}
+
+.languageBlock img {
+  margin-right: 10px;
+}
 /* Author: thewebmax team
 =========================
 This file contains the styling for the actual template, this
@@ -2782,7 +2810,7 @@ ol li {
   padding-bottom: 10px;
   transition: all 0.5s ease;
   background: transparent;
-  max-width: 1146px;
+
   left: 50%;
   transform: translateX(-50%);
 }
@@ -2906,7 +2934,7 @@ ol li {
   position: relative;
   margin: -10px 0px;
   padding: 10px 0px;
-  font-family: "Rubik", sans-serif;
+  /* font-family: "Rubik", sans-serif; */
 }
 @media (max-width: 991px) {
   .header-style-3 .header-nav .nav > li ul {

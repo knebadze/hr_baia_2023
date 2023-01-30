@@ -9,14 +9,15 @@
 
     <!--Banner Start-->
     <div class="twm-home1-banner-section site-bg-gray bg-cover" style="background-image:url(images/main-slider/slider1/bg1.jpg)">
-        <div class="row">
 
+        <div class="row">
             <!--Left Section-->
             <div class="col-xl-6 col-lg-6 col-md-12">
                 <div class="twm-bnr-left-section">
-                    <div class="twm-bnr-title-small">We Have <span class="site-text-primary">208,000+</span> Live Jobs</div>
-                    <div class="twm-bnr-title-large">Find the <span class="site-text-primary">job</span> that fits your life</div>
-                    <div class="twm-bnr-discription">Type your keyword, then click search to find your perfect job.</div>
+                    <div class="twm-bnr-title-small">ჩვენთან <span class="site-text-primary">208,000+</span> რეალური სამსახურია</div>
+                    <div class="twm-bnr-title-large">სამსახური აქ  <span class="site-text-primary">მოიძებნება</span> ყველასთვის...</div>
+                    <div class="twm-bnr-discription">სამსახურის ძიებისთვის ჩაწერეთ სასურველი ინფორმაცია.
+                    </div>
 
                     <div class="twm-bnr-search-bar">
                         <form>
@@ -56,7 +57,7 @@
 
                                 <!--Find job btn-->
                                 <div class="form-group col-xl-3 col-lg-6 col-md-6">
-                                    <button type="button" class="site-button">Find Job</button>
+                                    <button type="button" class="site-button">ძებნა</button>
                                 </div>
 
                             </div>
@@ -109,7 +110,7 @@
                                     <div class="tw-count-number text-clr-sky">
                                         <span class="counter">12</span>K+
                                     </div>
-                                    <p class="icon-content-info">Companies Jobs</p>
+                                    <p class="icon-content-info">კომპანიის ვაკანსიები</p>
                                 </div>
                             </div>
 
@@ -122,7 +123,7 @@
                                     <div class="tw-count-number text-clr-pink">
                                         <span class="counter">98</span> +
                                     </div>
-                                    <p class="icon-content-info">Job For Countries </p>
+                                    <p class="icon-content-info">ინდივიდუალური ვაკანსიები </p>
                                 </div>
                             </div>
 
@@ -140,7 +141,7 @@
                                     <div class="tw-count-number text-clr-green">
                                         <span class="counter">3</span>K+
                                     </div>
-                                    <p class="icon-content-info">Jobs Done</p>
+                                    <p class="icon-content-info">დასაქმებულები</p>
                                 </div>
                             </div>
                         </div>

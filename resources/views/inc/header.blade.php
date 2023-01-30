@@ -9,7 +9,7 @@
                 <div class="logo-header">
                     <div class="logo-header-inner logo-header-one">
                         <a href="{{ url ('/') }}">
-                        <img src="images/logo-baia.png" alt="" style="max-height: 50px">
+                        <img src="images/logo-baia.png" alt="" style="max-height: 50px;">
                         </a>
                     </div>
                 </div>
@@ -25,8 +25,8 @@
                 <!-- MAIN Vav -->
                 <div class="nav-animation header-nav navbar-collapse collapse d-flex justify-content-center">
 
-                    <ul class=" nav navbar-nav">
-                        <li><a href="{{ url ('/') }}">მთავარი</a></li>
+                    <ul class="nav navbar-nav">
+                        <li class="activeClass"><a href="{{ url ('/') }}">მთავარი</a></li>
                         {{-- <li class="has-child"><a href="javascript:;">მთავარი</a>
                             <ul class="sub-menu">
                                 <li><a href="index.html">Home-1</a></li>
@@ -120,9 +120,17 @@
                                 <li><a href="blog-single.html">Blog Detail</a></li>
                             </ul>
                         </li> --}}
-                    </ul>
 
+                        <div class="languageBlock">
+                        <a href=""><img src="images/geo.png"> </a>
+                        <a href=""><img src="images/eng.png"> </a>
+                        <a href=""><img src="images/rus.png"> </a>
+                        </div>
+
+                    </ul>
                 </div>
+
+
 
                 <!-- Header Right Section-->
                 <div class="extra-nav header-2-nav">

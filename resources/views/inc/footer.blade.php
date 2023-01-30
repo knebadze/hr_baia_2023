@@ -31,7 +31,7 @@
 
                     <div class="widget widget_about">
                         <div class="logo-footer clearfix">
-                            <a href="index.html"><img src="images/logo-light.png" alt=""></a>
+                            <a href="index.html"><img src="images/logo-baia.png" alt=""></a>
                         </div>
                         <p>Many desktop publishing packages and web page editors now.</p>
                         <ul class="ftr-list">
