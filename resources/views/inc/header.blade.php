@@ -1,57 +1,4 @@
-{{-- <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light nav_underline">
-    <a class="navbar-brand" href="{{ route('welcome')}}"><img src="{{url('logo_img/baia_logo.png')}}" width="50" height="50" class="d-inline-block align-top" alt=""></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="{{ route('welcome')}}">მთავარი</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route('questionnaire')}}">ანკეტები</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">ვაკანსიები</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">ჩვენს შესახებ</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">ბლოგი</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">კონტაქტი</a>
-        </li>
-      </ul>
-
-      <ul class="navbar-nav mr-right langImg">
-        <li class="nav-item">
-          <a class="nav-link" href=""> ქართული </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href=""> English </a>
-        </li>
-      </ul>
-
-      <ul class="navbar-nav mr-right regBlock">
-        @if (Route::has('login'))
-            @auth
-                <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
-            @else
-                <button class="btn btn-success logButton"><a href="{{ route('login') }}">შესვლა</a></button>
-                @if (Route::has('register'))
-                <button class="btn regButton"><a href="{{ route('register') }}">რეგისტრაცია</a>
-                @endif
-            @endauth
-        @endif
-      </ul>
-
-    </div>
-</nav> --}}
-
-    <!-- HEADER START -->
+<!-- HEADER START -->
 <header  class="site-header header-style-3 mobile-sider-drawer-menu">
 
     <div class="sticky-header main-bar-wraper  navbar-expand-lg">
@@ -61,7 +8,7 @@
 
                 <div class="logo-header">
                     <div class="logo-header-inner logo-header-one">
-                        <a href="index.html">
+                        <a href="{{ url ('/') }}">
                         <img src="images/logo-dark.png" alt="">
                         </a>
                     </div>
@@ -79,7 +26,7 @@
                 <div class="nav-animation header-nav navbar-collapse collapse d-flex justify-content-center">
 
                     <ul class=" nav navbar-nav">
-                        <li><a href="index.html">მთავარი</a></li>
+                        <li><a href="{{ url ('/') }}">მთავარი</a></li>
                         {{-- <li class="has-child"><a href="javascript:;">მთავარი</a>
                             <ul class="sub-menu">
                                 <li><a href="index.html">Home-1</a></li>
@@ -90,9 +37,9 @@
                         </li> --}}
                         <li class="has-child"><a href="javascript:;">ვაკანსიები</a>
                             <ul class="sub-menu">
-                                <li><a href="job-grid.html">ინდივიდუალური</a></li>
-                                <li><a href="job-grid.html">კომპანიის</a></li>
-                                <li><a href="job-grid-with-map.html">ვაკანსიები რუკაზე</a></li>
+                                <li><a href="{{ url ('individual') }}">ინდივიდუალური</a></li>
+                                <li><a href="{{ url ('company') }}">კომპანიის</a></li>
+                                <li><a href="{{ url ('onmap') }}">ვაკანსიები რუკაზე</a></li>
                                 {{-- <li><a href="job-grid.html">Jobs Grid</a></li>
                                 <li><a href="job-grid-with-map.html">Jobs Grid with Map</a></li>
                                 <li><a href="job-list.html">Jobs List</a></li>

@@ -6,6 +6,7 @@
 	<!-- META -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keywords" content="" />
     <meta name="author" content="" />
     <meta name="robots" content="" />
@@ -16,7 +17,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.png" />
 
     <!-- PAGE TITLE HERE -->
-    <title>Jobzilla Template | Home Page Style 1</title>
+    <title>@yield('title-block')</title>
 
     <!-- MOBILE SPECIFIC -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -57,6 +58,7 @@
         @yield('content')
 
         @include('inc.footer')
+        
         <!-- BUTTON TOP START -->
 		<button class="scroltop"><span class="fa fa-angle-up  relative" id="btn-vibrate"></span></button>
 

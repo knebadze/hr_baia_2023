@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\MainController;
-use App\Http\Controllers\QuestionnaireController;
+use App\Http\Controllers\IndividualController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\MapvacancieController;
 use App\Http\Controllers\Auth\SocialController;
 
 /*
@@ -18,7 +20,9 @@ use App\Http\Controllers\Auth\SocialController;
 */
 
 Route::get('/', [MainController::class, 'index'])->name('welcome');
-Route::get('questionnaire', [QuestionnaireController::class, 'index'])->name('questionnaire');
+Route::get('/individual', [IndividualController::class, 'index'])->name('individual');
+Route::get('/company', [CompanyController::class, 'index'])->name('company');
+Route::get('/onmap', [MapvacancieController::class, 'index'])->name('onmap');
 
 Auth::routes();
 

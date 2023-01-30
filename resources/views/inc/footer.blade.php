@@ -1,6 +1,5 @@
 
-
-  <!-- FOOTER START -->
+<!-- FOOTER START -->
 <footer class="footer-dark" style="background-image: url(images/f-bg.jpg);">
     <div class="container">
 
