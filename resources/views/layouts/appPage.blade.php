@@ -66,7 +66,7 @@
             <div class="modal fade twm-sign-up" id="sign_up_popup" aria-hidden="true" aria-labelledby="sign_up_popupLabel" tabindex="-1">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
-                        <form>
+                        {{-- <form> --}}
 
                             <div class="modal-header">
                                 <h2 class="modal-title" id="sign_up_popupLabel">Sign Up</h2>
@@ -92,7 +92,7 @@
                                     <!--Signup Candidate Content-->
                                     <div class="tab-pane fade show active" id="sign-candidate">
                                         <div class="row">
-                                            <form method="POST" action="{{ route('register') }}">
+                                            {{-- <form method="POST" action="{{ route('register') }}">
                                                 @csrf
 
                                                 <div class="row mb-3">
@@ -152,8 +152,8 @@
                                                         </button>
                                                     </div>
                                                 </div>
-                                            </form>
-                                            {{-- <form method="POST" action="{{ route('register') }}">
+                                            </form>  --}}
+                                            <form method="POST" action="{{ route('register') }}">
                                                 @csrf
                                                 <div class="col-lg-12">
                                                     <div class="form-group mb-3">
@@ -193,7 +193,7 @@
                                                 <div class="col-md-12">
                                                     <button type="submit" class="site-button">Sign Up</button>
                                                 </div>
-                                            </form> --}}
+                                            </form>
                                         </div>
                                     </div>
                                     <!--Signup Employer Content-->
@@ -256,7 +256,7 @@
                                 </ul>
                             </div>
 
-                        </form>
+                        {{-- </form> --}}
                     </div>
                 </div>
 
