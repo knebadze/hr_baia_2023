@@ -9,7 +9,7 @@
                 <div class="logo-header">
                     <div class="logo-header-inner logo-header-one">
                         <a href="{{ url ('/') }}">
-                        <img src="images/logo-baia.png" alt="" style="max-height: 50px;">
+                        <img src="images/head-logo.png" alt="">
                         </a>
                     </div>
                 </div>
