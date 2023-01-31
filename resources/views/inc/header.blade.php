@@ -121,11 +121,19 @@
                             </ul>
                         </li> --}}
 
-                        <div class="languageBlock">
+                        {{-- <div class="languageBlock">
                         <a href=""><img src="images/geo.png"> </a>
                         <a href=""><img src="images/eng.png"> </a>
                         <a href=""><img src="images/rus.png"> </a>
-                        </div>
+                        </div> --}}
+
+                        <li class="has-child"><a href="javascript:;"><img src="images/language.png"> </a>
+                            <ul class="sub-menu">
+                                <li><a href="#">ქართული</a></li>
+                                <li><a href="#">English</a></li>
+                                <li><a href="#">Русский</a></li>
+                            </ul>
+                        </li>
 
                     </ul>
                 </div>

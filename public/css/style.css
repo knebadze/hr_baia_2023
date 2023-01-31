@@ -19,14 +19,6 @@ body {
   font-weight: bold !important;
 }
 
-.languageBlock {
-  padding-left: 100px;
-  margin-top: 5px;
-}
-
-.languageBlock img {
-  margin-right: 10px;
-}
 /* Author: thewebmax team
 =========================
 This file contains the styling for the actual template, this
@@ -2809,6 +2801,8 @@ ol li {
   padding-top: 10px;
   padding-bottom: 10px;
   transition: all 0.5s ease;
+  max-width: 1200px;
+  left: 50%;
   background: transparent;
 
   left: 50%;
