@@ -9,7 +9,7 @@
                 <div class="logo-header">
                     <div class="logo-header-inner logo-header-one">
                         <a href="{{ url ('/') }}">
-                        <img src="images/logo-baia.png" alt="" style="max-height: 50px;">
+                        <img src="images/head-logo.png" alt="">
                         </a>
                     </div>
                 </div>
@@ -121,16 +121,16 @@
                             </ul>
                         </li> --}}
 
-                        <div class="languageBlock">
-                        <a href=""><img src="images/geo.png"> </a>
-                        <a href=""><img src="images/eng.png"> </a>
-                        <a href=""><img src="images/rus.png"> </a>
-                        </div>
+                        <li class="has-child"><a href="javascript:;"><img src="images/language.png"> </a>
+                            <ul class="sub-menu">
+                                <li><a href="#"><img src="images/geo.png"> ქართული</a></li>
+                                <li><a href="#"><img src="images/eng.png"> English</a></li>
+                                <li><a href="#"><img src="images/rus.png"> Русский</a></li>
+                            </ul>
+                        </li>
 
                     </ul>
                 </div>
-
-
 
                 <!-- Header Right Section-->
                 <div class="extra-nav header-2-nav">

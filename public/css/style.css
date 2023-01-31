@@ -19,14 +19,14 @@ body {
   font-weight: bold !important;
 }
 
-.languageBlock {
-  padding-left: 100px;
-  margin-top: 5px;
+.adressColor a {
+  color: white !important;
 }
 
-.languageBlock img {
-  margin-right: 10px;
+.adressColor a:hover {
+  color: #1967d2 !important;
 }
+
 /* Author: thewebmax team
 =========================
 This file contains the styling for the actual template, this
@@ -274,7 +274,7 @@ ul {
 
 /*===Heading & Title====*/
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Rubik", sans-serif;
+  font-family: nino !important;
   line-height: 1.2;
   color: #17171d;
 }
@@ -2809,6 +2809,8 @@ ol li {
   padding-top: 10px;
   padding-bottom: 10px;
   transition: all 0.5s ease;
+  max-width: 1200px;
+  left: 50%;
   background: transparent;
 
   left: 50%;
@@ -5015,7 +5017,7 @@ ol li {
 }
 /*Title separators*/
 .wt-small-separator {
-  font-family: "Rubik", sans-serif;
+  /* font-family: "Rubik", sans-serif; */
   margin-bottom: 10px;
   position: relative;
   display: inline-block;
@@ -5324,7 +5326,7 @@ ol li {
   color: #fff;
   background-color: #1967d2;
   border: none;
-  font-family: "Rubik", sans-serif;
+  /* font-family: "Rubik", sans-serif; */
   font-weight: 600;
   padding: 9px 30px;
   border-radius: 0px 10px 10px 0px;

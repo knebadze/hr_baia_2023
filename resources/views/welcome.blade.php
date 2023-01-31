@@ -24,7 +24,7 @@
                             <div class="row">
                                 <!--Title-->
                                 <div class="form-group col-xl-3 col-lg-6 col-md-6">
-                                    <label>What</label>
+                                    <label>აირჩიეთ</label>
                                     <select class="wt-search-bar-select selectpicker"  data-live-search="true" title="" id="j-Job_Title" data-bv-field="size">
                                         <option disabled selected value="">Select Category</option>
                                         <option selected>Job Title</option>
@@ -36,7 +36,7 @@
 
                                 <!--All Category-->
                                 <div class="form-group col-xl-3 col-lg-6 col-md-6">
-                                    <label>Type</label>
+                                    <label>კატეგორია</label>
                                     <select class="wt-search-bar-select selectpicker"  data-live-search="true" title="" id="j-All_Category" data-bv-field="size">
                                         <option disabled selected value="">Select Category</option>
                                         <option selected>All Category</option>
@@ -48,7 +48,7 @@
 
                                 <!--Location-->
                                 <div class="form-group col-xl-3 col-lg-6 col-md-6">
-                                    <label>Location</label>
+                                    <label>ლოკაცია</label>
                                     <div class="twm-inputicon-box">
                                         <input name="username" type="text" required class="form-control" placeholder="Search...">
                                         <i class="twm-input-icon fas fa-map-marker-alt"></i>
@@ -65,11 +65,11 @@
                     </div>
 
                     <div class="twm-bnr-popular-search">
-                        <span class="twm-title">Popular Searches:</span>
-                        <a href="job-list.html">Developer</a> ,
-                        <a href="job-list.html">Designer</a> ,
-                        <a href="job-list.html">Architect</a> ,
-                        <a href="job-list.html">Engineer</a> ...
+                        <span class="twm-title">პოპულარული:</span>
+                        <a href="#">ძიძა</a> ,
+                        <a href="#">დამხმარე</a> ,
+                        <a href="#">მრეცხავი</a> ,
+                        <a href="#">მზარეული</a> ...
                     </div>
                 </div>
             </div>
@@ -148,13 +148,9 @@
 
                     </div>
 
-
-
                     <!--Samll Ring Left-->
                     <div class="twm-small-ring-l slide-top-animation"></div>
                     <div class="twm-small-ring-2 slide-top-animation"></div>
-
-
 
                 </div>
             </div>
@@ -175,9 +171,9 @@
             <!-- TITLE START-->
             <div class="section-head center wt-small-separator-outer">
                 <div class="wt-small-separator site-text-primary">
-                   <div>Working Process</div>
+                   <div>სამუშაო პროცესი</div>
                 </div>
-                <h2 class="wt-title">How It Works</h2>
+                <h2 class="wt-title">როგორ მუშაობს</h2>
 
             </div>
             <!-- TITLE END-->
@@ -191,9 +187,9 @@
                                 <div class="twm-media">
                                     <span><img src="images/work-process/icon1.png" alt="icon1"></span>
                                 </div>
-                                <h4 class="twm-title">Register<br>Your Account</h4>
+                                <h4 class="twm-title">დაარეგისტრირე<br>შენი ექაუნთი</h4>
                             </div>
-                            <p>You need to create an account to find the best and preferred job.</p>
+                            <p>თქვენ უნდა შექმნათ ექაუნთი, რომ იპოვოთ საუკეთესო და სასურველი სამუშაო.</p>
                         </div>
                     </div>
 
@@ -204,10 +200,10 @@
                                 <div class="twm-media">
                                     <span><img src="images/work-process/icon2.png" alt="icon1"></span>
                                 </div>
-                                <h4 class="twm-title">Apply <br>
-                                    For Dream Job</h4>
+                                <h4 class="twm-title">რედაქტირება <br>
+                                    სამუშაოსთვის</h4>
                             </div>
-                            <p>You need to create an account to find the best and preferred job.</p>
+                            <p>დაარედაქტირეთ თქვენი კაბინეტი.</p>
                         </div>
                     </div>
 
@@ -218,9 +214,9 @@
                                 <div class="twm-media">
                                     <span><img src="images/work-process/icon3.png" alt="icon1"></span>
                                 </div>
-                                <h4 class="twm-title">Upload <br>Your Resume</h4>
+                                <h4 class="twm-title">ატვირთეთ <br>თქვენი რეზიუმე</h4>
                             </div>
-                            <p>You need to create an account to find the best and preferred job.</p>
+                            <p>თქვენ უნდა ატვირთოთ რეზიუმე, რათა ყველასთვის სანახავი იყოს.</p>
                         </div>
                     </div>
 
@@ -242,15 +238,15 @@
                         <!-- TITLE START-->
                         <div class="section-head left wt-small-separator-outer">
                             <div class="wt-small-separator site-text-primary">
-                            <div>Jobs by Categories</div>
+                            <div>სამუშაო კატეგორიებით</div>
                             </div>
-                            <h2 class="wt-title">Choose Your Desire Category</h2>
+                            <h2 class="wt-title">აირჩიეთ თქვენთვის სასურველი კატეგორია</h2>
                         </div>
                         <!-- TITLE END-->
                     </div>
 
                     <div class="col-xl-6 col-lg-6 col-md-12 wt-separator-two-part-right">
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry the standard dummy text ever since the  when an printer took.</p>
+                        <p>Lorem Ipsum არის უბრალოდ ბეჭდვისა და ბეჭდვის ინდუსტრიის მოჩვენებითი ტექსტი, სტანდარტული მოჩვენებითი ტექსტი მას შემდეგ, რაც პრინტერი აიღო.</p>
                     </div>
 
                 </div>
@@ -268,8 +264,8 @@
                                     <div class="flaticon-dashboard"></div>
                                 </div>
                                 <div class="twm-content">
-                                    <div class="twm-jobs-available">9,185 Jobs</div>
-                                    <a href="job-detail.html">Business Development</a>
+                                    <div class="twm-jobs-available">9,185 სამუშაო</div>
+                                    <a href="job-detail.html">ძიძა</a>
                                 </div>
                             </div>
                         </div>
@@ -281,8 +277,8 @@
                                     <div class="flaticon-project-management"></div>
                                 </div>
                                 <div class="twm-content">
-                                    <div class="twm-jobs-available">3,205 Jobs</div>
-                                    <a href="job-detail.html">Project Management</a>
+                                    <div class="twm-jobs-available">3,205 სამუშაო</div>
+                                    <a href="job-detail.html">მზარეული</a>
                                 </div>
                             </div>
                         </div>
@@ -294,8 +290,8 @@
                                     <div class="flaticon-note"></div>
                                 </div>
                                 <div class="twm-content">
-                                    <div class="twm-jobs-available">2,100 Jobs</div>
-                                    <a href="job-detail.html">Content Writer</a>
+                                    <div class="twm-jobs-available">2,100 სამუშაო</div>
+                                    <a href="job-detail.html">მომვლელი</a>
                                 </div>
                             </div>
                         </div>
@@ -307,8 +303,8 @@
                                     <div class="flaticon-customer-support"></div>
                                 </div>
                                 <div class="twm-content">
-                                    <div class="twm-jobs-available">1,500 Jobs</div>
-                                    <a href="job-detail.html">Costomer Services</a>
+                                    <div class="twm-jobs-available">1,500 სამუშაო</div>
+                                    <a href="job-detail.html">ჭურჭლის მრეცხავი</a>
                                 </div>
                             </div>
                         </div>
@@ -320,8 +316,8 @@
                                     <div class="flaticon-bars"></div>
                                 </div>
                                 <div class="twm-content">
-                                    <div class="twm-jobs-available">9,185 Jobs</div>
-                                    <a href="job-detail.html">Accounting / Finance</a>
+                                    <div class="twm-jobs-available">9,185 სამუშაო</div>
+                                    <a href="job-detail.html">ადმინისტრატორი</a>
                                 </div>
                             </div>
                         </div>
@@ -333,8 +329,8 @@
                                     <div class="flaticon-user"></div>
                                 </div>
                                 <div class="twm-content">
-                                    <div class="twm-jobs-available">3,205 Jobs</div>
-                                    <a href="job-detail.html">Marketing</a>
+                                    <div class="twm-jobs-available">3,205 სამუშაო</div>
+                                    <a href="job-detail.html">მარკეტინგი</a>
                                 </div>
                             </div>
                         </div>
@@ -346,8 +342,8 @@
                                     <div class="flaticon-computer"></div>
                                 </div>
                                 <div class="twm-content">
-                                    <div class="twm-jobs-available">2,100 Jobs</div>
-                                    <a href="job-detail.html">Design & Art</a>
+                                    <div class="twm-jobs-available">2,100 სამუშაო</div>
+                                    <a href="job-detail.html">მოლარე-ოპერატორი</a>
                                 </div>
                             </div>
                         </div>
@@ -359,8 +355,8 @@
                                     <div class="flaticon-coding"></div>
                                 </div>
                                 <div class="twm-content">
-                                    <div class="twm-jobs-available">1,500 Jobs</div>
-                                    <a href="job-detail.html">Web Development</a>
+                                    <div class="twm-jobs-available">1,500 სამუშაო</div>
+                                    <a href="job-detail.html">ბარმენი</a>
                                 </div>
                             </div>
                         </div>
@@ -373,8 +369,8 @@
                                     <div class="flaticon-hr"></div>
                                 </div>
                                 <div class="twm-content">
-                                    <div class="twm-jobs-available">9,185 Jobs</div>
-                                    <a href="job-detail.html">Human Resource</a>
+                                    <div class="twm-jobs-available">9,185 სამუშაო</div>
+                                    <a href="job-detail.html">ოჯახში დამხმარე</a>
                                 </div>
                             </div>
                         </div>
@@ -386,8 +382,8 @@
                                     <div class="flaticon-healthcare"></div>
                                 </div>
                                 <div class="twm-content">
-                                    <div class="twm-jobs-available">3,205 Jobs</div>
-                                    <a href="job-detail.html">Health and Care </a>
+                                    <div class="twm-jobs-available">3,205 სამუშაო</div>
+                                    <a href="job-detail.html">ოჯახური წყვილები </a>
                                 </div>
                             </div>
                         </div>
@@ -399,8 +395,8 @@
                                     <div class="flaticon-repair"></div>
                                 </div>
                                 <div class="twm-content">
-                                    <div class="twm-jobs-available">2,100 Jobs</div>
-                                    <a href="job-detail.html">Automotive Jobs</a>
+                                    <div class="twm-jobs-available">2,100 სამუშაო</div>
+                                    <a href="job-detail.html">პრომო-გოგონა</a>
                                 </div>
                             </div>
                         </div>
@@ -412,8 +408,8 @@
                                     <div class="flaticon-teacher"></div>
                                 </div>
                                 <div class="twm-content">
-                                    <div class="twm-jobs-available">1,500 Jobs</div>
-                                    <a href="job-detail.html">Teaching / Education</a>
+                                    <div class="twm-jobs-available">1,500 სამუშაო</div>
+                                    <a href="job-detail.html">იურისტები / ადვოკატები</a>
                                 </div>
                             </div>
                         </div>
@@ -425,8 +421,8 @@
                                     <div class="flaticon-bank"></div>
                                 </div>
                                 <div class="twm-content">
-                                    <div class="twm-jobs-available">9,185 Jobs</div>
-                                    <a href="job-detail.html">Banking</a>
+                                    <div class="twm-jobs-available">9,185 სამუშაო</div>
+                                    <a href="job-detail.html">მცხობელი</a>
                                 </div>
                             </div>
                         </div>
@@ -438,8 +434,8 @@
                                     <div class="flaticon-deal"></div>
                                 </div>
                                 <div class="twm-content">
-                                    <div class="twm-jobs-available">3,205 Jobs</div>
-                                    <a href="job-detail.html">Sales Marketing</a>
+                                    <div class="twm-jobs-available">3,205 სამუშაო</div>
+                                    <a href="job-detail.html">ავადმყოფის მომვლელი</a>
                                 </div>
                             </div>
                         </div>
@@ -451,8 +447,8 @@
                                     <div class="flaticon-tray"></div>
                                 </div>
                                 <div class="twm-content">
-                                    <div class="twm-jobs-available">2,100 Jobs</div>
-                                    <a href="job-detail.html">Restaurant / Food</a>
+                                    <div class="twm-jobs-available">2,100 სამუშაო</div>
+                                    <a href="job-detail.html">საბავშვო ბაღის აღმზრდელი</a>
                                 </div>
                             </div>
                         </div>
@@ -464,8 +460,8 @@
                                     <div class="flaticon-tower"></div>
                                 </div>
                                 <div class="twm-content">
-                                    <div class="twm-jobs-available">1,500 Jobs</div>
-                                    <a href="job-detail.html">Telecommunications</a>
+                                    <div class="twm-jobs-available">1,500 სამუშაო</div>
+                                    <a href="job-detail.html">რესტორანი</a>
                                 </div>
                             </div>
                         </div>
@@ -477,71 +473,17 @@
                                     <div class="flaticon-lotus"></div>
                                 </div>
                                 <div class="twm-content">
-                                    <div class="twm-jobs-available">9,185 Jobs</div>
-                                    <a href="job-detail.html">Fitness Trainer</a>
+                                    <div class="twm-jobs-available">9,185 სამუშაო</div>
+                                    <a href="job-detail.html">დამლაგებელი</a>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- COLUMNS 18 -->
-                        <div class="item ">
-                            <div class="job-categories-block">
-                                <div class="twm-media">
-                                    <div class="flaticon-camera-tripod"></div>
-                                </div>
-                                <div class="twm-content">
-                                    <div class="twm-jobs-available">3,205 Jobs</div>
-                                    <a href="job-detail.html">Photography</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- COLUMNS 19 -->
-                        <div class="item ">
-                            <div class="job-categories-block">
-                                <div class="twm-media">
-                                    <div class="flaticon-multimedia"></div>
-                                </div>
-                                <div class="twm-content">
-                                    <div class="twm-jobs-available">2,100 Jobs</div>
-                                    <a href="job-detail.html">Audio + Music</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- COLUMNS 20 -->
-                        <div class="item ">
-                            <div class="job-categories-block">
-                                <div class="twm-media">
-                                    <div class="flaticon-contract"></div>
-                                </div>
-                                <div class="twm-content">
-                                    <div class="twm-jobs-available">1,500 Jobs</div>
-                                    <a href="job-detail.html">Real estate</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- COLUMNS 21 -->
-                        <div class="item ">
-                            <div class="job-categories-block">
-                                <div class="twm-media">
-                                    <div class="flaticon-engineer"></div>
-                                </div>
-                                <div class="twm-content">
-                                    <div class="twm-jobs-available">9,185 Jobs</div>
-                                    <a href="job-detail.html">Construction</a>
-                                </div>
-                            </div>
-                        </div>
-
-
 
                     </div>
                 </div>
 
                 <div class="text-right job-categories-btn">
-                    <a href="job-grid.html" class=" site-button">All Categories</a>
+                    <a href="job-grid.html" class=" site-button">ყველა კატეგორია</a>
                 </div>
 
             </div>
@@ -576,15 +518,15 @@
                                 <div class="twm-r-circle-1"></div>
                                 <div class="twm-r-circle-2"></div>
 
-                                <div class="twm-title-small">Explore New Life</div>
+                                <div class="twm-title-small">რეზიუმე</div>
                                 <div class="twm-title-large">
-                                    <h2>Don’t just find. be found
-                                    put your CV in front of
-                                    great employers </h2>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry the standard dummy text ever since the  when an printer took.</p>
+                                    <h2>ჯერ კიდევ ვერ მოძებნეთ
+                                    შესაბამისი სამსახური?
+                                    ატვირთეთ თქვენი რეზიუმე </h2>
+                                    <p>Lorem Ipsum არის უბრალოდ ბეჭდვისა და ბეჭდვის ინდუსტრიის მოჩვენებითი ტექსტი, სტანდარტული მოჩვენებითი ტექსტი მას შემდეგ, რაც პრინტერი აიღო.                                    </p>
                                 </div>
                                 <div class="twm-upload-file">
-                                    <button type="button" class="site-button">Upload Your Resume <i class="feather-upload"></i></button>
+                                    <button type="button" class="site-button">რეზიუმეს ატვირთვა <i class="feather-upload"></i></button>
                                 </div>
 
 
@@ -607,9 +549,9 @@
             <!-- TITLE START-->
             <div class="section-head center wt-small-separator-outer">
                 <div class="wt-small-separator site-text-primary">
-                   <div>Top Companies</div>
+                   <div>ტოპ კომპანიები</div>
                 </div>
-                <h2 class="wt-title">Get hired in top companies</h2>
+                <h2 class="wt-title">მიიღეთ შემოთავაზებები ტოპ კომპანიებში</h2>
             </div>
             <!-- TITLE END-->
 
@@ -700,7 +642,7 @@
                                 <div class="icon-content">
                                     <div class="tw-count-number text-clr-sky">
                                         <span class="counter">5</span>M+</div>
-                                    <p class="icon-content-info">Million daily active users</p>
+                                    <p class="icon-content-info">ყოველდღიურად მილიონობით აქტიური მომხმარებელი</p>
                                 </div>
                             </div>
                         </div>
@@ -711,7 +653,7 @@
                                 <div class="icon-content">
                                     <div class="tw-count-number text-clr-pink">
                                         <span class="counter">9</span>K+</div>
-                                    <p class="icon-content-info">Open job positions</p>
+                                    <p class="icon-content-info">ღია სამუშაო პოზიციები</p>
                                 </div>
                             </div>
                         </div>
@@ -722,7 +664,7 @@
                                 <div class="icon-content">
                                     <div class="tw-count-number text-clr-green">
                                         <span class="counter">2</span>M+</div>
-                                    <p class="icon-content-info">Million stories shared</p>
+                                    <p class="icon-content-info">მილიონი გაზიარებული ისტორია</p>
                                 </div>
                             </div>
                         </div>
@@ -744,9 +686,9 @@
             <!-- TITLE START-->
             <div class="section-head center wt-small-separator-outer">
                 <div class="wt-small-separator site-text-primary">
-                   <div>All Jobs Post</div>
+                   <div>ყველა ვაკანსიის პოსტი</div>
                 </div>
-                <h2 class="wt-title">Find Your Career You Deserve it</h2>
+                <h2 class="wt-title">იპოვე შენი კარიერა, რომელსაც იმსახურებ</h2>
             </div>
             <!-- TITLE END-->
 
@@ -761,15 +703,15 @@
                                 </div>
                                 <div class="twm-mid-content">
                                     <a href="job-detail.html" class="twm-job-title">
-                                        <h4>Senior Web Designer , Developer  <span class="twm-job-post-duration">/ 1 days ago</span></h4>
+                                        <h4>ძიძა  <span class="twm-job-post-duration">/ 1 დღის წინ</span></h4>
                                     </a>
-                                    <p class="twm-job-address">1363-1385 Sunset Blvd Los Angeles, CA 90026, USA</p>
-                                    <a href="https://themeforest.net/user/thewebmax/portfolio" class="twm-job-websites site-text-primary">https://thewebmax.com</a>
+                                    <p class="twm-job-address">აღმაშენებლის ქუჩა N7, თბილისი, საქართველო</p>
+                                    <a href="#" class="twm-job-websites site-text-primary">https://thewebmax.com</a>
                                 </div>
                                 <div class="twm-right-content">
-                                    <div class="twm-jobs-category green"><span class="twm-bg-green">New</span></div>
-                                    <div class="twm-jobs-amount">$2500 <span>/ Month</span></div>
-                                    <a href="job-detail.html" class="twm-jobs-browse site-text-primary">Browse Job</a>
+                                    <div class="twm-jobs-category green"><span class="twm-bg-green">ახალი</span></div>
+                                    <div class="twm-jobs-amount">₾500 <span>/ თვეში</span></div>
+                                    <a href="job-detail.html" class="twm-jobs-browse site-text-primary">სრულად</a>
                                 </div>
                             </div>
                         </li>
@@ -781,15 +723,15 @@
                                 </div>
                                 <div class="twm-mid-content">
                                     <a href="job-detail.html" class="twm-job-title">
-                                        <h4>Need Senior Rolling Stock Technician<span class="twm-job-post-duration">/ 15 days ago</span></h4>
+                                        <h4>მცხობელი<span class="twm-job-post-duration">/ 15 დღის წინ</span></h4>
                                     </a>
-                                    <p class="twm-job-address">1363-1385 Sunset Blvd Los Angeles, CA 90026, USA</p>
-                                    <a href="https://themeforest.net/user/thewebmax/portfolio" class="twm-job-websites site-text-primary">https://thewebmax.com</a>
+                                    <p class="twm-job-address">საბუდარის ქუჩა N56, ქუთაისი, საქართველო</p>
+                                    <a href="#" class="twm-job-websites site-text-primary">https://thewebmax.com</a>
                                 </div>
                                 <div class="twm-right-content">
-                                    <div class="twm-jobs-category green"><span class="twm-bg-brown">Intership</span></div>
-                                    <div class="twm-jobs-amount">$2000<span>/ Month</span></div>
-                                    <a href="job-detail.html" class="twm-jobs-browse site-text-primary">Browse Job</a>
+                                    <div class="twm-jobs-category green"><span class="twm-bg-brown">სტაჟირება</span></div>
+                                    <div class="twm-jobs-amount">₾2000<span>/ თვეში</span></div>
+                                    <a href="job-detail.html" class="twm-jobs-browse site-text-primary">სრულად</a>
                                 </div>
                             </div>
                         </li>
@@ -801,15 +743,15 @@
                                 </div>
                                 <div class="twm-mid-content">
                                     <a href="job-detail.html" class="twm-job-title">
-                                        <h4 class="twm-job-title">IT Department Manager & Blogger-Entrepenour  <span class="twm-job-post-duration">/ 6 Month ago</span></h4>
+                                        <h4 class="twm-job-title">იურისტები/ადვოკატები <span class="twm-job-post-duration">/ 6 თვის წინ</span></h4>
                                     </a>
-                                    <p class="twm-job-address">1363-1385 Sunset Blvd Los Angeles, CA 90026, USA</p>
-                                    <a href="https://themeforest.net/user/thewebmax/portfolio" class="twm-job-websites site-text-primary">https://thewebmax.com</a>
+                                    <p class="twm-job-address">ბარათაშვილის ქუჩა N23, ბათუმი, საქართველო</p>
+                                    <a href="#" class="twm-job-websites site-text-primary">https://thewebmax.com</a>
                                 </div>
                                 <div class="twm-right-content">
-                                    <div class="twm-jobs-category green"><span class="twm-bg-purple">Fulltime</span></div>
-                                    <div class="twm-jobs-amount">$1500 <span>/ Month</span></div>
-                                    <a href="job-detail.html" class="twm-jobs-browse site-text-primary">Browse Job</a>
+                                    <div class="twm-jobs-category green"><span class="twm-bg-purple">სრული განაკვეთი</span></div>
+                                    <div class="twm-jobs-amount">₾4500 <span>/ თვეში</span></div>
+                                    <a href="job-detail.html" class="twm-jobs-browse site-text-primary">სრულად</a>
                                 </div>
                             </div>
                         </li>
@@ -821,15 +763,15 @@
                                 </div>
                                 <div class="twm-mid-content">
                                     <a href="job-detail.html" class="twm-job-title">
-                                        <h4 class="twm-job-title">Art Production Specialist   <span class="twm-job-post-duration">/ 2 days ago</span></h4>
+                                        <h4 class="twm-job-title">მენეჯერი <span class="twm-job-post-duration">/ 2 დღის წინ</span></h4>
                                     </a>
-                                    <p class="twm-job-address">1363-1385 Sunset Blvd Los Angeles, CA 90026, USA</p>
-                                    <a href="https://themeforest.net/user/thewebmax/portfolio" class="twm-job-websites site-text-primary">https://thewebmax.com</a>
+                                    <p class="twm-job-address">რუსთაველის ქუჩა N54, ფოთი, საქართველო</p>
+                                    <a href="#" class="twm-job-websites site-text-primary">https://thewebmax.com</a>
                                 </div>
                                 <div class="twm-right-content">
-                                    <div class="twm-jobs-category green"><span class="twm-bg-sky">Freelancer</span></div>
-                                    <div class="twm-jobs-amount">$1200<span>/ Month</span></div>
-                                    <a href="job-detail.html" class="twm-jobs-browse site-text-primary">Browse Job</a>
+                                    <div class="twm-jobs-category green"><span class="twm-bg-sky">თავისუფალი</span></div>
+                                    <div class="twm-jobs-amount">₾1200<span>/ თვეში</span></div>
+                                    <a href="job-detail.html" class="twm-jobs-browse site-text-primary">სრულად</a>
                                 </div>
                             </div>
                         </li>
@@ -841,21 +783,21 @@
                                 </div>
                                 <div class="twm-mid-content">
                                     <a href="job-detail.html" class="twm-job-title">
-                                        <h4 class="twm-job-title">Recreation & Fitness Worker   <span class="twm-job-post-duration">/ 1 days ago</span></h4>
+                                        <h4 class="twm-job-title">სასტუმროს მენეჯერი <span class="twm-job-post-duration">/ 1 დღის წინ</span></h4>
                                     </a>
-                                    <p class="twm-job-address">1363-1385 Sunset Blvd Los Angeles, CA 90026, USA</p>
-                                    <a href="https://themeforest.net/user/thewebmax/portfolio" class="twm-job-websites site-text-primary">https://thewebmax.com</a>
+                                    <p class="twm-job-address">ზანდუკელის ქუჩ 1, თბილისი, საქართველო</p>
+                                    <a href="#" class="twm-job-websites site-text-primary">https://thewebmax.com</a>
                                 </div>
                                 <div class="twm-right-content">
-                                    <div class="twm-jobs-category green"><span class="twm-bg-golden">Temporary</span></div>
+                                    <div class="twm-jobs-category green"><span class="twm-bg-golden">დროებითი</span></div>
                                     <div class="twm-jobs-amount">$1700 <span>/ Month</span></div>
-                                    <a href="job-detail.html" class="twm-jobs-browse site-text-primary">Browse Job</a>
+                                    <a href="job-detail.html" class="twm-jobs-browse site-text-primary">სრულად</a>
                                 </div>
                             </div>
                         </li>
                    </ul>
                    <div class="text-center m-b30">
-                        <a href="job-list.html" class=" site-button">Browse All Jobs</a>
+                        <a href="job-list.html" class=" site-button">ყველა სამუშაო</a>
                    </div>
                </div>
             </div>
@@ -864,7 +806,7 @@
     </div>
     <!-- JOB POST END -->
 
-    <!-- TESTIMONIAL SECTION START -->
+    {{-- <!-- TESTIMONIAL SECTION START -->
     <div class="section-full p-t120 p-b90 site-bg-white twm-testimonial-1-area">
 
         <div class="container">
@@ -1006,7 +948,7 @@
         </div>
 
     </div>
-    <!-- TESTIMONIAL SECTION END -->
+    <!-- TESTIMONIAL SECTION END --> --}}
 
     <!-- OUR BLOG START -->
     <div class="section-full p-t120 p-b90 site-bg-gray">
