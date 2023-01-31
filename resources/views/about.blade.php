@@ -16,142 +16,142 @@
                         <h2 class="wt-title">About Us</h2>
                     </div>
                 </div>
-                <!-- BREADCRUMB ROW -->                            
-                
+                <!-- BREADCRUMB ROW -->
+
                     <div>
                         <ul class="wt-breadcrumb breadcrumb-style-2">
                             <li><a href="index.html">Home</a></li>
                             <li>About Us</li>
                         </ul>
                     </div>
-                
-                <!-- BREADCRUMB ROW END -->                        
+
+                <!-- BREADCRUMB ROW END -->
             </div>
         </div>
     </div>
-    <!-- INNER PAGE BANNER END -->         
+    <!-- INNER PAGE BANNER END -->
 
     <!-- JOBS CATEGORIES SECTION START -->
     <div class="section-full p-t120 p-b90 site-bg-gray twm-job-categories-area2">
         <!-- TITLE START-->
         <div class="section-head center wt-small-separator-outer">
             <div class="wt-small-separator site-text-primary">
-               <div>Jobs by Categories</div>                                
+               <div>Jobs by Categories</div>
             </div>
             <h2 class="wt-title">Choose Your Desire Category</h2>
-        </div>                  
-        <!-- TITLE END--> 
-        
+        </div>
+        <!-- TITLE END-->
+
         <div class="container">
 
             <div class="twm-job-categories-section-2 m-b30">
-               
+
                 <div class="job-categories-style1 m-b30">
                     <div class="row">
-                    
-                        <!-- COLUMNS 1 --> 
+
+                        <!-- COLUMNS 1 -->
                         <div class="col-lg-3 col-md-6">
                             <div class="job-categories-block-2 m-b30">
                                 <div class="twm-media">
                                     <div class="flaticon-dashboard"></div>
-                                </div>                                   
+                                </div>
                                 <div class="twm-content">
                                     <div class="twm-jobs-available">9,185 Jobs</div>
                                     <a href="job-detail.html">Business Development</a>
-                                </div>                               
+                                </div>
                             </div>
                         </div>
 
-                        <!-- COLUMNS 2 --> 
+                        <!-- COLUMNS 2 -->
                         <div class="col-lg-3 col-md-6">
                             <div class="job-categories-block-2 m-b30">
                                 <div class="twm-media">
                                     <div class="flaticon-project-management"></div>
-                                </div>                                   
+                                </div>
                                 <div class="twm-content">
                                     <div class="twm-jobs-available">3,205 Jobs</div>
                                     <a href="job-detail.html">Project Management</a>
-                                </div>                               
+                                </div>
                             </div>
                         </div>
-                        
-                        <!-- COLUMNS 3 --> 
+
+                        <!-- COLUMNS 3 -->
                         <div class="col-lg-3 col-md-6">
                             <div class="job-categories-block-2 m-b30">
                                 <div class="twm-media">
                                     <div class="flaticon-note"></div>
-                                </div>                                   
+                                </div>
                                 <div class="twm-content">
                                     <div class="twm-jobs-available">2,100 Jobs</div>
                                     <a href="job-detail.html">Content Writer</a>
-                                </div>                               
+                                </div>
                             </div>
                         </div>
-                        
-                        <!-- COLUMNS 4 --> 
+
+                        <!-- COLUMNS 4 -->
                         <div class="col-lg-3 col-md-6">
                             <div class="job-categories-block-2 m-b30">
                                 <div class="twm-media">
                                     <div class="flaticon-customer-support"></div>
-                                </div>                                   
+                                </div>
                                 <div class="twm-content">
                                     <div class="twm-jobs-available">1,500 Jobs</div>
                                     <a href="job-detail.html">Costomer Services</a>
-                                </div>                               
+                                </div>
                             </div>
                         </div>
-                        
-                        <!-- COLUMNS 5 --> 
+
+                        <!-- COLUMNS 5 -->
                         <div class="col-lg-3 col-md-6">
                             <div class="job-categories-block-2 m-b30">
                                 <div class="twm-media">
                                     <div class="flaticon-bars"></div>
-                                </div>                                   
+                                </div>
                                 <div class="twm-content">
                                     <div class="twm-jobs-available">9,185 Jobs</div>
                                     <a href="job-detail.html">Finance</a>
-                                </div>                               
+                                </div>
                             </div>
                         </div>
 
-                        <!-- COLUMNS 6 --> 
+                        <!-- COLUMNS 6 -->
                         <div class="col-lg-3 col-md-6">
                             <div class="job-categories-block-2 m-b30">
                                 <div class="twm-media">
                                     <div class="flaticon-user"></div>
-                                </div>                                   
+                                </div>
                                 <div class="twm-content">
                                     <div class="twm-jobs-available">3,205 Jobs</div>
                                     <a href="job-detail.html">Marketing</a>
-                                </div>                               
+                                </div>
                             </div>
                         </div>
-                        
-                        <!-- COLUMNS 7 --> 
+
+                        <!-- COLUMNS 7 -->
                         <div class="col-lg-3 col-md-6">
                             <div class="job-categories-block-2 m-b30">
                                 <div class="twm-media">
                                     <div class="flaticon-computer"></div>
-                                </div>                                   
+                                </div>
                                 <div class="twm-content">
                                     <div class="twm-jobs-available">2,100 Jobs</div>
                                     <a href="job-detail.html">Design &amp; Art</a>
-                                </div>                               
+                                </div>
                             </div>
                         </div>
-                        
-                        <!-- COLUMNS 8 --> 
+
+                        <!-- COLUMNS 8 -->
                         <div class="col-lg-3 col-md-6">
                             <div class="job-categories-block-2 m-b30">
                                 <div class="twm-media">
                                     <div class="flaticon-coding"></div>
-                                </div>                                   
+                                </div>
                                 <div class="twm-content">
                                     <div class="twm-jobs-available">1,500 Jobs</div>
                                     <a href="job-detail.html">Web Development</a>
-                                </div>                               
+                                </div>
                             </div>
-                        </div>                                         
+                        </div>
 
                     </div>
                 </div>
@@ -164,41 +164,41 @@
 
         </div>
 
-    </div>   
+    </div>
     <!-- JOBS CATEGORIES SECTION END -->
 
     <!-- HOW IT WORK SECTION START -->
     <div class="section-full p-t120 p-b90 site-bg-white twm-how-it-work-area2">
-                
+
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-12">
                     <!-- TITLE START-->
                         <div class="section-head left wt-small-separator-outer">
                             <div class="wt-small-separator site-text-primary">
-                            <div>How It Works </div>                                
+                            <div>How It Works </div>
                             </div>
                             <h2 class="wt-title">Follow our steps we will help you.</h2>
-                            
+
                         </div>
                         <ul class="description-list">
                             <li>
                                 <i class="feather-check"></i>
-                                Trusted & Quality Job 
+                                Trusted & Quality Job
                             </li>
                             <li>
                                 <i class="feather-check"></i>
-                                International Job 
+                                International Job
                             </li>
                             <li>
                                 <i class="feather-check"></i>
-                                No Extra Charge 
+                                No Extra Charge
                             </li>
                             <li>
                                 <i class="feather-check"></i>
-                                Top Companies 
+                                Top Companies
                             </li>
-                        </ul>                  
+                        </ul>
                     <!-- TITLE END-->
                 </div>
                 <div class="col-lg-8 col-md-12">
@@ -214,7 +214,7 @@
                                         <h4 class="twm-title">Register<br>Your Account</h4>
                                         <p>You need to create an account to find the best and preferred job.</p>
                                     </div>
-                                    
+
                                 </div>
                             </div>
 
@@ -226,10 +226,10 @@
                                             <span><img src="images/work-process/icon4.png" alt="icon1"></span>
                                         </div>
                                         <h4 class="twm-title">Search <br>
-                                            Your Job</h4>                                                
+                                            Your Job</h4>
                                         <p>You need to create an account to find the best and preferred job.</p>
                                     </div>
-                                
+
                                 </div>
                             </div>
 
@@ -243,7 +243,7 @@
                                         <h4 class="twm-title">Apply <br>For Dream Job</h4>
                                         <p>You need to create an account to find the best and preferred job.</p>
                                     </div>
-                                    
+
                                 </div>
                             </div>
 
@@ -257,7 +257,7 @@
                                         <h4 class="twm-title">Upload <br>Your Resume</h4>
                                         <p>You need to create an account to find the best and preferred job.</p>
                                     </div>
-                                    
+
                                 </div>
                             </div>
 
@@ -266,14 +266,14 @@
                 </div>
             </div>
 
-            
+
 
             <div class="twm-how-it-work-section">
-                
-            </div>                  
+
+            </div>
         </div>
 
-    </div>   
+    </div>
     <!-- HOW IT WORK SECTION END -->
 
     <!-- EXPLORE NEW LIFE START -->
@@ -303,8 +303,8 @@
 
                                 <div class="twm-title-small">Explore New Life</div>
                                 <div class="twm-title-large">
-                                    <h2>Don’t just find. be found 
-                                    put your CV in front of 
+                                    <h2>Don’t just find. be found
+                                    put your CV in front of
                                     great employers </h2>
                                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry the standard dummy text ever since the  when an printer took.</p>
                                 </div>
@@ -312,7 +312,7 @@
                                     <button type="button" class="site-button">Upload Your Resume <i class="feather-upload"></i></button>
                                 </div>
 
-                                
+
                             </div>
                             <div class="twm-bold-circle-right"></div>
                             <div class="twm-bold-circle-left"></div>
@@ -321,105 +321,105 @@
 
                 </div>
             </div>
-           
+
         </div>
     </div>
     <!-- EXPLORE NEW LIFE END -->
 
     <!-- TOP COMPANIES START -->
     <div class="section-full p-t120  site-bg-white twm-companies-wrap">
-          
+
         <!-- TITLE START-->
         <div class="section-head center wt-small-separator-outer">
             <div class="wt-small-separator site-text-primary">
-               <div>Top Companies</div>                                
+               <div>Top Companies</div>
             </div>
             <h2 class="wt-title">Get hired in top companies</h2>
-        </div>                  
+        </div>
         <!-- TITLE END-->
 
         <div class="container">
             <div class="section-content">
                 <div class="owl-carousel home-client-carousel2 owl-btn-vertical-center">
-                
+
                     <div class="item">
                         <div class="ow-client-logo">
                             <div class="client-logo client-logo-media">
                             <a href="employer-list.html"><img src="images/client-logo/w1.png" alt=""></a></div>
                         </div>
                     </div>
-                    
+
                     <div class="item">
                         <div class="ow-client-logo">
                             <div class="client-logo client-logo-media">
                             <a href="employer-list.html"><img src="images/client-logo/w2.png" alt=""></a></div>
                         </div>
                     </div>
-                    
+
                     <div class="item">
                         <div class="ow-client-logo">
                             <div class="client-logo client-logo-media">
                             <a href="employer-list.html"><img src="images/client-logo/w3.png" alt=""></a></div>
                         </div>
                     </div>
-                    
+
                     <div class="item">
                         <div class="ow-client-logo">
                             <div class="client-logo client-logo-media">
                             <a href="employer-list.html"><img src="images/client-logo/w4.png" alt=""></a></div>
                         </div>
                     </div>
-                    
+
                     <div class="item">
                         <div class="ow-client-logo">
                             <div class="client-logo client-logo-media">
                             <a href="employer-list.html"><img src="images/client-logo/w5.png" alt=""></a></div>
                         </div>
                     </div>
-                    
+
                     <div class="item">
                         <div class="ow-client-logo">
                             <div class="client-logo client-logo-media">
                             <a href="employer-list.html"><img src="images/client-logo/w6.png" alt=""></a></div>
                         </div>
                     </div>
-                    
+
                     <div class="item">
                         <div class="ow-client-logo">
                             <div class="client-logo client-logo-media">
                             <a href="employer-list.html"><img src="images/client-logo/w1.png" alt=""></a></div>
                         </div>
                     </div>
-                    
+
                     <div class="item">
                         <div class="ow-client-logo">
                             <div class="client-logo client-logo-media">
                             <a href="employer-list.html"><img src="images/client-logo/w2.png" alt=""></a></div>
                         </div>
                     </div>
-                    
+
                     <div class="item">
                         <div class="ow-client-logo">
                             <div class="client-logo client-logo-media">
                             <a href="employer-list.html"><img src="images/client-logo/w3.png" alt=""></a></div>
                         </div>
                     </div>
-                    
+
                     <div class="item">
                         <div class="ow-client-logo">
                             <div class="client-logo client-logo-media">
                             <a href="employer-list.html"><img src="images/client-logo/w5.png" alt=""></a></div>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
-      
-    
+
+
     </div>
     <!-- TOP COMPANIES END -->
-             
+
 
 </div>
 <!-- CONTENT END -->
@@ -433,7 +433,7 @@
             <div class="row">
                 <div class="col-md-5">
                     <div class="ftr-nw-title">
-                        Join our email subscription now to get updates 
+                        Join our email subscription now to get updates
                         on new jobs and notifications.
                     </div>
                 </div>
@@ -448,12 +448,12 @@
             </div>
         </div>
         <!-- NEWS LETTER SECTION END -->
-        <!-- FOOTER BLOCKES START -->  
+        <!-- FOOTER BLOCKES START -->
         <div class="footer-top">
             <div class="row">
 
                 <div class="col-lg-3 col-md-12">
-                    
+
                     <div class="widget widget_about">
                         <div class="logo-footer clearfix">
                             <a href="index.html"><img src="images/logo-light.png" alt=""></a>
@@ -464,13 +464,13 @@
                             <li><p><span>Email :</span>example@max.com</p></li>
                             <li><p><span>Call :</span>555-555-1234</p></li>
                         </ul>
-                    </div>                            
-                    
-                </div> 
+                    </div>
+
+                </div>
 
                 <div class="col-lg-9 col-md-12">
                     <div class="row">
-                       
+
                         <div class="col-lg-3 col-md-6 col-sm-6">
                             <div class="widget widget_services ftr-list-center">
                                 <h3 class="widget-title">For Candidate</h3>
@@ -483,7 +483,7 @@
                                 </ul>
                             </div>
                         </div>
-                    
+
                         <div class="col-lg-3 col-md-6 col-sm-6">
                             <div class="widget widget_services ftr-list-center">
                                 <h3 class="widget-title">For Employers</h3>
@@ -510,7 +510,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-3 col-md-6 col-sm-6">  
+                        <div class="col-lg-3 col-md-6 col-sm-6">
                             <div class="widget widget_services ftr-list-center">
                                 <h3 class="widget-title">Quick Links</h3>
                                 <ul>
@@ -523,17 +523,17 @@
                             </div>
                         </div>
 
-                    </div>  
+                    </div>
 
-                </div> 
+                </div>
 
             </div>
         </div>
         <!-- FOOTER COPYRIGHT -->
         <div class="footer-bottom">
-        
+
             <div class="footer-bottom-info">
-            
+
                 <div class="footer-copy-right">
                     <span class="copyrights-text">Copyright © 2022 by thewebmax All Rights Reserved.</span>
                 </div>
@@ -543,9 +543,9 @@
                     <li><a href="javascript:void(0);" class="fab fa-instagram"></a></li>
                     <li><a href="javascript:void(0);" class="fab fa-youtube"></a></li>
                 </ul>
-                
+
             </div>
-            
+
         </div>
 
     </div>
@@ -573,7 +573,7 @@
                         <div class="twm-tabs-style-2">
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
 
-                            <!--Signup Candidate-->  
+                            <!--Signup Candidate-->
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#sign-candidate" type="button"><i class="fas fa-user-tie"></i>Candidate</button>
                             </li>
@@ -581,10 +581,10 @@
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" data-bs-toggle="tab" data-bs-target="#sign-Employer" type="button"><i class="fas fa-building"></i>Employer</button>
                             </li>
-                            
+
                             </ul>
                             <div class="tab-content" id="myTabContent">
-                            <!--Signup Candidate Content-->  
+                            <!--Signup Candidate Content-->
                             <div class="tab-pane fade show active" id="sign-candidate">
                                 <div class="row">
 
@@ -593,25 +593,25 @@
                                             <input name="username" type="text" required="" class="form-control" placeholder="Usearname*">
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-lg-12">
                                         <div class="form-group mb-3">
                                             <input name="email" type="text" class="form-control" required="" placeholder="Password*">
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-lg-12">
                                         <div class="form-group mb-3">
                                             <input name="phone" type="text" class="form-control" required="" placeholder="Email*">
                                         </div>
                                     </div>
-    
+
                                     <div class="col-lg-12">
                                         <div class="form-group mb-3">
                                             <input name="phone" type="text" class="form-control" required="" placeholder="Phone*">
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-lg-12">
                                         <div class="form-group mb-3">
                                             <div class=" form-check">
@@ -626,10 +626,10 @@
                                     <div class="col-md-12">
                                         <button type="submit" class="site-button">Sign Up</button>
                                     </div>
-                                    
+
                                 </div>
                             </div>
-                            <!--Signup Employer Content--> 
+                            <!--Signup Employer Content-->
                             <div class="tab-pane fade" id="sign-Employer">
                                 <div class="row">
 
@@ -638,25 +638,25 @@
                                             <input name="username" type="text" required="" class="form-control" placeholder="Usearname*">
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-lg-12">
                                         <div class="form-group mb-3">
                                             <input name="email" type="text" class="form-control" required="" placeholder="Password*">
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-lg-12">
                                         <div class="form-group mb-3">
                                             <input name="phone" type="text" class="form-control" required="" placeholder="Email*">
                                         </div>
                                     </div>
-    
+
                                     <div class="col-lg-12">
                                         <div class="form-group mb-3">
                                             <input name="phone" type="text" class="form-control" required="" placeholder="Phone*">
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-lg-12">
                                         <div class="form-group mb-3">
                                             <div class=" form-check">
@@ -671,12 +671,12 @@
                                     <div class="col-md-12">
                                         <button type="submit" class="site-button">Sign Up</button>
                                     </div>
-                                    
+
                                 </div>
                             </div>
-                            
+
                             </div>
-                        </div> 
+                        </div>
                     </div>
 
                     <div class="modal-footer">
@@ -692,13 +692,13 @@
                 </form>
             </div>
         </div>
-        
+
     </div>
     <!--Login popup -->
     <div class="modal fade twm-sign-up" id="sign_up_popup2" aria-hidden="true" aria-labelledby="sign_up_popupLabel2" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-            
+
                 <form>
                     <div class="modal-header">
                         <h2 class="modal-title" id="sign_up_popupLabel2">Login</h2>
@@ -709,7 +709,7 @@
                         <div class="twm-tabs-style-2">
                             <ul class="nav nav-tabs" id="myTab2" role="tablist">
 
-                                <!--Login Candidate-->  
+                                <!--Login Candidate-->
                                 <li class="nav-item">
                                     <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#login-candidate" type="button"><i class="fas fa-user-tie"></i>Candidate</button>
                                 </li>
@@ -717,11 +717,11 @@
                                 <li class="nav-item">
                                     <button class="nav-link" data-bs-toggle="tab" data-bs-target="#login-Employer" type="button"><i class="fas fa-building"></i>Employer</button>
                                 </li>
-                            
+
                             </ul>
-                            
+
                             <div class="tab-content" id="myTab2Content">
-                                <!--Login Candidate Content-->  
+                                <!--Login Candidate Content-->
                                 <div class="tab-pane fade show active" id="login-candidate">
                                     <div class="row">
 
@@ -730,33 +730,33 @@
                                                 <input name="username" type="text" required="" class="form-control" placeholder="Usearname*">
                                             </div>
                                         </div>
-                                        
+
                                         <div class="col-lg-12">
                                             <div class="form-group mb-3">
                                                 <input name="email" type="text" class="form-control" required="" placeholder="Password*">
                                             </div>
                                         </div>
-                                        
-                                        
+
+
                                         <div class="col-lg-12">
                                             <div class="form-group mb-3">
                                                 <div class=" form-check">
                                                     <input type="checkbox" class="form-check-input" id="Password3">
                                                     <label class="form-check-label rem-forgot" for="Password3">Remember me <a href="javascript:;">Forgot Password</a></label>
-                                                    
+
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <button type="submit" class="site-button">Log in</button>
-                                            <div class="mt-3 mb-3">Don't have an account ? 
+                                            <div class="mt-3 mb-3">Don't have an account ?
                                                 <button class="twm-backto-login" data-bs-target="#sign_up_popup" data-bs-toggle="modal" data-bs-dismiss="modal">Sign Up</button>
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
-                                <!--Login Employer Content--> 
+                                <!--Login Employer Content-->
                                 <div class="tab-pane fade" id="login-Employer">
                                     <div class="row">
 
@@ -765,14 +765,14 @@
                                                 <input name="username" type="text" required="" class="form-control" placeholder="Usearname*">
                                             </div>
                                         </div>
-                                        
+
                                         <div class="col-lg-12">
                                             <div class="form-group mb-3">
                                                 <input name="email" type="text" class="form-control" required="" placeholder="Password*">
                                             </div>
                                         </div>
-                                        
-                                        
+
+
                                         <div class="col-lg-12">
                                             <div class="form-group mb-3">
                                                 <div class=" form-check">
@@ -781,19 +781,19 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="col-md-12">
                                             <button type="submit" class="site-button">Log in</button>
-                                            <div class="mt-3 mb-3">Don't have an account ? 
+                                            <div class="mt-3 mb-3">Don't have an account ?
                                                 <button class="twm-backto-login" data-bs-target="#sign_up_popup" data-bs-toggle="modal" data-bs-dismiss="modal">Sign Up</button>
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
-                            
+
                             </div>
-                        </div> 
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <span class="modal-f-title">Login or Sign up with</span>
