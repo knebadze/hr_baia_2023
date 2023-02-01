@@ -957,9 +957,9 @@
             <!-- TITLE START-->
             <div class="section-head center wt-small-separator-outer">
                 <div class="wt-small-separator site-text-primary">
-                   <div>Our Blogs</div>
+                   <div>ბლოგი</div>
                 </div>
-                <h2 class="wt-title">Latest Article</h2>
+                <h2 class="wt-title">უახლესი სტატია</h2>
 
             </div>
             <!-- TITLE END-->
@@ -977,22 +977,22 @@
                                 <div class="wt-post-info">
                                     <div class="wt-post-meta ">
                                         <ul>
-                                            <li class="post-date">March 05, 2022</li>
-                                            <li class="post-author">By <a href="candidate-detail.html">Mark Petter</a></li>
+                                            <li class="post-date">მარტი 05, 2022</li>
+                                            <li class="post-author"> <a href="candidate-detail.html">Mark Petter</a></li>
                                         </ul>
                                     </div>
                                     <div class="wt-post-title ">
                                         <h4 class="post-title">
-                                            <a href="blog-single.html">How to convince recruiters and get your dream job</a>
+                                            <a href="blog-single.html">შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს და ტიპოგრაფიული ნაწარმის შემქმნელებს.</a>
                                         </h4>
                                     </div>
                                     <div class="wt-post-text ">
                                         <p>
-                                            New chip traps clusters of migrating tumor cells asperiortenetur, blanditiis odit.
+                                            შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს და ტიპოგრაფიული ნაწარმის შემქმნელებს.
                                         </p>
                                     </div>
                                     <div class="wt-post-readmore ">
-                                        <a href="blog-single.html" class="site-button-link site-text-primary">Read More</a>
+                                        <a href="blog-single.html" class="site-button-link site-text-primary">სრულად</a>
                                     </div>
                                 </div>
                             </div>
@@ -1007,23 +1007,22 @@
                                 <div class="wt-post-info">
                                     <div class="wt-post-meta ">
                                         <ul>
-                                            <li class="post-date">March 05, 2022</li>
-                                            <li class="post-author">By <a href="candidate-detail.html">David Wish</a></li>
+                                            <li class="post-date">მარტი 05, 2022</li>
+                                            <li class="post-author"> <a href="candidate-detail.html">David Wish</a></li>
                                         </ul>
                                     </div>
                                     <div class="wt-post-title ">
                                         <h4 class="post-title">
-                                            <a href="blog-single.html">5 things to know about the March
-                                                2022 jobs report</a>
+                                            <a href="blog-single.html">შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს და ტიპოგრაფიული ნაწარმის შემქმნელებს.</a>
                                         </h4>
                                     </div>
                                     <div class="wt-post-text ">
                                         <p>
-                                            New chip traps clusters of migrating tumor cells asperiortenetur, blanditiis odit.
+                                            შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს და ტიპოგრაფიული ნაწარმის შემქმნელებს.
                                         </p>
                                     </div>
                                     <div class="wt-post-readmore ">
-                                        <a href="blog-single.html" class="site-button-link site-text-primary">Read More</a>
+                                        <a href="blog-single.html" class="site-button-link site-text-primary">სრულად</a>
                                     </div>
                                 </div>
                             </div>
@@ -1038,30 +1037,29 @@
                                 <div class="wt-post-info">
                                     <div class="wt-post-meta ">
                                         <ul>
-                                            <li class="post-date">March 05, 2022</li>
-                                            <li class="post-author">By <a href="candidate-detail.html">Mike Doe</a></li>
+                                            <li class="post-date">მარტი 05, 2022</li>
+                                            <li class="post-author"> <a href="candidate-detail.html">Mike Doe</a></li>
                                         </ul>
                                     </div>
                                     <div class="wt-post-title ">
                                         <h4 class="post-title">
-                                            <a href="blog-single.html">Job Board is the most important
-                                                sector in the world</a>
+                                            <a href="blog-single.html">შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს და ტიპოგრაფიული ნაწარმის შემქმნელებს.</a>
                                         </h4>
                                     </div>
                                     <div class="wt-post-text ">
                                         <p>
-                                            New chip traps clusters of migrating tumor cells asperiortenetur, blanditiis odit.
+                                            შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს და ტიპოგრაფიული ნაწარმის შემქმნელებს.
                                         </p>
                                     </div>
                                     <div class="wt-post-readmore ">
-                                        <a href="blog-single.html" class="site-button-link site-text-primary">Read More</a>
+                                        <a href="blog-single.html" class="site-button-link site-text-primary">სრულად</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="item">
-                            <!--Block Four-->
+                            <!--Block one-->
                             <div class="blog-post twm-blog-post-1-outer">
                                 <div class="wt-post-media">
                                     <a href="blog-single.html"><img src="images/blog/latest/bg1.jpg" alt=""></a>
@@ -1069,29 +1067,29 @@
                                 <div class="wt-post-info">
                                     <div class="wt-post-meta ">
                                         <ul>
-                                            <li class="post-date">March 05, 2022</li>
-                                            <li class="post-author">By <a href="candidate-detail.html">Mark Petter</a></li>
+                                            <li class="post-date">მარტი 05, 2022</li>
+                                            <li class="post-author"> <a href="candidate-detail.html">Mark Petter</a></li>
                                         </ul>
                                     </div>
                                     <div class="wt-post-title ">
                                         <h4 class="post-title">
-                                            <a href="blog-single.html">How to convince recruiters and get your dream job</a>
+                                            <a href="blog-single.html">შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს და ტიპოგრაფიული ნაწარმის შემქმნელებს.</a>
                                         </h4>
                                     </div>
                                     <div class="wt-post-text ">
                                         <p>
-                                            New chip traps clusters of migrating tumor cells asperiortenetur, blanditiis odit.
+                                            შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს და ტიპოგრაფიული ნაწარმის შემქმნელებს.
                                         </p>
                                     </div>
                                     <div class="wt-post-readmore ">
-                                        <a href="blog-single.html" class="site-button-link site-text-primary">Read More</a>
+                                        <a href="blog-single.html" class="site-button-link site-text-primary">სრულად</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="item">
-                            <!--Block Five-->
+                            <!--Block two-->
                             <div class="blog-post twm-blog-post-1-outer">
                                 <div class="wt-post-media">
                                     <a href="blog-single.html"><img src="images/blog/latest/bg2.jpg" alt=""></a>
@@ -1099,30 +1097,29 @@
                                 <div class="wt-post-info">
                                     <div class="wt-post-meta ">
                                         <ul>
-                                            <li class="post-date">March 05, 2022</li>
-                                            <li class="post-author">By <a href="candidate-detail.html">David Wish</a></li>
+                                            <li class="post-date">მარტი 05, 2022</li>
+                                            <li class="post-author"> <a href="candidate-detail.html">David Wish</a></li>
                                         </ul>
                                     </div>
                                     <div class="wt-post-title ">
                                         <h4 class="post-title">
-                                            <a href="blog-single.html">5 things to know about the March
-                                                2022 jobs report</a>
+                                            <a href="blog-single.html">შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს და ტიპოგრაფიული ნაწარმის შემქმნელებს.</a>
                                         </h4>
                                     </div>
                                     <div class="wt-post-text ">
                                         <p>
-                                            New chip traps clusters of migrating tumor cells asperiortenetur, blanditiis odit.
+                                            შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს და ტიპოგრაფიული ნაწარმის შემქმნელებს.
                                         </p>
                                     </div>
                                     <div class="wt-post-readmore ">
-                                        <a href="blog-single.html" class="site-button-link site-text-primary">Read More</a>
+                                        <a href="blog-single.html" class="site-button-link site-text-primary">სრულად</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="item">
-                            <!--Block Six-->
+                            <!--Block three-->
                             <div class="blog-post twm-blog-post-1-outer">
                                 <div class="wt-post-media">
                                     <a href="blog-single.html"><img src="images/blog/latest/bg3.jpg" alt=""></a>
@@ -1130,23 +1127,22 @@
                                 <div class="wt-post-info">
                                     <div class="wt-post-meta ">
                                         <ul>
-                                            <li class="post-date">March 05, 2022</li>
-                                            <li class="post-author">By <a href="candidate-detail.html">Mike Doe</a></li>
+                                            <li class="post-date">მარტი 05, 2022</li>
+                                            <li class="post-author"> <a href="candidate-detail.html">Mike Doe</a></li>
                                         </ul>
                                     </div>
                                     <div class="wt-post-title ">
                                         <h4 class="post-title">
-                                            <a href="blog-single.html">Job Board is the most important
-                                                sector in the world</a>
+                                            <a href="blog-single.html">შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს და ტიპოგრაფიული ნაწარმის შემქმნელებს.</a>
                                         </h4>
                                     </div>
                                     <div class="wt-post-text ">
                                         <p>
-                                            New chip traps clusters of migrating tumor cells asperiortenetur, blanditiis odit.
+                                            შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს და ტიპოგრაფიული ნაწარმის შემქმნელებს.
                                         </p>
                                     </div>
                                     <div class="wt-post-readmore ">
-                                        <a href="blog-single.html" class="site-button-link site-text-primary">Read More</a>
+                                        <a href="blog-single.html" class="site-button-link site-text-primary">სრულად</a>
                                     </div>
                                 </div>
                             </div>
@@ -1159,7 +1155,6 @@
         </div>
     </div>
     <!-- OUR BLOG END -->
-
 
 </div>
 <!-- CONTENT END -->

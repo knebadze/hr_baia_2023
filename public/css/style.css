@@ -27,6 +27,17 @@ body {
   color: #1967d2 !important;
 }
 
+.categorySideBar h4, 
+.keywordSideBar h4, 
+.locationSideBar h4, 
+.jobTypeSideBar h4, 
+.publicationSideBar h4,
+.sallarySideBar h4,
+.sheduldeSideBar h4,
+.mapLocationSideBar h4 {
+  color: #eb5c90;
+} 
+
 /* Author: thewebmax team
 =========================
 This file contains the styling for the actual template, this
@@ -5873,11 +5884,11 @@ button.scroltop span {
   position: relative;
 }
 .wt-breadcrumb li {
-  padding-right: 30px;
+  /* padding-right: 30px; */
   position: relative;
   display: inline-block;
   font-size: 18px;
-  font-family: "Rubik", sans-serif;
+  /* font-family: "Rubik", sans-serif; */
   font-weight: 400;
   color: #1967d2;
 }
@@ -5887,7 +5898,7 @@ button.scroltop span {
 .wt-breadcrumb li a:hover {
   color: #1967d2;
 }
-.wt-breadcrumb li:after {
+/* .wt-breadcrumb li:after {
   content: "";
   position: absolute;
   right: 8px;
@@ -5899,7 +5910,7 @@ button.scroltop span {
   color: #17171d;
   font-size: 12px;
   font-weight: 600;
-}
+} */
 .wt-breadcrumb li:last-child {
   color: #1967d2;
   padding-right: 0px;
