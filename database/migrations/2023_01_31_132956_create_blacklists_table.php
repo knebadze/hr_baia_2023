@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('blacklists', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->unsignedInteger('ground_id');
+            $table->unsignedBigInteger('ground_id');
             $table->timestamps();
 
             $table->foreign('ground_id')->references('id')->on('blacklist_grounds');
