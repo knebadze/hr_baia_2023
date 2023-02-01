@@ -37,8 +37,8 @@
                         </li> --}}
                         <li class="has-child"><a href="javascript:;">ვაკანსიები</a>
                             <ul class="sub-menu">
-                                <li><a href="{{ url ('individual') }}">ინდივიდუალური</a></li>
-                                <li><a href="{{ url ('company') }}">კომპანიის</a></li>
+                                <li><a href="{{ url ('individual') }}">ინდივიდუალური ვაკანსიები</a></li>
+                                <li><a href="{{ url ('company') }}">კომპანიის ვაკანსიები</a></li>
                                 <li><a href="{{ url ('onmap') }}">ვაკანსიები რუკაზე</a></li>
                                 {{-- <li><a href="job-grid.html">Jobs Grid</a></li>
                                 <li><a href="job-grid-with-map.html">Jobs Grid with Map</a></li>
