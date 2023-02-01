@@ -7,6 +7,8 @@ use App\Http\Controllers\IndividualController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\MapvacancieController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\CandidateController;
+use App\Http\Controllers\BlogController;
 
 
 use App\Http\Controllers\Auth\SocialController;
@@ -23,10 +25,14 @@ use App\Http\Controllers\Auth\SocialController;
 */
 
 Route::get('/', [MainController::class, 'index'])->name('welcome');
+
 Route::get('/individual', [IndividualController::class, 'index'])->name('individual');
 Route::get('/company', [CompanyController::class, 'index'])->name('company');
 Route::get('/onmap', [MapvacancieController::class, 'index'])->name('onmap');
+
 Route::get('/about', [AboutController::class, 'index'])->name('about');
+Route::get('/candidate', [CandidateController::class, 'index'])->name('candidate');
+Route::get('/blog', [BlogController::class, 'index'])->name('blog');
 
 Auth::routes();
 

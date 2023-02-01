@@ -1,4 +1,32 @@
 @charset "UTF-8";
+
+@font-face {
+    font-family: nino;
+    src: url("/fonts/nino.ttf");
+}
+
+@font-face {
+    font-family: mtavruli;
+    src: url("/fonts/mtavruli.ttf");
+  }
+
+body {
+    font-family: nino !important;
+}
+
+.activeClass a {
+  color: #5e2dfa !important;
+  font-weight: bold !important;
+}
+
+.adressColor a {
+  color: white !important;
+}
+
+.adressColor a:hover {
+  color: #1967d2 !important;
+}
+
 /* Author: thewebmax team
 =========================
 This file contains the styling for the actual template, this
@@ -246,7 +274,7 @@ ul {
 
 /*===Heading & Title====*/
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Rubik", sans-serif;
+  font-family: nino !important;
   line-height: 1.2;
   color: #17171d;
 }
@@ -2781,8 +2809,10 @@ ol li {
   padding-top: 10px;
   padding-bottom: 10px;
   transition: all 0.5s ease;
+  max-width: 1200px;
+  left: 50%;
   background: transparent;
-  max-width: 1146px;
+
   left: 50%;
   transform: translateX(-50%);
 }
@@ -2906,7 +2936,7 @@ ol li {
   position: relative;
   margin: -10px 0px;
   padding: 10px 0px;
-  font-family: "Rubik", sans-serif;
+  /* font-family: "Rubik", sans-serif; */
 }
 @media (max-width: 991px) {
   .header-style-3 .header-nav .nav > li ul {
@@ -4987,7 +5017,7 @@ ol li {
 }
 /*Title separators*/
 .wt-small-separator {
-  font-family: "Rubik", sans-serif;
+  /* font-family: "Rubik", sans-serif; */
   margin-bottom: 10px;
   position: relative;
   display: inline-block;
@@ -5296,7 +5326,7 @@ ol li {
   color: #fff;
   background-color: #1967d2;
   border: none;
-  font-family: "Rubik", sans-serif;
+  /* font-family: "Rubik", sans-serif; */
   font-weight: 600;
   padding: 9px 30px;
   border-radius: 0px 10px 10px 0px;

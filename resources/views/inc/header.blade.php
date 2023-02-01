@@ -9,7 +9,7 @@
                 <div class="logo-header">
                     <div class="logo-header-inner logo-header-one">
                         <a href="{{ url ('/') }}">
-                        <img src="images/logo-baia.png" alt="" style="max-height: 50px">
+                        <img src="images/head-logo.png" alt="">
                         </a>
                     </div>
                 </div>
@@ -25,8 +25,8 @@
                 <!-- MAIN Vav -->
                 <div class="nav-animation header-nav navbar-collapse collapse d-flex justify-content-center">
 
-                    <ul class=" nav navbar-nav">
-                        <li><a href="{{ url ('/') }}">მთავარი</a></li>
+                    <ul class="nav navbar-nav">
+                        <li class="activeClass"><a href="{{ url ('/') }}">მთავარი</a></li>
                         {{-- <li class="has-child"><a href="javascript:;">მთავარი</a>
                             <ul class="sub-menu">
                                 <li><a href="index.html">Home-1</a></li>
@@ -110,7 +110,7 @@
                                 <li><a href="candidate-chat.html">Chat</a></li>
                             </ul>
                         </li> --}}
-                        <li><a href="blog.html">ბლოგი</a></li>
+                        <li><a href="{{ url ('blog') }}">ბლოგი</a></li>
                         {{-- <li class="has-child"><a href="javascript:;">ბლოგი</a>
                             <ul class="sub-menu">
                                 <li><a href="blog.html">Blog</a></li>
@@ -120,8 +120,16 @@
                                 <li><a href="blog-single.html">Blog Detail</a></li>
                             </ul>
                         </li> --}}
-                    </ul>
 
+                        <li class="has-child"><a href="javascript:;"><img src="images/language.png"> </a>
+                            <ul class="sub-menu">
+                                <li><a href="#"><img src="images/geo.png"> ქართული</a></li>
+                                <li><a href="#"><img src="images/eng.png"> English</a></li>
+                                <li><a href="#"><img src="images/rus.png"> Русский</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
                 </div>
 
                 <!-- Header Right Section-->

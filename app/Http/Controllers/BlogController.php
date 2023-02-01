@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class AboutController extends Controller
+class BlogController extends Controller
 {
 
     public function index()
     {
-        return view ('about');
+        return view ('blog');
     }
 
 
@@ -21,7 +21,7 @@ class AboutController extends Controller
 
     public function store(Request $request)
     {
-
+        //
     }
 
 
