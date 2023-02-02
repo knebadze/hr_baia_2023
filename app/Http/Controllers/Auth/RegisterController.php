@@ -68,14 +68,16 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         // dd($data);
-        $en = new GoogleTranslate('en');
-        $ru = new GoogleTranslate('ru');
+        // $tr= new GoogleTranslate();
+        $name_en = GoogleTranslate::trans($data['name_ka'], 'en');
+        $name_ru = GoogleTranslate::trans($data['name_ka'], 'ru');
+        // dd();
         // GoogleTranslate::trans($data['name_ka'])
         return User::create([
             'user_type_id' =>$data['user_type_id'],
             'name_ka' => $data['name_ka'],
-            'name_en' => $en->translate($data['name_ka']),
-            'name_ru' => $ru->translate($data['name_ka']),
+            'name_en' => $name_en,
+            'name_ru' => $name_ru,
             'email' => $data['email'],
             'date_of_birth' => $data['date_of_birth'],
             'gender_id' => $data['gender_id'],
