@@ -13,15 +13,15 @@
             <div class="wt-bnr-inr-entry">
                 <div class="banner-title-outer">
                     <div class="banner-title-name">
-                        <h2 class="wt-title">Blog Grid</h2>
+                        <h2 class="wt-title">ბლოგი</h2>
                     </div>
                 </div>
                 <!-- BREADCRUMB ROW -->                            
                 
                     <div>
                         <ul class="wt-breadcrumb breadcrumb-style-2">
-                            <li><a href="index.html">Home</a></li>
-                            <li>Blog Grid</li>
+                            <li><a href="index.html">მთავარი</a> / </li>
+                            <li>ბლოგი</li>
                         </ul>
                     </div>
                 
@@ -260,7 +260,7 @@
                                                                     
                             <form role="search" method="post">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search">
+                                    <input type="text" class="form-control" placeholder="ძებნა">
                                     <button class="btn" type="button" id="button-addon2"><i class="feather-search"></i></button>
                                 </div>
                             </form>
@@ -268,21 +268,20 @@
                         </div>
 
                         <div class="widget all_services_list">
-                            <h4 class="section-head-small mb-4">Categories</h4> 
+                            <h4 class="section-head-small mb-4">კატეგორიები</h4> 
                             <div class="all_services m-b30">
                                 <ul>
-                                    <li><a href="job-detail.html">Categories</a> <span class="badge">08</span></li>
-                                    <li><a href="job-detail.html">Education</a> <span class="badge">12</span></li>
-                                    <li><a href="job-detail.html">Information</a><span class="badge">15</span></li>
-                                    <li><a href="job-detail.html">Jobs</a><span class="badge">25</span></li>
-                                    <li><a href="job-detail.html">Learn</a><span class="badge">36</span></li>
-                                    <li><a href="job-detail.html">Skill</a><span class="badge">12</span></li>
+                                    <li><a href="job-detail.html">განათლება</a> <span class="badge">08</span></li>
+                                    <li><a href="job-detail.html">ინფორმაცია</a> <span class="badge">12</span></li>
+                                    <li><a href="job-detail.html">სამსახური</a><span class="badge">15</span></li>
+                                    <li><a href="job-detail.html">სწავლა</a><span class="badge">25</span></li>
+                                    <li><a href="job-detail.html">უნარები</a><span class="badge">36</span></li>
                                 </ul>
                             </div>
                         </div>
 
                         <div class="widget recent-posts-entry">
-                            <h4 class="section-head-small mb-4">Recent Article</h4>
+                            <h4 class="section-head-small mb-4">ბოლო სტატია</h4>
                             <div class="section-content">
                                 <div class="widget-post-bx">
 
@@ -363,18 +362,17 @@
                        
 
                         <div class="widget tw-sidebar-tags-wrap">
-                            <h4 class="section-head-small mb-4">Tags</h4>
+                            <h4 class="section-head-small mb-4">თაგები</h4>
                             
                             <div class="tagcloud">
-                                <a href="job-list.html">General</a>
-                                <a href="job-list.html">Jobs </a>
-                                <a href="job-list.html">Payment</a>                                            
-                                <a href="job-list.html">Application </a>
-                                <a href="job-list.html">Work</a>
-                                <a href="job-list.html">Recruiting</a>
-                                <a href="job-list.html">Employer</a>
-                                <a href="job-list.html">Income</a>
-                                <a href="job-list.html">Tips</a>
+                                <a href="job-list.html">ვაკანსია</a>
+                                <a href="job-list.html">გადახდა</a>
+                                <a href="job-list.html">განაცხადი</a>                                            
+                                <a href="job-list.html">სამუშაო </a>
+                                <a href="job-list.html">დაქირავება</a>
+                                <a href="job-list.html">დამსაქმებელი</a>
+                                <a href="job-list.html">შემოსავალი</a>
+                                <a href="job-list.html">რჩევები</a>
                             </div>
                         </div>
                         

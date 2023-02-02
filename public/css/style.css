@@ -36,7 +36,13 @@ body {
 .sheduldeSideBar h4,
 .mapLocationSideBar h4 {
   color: #eb5c90;
-} 
+}
+
+.aboutUsText h4 {
+  padding-top: 5%;
+  text-align: justify;
+  font-weight: bold;
+}
 
 /* Author: thewebmax team
 =========================

@@ -518,7 +518,6 @@
                                 <div class="twm-r-circle-1"></div>
                                 <div class="twm-r-circle-2"></div>
 
-                                <div class="twm-title-small">რეზიუმე</div>
                                 <div class="twm-title-large">
                                     <h2>ჯერ კიდევ ვერ მოძებნეთ
                                     შესაბამისი სამსახური?

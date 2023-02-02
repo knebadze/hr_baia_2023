@@ -20,7 +20,7 @@
                     
                         <div>
                             <ul class="wt-breadcrumb breadcrumb-style-2">
-                                <li><a href="{{ url ('/') }}">მთავარი / </a></li>
+                                <li><a href="{{ url ('/') }}">მთავარი</a> / </li>
                                 <li>ინდივიდუალური ვაკანსიები</li>
                             </ul>
                         </div>

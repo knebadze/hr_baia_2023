@@ -10,20 +10,29 @@
     <div class="wt-bnr-inr overlay-wraper bg-center" style="background-image:url(images/banner/1.jpg);">
         <div class="overlay-main site-bg-white opacity-01"></div>
         <div class="container">
-            <div class="wt-bnr-inr-entry">
+            <div class="wt-bnr-inr-entry aboutUsText">
                 <div class="banner-title-outer">
                     <div class="banner-title-name">
-                        <h2 class="wt-title">About Us</h2>
+                        <h2 class="wt-title">ჩვენს შესახებ</h2>
                     </div>
                 </div>
                 <!-- BREADCRUMB ROW -->
 
                     <div>
                         <ul class="wt-breadcrumb breadcrumb-style-2">
-                            <li><a href="index.html">Home</a></li>
-                            <li>About Us</li>
+                            <li><a href="{{ url ('/') }}">მთავარი</a> / </li>
+                            <li>ჩვენს შესახებ</li>
                         </ul>
                     </div>
+                    <h4>
+                        თბილისის საოჯახო პერსონალის საკადრო ცენტრი ,,ბაია“   გთავაზობთ  
+                        პერსონალის ოპერატიულ და პროფესიონალურ დონეზე შერჩევას,  
+                        როგორც საოჯახო პერსონალის (ძიძების, გუვერნანტების, ოჯახში დამხმარეების, 
+                        მოხუცისა თუ ავადმყოფის მომვლელების, პერსონალური მძღოლების, საკარმიდამო ნაკვეთში 
+                        ოჯახური წყვილების)სახით,  ასევე სასტუმრო/რესტორნებისა და მაღაზიების ქსელისათვის მენეჯერების, 
+                        ადმინისტრატორების, ჭურჭლის მრეცხავებისა თუ დამლაგებლების, მოლარე-ოპერატორების, 
+                        მზარეულებისა და მრავალი სხვა პროფილით  როგორც საქართველოში ასევე საზღვარგარეთ.
+                    </h4>
 
                 <!-- BREADCRUMB ROW END -->
             </div>
@@ -37,9 +46,9 @@
         <!-- TITLE START-->
         <div class="section-head center wt-small-separator-outer">
             <div class="wt-small-separator site-text-primary">
-               <div>Jobs by Categories</div>
+               <div>სამსახურები კატეგორიების მიხედვით</div>
             </div>
-            <h2 class="wt-title">Choose Your Desire Category</h2>
+            <h2 class="wt-title">აირჩიეთ სასურველი კატეგორია</h2>
         </div>
         <!-- TITLE END-->
 
@@ -57,8 +66,8 @@
                                     <div class="flaticon-dashboard"></div>
                                 </div>
                                 <div class="twm-content">
-                                    <div class="twm-jobs-available">9,185 Jobs</div>
-                                    <a href="job-detail.html">Business Development</a>
+                                    <div class="twm-jobs-available">9,185 ვაკანსია</div>
+                                    <a href="job-detail.html">ძიძა</a>
                                 </div>
                             </div>
                         </div>
@@ -70,8 +79,8 @@
                                     <div class="flaticon-project-management"></div>
                                 </div>
                                 <div class="twm-content">
-                                    <div class="twm-jobs-available">3,205 Jobs</div>
-                                    <a href="job-detail.html">Project Management</a>
+                                    <div class="twm-jobs-available">3,205 ვაკანსია</div>
+                                    <a href="job-detail.html">ჭურჭლის მრეცხავი</a>
                                 </div>
                             </div>
                         </div>
@@ -83,8 +92,8 @@
                                     <div class="flaticon-note"></div>
                                 </div>
                                 <div class="twm-content">
-                                    <div class="twm-jobs-available">2,100 Jobs</div>
-                                    <a href="job-detail.html">Content Writer</a>
+                                    <div class="twm-jobs-available">2,100 ვაკანსია</div>
+                                    <a href="job-detail.html">მომვლელი</a>
                                 </div>
                             </div>
                         </div>
@@ -96,8 +105,8 @@
                                     <div class="flaticon-customer-support"></div>
                                 </div>
                                 <div class="twm-content">
-                                    <div class="twm-jobs-available">1,500 Jobs</div>
-                                    <a href="job-detail.html">Costomer Services</a>
+                                    <div class="twm-jobs-available">1,500 ვაკანსია</div>
+                                    <a href="job-detail.html">მზარეული</a>
                                 </div>
                             </div>
                         </div>
@@ -109,8 +118,8 @@
                                     <div class="flaticon-bars"></div>
                                 </div>
                                 <div class="twm-content">
-                                    <div class="twm-jobs-available">9,185 Jobs</div>
-                                    <a href="job-detail.html">Finance</a>
+                                    <div class="twm-jobs-available">9,185 ვაკანსია</div>
+                                    <a href="job-detail.html">მენეჯერი</a>
                                 </div>
                             </div>
                         </div>
@@ -122,8 +131,8 @@
                                     <div class="flaticon-user"></div>
                                 </div>
                                 <div class="twm-content">
-                                    <div class="twm-jobs-available">3,205 Jobs</div>
-                                    <a href="job-detail.html">Marketing</a>
+                                    <div class="twm-jobs-available">3,205 ვაკანსია</div>
+                                    <a href="job-detail.html">მარკეტინგი</a>
                                 </div>
                             </div>
                         </div>
@@ -135,8 +144,8 @@
                                     <div class="flaticon-computer"></div>
                                 </div>
                                 <div class="twm-content">
-                                    <div class="twm-jobs-available">2,100 Jobs</div>
-                                    <a href="job-detail.html">Design &amp; Art</a>
+                                    <div class="twm-jobs-available">2,100 ვაკანსია</div>
+                                    <a href="job-detail.html">მძღოლი</a>
                                 </div>
                             </div>
                         </div>
@@ -148,8 +157,8 @@
                                     <div class="flaticon-coding"></div>
                                 </div>
                                 <div class="twm-content">
-                                    <div class="twm-jobs-available">1,500 Jobs</div>
-                                    <a href="job-detail.html">Web Development</a>
+                                    <div class="twm-jobs-available">1,500 ვაკანსია</div>
+                                    <a href="job-detail.html">ადმინისტრატორი</a>
                                 </div>
                             </div>
                         </div>
@@ -158,7 +167,7 @@
                 </div>
 
                 <div class="text-center job-categories-btn">
-                    <a href="job-grid.html" class=" site-button">All Categories</a>
+                    <a href="job-grid.html" class=" site-button">ყველა კატეგორია</a>
                 </div>
 
             </div>
@@ -177,27 +186,27 @@
                     <!-- TITLE START-->
                         <div class="section-head left wt-small-separator-outer">
                             <div class="wt-small-separator site-text-primary">
-                            <div>How It Works </div>
+                            <div>როგორ მუშაობს </div>
                             </div>
-                            <h2 class="wt-title">Follow our steps we will help you.</h2>
+                            <h2 class="wt-title">მიჰყევით ჩვენს ნაბიჯებს, ჩვენ დაგეხმარებით.</h2>
 
                         </div>
                         <ul class="description-list">
                             <li>
                                 <i class="feather-check"></i>
-                                Trusted & Quality Job
+                                სანდო და ხარისხიანი სამუშაო
                             </li>
                             <li>
                                 <i class="feather-check"></i>
-                                International Job
+                                საერთაშორისო სამუშაო
                             </li>
                             <li>
                                 <i class="feather-check"></i>
-                                No Extra Charge
+                                დამატებითი გადასახადის გარეშე
                             </li>
                             <li>
                                 <i class="feather-check"></i>
-                                Top Companies
+                                ტოპ კომპანიები
                             </li>
                         </ul>
                     <!-- TITLE END-->
@@ -212,8 +221,8 @@
                                         <div class="twm-media">
                                             <span><img src="images/work-process/icon1.png" alt="icon1"></span>
                                         </div>
-                                        <h4 class="twm-title">Register<br>Your Account</h4>
-                                        <p>You need to create an account to find the best and preferred job.</p>
+                                        <h4 class="twm-title">დაარეგისტრირეთ<br>ექაუნთი</h4>
+                                        {{-- <p>თქვენ უნდა შექმნათ ანგარიში, რომ იპოვოთ საუკეთესო და სასურველი სამუშაო.</p> --}}
                                     </div>
 
                                 </div>
@@ -226,9 +235,9 @@
                                         <div class="twm-media">
                                             <span><img src="images/work-process/icon4.png" alt="icon1"></span>
                                         </div>
-                                        <h4 class="twm-title">Search <br>
-                                            Your Job</h4>
-                                        <p>You need to create an account to find the best and preferred job.</p>
+                                        <h4 class="twm-title">მოძებნე <br>
+                                            სასურველი ვაკანსია</h4>
+                                        {{-- <p>მოძებნეთ სასურველი ვაკანსია და დაგვეკონტაქტეთ</p> --}}
                                     </div>
 
                                 </div>
@@ -241,8 +250,8 @@
                                         <div class="twm-media">
                                             <span><img src="images/work-process/icon3.png" alt="icon1"></span>
                                         </div>
-                                        <h4 class="twm-title">Apply <br>For Dream Job</h4>
-                                        <p>You need to create an account to find the best and preferred job.</p>
+                                        <h4 class="twm-title">დაადასტურეთ <br>თქვენი ვაკანსია</h4>
+                                        {{-- <p>You need to create an account to find the best and preferred job.</p> --}}
                                     </div>
 
                                 </div>
@@ -255,8 +264,8 @@
                                         <div class="twm-media">
                                             <span><img src="images/work-process/icon3.png" alt="icon1"></span>
                                         </div>
-                                        <h4 class="twm-title">Upload <br>Your Resume</h4>
-                                        <p>You need to create an account to find the best and preferred job.</p>
+                                        <h4 class="twm-title">ატვირთეთ <br>თქვენი რეზიუმე</h4>
+                                        {{-- <p>You need to create an account to find the best and preferred job.</p> --}}
                                     </div>
 
                                 </div>
@@ -302,15 +311,12 @@
                                 <div class="twm-r-circle-1"></div>
                                 <div class="twm-r-circle-2"></div>
 
-                                <div class="twm-title-small">Explore New Life</div>
                                 <div class="twm-title-large">
-                                    <h2>Don’t just find. be found
-                                    put your CV in front of
-                                    great employers </h2>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry the standard dummy text ever since the  when an printer took.</p>
+                                    <h2>ჯერ კიდევ ვერ მოძებნეთ შესაბამისი სამსახური? ატვირთეთ თქვენი რეზიუმე </h2>
+                                    <p>Lorem Ipsum არის უბრალოდ ბეჭდვისა და ბეჭდვის ინდუსტრიის მოჩვენებითი ტექსტი, სტანდარტული მოჩვენებითი ტექსტი მას შემდეგ, რაც პრინტერი აიღო.</p>
                                 </div>
                                 <div class="twm-upload-file">
-                                    <button type="button" class="site-button">Upload Your Resume <i class="feather-upload"></i></button>
+                                    <button type="button" class="site-button">რეზიუმეს ატვირთვა <i class="feather-upload"></i></button>
                                 </div>
 
 
@@ -333,9 +339,9 @@
         <!-- TITLE START-->
         <div class="section-head center wt-small-separator-outer">
             <div class="wt-small-separator site-text-primary">
-               <div>Top Companies</div>
+               <div>ტოპ კომპანიები</div>
             </div>
-            <h2 class="wt-title">Get hired in top companies</h2>
+            <h2 class="wt-title">იიღეთ შემოთავაზებები ტოპ კომპანიებში</h2>
         </div>
         <!-- TITLE END-->
 
