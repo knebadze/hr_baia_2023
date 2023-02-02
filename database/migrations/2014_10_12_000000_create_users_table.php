@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('name_en')->nullable();
             $table->string('name_ru')->nullable();
             $table->string('email')->unique();
-            $table->string('phone')->nullable()->unique();
+            $table->string('number')->nullable()->unique();
             $table->date('date_of_birth')->nullable();
             $table->foreignId('gender_id')->nullable()->constrained();
             $table->string('avatar', 255)->nullable();
