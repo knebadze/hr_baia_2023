@@ -69,8 +69,8 @@
                         {{-- <form> --}}
 
                             <div class="modal-header">
-                                <h2 class="modal-title" id="sign_up_popupLabel">Sign Up</h2>
-                                <p>Sign Up and get access to all the features of Jobzilla</p>
+                                <h2 class="modal-title" id="sign_up_popupLabel">რეგისტრაცია</h2>
+                                <p>დარეგისტრირდით და მიიღეთ წვდომა ვებ გვერდზე</p>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
 
@@ -92,67 +92,7 @@
                                     <!--Signup Candidate Content-->
                                     <div class="tab-pane fade show active" id="sign-candidate">
                                         <div class="row">
-                                            {{-- <form method="POST" action="{{ route('register') }}">
-                                                @csrf
-
-                                                <div class="row mb-3">
-                                                    <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
-
-                                                    <div class="col-md-6">
-                                                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                                                        @error('name')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $message }}</strong>
-                                                            </span>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-
-                                                <div class="row mb-3">
-                                                    <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                                                    <div class="col-md-6">
-                                                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                                                        @error('email')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $message }}</strong>
-                                                            </span>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-
-                                                <div class="row mb-3">
-                                                    <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                                                    <div class="col-md-6">
-                                                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                                        @error('password')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $message }}</strong>
-                                                            </span>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-
-                                                <div class="row mb-3">
-                                                    <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
-
-                                                    <div class="col-md-6">
-                                                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                                                    </div>
-                                                </div>
-
-                                                <div class="row mb-0">
-                                                    <div class="col-md-6 offset-md-4">
-                                                        <button type="submit" class="btn btn-primary">
-                                                            {{ __('Register') }}
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </form>  --}}
+                             
                                             <form method="POST" action="{{ route('register') }}">
                                                 @csrf
                                                 <div class="col-lg-12">
@@ -179,12 +119,6 @@
                                                     </div>
                                                 </div>
 
-                                                {{-- <div class="col-lg-12">
-                                                    <div class="form-group mb-3">
-                                                        <input name="phone" type="text" class="form-control"  placeholder="Email*">
-                                                    </div>
-                                                </div> --}}
-
                                                 <div class="col-lg-12">
                                                     <div class="input-group  mb-3">
                                                         <span class="input-group-text border border-0">+995</span>
@@ -210,7 +144,6 @@
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <p>სქესი</p>
-                                                    {{-- <div class="d-flex"> --}}
                                                         <div class="form-check form-check-inline">
                                                             <input type="radio" name="gender_id" value="1" class="form-check-input" id="exampleradio1">
                                                             <label class="form-check-label" for="exampleradio1">კაცი</label>
@@ -219,7 +152,6 @@
                                                             <input type="radio" name="gender_id" value="2" class="form-check-input" id="exampleradio1">
                                                             <label class="form-check-label" for="exampleradio1">ქალი</label>
                                                         </div>
-                                                    {{-- </div> --}}
 
                                                 </div>
                                                 <div class="col-lg-6">
@@ -227,7 +159,6 @@
                                                         <label>დაბადების თარიღი</label>
                                                         <div class="ls-inputicon-box">
                                                             <input class="form-control "  name="date_of_birth" type="date" placeholder="mm/dd/yyyy">
-                                                            {{-- <i class="fs-input-icon far fa-calendar"></i> --}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -248,51 +179,7 @@
                                             </form>
                                         </div>
                                     </div>
-                                    <!--Signup Employer Content-->
-                                    {{-- <div class="tab-pane fade" id="sign-Employer">
-                                        <div class="row">
 
-                                            <div class="col-lg-12">
-                                                <div class="form-group mb-3">
-                                                    <input name="username" type="text" class="form-control" placeholder="Usearname*">
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-12">
-                                                <div class="form-group mb-3">
-                                                    <input name="email" type="text" class="form-control" required="" placeholder="Password*">
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-12">
-                                                <div class="form-group mb-3">
-                                                    <input name="phone" type="text" class="form-control" required="" placeholder="Email*">
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-12">
-                                                <div class="form-group mb-3">
-                                                    <input name="phone" type="text" class="form-control" required="" placeholder="Phone*">
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-12">
-                                                <div class="form-group mb-3">
-                                                    <div class=" form-check">
-                                                        <input type="checkbox" class="form-check-input" id="agree2">
-                                                        <label class="form-check-label" for="agree2">I agree to the <a href="javascript:;">Terms and conditions</a></label>
-                                                        <p>Already registered?
-                                                            <button class="twm-backto-login" data-bs-target="#sign_up_popup2" data-bs-toggle="modal" data-bs-dismiss="modal">Log in here</button>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <button type="submit" class="site-button">Sign Up</button>
-                                            </div>
-
-                                        </div>
-                                    </div> --}}
 
                                     </div>
                                 </div>
@@ -302,8 +189,6 @@
                                 <span class="modal-f-title">Login or Sign up with</span>
                                 <ul class="twm-modal-social">
                                     <li><a href="{{ route('auth.social.redirect', 'facebook') }}" class="facebook-clr"><i class="fab fa-facebook-f"></i></a></li>
-                                    {{-- <li><a href="javascript.html" class="twitter-clr"><i class="fab fa-twitter"></i></a></li> --}}
-                                    {{-- <li><a href="javascript.html" class="linkedin-clr"><i class="fab fa-linkedin-in"></i></a></li> --}}
                                     <li><a href="{{ route('auth.social.redirect', 'google') }}" class="google-clr"><i class="fab fa-google"></i></a></li>
                                 </ul>
                             </div>
