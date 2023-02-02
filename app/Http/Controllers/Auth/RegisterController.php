@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use App\Models\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
+use Stichoza\GoogleTranslate\GoogleTranslate;
+use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
@@ -51,10 +52,10 @@ class RegisterController extends Controller
     {
         // dd($data);
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'name_ka' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'phone' => ['required', 'size:9'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            // 'number' => ['required', 'size:9'],
+            'password' => ['required', 'string', 'min:8'],
         ]);
     }
 
@@ -66,10 +67,15 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        dd($data);
+        // dd($data);
+        $en = new GoogleTranslate('en');
+        $ru = new GoogleTranslate('ru');
+        // GoogleTranslate::trans($data['name_ka'])
         return User::create([
             'user_type_id' =>$data['user_type_id'],
-            'name' => $data['name'],
+            'name_ka' => $data['name_ka'],
+            'name_en' => $en->translate($data['name_ka']),
+            'name_ru' => $ru->translate($data['name_ka']),
             'email' => $data['email'],
             'date_of_birth' => $data['date_of_birth'],
             'gender_id' => $data['gender_id'],

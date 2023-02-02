@@ -75,29 +75,30 @@
                             </div>
 
                             <div class="modal-body">
+                                <form method="POST" action="{{ route('register') }}">
+                                    @csrf
                                 <div class="twm-tabs-style-2">
                                     <ul class="nav nav-tabs" id="myTab" role="tablist">
 
                                     <!--Signup Candidate-->
                                     <li class="nav-item" role="presentation">
-                                        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#sign-candidate" type="button"><i class="fas fa-user-tie"></i>Candidate</button>
+                                        <button class="nav-link"  id="candidateEvent"  type="button"><i class="fas fa-user-tie"></i>Candidate</button>
                                     </li>
                                     <!--Signup Employer-->
                                     <li class="nav-item" role="presentation">
-                                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#sign-Employer" type="button"><i class="fas fa-building"></i>Employer</button>
+                                        <button class="nav-link" id="employerEvent"   type="button"><i class="fas fa-building"></i>Employer</button>
                                     </li>
-
+                                    <input type="text" name="user_type_id" value="" id="user_type_id" hidden>
                                     </ul>
                                     <div class="tab-content" id="myTabContent">
                                     <!--Signup Candidate Content-->
                                     <div class="tab-pane fade show active" id="sign-candidate">
                                         <div class="row">
-                             
-                                            <form method="POST" action="{{ route('register') }}">
-                                                @csrf
+
+
                                                 <div class="col-lg-12">
                                                     <div class="form-group mb-3">
-                                                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="სახელი გვარი*">
+                                                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name_ka" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="სახელი გვარი*">
 
                                                         @error('name')
                                                             <span class="invalid-feedback" role="alert">
@@ -122,11 +123,11 @@
                                                 <div class="col-lg-12">
                                                     <div class="input-group  mb-3">
                                                         <span class="input-group-text border border-0">+995</span>
-                                                        <input name="phone" type="text" class="form-control"  placeholder="ნომერი*">
+                                                        <input name="number" type="text" class="form-control"  placeholder="ნომერი*">
                                                     </div>
                                                 </div>
 
-                                                <div class="col-lg-6">
+                                                <div class="col-lg-12">
                                                     <div class="form-group mb-3">
                                                         <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="პაროლი*">
 
@@ -137,30 +138,34 @@
                                                         @enderror
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-6">
+                                                {{-- <div class="col-lg-6">
                                                     <div class="form-group mb-3">
                                                         <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="გაიმეორე პაროლი*">
                                                     </div>
-                                                </div>
-                                                <div class="col-lg-6">
+                                                </div> --}}
+
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label>დაბადების თარიღი</label>
+                                                            <div class="ls-inputicon-box">
+                                                                <input class="form-control "  name="date_of_birth" type="date" placeholder="mm/dd/yyyy">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <div class="col-lg-5">
                                                     <p>სქესი</p>
                                                         <div class="form-check form-check-inline">
                                                             <input type="radio" name="gender_id" value="1" class="form-check-input" id="exampleradio1">
                                                             <label class="form-check-label" for="exampleradio1">კაცი</label>
                                                         </div>
                                                         <div class="form-check form-check-inline">
-                                                            <input type="radio" name="gender_id" value="2" class="form-check-input" id="exampleradio1">
-                                                            <label class="form-check-label" for="exampleradio1">ქალი</label>
+                                                            <input type="radio" name="gender_id" value="2" class="form-check-input" id="exampleradio2">
+                                                            <label class="form-check-label" for="exampleradio2">ქალი</label>
                                                         </div>
 
                                                 </div>
-                                                <div class="col-lg-6">
-                                                    <div class="form-group">
-                                                        <label>დაბადების თარიღი</label>
-                                                        <div class="ls-inputicon-box">
-                                                            <input class="form-control "  name="date_of_birth" type="date" placeholder="mm/dd/yyyy">
-                                                        </div>
-                                                    </div>
+
                                                 </div>
                                                 <div class="col-lg-12">
                                                     <div class="form-group mb-3">
@@ -176,13 +181,14 @@
                                                 <div class="col-md-12">
                                                     <button type="submit" class="site-button">Sign Up</button>
                                                 </div>
-                                            </form>
+
                                         </div>
                                     </div>
 
 
                                     </div>
                                 </div>
+                            </form>
                             </div>
 
                             <div class="modal-footer">
@@ -337,5 +343,7 @@
     <script  src="{{ asset('js/dataTables.bootstrap5.min.js') }}"></script><!-- Datatable -->
     <script  src="{{ asset('js/chart.js') }}"></script><!-- Chart -->
     <script  src="{{ asset('js/custom.js') }}"></script><!-- CUSTOM FUCTIONS  -->
+    <script  src="{{ asset('js/my.js') }}"></script><!-- MY ADD JS  -->
+
 </body>
 </html>
