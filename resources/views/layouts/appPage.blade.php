@@ -82,11 +82,11 @@
 
                                     <!--Signup Candidate-->
                                     <li class="nav-item" role="presentation">
-                                        <button class="nav-link"  id="candidateEvent"  type="button"><i class="fas fa-user-tie"></i>Candidate</button>
+                                        <button class="nav-link"  id="candidateEvent"  type="button"><i class="fas fa-user-tie"></i>კანდიდატი</button>
                                     </li>
                                     <!--Signup Employer-->
                                     <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="employerEvent"   type="button"><i class="fas fa-building"></i>Employer</button>
+                                        <button class="nav-link" id="employerEvent"   type="button"><i class="fas fa-building"></i>დამსაქმებელი</button>
                                     </li>
                                     <input type="text" name="user_type_id" value="" id="user_type_id" hidden>
                                     </ul>
@@ -217,7 +217,7 @@
                             </div>
                             <div class="modal-body">
                                 <div class="twm-tabs-style-2">
-                                    <ul class="nav nav-tabs" id="myTab2" role="tablist">
+                                    {{-- <ul class="nav nav-tabs" id="myTab2" role="tablist">
 
                                         <!--Login Candidate-->
                                         <li class="nav-item">
@@ -228,22 +228,36 @@
                                             <button class="nav-link" data-bs-toggle="tab" data-bs-target="#login-Employer" type="button"><i class="fas fa-building"></i>Employer</button>
                                         </li>
 
-                                    </ul>
+                                    </ul> --}}
 
                                     <div class="tab-content" id="myTab2Content">
+                                        <form method="POST" action="{{ route('login') }}">
+                                            @csrf
                                         <!--Login Candidate Content-->
                                         <div class="tab-pane fade show active" id="login-candidate">
                                             <div class="row">
 
                                                 <div class="col-lg-12">
                                                     <div class="form-group mb-3">
-                                                        <input name="username" type="text" required="" class="form-control" placeholder="Usearname*">
+                                                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="ემაილი*">
+
+                                                        @error('email')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
                                                     </div>
                                                 </div>
 
                                                 <div class="col-lg-12">
                                                     <div class="form-group mb-3">
-                                                        <input name="email" type="text" class="form-control" required="" placeholder="Password*">
+                                                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="პაროლი*">
+
+                                                        @error('password')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
                                                     </div>
                                                 </div>
 
@@ -258,7 +272,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <button type="submit" class="site-button">Log in</button>
+                                                    <button type="submit" class="site-button">შესვლა</button>
                                                     <div class="mt-3 mb-3">Don't have an account ?
                                                         <button class="twm-backto-login" data-bs-target="#sign_up_popup" data-bs-toggle="modal" data-bs-dismiss="modal">Sign Up</button>
                                                     </div>
@@ -266,8 +280,9 @@
 
                                             </div>
                                         </div>
+                                        </form>
                                         <!--Login Employer Content-->
-                                        <div class="tab-pane fade" id="login-Employer">
+                                        {{-- <div class="tab-pane fade" id="login-Employer">
                                             <div class="row">
 
                                                 <div class="col-lg-12">
@@ -300,7 +315,7 @@
                                                 </div>
 
                                             </div>
-                                        </div>
+                                        </div> --}}
 
                                     </div>
                                 </div>
