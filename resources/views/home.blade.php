@@ -53,9 +53,9 @@
                         </div>
                         <div class="twm-mid-content text-center">
                             <a href="candidate-detail.html" class="twm-job-title">
-                                <h4>Randall Henderson </h4>
+                                <h4>{{ Auth::user()->name_ka }} </h4>
                             </a>
-                            <p>IT Contractor</p>
+                            {{-- <p>IT Contractor</p> --}}
                         </div>
 
                         <div class="twm-nav-list-1">
@@ -80,8 +80,8 @@
                     <!--Filter Short By-->
                     <div class="twm-right-section-panel site-bg-gray">
                         <div class="wt-admin-right-page-header">
-                            <h2>Randall Henderson</h2>
-                            <p>IT Contractor</p>
+                            <h2>{{ Auth::user()->name_ka }}</h2>
+                            {{-- <p>IT Contractor</p> --}}
                         </div>
 
                         <div class="twm-dash-b-blocks mb-5">

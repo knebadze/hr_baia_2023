@@ -156,6 +156,11 @@
                                 </a>
                             </div>
                         @else
+                        <div class="twm-nav-btn-right">
+                            <a href="{{ route('home') }}" class="twm-nav-post-a-job">
+                                <i class="feather-user"></i> კაბინეტი
+                            </a>
+                        </div>
                         <div class="twm-nav-btn-left">
                             <a class="twm-nav-sign-up" data-bs-toggle="modal" href="{{ route('logout') }}" role="button"
                             onclick="event.preventDefault();
@@ -167,11 +172,7 @@
                                 @csrf
                             </form>
                         </div>
-                        <div class="twm-nav-btn-right">
-                            <a href="dash-post-job.html" class="twm-nav-post-a-job">
-                                <i class="feather-briefcase"></i> Post a job
-                            </a>
-                        </div>
+
                         @endguest
                         </div>
                     </div>

@@ -51,7 +51,7 @@
     </div>
     <!-- LOADING AREA  END ====== -->
 
-    <div class="page-wraper" id="appPage">
+    <div class="page-wraper" id="app">
 
         @include('inc.header')
 
@@ -369,7 +369,6 @@
                 </div>
             </div>
         <!--Model Popup Section End-->
-        <log-in></log-in>
     </div>
 
     <!-- JAVASCRIPT  FILES ========================================= -->
