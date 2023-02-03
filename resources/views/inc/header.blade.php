@@ -37,8 +37,8 @@
                         </li> --}}
                         <li class="has-child"><a href="javascript:;">ვაკანსიები</a>
                             <ul class="sub-menu">
-                                <li><a href="{{ url ('individual') }}">ინდივიდუალური ვაკანსიები</a></li>
-                                <li><a href="{{ url ('company') }}">კომპანიის ვაკანსიები</a></li>
+                                <li><a href="{{ url ('individual') }}">ინდივიდუალური</a></li>
+                                <li><a href="{{ url ('company') }}">კომპანიის</a></li>
                                 <li><a href="{{ url ('onmap') }}">ვაკანსიები რუკაზე</a></li>
                                 {{-- <li><a href="job-grid.html">Jobs Grid</a></li>
                                 <li><a href="job-grid-with-map.html">Jobs Grid with Map</a></li>
@@ -169,7 +169,7 @@
                         </div>
                         <div class="twm-nav-btn-right">
                             <a href="dash-post-job.html" class="twm-nav-post-a-job">
-                                <i class="feather-briefcase"></i> დაამატე ვაკანსია
+                                <i class="feather-briefcase"></i> Post a job
                             </a>
                         </div>
                         @endguest
