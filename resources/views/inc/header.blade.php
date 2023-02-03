@@ -169,7 +169,7 @@
                         </div>
                         <div class="twm-nav-btn-right">
                             <a href="dash-post-job.html" class="twm-nav-post-a-job">
-                                <i class="feather-briefcase"></i> Post a job
+                                <i class="feather-briefcase"></i> დაამატე ვაკანსია
                             </a>
                         </div>
                         @endguest
