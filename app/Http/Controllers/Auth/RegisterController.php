@@ -56,6 +56,11 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             // 'number' => ['required', 'size:9'],
             'password' => ['required', 'string', 'min:8'],
+        ],
+        [
+            'name_ka.required' => 'სახელი და გვარის შევსება სავალდებულოა',
+            'email.required' => 'ემაილის შევსება სავალდებულოა',
+            'email.email' => 'ემაილი აუცილებლად უნდა შეიცავდეს "@" სიმბოლოს'
         ]);
     }
 
@@ -67,17 +72,17 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        // dd($data);
+        dd($data);
         // $tr= new GoogleTranslate();
-        $name_en = GoogleTranslate::trans($data['name_ka'], 'en');
-        $name_ru = GoogleTranslate::trans($data['name_ka'], 'ru');
+        // $name_en = GoogleTranslate::trans($data['name_ka'], 'en');
+        // $name_ru = GoogleTranslate::trans($data['name_ka'], 'ru');
         // dd();
         // GoogleTranslate::trans($data['name_ka'])
         return User::create([
             'user_type_id' =>$data['user_type_id'],
             'name_ka' => $data['name_ka'],
-            'name_en' => $name_en,
-            'name_ru' => $name_ru,
+            // 'name_en' => $name_en,
+            // 'name_ru' => $name_ru,
             'email' => $data['email'],
             'date_of_birth' => $data['date_of_birth'],
             'gender_id' => $data['gender_id'],

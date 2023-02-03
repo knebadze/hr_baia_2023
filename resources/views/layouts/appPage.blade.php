@@ -35,6 +35,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/datepicker.css') }}"><!-- DATEPICKER STYLE SHEET -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/flaticon.css') }}"> <!-- Flaticon -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}"><!-- MAIN STYLE SHEET -->
+    <script  src="{{ asset('js/jquery-3.6.0.min.js') }}"></script><!-- JQUERY.MIN JS -->
 
     {{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
 </head>
@@ -60,7 +61,13 @@
 
         <!-- BUTTON TOP START -->
 		<button class="scroltop"><span class="fa fa-angle-up  relative" id="btn-vibrate"></span></button>
-
+        @if (count($errors) > 0)
+        <script>
+            $( document ).ready(function() {
+                $('#sign_up_popup').modal('show');
+            });
+        </script>
+        @endif
         <!--Model Popup Section Start-->
             <!--Signup popup -->
             <div class="modal fade twm-sign-up" id="sign_up_popup" aria-hidden="true" aria-labelledby="sign_up_popupLabel" tabindex="-1">
@@ -73,34 +80,45 @@
                                 <p>დარეგისტრირდით და მიიღეთ წვდომა ვებ გვერდზე</p>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-
                             <div class="modal-body">
                                 <form method="POST" action="{{ route('register') }}">
                                     @csrf
                                 <div class="twm-tabs-style-2">
                                     <ul class="nav nav-tabs" id="myTab" role="tablist">
 
-                                    <!--Signup Candidate-->
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link"  id="candidateEvent"  type="button"><i class="fas fa-user-tie"></i>კანდიდატი</button>
-                                    </li>
-                                    <!--Signup Employer-->
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="employerEvent"   type="button"><i class="fas fa-building"></i>დამსაქმებელი</button>
-                                    </li>
-                                    <input type="text" name="user_type_id" value="" id="user_type_id" hidden>
+                                        <!--Signup Candidate-->
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link"  id="candidateEvent"  type="button"><i class="fas fa-user-tie"></i>კანდიდატი</button>
+                                        </li>
+                                        <!--Signup Employer-->
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="employerEvent"   type="button"><i class="fas fa-building"></i>დამსაქმებელი</button>
+                                        </li>
+
                                     </ul>
+                                    <ul class="nav nav-tabs visually-hidden" id="employerTypeChoice" role="tablist">
+
+                                        <!--Signup Candidate-->
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link"  id="personalEmployer"  type="button"><i class="fas fa-user-tie"></i>ფიზიკური პირი</button>
+                                        </li>
+                                        <!--Signup Employer-->
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="companyEmployer"   type="button"><i class="fas fa-building"></i>კომპანია</button>
+                                        </li>
+                                    </ul>
+                                    <input type="text" name="user_type_id" value="{{ old('user_type_id') }}" id="user_type_id" hidden>
                                     <div class="tab-content" id="myTabContent">
                                     <!--Signup Candidate Content-->
-                                    <div class="tab-pane fade show active" id="sign-candidate">
+                                    <div class="tab-pane fade show active" id="sign-up">
                                         <div class="row">
 
 
                                                 <div class="col-lg-12">
                                                     <div class="form-group mb-3">
-                                                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name_ka" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="სახელი გვარი*">
+                                                        <input id="name_ka" type="text" class="form-control @error('name_ka') is-invalid @enderror" name="name_ka" value="{{ old('name_ka') }}"  autocomplete="name_ka" autofocus placeholder="სახელი გვარი*">
 
-                                                        @error('name')
+                                                        @error('name_ka')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
                                                             </span>
@@ -144,16 +162,16 @@
                                                     </div>
                                                 </div> --}}
 
-                                                <div class="d-flex justify-content-between">
+                                                <div class="d-flex justify-content-between" id="date_gender">
                                                     <div class="col-lg-6">
                                                         <div class="form-group">
                                                             <label>დაბადების თარიღი</label>
                                                             <div class="ls-inputicon-box">
-                                                                <input class="form-control "  name="date_of_birth" type="date" placeholder="mm/dd/yyyy">
+                                                                <input class="form-control " id="date_of_birth"  name="date_of_birth" type="date" placeholder="mm/dd/yyyy">
                                                             </div>
                                                         </div>
                                                     </div>
-                                                <div class="col-lg-5">
+                                                <div class="col-lg-5" >
                                                     <p>სქესი</p>
                                                         <div class="form-check form-check-inline">
                                                             <input type="radio" name="gender_id" value="1" class="form-check-input" id="exampleradio1">
@@ -338,7 +356,7 @@
     </div>
 
     <!-- JAVASCRIPT  FILES ========================================= -->
-    <script  src="{{ asset('js/jquery-3.6.0.min.js') }}"></script><!-- JQUERY.MIN JS -->
+
     <script  src="{{ asset('js/popper.min.js') }}"></script><!-- POPPER.MIN JS -->
     <script  src="{{ asset('js/bootstrap.min.js') }}"></script><!-- BOOTSTRAP.MIN JS -->
     <script  src="{{ asset('js/magnific-popup.min.js') }}"></script><!-- MAGNIFIC-POPUP JS -->
@@ -358,7 +376,7 @@
     <script  src="{{ asset('js/dataTables.bootstrap5.min.js') }}"></script><!-- Datatable -->
     <script  src="{{ asset('js/chart.js') }}"></script><!-- Chart -->
     <script  src="{{ asset('js/custom.js') }}"></script><!-- CUSTOM FUCTIONS  -->
-    <script  src="{{ asset('js/my.js') }}"></script><!-- MY ADD JS  -->
+    <script  src="{{ asset('js/register_form.js') }}"></script><!-- MY ADD JS  -->
 
 </body>
 </html>
