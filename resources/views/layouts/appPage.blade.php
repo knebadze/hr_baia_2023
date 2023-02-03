@@ -209,7 +209,7 @@
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
 
-                        <form>
+                        {{-- <form> --}}
                             <div class="modal-header">
                                 <h2 class="modal-title" id="sign_up_popupLabel2">Login</h2>
                                 <p>Login and get access to all the features of Jobzilla</p>
@@ -329,7 +329,7 @@
                                     <li><a href="{{ route('auth.social.redirect', 'google') }}" class="google-clr"><i class="fab fa-google"></i></a></li>
                                 </ul>
                             </div>
-                        </form>
+                        {{-- </form> --}}
                     </div>
                 </div>
             </div>
