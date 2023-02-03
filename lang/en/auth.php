@@ -13,8 +13,8 @@ return [
     |
     */
 
-    'failed' => 'These credentials do not match our records.',
-    'password' => 'The provided password is incorrect.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'failed' => 'ჩანაწერი არ მოიძებნა, თუ ჯერ არ ხართ რეგისტრირებული შექმენით კაბინეტი',
+    'password' => 'პაროლი არასწორია.',
+    'throttle' => 'ძალიან ბევრი შესვლის მცდელობა. გთხოვთ ცადოთ მოგვიანებით :seconds seconds.',
 
 ];

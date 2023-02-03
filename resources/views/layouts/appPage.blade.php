@@ -81,6 +81,7 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
+
                                 <form method="POST" action="{{ route('register') }}">
                                     @csrf
                                 <div class="twm-tabs-style-2">
@@ -107,7 +108,12 @@
                                             <button class="nav-link" id="companyEmployer"   type="button"><i class="fas fa-building"></i>კომპანია</button>
                                         </li>
                                     </ul>
-                                    <input type="text" name="user_type_id" value="{{ old('user_type_id') }}" id="user_type_id" hidden>
+                                    <input type="text" name="user_type_id" value="{{ old('user_type_id') }}" class="form-control @error('user_type_id') is-invalid @enderror" id="user_type_id" hidden>
+                                    @error('user_type_id')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
                                     <div class="tab-content" id="myTabContent">
                                     <!--Signup Candidate Content-->
                                     <div class="tab-pane fade show active" id="sign-up">
@@ -141,7 +147,12 @@
                                                 <div class="col-lg-12">
                                                     <div class="input-group  mb-3">
                                                         <span class="input-group-text border border-0">+995</span>
-                                                        <input name="number" type="text" class="form-control"  placeholder="ნომერი*">
+                                                        <input name="number" id="number" type="text" class="form-control @error('number') is-invalid @enderror" value="{{ old('number') }}"  placeholder="ნომერი*" onkeypress="return event.charCode != 32">
+                                                        @error('number')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
                                                     </div>
                                                 </div>
 
@@ -188,8 +199,14 @@
                                                 <div class="col-lg-12">
                                                     <div class="form-group mb-3">
                                                         <div class=" form-check">
-                                                            <input type="checkbox" class="form-check-input" id="agree1">
+                                                            <input type="checkbox" class="form-check-input  @error('agree') is-invalid @enderror" id="agree" name="agree">
+
                                                             <label class="form-check-label" for="agree1">I agree to the <a href="javascript:;">Terms and conditions</a></label>
+                                                            @error('agree')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
                                                             <p>Already registered?
                                                                 <button class="twm-backto-login" data-bs-target="#sign_up_popup2" data-bs-toggle="modal" data-bs-dismiss="modal">Log in here</button>
                                                             </p>
@@ -197,7 +214,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <button type="submit" class="site-button">Sign Up</button>
+                                                    <button type="submit" class="site-button">რეგისტრაცია</button>
                                                 </div>
 
                                         </div>
@@ -257,7 +274,7 @@
 
                                                 <div class="col-lg-12">
                                                     <div class="form-group mb-3">
-                                                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="ემაილი*">
+                                                        <input id="emailOrPhone" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="ემაილი ან ნომერი*">
 
                                                         @error('email')
                                                             <span class="invalid-feedback" role="alert">
@@ -269,7 +286,7 @@
 
                                                 <div class="col-lg-12">
                                                     <div class="form-group mb-3">
-                                                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="პაროლი*">
+                                                        <input id="logInPassword" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="პაროლი*">
 
                                                         @error('password')
                                                             <span class="invalid-feedback" role="alert">

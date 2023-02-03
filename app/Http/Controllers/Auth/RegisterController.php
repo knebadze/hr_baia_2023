@@ -52,15 +52,25 @@ class RegisterController extends Controller
     {
         // dd($data);
         return Validator::make($data, [
+            'user_type_id' => ['required'],
             'name_ka' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            // 'number' => ['required', 'size:9'],
+            'number' => ['required', 'size:9', 'unique:users'],
             'password' => ['required', 'string', 'min:8'],
+            'agree' => ['required'],
         ],
         [
+            'user_type_id.required' => 'მონიშნეთ კანდიდატი ხართ თუ დამსაქმებელი',
             'name_ka.required' => 'სახელი და გვარის შევსება სავალდებულოა',
             'email.required' => 'ემაილის შევსება სავალდებულოა',
-            'email.email' => 'ემაილი აუცილებლად უნდა შეიცავდეს "@" სიმბოლოს'
+            'email.email' => 'ემაილი აუცილებლად უნდა შეიცავდეს "@" სიმბოლოს',
+            'email.unique' => 'მაილი უკვე გამოყენებულია',
+            'number.required' => 'ნომრის შევსება სავალდებულოა',
+            'number.size' => 'ნომრის უნდა შეიცავდეს 9 ციფრს',
+            'number.unique' => 'ნომერი უკვე გამოყენებულია',
+            'password.required' => 'პაროლის შევსება სავალდებულოა',
+            'password.min' => 'პაროლი უნდა შედგებოდეს მინიმუმ 8 სიმბოლოსგან',
+            'agree.required' => 'საიტზე რეგისტრაციისთვი სავალდებულოა ეთანხმებოდეთ წესებს და პირობებს'
         ]);
     }
 

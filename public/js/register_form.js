@@ -74,4 +74,5 @@ candidateBtn.addEventListener("click", candidate);
     choice.classList.remove('visually-hidden')
     companyEmployer.classList.add('active')
     dateGenderDiv.classList.add('visually-hidden')
-}
+ }
+
