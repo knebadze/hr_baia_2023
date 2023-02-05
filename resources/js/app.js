@@ -9,5 +9,5 @@ const app = createApp({})
 // console.log(app);
 
 
-app.component('how-work', howWork)
+// app.component('how-work', howWork)
 app.mount("#app")

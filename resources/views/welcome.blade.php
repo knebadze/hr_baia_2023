@@ -161,7 +161,7 @@
         </div>
     </div>
     <!--Banner End-->
-    <how-work></how-work>
+    {{-- <how-work></how-work> --}}
 
     <!-- HOW IT WORK SECTION START -->
     <div class="section-full p-t120 p-b90 site-bg-white twm-how-it-work-area">
