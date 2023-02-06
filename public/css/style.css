@@ -11,7 +11,7 @@
   }
 
 body {
-    font-family: nino !important;
+    font-family: mtavruli !important;
 }
 
 .activeClass a {
@@ -2826,7 +2826,6 @@ ol li {
   padding-top: 10px;
   padding-bottom: 10px;
   transition: all 0.5s ease;
-  max-width: 1200px;
   left: 50%;
   background: transparent;
 
@@ -4071,6 +4070,7 @@ ol li {
   position: relative;
   z-index: 11;
 }
+
 @media (max-width: 1199px) {
   .header-style-light .logo-header {
     width: 130px;
