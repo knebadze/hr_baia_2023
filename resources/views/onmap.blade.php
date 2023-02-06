@@ -148,7 +148,7 @@
 
                          <div class="twm-jobs-grid-style1">
                              <div class="twm-media">
-                                 <img src="images/jobs-company/pic1.jpg" alt="#">
+                                 <img src="/images/jobs-company/pic1.jpg" alt="#">
                              </div>
                              <span class="twm-job-post-duration">1 days ago</span>
                              <div class="twm-jobs-category green"><span class="twm-bg-green">New</span></div>
@@ -173,7 +173,7 @@
 
                          <div class="twm-jobs-grid-style1">
                              <div class="twm-media">
-                                 <img src="images/jobs-company/pic2.jpg" alt="#">
+                                 <img src="/images/jobs-company/pic2.jpg" alt="#">
                              </div>
                              <span class="twm-job-post-duration">15 days ago</span>
                              <div class="twm-jobs-category green"><span class="twm-bg-brown">Intership</span></div>
@@ -197,7 +197,7 @@
                          
                          <div class="twm-jobs-grid-style1">
                              <div class="twm-media">
-                                 <img src="images/jobs-company/pic3.jpg" alt="#">
+                                 <img src="/images/jobs-company/pic3.jpg" alt="#">
                              </div>
                              <span class="twm-job-post-duration">6 Month ago</span>
                              <div class="twm-jobs-category green"><span class="twm-bg-purple">Fulltime</span></div>
@@ -222,7 +222,7 @@
 
                          <div class="twm-jobs-grid-style1">
                              <div class="twm-media">
-                                 <img src="images/jobs-company/pic4.jpg" alt="#">
+                                 <img src="/images/jobs-company/pic4.jpg" alt="#">
                              </div>
                              <span class="twm-job-post-duration">2 days ago</span>
                              <div class="twm-jobs-category green"><span class="twm-bg-sky">Freelancer</span></div>
@@ -247,7 +247,7 @@
                          
                          <div class="twm-jobs-grid-style1">
                              <div class="twm-media">
-                                 <img src="images/jobs-company/pic5.jpg" alt="#">
+                                 <img src="/images/jobs-company/pic5.jpg" alt="#">
                              </div>
                              <span class="twm-job-post-duration">1 days ago</span>
                              <div class="twm-jobs-category green"><span class="twm-bg-golden">Temporary</span></div>
@@ -270,7 +270,7 @@
                      <div class="masonry-item col-lg-6 col-md-12 m-b30">
                          <div class="twm-jobs-grid-style1">
                              <div class="twm-media">
-                                 <img src="images/jobs-company/pic1.jpg" alt="#">
+                                 <img src="/images/jobs-company/pic1.jpg" alt="#">
                              </div>
                              <span class="twm-job-post-duration">1 days ago</span>
                              <div class="twm-jobs-category green"><span class="twm-bg-green">New</span></div>
@@ -294,7 +294,7 @@
 
                          <div class="twm-jobs-grid-style1">
                              <div class="twm-media">
-                                 <img src="images/jobs-company/pic1.jpg" alt="#">
+                                 <img src="/images/jobs-company/pic1.jpg" alt="#">
                              </div>
                              <span class="twm-job-post-duration">1 days ago</span>
                              <div class="twm-jobs-category green"><span class="twm-bg-green">New</span></div>
@@ -319,7 +319,7 @@
 
                          <div class="twm-jobs-grid-style1">
                              <div class="twm-media">
-                                 <img src="images/jobs-company/pic2.jpg" alt="#">
+                                 <img src="/images/jobs-company/pic2.jpg" alt="#">
                              </div>
                              <span class="twm-job-post-duration">15 days ago</span>
                              <div class="twm-jobs-category green"><span class="twm-bg-brown">Intership</span></div>
@@ -343,7 +343,7 @@
                          
                          <div class="twm-jobs-grid-style1">
                              <div class="twm-media">
-                                 <img src="images/jobs-company/pic3.jpg" alt="#">
+                                 <img src="/images/jobs-company/pic3.jpg" alt="#">
                              </div>
                              <span class="twm-job-post-duration">6 Month ago</span>
                              <div class="twm-jobs-category green"><span class="twm-bg-purple">Fulltime</span></div>
@@ -368,7 +368,7 @@
 
                          <div class="twm-jobs-grid-style1">
                              <div class="twm-media">
-                                 <img src="images/jobs-company/pic4.jpg" alt="#">
+                                 <img src="/images/jobs-company/pic4.jpg" alt="#">
                              </div>
                              <span class="twm-job-post-duration">2 days ago</span>
                              <div class="twm-jobs-category green"><span class="twm-bg-sky">Freelancer</span></div>

@@ -24,19 +24,29 @@ use App\Http\Controllers\Auth\SocialController;
 |
 */
 
-Route::get('/', [MainController::class, 'index'])->name('welcome');
+Route::get('', function() {
+	return redirect('/ka');
+});
 
-Route::get('/individual', [IndividualController::class, 'index'])->name('individual');
-Route::get('/company', [CompanyController::class, 'index'])->name('company');
-Route::get('/onmap', [MapvacancieController::class, 'index'])->name('onmap');
+Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}'], ],
+       function() 
+    {
+        Route::get('/', [MainController::class, 'index'])->name('welcome');
 
-Route::get('/about', [AboutController::class, 'index'])->name('about');
-Route::get('/candidate', [CandidateController::class, 'index'])->name('candidate');
-Route::get('/blog', [BlogController::class, 'index'])->name('blog');
+            Route::get('/individual', [IndividualController::class, 'index'])->name('individual');
+            Route::get('/company', [CompanyController::class, 'index'])->name('company');
+            Route::get('/onmap', [MapvacancieController::class, 'index'])->name('onmap');
 
-Auth::routes();
+        Route::get('/about', [AboutController::class, 'index'])->name('about');
+        Route::get('/candidate', [CandidateController::class, 'index'])->name('candidate');
+        Route::get('/blog', [BlogController::class, 'index'])->name('blog');
+        
 
-Route::get('auth/{provider}/redirect', [SocialController::class, 'redirect'])->name('auth.social.redirect');
-Route::get('auth/{provider}/callback', [SocialController::class, 'callback'])->name('auth.social.callback');
+    });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Auth::routes();
+        
+    Route::get('auth/{provider}/redirect', [SocialController::class, 'redirect'])->name('auth.social.redirect');
+    Route::get('auth/{provider}/callback', [SocialController::class, 'callback'])->name('auth.social.callback');
+    
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

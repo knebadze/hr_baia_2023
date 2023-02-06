@@ -7,7 +7,7 @@
 <div class="page-content">
 
     <!-- INNER PAGE BANNER -->
-    <div class="wt-bnr-inr overlay-wraper bg-center" style="background-image:url(images/banner/1.jpg);">
+    <div class="wt-bnr-inr overlay-wraper bg-center" style="background-image:url(/images/banner/1.jpg);">
         <div class="overlay-main site-bg-white opacity-01"></div>
         <div class="container">
             <div class="wt-bnr-inr-entry">
@@ -292,7 +292,7 @@
                         
                     </div>
 
-                    <div class="twm-advertisment" style="background-image:url(images/add-bg.jpg);">
+                    <div class="twm-advertisment" style="background-image:url(/images/add-bg.jpg);">
                        <div class="overlay"></div>
                        <h4 class="twm-title">დაქირავება?</h4>
                        <p>მიიღეთ თქვენთვის შესაფერისი ვაკანსიები <br>
@@ -335,7 +335,7 @@
                                  <div class="twm-candidates-grid-style1 mb-5">
                                      <div class="twm-media">
                                          <div class="twm-media-pic">
-                                            <img src="images/candidates/pic1.jpg" alt="#">
+                                            <img src="/images/candidates/pic1.jpg" alt="#">
                                          </div>
                                          <div class="twm-candidates-tag"><span>გამორჩეული</span></div>
                                      </div>
@@ -362,7 +362,7 @@
                                 <div class="twm-candidates-grid-style1 mb-5">
                                     <div class="twm-media">
                                         <div class="twm-media-pic">
-                                           <img src="images/candidates/pic2.jpg" alt="#">
+                                           <img src="/images/candidates/pic2.jpg" alt="#">
                                         </div>
                                         <div class="twm-candidates-tag"><span>გამორჩეული</span></div>
                                     </div>
@@ -388,7 +388,7 @@
                                 <div class="twm-candidates-grid-style1 mb-5">
                                     <div class="twm-media">
                                         <div class="twm-media-pic">
-                                           <img src="images/candidates/pic3.jpg" alt="#">
+                                           <img src="/images/candidates/pic3.jpg" alt="#">
                                         </div>
                                         <div class="twm-candidates-tag"><span>გამორჩეული</span></div>
                                     </div>
@@ -414,7 +414,7 @@
                                 <div class="twm-candidates-grid-style1 mb-5">
                                     <div class="twm-media">
                                         <div class="twm-media-pic">
-                                           <img src="images/candidates/pic4.jpg" alt="#">
+                                           <img src="/images/candidates/pic4.jpg" alt="#">
                                         </div>
                                         <div class="twm-candidates-tag"><span>გამორჩეული</span></div>
                                     </div>
@@ -440,7 +440,7 @@
                                 <div class="twm-candidates-grid-style1 mb-5">
                                     <div class="twm-media">
                                         <div class="twm-media-pic">
-                                           <img src="images/candidates/pic5.jpg" alt="#">
+                                           <img src="/images/candidates/pic5.jpg" alt="#">
                                         </div>
                                         <div class="twm-candidates-tag"><span>გამორჩეული</span></div>
                                     </div>
@@ -466,7 +466,7 @@
                                 <div class="twm-candidates-grid-style1 mb-5">
                                     <div class="twm-media">
                                         <div class="twm-media-pic">
-                                           <img src="images/candidates/pic6.jpg" alt="#">
+                                           <img src="/images/candidates/pic6.jpg" alt="#">
                                         </div>
                                         <div class="twm-candidates-tag"><span>გამორჩეული</span></div>
                                     </div>
@@ -492,7 +492,7 @@
                                 <div class="twm-candidates-grid-style1 mb-5">
                                     <div class="twm-media">
                                         <div class="twm-media-pic">
-                                           <img src="images/candidates/pic7.jpg" alt="#">
+                                           <img src="/images/candidates/pic7.jpg" alt="#">
                                         </div>
                                         <div class="twm-candidates-tag"><span>გამორჩეული</span></div>
                                     </div>
@@ -518,7 +518,7 @@
                                 <div class="twm-candidates-grid-style1 mb-5">
                                     <div class="twm-media">
                                         <div class="twm-media-pic">
-                                           <img src="images/candidates/pic8.jpg" alt="#">
+                                           <img src="/images/candidates/pic8.jpg" alt="#">
                                         </div>
                                         <div class="twm-candidates-tag"><span>გამორჩეული</span></div>
                                     </div>
@@ -543,7 +543,7 @@
                                 <div class="twm-candidates-grid-style1 mb-5">
                                     <div class="twm-media">
                                         <div class="twm-media-pic">
-                                           <img src="images/candidates/pic9.jpg" alt="#">
+                                           <img src="/images/candidates/pic9.jpg" alt="#">
                                         </div>
                                         <div class="twm-candidates-tag"><span>გამორჩეული</span></div>
                                     </div>
@@ -568,7 +568,7 @@
                                 <div class="twm-candidates-grid-style1 mb-5">
                                     <div class="twm-media">
                                         <div class="twm-media-pic">
-                                           <img src="images/candidates/pic10.jpg" alt="#">
+                                           <img src="/images/candidates/pic10.jpg" alt="#">
                                         </div>
                                         <div class="twm-candidates-tag"><span>გამორჩეული</span></div>
                                     </div>

@@ -9,14 +9,14 @@
                 <div class="logo-header">
                     <div class="logo-header-inner logo-header-one">
                         <a href="{{ url ('/') }}">
-                        <img src="images/head-logo.png" alt="">
+                        <img src="/images/head-logo.png" alt="">
                         </a>
                     </div>
                 </div>
 
                 <!-- NAV Toggle Button -->
                 <button id="mobile-side-drawer" data-target=".header-nav" data-toggle="collapse" type="button" class="navbar-toggler collapsed">
-                    <span class="sr-only">Toggle navigation</span>
+                    <span class="sr-only"></span>
                     <span class="icon-bar icon-bar-first"></span>
                     <span class="icon-bar icon-bar-two"></span>
                     <span class="icon-bar icon-bar-three"></span>
@@ -26,7 +26,7 @@
                 <div class="nav-animation header-nav navbar-collapse collapse d-flex justify-content-center">
 
                     <ul class="nav navbar-nav">
-                        <li class="activeClass"><a href="{{ url ('/') }}">მთავარი</a></li>
+                        <li class="activeClass"><a href="{{ route('welcome' , App()->getLocale())  }}">{{ __('lang.menu_home') }}</a></li>
                         {{-- <li class="has-child"><a href="javascript:;">მთავარი</a>
                             <ul class="sub-menu">
                                 <li><a href="index.html">Home-1</a></li>
@@ -35,11 +35,11 @@
                                 <li><a href="index-4.html">Home-4</a></li>
                             </ul>
                         </li> --}}
-                        <li class="has-child"><a href="javascript:;">ვაკანსიები</a>
+                        <li class="has-child"><a href="javascript:;">{{ __('lang.menu_vacancies') }}</a>
                             <ul class="sub-menu">
-                                <li><a href="{{ url ('individual') }}">ინდივიდუალური</a></li>
-                                <li><a href="{{ url ('company') }}">კომპანიის</a></li>
-                                <li><a href="{{ url ('onmap') }}">ვაკანსიები რუკაზე</a></li>
+                                <li><a href="{{ route('individual' , App()->getLocale())  }}">{{ __('lang.menu_individual_vacancies') }}</a></li>
+                                <li><a href="{{ route('company' , App()->getLocale())  }}">{{ __('lang.menu_company_vacancies') }}</a></li>
+                                <li><a href="{{ route('onmap' , App()->getLocale())  }}">{{ __('lang.menu_vacancies_onmap') }}</a></li>
                                 {{-- <li><a href="job-grid.html">Jobs Grid</a></li>
                                 <li><a href="job-grid-with-map.html">Jobs Grid with Map</a></li>
                                 <li><a href="job-list.html">Jobs List</a></li>
@@ -73,7 +73,7 @@
                                 <li><a href="employer-account-professional.html">Register Professionals</a></li>
                             </ul>
                         </li> --}}
-                        <li><a href="{{ url ('about') }}">ჩვენს შესახებ</a></li>
+                        <li><a href="{{ route('about' , App()->getLocale())  }}">{{ __('lang.menu_about_us') }}</a></li>
                         {{-- <li class="has-child"><a href="javascript:;">page</a>
                             <ul class="sub-menu">
                                 <li><a href="about-1.html">About Us</a></li>
@@ -88,7 +88,7 @@
                                 <li><a href="icons.html">Icons</a></li>
                             </ul>
                         </li> --}}
-                        <li><a href="{{ url ('candidate') }}">კანდიდატები</a></li>
+                        <li><a href="{{ route('candidate' , App()->getLocale())  }}">{{ __('lang.menu_candidate') }}</a></li>
                         {{-- <li class="has-child"><a href="javascript:;">კანდიდატები</a>
                             <ul class="sub-menu">
                                 <li><a href="candidate-grid.html">Candidates Grid</a></li>
@@ -110,7 +110,7 @@
                                 <li><a href="candidate-chat.html">Chat</a></li>
                             </ul>
                         </li> --}}
-                        <li><a href="{{ url ('blog') }}">ბლოგი</a></li>
+                        <li><a href="{{ route('blog' , App()->getLocale())  }}">{{ __('lang.menu_blog') }}</a></li>
                         {{-- <li class="has-child"><a href="javascript:;">ბლოგი</a>
                             <ul class="sub-menu">
                                 <li><a href="blog.html">Blog</a></li>
@@ -121,11 +121,19 @@
                             </ul>
                         </li> --}}
 
-                        <li class="has-child"><a href="javascript:;"><img src="images/language.png"> </a>
+                        <li class="has-child"><a href="javascript:;"><img src="/images/language.png"> </a>
                             <ul class="sub-menu">
-                                <li><a href="#"><img src="images/geo.png"> ქართული</a></li>
-                                <li><a href="#"><img src="images/eng.png"> English</a></li>
-                                <li><a href="#"><img src="images/rus.png"> Русский</a></li>
+                                @foreach(Config::get('app.ka') as $locale)
+                                <li><a href="{{url(str_replace(app()->getlocale(), $locale, Request::url() ))}}"><img src="/images/geo.png"> ქართული</a></li>
+                                @endforeach
+
+                                @foreach(Config::get('app.en') as $locale)
+                                <li><a href="{{url(str_replace(app()->getlocale(), $locale, Request::url() ))}}"><img src="/images/eng.png"> English</a></li>
+                                @endforeach
+
+                                @foreach(Config::get('app.ru') as $locale)
+                                <li><a href="{{url(str_replace(app()->getlocale(), $locale, Request::url() ))}}"><img src="/images/rus.png"> Русский</a></li>
+                                @endforeach
                             </ul>
                         </li>
 
@@ -145,14 +153,14 @@
                             <div class="twm-nav-btn-left">
                                 <a class="twm-nav-sign-up" data-bs-toggle="modal" href="#sign_up_popup" role="button">
                                     <i class="feather-user-plus"></i>
-                                    რეგისტრაცია
+                                    {{ __('lang.menu_registration') }}
                                 </a>
                             </div>
 
                             <div class="twm-nav-btn-right">
                                 <a href="#sign_up_popup2" class="twm-nav-post-a-job" data-bs-toggle="modal">
                                     <i class="feather-log-in"></i>
-                                    შესვლა
+                                    {{ __('lang.menu_log_in') }}
                                 </a>
                             </div>
                         @else

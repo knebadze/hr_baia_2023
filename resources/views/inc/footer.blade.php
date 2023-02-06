@@ -1,6 +1,6 @@
 
 <!-- FOOTER START -->
-<footer class="footer-dark" style="background-image: url(images/f-bg.jpg);">
+<footer class="footer-dark" style="background-image: url(/images/f-bg.jpg);">
     <div class="container">
 
         <!-- NEWS LETTER SECTION START -->
@@ -30,7 +30,7 @@
 
                     <div class="widget widget_about">
                         <div class="logo-footer clearfix">
-                            <a href="index.html"><img src="images/logo-baia.png" style="max-height: 150px;" alt=""></a>
+                            <a href="index.html"><img src="/images/logo-baia.png" style="max-height: 150px;" alt=""></a>
                         </div>
                         <p>Many desktop publishing packages and web page editors now.</p>
                         <ul class="ftr-list">

@@ -7,7 +7,7 @@
     <div class="page-content">
 
         <!-- INNER PAGE BANNER -->
-        <div class="wt-bnr-inr overlay-wraper bg-center" style="background-image:url(images/banner/1.jpg);">
+        <div class="wt-bnr-inr overlay-wraper bg-center" style="background-image:url(/images/banner/1.jpg);">
             <div class="overlay-main site-bg-white opacity-01"></div>
             <div class="container">
                 <div class="wt-bnr-inr-entry">
@@ -292,7 +292,7 @@
                             
                         </div>
 
-                        <div class="twm-advertisment" style="background-image:url(images/add-bg.jpg);">
+                        <div class="twm-advertisment" style="background-image:url(/images/add-bg.jpg);">
                            <div class="overlay"></div>
                            <h4 class="twm-title">დაქირავება?</h4>
                            <p>მიიღეთ თქვენთვის შესაფერისი ვაკანსიები <br>
@@ -335,7 +335,7 @@
 
                                 <div class="twm-jobs-grid-style1">
                                     <div class="twm-media">
-                                        <img src="images/jobs-company/pic1.jpg" alt="#">
+                                        <img src="/images/jobs-company/pic1.jpg" alt="#">
                                     </div>
                                     <span class="twm-job-post-duration">1 დღის წინ</span>
                                     <div class="twm-jobs-category green"><span class="twm-bg-green">ახალი</span></div>
@@ -360,7 +360,7 @@
 
                                 <div class="twm-jobs-grid-style1">
                                     <div class="twm-media">
-                                        <img src="images/jobs-company/pic2.jpg" alt="#">
+                                        <img src="/images/jobs-company/pic2.jpg" alt="#">
                                     </div>
                                     <span class="twm-job-post-duration">15 დღის წინ</span>
                                     <div class="twm-jobs-category green"><span class="twm-bg-brown">სტაჟირება</span></div>
@@ -384,7 +384,7 @@
                                 
                                 <div class="twm-jobs-grid-style1">
                                     <div class="twm-media">
-                                        <img src="images/jobs-company/pic3.jpg" alt="#">
+                                        <img src="/images/jobs-company/pic3.jpg" alt="#">
                                     </div>
                                     <span class="twm-job-post-duration">6 თვის წინ</span>
                                     <div class="twm-jobs-category green"><span class="twm-bg-purple">სრული</span></div>
@@ -409,7 +409,7 @@
 
                                 <div class="twm-jobs-grid-style1">
                                     <div class="twm-media">
-                                        <img src="images/jobs-company/pic4.jpg" alt="#">
+                                        <img src="/images/jobs-company/pic4.jpg" alt="#">
                                     </div>
                                     <span class="twm-job-post-duration">2 დღის წინ</span>
                                     <div class="twm-jobs-category green"><span class="twm-bg-sky">თავისუფალი</span></div>
@@ -434,7 +434,7 @@
                                 
                                 <div class="twm-jobs-grid-style1">
                                     <div class="twm-media">
-                                        <img src="images/jobs-company/pic5.jpg" alt="#">
+                                        <img src="/images/jobs-company/pic5.jpg" alt="#">
                                     </div>
                                     <span class="twm-job-post-duration">1 დღის წინ</span>
                                     <div class="twm-jobs-category green"><span class="twm-bg-golden">დროებითი</span></div>
@@ -457,7 +457,7 @@
                             <div class="masonry-item col-lg-6 col-md-12 m-b30">
                                 <div class="twm-jobs-grid-style1">
                                     <div class="twm-media">
-                                        <img src="images/jobs-company/pic1.jpg" alt="#">
+                                        <img src="/images/jobs-company/pic1.jpg" alt="#">
                                     </div>
                                     <span class="twm-job-post-duration">1 დძღის წინ</span>
                                     <div class="twm-jobs-category green"><span class="twm-bg-green">ახალი</span></div>
@@ -481,7 +481,7 @@
 
                                 <div class="twm-jobs-grid-style1">
                                     <div class="twm-media">
-                                        <img src="images/jobs-company/pic1.jpg" alt="#">
+                                        <img src="/images/jobs-company/pic1.jpg" alt="#">
                                     </div>
                                     <span class="twm-job-post-duration">1 დღის წინ</span>
                                     <div class="twm-jobs-category green"><span class="twm-bg-green">ახალი</span></div>
@@ -506,7 +506,7 @@
 
                                 <div class="twm-jobs-grid-style1">
                                     <div class="twm-media">
-                                        <img src="images/jobs-company/pic2.jpg" alt="#">
+                                        <img src="/images/jobs-company/pic2.jpg" alt="#">
                                     </div>
                                     <span class="twm-job-post-duration">15 დღის წინ</span>
                                     <div class="twm-jobs-category green"><span class="twm-bg-brown">სტაჟირება</span></div>
@@ -530,7 +530,7 @@
                                 
                                 <div class="twm-jobs-grid-style1">
                                     <div class="twm-media">
-                                        <img src="images/jobs-company/pic3.jpg" alt="#">
+                                        <img src="/images/jobs-company/pic3.jpg" alt="#">
                                     </div>
                                     <span class="twm-job-post-duration">6 თვის წინ</span>
                                     <div class="twm-jobs-category green"><span class="twm-bg-purple">სრული</span></div>
@@ -555,7 +555,7 @@
 
                                 <div class="twm-jobs-grid-style1">
                                     <div class="twm-media">
-                                        <img src="images/jobs-company/pic4.jpg" alt="#">
+                                        <img src="/images/jobs-company/pic4.jpg" alt="#">
                                     </div>
                                     <span class="twm-job-post-duration">2 დღის წინ</span>
                                     <div class="twm-jobs-category green"><span class="twm-bg-sky">თავისუფალი</span></div>

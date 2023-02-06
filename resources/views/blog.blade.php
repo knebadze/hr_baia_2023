@@ -7,7 +7,7 @@
 <div class="page-content">
 
     <!-- INNER PAGE BANNER -->
-    <div class="wt-bnr-inr overlay-wraper bg-center" style="background-image:url(images/banner/1.jpg);">
+    <div class="wt-bnr-inr overlay-wraper bg-center" style="background-image:url(/images/banner/1.jpg);">
         <div class="overlay-main site-bg-white opacity-01"></div>
         <div class="container">
             <div class="wt-bnr-inr-entry">
@@ -46,7 +46,7 @@
 
                             <div class="blog-post twm-blog-post-1-outer">
                                 <div class="wt-post-media">
-                                    <a href="blog-single.html"><img src="images/blog/latest/bg1.jpg" alt=""></a>
+                                    <a href="blog-single.html"><img src="/images/blog/latest/bg1.jpg" alt=""></a>
                                 </div>                                    
                                 <div class="wt-post-info">
                                     <div class="wt-post-meta ">
@@ -77,7 +77,7 @@
                         <div class="masonry-item col-lg-6 col-md-12">
                             <div class="blog-post twm-blog-post-1-outer">
                                 <div class="wt-post-media">
-                                    <a href="blog-single.html"><img src="images/blog/latest/bg2.jpg" alt=""></a>
+                                    <a href="blog-single.html"><img src="/images/blog/latest/bg2.jpg" alt=""></a>
                                 </div>                                    
                                 <div class="wt-post-info">
                                     <div class="wt-post-meta ">
@@ -109,7 +109,7 @@
                             
                             <div class="blog-post twm-blog-post-1-outer">
                                 <div class="wt-post-media">
-                                    <a href="blog-single.html"><img src="images/blog/latest/bg3.jpg" alt=""></a>
+                                    <a href="blog-single.html"><img src="/images/blog/latest/bg3.jpg" alt=""></a>
                                 </div>                                    
                                 <div class="wt-post-info">
                                     <div class="wt-post-meta ">
@@ -142,7 +142,7 @@
 
                             <div class="blog-post twm-blog-post-1-outer">
                                 <div class="wt-post-media">
-                                    <a href="blog-single.html"><img src="images/blog/latest/bg4.jpg" alt=""></a>
+                                    <a href="blog-single.html"><img src="/images/blog/latest/bg4.jpg" alt=""></a>
                                 </div>                                    
                                 <div class="wt-post-info">
                                     <div class="wt-post-meta ">
@@ -174,7 +174,7 @@
                             
                             <div class="blog-post twm-blog-post-1-outer">
                                 <div class="wt-post-media">
-                                    <a href="blog-single.html"><img src="images/blog/latest/bg5.jpg" alt=""></a>
+                                    <a href="blog-single.html"><img src="/images/blog/latest/bg5.jpg" alt=""></a>
                                 </div>                                    
                                 <div class="wt-post-info">
                                     <div class="wt-post-meta ">
@@ -207,7 +207,7 @@
 
                             <div class="blog-post twm-blog-post-1-outer">
                                 <div class="wt-post-media">
-                                    <a href="blog-single.html"><img src="images/blog/latest/bg6.jpg" alt=""></a>
+                                    <a href="blog-single.html"><img src="/images/blog/latest/bg6.jpg" alt=""></a>
                                 </div>                                    
                                 <div class="wt-post-info">
                                     <div class="wt-post-meta ">
@@ -287,7 +287,7 @@
 
                                     <div class="widget-post clearfix">
                                         <div class="wt-post-media">
-                                            <img src="images/blog/recent-blog/pic1.jpg" alt="">
+                                            <img src="/images/blog/recent-blog/pic1.jpg" alt="">
                                         </div>
                                         <div class="wt-post-info">
                                             <div class="wt-post-header">
@@ -301,7 +301,7 @@
 
                                     <div class="widget-post clearfix">
                                         <div class="wt-post-media">
-                                            <img src="images/blog/recent-blog/pic2.jpg" alt="">
+                                            <img src="/images/blog/recent-blog/pic2.jpg" alt="">
                                         </div>
                                         <div class="wt-post-info">
                                             <div class="wt-post-header">
@@ -315,7 +315,7 @@
 
                                     <div class="widget-post clearfix">
                                         <div class="wt-post-media">
-                                            <img src="images/blog/recent-blog/pic3.jpg" alt="">
+                                            <img src="/images/blog/recent-blog/pic3.jpg" alt="">
                                         </div>
                                         <div class="wt-post-info">
                                             <div class="wt-post-header">
@@ -329,7 +329,7 @@
 
                                     <div class="widget-post clearfix">
                                         <div class="wt-post-media">
-                                            <img src="images/blog/recent-blog/pic4.jpg" alt="">
+                                            <img src="/images/blog/recent-blog/pic4.jpg" alt="">
                                         </div>
                                         <div class="wt-post-info">
                                             <div class="wt-post-header">
@@ -343,7 +343,7 @@
 
                                     <div class="widget-post clearfix">
                                         <div class="wt-post-media">
-                                            <img src="images/blog/recent-blog/pic5.jpg" alt="">
+                                            <img src="/images/blog/recent-blog/pic5.jpg" alt="">
                                         </div>
                                         <div class="wt-post-info">
                                             <div class="wt-post-header">
