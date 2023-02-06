@@ -14,7 +14,7 @@
                 <div class="col-md-7">
                     <form>
                         <div class="ftr-nw-form">
-                            <input name="news-letter" class="form-control" placeholder="Enter Your Email" type="text">
+                            <input name="news-letter" class="form-control" placeholder="შეიყვანეთ თქვენი იმეილი" type="text">
                             <button class="ftr-nw-subcribe-btn">გამოიწერეთ ახლავე</button>
                         </div>
                     </form>
@@ -69,7 +69,7 @@
                                     <li><a href="#">დასაქმება საზღვარგარეთ</a></li>
                                     <li><a href="#">ადმინისტრატორები</a></li>
                                     <li><a href="#">მზარეულის დამხმარე</a></li>
-                                    <li><a href="#">იურისტები/ადვოკატები</a></li>
+                                    <li><a href="#">იურისტები / ადვოკატები</a></li>
                                     <li><a href="#">ძიძა</a></li>
                                     <li><a href="#">სომელიე</a></li>
                                     <li><a href="#">ჭურჭლის მრეცხავი</a></li>
@@ -84,7 +84,13 @@
                             <div class="widget widget_services ftr-list-center">
                                 <h3 class="widget-title">პროფესიების მიხედვით</h3>
                                 <ul>
-                                    <li><a href="#">რამე</a></li>
+                                    <li><a href="#">ძიძა</a></li>
+                                    <li><a href="#">ადმინისტრატორები</a></li>
+                                    <li><a href="#">მენეჯერი</a></li>
+                                    <li><a href="#">იურისტები / ადვოკატები</a></li>
+                                    <li><a href="#">მომვლელი</a></li>
+                                    <li><a href="#">სომელიე</a></li>
+                                    <li><a href="#">რეპეტიტორი</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -101,7 +107,7 @@
             <div class="footer-bottom-info">
 
                 <div class="footer-copy-right">
-                    <span class="copyrights-text">Copyright © 2022 by thewebmax All Rights Reserved.</span>
+                    <span class="copyrights-text">Copyright © 2023 by MK Group</span>
                 </div>
                 <ul class="social-icons">
                     <li><a href="javascript:void(0);" class="fab fa-facebook-f"></a></li>
