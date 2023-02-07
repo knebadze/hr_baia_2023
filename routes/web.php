@@ -9,7 +9,7 @@ use App\Http\Controllers\MapvacancieController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\BlogController;
-
+use App\Http\Controllers\HomeController;
 
 use App\Http\Controllers\Auth\SocialController;
 
@@ -28,25 +28,40 @@ Route::get('', function() {
 	return redirect('/ka');
 });
 
-Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}'], ],
-       function() 
-    {
-        Route::get('/', [MainController::class, 'index'])->name('welcome');
 
-            Route::get('/individual', [IndividualController::class, 'index'])->name('individual');
-            Route::get('/company', [CompanyController::class, 'index'])->name('company');
-            Route::get('/onmap', [MapvacancieController::class, 'index'])->name('onmap');
+Route::group(['prefix' => '{language}'], function(){
 
-        Route::get('/about', [AboutController::class, 'index'])->name('about');
-        Route::get('/candidate', [CandidateController::class, 'index'])->name('candidate');
-        Route::get('/blog', [BlogController::class, 'index'])->name('blog');
-        
+    Route::get('/', [MainController::class, 'index'])->name('welcome');
+        Route::get('/individual', [IndividualController::class, 'index'])->name('individual');
+        Route::get('/company', [CompanyController::class, 'index'])->name('company');
+        Route::get('/onmap', [MapvacancieController::class, 'index'])->name('onmap');
 
-    });
+    Route::get('/about', [AboutController::class, 'index'])->name('about');
+    Route::get('/candidate', [CandidateController::class, 'index'])->name('candidate');
+    Route::get('/blog', [BlogController::class, 'index'])->name('blog');
+});
+
+// Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}'], ],
+//        function()
+//     {
+//         Route::get('/', [MainController::class, 'index'])->name('welcome');
+
+//             Route::get('/individual', [IndividualController::class, 'index'])->name('individual');
+//             Route::get('/company', [CompanyController::class, 'index'])->name('company');
+//             Route::get('/onmap', [MapvacancieController::class, 'index'])->name('onmap');
+
+//         Route::get('/about', [AboutController::class, 'index'])->name('about');
+//         Route::get('/candidate', [CandidateController::class, 'index'])->name('candidate');
+//         Route::get('/blog', [BlogController::class, 'index'])->name('blog');
+
+
+//     });
 
     Auth::routes();
-        
+
     Route::get('auth/{provider}/redirect', [SocialController::class, 'redirect'])->name('auth.social.redirect');
     Route::get('auth/{provider}/callback', [SocialController::class, 'callback'])->name('auth.social.callback');
-    
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+

@@ -37,9 +37,16 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}"><!-- MAIN STYLE SHEET -->
     <script  src="{{ asset('js/jquery-3.6.0.min.js') }}"></script><!-- JQUERY.MIN JS -->
 
-    {{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
 </head>
 <body>
+    <script>
+
+        window.default_locale = "{{ App::getLocale() }}";
+        var localLang = window.default_locale
+        localStorage.setItem('localLang', localLang);
+    </script>
      <!-- LOADING AREA START ===== -->
      <div class="loading-area">
         <div class="loading-box"></div>
@@ -52,7 +59,6 @@
     <!-- LOADING AREA  END ====== -->
 
     <div class="page-wraper" id="app">
-
         @include('inc.header')
 
         @yield('content')

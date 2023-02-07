@@ -16,11 +16,11 @@
             <!--Left Section-->
             <div class="col-xl-6 col-lg-6 col-md-12">
                 <div class="twm-bnr-left-section">
-                    <div class="twm-bnr-title-small">{{ __('lang.welcome_leftside_bar_one') }} <span class="site-text-primary">208,000+</span> {{ __('lang.welcome_leftside_bar_two') }}</div>
+                    {{-- <div class="twm-bnr-title-small">{{ __('lang.welcome_leftside_bar_one') }} <span class="site-text-primary">208,000+</span> {{ __('lang.welcome_leftside_bar_two') }}</div>
                     <div class="twm-bnr-title-large">{{ __('lang.welcome_leftside_bar_firstword_one') }}  <span class="site-text-primary">{{ __('lang.welcome_leftside_bar_firstword_two') }}</span> {{ __('lang.welcome_leftside_bar_firstword_three') }}</div>
                     <div class="twm-bnr-discription">{{ __('lang.welcome_leftside_bar_search_title') }}
-                    </div>
-
+                    </div> --}}
+                    <test-vue></test-vue>
                     <div class="twm-bnr-search-bar">
                         <form>
                             <div class="row">
