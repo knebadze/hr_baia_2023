@@ -54,5 +54,7 @@ return [
         'welcome_leftside_bar_search_job_location_job_search' => 'ძებნა',
 
         'welcome_leftside_bar_popular' => 'პოპულარული',
+    // ----------------------------------------------------------------------------------------------------
+    'welcome_rightside_bar_companyvacancie' => 'კომპანიის ვაკანსიები',
 
 ];

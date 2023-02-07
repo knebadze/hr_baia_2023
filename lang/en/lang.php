@@ -54,5 +54,7 @@ return [
         'welcome_leftside_bar_search_job_location_job_search' => 'Search',
 
     'welcome_leftside_bar_popular' => 'Popular',
+    // ----------------------------------------------------------------------------------------------------
+    'welcome_rightside_bar_companyvacancie' => 'Company vacancies',
 
 ];
