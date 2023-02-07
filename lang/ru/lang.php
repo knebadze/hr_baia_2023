@@ -55,6 +55,8 @@ return [
         'welcome_leftside_bar_search_job_location_job_search' => 'Поиск',
 
     'welcome_leftside_bar_popular' => 'Популярный',
+    // ----------------------------------------------------------------------------------------------------
+    'welcome_rightside_bar_companyvacancie' => 'Вакансии компании',
 
 
 
