@@ -26,7 +26,7 @@
                 <div class="nav-animation header-nav navbar-collapse collapse d-flex justify-content-center">
 
                     <ul class="nav navbar-nav">
-                        <li class="activeClass"><a href="{{ route('welcome' , App()->getLocale())  }}">{{ __('lang.menu_home') }}</a></li>
+                        <li @if(Route::currentRouteName() === 'welcome') class="activeClass" @else class="" @endif><a href="{{ route('welcome' , App()->getLocale())  }}">{{ __('lang.menu_home') }}</a></li>
                         {{-- <li class="has-child"><a href="javascript:;">მთავარი</a>
                             <ul class="sub-menu">
                                 <li><a href="index.html">Home-1</a></li>
@@ -35,7 +35,7 @@
                                 <li><a href="index-4.html">Home-4</a></li>
                             </ul>
                         </li> --}}
-                        <li class="has-child"><a href="javascript:;">{{ __('lang.menu_vacancies') }}</a>
+                        <li @if(Route::currentRouteName() === 'individual' || Route::currentRouteName() === 'company' || Route::currentRouteName() === 'onmap') class="activeClass" @else class="" @endif class="has-child"><a href="javascript:;">{{ __('lang.menu_vacancies') }}</a>
                             <ul class="sub-menu">
                                 <li><a href="{{ route('individual' , App()->getLocale())  }}">{{ __('lang.menu_individual_vacancies') }}</a></li>
                                 <li><a href="{{ route('company' , App()->getLocale())  }}">{{ __('lang.menu_company_vacancies') }}</a></li>
@@ -73,7 +73,7 @@
                                 <li><a href="employer-account-professional.html">Register Professionals</a></li>
                             </ul>
                         </li> --}}
-                        <li><a href="{{ route('about' , App()->getLocale())  }}">{{ __('lang.menu_about_us') }}</a></li>
+                        <li @if(Route::currentRouteName() === 'about') class="activeClass" @else class="" @endif><a href="{{ route('about' , App()->getLocale())  }}">{{ __('lang.menu_about_us') }}</a></li>
                         {{-- <li class="has-child"><a href="javascript:;">page</a>
                             <ul class="sub-menu">
                                 <li><a href="about-1.html">About Us</a></li>
@@ -88,7 +88,7 @@
                                 <li><a href="icons.html">Icons</a></li>
                             </ul>
                         </li> --}}
-                        <li><a href="{{ route('candidate' , App()->getLocale())  }}">{{ __('lang.menu_candidate') }}</a></li>
+                        <li @if(Route::currentRouteName() === 'candidate') class="activeClass" @else class="" @endif><a href="{{ route('candidate' , App()->getLocale())  }}">{{ __('lang.menu_candidate') }}</a></li>
                         {{-- <li class="has-child"><a href="javascript:;">კანდიდატები</a>
                             <ul class="sub-menu">
                                 <li><a href="candidate-grid.html">Candidates Grid</a></li>
@@ -110,7 +110,7 @@
                                 <li><a href="candidate-chat.html">Chat</a></li>
                             </ul>
                         </li> --}}
-                        <li><a href="{{ route('blog' , App()->getLocale())  }}">{{ __('lang.menu_blog') }}</a></li>
+                        <li @if(Route::currentRouteName() === 'blog') class="activeClass" @else class="" @endif><a href="{{ route('blog' , App()->getLocale())  }}">{{ __('lang.menu_blog') }}</a></li>
                         {{-- <li class="has-child"><a href="javascript:;">ბლოგი</a>
                             <ul class="sub-menu">
                                 <li><a href="blog.html">Blog</a></li>

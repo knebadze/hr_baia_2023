@@ -40,7 +40,7 @@ Route::group(['prefix' => '{language}'], function(){
     Route::get('/about', [AboutController::class, 'index'])->name('about');
     Route::get('/candidate', [CandidateController::class, 'index'])->name('candidate');
     Route::get('/blog', [BlogController::class, 'index'])->name('blog');
-
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
 });
 
 // Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}'], ],
