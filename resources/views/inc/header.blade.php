@@ -178,7 +178,7 @@
                             </div>
                         @else
                         <div class="twm-nav-btn-right">
-                            <a href="{{ route('home') }}" class="twm-nav-post-a-job">
+                            <a href="{{ route('home', App()->getLocale() ) }}" class="twm-nav-post-a-job">
                                 <i class="feather-user"></i> კაბინეტი
                             </a>
                         </div>

@@ -1,17 +1,18 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
-use App\Http\Controllers\MainController;
-use App\Http\Controllers\IndividualController;
-use App\Http\Controllers\CompanyController;
-use App\Http\Controllers\MapvacancieController;
-use App\Http\Controllers\AboutController;
-use App\Http\Controllers\CandidateController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MainController;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\CandidateController;
+use App\Http\Controllers\IndividualController;
 
 use App\Http\Controllers\Auth\SocialController;
+use App\Http\Controllers\MapvacancieController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +40,7 @@ Route::group(['prefix' => '{language}'], function(){
     Route::get('/about', [AboutController::class, 'index'])->name('about');
     Route::get('/candidate', [CandidateController::class, 'index'])->name('candidate');
     Route::get('/blog', [BlogController::class, 'index'])->name('blog');
+
 });
 
 // Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}'], ],
@@ -58,10 +60,11 @@ Route::group(['prefix' => '{language}'], function(){
 //     });
 
     Auth::routes();
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     Route::get('auth/{provider}/redirect', [SocialController::class, 'redirect'])->name('auth.social.redirect');
     Route::get('auth/{provider}/callback', [SocialController::class, 'callback'])->name('auth.social.callback');
 
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
+
 
 
