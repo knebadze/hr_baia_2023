@@ -32,7 +32,7 @@ Route::get('', function() {
 });
 
 Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}'], ],
-       function() 
+       function()
     {
         Route::get('/', [MainController::class, 'index'])->name('welcome');
 
@@ -51,8 +51,8 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     });
 
     Auth::routes();
-        
+
     Route::get('auth/{provider}/redirect', [SocialController::class, 'redirect'])->name('auth.social.redirect');
     Route::get('auth/{provider}/callback', [SocialController::class, 'callback'])->name('auth.social.callback');
-    
-    
+
+

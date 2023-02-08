@@ -88,7 +88,7 @@
                             </div>
                             <div class="modal-body">
 
-                                <form method="POST" action="{{ route('register') }}">
+                                <form method="POST" action="{{ route('register' ,app()->getLocale()) }}">
                                     @csrf
                                 <div class="twm-tabs-style-2">
                                     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -272,7 +272,7 @@
                                     </ul> --}}
 
                                     <div class="tab-content" id="myTab2Content">
-                                        <form method="POST" action="{{ route('login') }}">
+                                        <form method="POST" action="{{ route('login', app()->getLocale()) }}">
                                             @csrf
                                         <!--Login Candidate Content-->
                                         <div class="tab-pane fade show active" id="login-candidate">
