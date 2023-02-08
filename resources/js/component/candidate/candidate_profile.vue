@@ -18,7 +18,7 @@
                                     <div class="form-group">
                                         <label>Your Name</label>
                                         <div class="ls-inputicon-box">
-                                            <input class="form-control" name="company_name" type="text" placeholder="Devid Smith">
+                                            <input class="form-control" name="company_name"  :value="auth.name_ka" type="text" placeholder="">
                                             <i class="fs-input-icon fa fa-user "></i>
                                         </div>
                                     </div>
@@ -295,12 +295,23 @@
     </div>
 </template>
 <script>
+import { I18n } from 'laravel-vue-i18n'
+
 export default {
     props:{
         auth:Object
     },
+    computed:{
+        getLang(){
+            return I18n.getSharedInstance().options.lang
+        }
+    },
     mounted(){
         console.log(this.auth);
+        // console.log($t);
+        console.log(this.getLang)
+        // console.log(this.app);
+
     }
 }
 </script>

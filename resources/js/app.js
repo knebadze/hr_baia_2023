@@ -4,7 +4,6 @@ import('./register_form')
 import {createApp} from 'vue/dist/vue.esm-bundler'
 import { i18nVue } from 'laravel-vue-i18n'
 
-
 const lang = localStorage.getItem('localLang');
 
 import languageSwitcher from './component/languageSwitcher.vue'
@@ -23,6 +22,8 @@ app.component('test-vue', test)
 
 //candidate
 app.component('candidate-profile', candidateProfile)
+// const i18n =
+// app.use(lang)
 app.use(i18nVue
     , {
     lang: lang,
