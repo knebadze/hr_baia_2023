@@ -13,11 +13,16 @@ import test from './component/test.vue'
 
 // import App from './App.vue'
 import howWork from './component/how_work.vue'
+//candidate
+import candidateProfile from './component/candidate/candidate_profile.vue'
 const app = createApp({})
 // console.log(app);
 
 app.component('language-switcher', languageSwitcher)
 app.component('test-vue', test)
+
+//candidate
+app.component('candidate-profile', candidateProfile)
 app.use(i18nVue
     , {
     lang: lang,

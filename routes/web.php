@@ -45,7 +45,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
         Route::get('/blog', [BlogController::class, 'index'])->name('blog');
 
         // Account Pages
-        Route::get('/candidateProfile', [MyprofileController::class, 'index'])->name('candidateProfile');
+        Route::get('/user/candidateProfile', [MyprofileController::class, 'index'])->name('candidateProfile');
 
         Route::get('/home', [HomeController::class, 'index'])->name('home');
     });

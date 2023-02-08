@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MyprofileController extends Controller
 {
 
     public function index()
     {
-        return view ('candidateProfile');
+        $auth = Auth::user();
+        return view ('user/candidateProfile', compact('auth'));
     }
 
     public function create()
