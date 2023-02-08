@@ -121,7 +121,7 @@
                             </ul>
                         </li> --}}
 
-                        {{-- <li class="has-child"><a href="javascript:;"><img src="/images/language.png"> </a>
+                        <li class="has-child"><a href="javascript:;"><img src="/images/language.png"> </a>
                             <ul class="sub-menu">
                                 @foreach(Config::get('app.ka') as $locale)
                                 <li><a href="{{url(str_replace(app()->getlocale(), $locale, Request::url() ))}}"><img src="/images/geo.png"> ქართული</a></li>
@@ -135,7 +135,7 @@
                                 <li><a href="{{url(str_replace(app()->getlocale(), $locale, Request::url() ))}}"><img src="/images/rus.png"> Русский</a></li>
                                 @endforeach
                             </ul>
-                        </li> --}}
+                        </li>
                         {{-- <li class="has-child"><a href="javascript:;"><img src="/images/language.png"> </a>
                             <ul class="sub-menu">
                                 <li><a href="{{ route(Route::currentRouteName(), 'ka') }}"><img src="/images/geo.png"> ქართული</a></li>
@@ -143,12 +143,12 @@
                                 <li><a href="{{ route(Route::currentRouteName(), 'ru') }}"><img src="/images/rus.png"> Русский</a></li>
                             </ul>
                         </li> --}}
-                        <language-switcher
+                        {{-- <language-switcher
                             locale= "{{ app()->getLocale() }}"
                             link-ka="{{ route(Route::currentRouteName(), 'ka') }}"
                             link-en="{{ route(Route::currentRouteName(), 'en') }}"
                             link-ru="{{ route(Route::currentRouteName(), 'ru') }}"
-                        ></language-switcher>
+                        ></language-switcher> --}}
 
                     </ul>
                 </div>
