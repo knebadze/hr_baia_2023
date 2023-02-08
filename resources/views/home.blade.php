@@ -4,7 +4,7 @@
 <div class="page-content">
 
     <!-- INNER PAGE BANNER -->
-    <div class="wt-bnr-inr overlay-wraper bg-center" style="background-image:url(images/banner/1.jpg);">
+    <div class="wt-bnr-inr overlay-wraper bg-center" style="background-image:url(/images/banner/1.jpg);">
         <div class="overlay-main site-bg-white opacity-01"></div>
         <div class="container">
             <div class="wt-bnr-inr-entry">
@@ -42,7 +42,7 @@
 
                         <div class="twm-candidate-profile-pic">
 
-                            <img src="images/user-avtar/pic4.jpg" alt="">
+                            <img src="/images/user-avtar/pic4.jpg" alt="">
                             <div class="upload-btn-wrapper">
 
                                 <div id="upload-image-grid"></div>
@@ -60,8 +60,8 @@
 
                         <div class="twm-nav-list-1">
                             <ul>
-                                <li class="active"><a href="candidate-dashboard.html"><i class="fa fa-tachometer-alt"></i> Dashboard</a></li>
-                                <li><a href="candidate-profile.html"><i class="fa fa-user"></i> My Pfofile</a></li>
+                                <li class="active"><a href="{{ route('home' , App()->getLocale())  }}"><i class="fa fa-tachometer-alt"></i> Dashboard</a></li>
+                                <li><a href="{{ route('candidateProfile' , App()->getLocale())  }}"><i class="fa fa-user"></i> My Pfofile</a></li>
                                 <li><a href="candidate-jobs-applied.html"><i class="fa fa-suitcase"></i> Applied Jobs</a></li>
                                 <li><a href="candidate-my-resume.html"><i class="fa fa-receipt"></i> My Resume</a></li>
                                 <li><a href="candidate-saved-jobs.html"><i class="fa fa-file-download"></i> Saved Jobs</a></li>
@@ -165,7 +165,7 @@
                                             <div class="dashboard-messages-box-scroll scrollbar-macosx">
 
                                                 <div class="dashboard-messages-box">
-                                                    <div class="dashboard-message-avtar"><img src="images/user-avtar/pic1.jpg" alt=""></div>
+                                                    <div class="dashboard-message-avtar"><img src="/images/user-avtar/pic1.jpg" alt=""></div>
                                                     <div class="dashboard-message-area">
                                                         <h5>Lucy Smith<span>18 June 2022</span></h5>
                                                         <p>Bring to the table win-win survival strategies to ensure proactive domination. at the end of the day, going forward, a new normal that has evolved from generation.</p>
@@ -173,7 +173,7 @@
                                                 </div>
 
                                                 <div class="dashboard-messages-box">
-                                                    <div class="dashboard-message-avtar"><img src="images/user-avtar/pic3.jpg" alt=""></div>
+                                                    <div class="dashboard-message-avtar"><img src="/images/user-avtar/pic3.jpg" alt=""></div>
                                                     <div class="dashboard-message-area">
                                                         <h5>Richred paul<span>19 June 2022</span></h5>
                                                         <p>Bring to the table win-win survival strategies to ensure proactive domination. at the end of the day, going forward, a new normal that has evolved from generation.</p>
@@ -181,7 +181,7 @@
                                                 </div>
 
                                                 <div class="dashboard-messages-box">
-                                                    <div class="dashboard-message-avtar"><img src="images/user-avtar/pic4.jpg" alt=""></div>
+                                                    <div class="dashboard-message-avtar"><img src="/images/user-avtar/pic4.jpg" alt=""></div>
                                                     <div class="dashboard-message-area">
                                                         <h5>Jon Doe<span>20 June 2022</span></h5>
                                                         <p>Bring to the table win-win survival strategies to ensure proactive domination. at the end of the day, going forward, a new normal that has evolved from generation.</p>
@@ -189,7 +189,7 @@
                                                 </div>
 
                                                 <div class="dashboard-messages-box">
-                                                    <div class="dashboard-message-avtar"><img src="images/user-avtar/pic1.jpg" alt=""></div>
+                                                    <div class="dashboard-message-avtar"><img src="/images/user-avtar/pic1.jpg" alt=""></div>
                                                     <div class="dashboard-message-area">
                                                         <h5>Thomas Smith<span>22 June 2022</span></h5>
                                                         <p>Bring to the table win-win survival strategies to ensure proactive domination. at the end of the day, going forward, a new normal that has evolved from generation. </p>
@@ -287,7 +287,7 @@
                                                          <div class="twm-dash-candidates-list">
                                                              <div class="twm-media">
                                                                  <div class="twm-media-pic">
-                                                                    <img src="images/candidates/pic1.jpg" alt="#">
+                                                                    <img src="/images/candidates/pic1.jpg" alt="#">
                                                                  </div>
 
                                                              </div>
@@ -333,7 +333,7 @@
                                                         <div class="twm-dash-candidates-list">
                                                             <div class="twm-media">
                                                                 <div class="twm-media-pic">
-                                                                   <img src="images/candidates/pic2.jpg" alt="#">
+                                                                   <img src="/images/candidates/pic2.jpg" alt="#">
                                                                 </div>
 
                                                             </div>
@@ -379,7 +379,7 @@
                                                         <div class="twm-dash-candidates-list">
                                                             <div class="twm-media">
                                                                 <div class="twm-media-pic">
-                                                                   <img src="images/candidates/pic3.jpg" alt="#">
+                                                                   <img src="/images/candidates/pic3.jpg" alt="#">
                                                                 </div>
 
                                                             </div>
@@ -423,7 +423,7 @@
                                                         <div class="twm-dash-candidates-list">
                                                             <div class="twm-media">
                                                                 <div class="twm-media-pic">
-                                                                   <img src="images/candidates/pic4.jpg" alt="#">
+                                                                   <img src="/images/candidates/pic4.jpg" alt="#">
                                                                 </div>
 
                                                             </div>
@@ -467,7 +467,7 @@
                                                         <div class="twm-dash-candidates-list">
                                                             <div class="twm-media">
                                                                 <div class="twm-media-pic">
-                                                                   <img src="images/candidates/pic6.jpg" alt="#">
+                                                                   <img src="/images/candidates/pic6.jpg" alt="#">
                                                                 </div>
 
                                                             </div>

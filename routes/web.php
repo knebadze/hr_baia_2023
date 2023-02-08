@@ -9,6 +9,9 @@ use App\Http\Controllers\MapvacancieController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\HomeController;
+
+use App\Http\Controllers\MyprofileController;
 
 
 use App\Http\Controllers\Auth\SocialController;
@@ -40,8 +43,11 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
         Route::get('/about', [AboutController::class, 'index'])->name('about');
         Route::get('/candidate', [CandidateController::class, 'index'])->name('candidate');
         Route::get('/blog', [BlogController::class, 'index'])->name('blog');
-        
 
+        // Account Pages
+        Route::get('/candidateProfile', [MyprofileController::class, 'index'])->name('candidateProfile');
+
+        Route::get('/home', [HomeController::class, 'index'])->name('home');
     });
 
     Auth::routes();
@@ -49,4 +55,4 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::get('auth/{provider}/redirect', [SocialController::class, 'redirect'])->name('auth.social.redirect');
     Route::get('auth/{provider}/callback', [SocialController::class, 'callback'])->name('auth.social.callback');
     
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    
