@@ -35,7 +35,7 @@
                         <ul class="ftr-list">
                             <li><p><span>{{ __('lang.footer_address_one') }}</span>{{ __('lang.footer_address_two') }}</p></li>
                             <li><p><span>Email :</span>support@hrbaia.com</p></li>
-                            <li class="adressColor"><p><span>{{ __('lang.footer_call') }}</span><a href="+995 598857657"> +995 598857657</a></p></li>
+                            <li class="adressColor"><p><span>{{ __('lang.footer_call') }}</span><a href="tel:+995 598857657">+995 598857657</a></p></li>
                         </ul>
                     </div>
 
