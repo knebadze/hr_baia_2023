@@ -109,9 +109,10 @@
                     <span class="copyrights-text">Copyright © 2023 by MK Group</span>
                 </div>
                 <ul class="social-icons">
-                    <li><a href="#" target="_blank" class="fab fa-odnoklassniki"></a></li>
+                    <li><a href="https://ok.ru/profile/335739306146" target="_blank" class="fab fa-odnoklassniki"></a></li>
                     <li><a href="https://www.facebook.com/saagentobaia1" target="_blank" class="fab fa-facebook-f"></a></li>
-                    <li><a href="#" target="_blank" class="fab fa-vk"></a></li>
+                    <li><a href="https://twitter.com/hrbaia1" target="_blank" class="fab fa-twitter"></a></li>
+                    <li><a href="https://vk.com/id196084093" target="_blank" class="fab fa-vk"></a></li>
                 </ul>
 
             </div>
