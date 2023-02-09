@@ -56,5 +56,52 @@ return [
         'welcome_leftside_bar_popular' => 'პოპულარული',
     // ----------------------------------------------------------------------------------------------------
     'welcome_rightside_bar_companyvacancie' => 'კომპანიის ვაკანსიები',
+    'welcome_rightside_bar_individualvacancie' => 'ინდივიდუალური ვაკანსიები',
+    'welcome_rightside_bar_employees' => 'დასაქმებულები',
+    // ----------------------------------------------------------------------------------------------------
+    'welcome_middle_leftblock_small_text' => 'სამუშაო კატეგორიებით',
+    'welcome_middle_leftblock_big_text' => 'აირჩიეთ თქვენთვის სასურველი კატეგორია',
+    'welcome_middle_submit' => 'ყველა კატეგორია',
 
+    'welcome_middle_uploadresume_block' => 'ჯერ კიდევ ვერ მოძებნეთ შესაბამისი სამსახური? ატვირთეთ თქვენი რეზიუმე / CV.',
+    'welcome_middle_uploadresume_button' => 'რეზიუმეს ატვირთვა',
+
+    'welcome_middle_top_company' => 'ტოპ კკმპანიები',
+    'welcome_middle_top_company_getoffers' => 'მიიღეთ შემოთავაზებები ტოპ კომპანიებში',
+
+    'welcome_middle_count_user' => 'ყოველდღიურად მილიონობით აქტიური მომხმარებელი',
+    'welcome_middle_count_position' => 'ღია სამუშაო პოზიციები',
+    'welcome_middle_count_history' => 'მილიონი გაზიარებული ისტორია',
+
+    'welcome_middle_career_allpost' => 'ყველა ვაკანსიის პოსტი',
+    'welcome_middle_career_search' => 'იპოვე შენი კარიერა, რომელსაც იმსახურებ',
+    'welcome_middle_career_search_block_buttonreadmore' => 'სრულად',
+    'welcome_middle_career_search_block_buttonallwork' => 'ყველა სამუშაო',
+
+    'welcome_middle_blog_smalltext' => 'ბლოგი',
+    'welcome_middle_blog_articletext' => 'უახლესი სტატია',
+    'welcome_middle_blog_article_button_read' => 'სრულიად',
+    
+
+
+
+
+
+
+
+
+
+    // ----------------------------------------------------------------------------------------------------
+    // Footer Lang Page
+    'footer_fast_link' => 'სწრაფი ლინკები',
+    'footer_by_category' => 'კატეგორიის მიხედვით',
+    'footer_by_profession' => 'პროფესიების მიხედვით',
+
+    'footer_address_one' => 'მისამართი :',
+        'footer_address_two' => 'ვაჟა-ფშაველას გამზირი - 76B II: არჩილ ჯორჯაძის ქუჩა N5',
+    'footer_call' => 'დარეკეთ :',
+
+    'footer_subscribe_first_text' => 'აქტიური ვაკანსიების გამოწერა',
+    'footer_subscribe_form_placeholder' => 'შეიყვანეთ თქვენი იმეილი',
+    'footer_subscribe_button' => 'გამოიწერეთ ახლავე',
 ];

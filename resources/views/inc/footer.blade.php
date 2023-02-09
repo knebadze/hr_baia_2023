@@ -8,14 +8,14 @@
             <div class="row">
                 <div class="col-md-5">
                     <div class="ftr-nw-title">
-                        აქტიური ვაკანსიების გამოწერა
+                        {{ __('lang.footer_subscribe_first_text') }}
                     </div>
                 </div>
                 <div class="col-md-7">
                     <form>
                         <div class="ftr-nw-form">
-                            <input name="news-letter" class="form-control" placeholder="შეიყვანეთ თქვენი იმეილი" type="text">
-                            <button class="ftr-nw-subcribe-btn">გამოიწერეთ ახლავე</button>
+                            <input name="news-letter" class="form-control" placeholder="{{ __('lang.footer_subscribe_form_placeholder') }}" type="text">
+                            <button class="ftr-nw-subcribe-btn">{{ __('lang.footer_subscribe_button') }}</button>
                         </div>
                     </form>
                 </div>
@@ -32,11 +32,10 @@
                         <div class="logo-footer clearfix">
                             <a href="index.html"><img src="/images/logo-baia.png" style="max-height: 150px;" alt=""></a>
                         </div>
-                        <p>Many desktop publishing packages and web page editors now.</p>
                         <ul class="ftr-list">
-                            <li><p><span>მისმართი :</span>I: ვაჟა-ფშაველას გამზირი - 76B II: არჩილ ჯორჯაძის ქუჩა N5 </p></li>
+                            <li><p><span>{{ __('lang.footer_address_one') }}</span>{{ __('lang.footer_address_two') }}</p></li>
                             <li><p><span>Email :</span>support@hrbaia.com</p></li>
-                            <li class="adressColor"><p><span>Call :</span><a href="+995 598857657"> +995 598857657</a></p></li>
+                            <li class="adressColor"><p><span>{{ __('lang.footer_call') }}</span><a href="+995 598857657"> +995 598857657</a></p></li>
                         </ul>
                     </div>
 
@@ -47,15 +46,15 @@
 
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="widget widget_services ftr-list-center">
-                                <h3 class="widget-title">სწრაფი ლინკები</h3>
+                                <h3 class="widget-title">{{ __('lang.footer_fast_link') }}</h3>
                                 <ul>
-                                    <li><a href="{{ url ('/') }}">მთავარი</a></li>
-                                    <li><a href="{{ url ('individual') }}">ინდივიდუალირი ვაკანსიები</a></li>
-                                    <li><a href="{{ url ('company') }}">კომპანიის ვაკანსიები</a></li>
-                                    <li><a href="{{ url ('onmap') }}">ვაკანსიები რუკაზე</a></li>
-                                    <li><a href="{{ url ('about') }}">ჩვენს შესახებ</a></li>
-                                    <li><a href="{{ url ('candidate') }}">კანდიდატები</a></li>
-                                    <li><a href="{{ url ('blog') }}">ბლოგი</a></li>
+                                    <li><a href="{{ route('welcome' , App()->getLocale())  }}">{{ __('lang.menu_home') }}</a></li>
+                                    <li><a href="{{ route('individual' , App()->getLocale())  }}">{{ __('lang.menu_individual_vacancies') }}</a></li>
+                                    <li><a href="{{ route('company' , App()->getLocale())  }}">{{ __('lang.menu_company_vacancies') }}</a></li>
+                                    <li><a href="{{ route('onmap' , App()->getLocale())  }}">{{ __('lang.menu_vacancies_onmap') }}</a></li>
+                                    <li><a href="{{ route('about' , App()->getLocale())  }}">{{ __('lang.menu_about_us') }}</a></li>
+                                    <li><a href="{{ route('candidate' , App()->getLocale())  }}">{{ __('lang.menu_candidate') }}</a></li>
+                                    <li><a href="{{ route('blog' , App()->getLocale())  }}">{{ __('lang.menu_blog') }}</a></li>
                                     <li><a href="#">ხ.დ.კ</a></li>
                                     <li><a href="#">წესები და პირობები</a></li>
                                 </ul>
@@ -64,7 +63,7 @@
 
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="widget widget_services ftr-list-center">
-                                <h3 class="widget-title">კატეგორიის მიხედვით</h3>
+                                <h3 class="widget-title">{{ __('lang.footer_by_category') }}</h3>
                                 <ul>
                                     <li><a href="#">დასაქმება საზღვარგარეთ</a></li>
                                     <li><a href="#">ადმინისტრატორები</a></li>
@@ -82,7 +81,7 @@
 
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="widget widget_services ftr-list-center">
-                                <h3 class="widget-title">პროფესიების მიხედვით</h3>
+                                <h3 class="widget-title">{{ __('lang.footer_by_profession') }}</h3>
                                 <ul>
                                     <li><a href="#">ძიძა</a></li>
                                     <li><a href="#">ადმინისტრატორები</a></li>

@@ -57,8 +57,53 @@ return [
     'welcome_leftside_bar_popular' => 'Популярный',
     // ----------------------------------------------------------------------------------------------------
     'welcome_rightside_bar_companyvacancie' => 'Вакансии компании',
+    'welcome_rightside_bar_individualvacancie' => 'Индивидуальные вакансии',
+    'welcome_rightside_bar_employees' => 'Сотрудники',
+    // ----------------------------------------------------------------------------------------------------
+    'welcome_middle_leftblock_small_text' => 'С рабочими категориями',
+    'welcome_middle_leftblock_big_text' => 'Выберите нужную категорию',
+    'welcome_middle_submit' => 'Все категории',
+
+    'welcome_middle_uploadresume_block' => 'Все еще не можете найти подходящую работу? Загрузите свое резюме / CV.',
+    'welcome_middle_uploadresume_button' => 'Загрузите резюме',
+
+    'welcome_middle_top_company' => 'Лучшие компании',
+    'welcome_middle_top_company_getoffers' => 'Получайте предложения от ведущих компаний',
+
+
+    'welcome_middle_count_user' => 'Миллионы активных пользователей каждый день',
+    'welcome_middle_count_position' => 'Открытые вакансии',
+    'welcome_middle_count_history' => 'миллион общих историй',
+
+    'welcome_middle_career_allpost' => 'Все вакансии',
+    'welcome_middle_career_search' => 'Найдите карьеру, которую вы заслуживаете',
+    'welcome_middle_career_search_block_buttonreadmore' => 'Читать далее',
+    'welcome_middle_career_search_block_buttonallwork' => 'Все работы',
+
+    'welcome_middle_blog_smalltext' => 'Блог',
+    'welcome_middle_blog_articletext' => 'Последняя статья',
+    'welcome_middle_blog_article_button_read' => 'Читать далее',
+    
 
 
 
 
+
+
+
+
+
+    // ----------------------------------------------------------------------------------------------------
+    // Footer Lang Page
+    'footer_fast_link' => 'Быстрые ссылки',
+    'footer_by_category' => 'По категории',
+    'footer_by_profession' => 'По профессиям',
+
+    'footer_address_one' => 'Адрес :',
+        'footer_address_two' => 'Проспект Важа-Пшавела - 76Б II: улица Арчила Джорджадзе N5',
+    'footer_call' => 'Позвоните :',
+
+    'footer_subscribe_first_text' => 'Подписаться на активные вакансии',
+    'footer_subscribe_form_placeholder' => 'Введите адрес электронной почты',
+    'footer_subscribe_button' => 'Подписаться сейчас',
 ];

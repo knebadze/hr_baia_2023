@@ -13,16 +13,6 @@
                         <h2 class="wt-title">Candidate Profile</h2>
                     </div>
                 </div>
-                <!-- BREADCRUMB ROW -->
-
-                    {{-- <div>
-                        <ul class="wt-breadcrumb breadcrumb-style-2">
-                            <li><a href="index.html">Home</a></li>
-                            <li>Candidate Profile</li>
-                        </ul>
-                    </div> --}}
-
-                <!-- BREADCRUMB ROW END -->
             </div>
         </div>
     </div>

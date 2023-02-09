@@ -1,8 +1,6 @@
 @extends('layouts.appPage')
 @section('title-block')
-@section('title-block')
    {{ __('lang.page_title_home') }}
-@endsection
 @endsection
 @section('content')
 
@@ -125,7 +123,7 @@
                                     <div class="tw-count-number text-clr-pink">
                                         <span class="counter">98</span> +
                                     </div>
-                                    <p class="icon-content-info">ინდივიდუალური ვაკანსიები </p>
+                                    <p class="icon-content-info">{{ __('lang.welcome_rightside_bar_individualvacancie') }} </p>
                                 </div>
                             </div>
 
@@ -143,7 +141,7 @@
                                     <div class="tw-count-number text-clr-green">
                                         <span class="counter">3</span>K+
                                     </div>
-                                    <p class="icon-content-info">დასაქმებულები</p>
+                                    <p class="icon-content-info">{{ __('lang.welcome_rightside_bar_employees') }}</p>
                                 </div>
                             </div>
                         </div>
@@ -176,16 +174,16 @@
                         <!-- TITLE START-->
                         <div class="section-head left wt-small-separator-outer">
                             <div class="wt-small-separator site-text-primary">
-                            <div>სამუშაო კატეგორიებით</div>
+                            <div>{{ __('lang.welcome_middle_leftblock_small_text') }}</div>
                             </div>
-                            <h2 class="wt-title">აირჩიეთ თქვენთვის სასურველი კატეგორია</h2>
+                            <h2 class="wt-title">{{ __('lang.welcome_middle_leftblock_big_text') }}</h2>
                         </div>
                         <!-- TITLE END-->
                     </div>
 
-                    <div class="col-xl-6 col-lg-6 col-md-12 wt-separator-two-part-right">
+                    {{-- <div class="col-xl-6 col-lg-6 col-md-12 wt-separator-two-part-right">
                         <p>Lorem Ipsum არის უბრალოდ ბეჭდვისა და ბეჭდვის ინდუსტრიის მოჩვენებითი ტექსტი, სტანდარტული მოჩვენებითი ტექსტი მას შემდეგ, რაც პრინტერი აიღო.</p>
-                    </div>
+                    </div> --}}
 
                 </div>
             </div>
@@ -421,7 +419,7 @@
                 </div>
 
                 <div class="text-right job-categories-btn">
-                    <a href="job-grid.html" class=" site-button">ყველა კატეგორია</a>
+                    <a href="job-grid.html" class=" site-button">{{ __('lang.welcome_middle_submit') }}</a>
                 </div>
 
             </div>
@@ -457,13 +455,12 @@
                                 <div class="twm-r-circle-2"></div>
 
                                 <div class="twm-title-large">
-                                    <h2>ჯერ კიდევ ვერ მოძებნეთ
-                                    შესაბამისი სამსახური?
-                                    ატვირთეთ თქვენი რეზიუმე </h2>
-                                    <p>Lorem Ipsum არის უბრალოდ ბეჭდვისა და ბეჭდვის ინდუსტრიის მოჩვენებითი ტექსტი, სტანდარტული მოჩვენებითი ტექსტი მას შემდეგ, რაც პრინტერი აიღო.                                    </p>
+                                    <h2>{{ __('lang.welcome_middle_uploadresume_block') }} </h2>
+                                    {{-- <p>Lorem Ipsum არის უბრალოდ ბეჭდვისა და ბეჭდვის ინდუსტრიის მოჩვენებითი ტექსტი, 
+                                        სტანდარტული მოჩვენებითი ტექსტი მას შემდეგ, რაც პრინტერი აიღო.</p> --}}
                                 </div>
                                 <div class="twm-upload-file">
-                                    <button type="button" class="site-button">რეზიუმეს ატვირთვა <i class="feather-upload"></i></button>
+                                    <button type="button" class="site-button">{{ __('lang.welcome_middle_uploadresume_button') }} <i class="feather-upload"></i></button>
                                 </div>
 
 
@@ -486,9 +483,9 @@
             <!-- TITLE START-->
             <div class="section-head center wt-small-separator-outer">
                 <div class="wt-small-separator site-text-primary">
-                   <div>ტოპ კომპანიები</div>
+                   <div>{{ __('lang.welcome_middle_top_company') }}</div>
                 </div>
-                <h2 class="wt-title">მიიღეთ შემოთავაზებები ტოპ კომპანიებში</h2>
+                <h2 class="wt-title">{{ __('lang.welcome_middle_top_company_getoffers') }}</h2>
             </div>
             <!-- TITLE END-->
 
@@ -499,70 +496,70 @@
                         <div class="item">
                             <div class="ow-client-logo">
                                 <div class="client-logo client-logo-media">
-                                <a href="employer-list.html"><img src="images/client-logo/w1.png" alt=""></a></div>
+                                <a href="#" target="_blank"><img src="images/client-logo/w1.png" alt=""></a></div>
                             </div>
                         </div>
 
                         <div class="item">
                             <div class="ow-client-logo">
                                 <div class="client-logo client-logo-media">
-                                <a href="employer-list.html"><img src="images/client-logo/w2.png" alt=""></a></div>
+                                <a href="#" target="_blank"><img src="images/client-logo/w2.png" alt=""></a></div>
                             </div>
                         </div>
 
                         <div class="item">
                             <div class="ow-client-logo">
                                 <div class="client-logo client-logo-media">
-                                <a href="employer-list.html"><img src="images/client-logo/w3.png" alt=""></a></div>
+                                <a href="#" target="_blank"><img src="images/client-logo/w3.png" alt=""></a></div>
                             </div>
                         </div>
 
                         <div class="item">
                             <div class="ow-client-logo">
                                 <div class="client-logo client-logo-media">
-                                <a href="employer-list.html"><img src="images/client-logo/w4.png" alt=""></a></div>
+                                <a href="#" target="_blank"><img src="images/client-logo/w4.png" alt=""></a></div>
                             </div>
                         </div>
 
                         <div class="item">
                             <div class="ow-client-logo">
                                 <div class="client-logo client-logo-media">
-                                <a href="employer-list.html"><img src="images/client-logo/w5.png" alt=""></a></div>
+                                <a href="#" target="_blank"><img src="images/client-logo/w5.png" alt=""></a></div>
                             </div>
                         </div>
 
                         <div class="item">
                             <div class="ow-client-logo">
                                 <div class="client-logo client-logo-media">
-                                <a href="employer-list.html"><img src="images/client-logo/w6.png" alt=""></a></div>
+                                <a href="#" target="_blank"><img src="images/client-logo/w6.png" alt=""></a></div>
                             </div>
                         </div>
 
                         <div class="item">
                             <div class="ow-client-logo">
                                 <div class="client-logo client-logo-media">
-                                <a href="employer-list.html"><img src="images/client-logo/w1.png" alt=""></a></div>
+                                <a href="#" target="_blank"><img src="images/client-logo/w1.png" alt=""></a></div>
                             </div>
                         </div>
 
                         <div class="item">
                             <div class="ow-client-logo">
                                 <div class="client-logo client-logo-media">
-                                <a href="employer-list.html"><img src="images/client-logo/w2.png" alt=""></a></div>
+                                <a href="#" target="_blank"><img src="images/client-logo/w2.png" alt=""></a></div>
                             </div>
                         </div>
 
                         <div class="item">
                             <div class="ow-client-logo">
                                 <div class="client-logo client-logo-media">
-                                <a href="employer-list.html"><img src="images/client-logo/w3.png" alt=""></a></div>
+                                <a href="#" target="_blank"><img src="images/client-logo/w3.png" alt=""></a></div>
                             </div>
                         </div>
 
                         <div class="item">
                             <div class="ow-client-logo">
                                 <div class="client-logo client-logo-media">
-                                <a href="employer-list.html"><img src="images/client-logo/w5.png" alt=""></a></div>
+                                <a href="#" target="_blank"><img src="images/client-logo/w5.png" alt=""></a></div>
                             </div>
                         </div>
 
@@ -579,7 +576,7 @@
                                 <div class="icon-content">
                                     <div class="tw-count-number text-clr-sky">
                                         <span class="counter">5</span>M+</div>
-                                    <p class="icon-content-info">ყოველდღიურად მილიონობით აქტიური მომხმარებელი</p>
+                                    <p class="icon-content-info">{{ __('lang.welcome_middle_count_user') }}</p>
                                 </div>
                             </div>
                         </div>
@@ -590,7 +587,7 @@
                                 <div class="icon-content">
                                     <div class="tw-count-number text-clr-pink">
                                         <span class="counter">9</span>K+</div>
-                                    <p class="icon-content-info">ღია სამუშაო პოზიციები</p>
+                                    <p class="icon-content-info">{{ __('lang.welcome_middle_count_position') }}</p>
                                 </div>
                             </div>
                         </div>
@@ -601,7 +598,7 @@
                                 <div class="icon-content">
                                     <div class="tw-count-number text-clr-green">
                                         <span class="counter">2</span>M+</div>
-                                    <p class="icon-content-info">მილიონი გაზიარებული ისტორია</p>
+                                    <p class="icon-content-info">{{ __('lang.welcome_middle_count_history') }}</p>
                                 </div>
                             </div>
                         </div>
@@ -623,9 +620,9 @@
             <!-- TITLE START-->
             <div class="section-head center wt-small-separator-outer">
                 <div class="wt-small-separator site-text-primary">
-                   <div>ყველა ვაკანსიის პოსტი</div>
+                   <div>{{ __('lang.welcome_middle_career_allpost') }}</div>
                 </div>
-                <h2 class="wt-title">იპოვე შენი კარიერა, რომელსაც იმსახურებ</h2>
+                <h2 class="wt-title">{{ __('lang.welcome_middle_career_search') }}</h2>
             </div>
             <!-- TITLE END-->
 
@@ -648,7 +645,7 @@
                                 <div class="twm-right-content">
                                     <div class="twm-jobs-category green"><span class="twm-bg-green">ახალი</span></div>
                                     <div class="twm-jobs-amount">₾500 <span>/ თვეში</span></div>
-                                    <a href="job-detail.html" class="twm-jobs-browse site-text-primary">სრულად</a>
+                                    <a href="job-detail.html" class="twm-jobs-browse site-text-primary">{{ __('lang.welcome_middle_career_search_block_buttonreadmore') }}</a>
                                 </div>
                             </div>
                         </li>
@@ -734,7 +731,7 @@
                         </li>
                    </ul>
                    <div class="text-center m-b30">
-                        <a href="job-list.html" class=" site-button">ყველა სამუშაო</a>
+                        <a href="job-list.html" class=" site-button">{{ __('lang.welcome_middle_career_search_block_buttonallwork') }}</a>
                    </div>
                </div>
             </div>
@@ -743,150 +740,6 @@
     </div>
     <!-- JOB POST END -->
 
-    {{-- <!-- TESTIMONIAL SECTION START -->
-    <div class="section-full p-t120 p-b90 site-bg-white twm-testimonial-1-area">
-
-        <div class="container">
-
-            <div class="wt-separator-two-part">
-                <div class="row wt-separator-two-part-row">
-                    <div class="col-xl-5 col-lg-6 col-md-12 wt-separator-two-part-left">
-                        <!-- TITLE START-->
-                        <div class="section-head left wt-small-separator-outer">
-                            <div class="wt-small-separator site-text-primary">
-                            <div>Clients Testimonials</div>
-                            </div>
-                            <h2 class="wt-title">What Our Customers Say About Us</h2>
-                        </div>
-                        <!-- TITLE END-->
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="section-content">
-
-                <div class="owl-carousel twm-testimonial-1-carousel owl-btn-bottom-center ">
-
-                    <!-- COLUMNS 1 -->
-                    <div class="item ">
-                        <div class="twm-testimonial-1">
-                            <div class="twm-testimonial-1-content">
-                                <div class="twm-testi-media">
-                                    <img src="images/testimonials/pic-1.png" alt="#">
-                                </div>
-                                <div class="twm-testi-content">
-                                    <div class="twm-quote">
-                                        <img src="images/quote-dark.png" alt="">
-                                    </div>
-                                    <div class="twm-testi-info">I just got a job that I applied for via careerfy! I used the site all the time during my job hunt.</div>
-                                    <div class="twm-testi-detail">
-                                        <div class="twm-testi-name">Nikola Tesla</div>
-                                        <div class="twm-testi-position">Accountant</div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- COLUMNS 2 -->
-                    <div class="item ">
-                        <div class="twm-testimonial-1">
-                            <div class="twm-testimonial-1-content">
-                                <div class="twm-testi-media">
-                                    <img src="images/testimonials/pic-2.png" alt="#">
-                                </div>
-                                <div class="twm-testi-content">
-                                    <div class="twm-quote">
-                                        <img src="images/quote-dark.png" alt="">
-                                    </div>
-                                    <div class="twm-testi-info">I just got a job that I applied for via careerfy! I used the site all the time during my job hunt.</div>
-                                    <div class="twm-testi-detail">
-                                        <div class="twm-testi-name">Nikola Tesla</div>
-                                        <div class="twm-testi-position">Accountant</div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- COLUMNS 3 -->
-                    <div class="item ">
-                        <div class="twm-testimonial-1">
-                            <div class="twm-testimonial-1-content">
-                                <div class="twm-testi-media">
-                                    <img src="images/testimonials/pic-3.png" alt="#">
-                                </div>
-                                <div class="twm-testi-content">
-                                    <div class="twm-quote">
-                                        <img src="images/quote-dark.png" alt="">
-                                    </div>
-                                    <div class="twm-testi-info">I just got a job that I applied for via careerfy! I used the site all the time during my job hunt.</div>
-                                    <div class="twm-testi-detail">
-                                        <div class="twm-testi-name">Nikola Tesla</div>
-                                        <div class="twm-testi-position">Accountant</div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- COLUMNS 4 -->
-                    <div class="item ">
-                        <div class="twm-testimonial-1">
-                            <div class="twm-testimonial-1-content">
-                                <div class="twm-testi-media">
-                                    <img src="images/testimonials/pic-2.png" alt="#">
-                                </div>
-                                <div class="twm-testi-content">
-                                    <div class="twm-quote">
-                                        <img src="images/quote-dark.png" alt="">
-                                    </div>
-                                    <div class="twm-testi-info">I just got a job that I applied for via careerfy! I used the site all the time during my job hunt.</div>
-                                    <div class="twm-testi-detail">
-                                        <div class="twm-testi-name">Nikola Tesla</div>
-                                        <div class="twm-testi-position">Accountant</div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- COLUMNS 5 -->
-                    <div class="item ">
-                        <div class="twm-testimonial-1">
-                            <div class="twm-testimonial-1-content">
-                                <div class="twm-testi-media">
-                                    <img src="images/testimonials/pic-1.png" alt="#">
-                                </div>
-                                <div class="twm-testi-content">
-                                    <div class="twm-quote">
-                                        <img src="images/quote-dark.png" alt="">
-                                    </div>
-                                    <div class="twm-testi-info">I just got a job that I applied for via careerfy! I used the site all the time during my job hunt.</div>
-                                    <div class="twm-testi-detail">
-                                        <div class="twm-testi-name">Nikola Tesla</div>
-                                        <div class="twm-testi-position">Accountant</div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-
-            </div>
-        </div>
-
-    </div>
-    <!-- TESTIMONIAL SECTION END --> --}}
-
     <!-- OUR BLOG START -->
     <div class="section-full p-t120 p-b90 site-bg-gray">
         <div class="container">
@@ -894,9 +747,9 @@
             <!-- TITLE START-->
             <div class="section-head center wt-small-separator-outer">
                 <div class="wt-small-separator site-text-primary">
-                   <div>ბლოგი</div>
+                   <div>{{ __('lang.welcome_middle_blog_smalltext') }}</div>
                 </div>
-                <h2 class="wt-title">უახლესი სტატია</h2>
+                <h2 class="wt-title">{{ __('lang.welcome_middle_blog_articletext') }}</h2>
 
             </div>
             <!-- TITLE END-->
@@ -929,7 +782,7 @@
                                         </p>
                                     </div>
                                     <div class="wt-post-readmore ">
-                                        <a href="blog-single.html" class="site-button-link site-text-primary">სრულად</a>
+                                        <a href="blog-single.html" class="site-button-link site-text-primary">{{ __('lang.welcome_middle_blog_article_button_read') }}</a>
                                     </div>
                                 </div>
                             </div>
