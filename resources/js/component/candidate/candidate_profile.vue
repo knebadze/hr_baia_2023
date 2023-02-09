@@ -18,7 +18,7 @@
                                     <div class="form-group">
                                         <label>Your Name</label>
                                         <div class="ls-inputicon-box">
-                                            <input class="form-control" name="company_name"  :value="auth.name_ka" type="text" placeholder="">
+                                            <input class="form-control" name="company_name"  :value="auth[`name_${getLang}`]" type="text" placeholder="">
                                             <i class="fs-input-icon fa fa-user "></i>
                                         </div>
                                     </div>
