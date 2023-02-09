@@ -45,37 +45,69 @@
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-12">
                                     <div class="form-group">
-                                        <label>Start Date</label>
+                                        <label>Date of birth</label>
                                         <div class="ls-inputicon-box">
-                                            <input class="form-control datepicker" data-provide="datepicker" name="company_since" type="text" :value="this.authM.basic.date_of_birth" placeholder="mm/dd/yyyy">
+                                            <input class="form-control datepicker" data-provide="datepicker" name="company_since" type="text" :value="authM.basic.date_of_birth" placeholder="mm/dd/yyyy">
                                             <i class="fs-input-icon far fa-calendar"></i>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-6 col-lg-6 col-md-12" >
-                                    <p>gender</p>
-                                        <div class="form-check form-check-inline">
-                                            <input  type="radio" name="gender_id" value="1" class="form-check-input" id="male" :checked="(this.authM.basic.gender_id == 1)">
-                                            <label class="form-check-label" for="male">კაცი</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input type="radio" name="gender_id" value="2" class="form-check-input" id="female" :checked="(this.authM.basic.gender_id == 2)">
-                                            <label class="form-check-label" for="female">ქალი</label>
-                                        </div>
-
-                                </div>
-                                <div class="col-xl-6 col-lg-6 col-md-12">
-                                    <div class="form-group">
-                                        <label>Personal number</label>
-                                        <div class="ls-inputicon-box">
-                                            <input class="form-control" v-model="personal_number" type="text" placeholder="">
-                                            <i class="fs-input-icon fa fa-user"></i>
+                                  <!--Gender-->
+                                  <div class="col-xl-6 col-lg-6 col-md-12">
+                                        <div class="form-group">
+                                            <label>Gender</label>
+                                            <div class="ls-inputicon-box">
+                                                <select class="wt-select-box selectpicker"  data-live-search="true" title="" id="gender" data-bv-field="size">
+                                                    {{ (authM.basic.gender_id ==1 )?'კაცი':'ქალი' }}
+                                                    <!-- <option class="bs-title-option" value=""></option> -->
+                                                    <option>კაცი</option>
+                                                    <option>ქალი</option>
+                                                    <option>სხვა</option>
+                                                </select>
+                                                <i class="fs-input-icon fa fa-venus-mars"></i>
+                                            </div>
                                         </div>
                                     </div>
+                                <!-- <div class="col-xl-6 col-lg-6 col-md-12" >
+                                    <p>ნასამართლევი ხართ?</p>
+                                        <div class="form-check form-check-inline">
+                                            <input  type="radio" name="gender_id" value="0" class="form-check-input" id="male" >
+                                            <label class="form-check-label" for="male">არა</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input type="radio" name="gender_id" value="1" class="form-check-input" id="female" >
+                                            <label class="form-check-label" for="female">კი</label>
+                                        </div>
+
                                 </div>
+                                <div class="col-xl-6 col-lg-6 col-md-12" >
+                                    <p>ეწევი?</p>
+                                        <div class="form-check form-check-inline">
+                                            <input  type="radio" name="" value="0" class="form-check-input" id="male" >
+                                            <label class="form-check-label" for="male">არა</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input type="radio" name="" value="1" class="form-check-input" id="female" >
+                                            <label class="form-check-label" for="female">კი</label>
+                                        </div>
+
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-12" >
+                                    <p>საზღვარგარეთ იმუშავებდი?</p>
+                                        <div class="form-check form-check-inline">
+                                            <input  type="radio" name="" value="0" class="form-check-input" id="male" >
+                                            <label class="form-check-label" for="male">არა</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input type="radio" name="" value="1" class="form-check-input" id="female" >
+                                            <label class="form-check-label" for="female">კი</label>
+                                        </div>
+
+                                </div> -->
 
 
-                                <div class="col-xl-6 col-lg-6 col-md-12">
+
+                                <!-- <div class="col-xl-6 col-lg-6 col-md-12">
                                     <div class="form-group">
                                         <label>Qualification</label>
                                         <div class="ls-inputicon-box">
@@ -195,16 +227,82 @@
                                         <label>Description</label>
                                         <textarea class="form-control" rows="3">Greetings! when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.</textarea>
                                     </div>
-                                </div>
+                                </div> -->
 
 
-                                <div class="col-lg-12 col-md-12">
+                                <div class="col-lg-12 col-md-12 mt-4">
                                     <div class="text-left">
                                         <button type="submit" class="site-button">Save Changes</button>
                                     </div>
                                 </div>
 
 
+                        </div>
+
+                    </div>
+                </div>
+
+                 <!--personal information-->
+                 <div class="panel panel-default">
+                    <div class="panel-heading wt-panel-heading p-a20">
+                        <h4 class="panel-tittle m-a0">Personal Information</h4>
+                    </div>
+                    <div class="panel-body wt-panel-body p-a20 m-b30 ">
+
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label>Personal number</label>
+                                    <div class="ls-inputicon-box">
+                                        <input class="form-control" v-model="personal_number" type="text" placeholder="">
+                                        <i class="fs-input-icon fa fa-user"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                 <!--personal information-->
+                 <div class="panel panel-default">
+                    <div class="panel-heading wt-panel-heading p-a20">
+                        <h4 class="panel-tittle m-a0">Additional Information</h4>
+                    </div>
+                    <div class="panel-body wt-panel-body p-a20 m-b30 ">
+
+                        <div class="row">
+                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                    <div class="form-group city-outer-bx has-feedback">
+                                        <label>height</label>
+                                        <div class="ls-inputicon-box">
+                                            <input class="form-control" name="company_since" type="text" placeholder="65K">
+                                            <i class="fs-input-icon fa fa-arrows-v" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-4 col-lg-6 col-md-12">
+                                    <div class="form-group city-outer-bx has-feedback">
+                                        <label>weight</label>
+                                        <div class="ls-inputicon-box">
+                                            <input class="form-control" name="company_since" type="text" placeholder="75K">
+                                            <i class="fs-input-icon fa fa-dollar-sign"></i>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-4 col-lg-12 col-md-12">
+                                    <div class="form-group city-outer-bx has-feedback">
+                                        <label>Age</label>
+                                        <div class="ls-inputicon-box">
+                                            <input class="form-control" name="company_since" type="text" placeholder="35 Years">
+                                            <i class="fs-input-icon fa fa-child"></i>
+                                        </div>
+
+                                    </div>
+                                </div>
                         </div>
 
                     </div>
@@ -325,7 +423,7 @@ export default {
         return {
             authM: {
                 basic: {},
-                additional: {}
+                information: {}
             },
             personal_number:null
         }
