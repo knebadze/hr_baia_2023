@@ -18,7 +18,7 @@
                                     <div class="form-group">
                                         <label>Your Name</label>
                                         <div class="ls-inputicon-box">
-                                            <input class="form-control" name="company_name"  :value="auth[`name_${getLang}`]" type="text" placeholder="">
+                                            <input class="form-control"   :value="this.authM.basic[`name_${getLang}`]"  type="text" placeholder="">
                                             <i class="fs-input-icon fa fa-user "></i>
                                         </div>
                                     </div>
@@ -28,7 +28,7 @@
                                     <div class="form-group">
                                         <label>Phone</label>
                                         <div class="ls-inputicon-box">
-                                            <input class="form-control" name="company_phone" type="text" placeholder="(251) 1234-456-7890">
+                                            <input class="form-control" name="company_phone" :value="this.authM.basic.number" type="text" >
                                             <i class="fs-input-icon fa fa-phone-alt"></i>
                                         </div>
                                     </div>
@@ -38,18 +38,38 @@
                                     <div class="form-group">
                                         <label>Email Address</label>
                                         <div class="ls-inputicon-box">
-                                            <input class="form-control" name="company_Email" type="email" placeholder="Devid@example.com">
+                                            <input class="form-control" name="company_Email" :value="this.authM.basic.email" type="email" placeholder="">
                                             <i class="fs-input-icon fas fa-at"></i>
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="col-xl-6 col-lg-6 col-md-12">
                                     <div class="form-group">
-                                        <label>Website</label>
+                                        <label>Start Date</label>
                                         <div class="ls-inputicon-box">
-                                            <input class="form-control" name="company_website" type="text" placeholder="https://devsmith.net/">
-                                            <i class="fs-input-icon fa fa-globe-americas"></i>
+                                            <input class="form-control datepicker" data-provide="datepicker" name="company_since" type="text" :value="this.authM.basic.date_of_birth" placeholder="mm/dd/yyyy">
+                                            <i class="fs-input-icon far fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-12" >
+                                    <p>gender</p>
+                                        <div class="form-check form-check-inline">
+                                            <input  type="radio" name="gender_id" value="1" class="form-check-input" id="male" :checked="(this.authM.basic.gender_id == 1)">
+                                            <label class="form-check-label" for="male">კაცი</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input type="radio" name="gender_id" value="2" class="form-check-input" id="female" :checked="(this.authM.basic.gender_id == 2)">
+                                            <label class="form-check-label" for="female">ქალი</label>
+                                        </div>
+
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label>Personal number</label>
+                                        <div class="ls-inputicon-box">
+                                            <input class="form-control" v-model="personal_number" type="text" placeholder="">
+                                            <i class="fs-input-icon fa fa-user"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -301,11 +321,25 @@ export default {
     props:{
         auth:Object
     },
+    data() {
+        return {
+            authM: {
+                basic: {},
+                additional: {}
+            },
+            personal_number:null
+        }
+    },
+    created(){
+
+        this.authM.basic = this.auth
+    },
     computed:{
         getLang(){
             return I18n.getSharedInstance().options.lang
         }
     },
+
     mounted(){
         console.log(this.auth);
         // console.log($t);
