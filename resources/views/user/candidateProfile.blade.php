@@ -48,7 +48,7 @@
 
                     </div>
                 </div>
-                <candidate-profile :auth='@json($auth)'></candidate-profile>
+                <candidate-profile :data='@json($data)'></candidate-profile>
             </div>
         </div>
     </div>
