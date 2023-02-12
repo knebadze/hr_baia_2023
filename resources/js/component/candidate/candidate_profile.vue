@@ -426,7 +426,10 @@
                             </div>
                             <div class="col-lg-12 col-md-12">
                                 <div class="text-right ">
-                                    <button class="btn btn-success" @click="addLanguage(language_id, language_level_id)" title="დამატება" data-bs-toggle="tooltip" data-bs-placement="top">
+                                    <button class="btn btn-success"
+                                    @click="addLanguage(language_id, language_level_id)"
+                                    title="დამატება" data-bs-toggle="tooltip"
+                                    data-bs-placement="top">დამატება
                                         <span class="fa fa-plus"></span>
                                     </button>
                                 </div>
@@ -434,9 +437,192 @@
                                     <button type="submit" class="site-button">დამატება</button>
                                 </div> -->
                             </div>
-                            <div :class="tableClass">
-                                <miniTable :key="'language'" :tableType="'language'" :tableRow="tableRow" :tableData="candidateLanguage" @messageFromChild="childMessage"></miniTable>
+                            <div :class="languageTableClass">
+                                <!-- <miniTable :key="tableType" :tableType="tableType" :tableRow="tableRow" :tableData="candidateLanguage" @messageFromChild="childMessage"></miniTable> -->
+                                <div class="panel-body wt-panel-body">
+                                    <div class="p-a20 table-responsive">
+                                        <table class="table twm-table table-striped table-borderless">
+                                            <thead>
+                                                <tr>
+                                                <th v-for="row in languageTableRow">{{ row }}</th>
+                                                <th>actions</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <!--1-->
+                                                <tr v-for="(data, index) in candidateLanguage">
+                                                <td v-for="n in (Object.keys(data).length)"> {{ data[`row_${n}`] }}</td>
+                                                <td>
+                                                    <button @click="removeRow('language', index)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
+                                                        <i class="fa fa-trash-alt"></i>
+                                                    </button>
+                                                </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--ზოგადი სამუშაო გამოცდილება-->
+                <div class="panel panel-default">
+                    <div class="panel-heading wt-panel-heading p-a20">
+                        <h4 class="panel-tittle m-a0">ზოგადი სამუშაო გამოცდილება</h4>
+                    </div>
+                    <div class="panel-body wt-panel-body p-a20 m-b30 ">
+
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label>სამუშაო გამოცდილება</label>
+                                    <div class="ls-inputicon-box">
+                                        <select class="wt-select-box selectpicker"  v-model="candidateWorkExperience.work_experience_id"  data-live-search="true" title="" id="" data-bv-field="size">
+                                            <option v-for="workExperience in workExperiences " :value="workExperience.id">{{ workExperience[`name_${getLang}`] }}</option>
+                                        </select>
+                                        <i class="fs-input-icon fa fa-venus-mars"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label>პოზიცია</label>
+                                    <div class="ls-inputicon-box">
+                                        <input class="form-control" v-model="candidateWorkExperience.position" type="text" placeholder="">
+                                        <i class="fs-input-icon fa fa-user"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label>ობიექტი</label>
+                                    <div class="ls-inputicon-box">
+                                        <input class="form-control" v-model="candidateWorkExperience.object" type="text" placeholder="">
+                                        <i class="fs-input-icon fa fa-user"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12">
+                                <div class="text-right ">
+                                    <button class="btn btn-success"
+                                    @click="addCandidateWorkExperience(candidateWorkExperience.work_experience_id, candidateWorkExperience.position, candidateWorkExperience.object)"
+                                    title="დამატება" data-bs-toggle="tooltip" data-bs-placement="top">დამატება
+                                        <span class="fa fa-plus"></span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div :class="ExperienceTableClass">
+                                <!-- <miniTable :key="tableType" :tableType="tableType" :tableRow="tableRow" :tableData="candidateExperience" @messageFromChild="childMessage"></miniTable> -->
+                                <div class="panel-body wt-panel-body">
+                                    <div class="p-a20 table-responsive">
+                                        <table class="table twm-table table-striped table-borderless">
+                                            <thead>
+                                                <tr>
+                                                <th v-for="row in experienceTableRow">{{ row }}</th>
+                                                <th>actions</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <!--1-->
+                                                <tr v-for="(data, index) in candidateExperience">
+                                                <td v-for="n in (Object.keys(data).length)"> {{ data[`row_${n}`] }}</td>
+                                                <td>
+                                                    <button @click="removeRow('experience',index)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
+                                                        <i class="fa fa-trash-alt"></i>
+                                                    </button>
+                                                </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!--რეკომენდაცია-->
+                <div class="panel panel-default">
+                    <div class="panel-heading wt-panel-heading p-a20">
+                        <h4 class="panel-tittle m-a0">რეკომენდაცია</h4>
+                    </div>
+                    <div class="panel-body wt-panel-body p-a20 m-b30 ">
+
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label>რეკომენდაციას წარმოადგენთ</label>
+                                    <div class="ls-inputicon-box">
+                                        <select class="wt-select-box selectpicker"  v-model="candidateRecommendation.recommendation_id"  data-live-search="true" title="" id="" data-bv-field="size">
+                                            <option v-for="recommendation in recommendations " :value="recommendation.id">{{ recommendation[`name_${getLang}`] }}</option>
+                                        </select>
+                                        <i class="fs-input-icon fa fa-venus-mars"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div v-if="candidateRecommendation.recommendation_id != 4" class="col-xl-6 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label>საიდან წარმოადგენთ</label>
+                                    <div class="ls-inputicon-box">
+                                        <select class="wt-select-box selectpicker"  v-model="candidateRecommendation.recommendation_from_whom_id"  data-live-search="true" title="" id="" data-bv-field="size">
+                                            <option v-for="recommendationFrom in recommendationFromWhom " :value="recommendationFrom.id">{{ recommendationFrom[`name_${getLang}`] }}</option>
+                                        </select>
+                                        <i class="fs-input-icon fa fa-venus-mars"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div v-if="candidateRecommendation.recommendation_id != 4 || candidateRecommendation.recommendation_id != 1" class="col-xl-6 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label>რეკომენდატორის სახელი გვარი</label>
+                                    <div class="ls-inputicon-box">
+                                        <input class="form-control" v-model="candidateRecommendation.name" type="text" placeholder="">
+                                        <i class="fs-input-icon fa fa-user"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div v-if="candidateRecommendation.recommendation_from_whom_id == 1" class="col-xl-6 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label>თანამდებობა</label>
+                                    <div class="ls-inputicon-box">
+                                        <input class="form-control" v-model="candidateRecommendation.position" type="text" placeholder="">
+                                        <i class="fs-input-icon fa fa-user"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div v-if="candidateRecommendation.recommendation_id != 4 || candidateRecommendation.recommendation_id != 1" class="col-xl-6 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label>ნომერი</label>
+                                    <div class="ls-inputicon-box">
+                                        <input class="form-control" v-model="candidateRecommendation.number" type="text" placeholder="">
+                                        <i class="fs-input-icon fa fa-user"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div v-if="candidateRecommendation.recommendation_id == 3" class="col-xl-6 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label>ფაილი</label>
+                                    <div class="ls-inputicon-box">
+                                        <input class="form-control" ref="upload" type="file" @change="recommendationFileUpload" placeholder="">
+                                        <i class="fs-input-icon fa fa-user"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-lg-12 col-md-12">
+                                <div class="text-right ">
+                                    <button class="btn btn-success"
+                                    @click="addCandidateWorkExperience(candidateWorkExperience.work_experience_id, candidateWorkExperience.position, candidateWorkExperience.object)"
+                                    title="დამატება" data-bs-toggle="tooltip" data-bs-placement="top">დამატება
+                                        <span class="fa fa-plus"></span>
+                                    </button>
+                                </div>
+                            </div> -->
+                            <!--  -->
                         </div>
                     </div>
                 </div>
@@ -510,6 +696,74 @@
                     </div>
                 </div>
 
+                 <!--ცნობები-->
+                 <div class="panel panel-default">
+                    <div class="panel-heading wt-panel-heading p-a20">
+                        <h4 class="panel-tittle m-a0">ცნობები</h4>
+                    </div>
+                    <div class="panel-body wt-panel-body p-a20 m-b30 ">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>ცნობის დასახელება</label>
+                                    <div class="ls-inputicon-box">
+                                        <select class="wt-select-box selectpicker" v-model="candidateNotices.notice_id"  data-live-search="true" title="" id="" data-bv-field="size">
+                                            <option v-for="notice in notices " :value="notice.id">{{ notice[`name_${getLang}`] }}</option>
+                                        </select>
+                                        <i class="fs-input-icon fa fa-venus-mars"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label>ფაილი</label>
+                                    <div class="ls-inputicon-box">
+                                        <input class="form-control" type="file" @change="noticeFileUpload"  placeholder="">
+                                        <!-- <i class="fs-input-icon fa fa-user"></i> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12">
+                                <div class="text-right ">
+                                    <button class="btn btn-success"
+                                    @click="addNotice(candidateNotices.notice_id,)"
+                                    title="დამატება" data-bs-toggle="tooltip" data-bs-placement="top">დამატება
+                                        <span class="fa fa-plus"></span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div :class="noticeTableClass">
+                                <!-- <miniTable :key="tableType" :tableType="tableType" :tableRow="tableRow" :tableData="candidateExperience" @messageFromChild="childMessage"></miniTable> -->
+                                <div class="panel-body wt-panel-body">
+                                    <div class="p-a20 table-responsive">
+                                        <table class="table twm-table table-striped table-borderless">
+                                            <thead>
+                                                <tr>
+                                                <th v-for="row in noticeTableRow">{{ row }}</th>
+                                                <th>actions</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <!--1-->
+                                                <tr v-for="(data, index) in candidateExperience">
+                                                <td v-for="n in (Object.keys(data).length)"> {{ data[`row_${n}`] }}</td>
+                                                <td>
+                                                    <button @click="removeRow('notice',index)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
+                                                        <i class="fa fa-trash-alt"></i>
+                                                    </button>
+                                                </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!--Social Network-->
                 <div class="panel panel-default">
                     <div class="panel-heading wt-panel-heading p-a20">
@@ -569,6 +823,9 @@ export default {
         return {
             auth: {},
             candidate:{},
+            candidateWorkExperience: {},
+            candidateRecommendation: {},
+            candidateNotices: {},
             //კლასიპიკატორები
             gender: {},
             nationality: {},
@@ -581,22 +838,32 @@ export default {
             allergies: {},
             languages: {},
             languageLevels: {},
+            workExperiences: {},
+            recommendations: {},
+            recommendationFromWhom: {},
+            notices: {},
+
 
             candidateCitizenship: [],
             candidateSpecialty: [],
             candidateProfession: [],
             candidateAllergy: [],
             candidateLanguage: [],
+            candidateExperience: [],
+
 
             //v-model
             language_id: null,
             language_level_id: null,
 
-            //table component
-            tableType: '',
-            tableRow: {},
-            // tableRowL:['N', 'ენა', 'დონე']
+            // workExperience_id: null,
 
+            //table component
+            languageTableRow: [],
+            experienceTableRow: [],
+            //file
+            noticeFile: {},
+            recommendationFile: {},
 
         }
     },
@@ -614,51 +881,104 @@ export default {
         this.allergies = this.data.allergies
         this.languages = this.data.languages
         this.languageLevels = this.data.languageLevels
+        this.workExperiences = this.data.workExperiences
+        this.candidateWorkExperience = this.data.candidateWorkExperience
+        this.recommendations = this.data.recommendations
+        this.candidateRecommendation = this.data.candidateRecommendation
+        this.recommendationFromWhom = this.data.recommendationFromWhom
         // this.tableRow = {'language': this.tableRowL}
     },
     computed:{
         getLang(){
             return I18n.getSharedInstance().options.lang
         },
-        tableClass(){
+        languageTableClass(){
             return (this.candidateLanguage.length > 0 )?'col-lg-12 col-md-12':'col-lg-12 col-md-12 visually-hidden'
+        },
+        ExperienceTableClass(){
+            return (this.candidateExperience.length > 0 )?'col-lg-12 col-md-12':'col-lg-12 col-md-12 visually-hidden'
+        },
+        noticeTableClass(){
+            return (this.candidateExperience.length > 0 )?'col-lg-12 col-md-12':'col-lg-12 col-md-12 visually-hidden'
         }
     },
     methods:{
         authUpdate(){
             console.log(this.auth);
+            axios.post('/profileUpdate',{
+                auth:this.auth
+            })
+            .then(function (response) {
+                // handle success
+                console.log(response);
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+
+        },
+        recommendationFileUpload(event){
+            console.log(event.target.files[0]);
+            this.recommendationFile = event.target.files[0]
+        },
+        noticeFileUpload(event){
+            console.log(event.target.files[0]);
+            this.noticeFile = event.target.files[0]
         },
         addLanguage(language_id, language_level_id){
-            var tableData = []
+            var tableData = {}
             var languageObj =  _.find(this.languages, function(o) { return o.id ==  language_id; });
             var languageLevelObj = _.find(this.languageLevels, function(o) { return o.id ==  language_level_id; });
-            tableData = [
-                {'data':this.candidateLanguage.length + 1},
-                {'data':languageObj[`name_${this.getLang}`]},
-                {'data':languageLevelObj[`name_${this.getLang}`]},
-            ]
-            this.candidateLanguage.push(tableData)
-            // console.log('this.candidateLanguage', this.candidateLanguage);
-            var tableRow = ['N', 'ენა', 'დონე']
-            this.tableRow = {'language': tableRow}
-        },
-        trashLanguage(index){
-            console.log('this.candidateLanguage2', this.candidateLanguage);
-            // const removed = this.candidateLanguage.splice(index, 1);
-            // console.log('removed', removed);
-            console.log('this.candidateLanguage3', this.candidateLanguage);
-        },
-        childMessage(type, index){
-            console.log(type, index);
-            if (type == 'language') {
-                console.log('this.candidateLanguage1', this.candidateLanguage);
-                this.trashLanguage()
+            tableData = {
+                'row_1': this.candidateLanguage.length + 1,
+                'row_2': languageObj[`name_${this.getLang}`],
+                'row_3': languageLevelObj[`name_${this.getLang}`],
             }
-        }
+            this.candidateLanguage.push(tableData)
+            this.languageTableRow = ['N', 'ენა', 'დონე']
+        },
+        addCandidateWorkExperience(workExperience_id, position, object){
+            this.candidateWorkExperience = {
+                'work_experience_id':workExperience_id,
+                'position': position,
+                'object': object,
+            }
+            var tableData = {}
+            var workExperienceObj =  _.find(this.workExperiences, function(o) { return o.id ==  workExperience_id; });
+
+            tableData = {
+                'row_1': this.candidateExperience.length + 1,
+                'row_2': workExperienceObj[`name_${this.getLang}`],
+                'row_3': position,
+                'row_4': object,
+            }
+            this.candidateExperience.push(tableData)
+            this.experienceTableRow = ['N', 'გამოცდილება', 'პოზიცია', 'ობიექტი']
+        },
+        addNotice(){
+
+        },
+        removeRow(type, index){
+            if (type == 'language') {
+                const removed = this.candidateLanguage.splice(index, 1);
+            }else if(type == 'experience'){
+                const removed = this.candidateExperience.splice(index, 1);
+            }
+
+        },
+        // childMessage(newData, type){
+        //     console.log('newData',newData);
+        //     if (type == 'language') {
+        //         this.candidateLanguage = newData
+        //         console.log('this.candidateLanguage1', this.candidateLanguage);
+        //         // this.removeLanguage()
+        //     }
+        // }
     },
 
     mounted(){
-        console.log(this.candidate);
+        // console.log(this.candidateRecommendation);
         // console.log($t);
         console.log(this.getLang)
         // console.log(this.app);

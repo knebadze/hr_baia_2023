@@ -11,10 +11,15 @@ use App\Models\Education;
 use App\Models\Specialty;
 use App\Models\Profession;
 use App\Models\Citizenship;
+use App\Models\General_work_experience;
 use App\Models\Language_level;
 use App\Models\Nationality;
 use Illuminate\Http\Request;
 use App\Models\MaritalStatus;
+use App\Models\Notice;
+use App\Models\Recommendation;
+use App\Models\RecommendationFromWhom;
+use App\Models\Work_experience;
 use PhpParser\Node\Expr\New_;
 use Illuminate\Support\Facades\DB;
 // use JetBrains\PhpStorm\Language;
@@ -34,7 +39,28 @@ class MyprofileController extends Controller
             $candidate = Candidate::where('user_id', $auth->id)->first();
         }else{
             $candidate = Schema::getColumnListing('candidates');
+            // dd($candidate);
         }
+
+        if (DB::table('candidates')->exists() && DB::table('general_work_experiences')->where('candidate_id', $candidate->id)->exists()) {
+            $candidateWorkExperience = General_work_experience::where('candidate_id', $candidate->id)->get();
+        }else{
+            $candidateWorkExperience = Schema::getColumnListing('general_work_experiences');
+        }
+
+        if (DB::table('candidates')->exists() && DB::table('candidate_recommendations')->where('candidate_id', $candidate->id)->exists()) {
+            $candidateRecommendation = Recommendation::where('candidate_id', $candidate->id)->first();
+        }else{
+            $candidateRecommendation = Schema::getColumnListing('candidate_recommendations');
+        }
+
+        if (DB::table('candidates')->exists() && DB::table('candidate_notices')->where('candidate_id', $candidate->id)->exists()) {
+            $candidateNotices = Recommendation::where('candidate_id', $candidate->id)->get();
+        }else{
+            $candidateNotices = Schema::getColumnListing('candidate_notices');
+        }
+
+
 
         //კლასიფიკატორები
         $nationality = Nationality::all()->toArray();
@@ -47,6 +73,10 @@ class MyprofileController extends Controller
         $allergies = Allergy::all()->toArray();
         $languages = Language::all()->toArray();
         $languageLevels = Language_level::all()->toArray();
+        $workExperiences = Work_experience::all()->toArray();
+        $recommendations = Recommendation::all()->toArray();
+        $recommendationFromWhom = RecommendationFromWhom::all()->toArray();
+        $notices = Notice::All()->toArray();
 
         // dd($candidate);
         $data = [
@@ -56,8 +86,10 @@ class MyprofileController extends Controller
             'maritalStatus' => $maritalStatus, 'citizenship' => $citizenship,
             'professions' => $professions, 'specialties' => $specialties,
             'allergies' => $allergies, 'languages' => $languages,
-            'languageLevels' => $languageLevels
-
+            'languageLevels' => $languageLevels, 'workExperiences' => $workExperiences,
+            'candidateWorkExperience' => $candidateWorkExperience, 'recommendations' => $recommendations,
+            'candidateRecommendation' => $candidateRecommendation, 'recommendationFromWhom' => $recommendationFromWhom,
+            'notices' => $notices, 'candidateNotices' => $candidateNotices
          ];
         return view ('user/candidateProfile', compact('data'));
     }
@@ -84,7 +116,7 @@ class MyprofileController extends Controller
 
     public function update(Request $request, $id)
     {
-        //
+        return response()->json('ok');
     }
 
     public function destroy($id)

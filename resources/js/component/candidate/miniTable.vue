@@ -1,8 +1,4 @@
 <template lang="">
-    <!-- <div class="panel panel-default site-bg-white m-t30"> -->
-        <!-- <div class="panel-heading wt-panel-heading p-a20">
-            <h4 class="panel-tittle m-a0"><i class="far fa-bell"></i>Alerts</h4>
-        </div> -->
         <div class="panel-body wt-panel-body">
 
             <div class="p-a20 table-responsive">
@@ -17,7 +13,7 @@
                 <tbody>
                     <!--1-->
                     <tr v-for="(data, index) in tableData">
-                    <td v-for="item in data"> {{ item.data }}</td>
+                    <td v-for="n in (Object.keys(data).length)"> {{ data[`row_${n}`] }}</td>
                     <td>
                         <button @click="trash(tableType, index)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
                             <i class="fa fa-trash-alt"></i>
@@ -32,7 +28,6 @@
             </div>
 
         </div>
-    <!-- </div> -->
 </template>
 <script>
 export default {
@@ -50,20 +45,24 @@ export default {
         trash(type, index){
             // console.log('type', type);
             // console.log('index', index);
-            this.sendMessageToParent(type, index)
+            console.log('tableData', this.tableData);
+            const removed = this.tableData.splice(index, 1);
+            console.log('tableData', this.tableData);
+            this.sendMessageToParent(this.tableData, type)
         },
-        sendMessageToParent(type, index){
-            this.$emit('messageFromChild', type, index)
+        sendMessageToParent(newData, type){
+            this.$emit('messageFromChild', newData, type)
         }
     },
-    // watch:{
-    //     tableRow: {
-    //         handler(newValue, oldValue) {
-    //             console.log(this.tableRow);
-    //             console.log('tableData', this.tableData);
-    //         }
-    //     }
-    // },
+    watch:{
+        tableData: {
+            handler(newValue, oldValue) {
+                // console.log(this.tableRow);
+                console.log('tableData', this.tableData[0]);
+                // console.log('length', Object.keys(this.tableData[0]).length);
+            }
+        }
+    },
     mounted(){
 
 
