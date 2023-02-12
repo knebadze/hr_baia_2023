@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\gender;
+use App\Models\Notice;
 use App\Models\Allergy;
 use App\Models\Language;
 use App\Models\Religion;
@@ -11,20 +13,19 @@ use App\Models\Education;
 use App\Models\Specialty;
 use App\Models\Profession;
 use App\Models\Citizenship;
-use App\Models\General_work_experience;
-use App\Models\Language_level;
 use App\Models\Nationality;
 use Illuminate\Http\Request;
 use App\Models\MaritalStatus;
-use App\Models\Notice;
-use App\Models\Recommendation;
-use App\Models\RecommendationFromWhom;
-use App\Models\Work_experience;
 use PhpParser\Node\Expr\New_;
+use App\Models\Language_level;
+use App\Models\Recommendation;
+use App\Models\Work_experience;
 use Illuminate\Support\Facades\DB;
-// use JetBrains\PhpStorm\Language;
 use Illuminate\Support\Facades\Auth;
+// use JetBrains\PhpStorm\Language;
+use App\Models\RecommendationFromWhom;
 use Illuminate\Support\Facades\Schema;
+use App\Models\General_work_experience;
 
 class MyprofileController extends Controller
 {
@@ -40,6 +41,36 @@ class MyprofileController extends Controller
         }else{
             $candidate = Schema::getColumnListing('candidates');
             // dd($candidate);
+        }
+
+        if (DB::table('candidates')->exists() && DB::table('candidate_languages')->where('candidate_id', $candidate->id)->exists()) {
+            $candidateLanguages = General_work_experience::where('candidate_id', $candidate->id)->get();
+        }else{
+            $candidateLanguages= Schema::getColumnListing('candidate_languages');
+        }
+
+        if (DB::table('candidates')->exists() && DB::table('candidate_allergies')->where('candidate_id', $candidate->id)->exists()) {
+            $candidateAllergies = General_work_experience::where('candidate_id', $candidate->id)->get();
+        }else{
+            $candidateAllergies= Schema::getColumnListing('candidate_allergies');
+        }
+
+        if (DB::table('candidates')->exists() && DB::table('candidate_citizenships')->where('candidate_id', $candidate->id)->exists()) {
+            $candidateCitizenships = General_work_experience::where('candidate_id', $candidate->id)->get();
+        }else{
+            $candidateCitizenships = Schema::getColumnListing('candidate_citizenships');
+        }
+
+        if (DB::table('candidates')->exists() && DB::table('candidate_professions')->where('candidate_id', $candidate->id)->exists()) {
+            $candidateProfessions = General_work_experience::where('candidate_id', $candidate->id)->get();
+        }else{
+            $candidateProfessions = Schema::getColumnListing('candidate_professions');
+        }
+
+        if (DB::table('candidates')->exists() && DB::table('candidate_specialties')->where('candidate_id', $candidate->id)->exists()) {
+            $candidateSpecialties = General_work_experience::where('candidate_id', $candidate->id)->get();
+        }else{
+            $candidateSpecialties = Schema::getColumnListing('candidate_specialties');
         }
 
         if (DB::table('candidates')->exists() && DB::table('general_work_experiences')->where('candidate_id', $candidate->id)->exists()) {
@@ -83,12 +114,14 @@ class MyprofileController extends Controller
             'auth' => $auth, 'candidate' => $candidate,
             'gender' => $gender, 'nationality' => $nationality,
             'religions' => $religions, 'educations ' => $educations,
-            'maritalStatus' => $maritalStatus, 'citizenship' => $citizenship,
-            'professions' => $professions, 'specialties' => $specialties,
-            'allergies' => $allergies, 'languages' => $languages,
-            'languageLevels' => $languageLevels, 'workExperiences' => $workExperiences,
-            'candidateWorkExperience' => $candidateWorkExperience, 'recommendations' => $recommendations,
-            'candidateRecommendation' => $candidateRecommendation, 'recommendationFromWhom' => $recommendationFromWhom,
+            'maritalStatus' => $maritalStatus,
+            'citizenship' => $citizenship, 'candidateCitizenships' => $candidateCitizenships,
+            'professions' => $professions, 'candidateProfessions' => $candidateProfessions,
+            'specialties' => $specialties,'candidateSpecialties' => $candidateSpecialties,
+            'allergies' => $allergies, 'candidateAllergies' => $candidateAllergies,
+            'languages' => $languages, 'languageLevels' => $languageLevels, 'candidateLanguages' => $candidateLanguages,
+            'workExperiences' => $workExperiences,'candidateWorkExperience' => $candidateWorkExperience,
+            'recommendations' => $recommendations, 'candidateRecommendation' => $candidateRecommendation, 'recommendationFromWhom' => $recommendationFromWhom,
             'notices' => $notices, 'candidateNotices' => $candidateNotices
          ];
         return view ('user/candidateProfile', compact('data'));
@@ -114,9 +147,24 @@ class MyprofileController extends Controller
         //
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        return response()->json('ok');
+        $data = $request->all();
+        $lang = app()->getLocale();
+        $user = User::findOrFail($request->id);
+        if ($lang == 'ka') {
+            $user->name_ka = $request->name;
+        } elseif($lang == 'en') {
+            $user->name_en = $request->name;
+        } elseif($lang == 'ru') {
+            $user->name_ru = $request->name;
+        }
+        $user->email = $request->email;
+        $user->number = $request->number;
+        $user->date_of_birth = $request->date_of_birth;
+        $user->gender_id = $request->gender_id;
+        $user->update();
+        return response()->json();
     }
 
     public function destroy($id)

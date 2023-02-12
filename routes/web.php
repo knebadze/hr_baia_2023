@@ -56,6 +56,6 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::get('auth/{provider}/callback', [SocialController::class, 'callback'])->name('auth.social.callback');
 
     //AXIOS
-    Route::post('/profileUpdate', [MyprofileController::class, 'update']);
+    Route::post('profile_update', [MyprofileController::class, 'update']);
 
 
