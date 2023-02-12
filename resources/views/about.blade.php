@@ -7,31 +7,25 @@
 <div class="page-content">
 
     <!-- INNER PAGE BANNER -->
-    <div class="wt-bnr-inr overlay-wraper bg-center" style="background-image:url(images/banner/1.jpg);">
+    <div class="wt-bnr-inr overlay-wraper bg-center" style="background-image:url(/images/banner/1.jpg);">
         <div class="overlay-main site-bg-white opacity-01"></div>
         <div class="container">
             <div class="wt-bnr-inr-entry aboutUsText">
                 <div class="banner-title-outer">
                     <div class="banner-title-name">
-                        <h2 class="wt-title">ჩვენს შესახებ</h2>
+                        <h2 class="wt-title">{{ __('lang.about_us_page_title_one') }}</h2>
                     </div>
                 </div>
                 <!-- BREADCRUMB ROW -->
 
                     <div>
                         <ul class="wt-breadcrumb breadcrumb-style-2">
-                            <li><a href="{{ url ('/') }}">მთავარი</a> / </li>
-                            <li>ჩვენს შესახებ</li>
+                            <li><a href="{{ url ('/') }}">{{ __('lang.about_us_page_title_link') }}</a>/ </li>
+                            <li>{{ __('lang.about_us_page_title_one') }}</li>
                         </ul>
                     </div>
                     <h4>
-                        თბილისის საოჯახო პერსონალის საკადრო ცენტრი ,,ბაია“   გთავაზობთ  
-                        პერსონალის ოპერატიულ და პროფესიონალურ დონეზე შერჩევას,  
-                        როგორც საოჯახო პერსონალის (ძიძების, გუვერნანტების, ოჯახში დამხმარეების, 
-                        მოხუცისა თუ ავადმყოფის მომვლელების, პერსონალური მძღოლების, საკარმიდამო ნაკვეთში 
-                        ოჯახური წყვილების)სახით,  ასევე სასტუმრო/რესტორნებისა და მაღაზიების ქსელისათვის მენეჯერების, 
-                        ადმინისტრატორების, ჭურჭლის მრეცხავებისა თუ დამლაგებლების, მოლარე-ოპერატორების, 
-                        მზარეულებისა და მრავალი სხვა პროფილით  როგორც საქართველოში ასევე საზღვარგარეთ.
+                        {{ __('lang.about_us_page_description') }}
                     </h4>
 
                 <!-- BREADCRUMB ROW END -->
@@ -47,9 +41,9 @@
             <!-- TITLE START-->
             <div class="section-head center wt-small-separator-outer">
                 <div class="wt-small-separator site-text-primary">
-                   <div>სამუშაო პროცესი</div>
+                   <div>{{ __('lang.about_us_page_working_proccess') }}</div>
                 </div>
-                <h2 class="wt-title">როგორ მუშაობს</h2>
+                <h2 class="wt-title">{{ __('lang.about_us_page_working_how_does_it_work') }}</h2>
 
             </div>
             <!-- TITLE END-->
@@ -61,11 +55,11 @@
                             <span class="twm-large-number">01</span>
                             <div class="twm-w-pro-top bg-clr-sky">
                                 <div class="twm-media">
-                                    <span><img src="images/work-process/icon1.png" alt="icon1"></span>
+                                    <span><img src="/images/work-process/icon1.png" alt="icon1"></span>
                                 </div>
-                                <h4 class="twm-title">დაარეგისტრირე<br>შენი ექაუნთი</h4>
+                                <h4 class="twm-title">{{ __('lang.about_us_page_card_register_user') }}</h4>
                             </div>
-                            <p>თქვენ უნდა შექმნათ ექაუნთი, რომ იპოვოთ საუკეთესო და სასურველი სამუშაო.</p>
+                            <p>{{ __('lang.about_us_page_card_register_user_description') }}</p>
                         </div>
                     </div>
 
@@ -74,12 +68,11 @@
                             <span class="twm-large-number">02</span>
                             <div class="twm-w-pro-top bg-clr-pink">
                                 <div class="twm-media">
-                                    <span><img src="images/work-process/icon2.png" alt="icon1"></span>
+                                    <span><img src="/images/work-process/icon2.png" alt="icon1"></span>
                                 </div>
-                                <h4 class="twm-title">რედაქტირება <br>
-                                    სამუშაოსთვის</h4>
+                                <h4 class="twm-title">{{ __('lang.about_us_page_card_editing_user') }}</h4>
                             </div>
-                            <p>დაარედაქტირეთ თქვენი კაბინეტი.</p>
+                            <p>{{ __('lang.about_us_page_card_editing_user_description') }}</p>
                         </div>
                     </div>
 
@@ -88,11 +81,11 @@
                             <span class="twm-large-number">03</span>
                             <div class="twm-w-pro-top bg-clr-green">
                                 <div class="twm-media">
-                                    <span><img src="images/work-process/icon3.png" alt="icon1"></span>
+                                    <span><img src="/images/work-process/icon3.png" alt="icon1"></span>
                                 </div>
-                                <h4 class="twm-title">ატვირთეთ <br>თქვენი რეზიუმე</h4>
+                                <h4 class="twm-title">{{ __('lang.about_us_page_card_upload_user') }}</h4>
                             </div>
-                            <p>თქვენ უნდა ატვირთოთ რეზიუმე, რათა ყველასთვის სანახავი იყოს.</p>
+                            <p>{{ __('lang.about_us_page_card_upload_user_description') }}</p>
                         </div>
                     </div>
 
@@ -108,9 +101,9 @@
         <!-- TITLE START-->
         <div class="section-head center wt-small-separator-outer">
             <div class="wt-small-separator site-text-primary">
-               <div>სამსახურები კატეგორიების მიხედვით</div>
+               <div>{{ __('lang.about_us_page_jobs_by_category') }}</div>
             </div>
-            <h2 class="wt-title">აირჩიეთ სასურველი კატეგორია</h2>
+            <h2 class="wt-title">{{ __('lang.about_us_page_select_desire_category') }}</h2>
         </div>
         <!-- TITLE END-->
 
@@ -229,7 +222,7 @@
                 </div>
 
                 <div class="text-center job-categories-btn">
-                    <a href="job-grid.html" class=" site-button">ყველა კატეგორია</a>
+                    <a href="job-grid.html" class=" site-button">{{ __('lang.about_us_page_all_category') }}</a>
                 </div>
 
             </div>
@@ -248,27 +241,27 @@
                     <!-- TITLE START-->
                         <div class="section-head left wt-small-separator-outer">
                             <div class="wt-small-separator site-text-primary">
-                            <div>როგორ მუშაობს </div>
+                            <div>{{ __('lang.about_us_page_working_how_does_it_work') }} </div>
                             </div>
-                            <h2 class="wt-title">მიჰყევით ჩვენს ნაბიჯებს, ჩვენ დაგეხმარებით.</h2>
+                            <h2 class="wt-title">{{ __('lang.about_us_page_follow_our_steps') }}</h2>
 
                         </div>
                         <ul class="description-list">
                             <li>
                                 <i class="feather-check"></i>
-                                სანდო და ხარისხიანი სამუშაო
+                                {{ __('lang.about_us_page_follow_our_steps_list_1') }}
                             </li>
                             <li>
                                 <i class="feather-check"></i>
-                                საერთაშორისო სამუშაო
+                                {{ __('lang.about_us_page_follow_our_steps_list_2') }}
                             </li>
                             <li>
                                 <i class="feather-check"></i>
-                                დამატებითი გადასახადის გარეშე
+                                {{ __('lang.about_us_page_follow_our_steps_list_3') }}
                             </li>
                             <li>
                                 <i class="feather-check"></i>
-                                ტოპ კომპანიები
+                                {{ __('lang.about_us_page_follow_our_steps_list_4') }}
                             </li>
                         </ul>
                     <!-- TITLE END-->
@@ -281,9 +274,9 @@
                                     <div class="twm-w-pro-top bg-clr-sky-light bg-sky-light-shadow">
                                         <span class="twm-large-number text-clr-sky">01</span>
                                         <div class="twm-media">
-                                            <span><img src="images/work-process/icon1.png" alt="icon1"></span>
+                                            <span><img src="/images/work-process/icon1.png" alt="icon1"></span>
                                         </div>
-                                        <h4 class="twm-title">დაარეგისტრირეთ<br>ექაუნთი</h4>
+                                        <h4 class="twm-title">{{ __('lang.about_us_page_card_register_account') }}</h4>
                                         {{-- <p>თქვენ უნდა შექმნათ ანგარიში, რომ იპოვოთ საუკეთესო და სასურველი სამუშაო.</p> --}}
                                     </div>
 
@@ -295,10 +288,9 @@
                                     <div class="twm-w-pro-top bg-clr-yellow-light bg-yellow-light-shadow">
                                         <span class="twm-large-number text-clr-yellow">02</span>
                                         <div class="twm-media">
-                                            <span><img src="images/work-process/icon4.png" alt="icon1"></span>
+                                            <span><img src="/images/work-process/icon4.png" alt="icon1"></span>
                                         </div>
-                                        <h4 class="twm-title">მოძებნე <br>
-                                            სასურველი ვაკანსია</h4>
+                                        <h4 class="twm-title">{{ __('lang.about_us_page_card_search_vacancie') }}ა</h4>
                                         {{-- <p>მოძებნეთ სასურველი ვაკანსია და დაგვეკონტაქტეთ</p> --}}
                                     </div>
 
@@ -310,9 +302,9 @@
                                     <div class="twm-w-pro-top bg-clr-pink-light bg-pink-light-shadow">
                                         <span class="twm-large-number text-clr-pink">03</span>
                                         <div class="twm-media">
-                                            <span><img src="images/work-process/icon3.png" alt="icon1"></span>
+                                            <span><img src="/images/work-process/icon3.png" alt="icon1"></span>
                                         </div>
-                                        <h4 class="twm-title">დაადასტურეთ <br>თქვენი ვაკანსია</h4>
+                                        <h4 class="twm-title">{{ __('lang.about_us_page_card_confirm_vacancie') }}</h4>
                                         {{-- <p>You need to create an account to find the best and preferred job.</p> --}}
                                     </div>
 
@@ -324,9 +316,9 @@
                                     <div class="twm-w-pro-top bg-clr-green-light bg-clr-light-shadow">
                                         <span class="twm-large-number text-clr-green">04</span>
                                         <div class="twm-media">
-                                            <span><img src="images/work-process/icon3.png" alt="icon1"></span>
+                                            <span><img src="/images/work-process/icon3.png" alt="icon1"></span>
                                         </div>
-                                        <h4 class="twm-title">ატვირთეთ <br>თქვენი რეზიუმე</h4>
+                                        <h4 class="twm-title">{{ __('lang.about_us_page_card_upload_resume') }}</h4>
                                         {{-- <p>You need to create an account to find the best and preferred job.</p> --}}
                                     </div>
 
@@ -349,7 +341,7 @@
     <!-- HOW IT WORK SECTION END -->
 
     <!-- EXPLORE NEW LIFE START -->
-    <div class="section-full p-t120 p-b120 twm-explore-area bg-cover " style="background-image: url(images/background/bg-1.jpg);">
+    <div class="section-full p-t120 p-b120 twm-explore-area bg-cover " style="background-image: url(/images/background/bg-1.jpg);">
         <div class="container">
 
             <div class="section-content">
@@ -358,7 +350,7 @@
                     <div class="col-lg-4 col-md-12">
                         <div class="twm-explore-media-wrap">
                             <div class="twm-media">
-                                <img src="images/gir-large.png" alt="">
+                                <img src="/images/gir-large.png" alt="">
                             </div>
                         </div>
                     </div>
@@ -374,11 +366,10 @@
                                 <div class="twm-r-circle-2"></div>
 
                                 <div class="twm-title-large">
-                                    <h2>ჯერ კიდევ ვერ მოძებნეთ შესაბამისი სამსახური? ატვირთეთ თქვენი რეზიუმე </h2>
-                                    <p>Lorem Ipsum არის უბრალოდ ბეჭდვისა და ბეჭდვის ინდუსტრიის მოჩვენებითი ტექსტი, სტანდარტული მოჩვენებითი ტექსტი მას შემდეგ, რაც პრინტერი აიღო.</p>
+                                    <h2>{{ __('lang.about_us_page_box_card_description') }}</h2>
                                 </div>
                                 <div class="twm-upload-file">
-                                    <button type="button" class="site-button">რეზიუმეს ატვირთვა <i class="feather-upload"></i></button>
+                                    <button type="button" class="site-button">{{__('lang.about_us_page_box_card_upload_resume')}} <i class="feather-upload"></i></button>
                                 </div>
 
 
@@ -401,9 +392,9 @@
         <!-- TITLE START-->
         <div class="section-head center wt-small-separator-outer">
             <div class="wt-small-separator site-text-primary">
-               <div>ტოპ კომპანიები</div>
+               <div>{{__('lang.about_us_page_top_company')}}</div>
             </div>
-            <h2 class="wt-title">იიღეთ შემოთავაზებები ტოპ კომპანიებში</h2>
+            <h2 class="wt-title">{{__('lang.about_us_page_top_company_description')}}</h2>
         </div>
         <!-- TITLE END-->
 
@@ -414,70 +405,70 @@
                     <div class="item">
                         <div class="ow-client-logo">
                             <div class="client-logo client-logo-media">
-                            <a href="employer-list.html"><img src="images/client-logo/w1.png" alt=""></a></div>
+                            <a href="employer-list.html"><img src="/images/client-logo/w1.png" alt=""></a></div>
                         </div>
                     </div>
 
                     <div class="item">
                         <div class="ow-client-logo">
                             <div class="client-logo client-logo-media">
-                            <a href="employer-list.html"><img src="images/client-logo/w2.png" alt=""></a></div>
+                            <a href="employer-list.html"><img src="/images/client-logo/w2.png" alt=""></a></div>
                         </div>
                     </div>
 
                     <div class="item">
                         <div class="ow-client-logo">
                             <div class="client-logo client-logo-media">
-                            <a href="employer-list.html"><img src="images/client-logo/w3.png" alt=""></a></div>
+                            <a href="employer-list.html"><img src="/images/client-logo/w3.png" alt=""></a></div>
                         </div>
                     </div>
 
                     <div class="item">
                         <div class="ow-client-logo">
                             <div class="client-logo client-logo-media">
-                            <a href="employer-list.html"><img src="images/client-logo/w4.png" alt=""></a></div>
+                            <a href="employer-list.html"><img src="/images/client-logo/w4.png" alt=""></a></div>
                         </div>
                     </div>
 
                     <div class="item">
                         <div class="ow-client-logo">
                             <div class="client-logo client-logo-media">
-                            <a href="employer-list.html"><img src="images/client-logo/w5.png" alt=""></a></div>
+                            <a href="employer-list.html"><img src="/images/client-logo/w5.png" alt=""></a></div>
                         </div>
                     </div>
 
                     <div class="item">
                         <div class="ow-client-logo">
                             <div class="client-logo client-logo-media">
-                            <a href="employer-list.html"><img src="images/client-logo/w6.png" alt=""></a></div>
+                            <a href="employer-list.html"><img src="/images/client-logo/w6.png" alt=""></a></div>
                         </div>
                     </div>
 
                     <div class="item">
                         <div class="ow-client-logo">
                             <div class="client-logo client-logo-media">
-                            <a href="employer-list.html"><img src="images/client-logo/w1.png" alt=""></a></div>
+                            <a href="employer-list.html"><img src="/images/client-logo/w1.png" alt=""></a></div>
                         </div>
                     </div>
 
                     <div class="item">
                         <div class="ow-client-logo">
                             <div class="client-logo client-logo-media">
-                            <a href="employer-list.html"><img src="images/client-logo/w2.png" alt=""></a></div>
+                            <a href="employer-list.html"><img src="/images/client-logo/w2.png" alt=""></a></div>
                         </div>
                     </div>
 
                     <div class="item">
                         <div class="ow-client-logo">
                             <div class="client-logo client-logo-media">
-                            <a href="employer-list.html"><img src="images/client-logo/w3.png" alt=""></a></div>
+                            <a href="employer-list.html"><img src="/images/client-logo/w3.png" alt=""></a></div>
                         </div>
                     </div>
 
                     <div class="item">
                         <div class="ow-client-logo">
                             <div class="client-logo client-logo-media">
-                            <a href="employer-list.html"><img src="images/client-logo/w5.png" alt=""></a></div>
+                            <a href="employer-list.html"><img src="/images/client-logo/w5.png" alt=""></a></div>
                         </div>
                     </div>
 

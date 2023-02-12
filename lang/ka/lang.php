@@ -104,4 +104,117 @@ return [
     'footer_subscribe_first_text' => 'აქტიური ვაკანსიების გამოწერა',
     'footer_subscribe_form_placeholder' => 'შეიყვანეთ თქვენი იმეილი',
     'footer_subscribe_button' => 'გამოიწერეთ ახლავე',
+
+    // ----------------------------------------------------------------------------------------------------
+    // Individual Vacancies Lang Page
+    'individual_vacancies_page_big_title' => 'ყველაზე პოპულარული ვაკანსიები',
+    'individual_vacancies_page_small_title_first' => 'მთავარი',
+    'individual_vacancies_page_small_title_second' => 'ინდივიდუალური ვაკანსიები',
+
+    'individual_vacancies_page_leftside_category' => 'კატეგორია',
+    'individual_vacancies_page_leftside_category_allcategory' => 'ყველა კატეგორია',
+
+    'individual_vacancies_page_leftside_keyword' => 'საკვანძო სიტყვა',
+    'individual_vacancies_page_leftside_name_or_keyword' => 'სახელი ან საკვანძო სიტყვა',
+
+    'individual_vacancies_page_leftside_location' => 'ლოკაცია',
+        'individual_vacancies_page_leftside_search_location' => 'ლოკაციის ძებნა',
+
+    'individual_vacancies_page_leftside_type_of_work' => 'სამუშაოს ტიპი',
+
+    'individual_vacancies_page_leftside_date_of_publication' => 'გამოქვეყნების თარიღი',
+        'individual_vacancies_page_leftside_any' => 'ნებისმიერი',
+        'individual_vacancies_page_leftside_last_24' => 'ბოლო 24 საათში',
+        'individual_vacancies_page_leftside_last_3' => 'ბოლო 3 საათში',
+        'individual_vacancies_page_leftside_last_7' => 'ბოლო 7 საათში',
+
+    'individual_vacancies_page_leftside_sallary' => 'ანაზღაურება',
+        'individual_vacancies_page_leftside_sallary_any' => 'ნებისმიერი',
+        'individual_vacancies_page_leftside_sallary_from_500' => '500 ₾-დან',
+        'individual_vacancies_page_leftside_sallary_from_700' => '700 ₾-დან',
+        'individual_vacancies_page_leftside_sallary_from_900' => '900 ₾-დან',
+        'individual_vacancies_page_leftside_sallary_other' => 'სხვა',
+
+    'individual_vacancies_page_leftside_shedulde' => 'გრაფიკი',
+        'individual_vacancies_page_leftside_shedulde_any' => 'ნებისმიერი',
+        'individual_vacancies_page_leftside_shedulde_day' => 'დღის გრაფიკი',
+        'individual_vacancies_page_leftside_shedulde_night' => 'ღამის გრაფიკი',
+        'individual_vacancies_page_leftside_shedulde_daily' => 'დღიური გრაფიკი',
+        'individual_vacancies_page_leftside_shedulde_other' => 'სხვა',
+
+    'individual_vacancies_page_leftside_second_location' => 'მდებარეობა',
+        'individual_vacancies_page_leftside_second_location_any' => 'ნებისმიერი',
+        'individual_vacancies_page_leftside_second_location_3km' => 'თქვენგან 3 კმ-ში',
+        'individual_vacancies_page_leftside_second_location_5km' => 'თქვენგან 5 კმ-ში',
+        'individual_vacancies_page_leftside_second_location_7km' => 'თქვენგან 7 კმ-ში',
+
+    'individual_vacancies_page_leftside_tags' => 'ტეგები',
+
+    'individual_vacancies_page_leftside_box_title' => 'მიიღეთ თქვენთვის შესაფერისი ვაკანსიები Email-ზე. გააგზავნეთ თქვენი რეზიუმე ახლავე!',
+    'individual_vacancies_page_leftside_box_read_more' => 'სრულად',
+
+    // -------------------------------------------------------------
+    'individual_vacancies_page_middle_first_title' => 'ნაჩვენებია 2150 სამუშაო ადგილი',
+    'individual_vacancies_page_middle_title_sort' => 'დალაგება',
+
+    'individual_vacancies_page_middle_latest' => 'უახლესი',
+    'individual_vacancies_page_middle_free_schedule' => 'თავისუფალი განრიგი',
+    'individual_vacancies_page_middle_full_time' => 'სრულ განაკვეთზე',
+    'individual_vacancies_page_middle_intership' => 'სტაჟირება',
+    'individual_vacancies_page_middle_half_time' => 'ნახევარი განაკვეთი',
+    'individual_vacancies_page_middle_temporary' => 'დროებითი',
+
+    'individual_vacancies_page_middle_show_me_10' => 'მაჩვენე 10',
+    'individual_vacancies_page_middle_show_me_20' => 'მაჩვენე 20',
+    'individual_vacancies_page_middle_show_me_30' => 'მაჩვენე 30',
+    'individual_vacancies_page_middle_show_me_40' => 'მაჩვენე 40',
+    'individual_vacancies_page_middle_show_me_50' => 'მაჩვენე 50',
+    'individual_vacancies_page_middle_show_me_60' => 'მაჩვენე 60',
+
+    // ----------------------------------------------------------------------------------------------------
+    // About Us Lang Page
+    'about_us_page_title_one' => 'ჩვენს შესახებ',
+    'about_us_page_title_link' => 'მთავარი',
+
+    'about_us_page_description' => 'თბილისის საოჯახო პერსონალის საკადრო ცენტრი ,,ბაია“   გთავაზობთ  
+                                    პერსონალის ოპერატიულ და პროფესიონალურ დონეზე შერჩევას,  
+                                    როგორც საოჯახო პერსონალის (ძიძების, გუვერნანტების, ოჯახში დამხმარეების, 
+                                    მოხუცისა თუ ავადმყოფის მომვლელების, პერსონალური მძღოლების, საკარმიდამო ნაკვეთში 
+                                    ოჯახური წყვილების) სახით,  ასევე სასტუმრო/რესტორნებისა და მაღაზიების ქსელისათვის მენეჯერების, 
+                                    ადმინისტრატორების, ჭურჭლის მრეცხავებისა თუ დამლაგებლების, მოლარე-ოპერატორების, 
+                                    მზარეულებისა და მრავალი სხვა პროფილით  როგორც საქართველოში ასევე საზღვარგარეთ.',
+
+    'about_us_page_working_proccess' => 'სამუშაო პროცესი',
+    'about_us_page_working_how_does_it_work' => 'როგორ მუშაობს', 
+
+        'about_us_page_card_register_user' => 'დაარეგისტრირე შენი ექაუნთი',
+            'about_us_page_card_register_user_description' => 'თქვენ უნდა შექმნათ ექაუნთი, რომ იპოვოთ საუკეთესო და სასურველი სამუშაო.',
+
+        'about_us_page_card_editing_user' => 'რედაქტირება სამუშაოსთვის',
+            'about_us_page_card_editing_user_description' => 'დაარედაქტირეთ თქვენი კაბინეტი.',
+
+        'about_us_page_card_upload_user' => 'ატვირთეთ თქვენი რეზიუმე / CV',
+            'about_us_page_card_upload_user_description' => 'თქვენ უნდა ატვირთოთ რეზიუმე, რათა ყველასთვის სანახავი იყოს.',
+
+    'about_us_page_jobs_by_category' => 'ვაკანსიები კატეგორიების მიხედვით',
+    'about_us_page_select_desire_category' => 'აირჩიეთ სასურველი კატეგორია',
+
+    'about_us_page_all_category' => 'ყველა კატეგორია',
+
+    'about_us_page_follow_our_steps' => 'მიჰყევით ჩვენს ნაბიჯებს',
+        'about_us_page_follow_our_steps_list_1' => 'სანდო და ხარისხიანი სამუშაო',
+        'about_us_page_follow_our_steps_list_2' => 'საერთაშორისო სამუშაო',
+        'about_us_page_follow_our_steps_list_3' => 'დამატებითი გადასახადის გარეშე',
+        'about_us_page_follow_our_steps_list_4' => 'ტოპ კომპანიები',
+
+    'about_us_page_card_register_account' => 'დაარეგისტრირეთ ექაუნთი',
+    'about_us_page_card_search_vacancie' => 'მოძებნეთ სასურველი ვაკანსია',
+    'about_us_page_card_confirm_vacancie' => 'დაადასტურეთ თქვენი ვაკანსია',
+    'about_us_page_card_upload_resume' => 'ატვირთეთ თქვენი რეზიუმე',
+
+    'about_us_page_box_card_description' => 'ჯერ კიდევ ვერ მოძებნეთ შესაბამისი სამსახური? ატვირთეთ თქვენი რეზიუმე',
+    'about_us_page_box_card_upload_resume' => 'რეზიუმეს ატვირთვა',
+
+    'about_us_page_top_company' => 'ტოპ კომპანიები',
+    'about_us_page_top_company_description' => 'მიიღეთ შემოთავაზებები ტოპ კომპანიებში',
 ];

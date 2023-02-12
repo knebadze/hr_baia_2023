@@ -81,15 +81,6 @@ return [
     'welcome_middle_blog_articletext' => 'Latest Article',
     'welcome_middle_blog_article_button_read' => 'Read More',
 
-
-
-
-
-
-
-
-
-
     // ----------------------------------------------------------------------------------------------------
     // Footer Lang Page
     'footer_fast_link' => 'Quick links',
@@ -103,4 +94,111 @@ return [
     'footer_subscribe_first_text' => 'Subscribe to active vacancies',
     'footer_subscribe_form_placeholder' => 'Enter your email',
     'footer_subscribe_button' => 'Subscribe now',
+
+    // ----------------------------------------------------------------------------------------------------
+    // Individual Vacancies Lang Page
+    'individual_vacancies_page_big_title' => 'Most popular vacancies',
+    'individual_vacancies_page_small_title_first' => 'home',
+    'individual_vacancies_page_small_title_second' => 'Individual Vacancies',
+
+    'individual_vacancies_page_leftside_category' => 'Category',
+        'individual_vacancies_page_leftside_category_allcategory' => 'All Categories',
+
+    'individual_vacancies_page_leftside_keyword' => 'Keyword',
+        'individual_vacancies_page_leftside_name_or_keyword' => 'Name or Keyword',
+
+    'individual_vacancies_page_leftside_location' => 'Location',
+        'individual_vacancies_page_leftside_search_location' => 'Search Location',
+
+    'individual_vacancies_page_leftside_type_of_work' => 'Type of work',
+
+    'individual_vacancies_page_leftside_date_of_publication' => 'Date of publication',
+        'individual_vacancies_page_leftside_any' => 'Any',
+        'individual_vacancies_page_leftside_last_24' => 'Last 24 hours',
+        'individual_vacancies_page_leftside_last_3' => 'Last 3 hours',
+        'individual_vacancies_page_leftside_last_7' => 'Last 7 hours',
+
+    'individual_vacancies_page_leftside_sallary' => 'Sallary',
+        'individual_vacancies_page_leftside_sallary_any' => 'Any',
+        'individual_vacancies_page_leftside_sallary_from_500' => 'From 500₾',
+        'individual_vacancies_page_leftside_sallary_from_700' => 'From 700₾',
+        'individual_vacancies_page_leftside_sallary_from_900' => 'From 900₾',
+        'individual_vacancies_page_leftside_sallary_other' => 'Other',
+
+    'individual_vacancies_page_leftside_shedulde' => 'Shedulde',
+        'individual_vacancies_page_leftside_shedulde_any' => 'Any',
+        'individual_vacancies_page_leftside_shedulde_day' => 'Day Shedulde',
+        'individual_vacancies_page_leftside_shedulde_night' => 'Night Shedulde',
+        'individual_vacancies_page_leftside_shedulde_daily' => 'Daily Schedule',
+        'individual_vacancies_page_leftside_shedulde_other' => 'Other',
+
+    'individual_vacancies_page_leftside_second_location' => 'Location',
+        'individual_vacancies_page_leftside_second_location_any' => 'Any',
+        'individual_vacancies_page_leftside_second_location_3km' => '3 km from you',
+        'individual_vacancies_page_leftside_second_location_5km' => '5 km from you',
+        'individual_vacancies_page_leftside_second_location_7km' => '7 km from you',
+
+    'individual_vacancies_page_leftside_tags' => 'Tags',
+
+    'individual_vacancies_page_leftside_box_title' => 'Get the jobs that suit you by email. Submit your resume now!',
+    'individual_vacancies_page_leftside_box_read_more' => 'Read More',
+    // -------------------------------------------------------------
+    'individual_vacancies_page_middle_first_title' => '2150 jobs are displayed',
+
+    'individual_vacancies_page_middle_title_sort' => 'Sort',
+
+    'individual_vacancies_page_middle_latest' => 'Latest',
+    'individual_vacancies_page_middle_free_schedule' => 'Free schedule', 
+    'individual_vacancies_page_middle_full_time' => 'Full time',
+    'individual_vacancies_page_middle_intership' => 'Intership',
+    'individual_vacancies_page_middle_half_time' => 'Half Time',
+    'individual_vacancies_page_middle_temporary' => 'Temporary',  
+
+    'individual_vacancies_page_middle_show_me_10' => 'Show Me 10',
+    'individual_vacancies_page_middle_show_me_20' => 'Show Me 20',
+    'individual_vacancies_page_middle_show_me_30' => 'Show Me 30',
+    'individual_vacancies_page_middle_show_me_40' => 'Show Me 40',
+    'individual_vacancies_page_middle_show_me_50' => 'Show Me 50',
+    'individual_vacancies_page_middle_show_me_60' => 'Show Me 60',
+
+    // ----------------------------------------------------------------------------------------------------
+    // About Us Lang Page
+    'about_us_page_title_one' => 'About Us',
+    'about_us_page_title_link' => 'Home',
+
+    'about_us_page_description' => '',
+    'about_us_page_working_proccess' => 'Working Proccess',
+    'about_us_page_working_how_does_it_work' => 'How does it work',
+
+        'about_us_page_card_register_user' => 'Register your account',
+            'about_us_page_card_register_user_description' => 'You need to create an account to find the best and desired job.',
+
+        'about_us_page_card_editing_user' => 'Editing your account for work',
+            'about_us_page_card_editing_user_description' => 'Edit your cabinet.',
+
+        'about_us_page_card_upload_user' => 'Upload your resume / CV',
+            'about_us_page_card_upload_user_description' => 'You must upload your resume for everyone to see.',  
+
+    'about_us_page_jobs_by_category' => 'Jobs by categories',
+    'about_us_page_select_desire_category' => 'Select the desired category',
+
+    'about_us_page_all_category' => 'All Category',
+
+    'about_us_page_follow_our_steps' => 'Follow our steps',
+        'about_us_page_follow_our_steps_list_1' => 'Reliable and quality work',
+        'about_us_page_follow_our_steps_list_2' => 'International work',
+        'about_us_page_follow_our_steps_list_3' => 'At no additional charge',
+        'about_us_page_follow_our_steps_list_4' => 'Top companies',
+
+    'about_us_page_card_register_account' => 'Register Account',
+    'about_us_page_card_search_vacancie' => 'Search for Desired vacancy',
+    'about_us_page_card_confirm_vacancie' => 'Confirm it your vacancy',
+    'about_us_page_card_upload_resume' => 'Upload it your resume',
+
+    'about_us_page_box_card_description' => 'Still can\'t find the right job? Upload your resume',
+    'about_us_page_box_card_upload_resume' => 'Upload your resume',
+
+    'about_us_page_top_company' => 'Top Companies',
+    'about_us_page_top_company_description' => 'Get offers at top companies',
+    
 ];

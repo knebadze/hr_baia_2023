@@ -15,15 +15,15 @@
                 <div class="wt-bnr-inr-entry">
                     <div class="banner-title-outer">
                         <div class="banner-title-name">
-                            <h2 class="wt-title">ყველაზე პოპულარული ვაკანსიები</h2>
+                            <h2 class="wt-title">{{ __('lang.individual_vacancies_page_big_title') }}</h2>
                         </div>
                     </div>
                     <!-- BREADCRUMB ROW -->                            
                     
                         <div>
                             <ul class="wt-breadcrumb breadcrumb-style-2">
-                                <li><a href="{{ url ('/') }}">მთავარი</a> / </li>
-                                <li>ინდივიდუალური ვაკანსიები</li>
+                                <li><a href="{{ url ('/') }}">{{ __('lang.individual_vacancies_page_small_title_first') }}/ </a> </li>
+                                <li> {{ __('lang.individual_vacancies_page_small_title_second') }}</li>
                             </ul>
                         </div>
                     
@@ -50,9 +50,9 @@
                                 <form>
 
                                     <div class="form-group mb-4 categorySideBar">
-                                        <h4 class="section-head-small mb-4">კატეგორია</h4>
+                                        <h4 class="section-head-small mb-4">{{ __('lang.individual_vacancies_page_leftside_category') }}</h4>
                                         <select class="wt-select-bar-large selectpicker"  data-live-search="true" data-bv-field="size">
-                                            <option selected>ყველა კატეგორია</option>
+                                            <option selected>{{ __('lang.individual_vacancies_page_leftside_category_allcategory') }}</option>
                                             <option>ძიძა</option>
                                             <option>დამხმარე</option>
                                             <option>მზარეული</option>
@@ -60,23 +60,23 @@
                                     </div>
 
                                     <div class="form-group mb-4 keywordSideBar">
-                                        <h4 class="section-head-small mb-4">საკვანძო სიტყვა</h4>
+                                        <h4 class="section-head-small mb-4">{{ __('lang.individual_vacancies_page_leftside_keyword') }}</h4>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="დასახელება ან საკვანძო სიტყვა">
+                                            <input type="text" class="form-control" placeholder="{{ __('lang.individual_vacancies_page_leftside_name_or_keyword') }}">
                                             <button class="btn" type="button"><i class="feather-search"></i></button>
                                         </div>
                                     </div>
 
                                     <div class="form-group mb-4 locationSideBar">
-                                        <h4 class="section-head-small mb-4">ლოკაცია</h4>
+                                        <h4 class="section-head-small mb-4">{{ __('lang.individual_vacancies_page_leftside_location') }}</h4>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="ლოკაციის ძებნა">
+                                            <input type="text" class="form-control" placeholder="{{ __('lang.individual_vacancies_page_leftside_search_location') }}">
                                             <button class="btn" type="button"><i class="feather-map-pin"></i></button>
                                         </div>
                                     </div>
 
                                     <div class="twm-sidebar-ele-filter jobTypeSideBar">
-                                        <h4 class="section-head-small mb-4">სამუშაოს ტიპი</h4>
+                                        <h4 class="section-head-small mb-4">{{ __('lang.individual_vacancies_page_leftside_type_of_work') }}</h4>
                                         <ul>
                                             <li>
                                                 <div class=" form-check">
@@ -130,32 +130,32 @@
                                     </div>
 
                                     <div class="twm-sidebar-ele-filter publicationSideBar">
-                                        <h4 class="section-head-small mb-4">გამოქვეყნების თარიღი</h4>
+                                        <h4 class="section-head-small mb-4">{{ __('lang.individual_vacancies_page_leftside_date_of_publication') }}</h4>
                                         <ul>
 
                                             <li>
                                                 <div class="form-check">
                                                     <input type="radio" class="form-check-input" id="exampleradio6">
-                                                    <label class="form-check-label" for="exampleradio6">ნებისმიერი</label>
+                                                    <label class="form-check-label" for="exampleradio6">{{ __('lang.individual_vacancies_page_leftside_any') }}</label>
                                                 </div>
                                             </li>
                                             <li>
                                                 <div class="form-check">
                                                     <input type="radio" class="form-check-input" id="exampleradio1">
-                                                    <label class="form-check-label" for="exampleradio1">ბოლო 24 საათში</label>
+                                                    <label class="form-check-label" for="exampleradio1">{{ __('lang.individual_vacancies_page_leftside_last_24') }}</label>
                                                 </div>
                                             </li>
                                             <li>
                                                 <div class="form-check">
                                                     <input type="radio" class="form-check-input" id="exampleradio2">
-                                                    <label class="form-check-label" for="exampleradio2">ბოლო 3 დღეში</label>
+                                                    <label class="form-check-label" for="exampleradio2">{{ __('lang.individual_vacancies_page_leftside_last_3') }}</label>
                                                 </div>
                                             </li>
 
                                             <li>
                                                 <div class="form-check">
                                                     <input type="radio" class="form-check-input" id="exampleradio3">
-                                                    <label class="form-check-label" for="exampleradio3">ბოლო 7 დღეში</label>
+                                                    <label class="form-check-label" for="exampleradio3">{{ __('lang.individual_vacancies_page_leftside_last_7') }}</label>
                                                 </div>
                                             </li>
                          
@@ -163,74 +163,74 @@
                                     </div>
 
                                     <div class="twm-sidebar-ele-filter sallarySideBar">
-                                        <h4 class="section-head-small mb-4">ანაზღაურება</h4>
+                                        <h4 class="section-head-small mb-4">{{ __('lang.individual_vacancies_page_leftside_sallary') }}</h4>
                                         <ul>
                                             <li>
                                                 <div class="form-check">
                                                     <input type="radio" class="form-check-input" id="Any1">
-                                                    <label class="form-check-label" for="Any1">ნებისმიერი</label>
+                                                    <label class="form-check-label" for="Any1">{{ __('lang.individual_vacancies_page_leftside_sallary_any') }}</label>
                                                 </div>
                                             </li>
                                             <li>
                                                 <div class="form-check">
                                                     <input type="radio" class="form-check-input" id="Compensation1">
-                                                    <label class="form-check-label" for="Compensation1">500₾-დან</label>
+                                                    <label class="form-check-label" for="Compensation1">{{ __('lang.individual_vacancies_page_leftside_sallary_from_500') }}</label>
                                                 </div>
                                             </li>
                                             <li>
                                                 <div class="form-check">
                                                     <input type="radio" class="form-check-input" id="Compensation2">
-                                                    <label class="form-check-label" for="Compensation2">700₾-დან</label>
+                                                    <label class="form-check-label" for="Compensation2">{{ __('lang.individual_vacancies_page_leftside_sallary_from_700') }}</label>
                                                 </div>
                                             </li>
 
                                             <li>
                                                 <div class="form-check">
                                                     <input type="radio" class="form-check-input" id="Compensation3">
-                                                    <label class="form-check-label" for="Compensation3">900₾-დან</label>
+                                                    <label class="form-check-label" for="Compensation3">{{ __('lang.individual_vacancies_page_leftside_sallary_from_900') }}</label>
                                                 </div>
                                             </li>
 
                                             <li>
                                                 <div class="form-check">
                                                     <input type="radio" class="form-check-input" id="Other1">
-                                                    <label class="form-check-label" for="Other1">სხვა</label>
+                                                    <label class="form-check-label" for="Other1">{{ __('lang.individual_vacancies_page_leftside_sallary_other') }}</label>
                                                 </div>
                                             </li>
 
                                             <div class="twm-sidebar-ele-filter sheduldeSideBar">
-                                                <h4 class="section-head-small mb-4">გრაფიკი</h4>
+                                                <h4 class="section-head-small mb-4">{{ __('lang.individual_vacancies_page_leftside_shedulde') }}</h4>
                                                 <ul>
                                                     <li>
                                                         <div class="form-check">
                                                             <input type="radio" class="form-check-input" id="AnySchedule1">
-                                                            <label class="form-check-label" for="AnySchedule1">ნებისმიერი</label>
+                                                            <label class="form-check-label" for="AnySchedule1">{{ __('lang.individual_vacancies_page_leftside_shedulde_any') }}</label>
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div class="form-check">
                                                             <input type="radio" class="form-check-input" id="DaySchedule1">
-                                                            <label class="form-check-label" for="DaySchedule1">დღის გრაფიკი</label>
+                                                            <label class="form-check-label" for="DaySchedule1">{{ __('lang.individual_vacancies_page_leftside_shedulde_day') }}</label>
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div class="form-check">
                                                             <input type="radio" class="form-check-input" id="Compensation2">
-                                                            <label class="form-check-label" for="Compensation2">ღამის გრაფიკი</label>
+                                                            <label class="form-check-label" for="Compensation2">{{ __('lang.individual_vacancies_page_leftside_shedulde_night') }}</label>
                                                         </div>
                                                     </li>
         
                                                     <li>
                                                         <div class="form-check">
                                                             <input type="radio" class="form-check-input" id="Compensation3">
-                                                            <label class="form-check-label" for="Compensation3">სადღეღამისო</label>
+                                                            <label class="form-check-label" for="Compensation3">{{ __('lang.individual_vacancies_page_leftside_shedulde_daily') }}</label>
                                                         </div>
                                                     </li>
         
                                                     <li>
                                                         <div class="form-check">
                                                             <input type="radio" class="form-check-input" id="Other1">
-                                                            <label class="form-check-label" for="Other1">სხვა</label>
+                                                            <label class="form-check-label" for="Other1">{{ __('lang.individual_vacancies_page_leftside_shedulde_other') }}</label>
                                                         </div>
                                                     </li>
 
@@ -238,31 +238,31 @@
                                             </div>
 
                                             <div class="twm-sidebar-ele-filter">
-                                                <h4 class="section-head-small mb-4">ლოკაცია</h4>
+                                                <h4 class="section-head-small mb-4">{{ __('lang.individual_vacancies_page_leftside_second_location') }}</h4>
                                                 <ul>
                                                     <li>
                                                         <div class="form-check">
                                                             <input type="radio" class="form-check-input" id="AnyLocation1">
-                                                            <label class="form-check-label" for="AnyLocation1">ნებისმიერი</label>
+                                                            <label class="form-check-label" for="AnyLocation1">{{ __('lang.individual_vacancies_page_leftside_second_location_any') }}</label>
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div class="form-check">
                                                             <input type="radio" class="form-check-input" id="FromLocation1">
-                                                            <label class="form-check-label" for="FromLocation1">თქვენგან 3 კმ-ში</label>
+                                                            <label class="form-check-label" for="FromLocation1">{{ __('lang.individual_vacancies_page_leftside_second_location_3km') }}</label>
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div class="form-check">
                                                             <input type="radio" class="form-check-input" id="FromLocation2">
-                                                            <label class="form-check-label" for="FromLocation2">თქვენგან 5 კმ-ში</label>
+                                                            <label class="form-check-label" for="FromLocation2">{{ __('lang.individual_vacancies_page_leftside_second_location_5km') }}</label>
                                                         </div>
                                                     </li>
         
                                                     <li>
                                                         <div class="form-check">
                                                             <input type="radio" class="form-check-input" id="FromLocation3">
-                                                            <label class="form-check-label" for="FromLocation3">თქვენგან 7 კმ-ში</label>
+                                                            <label class="form-check-label" for="FromLocation3">{{ __('lang.individual_vacancies_page_leftside_second_location_7km') }}</label>
                                                         </div>
                                                     </li>
 
@@ -277,7 +277,7 @@
                             </div>
 
                             <div class="widget tw-sidebar-tags-wrap">
-                                <h4 class="section-head-small mb-4">თაგები</h4>
+                                <h4 class="section-head-small mb-4">{{ __('lang.individual_vacancies_page_leftside_tags') }}</h4>
                                 
                                 <div class="tagcloud">
                                     <a href="job-list.html">ვაკანსია </a>
@@ -296,10 +296,8 @@
 
                         <div class="twm-advertisment" style="background-image:url(/images/add-bg.jpg);">
                            <div class="overlay"></div>
-                           <h4 class="twm-title">დაქირავება?</h4>
-                           <p>მიიღეთ თქვენთვის შესაფერისი ვაკანსიები <br>
-                            Email-ზე. გაგზავნეთ თქვენი რეზიუმე ახლავე!</p>
-                            <a href="about-1.html" class="site-button white">სრულად</a> 
+                           <p>{{ __('lang.individual_vacancies_page_leftside_box_title') }} </p>
+                            <a href="about-1.html" class="site-button white">{{ __('lang.individual_vacancies_page_leftside_box_read_more') }}</a> 
                         </div>
 
                     </div>
@@ -307,25 +305,25 @@
                     <div class="col-lg-8 col-md-12">
                         <!--Filter Short By-->
                         <div class="product-filter-wrap d-flex justify-content-between align-items-center m-b30">
-                            <span class="woocommerce-result-count-left">ნაჩვენებია 2150 სამუშაო ადგილი</span>
+                            <span class="woocommerce-result-count-left">{{ __('lang.individual_vacancies_page_middle_first_title') }}</span>
                            
                             <form class="woocommerce-ordering twm-filter-select" method="get">
-                                <span class="woocommerce-result-count">დალაგება</span>
-                                <select class="wt-select-bar-2 selectpicker"  data-live-search="true" data-bv-field="size">
-                                    <option>უახლესი</option>
-                                    <option>თავისუფალი გრაფიკი</option>
-                                    <option>სრული განაკვეთი</option>
-                                    <option>სტაჟირება</option>
-                                    <option>ნახევარი განაკვეთი</option>
-                                    <option>დროებითი</option>
+                                <span class="woocommerce-result-count">{{ __('lang.individual_vacancies_page_middle_title_sort') }}</span>
+                                <select class="wt-select-bar-2 selectpicker" data-live-search="true" data-bv-field="size">
+                                    <option>{{ __('lang.individual_vacancies_page_middle_latest') }}</option>
+                                    <option>{{ __('lang.individual_vacancies_page_middle_free_schedule') }}</option>
+                                    <option>{{ __('lang.individual_vacancies_page_middle_full_time') }}</option>
+                                    <option>{{ __('lang.individual_vacancies_page_middle_intership') }}</option>
+                                    <option>{{ __('lang.individual_vacancies_page_middle_half_time') }}</option>
+                                    <option>{{ __('lang.individual_vacancies_page_middle_temporary') }}</option>
                                 </select>
-                                <select class="wt-select-bar-2 selectpicker"  data-live-search="true" data-bv-field="size">
-                                    <option>მაჩვენე 10</option>
-                                    <option>მაჩვენე 20</option>
-                                    <option>მაჩვენე 30</option>
-                                    <option>მაჩვენე 40</option>
-                                    <option>მაჩვენე 50</option>
-                                    <option>მაჩვენე 60</option>
+                                <select class="wt-select-bar-2 selectpicker" data-live-search="true" data-bv-field="size">
+                                    <option>{{ __('lang.individual_vacancies_page_middle_show_me_10') }}</option>
+                                    <option>{{ __('lang.individual_vacancies_page_middle_show_me_20') }}</option>
+                                    <option>{{ __('lang.individual_vacancies_page_middle_show_me_30') }}</option>
+                                    <option>{{ __('lang.individual_vacancies_page_middle_show_me_40') }}</option>
+                                    <option>{{ __('lang.individual_vacancies_page_middle_show_me_50') }}</option>
+                                    <option>{{ __('lang.individual_vacancies_page_middle_show_me_60') }}</option>
                                 </select>
                             </form>
 
@@ -346,12 +344,12 @@
                                             <h4>Senior Web Designer , Developer</h4>
                                         </a>
                                         <p class="twm-job-address">1363-1385 Sunset Blvd Los Angeles, CA 90026, USA</p>
-                                        <a href="https://themeforest.net/user/thewebmax/portfolio" class="twm-job-websites site-text-primary">https://thewebmax.com</a>
+                                        <a href="#" class="twm-job-websites site-text-primary">https://thewebmax.com</a>
                                     </div>
                                     <div class="twm-right-content">
                                         
                                         <div class="twm-jobs-amount">₾2500 <span>/ თვეში</span></div>
-                                        <a href="job-detail.html" class="twm-jobs-browse site-text-primary">სრულად</a>
+                                        <a href="job-detail.html" class="twm-jobs-browse site-text-primary">{{ __('lang.individual_vacancies_page_leftside_read_more') }}<</a>
                                     </div>
                                 </div>
 
