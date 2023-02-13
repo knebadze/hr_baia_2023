@@ -9,6 +9,11 @@ use App\Models\Allergy;
 use App\Models\Language;
 use App\Models\Religion;
 use App\Models\Candidate;
+use App\Models\Candidate_citizenship;
+use App\Models\Candidate_profession;
+use App\Models\Candidate_specialty;
+use App\Models\CandidateAllergy;
+use App\Models\CandidateLanguage;
 use App\Models\Education;
 use App\Models\Specialty;
 use App\Models\Profession;
@@ -38,54 +43,55 @@ class MyprofileController extends Controller
 
         if (DB::table('candidates')->where('user_id', $auth->id)->exists()) {
             $candidate = Candidate::where('user_id', $auth->id)->first();
+            // dd($candidate);
         }else{
             $candidate = Schema::getColumnListing('candidates');
             // dd($candidate);
         }
 
-        if (DB::table('candidates')->exists() && DB::table('candidate_languages')->where('candidate_id', $candidate->id)->exists()) {
-            $candidateLanguages = General_work_experience::where('candidate_id', $candidate->id)->get();
+        if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('candidate_languages')->where('candidate_id', $candidate->id)->exists()) {
+            $candidateLanguages = CandidateLanguage::where('candidate_id', $candidate->id)->get();
         }else{
             $candidateLanguages= Schema::getColumnListing('candidate_languages');
         }
 
-        if (DB::table('candidates')->exists() && DB::table('candidate_allergies')->where('candidate_id', $candidate->id)->exists()) {
-            $candidateAllergies = General_work_experience::where('candidate_id', $candidate->id)->get();
+        if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('candidate_allergies')->where('candidate_id', $candidate->id)->exists()) {
+            $candidateAllergies = CandidateAllergy::where('candidate_id', $candidate->id)->get();
         }else{
             $candidateAllergies= Schema::getColumnListing('candidate_allergies');
         }
 
-        if (DB::table('candidates')->exists() && DB::table('candidate_citizenships')->where('candidate_id', $candidate->id)->exists()) {
-            $candidateCitizenships = General_work_experience::where('candidate_id', $candidate->id)->get();
+        if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('candidate_citizenships')->where('candidate_id', $candidate->id)->exists()) {
+            $candidateCitizenships = Candidate_citizenship::where('candidate_id', $candidate->id)->get()->toArray();
         }else{
             $candidateCitizenships = Schema::getColumnListing('candidate_citizenships');
         }
 
-        if (DB::table('candidates')->exists() && DB::table('candidate_professions')->where('candidate_id', $candidate->id)->exists()) {
-            $candidateProfessions = General_work_experience::where('candidate_id', $candidate->id)->get();
+        if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('candidate_professions')->where('candidate_id', $candidate->id)->exists()) {
+            $candidateProfessions = Candidate_profession::where('candidate_id', $candidate->id)->get();
         }else{
             $candidateProfessions = Schema::getColumnListing('candidate_professions');
         }
 
-        if (DB::table('candidates')->exists() && DB::table('candidate_specialties')->where('candidate_id', $candidate->id)->exists()) {
-            $candidateSpecialties = General_work_experience::where('candidate_id', $candidate->id)->get();
+        if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('candidate_specialties')->where('candidate_id', $candidate->id)->exists()) {
+            $candidateSpecialties = Candidate_specialty::where('candidate_id', $candidate->id)->get();
         }else{
             $candidateSpecialties = Schema::getColumnListing('candidate_specialties');
         }
 
-        if (DB::table('candidates')->exists() && DB::table('general_work_experiences')->where('candidate_id', $candidate->id)->exists()) {
+        if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('general_work_experiences')->where('candidate_id', $candidate->id)->exists()) {
             $candidateWorkExperience = General_work_experience::where('candidate_id', $candidate->id)->get();
         }else{
             $candidateWorkExperience = Schema::getColumnListing('general_work_experiences');
         }
 
-        if (DB::table('candidates')->exists() && DB::table('candidate_recommendations')->where('candidate_id', $candidate->id)->exists()) {
+        if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('candidate_recommendations')->where('candidate_id', $candidate->id)->exists()) {
             $candidateRecommendation = Recommendation::where('candidate_id', $candidate->id)->first();
         }else{
             $candidateRecommendation = Schema::getColumnListing('candidate_recommendations');
         }
 
-        if (DB::table('candidates')->exists() && DB::table('candidate_notices')->where('candidate_id', $candidate->id)->exists()) {
+        if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('candidate_notices')->where('candidate_id', $candidate->id)->exists()) {
             $candidateNotices = Recommendation::where('candidate_id', $candidate->id)->get();
         }else{
             $candidateNotices = Schema::getColumnListing('candidate_notices');

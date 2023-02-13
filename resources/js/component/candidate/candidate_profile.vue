@@ -18,7 +18,7 @@
                                 <div class="form-group">
                                     <label>Your Name</label>
                                     <div class="ls-inputicon-box">
-                                        <input class="form-control" name="name_ka"  v-model="auth[`name_${getLang}`]"  type="text" placeholder="">
+                                        <input class="form-control"   v-model="auth[`name_${getLang}`]"  type="text" placeholder="">
                                         <i class="fs-input-icon fa fa-user "></i>
                                     </div>
                                 </div>
@@ -28,7 +28,7 @@
                                 <div class="form-group">
                                     <label>Phone</label>
                                     <div class="ls-inputicon-box">
-                                        <input class="form-control" name="company_phone" v-model="auth.number" type="text" >
+                                        <input class="form-control"  v-model="auth.number" type="text" >
                                         <i class="fs-input-icon fa fa-phone-alt"></i>
                                     </div>
                                 </div>
@@ -38,7 +38,7 @@
                                 <div class="form-group">
                                     <label>Email Address</label>
                                     <div class="ls-inputicon-box">
-                                        <input class="form-control" name="company_Email" v-model="auth.email" type="email" placeholder="">
+                                        <input class="form-control"  v-model="auth.email" type="email" placeholder="">
                                         <i class="fs-input-icon fas fa-at"></i>
                                     </div>
                                 </div>
@@ -47,7 +47,7 @@
                                 <div class="form-group">
                                     <label>Date of birth</label>
                                     <div class="ls-inputicon-box">
-                                        <input class="form-control d" data-provide="" name="company_since" type="date" v-model="auth.date_of_birth" placeholder="mm/dd/yyyy">
+                                        <input class="form-control d" data-provide=""  type="date" v-model="auth.date_of_birth" placeholder="mm/dd/yyyy">
                                         <i class="fs-input-icon far fa-calendar"></i>
                                     </div>
                                 </div>
@@ -79,128 +79,135 @@
                 </div>
             </div>
 
-            <form @submit.prevent="addCandidate()">
+            <!-- <form @submit.prevent="addCandidate()"> -->
                  <!--personal information-->
                 <div class="panel panel-default">
                     <div class="panel-heading wt-panel-heading p-a20">
                         <h4 class="panel-tittle m-a0">Personal Information</h4>
                     </div>
                     <div class="panel-body wt-panel-body p-a20 m-b30 ">
+                        <form @submit.prevent="addPersonalInfo()">
+                            <div class="row">
+                                <div class="col-xl-6 col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label>Personal number</label>
+                                        <div class="ls-inputicon-box">
+                                            <input class="form-control" v-model="candidate.personal_number" type="text" placeholder="">
+                                            <i class="fs-input-icon fa fa-user"></i>
+                                        </div>
+                                    </div>
+                                </div>
 
-                        <div class="row">
-                            <div class="col-xl-6 col-lg-6 col-md-12">
-                                <div class="form-group">
-                                    <label>Personal number</label>
-                                    <div class="ls-inputicon-box">
-                                        <input class="form-control" v-model="candidate.personal_number" type="text" placeholder="">
-                                        <i class="fs-input-icon fa fa-user"></i>
+                                <div class="col-xl-6 col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label>Nationality</label>
+                                        <div class="ls-inputicon-box">
+                                            <select class="wt-select-box selectpicker" v-model="candidate.nationality_id"  data-live-search="true" title=""  data-bv-field="size">
+                                                <option v-for="national in nationality " :value="national.id">{{ national[`name_${getLang}`] }}</option>
+                                            </select>
+                                            <i class="fs-input-icon fa fa-venus-mars"></i>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                                <div class="col-xl-6 col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label>Citizenship</label>
+                                        <div class="ls-inputicon-box">
+                                            <select class="wt-select-box selectpicker" v-model="candidateCitizenshipArr"  data-live-search="true" title=""  data-bv-field="size" multiple>
+                                                <option v-for="citizen in citizenship " :value="citizen.id" :selected="candidateCitizenships.citizenship_id == citizen.id">{{ citizen[`name_${getLang}`] }}</option>
+                                            </select>
+                                            <i class="fs-input-icon fa fa-venus-mars"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label>Religion</label>
+                                        <div class="ls-inputicon-box">
+                                            <select class="wt-select-box selectpicker" v-model="candidate.religion_id"  data-live-search="true" title=""  data-bv-field="size">
+                                                <option v-for="religion in religions " :value="religion.id">{{ religion[`name_${getLang}`] }}</option>
+                                            </select>
+                                            <i class="fs-input-icon fa fa-venus-mars"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label>Education</label>
+                                        <div class="ls-inputicon-box">
+                                            <select class="wt-select-box selectpicker" v-model="candidate.education_id"  data-live-search="true" title=""  data-bv-field="size">
+                                                <option v-for="education in educations " :value="education.id">{{ education[`name_${getLang}`] }}</option>
+                                            </select>
+                                            <i class="fs-input-icon fa fa-venus-mars"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label>პროფესია</label>
+                                        <div class="ls-inputicon-box">
+                                            <select class="wt-select-box selectpicker" v-model="candidateProfessionArr"  data-live-search="true" title=""  data-bv-field="size" multiple>
+                                                <option v-for="profession in professions " :value="profession.id">{{ profession[`name_${getLang}`] }}</option>
+                                            </select>
+                                            <i class="fs-input-icon fa fa-venus-mars"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label>სპეციალობა</label>
+                                        <div class="ls-inputicon-box">
+                                            <select class="wt-select-box selectpicker" v-model="candidateSpecialtyArr"  data-live-search="true" title=""  data-bv-field="size" multiple>
+                                                <option v-for="specialty in specialties " :value="specialty.id">{{ specialty[`name_${getLang}`] }}</option>
+                                            </select>
+                                            <i class="fs-input-icon fa fa-venus-mars"></i>
+                                        </div>
+                                    </div>
+                                </div>
 
-                            <div class="col-xl-6 col-lg-6 col-md-12">
-                                <div class="form-group">
-                                    <label>Nationality</label>
-                                    <div class="ls-inputicon-box">
-                                        <select class="wt-select-box selectpicker" v-model="candidate.nationality_id"  data-live-search="true" title=""  data-bv-field="size">
-                                            <option v-for="national in nationality " :value="national.id">{{ national[`name_${getLang}`] }}</option>
-                                        </select>
-                                        <i class="fs-input-icon fa fa-venus-mars"></i>
+                                <div class="col-xl-6 col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label>ოჯახური მდგომარეობა</label>
+                                        <div class="ls-inputicon-box">
+                                            <select class="wt-select-box selectpicker" v-model="candidate.marital_status_id"  data-live-search="false" title=""  data-bv-field="size">
+                                                <option v-for="marital in maritalStatus " :value="marital.id">{{ marital[`name_${getLang}`] }}</option>
+                                            </select>
+                                            <i class="fs-input-icon fa fa-venus-mars"></i>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-12">
-                                <div class="form-group">
-                                    <label>Citizenship</label>
-                                    <div class="ls-inputicon-box">
-                                        <select class="wt-select-box selectpicker" v-model="candidateCitizenshipArr"  data-live-search="true" title=""  data-bv-field="size" multiple>
-                                            <option v-for="citizen in citizenship " :value="citizen.id">{{ citizen[`name_${getLang}`] }}</option>
-                                        </select>
-                                        <i class="fs-input-icon fa fa-venus-mars"></i>
+                                <div v-if="candidate.marital_status_id && candidate.marital_status_id != 1 " class="col-xl-6 col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label>შვილების რაოდენობა</label>
+                                        <div class="ls-inputicon-box">
+                                            <input class="form-control" v-model="candidate.children" type="number" placeholder="">
+                                            <i class="fs-input-icon fa fa-user"></i>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-12">
-                                <div class="form-group">
-                                    <label>Religion</label>
-                                    <div class="ls-inputicon-box">
-                                        <select class="wt-select-box selectpicker" v-model="candidate.religion_id"  data-live-search="true" title=""  data-bv-field="size">
-                                            <option v-for="religion in religions " :value="religion.id">{{ religion[`name_${getLang}`] }}</option>
-                                        </select>
-                                        <i class="fs-input-icon fa fa-venus-mars"></i>
+                                <div v-if="candidate.marital_status_id && candidate.marital_status_id != 1 && candidate.children && candidate.children != 0" class="col-xl-6 col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label>შვილების ასაკი</label>
+                                        <div class="ls-inputicon-box">
+                                            <input class="form-control" v-model="candidate.children_age" type="text" placeholder="მაგ: 10,14">
+                                            <i class="fs-input-icon fa fa-user"></i>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-12">
-                                <div class="form-group">
-                                    <label>Education</label>
-                                    <div class="ls-inputicon-box">
-                                        <select class="wt-select-box selectpicker" v-model="candidate.education_id"  data-live-search="true" title=""  data-bv-field="size">
-                                            <option v-for="education in educations " :value="education.id">{{ education[`name_${getLang}`] }}</option>
-                                        </select>
-                                        <i class="fs-input-icon fa fa-venus-mars"></i>
+                                <div v-if="candidate.marital_status_id && candidate.marital_status_id == 2 " class="col-md-12">
+                                    <div class="form-group">
+                                        <label>მეუღლის სახელი გვარი და სამუშაო ადგილი </label>
+                                        <textarea class="form-control" v-model="candidate.spouse" rows="3" placeholder="გთხოვთ ინფორმაცია შეავსოთ მითითებული მოთხოვნის შესაბამისად."></textarea>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-12">
-                                <div class="form-group">
-                                    <label>პროფესია</label>
-                                    <div class="ls-inputicon-box">
-                                        <select class="wt-select-box selectpicker" v-model="candidateProfessionArr"  data-live-search="true" title=""  data-bv-field="size" multiple>
-                                            <option v-for="profession in professions " :value="profession.id">{{ profession[`name_${getLang}`] }}</option>
-                                        </select>
-                                        <i class="fs-input-icon fa fa-venus-mars"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-12">
-                                <div class="form-group">
-                                    <label>სპეციალობა</label>
-                                    <div class="ls-inputicon-box">
-                                        <select class="wt-select-box selectpicker" v-model="candidateSpecialtyArr"  data-live-search="true" title=""  data-bv-field="size" multiple>
-                                            <option v-for="specialty in specialties " :value="specialty.id">{{ specialty[`name_${getLang}`] }}</option>
-                                        </select>
-                                        <i class="fs-input-icon fa fa-venus-mars"></i>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="col-xl-6 col-lg-6 col-md-12">
-                                <div class="form-group">
-                                    <label>ოჯახური მდგომარეობა</label>
-                                    <div class="ls-inputicon-box">
-                                        <select class="wt-select-box selectpicker" v-model="candidate.marital_status_id"  data-live-search="false" title=""  data-bv-field="size">
-                                            <option v-for="marital in maritalStatus " :value="marital.id">{{ marital[`name_${getLang}`] }}</option>
-                                        </select>
-                                        <i class="fs-input-icon fa fa-venus-mars"></i>
+                                <div class="col-lg-12 col-md-12 mt-4">
+                                    <div class="text-left">
+                                        <button type="" class="site-button" >შენახვა</button>
                                     </div>
                                 </div>
                             </div>
-                            <div v-if="candidate.marital_status_id && candidate.marital_status_id != 1 " class="col-xl-6 col-lg-6 col-md-12">
-                                <div class="form-group">
-                                    <label>შვილების რაოდენობა</label>
-                                    <div class="ls-inputicon-box">
-                                        <input class="form-control" v-model="candidate.children" type="number" placeholder="">
-                                        <i class="fs-input-icon fa fa-user"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div v-if="candidate.marital_status_id && candidate.marital_status_id != 1 && candidate.children && candidate.children != 0" class="col-xl-6 col-lg-6 col-md-12">
-                                <div class="form-group">
-                                    <label>შვილების ასაკი</label>
-                                    <div class="ls-inputicon-box">
-                                        <input class="form-control" v-model="candidate.children_age" type="text" placeholder="მაგ: 10,14">
-                                        <i class="fs-input-icon fa fa-user"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div v-if="candidate.marital_status_id && candidate.marital_status_id == 2 " class="col-md-12">
-                                <div class="form-group">
-                                    <label>მეუღლის სახელი გვარი და სამუშაო ადგილი </label>
-                                    <textarea class="form-control" rows="3" placeholder="გთხოვთ ინფორმაცია შეავსოთ მითითებული მოთხოვნის შესაბამისად."></textarea>
-                                </div>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
 
@@ -660,7 +667,7 @@
 
                     </div>
                 </div>
-            </form>
+            <!-- </form> -->
         </div>
     </div>
 </template>
@@ -768,6 +775,7 @@ export default {
         noticeTableClass(){
             return (this.candidateNoticeArr.length > 0 )?'col-lg-12 col-md-12':'col-lg-12 col-md-12 visually-hidden'
         }
+        
     },
     methods:{
         authUpdate(){
@@ -790,6 +798,31 @@ export default {
                 console.log(error);
             })
 
+        },
+        addPersonalInfo(){
+            axios.post('/candidate_personal_info',{
+                user_id:this.auth.id,
+                personal_number: this.candidate.personal_number,
+                nationality_id: this.candidate.nationality_id,
+                religion_id: this.candidate.religion_id,
+                education_id: this.candidate.education_id,
+                marital_status_id: this.candidate.marital_status_id,
+                children: this.candidate.children,
+                children_age: this.candidate.children_age,
+                spouse: this.candidate.spouse,
+                citizenship: this.candidateCitizenshipArr,
+                professions: this.candidateProfessionArr,
+                specialties: this.candidateSpecialtyArr,
+
+            })
+            .then(function (response) {
+                // handle success
+                console.log(response.data);
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
         },
         recommendationFileUpload(event){
             this.recommendationFile = event.target.files[0]
@@ -849,7 +882,7 @@ export default {
 
     mounted(){
         console.log(this.getLang)
-        console.log(this.candidateLanguages);
+        console.log(this.candidateCitizenships);
 
     }
 }
