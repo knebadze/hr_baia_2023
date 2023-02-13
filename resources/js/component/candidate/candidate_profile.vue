@@ -203,7 +203,7 @@
 
                                 <div class="col-lg-12 col-md-12 mt-4">
                                     <div class="text-left">
-                                        <button type="" class="site-button" >შენახვა</button>
+                                        <button type="" class="site-button" >{{ (candidateID == null)?'შენახვა':'შეინახე ცვლილება' }}</button>
                                     </div>
                                 </div>
                             </div>
@@ -219,26 +219,33 @@
                         <h4 class="panel-tittle m-a0">სამედიცინო ინფორმაცია</h4>
                     </div>
                     <div class="panel-body wt-panel-body p-a20 m-b30 ">
+                        <form @submit.prevent="addMedicalInfo()" >
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>ალერგია</label>
+                                        <div class="ls-inputicon-box">
+                                            <select class="wt-select-box selectpicker" v-model="candidateAllergyArr"  data-live-search="true" title=""  data-bv-field="size">
+                                                <option v-for="allergy in allergies " :value="allergy.id">{{ allergy[`name_${getLang}`] }}</option>
+                                            </select>
+                                            <i class="fs-input-icon fa fa-venus-mars"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>ოპერაცია ან ქრონიკული დაავადება </label>
+                                        <textarea class="form-control" rows="3" v-model="candidate.medical_info" placeholder="გთხოვთ მოგვაწოდოთ ინფორმაცია მნიშვნელოვანი ოპერაციების და ქრონიკული დაავადებების შესახებ ასეთის არსებობის შემთხვევაში."></textarea>
+                                    </div>
+                                </div>
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>ალერგია</label>
-                                    <div class="ls-inputicon-box">
-                                        <select class="wt-select-box selectpicker" v-model="candidateAllergyArr"  data-live-search="true" title=""  data-bv-field="size">
-                                            <option v-for="allergy in allergies " :value="allergy.id">{{ allergy[`name_${getLang}`] }}</option>
-                                        </select>
-                                        <i class="fs-input-icon fa fa-venus-mars"></i>
+                                <div class="col-lg-12 col-md-12 mt-4">
+                                    <div class="text-left">
+                                        <button type="" class="site-button" >{{ (candidateAllergyArr.length > 0 || candidate.medical_info)? "შეინახე ცვლილება":'შენახვა' }}</button>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>ოპერაცია ან ქრონიკული დაავადება </label>
-                                    <textarea class="form-control" rows="3" placeholder="გთხოვთ მოგვაწოდოთ ინფორმაცია მნიშვნელოვანი ოპერაციების და ქრონიკული დაავადებების შესახებ ასეთის არსებობის შემთხვევაში."></textarea>
-                                </div>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
 
@@ -285,7 +292,7 @@
                                     <button type="submit" class="site-button">დამატება</button>
                                 </div> -->
                             </div>
-                            <div :class="languageTableClass">
+                            <div v-if="candidateLanguageArr.length != 0" :class="languageTableClass">
                                 <!-- <miniTable :key="tableType" :tableType="tableType" :tableRow="tableRow" :tableData="candidateLanguage" @messageFromChild="childMessage"></miniTable> -->
                                 <div class="panel-body wt-panel-body">
                                     <div class="p-a20 table-responsive">
@@ -315,7 +322,11 @@
                                         </table>
                                     </div>
                                 </div>
-
+                                <div class="col-lg-12 col-md-12 mt-4">
+                                    <div class="text-left">
+                                        <button type="" class="site-button" @click="addLanguageInfo()" >{{ (candidateLanguageArr.length > 0)? "შეინახე ცვლილება":'შენახვა' }}</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -367,7 +378,7 @@
                                     </button>
                                 </div>
                             </div>
-                            <div :class="ExperienceTableClass">
+                            <div v-if="candidateExperienceArr.length != 0" :class="ExperienceTableClass">
                                 <!-- <miniTable :key="tableType" :tableType="tableType" :tableRow="tableRow" :tableData="candidateExperience" @messageFromChild="childMessage"></miniTable> -->
                                 <div class="panel-body wt-panel-body">
                                     <div class="p-a20 table-responsive">
@@ -562,7 +573,7 @@
                     <div class="panel-body wt-panel-body p-a20 m-b30 ">
 
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
                                     <label>ცნობის დასახელება</label>
                                     <div class="ls-inputicon-box">
@@ -591,7 +602,7 @@
                                     </button>
                                 </div>
                             </div>
-                            <div :class="noticeTableClass">
+                            <div v-if="candidateNoticeArr.lenght != 0" :class="noticeTableClass">
                                 <!-- <miniTable :key="tableType" :tableType="tableType" :tableRow="tableRow" :tableData="candidateExperience" @messageFromChild="childMessage"></miniTable> -->
                                 <div class="panel-body wt-panel-body">
                                     <div class="p-a20 table-responsive">
@@ -720,6 +731,10 @@ export default {
             candidateExperienceArr: [],
             candidateNoticeArr: [],
 
+            step: {
+                step1: {},
+                step2: {}
+            }
 
             //v-model
             language_id: null,
@@ -730,6 +745,9 @@ export default {
             //file
             noticeFile: {},
             recommendationFile: {},
+
+            //candidateID:
+            candidate_id: null,
 
         }
     },
@@ -774,24 +792,27 @@ export default {
         },
         noticeTableClass(){
             return (this.candidateNoticeArr.length > 0 )?'col-lg-12 col-md-12':'col-lg-12 col-md-12 visually-hidden'
+        },
+        candidateID(){
+            if (Object.keys(this.candidate).length != 0) {
+                return this.candidate.id
+            }else{
+                return this.candidate_id
+            }
         }
-        
     },
     methods:{
         authUpdate(){
             console.log(this.auth);
-            axios.post('/profile_update',{
-                id:this.auth.id,
-                name:this.auth[`name_${this.getLang}`],
-                number: this.auth.number,
-                email: this.auth.email,
-                date_of_birth: this.auth.date_of_birth,
-                gender_id: this.auth.gender_id,
-
+            axios({
+                method: "post",
+                url: "/profile_update",
+                data: this.auth
             })
             .then(function (response) {
                 // handle success
                 console.log(response.data);
+
             })
             .catch(function (error) {
                 // handle error
@@ -813,11 +834,44 @@ export default {
                 citizenship: this.candidateCitizenshipArr,
                 professions: this.candidateProfessionArr,
                 specialties: this.candidateSpecialtyArr,
-
             })
-            .then(function (response) {
+            .then((response) => {
                 // handle success
                 console.log(response.data);
+                this.candidate_id = response.data
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+        },
+        addMedicalInfo(){
+            axios.post('/candidate_medical_info',{
+                // candidate_id:this.candidateID,
+                allergy: this.candidateAllergyArr,
+                medical_info: this.candidate.medical_info
+            })
+            .then((response) => {
+                // handle success
+                console.log(response.data);
+                this.candidate_id = response.data
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+        },
+
+        addLanguageInfo(){
+            axios({
+                method: "post",
+                url: "/candidate_language_info",
+                data: this.candidateLanguageArr
+            })
+            .then((response)=> {
+                // handle success
+                console.log(response.data);
+
             })
             .catch(function (error) {
                 // handle error
@@ -879,10 +933,23 @@ export default {
             console.log('hello');
         }
     },
+    // watch:{
+    //     candidateCitizenshipArr:{
+    //         handler(newValue, oldValue) {
+    //             console.log('new',newValue);
+    //         }
+    //     }
+    // },
 
     mounted(){
         console.log(this.getLang)
         console.log(this.candidateCitizenships);
+        if (Object.keys(this.data.candidateCitizenships).length != 0 ) {
+            this.data.candidateCitizenships.forEach(element => {
+                this.candidateCitizenshipArr.push(element.citizenship_id)
+            });
+        }
+        console.log(this.candidate_id);
 
     }
 }

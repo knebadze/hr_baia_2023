@@ -3,51 +3,83 @@
 namespace App\Http\Controllers;
 
 use App\Models\Candidate;
-use App\Models\Candidate_citizenship;
-use App\Models\Candidate_profession;
-use App\Models\Candidate_specialty;
 use App\Models\Citizenship;
 use Illuminate\Http\Request;
-use PhpParser\Node\Stmt\Foreach_;
+use Illuminate\Support\Facades\DB;
+use App\Models\Candidate_specialty;
+use App\Models\Candidate_profession;
+use App\Models\Candidate_citizenship;
+use App\Models\CandidateAllergy;
+use Illuminate\Support\Facades\Auth;
 
 class CandidateInfoController extends Controller
 {
     public function personalInfo(Request $request){
-        $candidate = new Candidate();
-        $candidate->user_id = $request->user_id;
-        $candidate->personal_number = $request->personal_number;
-        $candidate->nationality_id = $request->nationality_id;
-        $candidate->religion_id = $request->religion_id;
-        $candidate->education_id = $request->education_id;
-        $candidate->marital_status_id = $request->marital_status_id;
-        $candidate->children = $request->children;
-        $candidate->children_age = $request->children_age;
-        $candidate->spouse = $request->spouse;
-        $candidate->save();
-        $test = 0;
-
+        $candidate = Candidate::updateOrCreate(
+            ['user_id' => $request->user_id],
+            [
+                'personal_number' => $request->personal_number,
+                'nationality_id' => $request->nationality_id,
+                'religion_id' => $request->religion_id,
+                'education_id' => $request->education_id,
+                'marital_status_id' => $request->marital_status_id,
+                'children' => $request->children,
+                'children_age' => $request->children_age,
+                'spouse' => $request->spouse,
+            ]
+        );
         foreach ($request->citizenship as $key => $value) {
-            $citizenship = new Candidate_citizenship();
-            $citizenship->candidate_id = $candidate->id;
-            $citizenship->citizenship_id = $value;
-            $test = $test + 1;
-            $citizenship->save();
+            $citizenship = Candidate_citizenship::updateOrCreate(
+                [
+                    'candidate_id' => $candidate->id,
+                    'citizenship_id' => $value
+                ],
+            );
         }
-
         foreach ($request->professions as $key => $value) {
-            $profession = new Candidate_profession();
-            $profession->candidate_id = $candidate->id;
-            $profession->profession_id = $value;
-            $profession->save();
+            $profession = Candidate_profession::updateOrCreate(
+                [
+                    'candidate_id' => $candidate->id,
+                    'profession_id' => $value
+                ],
+            );
         }
 
         foreach ($request->specialties as $key => $value) {
-            $specialty = new Candidate_specialty();
-            $specialty->candidate_id = $candidate->id;
-            $specialty->specialty_id = $value;
-            $specialty->save();
+            $specialty = Candidate_specialty::updateOrCreate(
+                [
+                    'candidate_id' => $candidate->id,
+                    'specialty_id' => $value
+                ],
+            );
+        }
+
+        $candidateId = $candidate->id;
+        return response()->json($candidateId);
+    }
+    public function medicalInfo(Request $request){
+        $candidate = Candidate::updateOrCreate(
+            ['user_id' => Auth::id()],
+            ['medical_info' => $request->medical_info]
+        );
+        foreach ($request->allergy as $key => $value) {
+            $allergy = CandidateAllergy::updateOrCreate(
+                [
+                    'candidate_id' => $candidate->id,
+                    'allergy_id' => $value
+                ],
+            );
         }
         $candidateId = $candidate->id;
-        return response()->json([$request->all(), $test, $candidateId]);
+        return response()->json($candidateId);
+    }
+
+    public function languageInfo(Request $request){
+        print_r($request->all());
+        exit;
+        foreach ($request->all() as $key => $value) {
+            
+        }
+        return response()->json('ok');
     }
 }

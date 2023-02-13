@@ -156,14 +156,15 @@ class MyprofileController extends Controller
     public function update(Request $request)
     {
         $data = $request->all();
+
         $lang = app()->getLocale();
         $user = User::findOrFail($request->id);
         if ($lang == 'ka') {
-            $user->name_ka = $request->name;
+            $user->name_ka = $request->name_ka;
         } elseif($lang == 'en') {
-            $user->name_en = $request->name;
+            $user->name_en = $request->name_en;
         } elseif($lang == 'ru') {
-            $user->name_ru = $request->name;
+            $user->name_ru = $request->name_ru;
         }
         $user->email = $request->email;
         $user->number = $request->number;

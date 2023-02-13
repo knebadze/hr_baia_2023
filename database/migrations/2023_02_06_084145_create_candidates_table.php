@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('candidates', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->string('personal_number', 25)->nullable();
+            $table->string('personal_number', 25)->nullable()->unique();
             $table->float('height')->nullable();
             $table->float('weight')->nullable();
             $table->tinyInteger('convection')->default(0);
