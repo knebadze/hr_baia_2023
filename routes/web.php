@@ -15,6 +15,7 @@ use App\Http\Controllers\MyprofileController;
 
 
 use App\Http\Controllers\Auth\SocialController;
+use App\Http\Controllers\CandidateInfoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,5 +58,6 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
 
     //AXIOS
     Route::post('profile_update', [MyprofileController::class, 'update']);
+    Route::post('candidate_personal_info', [CandidateInfoController::class, 'personalInfo']);
 
 
