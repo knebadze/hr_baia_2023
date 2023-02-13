@@ -238,7 +238,11 @@ return [
     'about_us_page_title_one' => 'About Us',
     'about_us_page_title_link' => 'Home',
 
-    'about_us_page_description' => '',
+    'about_us_page_description' => 'Jobs agency “Baia” is pleased to introduce you domestic personnel for employers 
+                                    who can work in and outside of Georgia. We can help you to select caregivers, 
+                                    qualified nannies, tutors, domestic helpers, nurses for old or bedridden patients, 
+                                    personal drivers. We work  professionally, quickly and qualitatively and in target times. 
+                                    Contact us and choose the day for interview. We will contact you very soon!',
     'about_us_page_working_proccess' => 'Working Proccess',
     'about_us_page_working_how_does_it_work' => 'How does it work',
 
