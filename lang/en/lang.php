@@ -162,6 +162,77 @@ return [
     'individual_vacancies_page_middle_show_me_60' => 'Show Me 60',
 
     // ----------------------------------------------------------------------------------------------------
+    // Company Vacancies Lang Page
+    'company_vacancies_page_big_title' => 'Most popular vacancies',
+    'company_vacancies_page_small_title_first' => 'home',
+    'company_vacancies_page_small_title_second' => 'Individual Vacancies',
+
+    'company_vacancies_page_leftside_category' => 'Category',
+        'company_vacancies_page_leftside_category_allcategory' => 'All Categories',
+
+    'company_vacancies_page_leftside_keyword' => 'Keyword',
+        'company_vacancies_page_leftside_name_or_keyword' => 'Name or Keyword',
+
+    'company_vacancies_page_leftside_location' => 'Location',
+        'company_vacancies_page_leftside_search_location' => 'Search Location',
+
+    'company_vacancies_page_leftside_type_of_work' => 'Type of work',
+
+    'company_vacancies_page_leftside_date_of_publication' => 'Date of publication',
+        'company_vacancies_page_leftside_any' => 'Any',
+        'company_vacancies_page_leftside_last_24' => 'Last 24 hours',
+        'company_vacancies_page_leftside_last_3' => 'Last 3 hours',
+        'company_vacancies_page_leftside_last_7' => 'Last 7 hours',
+
+    'company_vacancies_page_leftside_sallary' => 'Sallary',
+        'company_vacancies_page_leftside_sallary_any' => 'Any',
+        'company_vacancies_page_leftside_sallary_from_500' => 'From 500₾',
+        'company_vacancies_page_leftside_sallary_from_700' => 'From 700₾',
+        'company_vacancies_page_leftside_sallary_from_900' => 'From 900₾',
+        'company_vacancies_page_leftside_sallary_other' => 'Other',
+
+    'company_vacancies_page_leftside_shedulde' => 'Shedulde',
+        'company_vacancies_page_leftside_shedulde_any' => 'Any',
+        'company_vacancies_page_leftside_shedulde_day' => 'Day Shedulde',
+        'company_vacancies_page_leftside_shedulde_night' => 'Night Shedulde',
+        'company_vacancies_page_leftside_shedulde_daily' => 'Daily Schedule',
+        'company_vacancies_page_leftside_shedulde_other' => 'Other',
+
+    'company_vacancies_page_leftside_second_location' => 'Location',
+        'company_vacancies_page_leftside_second_location_any' => 'Any',
+        'company_vacancies_page_leftside_second_location_3km' => '3 km from you',
+        'company_vacancies_page_leftside_second_location_5km' => '5 km from you',
+        'company_vacancies_page_leftside_second_location_7km' => '7 km from you',
+
+    'company_vacancies_page_leftside_tags' => 'Tags',
+
+    'company_vacancies_page_leftside_box_title' => 'Get the jobs that suit you by email. Submit your resume now!',
+    'company_vacancies_page_leftside_box_read_more' => 'Read More',
+    // -------------------------------------------------------------
+    'company_vacancies_page_middle_first_title' => '2150 jobs are displayed',
+
+    'company_vacancies_page_middle_title_sort' => 'Sort',
+
+    'company_vacancies_page_middle_latest' => 'Latest',
+    'company_vacancies_page_middle_free_schedule' => 'Free schedule', 
+    'company_vacancies_page_middle_full_time' => 'Full time',
+    'company_vacancies_page_middle_intership' => 'Intership',
+    'company_vacancies_page_middle_half_time' => 'Half Time',
+    'company_vacancies_page_middle_temporary' => 'Temporary',  
+
+    'company_vacancies_page_middle_show_me_10' => 'Show Me 10',
+    'company_vacancies_page_middle_show_me_20' => 'Show Me 20',
+    'company_vacancies_page_middle_show_me_30' => 'Show Me 30',
+    'company_vacancies_page_middle_show_me_40' => 'Show Me 40',
+    'company_vacancies_page_middle_show_me_50' => 'Show Me 50',
+    'company_vacancies_page_middle_show_me_60' => 'Show Me 60',
+
+    'company_vacancies_page_middle_leftside_read_more' => 'Read More',
+
+    // ----------------------------------------------------------------------------------------------------
+    // On Map Vacancies Lang Page
+
+    // ----------------------------------------------------------------------------------------------------
     // About Us Lang Page
     'about_us_page_title_one' => 'About Us',
     'about_us_page_title_link' => 'Home',

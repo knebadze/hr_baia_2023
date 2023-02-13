@@ -165,6 +165,74 @@ return [
     'individual_vacancies_page_middle_show_me_60' => 'Покажи мне 60',
 
     // ----------------------------------------------------------------------------------------------------
+    // Company Vacancies Lang Page
+
+    'company_vacancies_page_big_title' => 'Самые популярные вакансии',
+    'company_vacancies_page_small_title_first' => 'Главная',
+    'company_vacancies_page_small_title_second' => 'Индивидуальные вакансии',
+    
+    'company_vacancies_page_leftside_category' => 'Категория',
+        'company_vacancies_page_leftside_category_allcategory' => 'Все категории',
+
+    'company_vacancies_page_leftside_keyword' => 'Ключевое слово',
+        'company_vacancies_page_leftside_name_or_keyword' => 'Имя или ключевое слово',
+
+    'company_vacancies_page_leftside_location' => 'Местоположение',
+        'company_vacancies_page_leftside_search_location' => 'поиск Местоположение',
+
+    'individual_vacancies_page_leftside_type_of_work' => 'Тип работы',    
+
+    'company_vacancies_page_leftside_date_of_publication' => 'Дата публикации',
+        'company_vacancies_page_leftside_any' => 'Любой',
+        'company_vacancies_page_leftside_last_24' => 'Последние 24 часа',
+        'company_vacancies_page_leftside_last_3' => 'Последние 3 часа',
+        'company_vacancies_page_leftside_last_7' => 'Последние 7 часов',
+
+    'company_vacancies_page_leftside_sallary' => 'Зарплата',
+        'company_vacancies_page_leftside_sallary_any' => 'Любой',
+        'company_vacancies_page_leftside_sallary_from_500' => 'От 500₾',
+        'company_vacancies_page_leftside_sallary_from_700' => 'От 700₾',
+        'company_vacancies_page_leftside_sallary_from_900' => 'От 900₾',
+        'company_vacancies_page_leftside_sallary_other' => 'Другое',
+
+    'company_vacancies_page_leftside_shedulde' => 'Расписание',
+        'company_vacancies_page_leftside_shedulde_any' => 'Любой',
+        'company_vacancies_page_leftside_shedulde_day' => 'Дневной расписание',
+        'company_vacancies_page_leftside_shedulde_night' => 'Ночное расписание',
+        'company_vacancies_page_leftside_shedulde_daily' => 'Круглосуточный',
+        'company_vacancies_page_leftside_shedulde_other' => 'Другое',
+
+    'company_vacancies_page_leftside_second_location' => 'Местоположение',
+        'company_vacancies_page_leftside_second_location_any' => 'Любой',
+        'company_vacancies_page_leftside_second_location_3km' => '3 км от вас',
+        'company_vacancies_page_leftside_second_location_5km' => '5 км от вас',
+        'company_vacancies_page_leftside_second_location_7km' => '7 км от вас',
+
+    'company_vacancies_page_leftside_tags' => 'Теги',
+
+    'company_vacancies_page_leftside_box_title' => 'Получите подходящие вакансии по электронной почте. Отправьте свое резюме прямо сейчас!',
+    'company_vacancies_page_leftside_box_read_more' => 'Читать далее',
+    // -------------------------------------------------------------
+    'individual_vacancies_page_middle_first_title' => 'Отображено 2150 вакансий',
+    'individual_vacancies_page_middle_title_sort' => 'Сортировка',
+
+    'company_vacancies_page_middle_latest' => 'Последние',
+    'company_vacancies_page_middle_free_schedule' => 'Свободный график',
+    'company_vacancies_page_middle_full_time' => 'Полный рабочий график',
+    'company_vacancies_page_middle_intership' => 'Стажер',
+    'company_vacancies_page_middle_half_time' => 'Неполный рабочий график',
+    'company_vacancies_page_middle_temporary' => 'Временно',
+
+    'company_vacancies_page_middle_show_me_10' => 'Покажи мне 10',
+    'company_vacancies_page_middle_show_me_20' => 'Покажи мне 20',
+    'company_vacancies_page_middle_show_me_30' => 'Покажи мне 30',
+    'company_vacancies_page_middle_show_me_40' => 'Покажи мне 40',
+    'company_vacancies_page_middle_show_me_50' => 'Покажи мне 50',
+    'company_vacancies_page_middle_show_me_60' => 'Покажи мне 60',
+
+    'company_vacancies_page_middle_leftside_read_more' => 'Читать далее',
+
+    // ----------------------------------------------------------------------------------------------------
     // About Us Lang Page
     'about_us_page_title_one' => 'О нас',
     'about_us_page_title_link' => 'Главная',

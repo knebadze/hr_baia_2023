@@ -349,7 +349,7 @@
                                     <div class="twm-right-content">
                                         
                                         <div class="twm-jobs-amount">₾2500 <span>/ თვეში</span></div>
-                                        <a href="job-detail.html" class="twm-jobs-browse site-text-primary">{{ __('lang.individual_vacancies_page_leftside_read_more') }}<</a>
+                                        <a href="job-detail.html" class="twm-jobs-browse site-text-primary">{{ __('lang.individual_vacancies_page_middle_leftside_read_more') }}<</a>
                                     </div>
                                 </div>
 

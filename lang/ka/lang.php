@@ -172,6 +172,74 @@ return [
     'individual_vacancies_page_middle_show_me_60' => 'მაჩვენე 60',
 
     // ----------------------------------------------------------------------------------------------------
+    // Company Vacancies Lang Page
+    'company_vacancies_page_big_title' => 'ყველაზე პოპულარული ვაკანსიები',
+    'company_vacancies_page_small_title_first' => 'მთავარი',
+    'company_vacancies_page_small_title_second' => 'ინდივიდუალური ვაკანსიები',
+
+    'company_vacancies_page_leftside_category' => 'კატეგორია',
+    'company_vacancies_page_leftside_category_allcategory' => 'ყველა კატეგორია',
+
+    'company_vacancies_page_leftside_keyword' => 'საკვანძო სიტყვა',
+    'company_vacancies_page_leftside_name_or_keyword' => 'სახელი ან საკვანძო სიტყვა',
+
+    'company_vacancies_page_leftside_location' => 'ლოკაცია',
+        'company_vacancies_page_leftside_search_location' => 'ლოკაციის ძებნა',
+
+    'company_vacancies_page_leftside_type_of_work' => 'სამუშაოს ტიპი',
+
+    'company_vacancies_page_leftside_date_of_publication' => 'გამოქვეყნების თარიღი',
+        'company_vacancies_page_leftside_any' => 'ნებისმიერი',
+        'company_vacancies_page_leftside_last_24' => 'ბოლო 24 საათში',
+        'company_vacancies_page_leftside_last_3' => 'ბოლო 3 საათში',
+        'company_vacancies_page_leftside_last_7' => 'ბოლო 7 საათში',
+
+    'company_vacancies_page_leftside_sallary' => 'ანაზღაურება',
+        'company_vacancies_page_leftside_sallary_any' => 'ნებისმიერი',
+        'company_vacancies_page_leftside_sallary_from_500' => '500 ₾-დან',
+        'company_vacancies_page_leftside_sallary_from_700' => '700 ₾-დან',
+        'company_vacancies_page_leftside_sallary_from_900' => '900 ₾-დან',
+        'company_vacancies_page_leftside_sallary_other' => 'სხვა',
+
+    'company_vacancies_page_leftside_shedulde' => 'გრაფიკი',
+        'company_vacancies_page_leftside_shedulde_any' => 'ნებისმიერი',
+        'company_vacancies_page_leftside_shedulde_day' => 'დღის გრაფიკი',
+        'company_vacancies_page_leftside_shedulde_night' => 'ღამის გრაფიკი',
+        'company_vacancies_page_leftside_shedulde_daily' => 'დღიური გრაფიკი',
+        'company_vacancies_page_leftside_shedulde_other' => 'სხვა',
+
+    'company_vacancies_page_leftside_second_location' => 'მდებარეობა',
+        'company_vacancies_page_leftside_second_location_any' => 'ნებისმიერი',
+        'company_vacancies_page_leftside_second_location_3km' => 'თქვენგან 3 კმ-ში',
+        'company_vacancies_page_leftside_second_location_5km' => 'თქვენგან 5 კმ-ში',
+        'company_vacancies_page_leftside_second_location_7km' => 'თქვენგან 7 კმ-ში',
+
+    'company_vacancies_page_leftside_tags' => 'ტეგები',
+
+    'company_vacancies_page_leftside_box_title' => 'მიიღეთ თქვენთვის შესაფერისი ვაკანსიები Email-ზე. გააგზავნეთ თქვენი რეზიუმე ახლავე!',
+    'company_vacancies_page_leftside_box_read_more' => 'სრულად',
+
+    // -------------------------------------------------------------
+    'company_vacancies_page_middle_first_title' => 'ნაჩვენებია 2150 სამუშაო ადგილი',
+    'company_vacancies_page_middle_title_sort' => 'დალაგება',
+
+    'company_vacancies_page_middle_latest' => 'უახლესი',
+    'company_vacancies_page_middle_free_schedule' => 'თავისუფალი განრიგი',
+    'company_vacancies_page_middle_full_time' => 'სრულ განაკვეთზე',
+    'company_vacancies_page_middle_intership' => 'სტაჟირება',
+    'company_vacancies_page_middle_half_time' => 'ნახევარი განაკვეთი',
+    'company_vacancies_page_middle_temporary' => 'დროებითი',
+
+    'company_vacancies_page_middle_show_me_10' => 'მაჩვენე 10',
+    'company_vacancies_page_middle_show_me_20' => 'მაჩვენე 20',
+    'company_vacancies_page_middle_show_me_30' => 'მაჩვენე 30',
+    'company_vacancies_page_middle_show_me_40' => 'მაჩვენე 40',
+    'company_vacancies_page_middle_show_me_50' => 'მაჩვენე 50',
+    'company_vacancies_page_middle_show_me_60' => 'მაჩვენე 60',
+
+    'company_vacancies_page_middle_leftside_read_more' => 'სრულად',
+
+    // ----------------------------------------------------------------------------------------------------
     // About Us Lang Page
     'about_us_page_title_one' => 'ჩვენს შესახებ',
     'about_us_page_title_link' => 'მთავარი',
