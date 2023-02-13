@@ -13,7 +13,7 @@
              <form>
                  <!--Search Bar-->
                  <!--Basic Information-->
-                 <div class="panel panel-default">
+                 <div class="panel panel-default on_map">
                      <div class="panel-heading wt-panel-heading p-a20">
                          <h4 class="panel-tittle m-a0"><i class="fa fa-suitcase"></i>მოძებნე სამსახური</h4>
                      </div>
