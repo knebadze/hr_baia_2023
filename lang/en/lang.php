@@ -82,20 +82,6 @@ return [
     'welcome_middle_blog_article_button_read' => 'Read More',
 
     // ----------------------------------------------------------------------------------------------------
-    // Footer Lang Page
-    'footer_fast_link' => 'Quick links',
-    'footer_by_category' => 'By Category',
-    'footer_by_profession' => 'By Professions',
-
-    'footer_address_one' => 'Address :',
-        'footer_address_two' => 'Vazha-Pshavela Avenue - 76B II: Archil Jorjadze Street N5',
-    'footer_call' => 'Call Us :',
-
-    'footer_subscribe_first_text' => 'Subscribe to active vacancies',
-    'footer_subscribe_form_placeholder' => 'Enter your email',
-    'footer_subscribe_button' => 'Subscribe now',
-
-    // ----------------------------------------------------------------------------------------------------
     // Individual Vacancies Lang Page
     'individual_vacancies_page_big_title' => 'Most popular vacancies',
     'individual_vacancies_page_small_title_first' => 'home',
@@ -160,6 +146,8 @@ return [
     'individual_vacancies_page_middle_show_me_40' => 'Show Me 40',
     'individual_vacancies_page_middle_show_me_50' => 'Show Me 50',
     'individual_vacancies_page_middle_show_me_60' => 'Show Me 60',
+
+    'individual_vacancies_page_middle_leftside_read_more' => 'Read More',
 
     // ----------------------------------------------------------------------------------------------------
     // Company Vacancies Lang Page
@@ -231,6 +219,19 @@ return [
 
     // ----------------------------------------------------------------------------------------------------
     // On Map Vacancies Lang Page
+    'onmap_vacancies_page_leftside_vacancie_find_job' => 'Find a Job',
+        'onmap_vacancies_page_leftside_vacancie_title' => 'Vacancie Title',
+            'onmap_vacancies_page_leftside_vacancie_types_of_jobs' => 'Types of Jobs',
+        'onmap_vacancies_page_leftside_vacancie_category' => 'Category',
+            'onmap_vacancies_page_leftside_vacancie_choose_category' => 'Choose a Category',
+        'onmap_vacancies_page_leftside_vacancie_work_type' => 'Work Type',
+            'onmap_vacancies_page_leftside_vacancie__work_type_choose_category' => 'Choose a Category',
+        'onmap_vacancies_page_leftside_vacancie_location' => 'Location',
+            'onmap_vacancies_page_leftside_vacancie_specify_location' => 'Specify the location',
+        'onmap_vacancies_page_leftside_vacancie_sallary' => 'Sallary',
+        'onmap_vacancies_page_leftside_vacancie_radius' => 'Radius',
+        'onmap_vacancies_page_leftside_vacancie_search' => 'Search',
+        'onmap_vacancies_page_leftside_vacancie_job_boxes' => 'Read More',
 
     // ----------------------------------------------------------------------------------------------------
     // About Us Lang Page
@@ -271,5 +272,97 @@ return [
 
     'about_us_page_top_company' => 'Top Companies',
     'about_us_page_top_company_description' => 'Get offers at top companies',
+
+    // ----------------------------------------------------------------------------------------------------
+    // Candidates Us Lang Page
+    'candidate_page_big_title' => 'Candidates',
+    'candidate_page_small_title_first' => 'home',
+    'candidate_page_small_title_second' => 'Candidates',
+
+    'candidate_page_leftside_category' => 'Category',
+        'candidate_page_leftside_category_allcategory' => 'All Categories',
+
+    'candidate_page_leftside_keyword' => 'Keyword',
+        'candidate_page_leftside_name_or_keyword' => 'Name or Keyword',
+
+    'candidate_page_leftside_location' => 'Location',
+        'candidate_page_leftside_search_location' => 'Search Location',
+
+    'candidate_page_leftside_type_of_work' => 'Type of work',
+
+    'candidate_page_leftside_date_of_publication' => 'Date of publication',
+        'candidate_page_leftside_any' => 'Any',
+        'candidate_page_leftside_last_24' => 'Last 24 hours',
+        'candidate_page_leftside_last_3' => 'Last 3 hours',
+        'candidate_page_leftside_last_7' => 'Last 7 hours',
+
+    'candidate_page_leftside_sallary' => 'Sallary',
+        'candidate_page_leftside_sallary_any' => 'Any',
+        'candidate_page_leftside_sallary_from_500' => 'From 500₾',
+        'candidate_page_leftside_sallary_from_700' => 'From 700₾',
+        'candidate_page_leftside_sallary_from_900' => 'From 900₾',
+        'candidate_page_leftside_sallary_other' => 'Other',
+
+    'candidate_page_leftside_shedulde' => 'Shedulde',
+        'candidate_page_leftside_shedulde_any' => 'Any',
+        'candidate_page_leftside_shedulde_day' => 'Day Shedulde',
+        'candidate_page_leftside_shedulde_night' => 'Night Shedulde',
+        'candidate_page_leftside_shedulde_daily' => 'Daily Schedule',
+        'candidate_page_leftside_shedulde_other' => 'Other',
+
+    'candidate_page_leftside_second_location' => 'Location',
+        'candidate_page_leftside_second_location_any' => 'Any',
+        'candidate_page_leftside_second_location_3km' => '3 km from you',
+        'candidate_page_leftside_second_location_5km' => '5 km from you',
+        'candidate_page_leftside_second_location_7km' => '7 km from you',
+
+    'candidate_page_leftside_tags' => 'Tags',
+
+    'candidate_page_leftside_box_title' => 'Get the jobs that suit you by email. Submit your resume now!',
+    'candidate_page_leftside_box_read_more' => 'Read More',
+    // -------------------------------------------------------------
+    'candidate_page_middle_first_title' => '2150 jobs are displayed',
+
+    'candidate_page_middle_title_sort' => 'Sort',
+
+    'candidate_page_middle_latest' => 'Latest',
+    'candidate_page_middle_free_schedule' => 'Free schedule', 
+    'candidate_page_middle_full_time' => 'Full time',
+    'candidate_page_middle_intership' => 'Intership',
+    'candidate_page_middle_half_time' => 'Half Time',
+    'candidate_page_middle_temporary' => 'Temporary',  
+
+    'candidate_page_middle_show_me_10' => 'Show Me 10',
+    'candidate_page_middle_show_me_20' => 'Show Me 20',
+    'candidate_page_middle_show_me_30' => 'Show Me 30',
+    'candidate_page_middle_show_me_40' => 'Show Me 40',
+    'candidate_page_middle_show_me_50' => 'Show Me 50',
+    'candidate_page_middle_show_me_60' => 'Show Me 60',
+
+    'candidates_page_middle_candidate_box_read_more' => 'Read More',
+
+    // ----------------------------------------------------------------------------------------------------
+    // Blog Lang Page
+    'blog_page_big_title' => 'Blog',
+    'blog_page_small_title_first' => 'home',
+    'blog_page_small_title_second' => 'Blog',
+    'blog_page_right_side_search' => 'Search',
+    'blog_page_right_side_category' => 'Category',
+    'blog_page_right_side_last_article' => 'Last Article',
+    'blog_page_right_side_tag' => 'Tags',
+
+    // ----------------------------------------------------------------------------------------------------
+    // Footer Lang Page
+    'footer_fast_link' => 'Quick links',
+    'footer_by_category' => 'By Category',
+    'footer_by_profession' => 'By Professions',
+
+    'footer_address_one' => 'Address :',
+        'footer_address_two' => 'Vazha-Pshavela Avenue - 76B II: Archil Jorjadze Street N5',
+    'footer_call' => 'Call Us :',
+
+    'footer_subscribe_first_text' => 'Subscribe to active vacancies',
+    'footer_subscribe_form_placeholder' => 'Enter your email',
+    'footer_subscribe_button' => 'Subscribe now',
     
 ];

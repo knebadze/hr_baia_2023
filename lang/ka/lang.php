@@ -81,29 +81,6 @@ return [
     'welcome_middle_blog_smalltext' => 'ბლოგი',
     'welcome_middle_blog_articletext' => 'უახლესი სტატია',
     'welcome_middle_blog_article_button_read' => 'სრულიად',
-    
-
-
-
-
-
-
-
-
-
-    // ----------------------------------------------------------------------------------------------------
-    // Footer Lang Page
-    'footer_fast_link' => 'სწრაფი ლინკები',
-    'footer_by_category' => 'კატეგორიის მიხედვით',
-    'footer_by_profession' => 'პროფესიების მიხედვით',
-
-    'footer_address_one' => 'მისამართი :',
-        'footer_address_two' => 'ვაჟა-ფშაველას გამზირი - 76B II: არჩილ ჯორჯაძის ქუჩა N5',
-    'footer_call' => 'დარეკეთ :',
-
-    'footer_subscribe_first_text' => 'აქტიური ვაკანსიების გამოწერა',
-    'footer_subscribe_form_placeholder' => 'შეიყვანეთ თქვენი იმეილი',
-    'footer_subscribe_button' => 'გამოიწერეთ ახლავე',
 
     // ----------------------------------------------------------------------------------------------------
     // Individual Vacancies Lang Page
@@ -170,6 +147,8 @@ return [
     'individual_vacancies_page_middle_show_me_40' => 'მაჩვენე 40',
     'individual_vacancies_page_middle_show_me_50' => 'მაჩვენე 50',
     'individual_vacancies_page_middle_show_me_60' => 'მაჩვენე 60',
+
+    'candidates_page_middle_leftside_read_more' => 'სრულად',
 
     // ----------------------------------------------------------------------------------------------------
     // Company Vacancies Lang Page
@@ -240,6 +219,22 @@ return [
     'company_vacancies_page_middle_leftside_read_more' => 'სრულად',
 
     // ----------------------------------------------------------------------------------------------------
+    // On Map Vacancies Lang Page
+    'onmap_vacancies_page_leftside_vacancie_find_job' => 'მოძებნე სამსახური',
+        'onmap_vacancies_page_leftside_vacancie_title' => 'ვაკანსიის სათაური',
+            'onmap_vacancies_page_leftside_vacancie_types_of_jobs' => 'სამუშაოების ტიპები',
+        'onmap_vacancies_page_leftside_vacancie_category' => 'კატეგორია',
+            'onmap_vacancies_page_leftside_vacancie_choose_category' => 'აირჩიე კატეგორია',
+        'onmap_vacancies_page_leftside_vacancie_work_type' => 'სამუშაოს ტიპი',
+            'onmap_vacancies_page_leftside_vacancie__work_type_choose_category' => 'აირჩიე კატეგორია',
+        'onmap_vacancies_page_leftside_vacancie_location' => 'მდებარეობა',
+            'onmap_vacancies_page_leftside_vacancie_specify_location' => 'მიუთითეთ მდებარეობა',
+        'onmap_vacancies_page_leftside_vacancie_sallary' => 'ხელფასი',
+        'onmap_vacancies_page_leftside_vacancie_radius' => 'რადიუსი',
+        'onmap_vacancies_page_leftside_vacancie_search' => 'ძებნა',
+        'onmap_vacancies_page_leftside_vacancie_job_boxes' => 'სრულად',
+
+    // ----------------------------------------------------------------------------------------------------
     // About Us Lang Page
     'about_us_page_title_one' => 'ჩვენს შესახებ',
     'about_us_page_title_link' => 'მთავარი',
@@ -285,4 +280,96 @@ return [
 
     'about_us_page_top_company' => 'ტოპ კომპანიები',
     'about_us_page_top_company_description' => 'მიიღეთ შემოთავაზებები ტოპ კომპანიებში',
+
+    // ----------------------------------------------------------------------------------------------------
+    // Candidates Us Lang Page
+    'candidate_page_big_title' => 'კანდიდატები',
+    'candidate_page_small_title_first' => 'მთავარი',
+    'candidate_page_small_title_second' => 'კანდიდატები',
+
+    'candidate_page_leftside_category' => 'კატეგორია',
+    'candidate_page_leftside_category_allcategory' => 'ყველა კატეგორია',
+
+    'candidate_page_leftside_keyword' => 'საკვანძო სიტყვა',
+    'candidate_page_leftside_name_or_keyword' => 'სახელი ან საკვანძო სიტყვა',
+
+    'candidate_page_leftside_location' => 'ლოკაცია',
+        'candidate_leftside_search_location' => 'ლოკაციის ძებნა',
+
+    'candidate_leftside_type_of_work' => 'სამუშაოს ტიპი',
+
+    'candidate_leftside_date_of_publication' => 'გამოქვეყნების თარიღი',
+        'candidate_page_leftside_any' => 'ნებისმიერი',
+        'candidate_page_leftside_last_24' => 'ბოლო 24 საათში',
+        'candidate_page_leftside_last_3' => 'ბოლო 3 საათში',
+        'candidate_page_leftside_last_7' => 'ბოლო 7 საათში',
+
+    'candidate_leftside_sallary' => 'ანაზღაურება',
+        'candidate_page_leftside_sallary_any' => 'ნებისმიერი',
+        'candidate_page_leftside_sallary_from_500' => '500 ₾-დან',
+        'candidate_page_leftside_sallary_from_700' => '700 ₾-დან',
+        'candidate_page_leftside_sallary_from_900' => '900 ₾-დან',
+        'candidate_page_leftside_sallary_other' => 'სხვა',
+
+    'candidate_leftside_shedulde' => 'გრაფიკი',
+        'candidate_page_leftside_shedulde_any' => 'ნებისმიერი',
+        'candidate_page_leftside_shedulde_day' => 'დღის გრაფიკი',
+        'candidate_page_leftside_shedulde_night' => 'ღამის გრაფიკი',
+        'candidate_page_leftside_shedulde_daily' => 'დღიური გრაფიკი',
+        'candidate_page_leftside_shedulde_other' => 'სხვა',
+
+    'candidate_leftside_second_location' => 'მდებარეობა',
+        'candidate_page_leftside_second_location_any' => 'ნებისმიერი',
+        'candidate_page_leftside_second_location_3km' => 'თქვენგან 3 კმ-ში',
+        'candidate_page_leftside_second_location_5km' => 'თქვენგან 5 კმ-ში',
+        'candidate_page_leftside_second_location_7km' => 'თქვენგან 7 კმ-ში',
+
+    'candidate_page_leftside_tags' => 'ტეგები',
+
+    'candidate_page_leftside_box_title' => 'მიიღეთ თქვენთვის შესაფერისი ვაკანსიები Email-ზე. გააგზავნეთ თქვენი რეზიუმე ახლავე!',
+    'candidate_page_leftside_box_read_more' => 'სრულად',
+
+    // -------------------------------------------------------------
+    'candidate_page_middle_first_title' => 'ნაჩვენებია 2150 სამუშაო ადგილი',
+    'candidate_page_middle_title_sort' => 'დალაგება',
+
+    'candidate_page_middle_latest' => 'უახლესი',
+    'candidate_page_middle_free_schedule' => 'თავისუფალი განრიგი',
+    'candidate_page_middle_full_time' => 'სრულ განაკვეთზე',
+    'candidate_page_middle_intership' => 'სტაჟირება',
+    'candidate_page_middle_half_time' => 'ნახევარი განაკვეთი',
+    'candidate_page_middle_temporary' => 'დროებითი',
+
+    'candidate_page_middle_show_me_10' => 'მაჩვენე 10',
+    'candidate_page_middle_show_me_20' => 'მაჩვენე 20',
+    'candidate_page_middle_show_me_30' => 'მაჩვენე 30',
+    'candidate_page_middle_show_me_40' => 'მაჩვენე 40',
+    'candidate_page_middle_show_me_50' => 'მაჩვენე 50',
+    'candidate_page_middle_show_me_60' => 'მაჩვენე 60',
+
+    'candidate_page_middle_leftside_read_more' => 'სრულად',
+
+    // ----------------------------------------------------------------------------------------------------
+    // Blog Lang Page
+    'blog_page_big_title' => 'ბლოგი',
+    'blog_page_small_title_first' => 'მთავარი',
+    'blog_page_small_title_second' => 'ბლოგი',
+    'blog_page_right_side_search' => 'ძებნა',
+    'blog_page_right_side_category' => 'კტეგორია',
+    'blog_page_right_side_last_article' => 'ბოლო სტატია',
+    'blog_page_right_side_tag' => 'თაგები',
+
+    // ----------------------------------------------------------------------------------------------------
+    // Footer Lang Page
+    'footer_fast_link' => 'სწრაფი ლინკები',
+    'footer_by_category' => 'კატეგორიის მიხედვით',
+    'footer_by_profession' => 'პროფესიების მიხედვით',
+
+    'footer_address_one' => 'მისამართი :',
+        'footer_address_two' => 'ვაჟა-ფშაველას გამზირი - 76B II: არჩილ ჯორჯაძის ქუჩა N5',
+    'footer_call' => 'დარეკეთ :',
+
+    'footer_subscribe_first_text' => 'აქტიური ვაკანსიების გამოწერა',
+    'footer_subscribe_form_placeholder' => 'შეიყვანეთ თქვენი იმეილი',
+    'footer_subscribe_button' => 'გამოიწერეთ ახლავე',
 ];

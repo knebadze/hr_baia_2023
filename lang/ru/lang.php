@@ -85,20 +85,6 @@ return [
     'welcome_middle_blog_article_button_read' => 'Читать далее',
 
     // ----------------------------------------------------------------------------------------------------
-    // Footer Lang Page
-    'footer_fast_link' => 'Быстрые ссылки',
-    'footer_by_category' => 'По категории',
-    'footer_by_profession' => 'По профессиям',
-
-    'footer_address_one' => 'Адрес :',
-        'footer_address_two' => 'Проспект Важа-Пшавела - 76Б II: улица Арчила Джорджадзе N5',
-    'footer_call' => 'Позвоните :',
-
-    'footer_subscribe_first_text' => 'Подписаться на активные вакансии',
-    'footer_subscribe_form_placeholder' => 'Введите адрес электронной почты',
-    'footer_subscribe_button' => 'Подписаться сейчас',
-
-    // ----------------------------------------------------------------------------------------------------
     // Individual Vacancies Lang Page
 
     'individual_vacancies_page_big_title' => 'Самые популярные вакансии',
@@ -164,9 +150,10 @@ return [
     'individual_vacancies_page_middle_show_me_50' => 'Покажи мне 50',
     'individual_vacancies_page_middle_show_me_60' => 'Покажи мне 60',
 
+    'individual_vacancies_page_middle_leftside_read_more' => 'Читать далее',
+
     // ----------------------------------------------------------------------------------------------------
     // Company Vacancies Lang Page
-
     'company_vacancies_page_big_title' => 'Самые популярные вакансии',
     'company_vacancies_page_small_title_first' => 'Главная',
     'company_vacancies_page_small_title_second' => 'Индивидуальные вакансии',
@@ -213,8 +200,8 @@ return [
     'company_vacancies_page_leftside_box_title' => 'Получите подходящие вакансии по электронной почте. Отправьте свое резюме прямо сейчас!',
     'company_vacancies_page_leftside_box_read_more' => 'Читать далее',
     // -------------------------------------------------------------
-    'individual_vacancies_page_middle_first_title' => 'Отображено 2150 вакансий',
-    'individual_vacancies_page_middle_title_sort' => 'Сортировка',
+    'company_vacancies_page_middle_first_title' => 'Отображено 2150 вакансий',
+    'company_vacancies_page_middle_title_sort' => 'Сортировка',
 
     'company_vacancies_page_middle_latest' => 'Последние',
     'company_vacancies_page_middle_free_schedule' => 'Свободный график',
@@ -231,6 +218,22 @@ return [
     'company_vacancies_page_middle_show_me_60' => 'Покажи мне 60',
 
     'company_vacancies_page_middle_leftside_read_more' => 'Читать далее',
+
+    // ----------------------------------------------------------------------------------------------------
+    // On Map Vacancies Lang Page
+    'onmap_vacancies_page_leftside_vacancie_find_job' => 'Найти работу',
+        'onmap_vacancies_page_leftside_vacancie_title' => 'Название вакансии',
+            'onmap_vacancies_page_leftside_vacancie_types_of_jobs' => 'Типы вакансий',
+        'onmap_vacancies_page_leftside_vacancie_category' => 'Категория',
+            'onmap_vacancies_page_leftside_vacancie_choose_category' => 'Выберите категорию',
+        'onmap_vacancies_page_leftside_vacancie_work_type' => 'Тип работы',
+            'onmap_vacancies_page_leftside_vacancie__work_type_choose_category' => 'Выберите категорию',
+        'onmap_vacancies_page_leftside_vacancie_location' => 'Местоположение',
+            'onmap_vacancies_page_leftside_vacancie_specify_location' => 'Укажите местоположение',
+        'onmap_vacancies_page_leftside_vacancie_sallary' => 'Зарплата',
+        'onmap_vacancies_page_leftside_vacancie_radius' => 'Радиус',
+        'onmap_vacancies_page_leftside_vacancie_search' => 'Поиск',
+        'onmap_vacancies_page_leftside_vacancie_job_boxes' => 'Читать далее',
 
     // ----------------------------------------------------------------------------------------------------
     // About Us Lang Page
@@ -274,4 +277,95 @@ return [
 
     'about_us_page_top_company' => 'Лучшие компании',
     'about_us_page_top_company_description' => 'Получите предложения от лучших компаний',
+
+    // ----------------------------------------------------------------------------------------------------
+    // Candidates Us Lang Page
+    'candidate_page_big_title' => 'Кандидаты',
+    'candidate_page_small_title_first' => 'Главная',
+    'candidate_page_small_title_second' => 'Кандидаты',
+    
+    'candidate_page_leftside_category' => 'Категория',
+        'candidate_page_leftside_category_allcategory' => 'Все категории',
+
+    'candidate_page_leftside_keyword' => 'Ключевое слово',
+        'candidate_page_leftside_name_or_keyword' => 'Имя или ключевое слово',
+
+    'candidate_page_leftside_location' => 'Местоположение',
+        'candidate_page_leftside_search_location' => 'поиск Местоположение',
+
+    'candidate_page_leftside_type_of_work' => 'Тип работы',    
+
+    'candidate_page_leftside_date_of_publication' => 'Дата публикации',
+        'candidate_page_leftside_any' => 'Любой',
+        'candidate_page_leftside_last_24' => 'Последние 24 часа',
+        'candidate_page_leftside_last_3' => 'Последние 3 часа',
+        'candidate_page_leftside_last_7' => 'Последние 7 часов',
+
+    'candidate_page_leftside_sallary' => 'Зарплата',
+        'candidate_page_leftside_sallary_any' => 'Любой',
+        'candidate_page_leftside_sallary_from_500' => 'От 500₾',
+        'candidate_page_leftside_sallary_from_700' => 'От 700₾',
+        'candidate_page_leftside_sallary_from_900' => 'От 900₾',
+        'candidate_page_leftside_sallary_other' => 'Другое',
+
+    'candidate_page_leftside_shedulde' => 'Расписание',
+        'candidate_page_leftside_shedulde_any' => 'Любой',
+        'candidate_page_leftside_shedulde_day' => 'Дневной расписание',
+        'candidate_page_leftside_shedulde_night' => 'Ночное расписание',
+        'candidate_page_leftside_shedulde_daily' => 'Круглосуточный',
+        'candidate_page_leftside_shedulde_other' => 'Другое',
+
+    'candidate_page_leftside_second_location' => 'Местоположение',
+        'candidate_page_leftside_second_location_any' => 'Любой',
+        'candidate_page_leftside_second_location_3km' => '3 км от вас',
+        'candidate_page_leftside_second_location_5km' => '5 км от вас',
+        'candidate_page_leftside_second_location_7km' => '7 км от вас',
+
+    'candidate_page_leftside_tags' => 'Теги',
+
+    'candidate_page_leftside_box_title' => 'Получите подходящие вакансии по электронной почте. Отправьте свое резюме прямо сейчас!',
+    'candidate_page_leftside_box_read_more' => 'Читать далее',
+    // -------------------------------------------------------------
+    'candidate_page_middle_first_title' => 'Отображено 2150 вакансий',
+    'candidate_page_middle_title_sort' => 'Сортировка',
+
+    'candidate_page_middle_latest' => 'Последние',
+    'candidate_page_middle_free_schedule' => 'Свободный график',
+    'candidate_page_middle_full_time' => 'Полный рабочий график',
+    'candidate_page_middle_intership' => 'Стажер',
+    'candidate_page_middle_half_time' => 'Неполный рабочий график',
+    'candidate_page_middle_temporary' => 'Временно',
+
+    'candidate_page_middle_show_me_10' => 'Покажи мне 10',
+    'candidate_page_middle_show_me_20' => 'Покажи мне 20',
+    'candidate_page_middle_show_me_30' => 'Покажи мне 30',
+    'candidate_page_middle_show_me_40' => 'Покажи мне 40',
+    'candidate_page_middle_show_me_50' => 'Покажи мне 50',
+    'candidate_page_middle_show_me_60' => 'Покажи мне 60',
+
+    'candidate_page_middle_leftside_read_more' => 'Читать далее',
+
+    // ----------------------------------------------------------------------------------------------------
+    // Blog Lang Page
+    'blog_page_big_title' => 'Блог',
+    'blog_page_small_title_first' => 'Главная',
+    'blog_page_small_title_second' => 'Блог',
+    'blog_page_right_side_search' => 'Поиск',
+    'blog_page_right_side_category' => 'Категория',
+    'blog_page_right_side_last_article' => 'Последняя статья',
+    'blog_page_right_side_tag' => 'Теги',
+
+    // ----------------------------------------------------------------------------------------------------
+    // Footer Lang Page
+    'footer_fast_link' => 'Быстрые ссылки',
+    'footer_by_category' => 'По категории',
+    'footer_by_profession' => 'По профессиям',
+
+    'footer_address_one' => 'Адрес :',
+        'footer_address_two' => 'Проспект Важа-Пшавела - 76Б II: улица Арчила Джорджадзе N5',
+    'footer_call' => 'Позвоните :',
+
+    'footer_subscribe_first_text' => 'Подписаться на активные вакансии',
+    'footer_subscribe_form_placeholder' => 'Введите адрес электронной почты',
+    'footer_subscribe_button' => 'Подписаться сейчас',
 ];

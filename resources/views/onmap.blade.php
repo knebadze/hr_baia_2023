@@ -13,9 +13,11 @@
              <form>
                  <!--Search Bar-->
                  <!--Basic Information-->
-                 <div class="panel panel-default on_map">
-                     <div class="panel-heading wt-panel-heading p-a20">
-                         <h4 class="panel-tittle m-a0"><i class="fa fa-suitcase"></i>მოძებნე სამსახური</h4>
+                 <div class="on_map"></div>
+                 <hr>
+                 <div class="panel panel-default">
+                     <div class="panel-heading p-a20">
+                         <h4 class="panel-tittle m-a0"><i class="fa fa-suitcase"></i>{{ __('lang.onmap_vacancies_page_leftside_vacancie_find_job') }}</h4>
                      </div>
                      <div class="panel-body wt-panel-body p-a20 m-b30 ">
                          
@@ -23,9 +25,9 @@
                              <!--Job title-->            
                              <div class="col-xl-4 col-lg-6 col-md-12">
                                  <div class="form-group">
-                                     <label>ვკანსიის სათაური</label>
+                                     <label>{{ __('lang.onmap_vacancies_page_leftside_vacancie_title') }}</label>
                                      <div class="ls-inputicon-box"> 
-                                         <input class="form-control" name="company_name" type="text" placeholder="Types of Jobs">
+                                         <input class="form-control" name="company_name" type="text" placeholder="{{ __('lang.onmap_vacancies_page_leftside_vacancie_types_of_jobs') }}">
                                          <i class="fs-input-icon fa fa-address-card"></i>
                                      </div>
                                  </div>
@@ -35,10 +37,10 @@
                              <!--Job Category--> 
                              <div class="col-xl-4 col-lg-6 col-md-12">
                                  <div class="form-group city-outer-bx has-feedback">
-                                     <label>კატეგორია</label>
+                                     <label>{{ __('lang.onmap_vacancies_page_leftside_vacancie_category') }}</label>
                                      <div class="ls-inputicon-box">  
                                          <select class="wt-select-box selectpicker"  data-live-search="true" title="" id="j-category" data-bv-field="size">
-                                             <option disabled selected value="">აირჩიეთ კატეგორია</option>
+                                             <option disabled selected value="">{{ __('lang.onmap_vacancies_page_leftside_vacancie_choose_category') }}</option>
                                              <option>ძიძა</option>
                                              <option>დამხმარე</option>
                                              <option>კონსულტაცია</option>
@@ -61,10 +63,10 @@
                              <!--Job Type--> 
                              <div class="col-xl-4 col-lg-6 col-md-12">
                                  <div class="form-group">
-                                     <label>სამუშაოს ტიპი</label>
+                                     <label>{{ __('lang.onmap_vacancies_page_leftside_vacancie_work_type') }}</label>
                                      <div class="ls-inputicon-box">  
                                          <select class="wt-select-box selectpicker"  data-live-search="true" title="" id="s-category" data-bv-field="size">
-                                             <option class="bs-title-option" value="">აირჩიეთ კატეგორია</option>
+                                             <option class="bs-title-option" value="">{{ __('lang.onmap_vacancies_page_leftside_vacancie__work_type_choose_category') }}</option>
                                              <option>სრული</option>
                                              <option>თავისუფალი</option>
                                              <option>ნახევარი</option>
@@ -79,9 +81,9 @@
                              <!--Location--> 
                              <div class="col-xl-12 col-lg-6 col-md-12">
                                  <div class="form-group">
-                                     <label>ლოკაცია</label>
+                                     <label>{{ __('lang.onmap_vacancies_page_leftside_vacancie_location') }}</label>
                                      <div class="ls-inputicon-box"> 
-                                         <input class="form-control" name="company_Email" type="text" placeholder="მიუთითეთ ლოკაცია">
+                                         <input class="form-control" name="company_Email" type="text" placeholder="{{ __('lang.onmap_vacancies_page_leftside_vacancie_specify_location') }}">
                                          <i class="fs-input-icon fa fa-map-marker-alt"></i>
                                      </div>
                                  </div>
@@ -91,10 +93,10 @@
                              <!--Salary--> 
                              <div class="col-xl-6 col-lg-6 col-md-12">
                                  <div class="form-group">
-                                     <label>ანაზღაურება</label>
+                                     <label>{{ __('lang.onmap_vacancies_page_leftside_vacancie_sallary') }}</label>
                                      <div class="ls-inputicon-box">  
                                          <select class="wt-select-box selectpicker"  data-live-search="true" title="" id="salary" data-bv-field="size">
-                                             <option class="bs-title-option" value="">ხელფასი</option>
+                                             <option class="bs-title-option" value="">{{ __('lang.onmap_vacancies_page_leftside_vacancie_sallary') }}</option>
                                              <option>₾500</option>
                                              <option>₾1000</option>
                                              <option>₾1500</option>
@@ -109,12 +111,12 @@
                              <!--Radius--> 
                              <div class="col-xl-6 col-lg-6 col-md-12">
                                  <div class="form-group">
-                                     <label>რადიუსი</label>
+                                     <label>{{ __('lang.onmap_vacancies_page_leftside_vacancie_radius') }}</label>
                                      
                                      <div class="twm-radius-range">
-                                         <b>3 კმ</b> 
+                                         <b>3 km</b> 
                                          <input id="ex2" type="text" class="span2" value="" data-slider-min="10" data-slider-max="100" data-slider-step="5" data-slider-value="[20,80]"/> 
-                                         <b>7 კმ</b>
+                                         <b>7 km</b>
                                      </div>
                                      
                                  </div>
@@ -123,7 +125,7 @@
 
                              <div class="col-lg-12 col-md-12">                                   
                                  <div class="text-left">
-                                     <button type="button" class="site-button">ძებნა</button>
+                                     <button type="button" class="site-button">{{ __('lang.onmap_vacancies_page_leftside_vacancie_search') }}</button>
                                  </div>
                              </div> 
 
@@ -162,7 +164,7 @@
                              <div class="twm-right-content">
                                  
                                  <div class="twm-jobs-amount">$2500 <span>/ Month</span></div>
-                                 <a href="job-detail.html" class="twm-jobs-browse site-text-primary">Browse Job</a>
+                                 <a href="job-detail.html" class="twm-jobs-browse site-text-primary">{{ __('lang.onmap_vacancies_page_leftside_vacancie_job_boxes') }}</a>
                              </div>
                          </div>
 

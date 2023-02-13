@@ -303,10 +303,10 @@
                     <div class="col-lg-8 col-md-12">
                         <!--Filter Short By-->
                         <div class="product-filter-wrap d-flex justify-content-between align-items-center m-b30">
-                            <span class="woocommerce-result-count-left">ნაჩვენებია 2150 სამუშაო ადგილი</span>
+                            <span class="woocommerce-result-count-left">{{ __('lang.company_vacancies_page_middle_first_title') }}</span>
                            
                             <form class="woocommerce-ordering twm-filter-select" method="get">
-                                <span class="woocommerce-result-count">დალაგება</span>
+                                <span class="woocommerce-result-count">{{ __('lang.company_vacancies_page_middle_title_sort') }}</span>
                                 <select class="wt-select-bar-2 selectpicker"  data-live-search="true" data-bv-field="size">
                                     <option>{{ __('lang.company_vacancies_page_middle_latest') }}</option>
                                     <option>{{ __('lang.company_vacancies_page_middle_free_schedule') }}</option>

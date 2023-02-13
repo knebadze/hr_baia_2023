@@ -13,15 +13,15 @@
             <div class="wt-bnr-inr-entry">
                 <div class="banner-title-outer">
                     <div class="banner-title-name">
-                        <h2 class="wt-title">ბლოგი</h2>
+                        <h2 class="wt-title">{{ __('lang.blog_page_big_title') }}</h2>
                     </div>
                 </div>
                 <!-- BREADCRUMB ROW -->                            
                 
                     <div>
                         <ul class="wt-breadcrumb breadcrumb-style-2">
-                            <li><a href="index.html">მთავარი</a> / </li>
-                            <li>ბლოგი</li>
+                            <li><a href="index.html">{{ __('lang.blog_page_small_title_first') }}</a>/ </li>
+                            <li>{{ __('lang.blog_page_small_title_second') }}</li>
                         </ul>
                     </div>
                 
@@ -260,7 +260,7 @@
                                                                     
                             <form role="search" method="post">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="ძებნა">
+                                    <input type="text" class="form-control" placeholder="{{ __('lang.blog_page_right_side_search') }}">
                                     <button class="btn" type="button" id="button-addon2"><i class="feather-search"></i></button>
                                 </div>
                             </form>
@@ -268,7 +268,7 @@
                         </div>
 
                         <div class="widget all_services_list">
-                            <h4 class="section-head-small mb-4">კატეგორიები</h4> 
+                            <h4 class="section-head-small mb-4">{{ __('lang.blog_page_right_side_category') }}</h4> 
                             <div class="all_services m-b30">
                                 <ul>
                                     <li><a href="job-detail.html">განათლება</a> <span class="badge">08</span></li>
@@ -281,7 +281,7 @@
                         </div>
 
                         <div class="widget recent-posts-entry">
-                            <h4 class="section-head-small mb-4">ბოლო სტატია</h4>
+                            <h4 class="section-head-small mb-4">{{ __('lang.blog_page_right_side_last_article') }}</h4>
                             <div class="section-content">
                                 <div class="widget-post-bx">
 
@@ -362,7 +362,7 @@
                        
 
                         <div class="widget tw-sidebar-tags-wrap">
-                            <h4 class="section-head-small mb-4">თაგები</h4>
+                            <h4 class="section-head-small mb-4">{{ __('lang.blog_page_right_side_tag') }}</h4>
                             
                             <div class="tagcloud">
                                 <a href="job-list.html">ვაკანსია</a>
