@@ -21,6 +21,7 @@ return [
     'page_title_about' => 'О нас',
     'page_title_candidate' => 'Кандидаты',
     'page_title_blog' => 'Блог',
+
     // ----------------------------------------------------------------------------------------------------
     // Menu Lang Block
     'menu_home' => 'Главная',
@@ -374,4 +375,24 @@ return [
     'footer_subscribe_first_text' => 'Подписаться на активные вакансии',
     'footer_subscribe_form_placeholder' => 'Введите адрес электронной почты',
     'footer_subscribe_button' => 'Подписаться сейчас',
+
+    // ====================================================================================================
+    // User Page
+    // ----------------------------------------------------------------------------------------------------
+    // User Page Title Lang
+    'user_page_title_user' => 'Пользователь',
+    'user_page_title_profile' => 'Мой профиль',
+
+    // ----------------------------------------------------------------------------------------------------
+    // User Home Page Lang
+    'user_page_candidate_first_title' => 'Кандидат',
+    'user_page_candidate_second_title' => 'Работодатель',
+    // leftside
+    'user_page_candidate_left_side_bar_photo_upload' => 'Загрузить фото',
+    'user_page_candidate_left_side_bar_dashboard' => 'Панель управления',
+    'user_page_candidate_left_side_bar_profile' => 'Мой профиль',
+    'user_page_candidate_left_side_bar_applied_jobs' => 'Вакансии',
+    'user_page_candidate_left_side_bar_my_resume' => 'Мое резюме',
+    'user_page_candidate_left_side_bar_job_alerts' => 'Оповещения о вакансиях',
+    'user_page_candidate_left_side_bar_change_psswd' => 'Изменить пароль',
 ];

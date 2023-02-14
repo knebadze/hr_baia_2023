@@ -48,6 +48,14 @@ body {
   padding-top: 5%;
 }
 
+.button_text_size {
+  margin-bottom: 15px;
+}
+
+.upload_user_photo {
+  text-align: center;
+}
+
 /*
 =========================
 This file contains the styling for the actual template, this

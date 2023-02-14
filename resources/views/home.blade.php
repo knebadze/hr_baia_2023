@@ -1,28 +1,21 @@
 @extends('layouts.appPage')
+@section('title-block')
+{{ __('lang.user_page_title_user') }}
+@endsection
 @section('content')
 <!-- CONTENT START -->
 <div class="page-content">
 
     <!-- INNER PAGE BANNER -->
-    <div class="wt-bnr-inr overlay-wraper bg-center" style="background-image:url(/images/banner/1.jpg);">
+    <div class="wt-bnr-inr overlay-wraper bg-center">
         <div class="overlay-main site-bg-white opacity-01"></div>
         <div class="container">
             <div class="wt-bnr-inr-entry">
                 <div class="banner-title-outer">
                     <div class="banner-title-name">
-                        <h2 class="wt-title">{{ (Auth::user()->user_type_id == 1)?'კანდიდატის ':'დამსაქმებლის ' }}პირადი კაბინეტი</h2>
+                        <h2 class="wt-title">{{ (Auth::user()->user_type_id == 1)?__('lang.user_page_candidate_first_title') :__('lang.user_page_candidate_second_title') }}</h2>
                     </div>
                 </div>
-                <!-- BREADCRUMB ROW -->
-
-                    {{-- <div>
-                        <ul class="wt-breadcrumb breadcrumb-style-2">
-                            <li><a href="index.html">Home</a></li>
-                            <li>Candidate Chat</li>
-                        </ul>
-                    </div> --}}
-
-                <!-- BREADCRUMB ROW END -->
             </div>
         </div>
     </div>
@@ -30,7 +23,7 @@
 
 
     <!-- OUR BLOG START -->
-    <div class="section-full p-t120  p-b90 site-bg-white">
+    <div class="section-full p-b90 site-bg-white">
 
 
         <div class="container">
@@ -39,14 +32,16 @@
                 <div class="col-xl-3 col-lg-4 col-md-12 rightSidebar m-b30">
 
                     <div class="side-bar-st-1">
-
+                        <div class="upload_user_photo">
+                            <button class="site-button button-sm button_text_size">{{__('lang.user_page_candidate_left_side_bar_photo_upload')}}</button>
+                        </div>
                         <div class="twm-candidate-profile-pic">
 
                             <img src="/images/user-avtar/pic4.jpg" alt="">
                             <div class="upload-btn-wrapper">
 
                                 <div id="upload-image-grid"></div>
-                                <button class="site-button button-sm">Upload Photo</button>
+                                
                                 <input type="file" name="myfile" id="file-uploader" accept=".jpg, .jpeg, .png">
                             </div>
 

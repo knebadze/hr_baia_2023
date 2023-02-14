@@ -13,7 +13,7 @@ return [
     |
     */
     // ----------------------------------------------------------------------------------------------------
-    // Title Lang
+    // Page Title Lang
     'page_title_home' => 'Home',
         'page_title_individual' => 'Individual Vacancies',
         'page_title_company' => 'Company Vacancies',
@@ -21,6 +21,7 @@ return [
     'page_title_about' => 'About Us',
     'page_title_candidate' => 'Candidates',
     'page_title_blog' => 'Blog',
+
     // ----------------------------------------------------------------------------------------------------     
     // Menu Lang Block
     'menu_home' => 'Home',
@@ -369,4 +370,23 @@ return [
     'footer_subscribe_form_placeholder' => 'Enter your email',
     'footer_subscribe_button' => 'Subscribe now',
     
+    // ====================================================================================================
+    // User Page
+    // ----------------------------------------------------------------------------------------------------
+    // User Page Title Lang
+    'user_page_title_user' => 'Account',
+    'user_page_title_profile' => 'My Profile',
+
+    // ----------------------------------------------------------------------------------------------------
+    // User Home Page Lang
+    'user_page_candidate_first_title' => 'Candidate',
+    'user_page_candidate_second_title' => 'Employer',
+    // leftside
+    'user_page_candidate_left_side_bar_photo_upload' => 'Upload Photo',
+    'user_page_candidate_left_side_bar_dashboard' => 'Dashboard',
+    'user_page_candidate_left_side_bar_profile' => 'My Profile',
+    'user_page_candidate_left_side_bar_applied_jobs' => 'Applied Jobs',
+    'user_page_candidate_left_side_bar_my_resume' => 'My Resume',
+    'user_page_candidate_left_side_bar_job_alerts' => 'Job Alerts',
+    'user_page_candidate_left_side_bar_change_psswd' => 'Change Password',
 ];

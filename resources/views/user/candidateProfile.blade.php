@@ -4,7 +4,7 @@
 <!-- CONTENT START -->
 <div class="page-content">
     <!-- INNER PAGE BANNER -->
-    <div class="wt-bnr-inr overlay-wraper bg-center" style="background-image:url(/images/banner/1.jpg);">
+    <div class="wt-bnr-inr overlay-wraper bg-center">
         <div class="overlay-main site-bg-white opacity-01"></div>
         <div class="container">
             <div class="wt-bnr-inr-entry">
@@ -18,7 +18,7 @@
     </div>
     <!-- INNER PAGE BANNER END -->
     <!-- OUR BLOG START -->
-    <div class="section-full p-t120  p-b90 site-bg-white">
+    <div class="section-full p-b90 site-bg-white">
 
         <div class="container">
             <div class="row">

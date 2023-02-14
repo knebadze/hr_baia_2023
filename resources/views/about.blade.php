@@ -1,6 +1,6 @@
 @extends('layouts.appPage')
 @section('title-block')
-{{('About Us')}}
+{{ __('lang.page_title_about') }}
 @endsection
 @section('content')
 <!-- CONTENT START -->

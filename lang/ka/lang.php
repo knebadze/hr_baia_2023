@@ -21,6 +21,7 @@ return [
     'page_title_about' => 'ჩვენს შესახებ',
     'page_title_candidate' => 'კანდიდატები',
     'page_title_blog' => 'ბლოგი',
+
     // ----------------------------------------------------------------------------------------------------
     // Menu Lang Block
     'menu_home' => 'მთავარი',
@@ -372,4 +373,24 @@ return [
     'footer_subscribe_first_text' => 'აქტიური ვაკანსიების გამოწერა',
     'footer_subscribe_form_placeholder' => 'შეიყვანეთ თქვენი იმეილი',
     'footer_subscribe_button' => 'გამოიწერეთ ახლავე',
+
+    // ====================================================================================================
+    // User Page
+    // ----------------------------------------------------------------------------------------------------
+    // User Page Title Lang
+    'user_page_title_user' => 'მომხმარებელი',
+    'user_page_title_profile' => 'ჩემი პროფილი',
+
+    // ----------------------------------------------------------------------------------------------------
+    // User Home Page Lang
+    'user_page_candidate_first_title' => 'კანდიდატი',
+    'user_page_candidate_second_title' => 'დამსაქმებლი',
+    // leftside
+    'user_page_candidate_left_side_bar_photo_upload' => 'ფოტოს ატვირთვა',
+    'user_page_candidate_left_side_bar_dashboard' => 'სამართავი პანელი',
+    'user_page_candidate_left_side_bar_profile' => 'პროფილი',
+    'user_page_candidate_left_side_bar_applied_jobs' => 'ვაკანსიები',
+    'user_page_candidate_left_side_bar_my_resume' => 'ჩემი რეზიუმე',
+    'user_page_candidate_left_side_bar_job_alerts' => 'შეტყბინებებები',
+    'user_page_candidate_left_side_bar_change_psswd' => 'პაროლის შეცვლა',
 ];
