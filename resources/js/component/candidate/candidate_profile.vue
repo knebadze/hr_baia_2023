@@ -731,10 +731,10 @@ export default {
             candidateExperienceArr: [],
             candidateNoticeArr: [],
 
-            step: {
-                step1: {},
-                step2: {}
-            }
+            // step: {
+            //     step1: {},
+            //     step2: {}
+            // }
 
             //v-model
             language_id: null,
