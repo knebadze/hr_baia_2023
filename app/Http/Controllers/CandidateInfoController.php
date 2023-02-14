@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Auth;
 
 class CandidateInfoController extends Controller
 {
+    public function addCandidate(Request $request)
+    {
+        return response()->json('ok');
+    }
     public function personalInfo(Request $request){
         $candidate = Candidate::updateOrCreate(
             ['user_id' => $request->user_id],
@@ -78,7 +82,7 @@ class CandidateInfoController extends Controller
         print_r($request->all());
         exit;
         foreach ($request->all() as $key => $value) {
-            
+
         }
         return response()->json('ok');
     }

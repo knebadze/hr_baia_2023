@@ -79,14 +79,14 @@
                 </div>
             </div>
 
-            <!-- <form @submit.prevent="addCandidate()"> -->
+            <form @submit.prevent="addCandidate()">
                  <!--personal information-->
                 <div class="panel panel-default">
                     <div class="panel-heading wt-panel-heading p-a20">
                         <h4 class="panel-tittle m-a0">Personal Information</h4>
                     </div>
                     <div class="panel-body wt-panel-body p-a20 m-b30 ">
-                        <form @submit.prevent="addPersonalInfo()">
+                        <!-- <form @submit.prevent="addPersonalInfo()"> -->
                             <div class="row">
                                 <div class="col-xl-6 col-lg-6 col-md-12">
                                     <div class="form-group">
@@ -201,13 +201,13 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-12 col-md-12 mt-4">
+                                <!-- <div class="col-lg-12 col-md-12 mt-4">
                                     <div class="text-left">
                                         <button type="" class="site-button" >{{ (candidateID == null)?'შენახვა':'შეინახე ცვლილება' }}</button>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
-                        </form>
+                        <!-- </form> -->
                     </div>
                 </div>
 
@@ -219,7 +219,7 @@
                         <h4 class="panel-tittle m-a0">სამედიცინო ინფორმაცია</h4>
                     </div>
                     <div class="panel-body wt-panel-body p-a20 m-b30 ">
-                        <form @submit.prevent="addMedicalInfo()" >
+                        <!-- <form @submit.prevent="addMedicalInfo()" > -->
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
@@ -239,13 +239,13 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-12 col-md-12 mt-4">
+                                <!-- <div class="col-lg-12 col-md-12 mt-4">
                                     <div class="text-left">
                                         <button type="" class="site-button" >{{ (candidateAllergyArr.length > 0 || candidate.medical_info)? "შეინახე ცვლილება":'შენახვა' }}</button>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
-                        </form>
+                        <!-- </form> -->
                     </div>
                 </div>
 
@@ -322,11 +322,11 @@
                                         </table>
                                     </div>
                                 </div>
-                                <div class="col-lg-12 col-md-12 mt-4">
+                                <!-- <div class="col-lg-12 col-md-12 mt-4">
                                     <div class="text-left">
                                         <button type="" class="site-button" @click="addLanguageInfo()" >{{ (candidateLanguageArr.length > 0)? "შეინახე ცვლილება":'შენახვა' }}</button>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -678,7 +678,7 @@
 
                     </div>
                 </div>
-            <!-- </form> -->
+            </form>
         </div>
     </div>
 </template>
@@ -820,6 +820,23 @@ export default {
             })
 
         },
+        addCandidate(){
+            console.log('this.candidate',this.candidate);
+            axios({
+                method: "post",
+                url: "/add_candidate",
+                data: this.auth
+            })
+            .then(function (response) {
+                // handle success
+                console.log(response.data);
+
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+        },
         addPersonalInfo(){
             axios.post('/candidate_personal_info',{
                 user_id:this.auth.id,
@@ -929,9 +946,9 @@ export default {
 
         },
 
-        addCandidate(){
-            console.log('hello');
-        }
+        // addCandidate(){
+        //     console.log('hello');
+        // }
     },
     // watch:{
     //     candidateCitizenshipArr:{
