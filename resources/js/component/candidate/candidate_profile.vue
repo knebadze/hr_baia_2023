@@ -58,7 +58,7 @@
                                     <label>{{ $t('lang.user_profile_page_input_gender') }}</label>
                                     <div class="ls-inputicon-box">
                                         <select class="wt-select-box selectpicker" v-model="auth.gender_id"  data-live-search="true" title="" id="gender" data-bv-field="size">
-                                            <option>choose gender</option>
+                                            <option>Choose Gender</option>
                                             <option v-for="gender in this.gender " :value="gender.id">{{ gender[`name_${getLang}`] }}</option>
                                         </select>
                                         <i class="fs-input-icon fa fa-venus-mars"></i>
