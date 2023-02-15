@@ -32,20 +32,7 @@
                 <div class="col-xl-3 col-lg-4 col-md-12 rightSidebar m-b30">
 
                     <div class="side-bar-st-1">
-                        <div class="upload_user_photo">
-                            <button class="site-button button-sm button_text_size">{{__('lang.user_page_candidate_left_side_bar_photo_upload')}}</button>
-                        </div>
-                        <div class="twm-candidate-profile-pic">
 
-                            <img src="/images/user-avtar/pic4.jpg" alt="">
-                            <div class="upload-btn-wrapper">
-
-                                <div id="upload-image-grid"></div>
-                                
-                                <input type="file" name="myfile" id="file-uploader" accept=".jpg, .jpeg, .png">
-                            </div>
-
-                        </div>
                         <div class="twm-mid-content text-center">
                             <a href="candidate-detail.html" class="twm-job-title">
                                 <h4>{{ Auth::user()->name_ka }} </h4>

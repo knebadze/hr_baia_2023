@@ -371,11 +371,11 @@ return [
     'footer_subscribe_button' => 'Subscribe now',
     
     // ====================================================================================================
-    // User Page
-    // ----------------------------------------------------------------------------------------------------
+    // Admin Panel Page
+    // ====================================================================================================
     // User Page Title Lang
     'user_page_title_user' => 'Account',
-    'user_page_title_profile' => 'My Profile',
+    'user_page_title_profile' => 'Profile',
 
     // ----------------------------------------------------------------------------------------------------
     // User Home Page Lang
@@ -389,4 +389,19 @@ return [
     'user_page_candidate_left_side_bar_my_resume' => 'My Resume',
     'user_page_candidate_left_side_bar_job_alerts' => 'Job Alerts',
     'user_page_candidate_left_side_bar_change_psswd' => 'Change Password',
+
+    // ----------------------------------------------------------------------------------------------------
+    // User Home Page Lang
+    'user_profile_page_input_basic_info' => 'Basic Informations',
+
+    'user_profile_page_input_name' => 'Your Name',
+    'user_profile_page_input_email' => 'Email Address',
+    'user_profile_page_input_gender' => 'Gender',
+        // 'user_profile_page_input_choose_gender' => 'Choose Gender',
+        //     'user_profile_page_input_gender_male' => 'Male',
+        //     'user_profile_page_input_gender_female' => 'Female',
+    'user_profile_page_input_phone' => 'Phone',
+    'user_profile_page_input_birth_date' => 'Date of Birth',
+    'user_profile_page_driving_license' => 'Driving License',
+    'user_profile_page_button_save_changes' => 'Save Changes',
 ];

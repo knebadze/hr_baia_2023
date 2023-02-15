@@ -1,3 +1,20 @@
+{{-- Photo Upload --}}
+<div class="upload_user_photo">
+    <button class="site-button button-sm button_text_size">{{__('lang.user_page_candidate_left_side_bar_photo_upload')}}</button>
+</div>
+<div class="twm-candidate-profile-pic">
+
+    <img src="/images/user-avtar/pic4.jpg" alt="">
+    <div class="upload-btn-wrapper">
+
+        <div id="upload-image-grid"></div>
+        
+        <input type="file" name="myfile" id="file-uploader" accept=".jpg, .jpeg, .png">
+    </div>
+
+</div>
+
+{{-- Menu --}}
 <div class="twm-nav-list-1">
     <ul>
         <li @if(Route::currentRouteName() === 'home') class="active" @else class="" @endif><a href="{{ route('home' , App()->getLocale())  }}"><i class="fa fa-tachometer-alt"></i> {{ __('lang.user_page_candidate_left_side_bar_dashboard') }}</a></li>
@@ -11,3 +28,5 @@
         <!-- <li><a href="candidate-chat.html"><i class="fa fa-comments"></i>Chat</a></li> -->
     </ul>
 </div>
+
+

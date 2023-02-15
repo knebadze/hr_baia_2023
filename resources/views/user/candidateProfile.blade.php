@@ -1,4 +1,7 @@
 @extends('layouts.appPage')
+@section('title-block')
+{{ __('lang.user_page_title_profile') }}
+@endsection
 @section('content')
 
 <!-- CONTENT START -->
@@ -10,7 +13,11 @@
             <div class="wt-bnr-inr-entry">
                 <div class="banner-title-outer">
                     <div class="banner-title-name">
-                        <h2 class="wt-title">Candidate Profile</h2>
+                        <h2 class="wt-title">
+                            {{ (Auth::user()->user_type_id == 1)?
+                            __('lang.user_page_candidate_first_title') :
+                            __('lang.user_page_candidate_second_title') }}
+                        </h2>
                     </div>
                 </div>
             </div>
@@ -24,24 +31,14 @@
             <div class="row">
 
                 <div class="col-xl-3 col-lg-4 col-md-12 rightSidebar m-b30">
+
                     <div class="side-bar-st-1">
 
-                        <div class="twm-candidate-profile-pic">
-
-                            <img src="/images/user-avtar/pic4.jpg" alt="">
-                            <div class="upload-btn-wrapper">
-
-                                <div id="upload-image-grid"></div>
-                                <button class="site-button button-sm">Upload Photo</button>
-                                <input type="file" name="myfile" id="file-uploader" accept=".jpg, .jpeg, .png">
-                            </div>
-
-                        </div>
                         <div class="twm-mid-content text-center">
                             <a href="candidate-detail.html" class="twm-job-title">
-                                <h4>Randall Henderson </h4>
+                                <h4>{{ Auth::user()->name_ka }} </h4>
                             </a>
-                            <p>IT Contractor</p>
+                            {{-- <p>IT Contractor</p> --}}
                         </div>
 
                         @include('inc.user.nav')

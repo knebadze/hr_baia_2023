@@ -56,6 +56,16 @@ body {
   text-align: center;
 }
 
+.driving_license {
+  padding: 3%;
+  background-color: #f0f6fe;
+}
+
+.driving_license button {
+  margin-right: 10px;
+  margin-bottom: 2px;
+}
+
 /*
 =========================
 This file contains the styling for the actual template, this

@@ -381,7 +381,7 @@ return [
     // ----------------------------------------------------------------------------------------------------
     // User Page Title Lang
     'user_page_title_user' => 'Пользователь',
-    'user_page_title_profile' => 'Мой профиль',
+    'user_page_title_profile' => 'Профиль',
 
     // ----------------------------------------------------------------------------------------------------
     // User Home Page Lang
@@ -395,4 +395,19 @@ return [
     'user_page_candidate_left_side_bar_my_resume' => 'Мое резюме',
     'user_page_candidate_left_side_bar_job_alerts' => 'Оповещения о вакансиях',
     'user_page_candidate_left_side_bar_change_psswd' => 'Изменить пароль',
+
+    // ----------------------------------------------------------------------------------------------------
+    // User Home Page Lang
+    'user_profile_page_input_basic_info' => 'Основная информация',
+
+    'user_profile_page_input_name' => 'Ваше имя',
+    'user_profile_page_input_email' => 'Адрес электронной почты',
+    'user_profile_page_input_gender' => 'Пол',
+        // 'user_profile_page_input_choose_gender' => 'Выберите пол',
+        //     'user_profile_page_input_gender_male' => 'Мужской',
+        //     'user_profile_page_input_gender_female' => 'Женский',
+    'user_profile_page_input_phone' => 'Телефон',
+    'user_profile_page_input_birth_date' => 'Дата рождения',
+    'user_profile_page_driving_license' => 'Водительские права',
+    'user_profile_page_button_save_changes' => 'Сохранить изменения',
 ];

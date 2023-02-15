@@ -8,7 +8,7 @@
             <!--Basic Information-->
             <div class="panel panel-default">
                 <div class="panel-heading wt-panel-heading p-a20">
-                    <h4 class="panel-tittle m-a0">Basic Informations</h4>
+                    <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_input_basic_info') }}</h4>
                 </div>
                 <div class="panel-body wt-panel-body p-a20 m-b30 ">
                     <form @submit.prevent="authUpdate()">
@@ -16,7 +16,7 @@
 
                             <div class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                    <label>Your Name</label>
+                                    <label>{{ $t('lang.user_profile_page_input_name') }}</label>
                                     <div class="ls-inputicon-box">
                                         <input class="form-control"   v-model="auth[`name_${getLang}`]"  type="text" placeholder="">
                                         <i class="fs-input-icon fa fa-user "></i>
@@ -26,7 +26,7 @@
 
                             <div class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                    <label>Phone</label>
+                                    <label>{{ $t('lang.user_profile_page_input_phone') }}</label>
                                     <div class="ls-inputicon-box">
                                         <input class="form-control"  v-model="auth.number" type="text" >
                                         <i class="fs-input-icon fa fa-phone-alt"></i>
@@ -36,7 +36,7 @@
 
                             <div class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                    <label>Email Address</label>
+                                    <label>{{ $t('lang.user_profile_page_input_email') }}</label>
                                     <div class="ls-inputicon-box">
                                         <input class="form-control"  v-model="auth.email" type="email" placeholder="">
                                         <i class="fs-input-icon fas fa-at"></i>
@@ -45,7 +45,7 @@
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                    <label>Date of birth</label>
+                                    <label>{{ $t('lang.user_profile_page_input_birth_date') }}</label>
                                     <div class="ls-inputicon-box">
                                         <input class="form-control d" data-provide=""  type="date" v-model="auth.date_of_birth" placeholder="mm/dd/yyyy">
                                         <i class="fs-input-icon far fa-calendar"></i>
@@ -55,7 +55,7 @@
                             <!--Gender-->
                             <div class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                    <label>Gender</label>
+                                    <label>{{ $t('lang.user_profile_page_input_gender') }}</label>
                                     <div class="ls-inputicon-box">
                                         <select class="wt-select-box selectpicker" v-model="auth.gender_id"  data-live-search="true" title="" id="gender" data-bv-field="size">
                                             <option>choose gender</option>
@@ -65,11 +65,24 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- Driving License -->
+                            <div class="col-xl-6 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label>{{ $t('lang.user_profile_page_driving_license') }}</label>
+                                    <div class="ls-inputicon-box driving_license">
+                                        <button class="btn btn-primary">A</button>
+                                        <button class="btn btn-primary">B</button>
+                                        <button class="btn btn-primary">C</button>
+                                        <button class="btn btn-primary">D</button>
+                                        <button class="btn btn-primary">E</button>
+                                    </div>
+                                </div>
+                            </div>
 
 
                             <div class="col-lg-12 col-md-12 mt-4">
                                 <div class="text-left">
-                                    <button type="" class="site-button" >შეინახე ცვლილება</button>
+                                    <button type="" class="site-button" >{{ $t('lang.user_profile_page_button_save_changes') }}</button>
                                 </div>
                             </div>
 

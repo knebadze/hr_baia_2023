@@ -376,10 +376,10 @@ return [
 
     // ====================================================================================================
     // User Page
-    // ----------------------------------------------------------------------------------------------------
+    // ====================================================================================================
     // User Page Title Lang
     'user_page_title_user' => 'მომხმარებელი',
-    'user_page_title_profile' => 'ჩემი პროფილი',
+    'user_page_title_profile' => 'პროფილი',
 
     // ----------------------------------------------------------------------------------------------------
     // User Home Page Lang
@@ -393,4 +393,19 @@ return [
     'user_page_candidate_left_side_bar_my_resume' => 'ჩემი რეზიუმე',
     'user_page_candidate_left_side_bar_job_alerts' => 'შეტყბინებებები',
     'user_page_candidate_left_side_bar_change_psswd' => 'პაროლის შეცვლა',
+
+    // ----------------------------------------------------------------------------------------------------
+    // User Home Page Lang
+    'user_profile_page_input_basic_info' => 'ძირითადი ინფორმაცია',
+
+    'user_profile_page_input_name' => 'სახელი',
+    'user_profile_page_input_email' => 'იმეილ მისამართი',
+    'user_profile_page_input_gender' => 'სქესი',
+        // 'user_profile_page_input_choose_gender' => 'აირჩიე სქესი',
+        //     'user_profile_page_input_gender_male' => 'კაცი',
+        //     'user_profile_page_input_gender_female' => 'ქალი',
+    'user_profile_page_input_phone' => 'ტელეფონი',
+    'user_profile_page_input_birth_date' => 'დაბადების თარიღი',
+    'user_profile_page_driving_license' => 'მართვის მოწმობა',
+    'user_profile_page_button_save_changes' => 'ცვლილების შენახვა',
 ];
