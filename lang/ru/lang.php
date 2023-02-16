@@ -410,4 +410,26 @@ return [
     'user_profile_page_input_birth_date' => 'Дата рождения',
     'user_profile_page_driving_license' => 'Водительские права',
     'user_profile_page_button_save_changes' => 'Сохранить изменения',
+
+    // Personal information
+    'user_profile_page_personal_info' => 'Личная информация',
+    'user_profile_page_personal_number' => 'Личный номер',
+    'user_profile_page_personal_citizenship' => 'Гражданство',
+    'user_profile_page_personal_education' => 'Образование',
+    'user_profile_page_personal_specialty' => 'Специальность',
+    'user_profile_page_personal_nationality' => 'Национальность',
+    'user_profile_page_personal_religion' => 'Религия',
+    'user_profile_page_personal_profession' => 'Профессия',
+    'user_profile_page_personal_family' => 'Семейное положение',
+        'user_profile_page_personal_family_children' => 'Количество детей',
+        'user_profile_page_personal_family_children_age' => 'Возраст детей',
+        'user_profile_page_personal_family_spouse' => 'Имя, фамилия и место работы супруги',
+        'user_profile_page_personal_family_fill_info' => 'Пожалуйста, заполните информацию в соответствии с указанным запросом.',
+
+    // Medical information
+    'user_profile_page_medical_info' => 'Медицинская информация',
+    'user_profile_page_medical_alergy' => 'Алергия',
+    'user_profile_page_medical_operation' => 'Операция или хроническое заболевание',
+    'user_profile_page_medical_please_info' => 'Пожалуйста, предоставьте информацию о серьезных операциях и 
+                                                хронических заболеваниях, если таковые имеются.', 
 ];

@@ -404,4 +404,24 @@ return [
     'user_profile_page_input_birth_date' => 'Date of Birth',
     'user_profile_page_driving_license' => 'Driving License',
     'user_profile_page_button_save_changes' => 'Save Changes',
+    // Personal information
+    'user_profile_page_personal_info' => 'Persomal Information',
+    'user_profile_page_personal_number' => 'Persomal Number',
+    'user_profile_page_personal_citizenship' => 'Citizenship',
+    'user_profile_page_personal_education' => 'Education',
+    'user_profile_page_personal_specialty' => 'Specialty',
+    'user_profile_page_personal_nationality' => 'Nationality',
+    'user_profile_page_personal_religion' => 'Religion',
+    'user_profile_page_personal_profession' => 'Profession',
+    'user_profile_page_personal_family' => 'Marital Status',
+        'user_profile_page_personal_family_children' => 'Number of children',
+        'user_profile_page_personal_family_children_age' => 'Children\'s age',
+        'user_profile_page_personal_family_spouse' => 'Spouse\'s name, surname and place of work',
+        'user_profile_page_personal_family_fill_info' => 'Please fill in the information according to the specified request.',
+
+    // Medical information
+    'user_profile_page_medical_info' => 'Medical Information',
+    'user_profile_page_medical_alergy' => 'Alergy', 
+    'user_profile_page_medical_operation' => 'Surgery or chronic illness', 
+    'user_profile_page_medical_please_info' => 'Please provide information about major surgeries and chronic illnesses, if any.',   
 ];

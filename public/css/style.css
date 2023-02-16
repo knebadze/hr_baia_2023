@@ -57,6 +57,7 @@ body {
 }
 
 .driving_license {
+  font-weight: bold;
   padding: 3%;
   background-color: #f0f6fe;
 }

@@ -18,7 +18,7 @@
                                 <div class="form-group">
                                     <label>{{ $t('lang.user_profile_page_input_name') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <input class="form-control"   v-model="auth[`name_${getLang}`]"  type="text" placeholder="">
+                                        <input class="form-control" v-model="auth[`name_${getLang}`]"  type="text" placeholder="">
                                         <i class="fs-input-icon fa fa-user "></i>
                                     </div>
                                 </div>
@@ -67,15 +67,28 @@
                             </div>
                             <!-- Driving License -->
                             <div class="col-xl-6 col-lg-6 col-md-12">
-                                <div class="form-group">
-                                    <label>{{ $t('lang.user_profile_page_driving_license') }}</label>
-                                    <div class="ls-inputicon-box driving_license">
-                                        <button class="btn btn-primary">A</button>
-                                        <button class="btn btn-primary">B</button>
-                                        <button class="btn btn-primary">C</button>
-                                        <button class="btn btn-primary">D</button>
-                                        <button class="btn btn-primary">E</button>
+                                <label>{{ $t('lang.user_profile_page_driving_license') }}</label>
+                                <div class="driving_license">
+                                    <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="driving_license_a" value="license_a">
+                                      <label class="form-check-label" for="driving_license_a">A</label>
                                     </div>
+                                    <div class="form-check form-check-inline">
+                                      <input class="form-check-input" type="radio" id="driving_license_b" value="license_b">
+                                      <label class="form-check-label" for="driving_license_b">B</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                      <input class="form-check-input" type="radio" id="driving_license_c" value="license_c">
+                                      <label class="form-check-label" for="driving_license_c">C</label>
+                                    </div>  
+                                    <div class="form-check form-check-inline">
+                                      <input class="form-check-input" type="radio" id="driving_license_d" value="license_d">
+                                      <label class="form-check-label" for="driving_license_d">D</label>
+                                    </div>  
+                                    <div class="form-check form-check-inline">
+                                      <input class="form-check-input" type="radio" id="driving_license_e" value="license_e">
+                                      <label class="form-check-label" for="driving_license_e">E</label>
+                                    </div>  
                                 </div>
                             </div>
 
@@ -96,14 +109,14 @@
                  <!--personal information-->
                 <div class="panel panel-default">
                     <div class="panel-heading wt-panel-heading p-a20">
-                        <h4 class="panel-tittle m-a0">Personal Information</h4>
+                        <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_personal_info') }}</h4>
                     </div>
                     <div class="panel-body wt-panel-body p-a20 m-b30 ">
                         <!-- <form @submit.prevent="addPersonalInfo()"> -->
                             <div class="row">
                                 <div class="col-xl-6 col-lg-6 col-md-12">
                                     <div class="form-group">
-                                        <label>Personal number</label>
+                                        <label>{{ $t('lang.user_profile_page_personal_number') }}</label>
                                         <div class="ls-inputicon-box">
                                             <input class="form-control" v-model="candidate.personal_number" type="text" placeholder="">
                                             <i class="fs-input-icon fa fa-user"></i>
@@ -113,85 +126,85 @@
 
                                 <div class="col-xl-6 col-lg-6 col-md-12">
                                     <div class="form-group">
-                                        <label>Nationality</label>
+                                        <label>{{ $t('lang.user_profile_page_personal_nationality') }}</label>
                                         <div class="ls-inputicon-box">
                                             <select class="wt-select-box selectpicker" v-model="candidate.nationality_id"  data-live-search="true" title=""  data-bv-field="size">
                                                 <option v-for="national in nationality " :value="national.id">{{ national[`name_${getLang}`] }}</option>
                                             </select>
-                                            <i class="fs-input-icon fa fa-venus-mars"></i>
+                                            <i class="fs-input-icon fa fa-flag"></i>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-12">
                                     <div class="form-group">
-                                        <label>Citizenship</label>
+                                        <label>{{ $t('lang.user_profile_page_personal_citizenship') }}</label>
                                         <div class="ls-inputicon-box">
                                             <select class="wt-select-box selectpicker" v-model="candidateCitizenshipArr"  data-live-search="true" title=""  data-bv-field="size" multiple>
                                                 <option v-for="citizen in citizenship " :value="citizen.id" :selected="candidateCitizenships.citizenship_id == citizen.id">{{ citizen[`name_${getLang}`] }}</option>
                                             </select>
-                                            <i class="fs-input-icon fa fa-venus-mars"></i>
+                                            <i class="fs-input-icon fa fa-user-plus"></i>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-12">
                                     <div class="form-group">
-                                        <label>Religion</label>
+                                        <label>{{ $t('lang.user_profile_page_personal_religion') }}</label>
                                         <div class="ls-inputicon-box">
                                             <select class="wt-select-box selectpicker" v-model="candidate.religion_id"  data-live-search="true" title=""  data-bv-field="size">
                                                 <option v-for="religion in religions " :value="religion.id">{{ religion[`name_${getLang}`] }}</option>
                                             </select>
-                                            <i class="fs-input-icon fa fa-venus-mars"></i>
+                                            <i class="fs-input-icon fa fa-cross"></i>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-12">
                                     <div class="form-group">
-                                        <label>Education</label>
+                                        <label>{{ $t('lang.user_profile_page_personal_education') }}</label>
                                         <div class="ls-inputicon-box">
                                             <select class="wt-select-box selectpicker" v-model="candidate.education_id"  data-live-search="true" title=""  data-bv-field="size">
                                                 <option v-for="education in educations " :value="education.id">{{ education[`name_${getLang}`] }}</option>
                                             </select>
-                                            <i class="fs-input-icon fa fa-venus-mars"></i>
+                                            <i class="fs-input-icon fa fa-school"></i>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-12">
                                     <div class="form-group">
-                                        <label>პროფესია</label>
+                                        <label>{{ $t('lang.user_profile_page_personal_profession') }}</label>
                                         <div class="ls-inputicon-box">
                                             <select class="wt-select-box selectpicker" v-model="candidateProfessionArr"  data-live-search="true" title=""  data-bv-field="size" multiple>
                                                 <option v-for="profession in professions " :value="profession.id">{{ profession[`name_${getLang}`] }}</option>
                                             </select>
-                                            <i class="fs-input-icon fa fa-venus-mars"></i>
+                                            <i class="fs-input-icon fa fa-graduation-cap"></i>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-12">
                                     <div class="form-group">
-                                        <label>სპეციალობა</label>
+                                        <label>{{ $t('lang.user_profile_page_personal_specialty') }}</label>
                                         <div class="ls-inputicon-box">
                                             <select class="wt-select-box selectpicker" v-model="candidateSpecialtyArr"  data-live-search="true" title=""  data-bv-field="size" multiple>
                                                 <option v-for="specialty in specialties " :value="specialty.id">{{ specialty[`name_${getLang}`] }}</option>
                                             </select>
-                                            <i class="fs-input-icon fa fa-venus-mars"></i>
+                                            <i class="fs-input-icon fa fa-microscope"></i>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-xl-6 col-lg-6 col-md-12">
                                     <div class="form-group">
-                                        <label>ოჯახური მდგომარეობა</label>
+                                        <label>{{ $t('lang.user_profile_page_personal_family') }}</label>
                                         <div class="ls-inputicon-box">
                                             <select class="wt-select-box selectpicker" v-model="candidate.marital_status_id"  data-live-search="false" title=""  data-bv-field="size">
                                                 <option v-for="marital in maritalStatus " :value="marital.id">{{ marital[`name_${getLang}`] }}</option>
                                             </select>
-                                            <i class="fs-input-icon fa fa-venus-mars"></i>
+                                            <i class="fs-input-icon fa fa-users"></i>
                                         </div>
                                     </div>
                                 </div>
                                 <div v-if="candidate.marital_status_id && candidate.marital_status_id != 1 " class="col-xl-6 col-lg-6 col-md-12">
                                     <div class="form-group">
-                                        <label>შვილების რაოდენობა</label>
+                                        <label>{{ $t('lang.user_profile_page_personal_children') }}</label>
                                         <div class="ls-inputicon-box">
                                             <input class="form-control" v-model="candidate.children" type="number" placeholder="">
                                             <i class="fs-input-icon fa fa-user"></i>
@@ -200,7 +213,7 @@
                                 </div>
                                 <div v-if="candidate.marital_status_id && candidate.marital_status_id != 1 && candidate.children && candidate.children != 0" class="col-xl-6 col-lg-6 col-md-12">
                                     <div class="form-group">
-                                        <label>შვილების ასაკი</label>
+                                        <label>{{ $t('lang.user_profile_page_personal_children_age') }}</label>
                                         <div class="ls-inputicon-box">
                                             <input class="form-control" v-model="candidate.children_age" type="text" placeholder="მაგ: 10,14">
                                             <i class="fs-input-icon fa fa-user"></i>
@@ -209,8 +222,8 @@
                                 </div>
                                 <div v-if="candidate.marital_status_id && candidate.marital_status_id == 2 " class="col-md-12">
                                     <div class="form-group">
-                                        <label>მეუღლის სახელი გვარი და სამუშაო ადგილი </label>
-                                        <textarea class="form-control" v-model="candidate.spouse" rows="3" placeholder="გთხოვთ ინფორმაცია შეავსოთ მითითებული მოთხოვნის შესაბამისად."></textarea>
+                                        <label>{{ $t('lang.user_profile_page_personal_spouse') }}</label>
+                                        <textarea class="form-control" v-model="candidate.spouse" rows="3" placeholder="{{ $t('lang.user_profile_page_personal_family_fill_info') }}"></textarea>
                                     </div>
                                 </div>
 
@@ -229,26 +242,26 @@
                 <!--სამედიცინო ინფორმაცია-->
                 <div class="panel panel-default">
                     <div class="panel-heading wt-panel-heading p-a20">
-                        <h4 class="panel-tittle m-a0">სამედიცინო ინფორმაცია</h4>
+                        <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_medical_info') }}</h4>
                     </div>
                     <div class="panel-body wt-panel-body p-a20 m-b30 ">
                         <!-- <form @submit.prevent="addMedicalInfo()" > -->
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>ალერგია</label>
+                                        <label>{{ $t('lang.user_profile_page_medical_alergy') }}</label>
                                         <div class="ls-inputicon-box">
                                             <select class="wt-select-box selectpicker" v-model="candidateAllergyArr"  data-live-search="true" title=""  data-bv-field="size">
                                                 <option v-for="allergy in allergies " :value="allergy.id">{{ allergy[`name_${getLang}`] }}</option>
                                             </select>
-                                            <i class="fs-input-icon fa fa-venus-mars"></i>
+                                            <i class="fs-input-icon fa fa-allergies"></i>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>ოპერაცია ან ქრონიკული დაავადება </label>
-                                        <textarea class="form-control" rows="3" v-model="candidate.medical_info" placeholder="გთხოვთ მოგვაწოდოთ ინფორმაცია მნიშვნელოვანი ოპერაციების და ქრონიკული დაავადებების შესახებ ასეთის არსებობის შემთხვევაში."></textarea>
+                                        <label>{{ $t('lang.user_profile_page_medical_operation') }}</label>
+                                        <textarea class="form-control" rows="3" v-model="candidate.medical_info" placeholder="{{ $t('lang.user_profile_page_medical_please_info') }}"></textarea>
                                     </div>
                                 </div>
 

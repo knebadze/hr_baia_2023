@@ -133,7 +133,7 @@
 
                                             <li>
                                                 <div class="form-check">
-                                                    <input type="radio" class="form-check-input" id="exampleradio6">
+                                                    <input class="form-check-input" type="radio" id="exampleradio6">
                                                     <label class="form-check-label" for="exampleradio6">{{ __('lang.candidate_page_leftside_any') }}</label>
                                                 </div>
                                             </li>

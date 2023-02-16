@@ -295,31 +295,31 @@ return [
     'candidate_page_leftside_name_or_keyword' => 'სახელი ან საკვანძო სიტყვა',
 
     'candidate_page_leftside_location' => 'ლოკაცია',
-        'candidate_leftside_search_location' => 'ლოკაციის ძებნა',
+        'candidate_page_leftside_search_location' => 'ლოკაციის ძებნა',
 
-    'candidate_leftside_type_of_work' => 'სამუშაოს ტიპი',
+    'candidate_page_leftside_type_of_work' => 'სამუშაოს ტიპი',
 
-    'candidate_leftside_date_of_publication' => 'გამოქვეყნების თარიღი',
+    'candidate_page_leftside_date_of_publication' => 'გამოქვეყნების თარიღი',
         'candidate_page_leftside_any' => 'ნებისმიერი',
         'candidate_page_leftside_last_24' => 'ბოლო 24 საათში',
         'candidate_page_leftside_last_3' => 'ბოლო 3 საათში',
         'candidate_page_leftside_last_7' => 'ბოლო 7 საათში',
 
-    'candidate_leftside_sallary' => 'ანაზღაურება',
+    'candidate_page_leftside_sallary' => 'ანაზღაურება',
         'candidate_page_leftside_sallary_any' => 'ნებისმიერი',
         'candidate_page_leftside_sallary_from_500' => '500 ₾-დან',
         'candidate_page_leftside_sallary_from_700' => '700 ₾-დან',
         'candidate_page_leftside_sallary_from_900' => '900 ₾-დან',
         'candidate_page_leftside_sallary_other' => 'სხვა',
 
-    'candidate_leftside_shedulde' => 'გრაფიკი',
+    'candidate_page_leftside_shedulde' => 'გრაფიკი',
         'candidate_page_leftside_shedulde_any' => 'ნებისმიერი',
         'candidate_page_leftside_shedulde_day' => 'დღის გრაფიკი',
         'candidate_page_leftside_shedulde_night' => 'ღამის გრაფიკი',
         'candidate_page_leftside_shedulde_daily' => 'დღიური გრაფიკი',
         'candidate_page_leftside_shedulde_other' => 'სხვა',
 
-    'candidate_leftside_second_location' => 'მდებარეობა',
+    'candidate_page_leftside_second_location' => 'მდებარეობა',
         'candidate_page_leftside_second_location_any' => 'ნებისმიერი',
         'candidate_page_leftside_second_location_3km' => 'თქვენგან 3 კმ-ში',
         'candidate_page_leftside_second_location_5km' => 'თქვენგან 5 კმ-ში',
@@ -408,4 +408,25 @@ return [
     'user_profile_page_input_birth_date' => 'დაბადების თარიღი',
     'user_profile_page_driving_license' => 'მართვის მოწმობა',
     'user_profile_page_button_save_changes' => 'ცვლილების შენახვა',
+    // Personal information
+    'user_profile_page_personal_info' => 'პერსონალური ინფორმაცია',
+    'user_profile_page_personal_number' => 'პერსონალური ნომერი',
+    'user_profile_page_personal_citizenship' => 'მოქალაქეობა',
+    'user_profile_page_personal_education' => 'განათლება',
+    'user_profile_page_personal_specialty' => 'სპეციალობა',
+    'user_profile_page_personal_nationality' => 'ეროვნება',
+    'user_profile_page_personal_religion' => 'რელიგია',
+    'user_profile_page_personal_profession' => 'პროფესია',
+    'user_profile_page_personal_family' => 'ოჯახური მდგომარეობა',
+        'user_profile_page_personal_family_children' => 'შვილების რაოდენობა',
+        'user_profile_page_personal_family_children_age' => 'შვილების ასაკი',
+        'user_profile_page_personal_family_spouse' => 'მეუღლის სახელი გვარი და სამუშაო ადგილი',
+        'user_profile_page_personal_family_fill_info' => 'გთხოვთ ინფორმაცია შეავსოთ მითითებული მოთხოვნის შესაბამისად.',
+
+    // Medical information
+    'user_profile_page_medical_info' => 'სამედიცინო ინფორმაცია',
+    'user_profile_page_medical_alergy' => 'ალერგია', 
+    'user_profile_page_medical_operation' => 'ოპერაცია ან ქრონიკული დაავადება', 
+    'user_profile_page_medical_please_info' => 'გთხოვთ მოგვაწოდოთ ინფორმაცია მნიშვნელოვანი ოპერაციების და ქრონიკული 
+                                                დაავადებების შესახებ ასეთის არსებობის შემთხვევაში.',  
 ];
