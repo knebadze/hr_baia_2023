@@ -5,18 +5,38 @@ namespace App\Http\Controllers;
 use App\Models\Candidate;
 use App\Models\Citizenship;
 use Illuminate\Http\Request;
+use App\Models\CandidateAllergy;
+use App\Services\CandidateService;
 use Illuminate\Support\Facades\DB;
 use App\Models\Candidate_specialty;
 use App\Models\Candidate_profession;
-use App\Models\Candidate_citizenship;
-use App\Models\CandidateAllergy;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Candidate_citizenship;
+use Exception;
 
 class CandidateInfoController extends Controller
 {
+    private CandidateService $candidateService;
+    public function __construct(CandidateService $candidateService)
+    {
+        $this->candidateService = $candidateService;
+    }
     public function addCandidate(Request $request)
     {
-        return response()->json('ok');
+        $data = $request->candidate;
+
+        $result = ['status' => 200];
+
+        try {
+            $result['data'] = $this->candidateService->candidateSaveData($data);
+        } catch (Exception $e) {
+            $result = [
+                'status' => 500,
+                'error' => $e->getMessage()
+            ];
+        }
+
+        return response()->json($result, $result['status']);
     }
     public function personalInfo(Request $request){
         $candidate = Candidate::updateOrCreate(

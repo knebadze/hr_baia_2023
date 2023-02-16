@@ -80,15 +80,15 @@
                                     <div class="form-check form-check-inline">
                                       <input class="form-check-input" type="radio" id="driving_license_c" value="license_c">
                                       <label class="form-check-label" for="driving_license_c">C</label>
-                                    </div>  
+                                    </div>
                                     <div class="form-check form-check-inline">
                                       <input class="form-check-input" type="radio" id="driving_license_d" value="license_d">
                                       <label class="form-check-label" for="driving_license_d">D</label>
-                                    </div>  
+                                    </div>
                                     <div class="form-check form-check-inline">
                                       <input class="form-check-input" type="radio" id="driving_license_e" value="license_e">
                                       <label class="form-check-label" for="driving_license_e">E</label>
-                                    </div>  
+                                    </div>
                                 </div>
                             </div>
 
@@ -761,6 +761,7 @@ export default {
             //     step1: {},
             //     step2: {}
             // }
+            candidateFullData: {},
 
             //v-model
             language_id: null,
@@ -847,11 +848,22 @@ export default {
 
         },
         addCandidate(){
-            console.log('this.candidate',this.candidate);
+            var candidateFullData = {
+                'candidate': this.candidate,
+                'citizenship': this.candidateCitizenshipArr,
+                'professions': this.candidateProfessionArr,
+                'specialty': this.candidateSpecialtyArr,
+                'language': this.candidateLanguageArr,
+                'allergy': this.candidateAllergyArr,
+                'work_experience': this.candidateWorkExperience,
+                'recommendation': this.candidateRecommendation,
+                'notice': this.candidateNoticeArr
+            }
+            console.log('candidateFullData',candidateFullData);
             axios({
                 method: "post",
                 url: "/add_candidate",
-                data: this.auth
+                data: candidateFullData
             })
             .then(function (response) {
                 // handle success
