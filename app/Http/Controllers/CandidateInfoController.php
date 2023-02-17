@@ -23,7 +23,7 @@ class CandidateInfoController extends Controller
     }
     public function addCandidate(Request $request)
     {
-        $data = $request->candidate;
+        $data = $request->all();
 
         $result = ['status' => 200];
 

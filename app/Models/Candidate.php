@@ -34,4 +34,9 @@ class Candidate extends Model
         'youtube_link',
         'map_link',
     ];
+
+    public function citizenship()
+    {
+         return $this->belongsToMany(Citizenship::class, 'employee_teams');
+    }
 }
