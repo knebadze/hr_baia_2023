@@ -377,6 +377,10 @@ return [
     // ====================================================================================================
     // User Page
     // ====================================================================================================
+    // On User Page Yes / No Lang Translate
+    'user_page_yes' => 'კი',
+    'user_page_no' => 'არა',
+
     // User Page Title Lang
     'user_page_title_user' => 'მომხმარებელი',
     'user_page_title_profile' => 'პროფილი',
@@ -408,7 +412,7 @@ return [
     'user_profile_page_input_birth_date' => 'დაბადების თარიღი',
     'user_profile_page_driving_license' => 'მართვის მოწმობა',
     'user_profile_page_button_save_changes' => 'ცვლილების შენახვა',
-    // Personal information
+    // Personal information Block Lang
     'user_profile_page_personal_info' => 'პერსონალური ინფორმაცია',
     'user_profile_page_personal_number' => 'პერსონალური ნომერი',
     'user_profile_page_personal_citizenship' => 'მოქალაქეობა',
@@ -423,10 +427,51 @@ return [
         'user_profile_page_personal_family_spouse' => 'მეუღლის სახელი გვარი და სამუშაო ადგილი',
         'user_profile_page_personal_family_fill_info' => 'გთხოვთ ინფორმაცია შეავსოთ მითითებული მოთხოვნის შესაბამისად.',
 
-    // Medical information
+    // Medical information Block Lang
     'user_profile_page_medical_info' => 'სამედიცინო ინფორმაცია',
     'user_profile_page_medical_alergy' => 'ალერგია', 
     'user_profile_page_medical_operation' => 'ოპერაცია ან ქრონიკული დაავადება', 
     'user_profile_page_medical_please_info' => 'გთხოვთ მოგვაწოდოთ ინფორმაცია მნიშვნელოვანი ოპერაციების და ქრონიკული 
                                                 დაავადებების შესახებ ასეთის არსებობის შემთხვევაში.',  
+
+    // Foreign Language Block Lang
+    'user_profile_page_foreign_lang_title' => 'უცხო ენები',
+    'user_profile_page_foreign_lang_language' => 'უცხო ენა',
+    'user_profile_page_foreign_lang_level' => 'დონე',
+    'user_profile_page_foreign_lang_button_add_info' => 'დამატება',
+
+    // Work Experience Block Lang
+    'user_profile_page_work_exp_title' => 'ზოგადი სამუშაო გამოცდილება',
+    'user_profile_page_work_exp' => 'სამუშაო გამოცდილება',
+    'user_profile_page_work_position' => 'პოზიცია',
+    'user_profile_page_work_object' => 'ობიექტი',
+    'user_profile_page_work_button_add_info' => 'დამატება',
+
+    // Work Recommendation Block Lang
+    'user_profile_page_recomendation_title' => 'რეკომენდაცია',
+    'user_profile_page_recomendation_from' => 'რეკომენდაციას წარმოადგენთ',
+    'user_profile_page_recomendation_where_from' => 'საიდან წარმოადგენთ',
+    'user_profile_page_recomendation_name' => 'რეკომენდატორის სახელი გვარი',
+    'user_profile_page_recomendation_number' => 'ნომერი',
+
+    // Work Additional Information Block Lang
+    'user_profile_page_additional_title' => 'დამატებითი ინფორმაცია',
+    'user_profile_page_additional_height' => 'სიმაღლე',
+    'user_profile_page_additional_weight' => 'წონა',
+    'user_profile_page_additional_conviction' => 'ნასამართლეობა',
+    'user_profile_page_additional_smoke' => 'ეწევით?',
+    'user_profile_page_additional_work_abroad' => 'იმუშავებდით საზღარგარეთ?',
+
+    // References Block Lang
+    'user_profile_page_references_title' => 'ცნობები',
+    'user_profile_page_references_name_notice' => 'ცნობის დასახელება',
+    'user_profile_page_references_file' => 'ფაილი',
+    'user_profile_page_references_button_add_info' => 'დამატება',
+
+    // Social Network Block Lang
+    'user_profile_page_social_title' => 'სოციალური ქსელი',
+    'user_profile_page_social_facebook' => 'ფეისბუქი',
+    'user_profile_page_social_youtube' => 'იუთუბი',
+    'user_profile_page_social_button_save' => 'შენახვა',
+
 ];
