@@ -17,6 +17,6 @@ class Citizenship extends Model
 
     public function candidate()
     {
-         return $this->belongsToMany(Candidate::class, 'employee_teams');
+         return $this->belongsToMany(Candidate::class, 'candidate_citizenships');
     }
 }

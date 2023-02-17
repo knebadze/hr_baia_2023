@@ -46,14 +46,16 @@ class CandidateRepository
                 'spouse' => $objData->candidate->spouse,
             ]
         );
-        foreach ($objData->citizenship as $key => $value) {
-            // $citizenship = Candidate_citizenship::updateOrCreate(
-            //     [
-            //         'candidate_id' => $candidate->id,
-            //         'citizenship_id' => $value
-            //     ],
-            // );
-        }
+        $candidate->citizenship()->sync($objData->citizenship);
+        $candidate->professions()->sync($objData->professions);
+        // foreach ($objData->citizenship as $key => $value) {
+        //     // $citizenship = Candidate_citizenship::updateOrCreate(
+        //     //     [
+        //     //         'candidate_id' => $candidate->id,
+        //     //         'citizenship_id' => $value
+        //     //     ],
+        //     // );
+        // }
         // foreach ($request->professions as $key => $value) {
         //     $profession = Candidate_profession::updateOrCreate(
         //         [
