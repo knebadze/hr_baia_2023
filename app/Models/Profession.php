@@ -9,8 +9,8 @@ class Profession extends Model
 {
     use HasFactory;
 
-    public function candidate()
-    {
-         return $this->belongsToMany(Candidate::class, 'candidate_professions');
-    }
+    // public function candidate()
+    // {
+    //      return $this->belongsToMany(Candidate::class, 'candidate_professions');
+    // }
 }

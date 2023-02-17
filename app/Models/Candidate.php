@@ -43,4 +43,20 @@ class Candidate extends Model
     {
         return $this->belongsToMany(Profession::class, 'candidate_professions');
     }
+    public function specialty()
+    {
+        return $this->belongsToMany(Specialty::class, 'candidate_specialties');
+    }
+    public function languages()
+    {
+        return $this->belongsToMany(Language::class, 'candidate_languages')->withPivot('language_level_id');
+    }
+    public function allergy()
+    {
+        return $this->belongsToMany(allergy::class, 'candidate_allergies');
+    }
+    // public function notice()
+    // {
+    //     return $this->belongsToMany(allergy::class, 'candidate_allergies');
+    // }
 }

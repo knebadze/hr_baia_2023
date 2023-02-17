@@ -105,7 +105,7 @@
                 </div>
             </div>
 
-            <form @submit.prevent="addCandidate()">
+            <!-- <form @submit.prevent="addCandidate()"> -->
                  <!--personal information-->
                 <div class="panel panel-default">
                     <div class="panel-heading wt-panel-heading p-a20">
@@ -289,7 +289,7 @@
                                     <label>{{ $t('lang.user_profile_page_foreign_lang_language') }}</label>
                                     <div class="ls-inputicon-box">
                                         <select class="wt-select-box selectpicker"  v-model="candidateLanguages.language_id"  data-live-search="true" title=""  data-bv-field="size">
-                                            <option v-for="language in languages " :value="language.id">{{ language[`name_${getLang}`] }}</option>
+                                            <option v-for="language in languages " :value="language">{{ language[`name_${getLang}`] }}</option>
                                         </select>
                                         <i class="fs-input-icon fa fa-language"></i>
                                     </div>
@@ -695,7 +695,7 @@
 
                             <div class="col-lg-12 col-md-12">
                                 <div class="text-left">
-                                    <button type="submit" class="site-button">{{ $t('lang.user_profile_page_social_button_save') }}</button>
+                                    <button type="submit" @click="addCandidate()" class="site-button">{{ $t('lang.user_profile_page_social_button_save') }}</button>
                                 </div>
                             </div>
 
@@ -704,7 +704,7 @@
 
                     </div>
                 </div>
-            </form>
+            <!-- </form> -->
         </div>
     </div>
 </template>
@@ -856,9 +856,10 @@ export default {
                 'specialty': this.candidateSpecialtyArr,
                 'language': this.candidateLanguageArr,
                 'allergy': this.candidateAllergyArr,
+                'notice': this.candidateNoticeArr,
                 'work_experience': this.candidateWorkExperience,
                 'recommendation': this.candidateRecommendation,
-                'notice': this.candidateNoticeArr
+
             }
             console.log('candidateFullData',candidateFullData);
             axios({
@@ -942,13 +943,15 @@ export default {
         },
 
         addLanguage(language_id, language_level_id){
-            var languageObj =  _.find(this.languages, function(o) { return o.id ==  language_id; });
-            var languageLevelObj = _.find(this.languageLevels, function(o) { return o.id ==  language_level_id; });
-            var tableData = {
-                'language': languageObj[`name_${this.getLang}`],
-                'level': languageLevelObj[`name_${this.getLang}`],
-            }
-            this.candidateLanguageArr.push(tableData)
+            console.log('language_id', language_id);
+            console.log('language_level_id', language_level_id);
+            // var languageObj =  _.find(this.languages, function(o) { return o.id ==  language_id; });
+            // var languageLevelObj = _.find(this.languageLevels, function(o) { return o.id ==  language_level_id; });
+            // var tableData = {
+            //     'language': languageObj[`name_${this.getLang}`],
+            //     'level': languageLevelObj[`name_${this.getLang}`],
+            // }
+            // this.candidateLanguageArr.push(tableData)
         },
         addCandidateWorkExperience(workExperience_id, position, object){
             this.candidateWorkExperience = {

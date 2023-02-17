@@ -48,32 +48,13 @@ class CandidateRepository
         );
         $candidate->citizenship()->sync($objData->citizenship);
         $candidate->professions()->sync($objData->professions);
-        // foreach ($objData->citizenship as $key => $value) {
-        //     // $citizenship = Candidate_citizenship::updateOrCreate(
-        //     //     [
-        //     //         'candidate_id' => $candidate->id,
-        //     //         'citizenship_id' => $value
-        //     //     ],
-        //     // );
-        // }
-        // foreach ($request->professions as $key => $value) {
-        //     $profession = Candidate_profession::updateOrCreate(
-        //         [
-        //             'candidate_id' => $candidate->id,
-        //             'profession_id' => $value
-        //         ],
-        //     );
-        // }
+        $candidate->specialty()->sync($objData->specialty);
+        // $candidate->languages()->sync($objData->language, ['language_level_id' => $objData->language->language_level_id]);
+        $candidate->allergy()->sync($objData->allergy);
+        // foreach ($candidate->notice as $key => $value) {
 
-        // foreach ($request->specialties as $key => $value) {
-        //     $specialty = Candidate_specialty::updateOrCreate(
-        //         [
-        //             'candidate_id' => $candidate->id,
-        //             'specialty_id' => $value
-        //         ],
-        //     );
         // }
         // return $candidate->fresh();
-        return $data;
+        return $objData->language;
     }
 }
