@@ -615,7 +615,7 @@
                                 <div class="form-group">
                                     <label>{{ $t('lang.user_profile_page_references_file') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <input class="form-control" type="file" @change="noticeFileUpload"  placeholder="">
+                                        <input class="form-control" type="file" @change="noticeFileUpload"  :placeholder="$t('lang.user_profile_page_medical_please_info')">
                                     </div>
                                 </div>
                             </div>
@@ -677,7 +677,7 @@
                                 <div class="form-group">
                                     <label>{{ $t('lang.user_profile_page_social_facebook') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <input class="form-control wt-form-control" name="company_name" type="text" placeholder="https://www.facebook.com/">
+                                        <input class="form-control wt-form-control" name="company_name" type="text" :placeholder="$t('lang.user_profile_page_medical_please_info')">
                                         <i class="fs-input-icon fab fa-facebook-f"></i>
                                     </div>
                                 </div>
