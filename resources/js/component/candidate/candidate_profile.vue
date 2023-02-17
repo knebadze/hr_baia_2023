@@ -261,7 +261,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>{{ $t('lang.user_profile_page_medical_operation') }}</label>
-                                        <textarea class="form-control" rows="3" v-model="candidate.medical_info" placeholder="{{ $t('lang.user_profile_page_medical_please_info') }}"></textarea>
+                                        <textarea class="form-control" rows="3" v-model="candidate.medical_info" :placeholder="$t('lang.user_profile_page_medical_please_info')"></textarea>
                                         <input class="form-control">
                                     </div>
                                 </div>
@@ -677,7 +677,7 @@
                                 <div class="form-group">
                                     <label>{{ $t('lang.user_profile_page_social_facebook') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <input class="form-control wt-form-control" name="company_name" type="text" :placeholder="$t('lang.user_profile_page_medical_please_info')">
+                                        <input class="form-control wt-form-control" name="company_name" type="text" placeholder="https://www.youtube.com/">
                                         <i class="fs-input-icon fab fa-facebook-f"></i>
                                     </div>
                                 </div>

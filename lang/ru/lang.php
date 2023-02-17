@@ -434,8 +434,7 @@ return [
     'user_profile_page_medical_info' => 'Медицинская информация',
     'user_profile_page_medical_alergy' => 'Алергия',
     'user_profile_page_medical_operation' => 'Операция или хроническое заболевание',
-    'user_profile_page_medical_please_info' => 'Пожалуйста, предоставьте информацию о серьезных операциях и 
-                                                хронических заболеваниях, если таковые имеются.', 
+    'user_profile_page_medical_please_info' => 'Пожалуйста, предоставьте информацию о серьезных операциях и хронических заболеваниях, если таковые имеются.', 
     
     // Foreign Language Block Lang
     'user_profile_page_foreign_lang_title' => 'Иностранные языки',~
