@@ -34,4 +34,13 @@ class Candidate extends Model
         'youtube_link',
         'map_link',
     ];
+
+    public function citizenship()
+    {
+         return $this->belongsToMany(Citizenship::class, 'candidate_citizenships');
+    }
+    public function professions()
+    {
+        return $this->belongsToMany(Profession::class, 'candidate_professions');
+    }
 }

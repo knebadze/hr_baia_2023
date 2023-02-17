@@ -173,7 +173,7 @@
                                         <label>{{ $t('lang.user_profile_page_personal_profession') }}</label>
                                         <div class="ls-inputicon-box">
                                             <select class="wt-select-box selectpicker" v-model="candidateProfessionArr"  data-live-search="true" title=""  data-bv-field="size" multiple>
-                                                <option v-for="profession in professions " :value="profession.id">{{ profession[`name_${getLang}`] }}</option>
+                                                <option v-for="profession in professions " :value="profession.id" :selected="candidateProfessions.profession_id == profession.id">{{ profession[`name_${getLang}`] }}</option>
                                             </select>
                                             <i class="fs-input-icon fa fa-graduation-cap"></i>
                                         </div>
@@ -999,13 +999,18 @@ export default {
 
     mounted(){
         console.log(this.getLang)
-        console.log(this.candidateCitizenships);
+        console.log('this.candidateCitizenships',this.candidateCitizenships);
         if (Object.keys(this.data.candidateCitizenships).length != 0 ) {
             this.data.candidateCitizenships.forEach(element => {
                 this.candidateCitizenshipArr.push(element.citizenship_id)
             });
         }
-        console.log(this.candidate_id);
+        if (Object.keys(this.data.candidateProfessions).length != 0 ) {
+            this.data.candidateProfessions.forEach(element => {
+                this.candidateProfessionArr.push(element.profession_id)
+            });
+        }
+        console.log('this.candidateProfessions',this.candidateProfessions);
 
     }
 }

@@ -66,9 +66,10 @@ class MyprofileController extends Controller
         }else{
             $candidateCitizenships = Schema::getColumnListing('candidate_citizenships');
         }
-
+        // dd(DB::table('candidates')->where('user_id', $auth->id)->exists(),  Candidate_profession::all(), $candidate->id);
         if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('candidate_professions')->where('candidate_id', $candidate->id)->exists()) {
             $candidateProfessions = Candidate_profession::where('candidate_id', $candidate->id)->get();
+            // dd($candidateProfessions);
         }else{
             $candidateProfessions = Schema::getColumnListing('candidate_professions');
         }
