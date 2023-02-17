@@ -373,6 +373,10 @@ return [
     // ====================================================================================================
     // Admin Panel Page
     // ====================================================================================================
+    // On User Page Yes / No Lang Translate
+    'user_page_yes' => 'Yes',
+    'user_page_no' => 'No',
+
     // User Page Title Lang
     'user_page_title_user' => 'Account',
     'user_page_title_profile' => 'Profile',
@@ -404,7 +408,7 @@ return [
     'user_profile_page_input_birth_date' => 'Date of Birth',
     'user_profile_page_driving_license' => 'Driving License',
     'user_profile_page_button_save_changes' => 'Save Changes',
-    // Personal information
+    // Personal information Block Lang
     'user_profile_page_personal_info' => 'Persomal Information',
     'user_profile_page_personal_number' => 'Persomal Number',
     'user_profile_page_personal_citizenship' => 'Citizenship',
@@ -419,9 +423,50 @@ return [
         'user_profile_page_personal_family_spouse' => 'Spouse\'s name, surname and place of work',
         'user_profile_page_personal_family_fill_info' => 'Please fill in the information according to the specified request.',
 
-    // Medical information
+    // Medical information Block Lang
     'user_profile_page_medical_info' => 'Medical Information',
     'user_profile_page_medical_alergy' => 'Alergy', 
     'user_profile_page_medical_operation' => 'Surgery or chronic illness', 
-    'user_profile_page_medical_please_info' => 'Please provide information about major surgeries and chronic illnesses, if any.',   
+    'user_profile_page_medical_please_info' => 'Please provide information about major surgeries and chronic illnesses, if any.',  
+    
+    // Foreign Language Block Lang
+    'user_profile_page_foreign_lang_title' => 'Foreign Languages',
+    'user_profile_page_foreign_lang_language' => 'Foreign Language',
+    'user_profile_page_foreign_lang_level' => 'Language Level',
+    'user_profile_page_foreign_lang_button_add_info' => 'Add',
+
+    // Work Experience Block Lang
+    'user_profile_page_work_exp_title' => 'General Work Experience',
+    'user_profile_page_work_exp' => 'Work Experience',
+    'user_profile_page_work_position' => 'Position',
+    'user_profile_page_work_object' => 'Object',
+    'user_profile_page_work_button_add_info' => 'Add',
+
+    // Work Recommendation Block Lang
+    'user_profile_page_recomendation_title' => 'Recommendation',
+    'user_profile_page_recomendation_from' => 'Recommendation From',
+    'user_profile_page_recomendation_where_from' => 'Where From',
+    'user_profile_page_recomendation_name' => 'Recommender\'s first and last name',
+    'user_profile_page_recomendation_number' => 'Number',
+
+    // Work Additional Information Block Lang
+    'user_profile_page_additional_title' => 'Additional Information',
+    'user_profile_page_additional_height' => 'Height',
+    'user_profile_page_additional_weight' => 'Weight',
+    'user_profile_page_additional_conviction' => 'Conviction',
+    'user_profile_page_additional_smoke' => 'Do you Smoke?',
+    'user_profile_page_additional_work_abroad' => 'Would you work abroad?',
+
+    // References Block Lang
+    'user_profile_page_references_title' => 'References',
+    'user_profile_page_references_name_notice' => 'The name of the notice',
+    'user_profile_page_references_file' => 'File',
+    'user_profile_page_references_button_add_info' => 'Add',
+
+    // Social Network Block Lang
+    'user_profile_page_social_title' => 'Social Network',
+    'user_profile_page_social_facebook' => 'Facebook',
+    'user_profile_page_social_youtube' => 'Youtube',
+    'user_profile_page_social_button_save' => 'Save',
+    
 ];

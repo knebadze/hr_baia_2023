@@ -278,30 +278,30 @@
                  <!--უცხო ენები-->
                  <div class="panel panel-default">
                     <div class="panel-heading wt-panel-heading p-a20">
-                        <h4 class="panel-tittle m-a0">უცხო ენები</h4>
+                        <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_foreign_lang_title') }}</h4>
                     </div>
                     <div class="panel-body wt-panel-body p-a20 m-b30 ">
 
                         <div class="row">
                             <div class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                    <label>უცხო ენა</label>
+                                    <label>{{ $t('lang.user_profile_page_foreign_lang_language') }}</label>
                                     <div class="ls-inputicon-box">
                                         <select class="wt-select-box selectpicker"  v-model="candidateLanguages.language_id"  data-live-search="true" title=""  data-bv-field="size">
                                             <option v-for="language in languages " :value="language.id">{{ language[`name_${getLang}`] }}</option>
                                         </select>
-                                        <i class="fs-input-icon fa fa-venus-mars"></i>
+                                        <i class="fs-input-icon fa fa-language"></i>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                    <label>დონე</label>
+                                    <label>{{ $t('lang.user_profile_page_foreign_lang_level') }}</label>
                                     <div class="ls-inputicon-box">
                                         <select class="wt-select-box selectpicker" v-model="candidateLanguages.language_level_id"   data-live-search="false" title=""  data-bv-field="size">
                                             <option v-for="languageLevel in languageLevels " :value="languageLevel.id">{{ languageLevel[`name_${getLang}`] }}</option>
                                         </select>
-                                        <i class="fs-input-icon fa fa-venus-mars"></i>
+                                        <i class="fs-input-icon fa fa-level-up-alt"></i>
                                     </div>
                                 </div>
                             </div>
@@ -310,7 +310,7 @@
                                     <button class="btn btn-success"
                                     @click="addLanguage(candidateLanguages.language_id, candidateLanguages.language_level_id)"
                                     title="დამატება" data-bs-toggle="tooltip"
-                                    data-bs-placement="top">დამატება
+                                    data-bs-placement="top">{{ $t('lang.user_profile_page_foreign_lang_button_add_info') }}
                                         <span class="fa fa-plus"></span>
                                     </button>
                                 </div>
@@ -361,37 +361,37 @@
                 <!--ზოგადი სამუშაო გამოცდილება-->
                 <div class="panel panel-default">
                     <div class="panel-heading wt-panel-heading p-a20">
-                        <h4 class="panel-tittle m-a0">ზოგადი სამუშაო გამოცდილება</h4>
+                        <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_work_exp_title') }}</h4>
                     </div>
                     <div class="panel-body wt-panel-body p-a20 m-b30 ">
 
                         <div class="row">
                             <div class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                    <label>სამუშაო გამოცდილება</label>
+                                    <label>{{ $t('lang.user_profile_page_work_exp') }}</label>
                                     <div class="ls-inputicon-box">
                                         <select class="wt-select-box selectpicker"  v-model="candidateWorkExperience.work_experience_id"  data-live-search="true" title=""  data-bv-field="size">
                                             <option v-for="workExperience in workExperiences " :value="workExperience.id">{{ workExperience[`name_${getLang}`] }}</option>
                                         </select>
-                                        <i class="fs-input-icon fa fa-venus-mars"></i>
+                                        <i class="fs-input-icon fa fa-history"></i>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                    <label>პოზიცია</label>
+                                    <label>{{ $t('lang.user_profile_page_work_position') }}</label>
                                     <div class="ls-inputicon-box">
                                         <input class="form-control" v-model="candidateWorkExperience.position" type="text" placeholder="">
-                                        <i class="fs-input-icon fa fa-user"></i>
+                                        <i class="fs-input-icon fa fa-tasks"></i>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                    <label>ობიექტი</label>
+                                    <label>{{ $t('lang.user_profile_page_work_object') }}</label>
                                     <div class="ls-inputicon-box">
                                         <input class="form-control" v-model="candidateWorkExperience.object" type="text" placeholder="">
-                                        <i class="fs-input-icon fa fa-user"></i>
+                                        <i class="fs-input-icon fa fa-map-marker"></i>
                                     </div>
                                 </div>
                             </div>
@@ -399,7 +399,7 @@
                                 <div class="text-right ">
                                     <button class="btn btn-success"
                                     @click="addCandidateWorkExperience(candidateWorkExperience.work_experience_id, candidateWorkExperience.position, candidateWorkExperience.object)"
-                                    title="დამატება" data-bs-toggle="tooltip" data-bs-placement="top">დამატება
+                                    title="დამატება" data-bs-toggle="tooltip" data-bs-placement="top">{{ $t('lang.user_profile_page_work_button_add_info') }}
                                         <span class="fa fa-plus"></span>
                                     </button>
                                 </div>
@@ -445,19 +445,19 @@
                 <!--რეკომენდაცია-->
                 <div class="panel panel-default">
                     <div class="panel-heading wt-panel-heading p-a20">
-                        <h4 class="panel-tittle m-a0">რეკომენდაცია</h4>
+                        <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_recomendation_title') }}</h4>
                     </div>
                     <div class="panel-body wt-panel-body p-a20 m-b30 ">
 
                         <div class="row">
                             <div class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                    <label>რეკომენდაციას წარმოადგენთ</label>
+                                    <label>{{ $t('lang.user_profile_page_recomendation_from') }}</label>
                                     <div class="ls-inputicon-box">
                                         <select class="wt-select-box selectpicker"  v-model="candidateRecommendation.recommendation_id"  data-live-search="true" title=""  data-bv-field="size">
                                             <option v-for="recommendation in recommendations " :value="recommendation.id">{{ recommendation[`name_${getLang}`] }}</option>
                                         </select>
-                                        <i class="fs-input-icon fa fa-venus-mars"></i>
+                                        <i class="fs-input-icon fa fa-thumbs-up"></i>
                                     </div>
                                 </div>
                             </div>
@@ -468,16 +468,16 @@
                                         <select class="wt-select-box selectpicker"  v-model="candidateRecommendation.recommendation_from_whom_id"  data-live-search="true" title=""  data-bv-field="size">
                                             <option v-for="recommendationFrom in recommendationFromWhom " :value="recommendationFrom.id">{{ recommendationFrom[`name_${getLang}`] }}</option>
                                         </select>
-                                        <i class="fs-input-icon fa fa-venus-mars"></i>
+                                        <i class="fs-input-icon fa fa-industry"></i>
                                     </div>
                                 </div>
                             </div>
                             <div v-if="candidateRecommendation.recommendation_id != 4 || candidateRecommendation.recommendation_id != 1" class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                    <label>რეკომენდატორის სახელი გვარი</label>
+                                    <label>{{ $t('lang.user_profile_page_recomendation_name') }}</label>
                                     <div class="ls-inputicon-box">
                                         <input class="form-control" v-model="candidateRecommendation.name" type="text" placeholder="">
-                                        <i class="fs-input-icon fa fa-user"></i>
+                                        <i class="fs-input-icon fa fa-star"></i>
                                     </div>
                                 </div>
                             </div>
@@ -492,10 +492,10 @@
                             </div>
                             <div v-if="candidateRecommendation.recommendation_id != 4 || candidateRecommendation.recommendation_id != 1" class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                    <label>ნომერი</label>
+                                    <label>{{ $t('lang.user_profile_page_recomendation_number') }}</label>
                                     <div class="ls-inputicon-box">
                                         <input class="form-control" v-model="candidateRecommendation.number" type="text" placeholder="">
-                                        <i class="fs-input-icon fa fa-user"></i>
+                                        <i class="fs-input-icon fa fa-phone"></i>
                                     </div>
                                 </div>
                             </div>
@@ -525,64 +525,64 @@
                 <!--Additional information-->
                 <div class="panel panel-default">
                     <div class="panel-heading wt-panel-heading p-a20">
-                        <h4 class="panel-tittle m-a0">Additional Information</h4>
+                        <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_additional_title') }}</h4>
                     </div>
                     <div class="panel-body wt-panel-body p-a20 m-b30 ">
 
                         <div class="row">
                             <div class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group city-outer-bx has-feedback">
-                                    <label>height</label>
+                                    <label>{{ $t('lang.user_profile_page_additional_height') }}</label>
                                     <div class="ls-inputicon-box">
                                         <input class="form-control" v-model="candidate.height" type="text" placeholder="65K">
-                                        <i class="fs-input-icon fa fa-arrows-v" aria-hidden="true"></i>
+                                        <i class="fs-input-icon fa fa-arrows-alt-v" aria-hidden="true"></i>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group city-outer-bx has-feedback">
-                                    <label>weight</label>
+                                    <label>{{ $t('lang.user_profile_page_additional_weight') }}</label>
                                     <div class="ls-inputicon-box">
                                         <input class="form-control" v-model="candidate.weight" type="text" placeholder="75K">
-                                        <i class="fs-input-icon fa fa-dollar-sign"></i>
+                                        <i class="fs-input-icon fa fa-arrows-alt-h"></i>
                                     </div>
 
                                 </div>
                             </div>
                             <div class="col-xl-4 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                    <label>ნასამართლევი ხართ?</label>
+                                    <label>{{ $t('lang.user_profile_page_additional_conviction') }}</label>
                                     <div class="ls-inputicon-box">
                                         <select class="wt-select-box selectpicker" v-model="candidate.convection"  data-live-search="false" title=""  data-bv-field="size">
-                                            <option :value="0">კი</option>
-                                            <option :value="1">არა</option>
+                                            <option :value="0">{{ $t('lang.user_page_yes') }}</option>
+                                            <option :value="1">{{ $t('lang.user_page_no') }}</option>
                                         </select>
-                                        <i class="fs-input-icon fa fa-venus-mars"></i>
+                                        <i class="fs-input-icon fa fa-gavel"></i>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-4 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                    <label>ეწევით?</label>
+                                    <label>{{ $t('lang.user_profile_page_additional_smoke') }}</label>
                                     <div class="ls-inputicon-box">
                                         <select class="wt-select-box selectpicker" v-model="candidate.smoke"  data-live-search="false" title=""  data-bv-field="size">
-                                            <option :value="0">კი</option>
-                                            <option :value="1">არა</option>
+                                            <option :value="0">{{ $t('lang.user_page_yes') }}</option>
+                                            <option :value="1">{{ $t('lang.user_page_no') }}</option>
                                         </select>
-                                        <i class="fs-input-icon fa fa-venus-mars"></i>
+                                        <i class="fs-input-icon fa fa-smoking"></i>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-4 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                    <label>იმუშავებდით საზღარგარეთ?</label>
+                                    <label>{{ $t('lang.user_profile_page_additional_work_abroad') }}</label>
                                     <div class="ls-inputicon-box">
                                         <select class="wt-select-box selectpicker" v-model="candidate.work_abroad"  data-live-search="false" title=""  data-bv-field="size">
-                                            <option :value="0">კი</option>
-                                            <option :value="1">არა</option>
+                                            <option :value="0">{{ $t('lang.user_page_yes') }}</option>
+                                            <option :value="1">{{ $t('lang.user_page_no') }}</option>
                                         </select>
-                                        <i class="fs-input-icon fa fa-venus-mars"></i>
+                                        <i class="fs-input-icon fa fa-globe-europe"></i>
                                     </div>
                                 </div>
                             </div>
@@ -594,28 +594,27 @@
                  <!--ცნობები-->
                 <div class="panel panel-default">
                     <div class="panel-heading wt-panel-heading p-a20">
-                        <h4 class="panel-tittle m-a0">ცნობები</h4>
+                        <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_references_title') }}</h4>
                     </div>
                     <div class="panel-body wt-panel-body p-a20 m-b30 ">
 
                         <div class="row">
                             <div class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                    <label>ცნობის დასახელება</label>
+                                    <label>{{ $t('lang.user_profile_page_references_name_notice') }}</label>
                                     <div class="ls-inputicon-box">
                                         <select class="wt-select-box selectpicker" v-model="candidateNotices.notice_id"  data-live-search="true" title=""  data-bv-field="size">
                                             <option v-for="notice in notices " :value="notice.id">{{ notice[`name_${getLang}`] }}</option>
                                         </select>
-                                        <i class="fs-input-icon fa fa-venus-mars"></i>
+                                        <i class="fs-input-icon fa fa-sticky-note"></i>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                    <label>ფაილი</label>
+                                    <label>{{ $t('lang.user_profile_page_references_file') }}</label>
                                     <div class="ls-inputicon-box">
                                         <input class="form-control" type="file" @change="noticeFileUpload"  placeholder="">
-                                        <!-- <i class="fs-input-icon fa fa-user"></i> -->
                                     </div>
                                 </div>
                             </div>
@@ -623,7 +622,7 @@
                                 <div class="text-right ">
                                     <button class="btn btn-success"
                                     @click="addNotice(candidateNotices.notice_id,)"
-                                    title="დამატება" data-bs-toggle="tooltip" data-bs-placement="top">დამატება
+                                    title="დამატება" data-bs-toggle="tooltip" data-bs-placement="top">{{ $t('lang.user_profile_page_references_button_add_info') }}
                                         <span class="fa fa-plus"></span>
                                     </button>
                                 </div>
@@ -667,7 +666,7 @@
                 <!--Social Network-->
                 <div class="panel panel-default">
                     <div class="panel-heading wt-panel-heading p-a20">
-                        <h4 class="panel-tittle m-a0">Social Network</h4>
+                        <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_social_title') }}</h4>
                     </div>
                     <div class="panel-body wt-panel-body p-a20 m-b30 ">
 
@@ -675,7 +674,7 @@
 
                             <div class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                    <label>Facebook</label>
+                                    <label>{{ $t('lang.user_profile_page_social_facebook') }}</label>
                                     <div class="ls-inputicon-box">
                                         <input class="form-control wt-form-control" name="company_name" type="text" placeholder="https://www.facebook.com/">
                                         <i class="fs-input-icon fab fa-facebook-f"></i>
@@ -685,7 +684,7 @@
 
                             <div class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                    <label>Youtube</label>
+                                    <label>{{ $t('lang.user_profile_page_social_youtube') }}</label>
                                     <div class="ls-inputicon-box">
                                         <input class="form-control wt-form-control" name="company_name" type="text" placeholder="https://www.youtube.com/">
                                         <i class="fs-input-icon fab fa-youtube"></i>
@@ -695,7 +694,7 @@
 
                             <div class="col-lg-12 col-md-12">
                                 <div class="text-left">
-                                    <button type="submit" class="site-button">შენახვა</button>
+                                    <button type="submit" class="site-button">{{ $t('lang.user_profile_page_social_button_save') }}</button>
                                 </div>
                             </div>
 
@@ -708,6 +707,7 @@
         </div>
     </div>
 </template>
+
 <script>
 import { I18n } from 'laravel-vue-i18n'
 import miniTable from './miniTable.vue'

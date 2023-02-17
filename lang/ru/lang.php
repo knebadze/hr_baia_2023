@@ -379,6 +379,10 @@ return [
     // ====================================================================================================
     // User Page
     // ----------------------------------------------------------------------------------------------------
+    // On User Page Yes / No Lang Translate
+    'user_page_yes' => 'Да',
+    'user_page_no' => 'Нет',
+
     // User Page Title Lang
     'user_page_title_user' => 'Пользователь',
     'user_page_title_profile' => 'Профиль',
@@ -411,7 +415,7 @@ return [
     'user_profile_page_driving_license' => 'Водительские права',
     'user_profile_page_button_save_changes' => 'Сохранить изменения',
 
-    // Personal information
+    // Personal information Block Lang
     'user_profile_page_personal_info' => 'Личная информация',
     'user_profile_page_personal_number' => 'Личный номер',
     'user_profile_page_personal_citizenship' => 'Гражданство',
@@ -425,11 +429,52 @@ return [
         'user_profile_page_personal_family_children_age' => 'Возраст детей',
         'user_profile_page_personal_family_spouse' => 'Имя, фамилия и место работы супруги',
         'user_profile_page_personal_family_fill_info' => 'Пожалуйста, заполните информацию в соответствии с указанным запросом.',
-
-    // Medical information
+ 
+    // Medical information Block Lang
     'user_profile_page_medical_info' => 'Медицинская информация',
     'user_profile_page_medical_alergy' => 'Алергия',
     'user_profile_page_medical_operation' => 'Операция или хроническое заболевание',
     'user_profile_page_medical_please_info' => 'Пожалуйста, предоставьте информацию о серьезных операциях и 
                                                 хронических заболеваниях, если таковые имеются.', 
+    
+    // Foreign Language Block Lang
+    'user_profile_page_foreign_lang_title' => 'Иностранные языки',~
+    'user_profile_page_foreign_lang_language' => 'Иностранный язык',
+    'user_profile_page_foreign_lang_level' => 'Уровень языка',
+    'user_profile_page_foreign_lang_button_add_info' => 'Добавить',
+
+    // Work Experience Block Lang
+    'user_profile_page_work_exp_title' => 'Общий опыт работы',
+    'user_profile_page_work_exp' => 'Опыт работы',
+    'user_profile_page_work_position' => 'Позиция',
+    'user_profile_page_work_object' => 'Объект',
+    'user_profile_page_work_button_add_info' => 'Добавить',
+
+    // Work Recommendation Block Lang
+    'user_profile_page_recomendation_title' => 'Рекомендация',
+    'user_profile_page_recomendation_from' => 'Рекомендация от',
+    'user_profile_page_recomendation_where_from' => 'Откуда',
+    'user_profile_page_recomendation_name' => 'Имя и фамилия рекомендателя',
+    'user_profile_page_recomendation_number' => 'Номер',
+
+    // Work Additional Information Block Lang
+    'user_profile_page_additional_title' => 'Дополнительная информация',
+    'user_profile_page_additional_height' => 'Высота',
+    'user_profile_page_additional_weight' => 'Вес',
+    'user_profile_page_additional_conviction' => 'Суждение',
+    'user_profile_page_additional_smoke' => 'Вы курите?',
+    'user_profile_page_additional_work_abroad' => 'Вы бы работали за границей?',
+
+    // References Block Lang
+    'user_profile_page_references_title' => 'Уведомление',
+    'user_profile_page_references_name_notice' => 'Название уведомления',
+    'user_profile_page_references_file' => 'Файл',
+    'user_profile_page_references_button_add_info' => 'Добавить',
+
+    // Social Network Block Lang
+    'user_profile_page_social_title' => 'Социальная сеть',
+    'user_profile_page_social_facebook' => 'Фейсбук',
+    'user_profile_page_social_youtube' => 'Ютуб',
+    'user_profile_page_social_button_save' => 'Сохранить',
+
 ];
