@@ -135,27 +135,27 @@
 
                                             <li>
                                                 <div class="form-check">
-                                                    <input type="radio" class="form-check-input" id="exampleradio6">
-                                                    <label class="form-check-label" for="exampleradio6">{{ __('lang.individual_vacancies_page_leftside_any') }}</label>
+                                                    <input type="checkbox" class="form-check-input" id="examplecheckbox6">
+                                                    <label class="form-check-label" for="examplecheckbox6">{{ __('lang.individual_vacancies_page_leftside_any') }}</label>
                                                 </div>
                                             </li>
                                             <li>
                                                 <div class="form-check">
-                                                    <input type="radio" class="form-check-input" id="exampleradio1">
-                                                    <label class="form-check-label" for="exampleradio1">{{ __('lang.individual_vacancies_page_leftside_last_24') }}</label>
+                                                    <input type="checkbox" class="form-check-input" id="examplecheckbox1">
+                                                    <label class="form-check-label" for="examplecheckbox1">{{ __('lang.individual_vacancies_page_leftside_last_24') }}</label>
                                                 </div>
                                             </li>
                                             <li>
                                                 <div class="form-check">
-                                                    <input type="radio" class="form-check-input" id="exampleradio2">
-                                                    <label class="form-check-label" for="exampleradio2">{{ __('lang.individual_vacancies_page_leftside_last_3') }}</label>
+                                                    <input type="checkbox" class="form-check-input" id="examplecheckbox2">
+                                                    <label class="form-check-label" for="examplecheckbox2">{{ __('lang.individual_vacancies_page_leftside_last_3') }}</label>
                                                 </div>
                                             </li>
 
                                             <li>
                                                 <div class="form-check">
-                                                    <input type="radio" class="form-check-input" id="exampleradio3">
-                                                    <label class="form-check-label" for="exampleradio3">{{ __('lang.individual_vacancies_page_leftside_last_7') }}</label>
+                                                    <input type="checkbox" class="form-check-input" id="examplecheckbox3">
+                                                    <label class="form-check-label" for="examplecheckbox3">{{ __('lang.individual_vacancies_page_leftside_last_7') }}</label>
                                                 </div>
                                             </li>
                          
@@ -167,33 +167,33 @@
                                         <ul>
                                             <li>
                                                 <div class="form-check">
-                                                    <input type="radio" class="form-check-input" id="Any1">
+                                                    <input type="checkbox" class="form-check-input" id="Any1">
                                                     <label class="form-check-label" for="Any1">{{ __('lang.individual_vacancies_page_leftside_sallary_any') }}</label>
                                                 </div>
                                             </li>
                                             <li>
                                                 <div class="form-check">
-                                                    <input type="radio" class="form-check-input" id="Compensation1">
+                                                    <input type="checkbox" class="form-check-input" id="Compensation1">
                                                     <label class="form-check-label" for="Compensation1">{{ __('lang.individual_vacancies_page_leftside_sallary_from_500') }}</label>
                                                 </div>
                                             </li>
                                             <li>
                                                 <div class="form-check">
-                                                    <input type="radio" class="form-check-input" id="Compensation2">
+                                                    <input type="checkbox" class="form-check-input" id="Compensation2">
                                                     <label class="form-check-label" for="Compensation2">{{ __('lang.individual_vacancies_page_leftside_sallary_from_700') }}</label>
                                                 </div>
                                             </li>
 
                                             <li>
                                                 <div class="form-check">
-                                                    <input type="radio" class="form-check-input" id="Compensation3">
+                                                    <input type="checkbox" class="form-check-input" id="Compensation3">
                                                     <label class="form-check-label" for="Compensation3">{{ __('lang.individual_vacancies_page_leftside_sallary_from_900') }}</label>
                                                 </div>
                                             </li>
 
                                             <li>
                                                 <div class="form-check">
-                                                    <input type="radio" class="form-check-input" id="Other1">
+                                                    <input type="checkbox" class="form-check-input" id="Other1">
                                                     <label class="form-check-label" for="Other1">{{ __('lang.individual_vacancies_page_leftside_sallary_other') }}</label>
                                                 </div>
                                             </li>
@@ -203,33 +203,33 @@
                                                 <ul>
                                                     <li>
                                                         <div class="form-check">
-                                                            <input type="radio" class="form-check-input" id="AnySchedule1">
+                                                            <input type="checkbox" class="form-check-input" id="AnySchedule1">
                                                             <label class="form-check-label" for="AnySchedule1">{{ __('lang.individual_vacancies_page_leftside_shedulde_any') }}</label>
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div class="form-check">
-                                                            <input type="radio" class="form-check-input" id="DaySchedule1">
+                                                            <input type="checkbox" class="form-check-input" id="DaySchedule1">
                                                             <label class="form-check-label" for="DaySchedule1">{{ __('lang.individual_vacancies_page_leftside_shedulde_day') }}</label>
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div class="form-check">
-                                                            <input type="radio" class="form-check-input" id="Compensation2">
+                                                            <input type="checkbox" class="form-check-input" id="Compensation2">
                                                             <label class="form-check-label" for="Compensation2">{{ __('lang.individual_vacancies_page_leftside_shedulde_night') }}</label>
                                                         </div>
                                                     </li>
         
                                                     <li>
                                                         <div class="form-check">
-                                                            <input type="radio" class="form-check-input" id="Compensation3">
+                                                            <input type="checkbox" class="form-check-input" id="Compensation3">
                                                             <label class="form-check-label" for="Compensation3">{{ __('lang.individual_vacancies_page_leftside_shedulde_daily') }}</label>
                                                         </div>
                                                     </li>
         
                                                     <li>
                                                         <div class="form-check">
-                                                            <input type="radio" class="form-check-input" id="Other1">
+                                                            <input type="checkbox" class="form-check-input" id="Other1">
                                                             <label class="form-check-label" for="Other1">{{ __('lang.individual_vacancies_page_leftside_shedulde_other') }}</label>
                                                         </div>
                                                     </li>
@@ -242,26 +242,26 @@
                                                 <ul>
                                                     <li>
                                                         <div class="form-check">
-                                                            <input type="radio" class="form-check-input" id="AnyLocation1">
+                                                            <input type="checkbox" class="form-check-input" id="AnyLocation1">
                                                             <label class="form-check-label" for="AnyLocation1">{{ __('lang.individual_vacancies_page_leftside_second_location_any') }}</label>
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div class="form-check">
-                                                            <input type="radio" class="form-check-input" id="FromLocation1">
+                                                            <input type="checkbox" class="form-check-input" id="FromLocation1">
                                                             <label class="form-check-label" for="FromLocation1">{{ __('lang.individual_vacancies_page_leftside_second_location_3km') }}</label>
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div class="form-check">
-                                                            <input type="radio" class="form-check-input" id="FromLocation2">
+                                                            <input type="checkbox" class="form-check-input" id="FromLocation2">
                                                             <label class="form-check-label" for="FromLocation2">{{ __('lang.individual_vacancies_page_leftside_second_location_5km') }}</label>
                                                         </div>
                                                     </li>
         
                                                     <li>
                                                         <div class="form-check">
-                                                            <input type="radio" class="form-check-input" id="FromLocation3">
+                                                            <input type="checkbox" class="form-check-input" id="FromLocation3">
                                                             <label class="form-check-label" for="FromLocation3">{{ __('lang.individual_vacancies_page_leftside_second_location_7km') }}</label>
                                                         </div>
                                                     </li>

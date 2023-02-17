@@ -70,23 +70,23 @@
                                 <label>{{ $t('lang.user_profile_page_driving_license') }}</label>
                                 <div class="driving_license">
                                     <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="driving_license_a" value="license_a">
+                                    <input class="form-check-input" type="checkbox" id="driving_license_a" value="license_a">
                                       <label class="form-check-label" for="driving_license_a">A</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                      <input class="form-check-input" type="radio" id="driving_license_b" value="license_b">
+                                      <input class="form-check-input" type="checkbox" id="driving_license_b" value="license_b">
                                       <label class="form-check-label" for="driving_license_b">B</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                      <input class="form-check-input" type="radio" id="driving_license_c" value="license_c">
+                                      <input class="form-check-input" type="checkbox" id="driving_license_c" value="license_c">
                                       <label class="form-check-label" for="driving_license_c">C</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                      <input class="form-check-input" type="radio" id="driving_license_d" value="license_d">
+                                      <input class="form-check-input" type="checkbox" id="driving_license_d" value="license_d">
                                       <label class="form-check-label" for="driving_license_d">D</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                      <input class="form-check-input" type="radio" id="driving_license_e" value="license_e">
+                                      <input class="form-check-input" type="checkbox" id="driving_license_e" value="license_e">
                                       <label class="form-check-label" for="driving_license_e">E</label>
                                     </div>
                                 </div>
@@ -262,6 +262,7 @@
                                     <div class="form-group">
                                         <label>{{ $t('lang.user_profile_page_medical_operation') }}</label>
                                         <textarea class="form-control" rows="3" v-model="candidate.medical_info" placeholder="{{ $t('lang.user_profile_page_medical_please_info') }}"></textarea>
+                                        <input class="form-control">
                                     </div>
                                 </div>
 
@@ -463,7 +464,7 @@
                             </div>
                             <div v-if="candidateRecommendation.recommendation_id != 4" class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                    <label>საიდან წარმოადგენთ</label>
+                                    <label>{{ $t('lang.user_profile_page_recomendation_where_from') }}</label>
                                     <div class="ls-inputicon-box">
                                         <select class="wt-select-box selectpicker"  v-model="candidateRecommendation.recommendation_from_whom_id"  data-live-search="true" title=""  data-bv-field="size">
                                             <option v-for="recommendationFrom in recommendationFromWhom " :value="recommendationFrom.id">{{ recommendationFrom[`name_${getLang}`] }}</option>

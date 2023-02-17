@@ -3,7 +3,6 @@
    {{ __('lang.page_title_home') }}
 @endsection
 @section('content')
-
 <!-- CONTENT START -->
 <div class="page-content">
 
