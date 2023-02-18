@@ -2,7 +2,9 @@
 
 namespace App\Repositories;
 
+use stdClass;
 use App\Models\Candidate;
+use Illuminate\Support\Facades\Auth;
 
 class CandidateRepository
 {
@@ -12,7 +14,7 @@ class CandidateRepository
     }
 
     function array_to_object($array) {
-        $obj = new \stdClass();
+        $obj = new stdClass();
 
         foreach ($array as $k => $v) {
            if (strlen($k)) {
@@ -27,14 +29,17 @@ class CandidateRepository
         return $obj;
      }
 
+
+
     public function save($data)
     {
 
         $objData = $this->array_to_object($data);
-        // print_r($objData->candidate->personal_number);
+        // var_dump($objData->candidate);
+        // print_r($data);
 
         $candidate = Candidate::updateOrCreate(
-            ['user_id' => $objData->candidate->user_id],
+            ['user_id' => Auth::id()],
             [
                 'personal_number' => $objData->candidate->personal_number,
                 'nationality_id' => $objData->candidate->nationality_id,
@@ -49,12 +54,12 @@ class CandidateRepository
         $candidate->citizenship()->sync($objData->citizenship);
         $candidate->professions()->sync($objData->professions);
         $candidate->specialty()->sync($objData->specialty);
-        // $candidate->languages()->sync($objData->language, ['language_level_id' => $objData->language->language_level_id]);
+        $candidate->languages()->sync($objData->language->language->id, ['language_level_id' => $objData->language->level->id]);
         $candidate->allergy()->sync($objData->allergy);
         // foreach ($candidate->notice as $key => $value) {
 
         // }
         // return $candidate->fresh();
-        return $objData->language;
+        return $objData->candidate;
     }
 }

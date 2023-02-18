@@ -105,7 +105,7 @@
                 </div>
             </div>
 
-            <!-- <form @submit.prevent="addCandidate()"> -->
+            <form @submit.prevent="addCandidate()">
                  <!--personal information-->
                 <div class="panel panel-default">
                     <div class="panel-heading wt-panel-heading p-a20">
@@ -288,7 +288,7 @@
                                 <div class="form-group">
                                     <label>{{ $t('lang.user_profile_page_foreign_lang_language') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <select class="wt-select-box selectpicker"  v-model="candidateLanguages.language_id"  data-live-search="true" title=""  data-bv-field="size">
+                                        <select class="wt-select-box selectpicker"  v-model="modelLanguage.language"  data-live-search="true" title=""  data-bv-field="size">
                                             <option v-for="language in languages " :value="language">{{ language[`name_${getLang}`] }}</option>
                                         </select>
                                         <i class="fs-input-icon fa fa-language"></i>
@@ -299,8 +299,8 @@
                                 <div class="form-group">
                                     <label>{{ $t('lang.user_profile_page_foreign_lang_level') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <select class="wt-select-box selectpicker" v-model="candidateLanguages.language_level_id"   data-live-search="false" title=""  data-bv-field="size">
-                                            <option v-for="languageLevel in languageLevels " :value="languageLevel.id">{{ languageLevel[`name_${getLang}`] }}</option>
+                                        <select class="wt-select-box selectpicker" v-model="modelLanguage.level"   data-live-search="false" title=""  data-bv-field="size">
+                                            <option v-for="languageLevel in languageLevels " :value="languageLevel">{{ languageLevel[`name_${getLang}`] }}</option>
                                         </select>
                                         <i class="fs-input-icon fa fa-level-up-alt"></i>
                                     </div>
@@ -309,7 +309,7 @@
                             <div class="col-lg-12 col-md-12">
                                 <div class="text-right ">
                                     <button class="btn btn-success"
-                                    @click="addLanguage(candidateLanguages.language_id, candidateLanguages.language_level_id)"
+                                    @click="addLanguage(modelLanguage)"
                                     title="დამატება" data-bs-toggle="tooltip"
                                     data-bs-placement="top">{{ $t('lang.user_profile_page_foreign_lang_button_add_info') }}
                                         <span class="fa fa-plus"></span>
@@ -337,8 +337,8 @@
                                                 <!--1-->
                                                 <tr v-for="(item, index) in candidateLanguageArr">
                                                 <td>{{ index + 1 }}</td>
-                                                <td>{{ item.language }}</td>
-                                                <td>{{ item.level }}</td>
+                                                <td>{{ item.language[`name_${getLang}`] }}</td>
+                                                <td>{{ item.level[`name_${getLang}`] }}</td>
                                                 <td>
                                                     <button @click="removeRow('language', index)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
                                                         <i class="fa fa-trash-alt"></i>
@@ -695,7 +695,7 @@
 
                             <div class="col-lg-12 col-md-12">
                                 <div class="text-left">
-                                    <button type="submit" @click="addCandidate()" class="site-button">{{ $t('lang.user_profile_page_social_button_save') }}</button>
+                                    <button type="submit"  class="site-button">{{ $t('lang.user_profile_page_social_button_save') }}</button>
                                 </div>
                             </div>
 
@@ -704,7 +704,7 @@
 
                     </div>
                 </div>
-            <!-- </form> -->
+            </form>
         </div>
     </div>
 </template>
@@ -758,10 +758,10 @@ export default {
             candidateExperienceArr: [],
             candidateNoticeArr: [],
 
-            // step: {
-            //     step1: {},
-            //     step2: {}
-            // }
+            modelLanguage: {
+                language: {},
+                level: {}
+            },
             candidateFullData: {},
 
             //v-model
@@ -942,16 +942,9 @@ export default {
             this.noticeFile = event.target.files[0]
         },
 
-        addLanguage(language_id, language_level_id){
-            console.log('language_id', language_id);
-            console.log('language_level_id', language_level_id);
-            // var languageObj =  _.find(this.languages, function(o) { return o.id ==  language_id; });
-            // var languageLevelObj = _.find(this.languageLevels, function(o) { return o.id ==  language_level_id; });
-            // var tableData = {
-            //     'language': languageObj[`name_${this.getLang}`],
-            //     'level': languageLevelObj[`name_${this.getLang}`],
-            // }
-            // this.candidateLanguageArr.push(tableData)
+        addLanguage(modelLanguage){
+            this.candidateLanguageArr.push(modelLanguage)
+            console.log('this.candidateLanguageArr', this.candidateLanguageArr);
         },
         addCandidateWorkExperience(workExperience_id, position, object){
             this.candidateWorkExperience = {
