@@ -65,32 +65,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- Driving License -->
-                            <div class="col-xl-6 col-lg-6 col-md-12">
-                                <label>{{ $t('lang.user_profile_page_driving_license') }}</label>
-                                <div class="driving_license">
-                                    <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="driving_license_a" value="license_a">
-                                      <label class="form-check-label" for="driving_license_a">A</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                      <input class="form-check-input" type="checkbox" id="driving_license_b" value="license_b">
-                                      <label class="form-check-label" for="driving_license_b">B</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                      <input class="form-check-input" type="checkbox" id="driving_license_c" value="license_c">
-                                      <label class="form-check-label" for="driving_license_c">C</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                      <input class="form-check-input" type="checkbox" id="driving_license_d" value="license_d">
-                                      <label class="form-check-label" for="driving_license_d">D</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                      <input class="form-check-input" type="checkbox" id="driving_license_e" value="license_e">
-                                      <label class="form-check-label" for="driving_license_e">E</label>
-                                    </div>
-                                </div>
-                            </div>
+
 
 
                             <div class="col-lg-12 col-md-12 mt-4">
@@ -105,7 +80,7 @@
                 </div>
             </div>
 
-            <form @submit.prevent="addCandidate()">
+            <!-- <form @submit.prevent="addCandidate()"> -->
                  <!--personal information-->
                 <div class="panel panel-default">
                     <div class="panel-heading wt-panel-heading p-a20">
@@ -226,6 +201,32 @@
                                         <textarea class="form-control" v-model="candidate.spouse" rows="3" placeholder="{{ $t('lang.user_profile_page_personal_family_fill_info') }}"></textarea>
                                     </div>
                                 </div>
+                                         <!-- Driving License -->
+                                <div class="col-xl-6 col-lg-6 col-md-12">
+                                    <label>{{ $t('lang.user_profile_page_driving_license') }}</label>
+                                    <div class="driving_license">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" id="driving_license_a" value="A" v-model="checkedLicenseNames">
+                                            <label class="form-check-label" for="driving_license_a">A</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" id="driving_license_b" value="B" v-model="checkedLicenseNames">
+                                            <label class="form-check-label" for="driving_license_b">B</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" id="driving_license_c" value="C" v-model="checkedLicenseNames">
+                                            <label class="form-check-label" for="driving_license_c">C</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" id="driving_license_d" value="D" v-model="checkedLicenseNames">
+                                            <label class="form-check-label" for="driving_license_d">D</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" id="driving_license_e" value="E" v-model="checkedLicenseNames">
+                                            <label class="form-check-label" for="driving_license_e">E</label>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <!-- <div class="col-lg-12 col-md-12 mt-4">
                                     <div class="text-left">
@@ -251,7 +252,7 @@
                                     <div class="form-group">
                                         <label>{{ $t('lang.user_profile_page_medical_alergy') }}</label>
                                         <div class="ls-inputicon-box">
-                                            <select class="wt-select-box selectpicker" v-model="candidateAllergyArr"  data-live-search="true" title=""  data-bv-field="size">
+                                            <select class="wt-select-box selectpicker" v-model="candidateAllergyArr"  data-live-search="true" title=""  data-bv-field="size" multiple>
                                                 <option v-for="allergy in allergies " :value="allergy.id">{{ allergy[`name_${getLang}`] }}</option>
                                             </select>
                                             <i class="fs-input-icon fa fa-allergies"></i>
@@ -288,7 +289,7 @@
                                 <div class="form-group">
                                     <label>{{ $t('lang.user_profile_page_foreign_lang_language') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <select class="wt-select-box selectpicker"  v-model="modelLanguage.language"  data-live-search="true" title=""  data-bv-field="size">
+                                        <select class="wt-select-box selectpicker"  v-model="languages.id"  data-live-search="true" title=""  data-bv-field="size">
                                             <option v-for="language in languages " :value="language">{{ language[`name_${getLang}`] }}</option>
                                         </select>
                                         <i class="fs-input-icon fa fa-language"></i>
@@ -299,7 +300,7 @@
                                 <div class="form-group">
                                     <label>{{ $t('lang.user_profile_page_foreign_lang_level') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <select class="wt-select-box selectpicker" v-model="modelLanguage.level"   data-live-search="false" title=""  data-bv-field="size">
+                                        <select class="wt-select-box selectpicker" v-model="languageLevels.id"   data-live-search="false" title=""  data-bv-field="size">
                                             <option v-for="languageLevel in languageLevels " :value="languageLevel">{{ languageLevel[`name_${getLang}`] }}</option>
                                         </select>
                                         <i class="fs-input-icon fa fa-level-up-alt"></i>
@@ -309,7 +310,7 @@
                             <div class="col-lg-12 col-md-12">
                                 <div class="text-right ">
                                     <button class="btn btn-success"
-                                    @click="addLanguage(modelLanguage)"
+                                    @click="addLanguage(languages.id, languageLevels.id)"
                                     title="დამატება" data-bs-toggle="tooltip"
                                     data-bs-placement="top">{{ $t('lang.user_profile_page_foreign_lang_button_add_info') }}
                                         <span class="fa fa-plus"></span>
@@ -337,8 +338,8 @@
                                                 <!--1-->
                                                 <tr v-for="(item, index) in candidateLanguageArr">
                                                 <td>{{ index + 1 }}</td>
-                                                <td>{{ item.language[`name_${getLang}`] }}</td>
-                                                <td>{{ item.level[`name_${getLang}`] }}</td>
+                                                <!-- <td>{{ item.language[`name_${getLang}`] }}</td> -->
+                                                <!-- <td>{{ item.level[`name_${getLang}`] }}</td> -->
                                                 <td>
                                                     <button @click="removeRow('language', index)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
                                                         <i class="fa fa-trash-alt"></i>
@@ -372,7 +373,7 @@
                                     <label>{{ $t('lang.user_profile_page_work_exp') }}</label>
                                     <div class="ls-inputicon-box">
                                         <select class="wt-select-box selectpicker"  v-model="candidateWorkExperience.work_experience_id"  data-live-search="true" title=""  data-bv-field="size">
-                                            <option v-for="workExperience in workExperiences " :value="workExperience.id">{{ workExperience[`name_${getLang}`] }}</option>
+                                            <option v-for="workExperience in workExperiences " :value="workExperience">{{ workExperience[`name_${getLang}`] }}</option>
                                         </select>
                                         <i class="fs-input-icon fa fa-history"></i>
                                     </div>
@@ -424,7 +425,7 @@
                                                 <!--1-->
                                                 <tr v-for="(item, index) in candidateExperienceArr">
                                                 <td>{{ index + 1 }}</td>
-                                                <td>{{ item.experience }}</td>
+                                                <td>{{ item.experience[`name_${getLang}`] }}</td>
                                                 <td>{{ item.position }}</td>
                                                 <td>{{ item.object }}</td>
                                                 <td>
@@ -455,25 +456,25 @@
                                 <div class="form-group">
                                     <label>{{ $t('lang.user_profile_page_recomendation_from') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <select class="wt-select-box selectpicker"  v-model="candidateRecommendation.recommendation_id"  data-live-search="true" title=""  data-bv-field="size">
+                                        <select class="wt-select-box selectpicker"  v-model="candidateRecommendation.recommendation_id"  data-live-search="false" title=""  data-bv-field="size">
                                             <option v-for="recommendation in recommendations " :value="recommendation.id">{{ recommendation[`name_${getLang}`] }}</option>
                                         </select>
                                         <i class="fs-input-icon fa fa-thumbs-up"></i>
                                     </div>
                                 </div>
                             </div>
-                            <div v-if="candidateRecommendation.recommendation_id != 4" class="col-xl-6 col-lg-6 col-md-12">
+                            <div class="col-xl-6 col-lg-6 col-md-12 " :class="(candidateRecommendation.recommendation_id == 2 || candidateRecommendation.recommendation_id == 3)?'':'visually-hidden'" >
                                 <div class="form-group">
                                     <label>{{ $t('lang.user_profile_page_recomendation_where_from') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <select class="wt-select-box selectpicker"  v-model="candidateRecommendation.recommendation_from_whom_id"  data-live-search="true" title=""  data-bv-field="size">
+                                        <select class="wt-select-box selectpicker"  v-model="candidateRecommendation.recommendation_from_whom_id"  data-live-search="false" title=""  data-bv-field="size">
                                             <option v-for="recommendationFrom in recommendationFromWhom " :value="recommendationFrom.id">{{ recommendationFrom[`name_${getLang}`] }}</option>
                                         </select>
                                         <i class="fs-input-icon fa fa-industry"></i>
                                     </div>
                                 </div>
                             </div>
-                            <div v-if="candidateRecommendation.recommendation_id != 4 || candidateRecommendation.recommendation_id != 1" class="col-xl-6 col-lg-6 col-md-12">
+                            <div v-if="candidateRecommendation.recommendation_id == 2 " class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
                                     <label>{{ $t('lang.user_profile_page_recomendation_name') }}</label>
                                     <div class="ls-inputicon-box">
@@ -482,7 +483,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div v-if="candidateRecommendation.recommendation_from_whom_id == 1" class="col-xl-6 col-lg-6 col-md-12">
+                            <div v-if="candidateRecommendation.recommendation_id == 2 " class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
                                     <label>თანამდებობა</label>
                                     <div class="ls-inputicon-box">
@@ -491,7 +492,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div v-if="candidateRecommendation.recommendation_id != 4 || candidateRecommendation.recommendation_id != 1" class="col-xl-6 col-lg-6 col-md-12">
+                            <div v-if="candidateRecommendation.recommendation_id == 2" class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
                                     <label>{{ $t('lang.user_profile_page_recomendation_number') }}</label>
                                     <div class="ls-inputicon-box">
@@ -556,8 +557,8 @@
                                     <label>{{ $t('lang.user_profile_page_additional_conviction') }}</label>
                                     <div class="ls-inputicon-box">
                                         <select class="wt-select-box selectpicker" v-model="candidate.convection"  data-live-search="false" title=""  data-bv-field="size">
-                                            <option :value="0">{{ $t('lang.user_page_yes') }}</option>
-                                            <option :value="1">{{ $t('lang.user_page_no') }}</option>
+                                            <option :value="1">კი</option>
+                                            <option :value="0">არა</option>
                                         </select>
                                         <i class="fs-input-icon fa fa-gavel"></i>
                                     </div>
@@ -568,8 +569,8 @@
                                     <label>{{ $t('lang.user_profile_page_additional_smoke') }}</label>
                                     <div class="ls-inputicon-box">
                                         <select class="wt-select-box selectpicker" v-model="candidate.smoke"  data-live-search="false" title=""  data-bv-field="size">
-                                            <option :value="0">{{ $t('lang.user_page_yes') }}</option>
-                                            <option :value="1">{{ $t('lang.user_page_no') }}</option>
+                                            <option :value="1">კი</option>
+                                            <option :value="0">არა</option>
                                         </select>
                                         <i class="fs-input-icon fa fa-smoking"></i>
                                     </div>
@@ -580,8 +581,8 @@
                                     <label>{{ $t('lang.user_profile_page_additional_work_abroad') }}</label>
                                     <div class="ls-inputicon-box">
                                         <select class="wt-select-box selectpicker" v-model="candidate.work_abroad"  data-live-search="false" title=""  data-bv-field="size">
-                                            <option :value="0">{{ $t('lang.user_page_yes') }}</option>
-                                            <option :value="1">{{ $t('lang.user_page_no') }}</option>
+                                            <option :value="1">კი</option>
+                                            <option :value="0">არა</option>
                                         </select>
                                         <i class="fs-input-icon fa fa-globe-europe"></i>
                                     </div>
@@ -695,7 +696,7 @@
 
                             <div class="col-lg-12 col-md-12">
                                 <div class="text-left">
-                                    <button type="submit"  class="site-button">{{ $t('lang.user_profile_page_social_button_save') }}</button>
+                                    <button type="submit" @click.prevent="addCandidate()"  class="site-button">{{ $t('lang.user_profile_page_social_button_save') }}</button>
                                 </div>
                             </div>
 
@@ -704,7 +705,7 @@
 
                     </div>
                 </div>
-            </form>
+            <!-- </form> -->
         </div>
     </div>
 </template>
@@ -762,6 +763,9 @@ export default {
                 language: {},
                 level: {}
             },
+            formData:new FormData(),
+            drivingLicenseCategory:['A', 'B', 'C', 'D','E'],
+            checkedLicenseNames:[],
             candidateFullData: {},
 
             //v-model
@@ -857,9 +861,9 @@ export default {
                 'language': this.candidateLanguageArr,
                 'allergy': this.candidateAllergyArr,
                 'notice': this.candidateNoticeArr,
-                'work_experience': this.candidateWorkExperience,
+                'work_experience': this.candidateExperienceArr,
                 'recommendation': this.candidateRecommendation,
-
+                'driving_license': this.checkedLicenseNames,
             }
             console.log('candidateFullData',candidateFullData);
             axios({
@@ -870,64 +874,23 @@ export default {
             .then(function (response) {
                 // handle success
                 console.log(response.data);
+                this.formData.append('file', this.recommendationFile)
+                this.formData.append('candidate_id', response.data)
+                axios({
+                    method: "post",
+                    url: "/add_candidate_file",
+                    data: candidateFullData
+                })
+                .then(function (response) {
+                    // handle success
+                    console.log(response.data);
 
-            })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
-            })
-        },
-        addPersonalInfo(){
-            axios.post('/candidate_personal_info',{
-                user_id:this.auth.id,
-                personal_number: this.candidate.personal_number,
-                nationality_id: this.candidate.nationality_id,
-                religion_id: this.candidate.religion_id,
-                education_id: this.candidate.education_id,
-                marital_status_id: this.candidate.marital_status_id,
-                children: this.candidate.children,
-                children_age: this.candidate.children_age,
-                spouse: this.candidate.spouse,
-                citizenship: this.candidateCitizenshipArr,
-                professions: this.candidateProfessionArr,
-                specialties: this.candidateSpecialtyArr,
-            })
-            .then((response) => {
-                // handle success
-                console.log(response.data);
-                this.candidate_id = response.data
-            })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
-            })
-        },
-        addMedicalInfo(){
-            axios.post('/candidate_medical_info',{
-                // candidate_id:this.candidateID,
-                allergy: this.candidateAllergyArr,
-                medical_info: this.candidate.medical_info
-            })
-            .then((response) => {
-                // handle success
-                console.log(response.data);
-                this.candidate_id = response.data
-            })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
-            })
-        },
 
-        addLanguageInfo(){
-            axios({
-                method: "post",
-                url: "/candidate_language_info",
-                data: this.candidateLanguageArr
-            })
-            .then((response)=> {
-                // handle success
-                console.log(response.data);
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                })
 
             })
             .catch(function (error) {
@@ -937,30 +900,42 @@ export default {
         },
         recommendationFileUpload(event){
             this.recommendationFile = event.target.files[0]
+            // let data = new FormData();
+            // data.append('file', recommendationFile)
+            // this.candidateRecommendation['file'] = data
+            // console.log('this.candidateRecommendation', this.candidateRecommendation);
         },
         noticeFileUpload(event){
             this.noticeFile = event.target.files[0]
         },
 
-        addLanguage(modelLanguage){
-            this.candidateLanguageArr.push(modelLanguage)
+
+        upsert(array, data, keyName) {
+            const i = array.findIndex(_element => _element[keyName].id === data[keyName].id);
+            if (i > -1) array[i] = { ...data }; // (2)
+            else array.push(data);
+        },
+
+        addLanguage(language, level){
+            console.log('language', language);
+            console.log('level', level);
+
+            this.upsert(this.candidateLanguageArr, {
+                'language': language,
+                'level': level,
+            }, "language");
+
             console.log('this.candidateLanguageArr', this.candidateLanguageArr);
         },
         addCandidateWorkExperience(workExperience_id, position, object){
-            this.candidateWorkExperience = {
-                'work_experience_id':workExperience_id,
-                'position': position,
-                'object': object,
-            }
-            var workExperienceObj =  _.find(this.workExperiences, function(o) { return o.id ==  workExperience_id; });
 
             var tableData = {
-                'experience': workExperienceObj[`name_${this.getLang}`],
+                'experience': workExperience_id,
                 'position': position,
                 'object': object,
             }
             this.candidateExperienceArr.push(tableData)
-
+            console.log('this.candidateExperienceArr', this.candidateExperienceArr);
         },
         addNotice(notice_id){
             var noticeObj =  _.find(this.notices, function(o) { return o.id ==  notice_id; });
@@ -980,10 +955,6 @@ export default {
             }
 
         },
-
-        // addCandidate(){
-        //     console.log('hello');
-        // }
     },
     // watch:{
     //     candidateCitizenshipArr:{
@@ -994,9 +965,8 @@ export default {
     // },
 
     mounted(){
-        console.log(this.getLang)
-        console.log('this.candidateCitizenships',this.candidateCitizenships);
-        if (Object.keys(this.data.candidateCitizenships).length != 0 ) {
+        if (Object.values(this.data.candidateCitizenships).length != 0 ) {
+            console.log('this.data.candidateCitizenships', this.data.candidateCitizenships);
             this.data.candidateCitizenships.forEach(element => {
                 this.candidateCitizenshipArr.push(element.citizenship_id)
             });
@@ -1006,7 +976,23 @@ export default {
                 this.candidateProfessionArr.push(element.profession_id)
             });
         }
-        console.log('this.candidateProfessions',this.candidateProfessions);
+        if (Object.keys(this.data.candidateAllergies).length != 0 ) {
+            this.data.candidateAllergies.forEach(element => {
+                this.candidateAllergyArr.push(element.allergy_id)
+            });
+        }
+        if (Object.keys(this.data.candidateLanguages).length != 0 ) {
+            console.log('this.data.candidateLanguages', this.data.candidateLanguages);
+            this.data.candidateLanguages.forEach(element => {
+                var language =  _.find(this.languages, function(o)  { return o.id ==  element.language_id; });
+                var level = _.find(this.languageLevels, function(o)  { return o.id ==  element.language_level_id; });
+                var tableData = {
+                    'language': language,
+                    'level': level
+                }
+                this.candidateLanguageArr.push(tableData)
+            });
+        }
 
     }
 }

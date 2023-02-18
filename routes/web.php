@@ -58,9 +58,10 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
 
     //AXIOS
     Route::post('profile_update', [MyprofileController::class, 'update']);
-    Route::post('candidate_personal_info', [CandidateInfoController::class, 'personalInfo']);
-    Route::post('candidate_medical_info', [CandidateInfoController::class, 'medicalInfo']);
-    Route::post('candidate_language_info', [CandidateInfoController::class, 'languageInfo']);
+    // Route::post('candidate_personal_info', [CandidateInfoController::class, 'personalInfo']);
+    // Route::post('candidate_medical_info', [CandidateInfoController::class, 'medicalInfo']);
+    // Route::post('candidate_language_info', [CandidateInfoController::class, 'languageInfo']);
     Route::post('add_candidate', [CandidateInfoController::class, 'addCandidate']);
+    Route::post('add_candidate_file', [CandidateInfoController::class, 'addCandidateFile']);
 
 

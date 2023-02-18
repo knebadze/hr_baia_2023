@@ -55,6 +55,11 @@ class Candidate extends Model
     {
         return $this->belongsToMany(allergy::class, 'candidate_allergies');
     }
+
+    public function generalWorkExperience()
+    {
+        return $this->belongsToMany(Work_experience::class, 'general_work_experiences')->withPivot('position', 'object');
+    }
     // public function notice()
     // {
     //     return $this->belongsToMany(allergy::class, 'candidate_allergies');

@@ -13,4 +13,6 @@ class CandidateLanguage extends Model
         'language_id',
         'language_level_id',
     ];
+
+    
 }
