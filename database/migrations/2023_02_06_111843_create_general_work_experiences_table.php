@@ -16,9 +16,12 @@ return new class extends Migration
         Schema::create('general_work_experiences', function (Blueprint $table) {
             $table->id();
             $table->foreignId('candidate_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->tinyInteger('experience');
             $table->foreignId('work_experience_id')->constrained();
             $table->string('position');
             $table->string('object');
+            $table->foreignId('no_reason_id')->constrained();
+            $table->string('no_reason_info');
             $table->timestamps();
         });
     }

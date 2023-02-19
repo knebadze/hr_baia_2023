@@ -25,7 +25,8 @@ class CandidateInfoController extends Controller
     public function addCandidate(Request $request)
     {
         $data = $request->all();
-
+        // print_r( $data);
+        // exit;
         $result = ['status' => 200];
 
         try {
@@ -40,7 +41,7 @@ class CandidateInfoController extends Controller
         return response()->json($result, $result['status']);
     }
     public function addCandidateFile(Request $request){
-        
+
         return response()->json('ok');
     }
 

@@ -38,9 +38,11 @@ class CandidateRepository
     {
 
         $objData = $this->array_to_object($data);
-        if ($objData->driving_license) {
-            $convertStringLicense = implode(",", $data['driving_license']);
-        }
+        // if ($objData->driving_license) {
+        //     $convertStringLicense = implode(",", $data['driving_license']);
+        // }
+        // print_r($objData->personal_number);
+        // exit;
         $candidate = Candidate::updateOrCreate(
             ['user_id' => Auth::id()],
             [
@@ -63,43 +65,43 @@ class CandidateRepository
                 'medical_info' =>  $objData->candidate->medical_info,
                 'smoke' =>  $objData->candidate->smoke,
                 'work_abroad' =>  $objData->candidate->work_abroad,
-                'driving_license' => $convertStringLicense,
+                // 'driving_license' => $convertStringLicense,
             ]
         );
 
-        $candidate->citizenship()->sync($objData->citizenship);
-        $candidate->professions()->sync($objData->professions);
-        $candidate->specialty()->sync($objData->specialty);
-        $candidate->allergy()->sync($objData->allergy);
+        // $candidate->citizenship()->sync($objData->citizenship);
+        // $candidate->professions()->sync($objData->professions);
+        // $candidate->specialty()->sync($objData->specialty);
+        // $candidate->allergy()->sync($objData->allergy);
 
 
-        $selectLanguage = collect($data['language'])->reduce(function ($carry, $item) {
-            if($carry  == null) $carry = [];
-            $carry[$item["language"]["id"]] = ["language_level_id" => $item["level"]["id"]];
-            return $carry;
-        }, []);
+        // $selectLanguage = collect($data['language'])->reduce(function ($carry, $item) {
+        //     if($carry  == null) $carry = [];
+        //     $carry[$item["language"]["id"]] = ["language_level_id" => $item["level"]["id"]];
+        //     return $carry;
+        // }, []);
 
-        $candidate->languages()->sync($selectLanguage);
-        $selectExperience = collect($data['work_experience'])->reduce(function ($carry, $item) {
-            if($carry  == null) $carry = [];
-            $carry[$item["experience"]["id"]] = ["position" => $item["position"], "object" => $item["object"]];
-            return $carry;
-        }, []);
-        $candidate->generalWorkExperience()->attach($selectExperience);
+        // $candidate->languages()->sync($selectLanguage);
+        // $selectExperience = collect($data['work_experience'])->reduce(function ($carry, $item) {
+        //     if($carry  == null) $carry = [];
+        //     $carry[$item["experience"]["id"]] = ["position" => $item["position"], "object" => $item["object"]];
+        //     return $carry;
+        // }, []);
+        // $candidate->generalWorkExperience()->attach($selectExperience);
         // print_r($objData->recommendation);
         // // if ($objData->recommendation->hasFile('file') ) {
             var_dump($objData);
             exit;
         // }
-        $candidateRecommendation = CandidateRecommendation::updateOrCreate(
-            ['candidate_id' => $candidate->id],
-            [
-                'recommendation_id' => $objData->recommendation->recommendation_id,
-                'recommendation_from_whom_id' => $objData->recommendation->recommendation_from_whom_id,
-                'position' => $objData->recommendation->position,
-                'number' => $objData->recommendation->number,
-            ]
-        );
+        // $candidateRecommendation = CandidateRecommendation::updateOrCreate(
+        //     ['candidate_id' => $candidate->id],
+        //     [
+        //         'recommendation_id' => $objData->recommendation_id,
+        //         'recommendation_from_whom_id' => $objData->recommendation_from_whom_id,
+        //         'position' => $objData->position,
+        //         'number' => $objData->number,
+        //     ]
+        // );
 
         // return $candidate->fresh();
 

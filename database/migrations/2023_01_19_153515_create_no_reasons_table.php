@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('candidate_notices', function (Blueprint $table) {
+        Schema::create('no_reasons', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('candidate_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('notice_id')->constrained();
-            $table->string('file');
+            $table->string('name_ka');
+            $table->string('name_en');
+            $table->string('name_ru');
+            $table->tinyInteger('category');
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('candidate_notices');
+        Schema::dropIfExists('no_reasons');
     }
 };

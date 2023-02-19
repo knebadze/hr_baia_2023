@@ -263,7 +263,6 @@
                                     <div class="form-group">
                                         <label>{{ $t('lang.user_profile_page_medical_operation') }}</label>
                                         <textarea class="form-control" rows="3" v-model="candidate.medical_info" :placeholder="$t('lang.user_profile_page_medical_please_info')"></textarea>
-                                        <input class="form-control">
                                     </div>
                                 </div>
 
@@ -370,6 +369,18 @@
                         <div class="row">
                             <div class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
+                                    <label>გაქვთ თუ არა სამუშაო გამოცდილება?</label>
+                                    <div class="ls-inputicon-box">
+                                        <select class="wt-select-box selectpicker" v-model="experienceCheck"  data-live-search="false" title=""  data-bv-field="size">
+                                            <option :value="1">კი</option>
+                                            <option :value="0">არა</option>
+                                        </select>
+                                        <i class="fs-input-icon fa fa-smoking"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-12" :class="(experienceCheck == 1)?'':'visually-hidden'">
+                                <div class="form-group">
                                     <label>{{ $t('lang.user_profile_page_work_exp') }}</label>
                                     <div class="ls-inputicon-box">
                                         <select class="wt-select-box selectpicker"  v-model="candidateWorkExperience.work_experience_id"  data-live-search="true" title=""  data-bv-field="size">
@@ -379,7 +390,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-6 col-lg-6 col-md-12">
+                            <div v-if="experienceCheck == 1" class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
                                     <label>{{ $t('lang.user_profile_page_work_position') }}</label>
                                     <div class="ls-inputicon-box">
@@ -388,7 +399,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-6 col-lg-6 col-md-12">
+                            <div v-if="experienceCheck == 1" class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
                                     <label>{{ $t('lang.user_profile_page_work_object') }}</label>
                                     <div class="ls-inputicon-box">
@@ -397,7 +408,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-12 col-md-12">
+                            <div v-if="experienceCheck == 1" class="col-lg-12 col-md-12">
                                 <div class="text-right ">
                                     <button class="btn btn-success"
                                     @click="addCandidateWorkExperience(candidateWorkExperience.work_experience_id, candidateWorkExperience.position, candidateWorkExperience.object)"
@@ -440,6 +451,23 @@
                                 </div>
                             </div>
 
+                            <div class="col-xl-6 col-lg-6 col-md-12" :class="(experienceCheck == 0)?'':'visually-hidden'">
+                                <div class="form-group">
+                                    <label>სამუშაო გამოცდილების არ ქონის მიზეზი</label>
+                                    <div class="ls-inputicon-box">
+                                        <select class="wt-select-box selectpicker"  v-model="candidateWorkExperience.work_experience_id"  data-live-search="true" title=""  data-bv-field="size">
+                                            <option v-for="workExperience in workExperiences " :value="workExperience">{{ workExperience[`name_${getLang}`] }}</option>
+                                        </select>
+                                        <i class="fs-input-icon fa fa-history"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div :class="(experienceCheck == 0)?'':'visually-hidden'" class="col-md-12">
+                                <div class="form-group">
+                                    <label>დამატაბითი ინფორმაცია</label>
+                                    <textarea class="form-control" rows="3" v-model="candidate.medical_info" :placeholder="$t('lang.user_profile_page_medical_please_info')"></textarea>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -723,6 +751,10 @@ export default {
     },
     data() {
         return {
+            modelCandidate:{
+
+            },
+            outPut: {},
             auth: {},
             candidate:{},
             candidateWorkExperience: {},
@@ -780,6 +812,8 @@ export default {
 
             //candidateID:
             candidate_id: null,
+
+            experienceCheck:null
 
         }
     },
@@ -853,7 +887,28 @@ export default {
 
         },
         addCandidate(){
+            console.log(this.candidate.personal_number);
             var candidateFullData = {
+                // 'personal_number': (this.candidate.personal_number != undefined)?this.candidate.personal_number:'',
+                // 'nationality_id': (this.candidate.nationality_id != undefined)?this.candidate.nationality_id:'',
+                // 'religion_id': (this.candidate.religion_id != undefined)?this.candidate.religion_id:'',
+                // 'education_id': this.candidate.education_id,
+                // 'marital_status_id': (this.candidate.marital_status_id)?this.candidate.marital_status_id:'',
+                // 'children': (this.candidate.children != undefined)?this.candidate.children:'',
+                // 'children_age': (this.candidate.children_age != undefined)?this.candidate.children_age:'',
+                // 'spouse': (this.candidate.spouse != undefined)?this.candidate.spouse:'',
+                // 'convection': (this.candidate.convection)?this.candidate.convection:0,
+                // 'fb_link': (this.candidate.fb_link)?this.candidate.fb_link:'',
+                // 'youtube_link': (this.candidate.youtube_link)?this.candidate.youtube_link:'',
+                // 'map_link': (this.candidate.map_link)?this.candidate.map_link:'',
+                // 'height': (this.candidate.height)?this.candidate.height:'',
+                // 'weight': (this.candidate.weight)?this.candidate.weight:'',
+                // 'address': (this.candidate.address)?this.candidate.address:'',
+                // 'street': (this.candidate.street)?this.candidate.street:'',
+                // 'medical_info': (this.candidate.medical_info)?this.candidate.medical_info:'',
+                // 'smoke': (this.candidate.smoke)?this.candidate.smoke:0,
+                // 'work_abroad': (this.candidate.work_abroad)?this.candidate.work_abroad:0,
+                // 'driving_license': this.candidate.driving_license,
                 'candidate': this.candidate,
                 'citizenship': this.candidateCitizenshipArr,
                 'professions': this.candidateProfessionArr,
@@ -863,9 +918,16 @@ export default {
                 'notice': this.candidateNoticeArr,
                 'work_experience': this.candidateExperienceArr,
                 'recommendation': this.candidateRecommendation,
+                'recommendation_id': this.candidateRecommendation.recommendation_id,
+                'recommendation_from_whom_id': this.candidateRecommendation.recommendation_from_whom_id,
+                'position': this.candidateRecommendation.position,
+                'number': this.candidateRecommendation.number,
                 'driving_license': this.checkedLicenseNames,
             }
-            console.log('candidateFullData',candidateFullData);
+            const formData = new FormData()
+            // formData.append('avatar', this.FILE, this.FILE.name)
+            formData.append('name', this.candidate)
+            console.log('candidateFullData',formData);
             axios({
                 method: "post",
                 url: "/add_candidate",
@@ -956,47 +1018,70 @@ export default {
 
         },
     },
-    // watch:{
-    //     candidateCitizenshipArr:{
-    //         handler(newValue, oldValue) {
-    //             console.log('new',newValue);
-    //         }
-    //     }
-    // },
+    watch:{
+        experienceCheck:{
+            handler(newValue, oldValue) {
+                if (newValue == 0 ) {
+                    this.$swal(
+                        {
+                            title: '<p>შეგახსენებთ რომ დამსაქმებელთა უმეტესობისთვის პრიორიტეტია სამუშაო გამოცდილების ქონა</p>',
+                            icon: 'info',
+                            html:
+                                'თუმცა თქვენ შეგიძლიათ დამსაქმებელს აუხსნათ თუ რატომ არ გაქვთ გამოცდილება',
+                            showCloseButton: true,
+                            showCancelButton: false,
+                            focusConfirm: false,
+                        }
+                    );
+                }
+            }
+        }
+    },
 
     mounted(){
-        if (Object.values(this.data.candidateCitizenships).length != 0 ) {
-            console.log('this.data.candidateCitizenships', this.data.candidateCitizenships);
-            this.data.candidateCitizenships.forEach(element => {
-                this.candidateCitizenshipArr.push(element.citizenship_id)
-            });
+        console.log('this.candidateRecommendation', this.data.candidateRecommendation);
+
+console.log('this.data.candidateCitizenships', this.data.candidateCitizenships);
+        if (Array.isArray(this.data.candidateCitizenships)) {
+            ''
         }
-        if (Object.keys(this.data.candidateProfessions).length != 0 ) {
-            this.data.candidateProfessions.forEach(element => {
-                this.candidateProfessionArr.push(element.profession_id)
-            });
-        }
-        if (Object.keys(this.data.candidateAllergies).length != 0 ) {
-            this.data.candidateAllergies.forEach(element => {
-                this.candidateAllergyArr.push(element.allergy_id)
-            });
-        }
-        if (Object.keys(this.data.candidateLanguages).length != 0 ) {
-            console.log('this.data.candidateLanguages', this.data.candidateLanguages);
-            this.data.candidateLanguages.forEach(element => {
-                var language =  _.find(this.languages, function(o)  { return o.id ==  element.language_id; });
-                var level = _.find(this.languageLevels, function(o)  { return o.id ==  element.language_level_id; });
-                var tableData = {
-                    'language': language,
-                    'level': level
-                }
-                this.candidateLanguageArr.push(tableData)
-            });
-        }
+        // if (Object.values(this.data.candidateCitizenships).length != 0 ) {
+        //     console.log('this.data.candidateCitizenships', this.data.candidateCitizenships);
+        //     this.data.candidateCitizenships.forEach(element => {
+        //         this.candidateCitizenshipArr.push(element.citizenship_id)
+        //     });
+        // }
+        // if (Object.keys(this.data.candidateProfessions).length != 0 ) {
+        //     this.data.candidateProfessions.forEach(element => {
+        //         this.candidateProfessionArr.push(element.profession_id)
+        //     });
+        // }
+        // if (Object.keys(this.data.candidateAllergies).length != 0 ) {
+        //     this.data.candidateAllergies.forEach(element => {
+        //         this.candidateAllergyArr.push(element.allergy_id)
+        //     });
+        // }
+        // if (Object.keys(this.data.candidateLanguages).length != 0 ) {
+        //     console.log('this.data.candidateLanguages', this.data.candidateLanguages);
+        //     this.data.candidateLanguages.forEach(element => {
+        //         var language =  _.find(this.languages, function(o)  { return o.id ==  element.language_id; });
+        //         var level = _.find(this.languageLevels, function(o)  { return o.id ==  element.language_level_id; });
+        //         var tableData = {
+        //             'language': language,
+        //             'level': level
+        //         }
+        //         this.candidateLanguageArr.push(tableData)
+        //     });
+        // }
+        // var obj = this.candidate.reduce(function(acc, cur, i) {
+        //     acc[i] = cur;
+        //     return acc;
+        // }, {});
+        // console.log('obj', obj);
+
 
     }
 }
 </script>
 <style lang="">
-
 </style>

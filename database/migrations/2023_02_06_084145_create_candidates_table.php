@@ -30,7 +30,6 @@ return new class extends Migration
             $table->string('children_age', 45)->nullable();
             $table->string('spouse', 500)->nullable();
             $table->string('medical_info', 500)->nullable();
-            $table->string('driving_license', 45)->nullable();
             $table->string('address')->nullable();
             $table->string('street')->nullable();
             $table->string('latitude', 45)->nullable();
