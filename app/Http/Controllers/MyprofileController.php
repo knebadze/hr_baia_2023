@@ -14,6 +14,8 @@ use App\Models\Candidate_profession;
 use App\Models\Candidate_specialty;
 use App\Models\CandidateAllergy;
 use App\Models\CandidateLanguage;
+use App\Models\CandidateNotice;
+use App\Models\CandidateRecommendation;
 use App\Models\Education;
 use App\Models\Specialty;
 use App\Models\Profession;
@@ -87,13 +89,13 @@ class MyprofileController extends Controller
         }
 
         if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('candidate_recommendations')->where('candidate_id', $candidate->id)->exists()) {
-            $candidateRecommendation = Recommendation::where('candidate_id', $candidate->id)->first();
+            $candidateRecommendation = CandidateRecommendation::where('candidate_id', $candidate->id)->first();
         }else{
             $candidateRecommendation = Schema::getColumnListing('candidate_recommendations');
         }
 
         if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('candidate_notices')->where('candidate_id', $candidate->id)->exists()) {
-            $candidateNotices = Recommendation::where('candidate_id', $candidate->id)->get();
+            $candidateNotices = CandidateNotice::where('candidate_id', $candidate->id)->get();
         }else{
             $candidateNotices = Schema::getColumnListing('candidate_notices');
         }
@@ -112,7 +114,6 @@ class MyprofileController extends Controller
         $languages = Language::all()->toArray();
         $languageLevels = Language_level::all()->toArray();
         $workExperiences = Work_experience::all()->toArray();
-        $recommendations = Recommendation::all()->toArray();
         $recommendationFromWhom = RecommendationFromWhom::all()->toArray();
         $notices = Notice::All()->toArray();
 
@@ -127,8 +128,7 @@ class MyprofileController extends Controller
             'specialties' => $specialties,'candidateSpecialties' => $candidateSpecialties,
             'allergies' => $allergies, 'candidateAllergies' => $candidateAllergies,
             'languages' => $languages, 'languageLevels' => $languageLevels, 'candidateLanguages' => $candidateLanguages,
-            'workExperiences' => $workExperiences,'candidateWorkExperience' => $candidateWorkExperience,
-            'recommendations' => $recommendations, 'candidateRecommendation' => $candidateRecommendation, 'recommendationFromWhom' => $recommendationFromWhom,
+            'candidateRecommendation' => $candidateRecommendation, 'recommendationFromWhom' => $recommendationFromWhom,
             'notices' => $notices, 'candidateNotices' => $candidateNotices
          ];
         return view ('user/candidateProfile', compact('data'));
