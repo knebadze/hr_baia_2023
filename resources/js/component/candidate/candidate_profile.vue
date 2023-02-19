@@ -778,7 +778,6 @@ export default {
             languages: {},
             languageLevels: {},
             workExperiences: {},
-            recommendations: {},
             recommendationFromWhom: {},
             notices: {},
 
@@ -838,7 +837,6 @@ export default {
         this.candidateLanguages = this.data.candidateLanguages
         this.workExperiences = this.data.workExperiences
         this.candidateWorkExperience = this.data.candidateWorkExperience
-        this.recommendations = this.data.recommendations
         this.candidateRecommendation = this.data.candidateRecommendation
         this.recommendationFromWhom = this.data.recommendationFromWhom
         this.notices = this.data.notices
