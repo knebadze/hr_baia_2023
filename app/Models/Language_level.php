@@ -14,4 +14,9 @@ class Language_level extends Model
         'name_eu',
         'name_ru',
     ];
+
+    public function candidates()
+    {
+        return $this->hasMany(CandidateLanguage::class, 'candidate_level_id', 'id');
+    }
 }

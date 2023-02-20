@@ -38,10 +38,12 @@ class CandidateRepository
     {
 
         $objData = $this->array_to_object($data);
+        // var_dump($objData);
+        // exit;
         // if ($objData->driving_license) {
         //     $convertStringLicense = implode(",", $data['driving_license']);
         // }
-        // print_r($objData->personal_number);
+        // print_r($objData);
         // exit;
         $candidate = Candidate::updateOrCreate(
             ['user_id' => Auth::id()],
@@ -54,7 +56,6 @@ class CandidateRepository
                 'children' => $objData->candidate->children,
                 'children_age' => $objData->candidate->children_age,
                 'spouse' => $objData->candidate->spouse,
-                'convection' => $objData->candidate->convection,
                 'fb_link' => $objData->candidate->fb_link,
                 'youtube_link' =>  $objData->candidate->youtube_link,
                 'map_link' =>  $objData->candidate->map_link,
@@ -63,25 +64,25 @@ class CandidateRepository
                 'address' =>  $objData->candidate->address,
                 'street' =>  $objData->candidate->street,
                 'medical_info' =>  $objData->candidate->medical_info,
-                'smoke' =>  $objData->candidate->smoke,
-                'work_abroad' =>  $objData->candidate->work_abroad,
+                'convection' => ($objData->candidate->convection == null)?0:$objData->candidate->convection,
+                'smoke' =>  ($objData->candidate->smoke == null)?0:$objData->candidate->smoke,
+                'work_abroad' =>  ($objData->candidate->work_abroad == null)?0:$objData->candidate->work_abroad,
                 // 'driving_license' => $convertStringLicense,
             ]
         );
+        $candidate->citizenship()->sync( $objData->candidateCitizenships );
+        $candidate->professions()->sync($objData->candidateProfessions);
+        $candidate->specialty()->sync($objData->candidateSpecialties);
+        $candidate->allergy()->sync($objData->candidateAllergies);
 
-        // $candidate->citizenship()->sync($objData->citizenship);
-        // $candidate->professions()->sync($objData->professions);
-        // $candidate->specialty()->sync($objData->specialty);
-        // $candidate->allergy()->sync($objData->allergy);
 
+        $selectLanguage = collect($data['candidateLanguages'])->reduce(function ($carry, $item) {
+            if($carry  == null) $carry = [];
+            $carry[$item["language"]["id"]] = ["language_level_id" => $item["level"]["id"]];
+            return $carry;
+        }, []);
 
-        // $selectLanguage = collect($data['language'])->reduce(function ($carry, $item) {
-        //     if($carry  == null) $carry = [];
-        //     $carry[$item["language"]["id"]] = ["language_level_id" => $item["level"]["id"]];
-        //     return $carry;
-        // }, []);
-
-        // $candidate->languages()->sync($selectLanguage);
+        $candidate->languages()->sync($selectLanguage);
         // $selectExperience = collect($data['work_experience'])->reduce(function ($carry, $item) {
         //     if($carry  == null) $carry = [];
         //     $carry[$item["experience"]["id"]] = ["position" => $item["position"], "object" => $item["object"]];
@@ -90,8 +91,7 @@ class CandidateRepository
         // $candidate->generalWorkExperience()->attach($selectExperience);
         // print_r($objData->recommendation);
         // // if ($objData->recommendation->hasFile('file') ) {
-            var_dump($objData);
-            exit;
+
         // }
         // $candidateRecommendation = CandidateRecommendation::updateOrCreate(
         //     ['candidate_id' => $candidate->id],

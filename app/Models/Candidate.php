@@ -34,6 +34,11 @@ class Candidate extends Model
         'youtube_link',
         'map_link',
     ];
+    protected $attributes = [
+        'convection' => 0,
+        'smoke' => 0,
+        'work_abroad' => 0
+    ];
 
     public function citizenship()
     {
@@ -56,10 +61,10 @@ class Candidate extends Model
         return $this->belongsToMany(allergy::class, 'candidate_allergies');
     }
 
-    public function generalWorkExperience()
-    {
-        return $this->belongsToMany(Work_experience::class, 'general_work_experiences')->withPivot('position', 'object');
-    }
+    // public function generalWorkExperience()
+    // {
+    //     return $this->belongsToMany(Work_experience::class, 'general_work_experiences')->withPivot('position', 'object');
+    // }
     // public function notice()
     // {
     //     return $this->belongsToMany(allergy::class, 'candidate_allergies');

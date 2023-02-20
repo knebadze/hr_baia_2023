@@ -40,64 +40,91 @@ class MyprofileController extends Controller
     public function index()
     {
         $data = [];
+
         $auth = Auth::user();
         $gender = gender::all()->toArray();
 
         if (DB::table('candidates')->where('user_id', $auth->id)->exists()) {
             $candidate = Candidate::where('user_id', $auth->id)->first();
             // dd($candidate);
-        }else{
-            $candidate = Schema::getColumnListing('candidates');
-            // dd($candidate);
+        } else {
+            $candidate =  Schema::getColumnListing('candidates');
+            $candidate = array_map(function ($item) { return ""; }, array_flip($candidate));
         }
 
         if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('candidate_languages')->where('candidate_id', $candidate->id)->exists()) {
-            $candidateLanguages = CandidateLanguage::where('candidate_id', $candidate->id)->get();
+            $candidateLanguages = CandidateLanguage::where('candidate_id', $candidate->id)->with('language')->with('level')->get();
         }else{
-            $candidateLanguages= Schema::getColumnListing('candidate_languages');
+            // $candidateLanguages= Schema::getColumnListing('candidate_languages');
+            $candidateLanguages = [];
+            // [array_map(function ($item) {  return ""; }, array_flip($candidateLanguages))];
         }
 
         if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('candidate_allergies')->where('candidate_id', $candidate->id)->exists()) {
-            $candidateAllergies = CandidateAllergy::where('candidate_id', $candidate->id)->get();
+            $candidateAllergy = CandidateAllergy::where('candidate_id', $candidate->id)->select('allergy_id')->get();
+            foreach ($candidateAllergy as $key => $value) {
+                $candidateAllergies[] = $value['allergy_id'];
+            }
         }else{
-            $candidateAllergies= Schema::getColumnListing('candidate_allergies');
+            $candidateAllergies = [];
+            // $candidateAllergies = [array_map(function ($item) {  return ""; }, array_flip($candidateAllergies))];
+
         }
 
         if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('candidate_citizenships')->where('candidate_id', $candidate->id)->exists()) {
-            $candidateCitizenships = Candidate_citizenship::where('candidate_id', $candidate->id)->get()->toArray();
+            $candidateCitizenship = Candidate_citizenship::where('candidate_id', $candidate->id)->select('citizenship_id')->get()->toArray();
+            foreach ($candidateCitizenship as $key => $value) {
+                $candidateCitizenships[] = $value['citizenship_id'];
+            }
         }else{
-            $candidateCitizenships = Schema::getColumnListing('candidate_citizenships');
+            // $candidateCitizenships = Schema::getColumnListing('candidate_citizenships');
+            // $candidateCitizenships = [array_map(function ($item) {  return ""; }, array_flip($candidateCitizenships))];
+            $candidateCitizenships = [];
         }
         // dd(DB::table('candidates')->where('user_id', $auth->id)->exists(),  Candidate_profession::all(), $candidate->id);
         if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('candidate_professions')->where('candidate_id', $candidate->id)->exists()) {
-            $candidateProfessions = Candidate_profession::where('candidate_id', $candidate->id)->get();
+            $candidateProfession = Candidate_profession::where('candidate_id', $candidate->id)->select('profession_id')->get();
+            foreach ($candidateProfession as $key => $value) {
+                $candidateProfessions[] = $value['profession_id'];
+            }
             // dd($candidateProfessions);
         }else{
-            $candidateProfessions = Schema::getColumnListing('candidate_professions');
+            // $candidateProfessions = Schema::getColumnListing('candidate_professions');
+            $candidateProfessions = [];
+            // [array_map(function ($item) {  return ""; }, array_flip($candidateProfessions))];
         }
 
         if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('candidate_specialties')->where('candidate_id', $candidate->id)->exists()) {
-            $candidateSpecialties = Candidate_specialty::where('candidate_id', $candidate->id)->get();
+            $candidateSpecialty = Candidate_specialty::where('candidate_id', $candidate->id)->select('specialty_id')->get();
+            foreach ($candidateSpecialty as $key => $value) {
+                $candidateSpecialties[] = $value['specialty_id'];
+            }
         }else{
-            $candidateSpecialties = Schema::getColumnListing('candidate_specialties');
+            // $candidateSpecialties = Schema::getColumnListing('candidate_specialties');
+            $candidateSpecialties = [];
+            // [array_map(function ($item) {  return ""; }, array_flip($candidateSpecialties))];
         }
 
         if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('general_work_experiences')->where('candidate_id', $candidate->id)->exists()) {
             $candidateWorkExperience = General_work_experience::where('candidate_id', $candidate->id)->get();
         }else{
             $candidateWorkExperience = Schema::getColumnListing('general_work_experiences');
+            $candidateWorkExperience = [array_map(function ($item) {  return ""; }, array_flip($candidateWorkExperience))];
+            // $candidateWorkExperience = [];
         }
 
         if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('candidate_recommendations')->where('candidate_id', $candidate->id)->exists()) {
             $candidateRecommendation = CandidateRecommendation::where('candidate_id', $candidate->id)->first();
         }else{
             $candidateRecommendation = Schema::getColumnListing('candidate_recommendations');
+            $candidateRecommendation = [array_map(function ($item) {  return ""; }, array_flip($candidateRecommendation))];
         }
 
         if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('candidate_notices')->where('candidate_id', $candidate->id)->exists()) {
             $candidateNotices = CandidateNotice::where('candidate_id', $candidate->id)->get();
         }else{
             $candidateNotices = Schema::getColumnListing('candidate_notices');
+            $candidateNotices = [array_map(function ($item) {  return ""; }, array_flip($candidateNotices))];
         }
 
 
@@ -119,18 +146,38 @@ class MyprofileController extends Controller
 
         // dd($candidate);
         $data = [
-            'auth' => $auth, 'candidate' => $candidate,
-            'gender' => $gender, 'nationality' => $nationality,
-            'religions' => $religions, 'educations ' => $educations,
-            'maritalStatus' => $maritalStatus,
-            'citizenship' => $citizenship, 'candidateCitizenships' => $candidateCitizenships,
-            'professions' => $professions, 'candidateProfessions' => $candidateProfessions,
-            'specialties' => $specialties,'candidateSpecialties' => $candidateSpecialties,
-            'allergies' => $allergies, 'candidateAllergies' => $candidateAllergies,
-            'languages' => $languages, 'languageLevels' => $languageLevels, 'candidateLanguages' => $candidateLanguages,
-            'candidateRecommendation' => $candidateRecommendation, 'recommendationFromWhom' => $recommendationFromWhom,
-            'notices' => $notices, 'candidateNotices' => $candidateNotices
+            "basic" => [
+                'auth' => $auth,
+            ],
+            "candidate" => [
+                'candidate' => $candidate,
+
+                'candidateCitizenships' => $candidateCitizenships,
+                'candidateProfessions' => $candidateProfessions,
+                'candidateSpecialties' => $candidateSpecialties,
+                'candidateAllergies' => $candidateAllergies,
+                'candidateLanguages' => $candidateLanguages,
+                'candidateRecommendation' => $candidateRecommendation,
+                'candidateNotices' => $candidateNotices,
+                'candidateWorkExperience' => $candidateWorkExperience
+            ],
+            'classificator' => [
+                'gender' => $gender,
+                'nationality' => $nationality,
+                'religions' => $religions,
+                'educations ' => $educations,
+                'maritalStatus' => $maritalStatus,
+                'citizenship' => $citizenship,
+                'professions' => $professions,
+                'specialties' => $specialties,
+                'allergies' => $allergies,
+                'languages' => $languages,
+                'languageLevels' => $languageLevels,
+                'recommendationFromWhom' => $recommendationFromWhom,
+                'notices' => $notices,
+            ]
          ];
+
         return view ('user/candidateProfile', compact('data'));
     }
 

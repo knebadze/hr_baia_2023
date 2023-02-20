@@ -18,4 +18,9 @@ class Language extends Model
     {
         return $this->belongsToMany(Candidate::class, 'candidate_languages')->withPivot('language_level_id');
     }
+
+    public function candidates()
+    {
+        return $this->hasMany(CandidateLanguage::class);
+    }
 }
