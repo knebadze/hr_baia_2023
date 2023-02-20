@@ -82,8 +82,8 @@
                         {{-- <form> --}}
 
                             <div class="modal-header">
-                                <h2 class="modal-title" id="sign_up_popupLabel">რეგისტრაცია</h2>
-                                <p>დარეგისტრირდით და მიიღეთ წვდომა ვებ გვერდზე</p>
+                                <h2 class="modal-title" id="sign_up_popupLabel">{{ __('lang.modal_registration_title') }}</h2>
+                                <p>{{ __('lang.modal_registration_sign_up') }}</p>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
@@ -95,11 +95,11 @@
 
                                         <!--Signup Candidate-->
                                         <li class="nav-item" role="presentation">
-                                            <button class="nav-link"  id="candidateEvent"  type="button"><i class="fas fa-user-tie"></i>კანდიდატი</button>
+                                            <button class="nav-link"  id="candidateEvent"  type="button"><i class="fas fa-user-tie"></i>{{ __('lang.modal_registration_candidate') }}</button>
                                         </li>
                                         <!--Signup Employer-->
                                         <li class="nav-item" role="presentation">
-                                            <button class="nav-link" id="employerEvent"   type="button"><i class="fas fa-building"></i>დამსაქმებელი</button>
+                                            <button class="nav-link" id="employerEvent"   type="button"><i class="fas fa-building"></i>{{ __('lang.modal_registration_employer') }}</button>
                                         </li>
 
                                     </ul>
@@ -107,11 +107,11 @@
 
                                         <!--Signup Candidate-->
                                         <li class="nav-item" role="presentation">
-                                            <button class="nav-link"  id="personalEmployer"  type="button"><i class="fas fa-user-tie"></i>ფიზიკური პირი</button>
+                                            <button class="nav-link"  id="personalEmployer"  type="button"><i class="fas fa-user-tie"></i>{{ __('lang.modal_registration_physical_person') }}</button>
                                         </li>
                                         <!--Signup Employer-->
                                         <li class="nav-item" role="presentation">
-                                            <button class="nav-link" id="companyEmployer"   type="button"><i class="fas fa-building"></i>კომპანია</button>
+                                            <button class="nav-link" id="companyEmployer"   type="button"><i class="fas fa-building"></i>{{ __('lang.modal_registration_company') }}</button>
                                         </li>
                                     </ul>
                                     <input type="text" name="user_type_id" value="{{ old('user_type_id') }}" class="form-control @error('user_type_id') is-invalid @enderror" id="user_type_id" hidden>
@@ -128,7 +128,7 @@
 
                                                 <div class="col-lg-12">
                                                     <div class="form-group mb-3">
-                                                        <input id="name_ka" type="text" class="form-control @error('name_ka') is-invalid @enderror" name="name_ka" value="{{ old('name_ka') }}"  autocomplete="name_ka" autofocus placeholder="სახელი გვარი*">
+                                                        <input id="name_ka" type="text" class="form-control @error('name_ka') is-invalid @enderror" name="name_ka" value="{{ old('name_ka') }}"  autocomplete="name_ka" autofocus placeholder="{{ __('lang.modal_registration_name_surname') }}">
 
                                                         @error('name_ka')
                                                             <span class="invalid-feedback" role="alert">
@@ -140,7 +140,7 @@
 
                                                 <div class="col-lg-12">
                                                     <div class="form-group mb-3">
-                                                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="მაილი*">
+                                                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="{{ __('lang.modal_registration_mail') }}">
 
                                                         @error('email')
                                                             <span class="invalid-feedback" role="alert">
@@ -153,7 +153,7 @@
                                                 <div class="col-lg-12">
                                                     <div class="input-group  mb-3">
                                                         <span class="input-group-text border border-0">+995</span>
-                                                        <input name="number" id="number" type="text" class="form-control @error('number') is-invalid @enderror" value="{{ old('number') }}"  placeholder="ნომერი*" onkeypress="return event.charCode != 32">
+                                                        <input name="number" id="number" type="text" class="form-control @error('number') is-invalid @enderror" value="{{ old('number') }}"  placeholder="{{ __('lang.modal_registration_number') }}" onkeypress="return event.charCode != 32">
                                                         @error('number')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
@@ -164,7 +164,7 @@
 
                                                 <div class="col-lg-12">
                                                     <div class="form-group mb-3">
-                                                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="პაროლი*">
+                                                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="{{ __('lang.modal_registration_password') }}">
 
                                                         @error('password')
                                                             <span class="invalid-feedback" role="alert">
@@ -175,28 +175,28 @@
                                                 </div>
                                                 {{-- <div class="col-lg-6">
                                                     <div class="form-group mb-3">
-                                                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="გაიმეორე პაროლი*">
+                                                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="{{ __('lang.modal_registration_repeat') }}">
                                                     </div>
                                                 </div> --}}
 
                                                 <div class="d-flex justify-content-between" id="date_gender">
                                                     <div class="col-lg-6">
                                                         <div class="form-group">
-                                                            <label>დაბადების თარიღი</label>
+                                                            <label>{{ __('lang.modal_registration_birth_date') }}</label>
                                                             <div class="ls-inputicon-box">
                                                                 <input class="form-control " id="date_of_birth"  name="date_of_birth" type="date" placeholder="mm/dd/yyyy">
                                                             </div>
                                                         </div>
                                                     </div>
                                                 <div class="col-lg-5" >
-                                                    <p>სქესი</p>
+                                                    <p>{{ __('lang.modal_registration_gender') }}</p>
                                                         <div class="form-check form-check-inline">
                                                             <input type="radio" name="gender_id" value="1" class="form-check-input" id="exampleradio1">
-                                                            <label class="form-check-label" for="exampleradio1">კაცი</label>
+                                                            <label class="form-check-label" for="exampleradio1">{{ __('lang.modal_registration_gender_male') }}</label>
                                                         </div>
                                                         <div class="form-check form-check-inline">
                                                             <input type="radio" name="gender_id" value="2" class="form-check-input" id="exampleradio2">
-                                                            <label class="form-check-label" for="exampleradio2">ქალი</label>
+                                                            <label class="form-check-label" for="exampleradio2">{{ __('lang.modal_registration_gender_female') }}</label>
                                                         </div>
 
                                                 </div>
@@ -207,20 +207,20 @@
                                                         <div class=" form-check">
                                                             <input type="checkbox" class="form-check-input  @error('agree') is-invalid @enderror" id="agree" name="agree">
 
-                                                            <label class="form-check-label" for="agree1">I agree to the <a href="javascript:;">Terms and conditions</a></label>
+                                                            <label class="form-check-label" for="agree1">{{ __('lang.modal_registration_agree_1') }} <a href="#">{{ __('lang.modal_registration_agree_2') }}</a></label>
                                                             @error('agree')
                                                                 <span class="invalid-feedback" role="alert">
                                                                     <strong>{{ $message }}</strong>
                                                                 </span>
                                                             @enderror
-                                                            <p>Already registered?
-                                                                <button class="twm-backto-login" data-bs-target="#sign_up_popup2" data-bs-toggle="modal" data-bs-dismiss="modal">Log in here</button>
+                                                            <p>{{ __('lang.modal_registration_already_registered?') }}
+                                                                <button class="twm-backto-login" data-bs-target="#sign_up_popup2" data-bs-toggle="modal" data-bs-dismiss="modal">{{ __('lang.modal_registration_log_in_here') }}</button>
                                                             </p>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <button type="submit" class="site-button">რეგისტრაცია</button>
+                                                    <button type="submit" class="site-button">{{ __('lang.modal_registration_button') }}</button>
                                                 </div>
 
                                         </div>
@@ -233,7 +233,7 @@
                             </div>
 
                             <div class="modal-footer">
-                                <span class="modal-f-title">Login or Sign up with</span>
+                                <span class="modal-f-title">{{ __('lang.modal_registration_with') }}</span>
                                 <ul class="twm-modal-social">
                                     <li><a href="{{ route('auth.social.redirect', 'facebook') }}" class="facebook-clr"><i class="fab fa-facebook-f"></i></a></li>
                                     <li><a href="{{ route('auth.social.redirect', 'google') }}" class="google-clr"><i class="fab fa-google"></i></a></li>
@@ -252,8 +252,8 @@
 
                         {{-- <form> --}}
                             <div class="modal-header">
-                                <h2 class="modal-title" id="sign_up_popupLabel2">Login</h2>
-                                <p>Login and get access to all the features of Jobzilla</p>
+                                <h2 class="modal-title" id="sign_up_popupLabel2">{{ __('lang.modal_login_title') }}</h2>
+                                <p>{{ __('lang.modal_login_access') }}</p>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
@@ -268,7 +268,7 @@
 
                                                 <div class="col-lg-12">
                                                     <div class="form-group mb-3">
-                                                        <input id="emailOrPhone" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="ემაილი ან ნომერი*">
+                                                        <input id="emailOrPhone" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="{{ __('lang.modal_login_email_or_number') }}">
 
                                                         @error('email')
                                                             <span class="invalid-feedback" role="alert">
@@ -280,7 +280,7 @@
 
                                                 <div class="col-lg-12">
                                                     <div class="form-group mb-3">
-                                                        <input id="logInPassword" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="პაროლი*">
+                                                        <input id="logInPassword" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="{{ __('lang.modal_login_password') }}">
 
                                                         @error('password')
                                                             <span class="invalid-feedback" role="alert">
@@ -295,15 +295,17 @@
                                                     <div class="form-group mb-3">
                                                         <div class=" form-check">
                                                             <input type="checkbox" class="form-check-input" id="Password3">
-                                                            <label class="form-check-label rem-forgot" for="Password3">Remember me <a href="javascript:;">Forgot Password</a></label>
+                                                            <label class="form-check-label rem-forgot" for="Password3">
+                                                                {{ __('lang.modal_login_password_remember') }} 
+                                                                <a href="#">{{ __('lang.modal_login_password_forgot') }}</a></label>
 
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <button type="submit" class="site-button">შესვლა</button>
-                                                    <div class="mt-3 mb-3">Don't have an account ?
-                                                        <button class="twm-backto-login" data-bs-target="#sign_up_popup" data-bs-toggle="modal" data-bs-dismiss="modal">Sign Up</button>
+                                                    <button type="submit" class="site-button">{{ __('lang.modal_login_sign_in') }}</button>
+                                                    <div class="mt-3 mb-3">{{ __('lang.modal_login_dont_have_account') }}
+                                                        <button class="twm-backto-login" data-bs-target="#sign_up_popup" data-bs-toggle="modal" data-bs-dismiss="modal">{{ __('lang.modal_login_sign_up') }}</button>
                                                     </div>
                                                 </div>
 
@@ -315,7 +317,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <span class="modal-f-title">Login or Sign up with</span>
+                                <span class="modal-f-title">{{ __('lang.modal_login_with') }}</span>
                                 <ul class="twm-modal-social">
                                     <li><a href="{{ route('auth.social.redirect', 'facebook') }}" class="facebook-clr"><i class="fab fa-facebook-f"></i></a></li>
                                     {{-- <li><a href="javascript.html" class="twitter-clr"><i class="fab fa-twitter"></i></a></li> --}}
