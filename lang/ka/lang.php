@@ -12,6 +12,46 @@ return [
     | you want to customize your views to better match your application.
     |
     */
+
+    // ====================================================================================================
+    // Modal Regitrsation & Login Forms
+    // ----------------------------------------------------------------------------------------------------
+    // Registration Modal
+    'modal_registration_title' => 'რეგისტრაცია',
+    'modal_registration_sign_up' => 'დარეგისტრირდით და მიიღეთ წვდომა ჩვენს ვებ გვერდზე',
+    'modal_registration_candidate' => 'კანდიდატი',
+    'modal_registration_employer' => 'დამსაქმებელი',
+    'modal_registration_physical_person' => 'ფიზიკური პირი',
+    'modal_registration_company' => 'კომპანია',
+    'modal_registration_name_surname' => 'სახელი / გვარი*',
+    'modal_registration_mail' => 'მეილი*',
+    'modal_registration_number' => 'ტელ. ნომერი*',
+    'modal_registration_password' => 'პაროლი*',
+    'modal_registration_password_repeat' => 'გაიმეორეთ პაროლი*',
+    'modal_registration_birth_date' => 'გაიმეორე პაროლი',
+    'modal_registration_gender' => 'სქესი',
+        'modal_registration_gender_male' => 'კაცი',
+        'modal_registration_gender_female' => 'ქალი',
+    'modal_registration_agree_1' => 'ვეთანხმები',
+    'modal_registration_agree_2' => 'წესებსა და პირობებს',
+    'modal_registration_already_registered?' => 'უკვე დარეგისტრირებული ხართ?',
+    'modal_registration_log_in_here' => 'გაიარეთ ავტორიზაცია',
+    'modal_registration_button' => 'რეგისტრაცია',
+    'modal_registration_with' => 'გაიარეთ ავტორიზაცია ან რეგისტრაცია ფეისბუქის ან იმეილის დახმარებით',
+
+    // ----------------------------------------------------------------------------------------------------
+    // Login Modal
+    'modal_login_title' => 'ავტორიზაცია',
+    'modal_login_access' => 'გაიარეთ ავტორიზაცია და მიიღეთ წვდომა თქვენს კაბინეტზე',
+    'modal_login_email_or_number' => 'იმეილი ან ნომერი*',
+    'modal_login_password' => 'პაროლი*',
+    'modal_login_password_remember' => 'დამიმახსოვრე',
+    'modal_login_password_forgot' => 'დაგავიწყდათ პაროლი?',
+    'modal_login_sign_in' => 'ავტორიზაცია',
+    'modal_login_dont_have_account' => 'ჯერ არ გაქვთ ანგარიში?',
+    'modal_login_sign_up' => 'დარეგისტრირდით',
+    'modal_login_with' => 'გაიარეთ ავტორიზაცია ან რეგისტრაცია ფეისბუქის ან იმეილის დახმარებით',
+
     // ----------------------------------------------------------------------------------------------------
     // Title Lang
     'page_title_home' => 'მთავარი',

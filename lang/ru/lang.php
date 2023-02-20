@@ -12,6 +12,46 @@ return [
     | you want to customize your views to better match your application.
     |
     */
+
+    // ====================================================================================================
+    // Modal Regitrsation & Login Forms
+    // ----------------------------------------------------------------------------------------------------
+    // Registration Modal
+    'modal_registration_title' => 'Регистрация',
+    'modal_registration_sign_up' => 'Зарегистрируйтесь и получите доступ к нашему сайту',
+    'modal_registration_candidate' => 'Кандидат',
+    'modal_registration_employer' => 'Работодатель',
+    'modal_registration_physical_person' => 'Физическое лицо',
+    'modal_registration_company' => 'Компания',
+    'modal_registration_name_surname' => 'Имя / Фамилия*',
+    'modal_registration_mail' => 'Электронная Почта*',
+    'modal_registration_number' => 'Номер телефона*',
+    'modal_registration_password' => 'Пароль*',
+    'modal_registration_password_repeat' => 'Повторите пароль*',
+    'modal_registration_birth_date' => 'Дата рождения',
+    'modal_registration_gender' => 'Пол',
+        'modal_registration_gender_male' => 'Мужской',
+        'modal_registration_gender_female' => 'Женский',
+    'modal_registration_agree_1' => 'Я принимаю условия',
+    'modal_registration_agree_2' => 'пользовательского соглашения',
+    'modal_registration_already_registered?' => 'Уже зарегистрированы?',
+    'modal_registration_log_in_here' => 'Войти здесь',
+    'modal_registration_button' => 'Регистрация',
+    'modal_registration_with' => 'Войти или зарегистрироваться с помощью',
+
+    // ----------------------------------------------------------------------------------------------------
+    // Login Modal
+    'modal_login_title' => 'логин',
+    'modal_login_access' => 'Войти и получить доступ ко всем функциям веб-страницы',
+    'modal_login_email_or_number' => 'Электронная почта или номер*',
+    'modal_login_password' => 'Пароль*',
+    'modal_login_password_remember' => 'Запомнить меня',
+    'modal_login_password_forgot' => 'Забыли пароль?',
+    'modal_login_sign_in' => 'Войти',
+    'modal_login_dont_have_account' => 'У вас нет учетной записи?',
+    'modal_login_sign_up' => 'Зарегистрируйтесь',
+    'modal_login_with' => 'Войти или зарегистрироваться с помощью',
+
     // ----------------------------------------------------------------------------------------------------
     // Title Lang
     'page_title_home' => 'Главная',
@@ -87,7 +127,6 @@ return [
 
     // ----------------------------------------------------------------------------------------------------
     // Individual Vacancies Lang Page
-
     'individual_vacancies_page_big_title' => 'Самые популярные вакансии',
     'individual_vacancies_page_small_title_first' => 'Главная',
     'individual_vacancies_page_small_title_second' => 'Индивидуальные вакансии',

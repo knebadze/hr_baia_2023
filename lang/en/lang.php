@@ -12,6 +12,46 @@ return [
     | you want to customize your views to better match your application.
     |
     */
+
+    // ====================================================================================================
+    // Modal Regitrsation & Login Forms
+    // ----------------------------------------------------------------------------------------------------
+    // Registration Modal
+    'modal_registration_title' => 'Registration',
+    'modal_registration_sign_up' => 'Sign up and get access to the our website',
+    'modal_registration_candidate' => 'Candidate',
+    'modal_registration_employer' => 'Employer',
+    'modal_registration_physical_person' => 'Physical Person',
+    'modal_registration_company' => 'Company',
+    'modal_registration_name_surname' => 'Name / Surname*',
+    'modal_registration_mail' => 'Mail*',
+    'modal_registration_number' => 'Phone Number*',
+    'modal_registration_password' => 'Password*',
+    'modal_registration_password_repeat' => 'Repeat the Password*',
+    'modal_registration_birth_date' => 'Date of Birth',
+    'modal_registration_gender' => 'Gender',
+        'modal_registration_gender_male' => 'Male',
+        'modal_registration_gender_female' => 'Female',
+    'modal_registration_agree_1' => 'I agree to the',
+    'modal_registration_agree_2' => 'Terms and conditions',
+    'modal_registration_already_registered?' => 'Already registered?',
+    'modal_registration_log_in_here' => 'Log in here',
+    'modal_registration_button' => 'Registration',
+    'modal_registration_with' => 'Login or Sign up with',
+
+    // ----------------------------------------------------------------------------------------------------
+    // Login Modal
+    'modal_login_title' => 'login',
+    'modal_login_access' => 'Login and get access to all the features of Webpage',
+    'modal_login_email_or_number' => 'Email or Number*',
+    'modal_login_password' => 'Password*',
+    'modal_login_password_remember' => 'Remember me',
+    'modal_login_password_forgot' => 'Forgot Password',
+    'modal_login_sign_in' => 'Sign In',
+    'modal_login_dont_have_account' => 'Don\'t have an account?',
+    'modal_login_sign_up' => 'Sign Up',
+    'modal_login_with' => 'Login or Sign up with',
+
     // ----------------------------------------------------------------------------------------------------
     // Page Title Lang
     'page_title_home' => 'Home',
