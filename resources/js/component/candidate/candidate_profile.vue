@@ -367,7 +367,7 @@
                     <div class="panel-body wt-panel-body p-a20 m-b30 ">
 
                         <div class="row">
-                            <!-- <div class="col-xl-6 col-lg-6 col-md-12">
+                            <div class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
                                     <label>გაქვთ თუ არა სამუშაო გამოცდილება?</label>
                                     <div class="ls-inputicon-box">
@@ -379,44 +379,44 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-6 col-lg-6 col-md-12" :class="(candidateWorkExperience.experience == 1)?'':'visually-hidden'">
+                            <div class="col-xl-6 col-lg-6 col-md-12" :class="(m.candidateWorkExperience.experience == 2)?'':'visually-hidden'">
                                 <div class="form-group">
                                     <label>{{ $t('lang.user_profile_page_work_exp') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <select class="wt-select-box selectpicker"  v-model="candidateWorkExperience.work_experience_id"  data-live-search="true" title=""  data-bv-field="size">
-                                            <option v-for="workExperience in workExperiences " :value="workExperience">{{ workExperience[`name_${getLang}`] }}</option>
+                                        <select class="wt-select-box selectpicker"  v-model="m.candidateWorkExperience.work_experience_id"  data-live-search="true" title=""  data-bv-field="size">
+                                            <option v-for="workExperience in data.classificator.workExperiences " :value="workExperience">{{ workExperience[`name_${getLang}`] }}</option>
                                         </select>
                                         <i class="fs-input-icon fa fa-history"></i>
                                     </div>
                                 </div>
                             </div>
-                            <div v-if="candidateWorkExperience.experience == 1" class="col-xl-6 col-lg-6 col-md-12">
+                            <div v-if="m.candidateWorkExperience.experience == 1" class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
                                     <label>{{ $t('lang.user_profile_page_work_position') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <input class="form-control" v-model="candidateWorkExperience.position" type="text" placeholder="">
+                                        <input class="form-control" v-model="m.candidateWorkExperience.position" type="text" placeholder="">
                                         <i class="fs-input-icon fa fa-tasks"></i>
                                     </div>
                                 </div>
                             </div>
-                            <div v-if="candidateWorkExperience.experience == 1" class="col-xl-6 col-lg-6 col-md-12">
+                            <div v-if="m.candidateWorkExperience.experience == 1" class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
                                     <label>{{ $t('lang.user_profile_page_work_object') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <input class="form-control" v-model="candidateWorkExperience.object" type="text" placeholder="">
+                                        <input class="form-control" v-model="m.candidateWorkExperience.object" type="text" placeholder="">
                                         <i class="fs-input-icon fa fa-map-marker"></i>
                                     </div>
                                 </div>
                             </div>
-                            <div v-if="candidateWorkExperience.experience == 1" class="col-lg-12 col-md-12">
+                            <div v-if="m.candidateWorkExperience.experience == 1" class="col-lg-12 col-md-12">
                                 <div class="text-right ">
                                     <button class="btn btn-success"
-                                    @click="addCandidateWorkExperience(candidateWorkExperience.work_experience_id, candidateWorkExperience.position, candidateWorkExperience.object)"
+                                    @click="addCandidateWorkExperience(m.candidateWorkExperience.work_experience_id, m.candidateWorkExperience.position, candidateWorkExperience.object)"
                                     title="დამატება" data-bs-toggle="tooltip" data-bs-placement="top">{{ $t('lang.user_profile_page_work_button_add_info') }}
                                         <span class="fa fa-plus"></span>
                                     </button>
                                 </div>
-                            </div> -->
+                            </div>
                             <!-- <div v-if="candidateExperience.length != 0" :class="ExperienceTableClass">
 
                                 <div class="panel-body wt-panel-body">
@@ -450,23 +450,23 @@
                                 </div>
                             </div> -->
 
-                            <!-- <div class="col-xl-6 col-lg-6 col-md-12" :class="(candidateWorkExperience.experience == 0)?'':'visually-hidden'">
+                            <div class="col-xl-6 col-lg-6 col-md-12" :class="(m.candidateWorkExperience.experience == 0)?'':'visually-hidden'">
                                 <div class="form-group">
                                     <label>სამუშაო გამოცდილების არ ქონის მიზეზი</label>
                                     <div class="ls-inputicon-box">
-                                        <select class="wt-select-box selectpicker"  v-model="candidateWorkExperience.no_reason_id"  data-live-search="true" title=""  data-bv-field="size">
+                                        <select class="wt-select-box selectpicker"  v-model="m.candidateWorkExperience.no_reason_id"  data-live-search="true" title=""  data-bv-field="size">
                                             <option v-for="workExperience in workExperiences " :value="workExperience">{{ workExperience[`name_${getLang}`] }}</option>
                                         </select>
                                         <i class="fs-input-icon fa fa-history"></i>
                                     </div>
                                 </div>
-                            </div> -->
-                            <!-- <div :class="(candidateWorkExperience.experience == 0)?'':'visually-hidden'" class="col-md-12">
+                            </div>
+                             <div :class="(m.candidateWorkExperience.experience == 0)?'':'visually-hidden'" class="col-md-12">
                                 <div class="form-group">
                                     <label>დამატაბითი ინფორმაცია</label>
                                     <textarea class="form-control" rows="3" v-model="m.candidate.no_reason_info" :placeholder="$t('lang.user_profile_page_medical_please_info')"></textarea>
                                 </div>
-                            </div> -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -777,7 +777,7 @@ export default {
 
         this.m = { ...this.data.candidate, ...this.data.basic };
 
-        console.log('this.m.candidateCitizenships',this.m.candidateLanguages);
+        console.log('this.m.candidateCitizenships',this.m.candidateWorkExperience);
         console.log("this.m ", this.m);
 
     },

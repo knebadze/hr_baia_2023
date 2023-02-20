@@ -109,7 +109,7 @@ class MyprofileController extends Controller
             $candidateWorkExperience = General_work_experience::where('candidate_id', $candidate->id)->get();
         }else{
             $candidateWorkExperience = Schema::getColumnListing('general_work_experiences');
-            $candidateWorkExperience = [array_map(function ($item) {  return ""; }, array_flip($candidateWorkExperience))];
+            $candidateWorkExperience = array_map(function ($item) {  return ""; }, array_flip($candidateWorkExperience));
             // $candidateWorkExperience = [];
         }
 
