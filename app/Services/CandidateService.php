@@ -21,6 +21,12 @@ class CandidateService
 
     public function candidateSaveData($data)
     {
+        // $validator = Validator::make($data,[
+
+        // ]);
+        // if ($validator->fails()) {
+        //     throw new InvalidArgumentException($validator->errors());
+        // }
         $result = $this->candidateRepository->save($data);
         return $result;
     }

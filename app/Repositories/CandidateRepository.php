@@ -36,7 +36,8 @@ class CandidateRepository
 
     public function save($data)
     {
-
+        // print_r($data['candidateWorkExperience']);
+        // exit;
         $objData = $this->array_to_object($data);
         // var_dump($objData);
         // exit;
@@ -83,15 +84,33 @@ class CandidateRepository
         }, []);
 
         $candidate->languages()->sync($selectLanguage);
-        if ($data['work_experience']['experience'] == 1) {
-            $selectExperience = collect($data['work_experience'])->reduce(function ($carry, $item) {
+
+        // print_r($objData);
+        //     exit;
+        if (count($data['candidateWorkExperience'])) {
+            General_work_experience::where('candidate_id', $candidate->id)->delete();
+            $selectExperience = collect($data['candidateWorkExperience'])->reduce(function ($carry, $item) {
                 if($carry  == null) $carry = [];
-                $carry[$item["experience"]["id"]] = ["position" => $item["position"], "object" => $item["object"]];
+                $carry[$item["work_experience_id"]] = ["experience" => $item["experience"], "position" => $item["position"], "object" => $item["object"]];
                 return $carry;
             }, []);
-            print_r($selectExperience);
-            exit;
+            // print_r($selectExperience);
+            // exit;
+            $candidate->generalWorkExperience()->attach($selectExperience);
+        }else{
+            // print_r($data['candidateWorkExperience']);
+            // exit;
+            General_work_experience::updateOrCreate(
+                ['candidate_id' => $candidate->id],
+                [
+                    'experience' => $objData->candidateWorkExperienceModel->experience,
+                    'no_reason_id' => $objData->candidateWorkExperienceModel->no_reason_id,
+                    'no_reason_info' => $objData->candidateWorkExperienceModel->no_reason_info,
+                ]
+            );
         }
+        // print_r('hello');
+        //     exit;
         // $selectExperience = collect($data['work_experience'])->reduce(function ($carry, $item) {
         //     if($carry  == null) $carry = [];
         //     $carry[$item["experience"]["id"]] = ["position" => $item["position"], "object" => $item["object"]];

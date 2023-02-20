@@ -371,7 +371,7 @@
                                 <div class="form-group">
                                     <label>გაქვთ თუ არა სამუშაო გამოცდილება?</label>
                                     <div class="ls-inputicon-box">
-                                        <select class="wt-select-box selectpicker" v-model="m.candidateWorkExperience.experience"  data-live-search="false" title=""  data-bv-field="size">
+                                        <select class="wt-select-box selectpicker" v-model="candidateWorkExperienceModel.experience"  data-live-search="false" title=""  data-bv-field="size">
                                             <option :value="1">კი</option>
                                             <option :value="2">არა</option>
                                         </select>
@@ -379,45 +379,45 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-6 col-lg-6 col-md-12" :class="(m.candidateWorkExperience.experience ==1)?'':'visually-hidden'">
+                            <div class="col-xl-6 col-lg-6 col-md-12" :class="(candidateWorkExperienceModel.experience ==1)?'':'visually-hidden'">
                                 <div class="form-group">
                                     <label>{{ $t('lang.user_profile_page_work_exp') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <select class="wt-select-box selectpicker"  v-model="m.candidateWorkExperience.work_experience_id"  data-live-search="true" title=""  data-bv-field="size">
+                                        <select class="wt-select-box selectpicker"  v-model="candidateWorkExperienceModel.work_experience_id"  data-live-search="true" title=""  data-bv-field="size">
                                             <option v-for="workExperience in data.classificator.workExperiences " :value="workExperience.id">{{ workExperience[`name_${getLang}`] }}</option>
                                         </select>
                                         <i class="fs-input-icon fa fa-history"></i>
                                     </div>
                                 </div>
                             </div>
-                            <div v-if="m.candidateWorkExperience.experience == 1" class="col-xl-6 col-lg-6 col-md-12">
+                            <div v-if="candidateWorkExperienceModel.experience == 1" class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
                                     <label>{{ $t('lang.user_profile_page_work_position') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <input class="form-control" v-model="m.candidateWorkExperience.position" type="text" placeholder="">
+                                        <input class="form-control" v-model="candidateWorkExperienceModel.position" type="text" placeholder="">
                                         <i class="fs-input-icon fa fa-tasks"></i>
                                     </div>
                                 </div>
                             </div>
-                            <div v-if="m.candidateWorkExperience.experience == 1" class="col-xl-6 col-lg-6 col-md-12">
+                            <div v-if="candidateWorkExperienceModel.experience == 1" class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
                                     <label>{{ $t('lang.user_profile_page_work_object') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <input class="form-control" v-model="m.candidateWorkExperience.object" type="text" placeholder="">
+                                        <input class="form-control" v-model="candidateWorkExperienceModel.object" type="text" placeholder="">
                                         <i class="fs-input-icon fa fa-map-marker"></i>
                                     </div>
                                 </div>
                             </div>
-                            <div v-if="m.candidateWorkExperience.experience == 1" class="col-lg-12 col-md-12">
+                            <div v-if="candidateWorkExperienceModel.experience == 1" class="col-lg-12 col-md-12">
                                 <div class="text-right ">
                                     <button class="btn btn-success"
-                                    @click="addCandidateWorkExperience(m.candidateWorkExperience)"
+                                    @click="addCandidateWorkExperience(candidateWorkExperienceModel)"
                                     title="დამატება" data-bs-toggle="tooltip" data-bs-placement="top">{{ $t('lang.user_profile_page_work_button_add_info') }}
                                         <span class="fa fa-plus"></span>
                                     </button>
                                 </div>
                             </div>
-                            <div v-if="m.candidateWorkExperience.length != 0" class="col-lg-12 col-md-12">
+                            <div v-if="m.candidateWorkExperience.length != 0 && m.candidateWorkExperience[0].experience == 1" class="col-lg-12 col-md-12">
 
                                 <div class="panel-body wt-panel-body">
                                     <div class="p-a20 table-responsive">
@@ -435,7 +435,7 @@
                                             <tbody>
                                                 <tr v-for="(item, index) in m.candidateWorkExperience">
                                                 <td>{{ index + 1 }}</td>
-                                                <td>{{ item.workExperience[`name_${getLang}`] }}</td>
+                                                <td>{{ (item.work_experience)?item.work_experience[`name_${getLang}`]:'' }}</td>
                                                 <td>{{ item.position }}</td>
                                                 <td>{{ item.object }}</td>
                                                 <td>
@@ -450,21 +450,21 @@
                                 </div>
                             </div>
 
-                            <div class="col-xl-6 col-lg-6 col-md-12" :class="(m.candidateWorkExperience.experience == 2)?'':'visually-hidden'">
+                            <div class="col-xl-6 col-lg-6 col-md-12" :class="(candidateWorkExperienceModel.experience == 2)?'':'visually-hidden'">
                                 <div class="form-group">
                                     <label>სამუშაო გამოცდილების არ ქონის მიზეზი</label>
                                     <div class="ls-inputicon-box">
-                                        <select class="wt-select-box selectpicker"  v-model="m.candidateWorkExperience.no_reason_id"  data-live-search="true" title=""  data-bv-field="size">
-                                            <option v-for="workExperience in data.classificator.workExperiences " :value="workExperience">{{ workExperience[`name_${getLang}`] }}</option>
+                                        <select class="wt-select-box selectpicker"  v-model="candidateWorkExperienceModel.no_reason_id"  data-live-search="true" title=""  data-bv-field="size">
+                                            <option v-for="workExperience in data.classificator.noExperienceReason" :value="workExperience.id">{{ workExperience[`name_${getLang}`] }}</option>
                                         </select>
                                         <i class="fs-input-icon fa fa-history"></i>
                                     </div>
                                 </div>
                             </div>
-                             <div :class="(m.candidateWorkExperience.experience == 2)?'':'visually-hidden'" class="col-md-12">
+                             <div :class="(candidateWorkExperienceModel.experience == 2)?'':'visually-hidden'" class="col-md-12">
                                 <div class="form-group">
                                     <label>დამატაბითი ინფორმაცია</label>
-                                    <textarea class="form-control" rows="3" v-model="m.candidate.no_reason_info" :placeholder="$t('lang.user_profile_page_medical_please_info')"></textarea>
+                                    <textarea class="form-control" rows="3" v-model="candidateWorkExperienceModel.no_reason_info" :placeholder="$t('lang.user_profile_page_medical_please_info')"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -483,70 +483,103 @@
                                 <div class="form-group">
                                     <label>{{ $t('lang.user_profile_page_recomendation_from') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <select class="wt-select-box selectpicker"  v-model="m.candidateRecommendation.recommendation"  data-live-search="false" title=""  data-bv-field="size">
+                                        <select class="wt-select-box selectpicker"  v-model="candidateRecommendationModel.recommendation"  data-live-search="false" title=""  data-bv-field="size">
+                                            <option :value="1">წარმოვადგენ</option>
+                                            <option :value="2">ვერ წარმოვადგენ</option>
                                             <!-- <option v-for="recommendation in recommendations " :value="recommendation.id">{{ recommendation[`name_${getLang}`] }}</option> -->
                                         </select>
                                         <i class="fs-input-icon fa fa-thumbs-up"></i>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-6 col-lg-6 col-md-12 " :class="(m.candidateRecommendation.recommendation == 2 || m.candidateRecommendation.recommendation == 3)?'':'visually-hidden'" >
+                            <div class="col-xl-6 col-lg-6 col-md-12 " :class="(candidateRecommendationModel.recommendation == 1)?'':'visually-hidden'" >
                                 <div class="form-group">
                                     <label>{{ $t('lang.user_profile_page_recomendation_where_from') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <select class="wt-select-box selectpicker"  v-model="m.candidateRecommendation.recommendation_from_whom_id"  data-live-search="false" title=""  data-bv-field="size">
+                                        <select class="wt-select-box selectpicker"  v-model="candidateRecommendationModel.recommendation_from_whom_id"  data-live-search="false" title=""  data-bv-field="size">
                                             <option v-for="recommendationFrom in data.classificator.recommendationFromWhom " :value="recommendationFrom.id">{{ recommendationFrom[`name_${getLang}`] }}</option>
                                         </select>
                                         <i class="fs-input-icon fa fa-industry"></i>
                                     </div>
                                 </div>
                             </div>
-                            <div v-if="m.candidateRecommendation.recommendation == 2 " class="col-xl-6 col-lg-6 col-md-12">
+                            <div v-if="candidateRecommendationModel.recommendation == 1 " class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
                                     <label>{{ $t('lang.user_profile_page_recomendation_name') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <input class="form-control" v-model="m.candidateRecommendation.name" type="text" placeholder="">
+                                        <input class="form-control" v-model="candidateRecommendationModel.name" type="text" placeholder="">
                                         <i class="fs-input-icon fa fa-star"></i>
                                     </div>
                                 </div>
                             </div>
-                            <div v-if="m.candidateRecommendation.recommendation == 2 " class="col-xl-6 col-lg-6 col-md-12">
+                            <div v-if="candidateRecommendationModel.recommendation_from_whom_id == 2 " class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
                                     <label>თანამდებობა</label>
                                     <div class="ls-inputicon-box">
-                                        <input class="form-control" v-model="m.candidateRecommendation.position" type="text" placeholder="">
+                                        <input class="form-control" v-model="candidateRecommendationModel.position" type="text" placeholder="">
                                         <i class="fs-input-icon fa fa-user"></i>
                                     </div>
                                 </div>
                             </div>
-                            <div v-if="m.candidateRecommendation.recommendation == 2" class="col-xl-6 col-lg-6 col-md-12">
+                            <div v-if="candidateRecommendationModel.recommendation == 1" class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
                                     <label>{{ $t('lang.user_profile_page_recomendation_number') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <input class="form-control" v-model="m.candidateRecommendation.number" type="text" placeholder="">
+                                        <input class="form-control" v-model="candidateRecommendationModel.number" type="text" placeholder="">
                                         <i class="fs-input-icon fa fa-phone"></i>
                                     </div>
                                 </div>
                             </div>
-                            <div v-if="m.candidateRecommendation.recommendation == 3" class="col-xl-6 col-lg-6 col-md-12">
+                            <div v-if="candidateRecommendationModel.recommendation == 1" class="col-lg-12 col-md-12">
+                                <p>----------------------ან ატვირთეთ ფაილი-------------------------</p>
+                            </div>
+                            <div v-if="candidateRecommendationModel.recommendation == 1" class="col-lg-12 col-md-12">
                                 <div class="form-group">
                                     <label>ფაილი</label>
                                     <div class="ls-inputicon-box">
                                         <input class="form-control" ref="upload" type="file" @change="recommendationFileUpload" placeholder="">
-                                        <i class="fs-input-icon fa fa-user"></i>
+                                        <!-- <i class="fs-input-icon fa fa-user"></i> -->
                                     </div>
                                 </div>
                             </div>
-                            <!-- <div class="col-lg-12 col-md-12">
+                            <div v-if="candidateRecommendationModel.recommendation == 1" class="col-lg-12 col-md-12">
                                 <div class="text-right ">
                                     <button class="btn btn-success"
-                                    @click="addCandidateWorkExperience(candidateWorkExperience.work_experience_id, candidateWorkExperience.position, candidateWorkExperience.object)"
+                                    @click="addCandidateRecommendation(candidateRecommendationModel)"
                                     title="დამატება" data-bs-toggle="tooltip" data-bs-placement="top">დამატება
                                         <span class="fa fa-plus"></span>
                                     </button>
                                 </div>
-                            </div> -->
-                            <!--  -->
+                            </div>
+                            <div  class="col-lg-12 col-md-12">
+                                <div class="panel-body wt-panel-body">
+                                    <div class="p-a20 table-responsive">
+                                        <table class="table twm-table table-striped table-borderless">
+                                            <thead>
+                                                <tr>
+                                                <th>N</th>
+                                                <th>ცნობა</th>
+                                                <th>ფაილი</th>
+                                                <th>actions</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <tr v-for="(item, index) in m.candidateRecommendation">
+                                                <td>{{ index + 1 }}</td>
+                                                <td>{{ item.notice }}</td>
+                                                <td>{{ item.file.name }}</td>
+                                                <td>
+                                                    <button @click="removeRow('notice',index)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
+                                                        <i class="fa fa-trash-alt"></i>
+                                                    </button>
+                                                </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -770,11 +803,20 @@ export default {
             candidate_id: null,
 
             // experienceCheck:null
-            candidateWorkExperience: {
+            candidateWorkExperienceModel: {
                 experience:'',
-                workExperience_id:'',
+                work_experience_id :'',
                 position:'',
                 object:'',
+                no_reason_id:'',
+                no_reason_info:'',
+            },
+            candidateRecommendationModel: {
+                recommendation: '',
+                recommendation_from_whom_id :'',
+                name:'',
+                position:'',
+                number:'',
                 no_reason_id:'',
                 no_reason_info:'',
             }
@@ -784,9 +826,10 @@ export default {
     created(){
 
         this.m = { ...this.data.candidate, ...this.data.basic };
+        console.log('this.m.', this.m);
+        // this.candidateWorkExperienceModel = this.initWorkExperience([...this.m.candidateWorkExperience]);
 
-        console.log('this.m.candidateCitizenships',this.m.candidateWorkExperience);
-        console.log("this.m ", this.m);
+
 
     },
     computed:{
@@ -811,6 +854,35 @@ export default {
         }
     },
     methods:{
+
+        initWorkExperience (arr) {
+            let k = arr.reduce(function (acc, obj, i) {
+                if(i == 0) {
+
+                    let j = Object.keys(obj).reduce(function (previous, key) {
+                        previous[key] = "";
+                        return previous;
+                    }, {});
+
+                    acc[0] = j;
+                }
+                return acc;
+            }, []);
+            arr.splice(0, arr.length);
+            return k[0];
+        },
+
+        clearObject (obj) {
+            let clear =  Object.keys(obj).reduce(function (previous, key) {
+                previous[key] = "";
+                return previous;
+            }, {});
+
+            Object.assign(obj, clear)
+
+            return obj;
+        },
+
         authUpdate(){
             console.log(this.auth);
             axios({
@@ -831,6 +903,9 @@ export default {
         },
         addCandidate(){
             console.log('cthis.m',this.m);
+            if (this.candidateWorkExperienceModel.experience == 2) {
+                this.m['candidateWorkExperienceModel'] = this.candidateWorkExperienceModel
+            }
             axios({
                 method: "post",
                 url: "/add_candidate",
@@ -839,23 +914,23 @@ export default {
             .then(function (response) {
                 // handle success
                 console.log(response.data);
-                this.formData.append('file', this.recommendationFile)
-                this.formData.append('candidate_id', response.data)
-                axios({
-                    method: "post",
-                    url: "/add_candidate_file",
-                    data: candidateFullData
-                })
-                .then(function (response) {
-                    // handle success
-                    console.log(response.data);
+                // this.formData.append('file', this.recommendationFile)
+                // this.formData.append('candidate_id', response.data)
+                // axios({
+                //     method: "post",
+                //     url: "/add_candidate_file",
+                //     data: candidateFullData
+                // })
+                // .then(function (response) {
+                //     // handle success
+                //     console.log(response.data);
 
 
-                })
-                .catch(function (error) {
-                    // handle error
-                    console.log(error);
-                })
+                // })
+                // .catch(function (error) {
+                //     // handle error
+                //     console.log(error);
+                // })
 
             })
             .catch(function (error) {
@@ -888,43 +963,29 @@ export default {
         },
 
         addLanguage(language, level){
-            console.log('language', language);
-            console.log('level', level);
-
             this.upsert(this.m.candidateLanguages, {
                 'language': language,
                 'level': level,
             }, "language");
 
-            console.log('this.candidateLanguageArr', this.m.candidateLanguages);
+            console.log('this.candidateLanguageArr',typeof this.m.candidateLanguages);
         },
         addCandidateWorkExperience(workExperience){
-            console.log('workExperience',workExperience);
-        //     var tableData = {
-        //         'experience': workExperience_id,
-        //         'position': position,
-        //         'object': object,
-        //     }
-        //     this.candidateExperienceArr.push(tableData)
-        //     console.log('this.candidateExperienceArr', this.candidateExperienceArr);
-        // },
-        // addNotice(notice_id){
-        //     var noticeObj =  _.find(this.notices, function(o) { return o.id ==  notice_id; });
-        //     var tableData = {
-        //         'notice':noticeObj[`name_${this.getLang}`],
-        //         'file': this.noticeFile,
-        //     }
-            var workExperienceCLA =  _.find(this.data.classificator.workExperiences, function(o) { return o.id ==  workExperience.work_experience_id; });
-            workExperience['workExperience'] = workExperienceCLA;
-            // console.log('workExperience',workExperienceCLA);
-            this.m.candidateWorkExperience.push(workExperience)
-            console.log('workExperience',this.m.candidateWorkExperience);
+            // console.log('workExperience 1', workExperience);
+            var workExperienceFind = _.find(this.data.classificator.workExperiences, function(o) { return o.id == workExperience.work_experience_id; });
+            // console.log(workExperience);
+            workExperience['work_experience'] = workExperienceFind;
+            this.m.candidateWorkExperience.push(JSON.parse(JSON.stringify(workExperience)))
+            // workExperience = this.clearObject(workExperience);
+        },
+        addCandidateRecommendation(recommendation){
+            console.log('recommendation', recommendation);
         },
         removeRow(type, index){
             if (type == 'language') {
                 const removed = this.candidateLanguageArr.splice(index, 1);
             }else if(type == 'experience'){
-                const removed = this.candidateExperienceArr.splice(index, 1);
+                const removed = this.m.candidateWorkExperience.splice(index, 1);
             }else if(type == 'notice'){
                 const removed = this.candidateNoticeArr.splice(index, 1)
             }
@@ -949,6 +1010,14 @@ export default {
         //         }
         //     }
         // }
+        // candidateWorkExperienceModel:{
+        //     handler(newValue, oldValue){
+        //         console.log('newValue', newValue);
+        //         if (this.candidateWorkExperienceModel.experience == 2) {
+        //             alert()
+        //         }
+        //     }
+        // }
     },
 
     mounted(){
@@ -957,6 +1026,11 @@ export default {
 console.log('this.data.candidateCitizenships', this.data.candidateCitizenships);
         if (Array.isArray(this.data.candidateCitizenships)) {
             ''
+        }
+        if (this.m.candidateWorkExperience.length != 0 && this.m.candidateWorkExperience[0].experience == 2) {
+            this.candidateWorkExperienceModel['experience'] = this.m.candidateWorkExperience[0].experience;
+            this.candidateWorkExperienceModel['no_reason_id'] = this.m.candidateWorkExperience[0].no_reason_id;
+            this.candidateWorkExperienceModel['no_reason_info'] = this.m.candidateWorkExperience[0].no_reason_info
         }
         // if (Object.values(this.data.candidateCitizenships).length != 0 ) {
         //     console.log('this.data.candidateCitizenships', this.data.candidateCitizenships);

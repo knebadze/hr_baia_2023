@@ -33,6 +33,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\RecommendationFromWhom;
 use Illuminate\Support\Facades\Schema;
 use App\Models\General_work_experience;
+use App\Models\NoReason;
 
 class MyprofileController extends Controller
 {
@@ -106,10 +107,11 @@ class MyprofileController extends Controller
         }
 
         if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('general_work_experiences')->where('candidate_id', $candidate->id)->exists()) {
-            $candidateWorkExperience = General_work_experience::where('candidate_id', $candidate->id)->get();
+            $candidateWorkExperience = General_work_experience::where('candidate_id', $candidate->id)->with('workExperience')->get()->toArray();
+            // dd($candidateWorkExperience);
         }else{
             // $candidateWorkExperience = Schema::getColumnListing('general_work_experiences');
-            // $candidateWorkExperience = array_map(function ($item) {  return ""; }, array_flip($candidateWorkExperience));
+            // $candidateWorkExperience = [array_map(function ($item) {  return ""; }, array_flip($candidateWorkExperience))];
             $candidateWorkExperience = [];
         }
 
@@ -143,6 +145,7 @@ class MyprofileController extends Controller
         $workExperiences = Work_experience::all()->toArray();
         $recommendationFromWhom = RecommendationFromWhom::all()->toArray();
         $notices = Notice::All()->toArray();
+        $noExperienceReason = NoReason::where('category', 1)->get()->toArray();
 
         // dd($candidate);
         $data = [
@@ -175,7 +178,8 @@ class MyprofileController extends Controller
                 'languageLevels' => $languageLevels,
                 'recommendationFromWhom' => $recommendationFromWhom,
                 'notices' => $notices,
-                'workExperiences' => $workExperiences
+                'workExperiences' => $workExperiences,
+                'noExperienceReason' => $noExperienceReason,
             ]
          ];
 
