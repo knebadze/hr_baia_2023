@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\TermsController;
+
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\IndividualController;
 use App\Http\Controllers\CompanyController;
@@ -35,6 +37,9 @@ Route::get('', function() {
 Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}'], ],
        function()
     {
+        
+        Route::get('/terms & conditions', [TermsController::class, 'index'])->name('terms & conditions');
+
         Route::get('/', [MainController::class, 'index'])->name('welcome');
 
             Route::get('/individual', [IndividualController::class, 'index'])->name('individual');
@@ -44,7 +49,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
         Route::get('/about', [AboutController::class, 'index'])->name('about');
         Route::get('/candidate', [CandidateController::class, 'index'])->name('candidate');
         Route::get('/blog', [BlogController::class, 'index'])->name('blog');
-
+        
         // Account Pages
         Route::get('/user/candidateProfile', [MyprofileController::class, 'index'])->name('candidateProfile');
 
