@@ -421,6 +421,8 @@ return [
 
     // ----------------------------------------------------------------------------------------------------
     // User Home Page Lang
+    'user_page_my_cabinet' => 'კაბინეტი',
+    'user_page_log_out' => 'გასვლა',
     'user_page_candidate_first_title' => 'კანდიდატი',
     'user_page_candidate_second_title' => 'დამსაქმებლი',
     // leftside

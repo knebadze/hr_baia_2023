@@ -428,6 +428,8 @@ return [
 
     // ----------------------------------------------------------------------------------------------------
     // User Home Page Lang
+    'user_page_my_cabinet' => 'Мой кабинет',
+    'user_page_log_out' => 'Выйти',
     'user_page_candidate_first_title' => 'Кандидат',
     'user_page_candidate_second_title' => 'Работодатель',
     // leftside

@@ -69,7 +69,7 @@
                         @else
                         <div class="twm-nav-btn-right">
                             <a href="{{ route('home', App()->getLocale() ) }}" class="twm-nav-post-a-job">
-                                <i class="feather-user"></i> კაბინეტი
+                                <i class="feather-user"></i> {{ __('lang.user_page_my_cabinet') }}
                             </a>
                         </div>
                         <div class="twm-nav-btn-left">
@@ -77,7 +77,7 @@
                             onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();">
                                 <i class="feather-log-out"></i>
-                                გასვლა
+                                {{ __('lang.user_page_log_out') }}
                             </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf

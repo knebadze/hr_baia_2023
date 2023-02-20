@@ -423,6 +423,8 @@ return [
 
     // ----------------------------------------------------------------------------------------------------
     // User Home Page Lang
+    'user_page_my_cabinet' => 'My Cabinet',
+    'user_page_log_out' => 'Log Out',
     'user_page_candidate_first_title' => 'Candidate',
     'user_page_candidate_second_title' => 'Employer',
     // leftside
