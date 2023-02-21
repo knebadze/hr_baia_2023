@@ -373,18 +373,18 @@
                                     <div class="ls-inputicon-box">
                                         <select class="wt-select-box selectpicker" v-model="m.candidateWorkExperience.experience"  data-live-search="false" title=""  data-bv-field="size">
                                             <option :value="1">კი</option>
-                                            <option :value="0">არა</option>
+                                            <option :value="2">არა</option>
                                         </select>
                                         <i class="fs-input-icon fa fa-smoking"></i>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-6 col-lg-6 col-md-12" :class="(m.candidateWorkExperience.experience == 2)?'':'visually-hidden'">
+                            <div class="col-xl-6 col-lg-6 col-md-12" :class="(m.candidateWorkExperience.experience ==1)?'':'visually-hidden'">
                                 <div class="form-group">
                                     <label>{{ $t('lang.user_profile_page_work_exp') }}</label>
                                     <div class="ls-inputicon-box">
                                         <select class="wt-select-box selectpicker"  v-model="m.candidateWorkExperience.work_experience_id"  data-live-search="true" title=""  data-bv-field="size">
-                                            <option v-for="workExperience in data.classificator.workExperiences " :value="workExperience">{{ workExperience[`name_${getLang}`] }}</option>
+                                            <option v-for="workExperience in data.classificator.workExperiences " :value="workExperience.id">{{ workExperience[`name_${getLang}`] }}</option>
                                         </select>
                                         <i class="fs-input-icon fa fa-history"></i>
                                     </div>
@@ -411,13 +411,13 @@
                             <div v-if="m.candidateWorkExperience.experience == 1" class="col-lg-12 col-md-12">
                                 <div class="text-right ">
                                     <button class="btn btn-success"
-                                    @click="addCandidateWorkExperience(m.candidateWorkExperience.work_experience_id, m.candidateWorkExperience.position, candidateWorkExperience.object)"
+                                    @click="addCandidateWorkExperience(m.candidateWorkExperience)"
                                     title="დამატება" data-bs-toggle="tooltip" data-bs-placement="top">{{ $t('lang.user_profile_page_work_button_add_info') }}
                                         <span class="fa fa-plus"></span>
                                     </button>
                                 </div>
                             </div>
-                            <!-- <div v-if="candidateExperience.length != 0" :class="ExperienceTableClass">
+                            <div v-if="m.candidateWorkExperience.length != 0" class="col-lg-12 col-md-12">
 
                                 <div class="panel-body wt-panel-body">
                                     <div class="p-a20 table-responsive">
@@ -433,9 +433,9 @@
                                             </thead>
 
                                             <tbody>
-                                                <tr v-for="(item, index) in candidateExperienceArr">
+                                                <tr v-for="(item, index) in m.candidateWorkExperience">
                                                 <td>{{ index + 1 }}</td>
-                                                <td>{{ item.experience[`name_${getLang}`] }}</td>
+                                                <td>{{ item.workExperience[`name_${getLang}`] }}</td>
                                                 <td>{{ item.position }}</td>
                                                 <td>{{ item.object }}</td>
                                                 <td>
@@ -448,20 +448,20 @@
                                         </table>
                                     </div>
                                 </div>
-                            </div> -->
+                            </div>
 
-                            <div class="col-xl-6 col-lg-6 col-md-12" :class="(m.candidateWorkExperience.experience == 0)?'':'visually-hidden'">
+                            <div class="col-xl-6 col-lg-6 col-md-12" :class="(m.candidateWorkExperience.experience == 2)?'':'visually-hidden'">
                                 <div class="form-group">
                                     <label>სამუშაო გამოცდილების არ ქონის მიზეზი</label>
                                     <div class="ls-inputicon-box">
                                         <select class="wt-select-box selectpicker"  v-model="m.candidateWorkExperience.no_reason_id"  data-live-search="true" title=""  data-bv-field="size">
-                                            <option v-for="workExperience in workExperiences " :value="workExperience">{{ workExperience[`name_${getLang}`] }}</option>
+                                            <option v-for="workExperience in data.classificator.workExperiences " :value="workExperience">{{ workExperience[`name_${getLang}`] }}</option>
                                         </select>
                                         <i class="fs-input-icon fa fa-history"></i>
                                     </div>
                                 </div>
                             </div>
-                             <div :class="(m.candidateWorkExperience.experience == 0)?'':'visually-hidden'" class="col-md-12">
+                             <div :class="(m.candidateWorkExperience.experience == 2)?'':'visually-hidden'" class="col-md-12">
                                 <div class="form-group">
                                     <label>დამატაბითი ინფორმაცია</label>
                                     <textarea class="form-control" rows="3" v-model="m.candidate.no_reason_info" :placeholder="$t('lang.user_profile_page_medical_please_info')"></textarea>
@@ -770,6 +770,14 @@ export default {
             candidate_id: null,
 
             // experienceCheck:null
+            candidateWorkExperience: {
+                experience:'',
+                workExperience_id:'',
+                position:'',
+                object:'',
+                no_reason_id:'',
+                no_reason_info:'',
+            }
 
         }
     },
@@ -788,9 +796,9 @@ export default {
         languageTableClass(){
             return (this.m.candidateLanguages.length > 0 )?'col-lg-12 col-md-12':'col-lg-12 col-md-12 visually-hidden'
         },
-        ExperienceTableClass(){
-            return (this.candidateExperienceArr.length > 0 )?'col-lg-12 col-md-12':'col-lg-12 col-md-12 visually-hidden'
-        },
+        // ExperienceTableClass(){
+        //     return (this.m.candidateExperience.length > 0 )?'col-lg-12 col-md-12':'col-lg-12 col-md-12 visually-hidden'
+        // },
         noticeTableClass(){
             return (this.candidateNoticeArr.length > 0 )?'col-lg-12 col-md-12':'col-lg-12 col-md-12 visually-hidden'
         },
@@ -890,23 +898,27 @@ export default {
 
             console.log('this.candidateLanguageArr', this.m.candidateLanguages);
         },
-        addCandidateWorkExperience(workExperience_id, position, object){
-
-            var tableData = {
-                'experience': workExperience_id,
-                'position': position,
-                'object': object,
-            }
-            this.candidateExperienceArr.push(tableData)
-            console.log('this.candidateExperienceArr', this.candidateExperienceArr);
-        },
-        addNotice(notice_id){
-            var noticeObj =  _.find(this.notices, function(o) { return o.id ==  notice_id; });
-            var tableData = {
-                'notice':noticeObj[`name_${this.getLang}`],
-                'file': this.noticeFile,
-            }
-            this.candidateNoticeArr.push(tableData)
+        addCandidateWorkExperience(workExperience){
+            console.log('workExperience',workExperience);
+        //     var tableData = {
+        //         'experience': workExperience_id,
+        //         'position': position,
+        //         'object': object,
+        //     }
+        //     this.candidateExperienceArr.push(tableData)
+        //     console.log('this.candidateExperienceArr', this.candidateExperienceArr);
+        // },
+        // addNotice(notice_id){
+        //     var noticeObj =  _.find(this.notices, function(o) { return o.id ==  notice_id; });
+        //     var tableData = {
+        //         'notice':noticeObj[`name_${this.getLang}`],
+        //         'file': this.noticeFile,
+        //     }
+            var workExperienceCLA =  _.find(this.data.classificator.workExperiences, function(o) { return o.id ==  workExperience.work_experience_id; });
+            workExperience['workExperience'] = workExperienceCLA;
+            // console.log('workExperience',workExperienceCLA);
+            this.m.candidateWorkExperience.push(workExperience)
+            console.log('workExperience',this.m.candidateWorkExperience);
         },
         removeRow(type, index){
             if (type == 'language') {

@@ -108,9 +108,9 @@ class MyprofileController extends Controller
         if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('general_work_experiences')->where('candidate_id', $candidate->id)->exists()) {
             $candidateWorkExperience = General_work_experience::where('candidate_id', $candidate->id)->get();
         }else{
-            $candidateWorkExperience = Schema::getColumnListing('general_work_experiences');
-            $candidateWorkExperience = array_map(function ($item) {  return ""; }, array_flip($candidateWorkExperience));
-            // $candidateWorkExperience = [];
+            // $candidateWorkExperience = Schema::getColumnListing('general_work_experiences');
+            // $candidateWorkExperience = array_map(function ($item) {  return ""; }, array_flip($candidateWorkExperience));
+            $candidateWorkExperience = [];
         }
 
         if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('candidate_recommendations')->where('candidate_id', $candidate->id)->exists()) {
@@ -175,6 +175,7 @@ class MyprofileController extends Controller
                 'languageLevels' => $languageLevels,
                 'recommendationFromWhom' => $recommendationFromWhom,
                 'notices' => $notices,
+                'workExperiences' => $workExperiences
             ]
          ];
 
