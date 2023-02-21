@@ -83,6 +83,15 @@ class CandidateRepository
         }, []);
 
         $candidate->languages()->sync($selectLanguage);
+        if ($data['work_experience']['experience'] == 1) {
+            $selectExperience = collect($data['work_experience'])->reduce(function ($carry, $item) {
+                if($carry  == null) $carry = [];
+                $carry[$item["experience"]["id"]] = ["position" => $item["position"], "object" => $item["object"]];
+                return $carry;
+            }, []);
+            print_r($selectExperience);
+            exit;
+        }
         // $selectExperience = collect($data['work_experience'])->reduce(function ($carry, $item) {
         //     if($carry  == null) $carry = [];
         //     $carry[$item["experience"]["id"]] = ["position" => $item["position"], "object" => $item["object"]];
