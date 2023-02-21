@@ -9,7 +9,7 @@ class TermsController extends Controller
 
     public function index()
     {
-        return view ('terms & conditions');
+        return view ('terms_end_conditions');
     }
 
 
