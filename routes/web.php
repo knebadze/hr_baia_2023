@@ -38,7 +38,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
        function()
     {
         
-        Route::get('/terms & conditions', [TermsController::class, 'index'])->name('terms & conditions');
+        Route::get('/terms_end_conditions', [TermsController::class, 'index'])->name('terms_end_conditions');
 
         Route::get('/', [MainController::class, 'index'])->name('welcome');
 
