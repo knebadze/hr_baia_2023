@@ -36,16 +36,8 @@ class CandidateRepository
 
     public function save($data)
     {
-        // print_r($data['candidateWorkExperience']);
-        // exit;
+;
         $objData = $this->array_to_object($data);
-        // var_dump($objData);
-        // exit;
-        // if ($objData->driving_license) {
-        //     $convertStringLicense = implode(",", $data['driving_license']);
-        // }
-        // print_r($objData);
-        // exit;
         $candidate = Candidate::updateOrCreate(
             ['user_id' => Auth::id()],
             [
@@ -77,11 +69,13 @@ class CandidateRepository
         $candidate->allergy()->sync($objData->candidateAllergies);
 
 
+
         $selectLanguage = collect($data['candidateLanguages'])->reduce(function ($carry, $item) {
             if($carry  == null) $carry = [];
             $carry[$item["language"]["id"]] = ["language_level_id" => $item["level"]["id"]];
             return $carry;
         }, []);
+
 
         $candidate->languages()->sync($selectLanguage);
 
@@ -109,18 +103,48 @@ class CandidateRepository
                 ]
             );
         }
-        // print_r('hello');
+        // print_r($data['candidateNotices']);
         //     exit;
-        // $selectExperience = collect($data['work_experience'])->reduce(function ($carry, $item) {
+        // $selectNoticeId = collect($data['candidateNotices'])->reduce(function ($carry, $item) {
         //     if($carry  == null) $carry = [];
-        //     $carry[$item["experience"]["id"]] = ["position" => $item["position"], "object" => $item["object"]];
+        //     $carry[] = $item["notice_id"];
         //     return $carry;
         // }, []);
-        // $candidate->generalWorkExperience()->attach($selectExperience);
-        // print_r($objData->recommendation);
-        // // if ($objData->recommendation->hasFile('file') ) {
+        // $candidate->notice()->sync($selectNoticeId);
+        // print_r($selectNoticeId);
+        //     exit;
+            // foreach ($data['candidateRecommendation'] as $key => $value) {
 
-        // }
+            //     // print_r($candidate->id);
+            //     // exit;
+            //     if ($value['recommendation'] == 1) {
+            //         $candidateRecommendation = new CandidateRecommendation();
+            //         $candidateRecommendation->candidate_id = $candidate->id;
+            //         $candidateId = $candidate->id;
+            //         // $candidateRecommendation->save();
+            //         // print_r($candidateId);
+            //         // exit;
+            //        $add =  CandidateRecommendation::updateOrCreate(
+            //             [
+            //                 'candidate_id' => $candidateId,
+            //                 'number' => $value['number']
+            //             ],
+            //             [
+            //                 'recommendation' => $value['recommendation'],
+            //                 'recommendation_from_whom_id' => $value['recommendation_from_whom_id'],
+            //                 'name' => $value['name'],
+            //                 'position' => $value['position'],
+            //             ]
+            //         );
+            //         print_r($add);
+            //         exit;
+            //     }else{
+            //        print_r('else');
+            //         exit;
+            //     }
+
+            // }
+
         // $candidateRecommendation = CandidateRecommendation::updateOrCreate(
         //     ['candidate_id' => $candidate->id],
         //     [

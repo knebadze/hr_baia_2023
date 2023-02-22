@@ -115,18 +115,20 @@ class MyprofileController extends Controller
             $candidateWorkExperience = [];
         }
 
-        if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('candidate_recommendations')->where('candidate_id', $candidate->id)->exists()) {
-            $candidateRecommendation = CandidateRecommendation::where('candidate_id', $candidate->id)->first();
-        }else{
-            $candidateRecommendation = Schema::getColumnListing('candidate_recommendations');
-            $candidateRecommendation = [array_map(function ($item) {  return ""; }, array_flip($candidateRecommendation))];
-        }
+        // if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('candidate_recommendations')->where('candidate_id', $candidate->id)->exists()) {
+        //     $candidateRecommendation = CandidateRecommendation::where('candidate_id', $candidate->id)->with('recommendationWhom')->first();
+        // }else{
+        //     // $candidateRecommendation = Schema::getColumnListing('candidate_recommendations');
+        //     // $candidateRecommendation = [array_map(function ($item) {  return ""; }, array_flip($candidateRecommendation))];
+        //     $candidateRecommendation = [];
+        // }
 
         if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('candidate_notices')->where('candidate_id', $candidate->id)->exists()) {
-            $candidateNotices = CandidateNotice::where('candidate_id', $candidate->id)->get();
+            $candidateNotices = CandidateNotice::where('candidate_id', $candidate->id)->with('notice')->get();
         }else{
-            $candidateNotices = Schema::getColumnListing('candidate_notices');
-            $candidateNotices = [array_map(function ($item) {  return ""; }, array_flip($candidateNotices))];
+            // $candidateNotices = Schema::getColumnListing('candidate_notices');
+            // $candidateNotices = [array_map(function ($item) {  return ""; }, array_flip($candidateNotices))];
+            $candidateNotices = [];
         }
 
 
@@ -161,7 +163,7 @@ class MyprofileController extends Controller
                 'candidateSpecialties' => $candidateSpecialties,
                 'candidateAllergies' => $candidateAllergies,
                 'candidateLanguages' => $candidateLanguages,
-                'candidateRecommendation' => $candidateRecommendation,
+                // 'candidateRecommendation' => $candidateRecommendation,
                 'candidateNotices' => $candidateNotices,
                 'candidateWorkExperience' => $candidateWorkExperience
             ],
@@ -177,11 +179,11 @@ class MyprofileController extends Controller
                 'allergies' => $allergies,
                 'languages' => $languages,
                 'languageLevels' => $languageLevels,
-                'recommendationFromWhom' => $recommendationFromWhom,
+                // 'recommendationFromWhom' => $recommendationFromWhom,
                 'notices' => $notices,
                 'workExperiences' => $workExperiences,
                 'noExperienceReason' => $noExperienceReason,
-                'noRecommendationReason' => $noRecommendationReason
+                // 'noRecommendationReason' => $noRecommendationReason
             ]
          ];
 

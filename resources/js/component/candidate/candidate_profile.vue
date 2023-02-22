@@ -472,7 +472,7 @@
                 </div>
 
                 <!--რეკომენდაცია-->
-                <div class="panel panel-default">
+                <!-- <div class="panel panel-default">
                     <div class="panel-heading wt-panel-heading p-a20">
                         <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_recomendation_title') }}</h4>
                     </div>
@@ -486,7 +486,6 @@
                                         <select class="wt-select-box selectpicker"  v-model="candidateRecommendationModel.recommendation"  data-live-search="false" title=""  data-bv-field="size">
                                             <option :value="1">წარმოვადგენ</option>
                                             <option :value="2">ვერ წარმოვადგენ</option>
-                                            <!-- <option v-for="recommendation in recommendations " :value="recommendation.id">{{ recommendation[`name_${getLang}`] }}</option> -->
                                         </select>
                                         <i class="fs-input-icon fa fa-thumbs-up"></i>
                                     </div>
@@ -538,11 +537,10 @@
                                     <label>ფაილი</label>
                                     <div class="ls-inputicon-box">
                                         <input class="form-control" ref="upload" type="file" @change="recommendationFileUpload" placeholder="">
-                                        <!-- <i class="fs-input-icon fa fa-user"></i> -->
                                     </div>
                                 </div>
                             </div>
-                            <!-- <div class="col-xl-6 col-lg-6 col-md-12" :class="(candidateRecommendationModel.recommendation == 2)?'':'visually-hidden'">
+                            <div class="col-xl-6 col-lg-6 col-md-12" :class="(candidateRecommendationModel.recommendation == 2)?'':'visually-hidden'">
                                 <div class="form-group">
                                     <label>რეცომდაციის არ ქონის მიზეზი</label>
                                     <div class="ls-inputicon-box">
@@ -552,13 +550,13 @@
                                         <i class="fs-input-icon fa fa-history"></i>
                                     </div>
                                 </div>
-                            </div>-->
-                            <!-- <div class="col-md-12">
+                            </div>
+                            <div v-if="candidateRecommendationModel.recommendation == 2" class="col-md-12">
                                 <div class="form-group">
                                     <label>დამატაბითი ინფორმაცია</label>
                                     <textarea class="form-control" rows="3" v-model="candidateRecommendationModel.no_reason_info" :placeholder="$t('lang.user_profile_page_medical_please_info')"></textarea>
                                 </div>
-                            </div>  -->
+                            </div>
                             <div v-if="candidateRecommendationModel.recommendation == 1" class="col-lg-12 col-md-12">
                                 <div class="text-right ">
                                     <button class="btn btn-success"
@@ -575,19 +573,25 @@
                                             <thead>
                                                 <tr>
                                                 <th>N</th>
-                                                <th>ცნობა</th>
+                                                <th>საიდან?</th>
+                                                <th>სახელი გვარი</th>
+                                                <th>ნომერი</th>
+                                                <th>თანამდებობა</th>
                                                 <th>ფაილი</th>
-                                                <th>actions</th>
+                                                <th>action</th>
                                                 </tr>
                                             </thead>
 
                                             <tbody>
                                                 <tr v-for="(item, index) in m.candidateRecommendation">
                                                 <td>{{ index + 1 }}</td>
-                                                <td>{{ item.notice }}</td>
-                                                <td>{{ item.file.name }}</td>
+                                                <td><span :class="(item.recommendation_from_whom_id == 1)?'badge bg-success p-2':'badge bg-info text-dark p-2'">{{ item.recommendation_whom[`name_${getLang}`] }}</span></td>
+                                                <td>{{ item.name }}</td>
+                                                <td>{{ item.number }}</td>
+                                                <td>{{ item.position }}</td>
+                                                <td>{{ item.file }}</td>
                                                 <td>
-                                                    <button @click="removeRow('notice',index)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
+                                                    <button @click="removeRow('recommendation',index)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
                                                         <i class="fa fa-trash-alt"></i>
                                                     </button>
                                                 </td>
@@ -597,10 +601,10 @@
                                     </div>
                                 </div>
                             </div>
-                           
+
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 <!--Additional information-->
                 <div class="panel panel-default">
@@ -683,7 +687,7 @@
                                 <div class="form-group">
                                     <label>{{ $t('lang.user_profile_page_references_name_notice') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <select class="wt-select-box selectpicker" v-model="m.candidateNotices.notice_id"  data-live-search="true" title=""  data-bv-field="size">
+                                        <select class="wt-select-box selectpicker" v-model="candidateNoticeModel.notice_id"  data-live-search="true" title=""  data-bv-field="size">
                                             <option v-for="notice in data.classificator.notices " :value="notice.id">{{ notice[`name_${getLang}`] }}</option>
                                         </select>
                                         <i class="fs-input-icon fa fa-sticky-note"></i>
@@ -701,13 +705,13 @@
                             <div class="col-lg-12 col-md-12">
                                 <div class="text-right ">
                                     <button class="btn btn-success"
-                                    @click="addNotice(candidateNotices.notice_id,)"
+                                    @click="addNotice(candidateNoticeModel)"
                                     title="დამატება" data-bs-toggle="tooltip" data-bs-placement="top">{{ $t('lang.user_profile_page_references_button_add_info') }}
                                         <span class="fa fa-plus"></span>
                                     </button>
                                 </div>
                             </div>
-                            <!-- <div v-if="candidateNoticeArr.lenght != 0" :class="noticeTableClass">
+                            <div v-if="m.candidateNotices.length != 0" class="col-lg-12 col-md-12">
                                 <div class="panel-body wt-panel-body">
                                     <div class="p-a20 table-responsive">
                                         <table class="table twm-table table-striped table-borderless">
@@ -721,12 +725,12 @@
                                             </thead>
 
                                             <tbody>
-                                                <tr v-for="(item, index) in candidateNoticeArr">
+                                                <tr v-for="(item, index) in m.candidateNotices">
                                                 <td>{{ index + 1 }}</td>
-                                                <td>{{ item.notice }}</td>
-                                                <td>{{ item.file.name }}</td>
+                                                <td>{{ item.notice[`name_${getLang}`] }}</td>
+                                                <td> <a v-on:click="showFile(item.file)">{{ item.file }}</a> </td>
                                                 <td>
-                                                    <button @click="removeRow('notice',index)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
+                                                    <button @click="removeRow('notice', index)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
                                                         <i class="fa fa-trash-alt"></i>
                                                     </button>
                                                 </td>
@@ -735,7 +739,7 @@
                                         </table>
                                     </div>
                                 </div>
-                            </div> -->
+                            </div>
 
                         </div>
                     </div>
@@ -829,15 +833,22 @@ export default {
                 no_reason_id:'',
                 no_reason_info:'',
             },
-            candidateRecommendationModel: {
-                recommendation: '',
-                recommendation_from_whom_id :'',
-                name:'',
-                position:'',
-                number:'',
-                no_reason_id:'',
-                no_reason_info:'',
-            }
+            // candidateRecommendationModel: {
+            //     recommendation: '',
+            //     recommendation_from_whom_id :'',
+            //     name:'',
+            //     position:'',
+            //     number:'',
+            //     no_reason_id:'',
+            //     no_reason_info:'',
+            // }
+            candidateNoticeModel:{
+                'notice_id':'',
+                'notice':'',
+                'file':'',
+            },
+            imgSrc:'',
+            noticeFileInfo:[]
 
         }
     },
@@ -856,12 +867,6 @@ export default {
         },
         languageTableClass(){
             return (this.m.candidateLanguages.length > 0 )?'col-lg-12 col-md-12':'col-lg-12 col-md-12 visually-hidden'
-        },
-        // ExperienceTableClass(){
-        //     return (this.m.candidateExperience.length > 0 )?'col-lg-12 col-md-12':'col-lg-12 col-md-12 visually-hidden'
-        // },
-        noticeTableClass(){
-            return (this.candidateNoticeArr.length > 0 )?'col-lg-12 col-md-12':'col-lg-12 col-md-12 visually-hidden'
         },
         candidateID(){
             if (Object.keys(this.candidate).length != 0) {
@@ -924,31 +929,42 @@ export default {
             if (this.candidateWorkExperienceModel.experience == 2) {
                 this.m['candidateWorkExperienceModel'] = this.candidateWorkExperienceModel
             }
+            let currentObj = this;
+            console.log('currentObj',currentObj);
             axios({
                 method: "post",
                 url: "/add_candidate",
-                data: this.m
+                data: this.m,
+
             })
             .then(function (response) {
+                console.log('this.noticeFile',currentObj);
                 // handle success
                 console.log(response.data);
-                // this.formData.append('file', this.recommendationFile)
-                // this.formData.append('candidate_id', response.data)
-                // axios({
-                //     method: "post",
-                //     url: "/add_candidate_file",
-                //     data: candidateFullData
-                // })
-                // .then(function (response) {
-                //     // handle success
-                //     console.log(response.data);
+                const config = {
+                    headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+                }
+                // form data
+                console.log('currentObj.m.candidateNotices',currentObj.m.candidateNotices);
+                let formData = new FormData();
+                console.log('currentObj.noticeFileInfo', currentObj.noticeFileInfo);
+                for( var i = 0; i < currentObj.noticeFileInfo.length; i++ ){
+                    let file = currentObj.noticeFileInfo[i][1];
+                    formData.append('file_'+ currentObj.noticeFileInfo[i][0] , file);
+                }
+                formData.append('candidate_id', response.data.data);
 
-
-                // })
-                // .catch(function (error) {
-                //     // handle error
-                //     console.log(error);
-                // })
+                // send upload request
+                axios.post('/add_candidate_file', formData, config)
+                .then(function (response) {
+                    console.log('response',response);
+                })
+                .catch(function (error) {
+                    console.log('error',error);
+                // currentObj.output = error;
+                });
 
             })
             .catch(function (error) {
@@ -961,7 +977,10 @@ export default {
         },
         noticeFileUpload(event){
             this.noticeFile = event.target.files[0]
+            var arr = [this.candidateNoticeModel.notice_id, event.target.files[0]]
+            this.noticeFileInfo.push(arr)
         },
+
 
 
         upsert(array, data, keyName) {
@@ -971,7 +990,7 @@ export default {
                 const i = array.findIndex(_element => _element[keyName].id === data[keyName].id);
                 console.log('i', i);
                 if (i > -1) array[i] = { ...data }; // (2)
-                else array.push(data);
+                else array.push(JSON.parse(JSON.stringify(data)));
             } catch (e) {
                 console.log("e", e)
                 array.splice(0, array.length)
@@ -989,27 +1008,43 @@ export default {
             console.log('this.candidateLanguageArr',typeof this.m.candidateLanguages);
         },
         addCandidateWorkExperience(workExperience){
-            // console.log('workExperience 1', workExperience);
             var workExperienceFind = _.find(this.data.classificator.workExperiences, function(o) { return o.id == workExperience.work_experience_id; });
-            // console.log(workExperience);
             workExperience['work_experience'] = workExperienceFind;
             this.m.candidateWorkExperience.push(JSON.parse(JSON.stringify(workExperience)))
-            // workExperience = this.clearObject(workExperience);
         },
-        addCandidateRecommendation(recommendation){
-            console.log('recommendation', recommendation);
+        addNotice(notice){
+            var noticeFind = _.find(this.data.classificator.notices, function(o) { return o.id == notice.notice_id; });
+            notice['notice'] = noticeFind;
+            notice['file'] = this.noticeFile.name
+            this.upsert(this.m.candidateNotices, notice, "notice");
+        },
+        // addCandidateRecommendation(recommendation){
+        //     recommendation['file'] = this.recommendationFile.name
+        //     var recomendationWhomFind = _.find(this.data.classificator.recommendationFromWhom, function(o) { return o.id == recommendation.recommendation_from_whom_id; });
+        //     recommendation['recommendation_whom'] = recomendationWhomFind;
+        //     console.log('recommendation', recommendation);
 
-        },
+        //     console.log('this.m.candidateRecommendation_1', this.m.candidateRecommendation);
+        //     this.m.candidateRecommendation.push(JSON.parse(JSON.stringify(recommendation)))
+        //     console.log('this.m.candidateRecommendation_2', this.m.candidateRecommendation);
+        // },
         removeRow(type, index){
             if (type == 'language') {
                 const removed = this.candidateLanguageArr.splice(index, 1);
             }else if(type == 'experience'){
                 const removed = this.m.candidateWorkExperience.splice(index, 1);
             }else if(type == 'notice'){
-                const removed = this.candidateNoticeArr.splice(index, 1)
+                const removed = this.m.candidateNotices.splice(index, 1)
             }
+            // else if( type == 'recommendation'){
+            //     const removed = this.m.candidateRecommendation.splice(index, 1)
+            // }
 
         },
+        showFile(name){
+            var pdf = `../../../public/images/user-documentation/${name}`;
+            window.open(pdf);
+        }
     },
     watch:{
         // experienceCheck:{
@@ -1040,51 +1075,12 @@ export default {
     },
 
     mounted(){
-        console.log('this.candidateRecommendation', this.data.candidateRecommendation);
-
-console.log('this.data.candidateCitizenships', this.data.candidateCitizenships);
-        if (Array.isArray(this.data.candidateCitizenships)) {
-            ''
-        }
         if (this.m.candidateWorkExperience.length != 0 && this.m.candidateWorkExperience[0].experience == 2) {
             this.candidateWorkExperienceModel['experience'] = this.m.candidateWorkExperience[0].experience;
             this.candidateWorkExperienceModel['no_reason_id'] = this.m.candidateWorkExperience[0].no_reason_id;
             this.candidateWorkExperienceModel['no_reason_info'] = this.m.candidateWorkExperience[0].no_reason_info
         }
-        // if (Object.values(this.data.candidateCitizenships).length != 0 ) {
-        //     console.log('this.data.candidateCitizenships', this.data.candidateCitizenships);
-        //     this.data.candidateCitizenships.forEach(element => {
-        //         this.candidateCitizenshipArr.push(element.citizenship_id)
-        //     });
-        // }
-        // if (Object.keys(this.data.candidateProfessions).length != 0 ) {
-        //     this.data.candidateProfessions.forEach(element => {
-        //         this.candidateProfessionArr.push(element.profession_id)
-        //     });
-        // }
-        // if (Object.keys(this.data.candidateAllergies).length != 0 ) {
-        //     this.data.candidateAllergies.forEach(element => {
-        //         this.candidateAllergyArr.push(element.allergy_id)
-        //     });
-        // }
-        // if (Object.keys(this.data.candidateLanguages).length != 0 ) {
-        //     console.log('this.data.candidateLanguages', this.data.candidateLanguages);
-        //     this.data.candidateLanguages.forEach(element => {
-        //         var language =  _.find(this.languages, function(o)  { return o.id ==  element.language_id; });
-        //         var level = _.find(this.languageLevels, function(o)  { return o.id ==  element.language_level_id; });
-        //         var tableData = {
-        //             'language': language,
-        //             'level': level
-        //         }
-        //         this.candidateLanguageArr.push(tableData)
-        //     });
-        // }
-        // var obj = this.candidate.reduce(function(acc, cur, i) {
-        //     acc[i] = cur;
-        //     return acc;
-        // }, {});
-        // console.log('obj', obj);
-console.log(this.candidate);
+
 
     }
 }
