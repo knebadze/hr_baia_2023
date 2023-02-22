@@ -95,6 +95,8 @@
                                         <div class="ls-inputicon-box">
                                             <input class="form-control" v-model="m.candidate.personal_number" type="text" placeholder="">
                                             <i class="fs-input-icon fa fa-user"></i>
+                                            <span v-for="error of v$.$errors"
+  :key="error.$uid" v-if="v$.m.candidate.personal_number.$error" style='color:red'>{{ error.$message }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -791,10 +793,16 @@
 </template>
 
 <script>
+
 import { I18n } from 'laravel-vue-i18n'
 import miniTable from './miniTable.vue'
 import _ from 'lodash'
+import { useVuelidate } from '@vuelidate/core'
+import { minLength,required, email } from '@vuelidate/validators'
 export default {
+    setup () {
+        return { v$: useVuelidate() }
+    },
     components:{
         miniTable
     },
@@ -850,6 +858,20 @@ export default {
             imgSrc:'',
             noticeFileInfo:[]
 
+        }
+    },
+    validations () {
+        return {
+            m:{
+                candidate:{
+                    personal_number: { minLength: minLength(3) },
+                }
+            },
+            // personal_number: { required }, // Matches this.firstName
+            // lastName: { required }, // Matches this.lastName
+            // contact: {
+            //     email: { required, email } // Matches this.contact.email
+            // }
         }
     },
     created(){
@@ -925,6 +947,15 @@ export default {
 
         },
         addCandidate(){
+            this.v$.$validate() // checks all inputs
+            console.log('this.v$.$validate()', this.v$.$error);
+            if (!this.v$.$error) {
+                // if ANY fail validation
+                alert('Form successfully submitted.')
+            } else {
+                alert('Form failed validation', this.v$.$error)
+            }
+            console.log('this.v$',this.v$)
             console.log('cthis.m',this.m);
             if (this.candidateWorkExperienceModel.experience == 2) {
                 this.m['candidateWorkExperienceModel'] = this.candidateWorkExperienceModel
@@ -1042,7 +1073,7 @@ export default {
 
         },
         showFile(name){
-            var pdf = `../../../public/images/user-documentation/${name}`;
+            var pdf = `../../../public/user-documentation/${name}`;
             window.open(pdf);
         }
     },
