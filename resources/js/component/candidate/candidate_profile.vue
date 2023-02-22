@@ -946,17 +946,10 @@ export default {
             })
 
         },
-        addCandidate(){
-            this.v$.$validate() // checks all inputs
-            console.log('this.v$.$validate()', this.v$.$error);
-            if (!this.v$.$error) {
-                // if ANY fail validation
-                alert('Form successfully submitted.')
-            } else {
-                alert('Form failed validation', this.v$.$error)
-            }
-            console.log('this.v$',this.v$)
-            console.log('cthis.m',this.m);
+        async addCandidate(){
+            const isFormCorrect = await this.v$.$validate()
+            alert('Form failed validation')
+            if (!isFormCorrect) return
             if (this.candidateWorkExperienceModel.experience == 2) {
                 this.m['candidateWorkExperienceModel'] = this.candidateWorkExperienceModel
             }
