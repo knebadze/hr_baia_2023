@@ -542,6 +542,23 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- <div class="col-xl-6 col-lg-6 col-md-12" :class="(candidateRecommendationModel.recommendation == 2)?'':'visually-hidden'">
+                                <div class="form-group">
+                                    <label>რეცომდაციის არ ქონის მიზეზი</label>
+                                    <div class="ls-inputicon-box">
+                                        <select class="wt-select-box selectpicker"  v-model="candidateRecommendationModel.no_reason_id"  data-live-search="true" title=""  data-bv-field="size">
+                                            <option v-for="recommendation in data.classificator.noRecommendationReason" :value="recommendation.id">{{ recommendation[`name_${getLang}`] }}</option>
+                                        </select>
+                                        <i class="fs-input-icon fa fa-history"></i>
+                                    </div>
+                                </div>
+                            </div>-->
+                            <!-- <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>დამატაბითი ინფორმაცია</label>
+                                    <textarea class="form-control" rows="3" v-model="candidateRecommendationModel.no_reason_info" :placeholder="$t('lang.user_profile_page_medical_please_info')"></textarea>
+                                </div>
+                            </div>  -->
                             <div v-if="candidateRecommendationModel.recommendation == 1" class="col-lg-12 col-md-12">
                                 <div class="text-right ">
                                     <button class="btn btn-success"
@@ -580,6 +597,7 @@
                                     </div>
                                 </div>
                             </div>
+                           
                         </div>
                     </div>
                 </div>
@@ -980,6 +998,7 @@ export default {
         },
         addCandidateRecommendation(recommendation){
             console.log('recommendation', recommendation);
+
         },
         removeRow(type, index){
             if (type == 'language') {

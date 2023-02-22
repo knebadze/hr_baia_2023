@@ -146,6 +146,7 @@ class MyprofileController extends Controller
         $recommendationFromWhom = RecommendationFromWhom::all()->toArray();
         $notices = Notice::All()->toArray();
         $noExperienceReason = NoReason::where('category', 1)->get()->toArray();
+        $noRecommendationReason = NoReason::where('category', 2)->get()->toArray();
 
         // dd($candidate);
         $data = [
@@ -180,6 +181,7 @@ class MyprofileController extends Controller
                 'notices' => $notices,
                 'workExperiences' => $workExperiences,
                 'noExperienceReason' => $noExperienceReason,
+                'noRecommendationReason' => $noRecommendationReason
             ]
          ];
 
