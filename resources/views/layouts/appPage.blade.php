@@ -82,6 +82,7 @@
             $auth = Auth::user();
         @endphp
         <modal-manager :auth='@json($auth)'></modal-manager>
+
         <!--Model Popup Section Start-->
             <!--Signup popup -->
             <div class="modal fade twm-sign-up" id="sign_up_popup" aria-hidden="true" aria-labelledby="sign_up_popupLabel" tabindex="-1">
