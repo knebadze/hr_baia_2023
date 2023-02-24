@@ -36,6 +36,7 @@ use App\Models\RecommendationFromWhom;
 use Illuminate\Support\Facades\Schema;
 use App\Models\General_work_experience;
 use App\Models\NoReason;
+use App\Models\numberCode;
 
 class MyprofileController extends Controller
 {
@@ -159,6 +160,7 @@ class MyprofileController extends Controller
         $noExperienceReason = NoReason::where('category', 1)->get()->toArray();
         $noRecommendationReason = NoReason::where('category', 2)->get()->toArray();
         $drivingLicense = DrivingLicense::all()->toArray();
+        $numberCode = numberCode::all()->toArray();
 
         // dd($candidate);
         $data = [
@@ -195,6 +197,7 @@ class MyprofileController extends Controller
                 'workExperiences' => $workExperiences,
                 'noExperienceReason' => $noExperienceReason,
                 'drivingLicense' => $drivingLicense,
+                'numberCode' => $numberCode
                 // 'noRecommendationReason' => $noRecommendationReason
             ]
          ];

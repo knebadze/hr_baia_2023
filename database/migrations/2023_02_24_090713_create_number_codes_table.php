@@ -15,10 +15,11 @@ return new class extends Migration
     {
         Schema::create('number_codes', function (Blueprint $table) {
             $table->id();
-            $table->string('country');
-            $table->string('code');
-            $table->string('flag');
-            $table->timestamps();
+            $table->char('iso', 2);
+            $table->string('name', 80);
+            $table->char('iso3', 3)->nullable();
+            $table->smallInteger('numcode')->nullable();
+            $table->integer('phonecode');
         });
     }
 

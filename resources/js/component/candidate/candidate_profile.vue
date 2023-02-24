@@ -684,10 +684,9 @@
                                 <div class="form-group">
                                     <label>{{ 'ნომერი' }}</label>
                                     <div class="input-group mb-3">
-                                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">+995</button>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">Action</a></li>
-                                        <li><hr class="dropdown-divider"></li>
+                                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><span :class="`fi fi-${numberCode.iso.toLowerCase()}`"></span>+{{ numberCode.code }}</button>
+                                    <ul class="dropdown-menu" style=" overflow: hidden; overflow-y: auto; max-height: calc(100vh - 550px);">
+                                        <li v-for="item in data.classificator.numberCode" @click="chooseNumberCode(item.phonecode, item.iso.toLowerCase())"><a class="dropdown-item" href="#"><span :class="`fi fi-${item.iso.toLowerCase()}`"></span>+{{ item.phonecode }}</a></li>
                                     </ul>
                                     <input type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="555666777">
                                     </div>
@@ -931,7 +930,11 @@ export default {
                 'file':'',
             },
             imgSrc:'',
-            noticeFileInfo:[]
+            noticeFileInfo:[],
+            numberCode: {
+                code: 995,
+                iso:'ge'
+            },
 
         }
     },
@@ -1133,6 +1136,12 @@ export default {
         //     this.m.candidateRecommendation.push(JSON.parse(JSON.stringify(recommendation)))
         //     console.log('this.m.candidateRecommendation_2', this.m.candidateRecommendation);
         // },
+        chooseNumberCode(code, iso){
+            console.log('code', code);
+            console.log('iso', iso);
+            this.numberCode['code'] = code;
+            this.numberCode['iso'] = iso
+        },
         removeRow(type, index){
             if (type == 'language') {
                 const removed = this.candidateLanguageArr.splice(index, 1);
