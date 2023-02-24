@@ -60,6 +60,10 @@ class Candidate extends Model
     {
         return $this->belongsToMany(allergy::class, 'candidate_allergies');
     }
+    public function drivingLicense()
+    {
+        return $this->belongsToMany(DrivingLicense::class, 'candidate_driving_licenses');
+    }
 
     public function generalWorkExperience()
     {

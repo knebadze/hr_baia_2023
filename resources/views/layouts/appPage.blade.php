@@ -37,6 +37,10 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}"><!-- MAIN STYLE SHEET -->
     <script  src="{{ asset('js/jquery-3.6.0.min.js') }}"></script><!-- JQUERY.MIN JS -->
 
+    {{-- <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.6.6/css/flag-icons.min.css"> --}}
+
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
 </head>
@@ -296,7 +300,7 @@
                                                         <div class=" form-check">
                                                             <input type="checkbox" class="form-check-input" id="Password3">
                                                             <label class="form-check-label rem-forgot" for="Password3">
-                                                                {{ __('lang.modal_login_password_remember') }} 
+                                                                {{ __('lang.modal_login_password_remember') }}
                                                                 <a href="#">{{ __('lang.modal_login_password_forgot') }}</a></label>
 
                                                         </div>

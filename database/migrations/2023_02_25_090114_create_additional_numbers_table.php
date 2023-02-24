@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('additional_numbers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('candidate_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('number_code_id')->constrained();
             $table->string('number');
             $table->string('owner');
             $table->timestamps();

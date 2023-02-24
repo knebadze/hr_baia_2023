@@ -67,6 +67,7 @@ class CandidateRepository
         $candidate->professions()->sync($objData->candidateProfessions);
         $candidate->specialty()->sync($objData->candidateSpecialties);
         $candidate->allergy()->sync($objData->candidateAllergies);
+        $candidate->drivingLicense()->sync($objData->candidateDrivingLicense);
 
 
 

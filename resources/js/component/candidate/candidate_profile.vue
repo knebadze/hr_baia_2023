@@ -207,11 +207,11 @@
                                 <div class="col-xl-6 col-lg-6 col-md-12">
                                     <label>{{ $t('lang.user_profile_page_driving_license') }}</label>
                                     <div class="driving_license">
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" id="driving_license_a" value="A" v-model="checkedLicenseNames">
-                                            <label class="form-check-label" for="driving_license_a">A</label>
+                                        <div v-for="category in data.classificator.drivingLicense" class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" id="driving_license_a" :value="category.id" v-model="m.candidateDrivingLicense" >
+                                            <label class="form-check-label" for="driving_license_a">{{ category.name }}</label>
                                         </div>
-                                        <div class="form-check form-check-inline">
+                                        <!-- <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="checkbox" id="driving_license_b" value="B" v-model="checkedLicenseNames">
                                             <label class="form-check-label" for="driving_license_b">B</label>
                                         </div>
@@ -226,7 +226,7 @@
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="checkbox" id="driving_license_e" value="E" v-model="checkedLicenseNames">
                                             <label class="form-check-label" for="driving_license_e">E</label>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
 
@@ -351,11 +351,6 @@
                                         </table>
                                     </div>
                                 </div>
-                                <!-- <div class="col-lg-12 col-md-12 mt-4">
-                                    <div class="text-left">
-                                        <button type="" class="site-button" @click="addLanguageInfo()" >{{ (candidateLanguageArr.length > 0)? "შეინახე ცვლილება":'შენახვა' }}</button>
-                                    </div>
-                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -677,6 +672,85 @@
                     </div>
                 </div>
 
+                 <!--დამატებითი ნომრები-->
+                 <div class="panel panel-default">
+                    <div class="panel-heading wt-panel-heading p-a20">
+                        <h4 class="panel-tittle m-a0">{{ 'დამატებითი ნომრები' }}</h4>
+                    </div>
+                    <div class="panel-body wt-panel-body p-a20 m-b30 ">
+
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label>{{ 'ნომერი' }}</label>
+                                    <div class="input-group mb-3">
+                                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">+995</button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Action</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                    </ul>
+                                    <input type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="555666777">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label>{{ 'მფლობელი' }}</label>
+                                    <div class="ls-inputicon-box">
+                                        <input class="form-control" v-model="m.candidate.height" type="text" placeholder="სახელი გვარი">
+                                        <i class="fs-input-icon fa fa-arrows-alt-v" aria-hidden="true"></i>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12">
+                                <div class="text-right ">
+                                    <button class="btn btn-success"
+                                    @click="addLanguage(languages.id, languageLevels.id)"
+                                    title="დამატება" data-bs-toggle="tooltip"
+                                    data-bs-placement="top">{{ $t('lang.user_profile_page_foreign_lang_button_add_info') }}
+                                        <span class="fa fa-plus"></span>
+                                    </button>
+                                </div>
+                                <!-- <div class="text-right  ">
+                                    <button type="submit" class="site-button">დამატება</button>
+                                </div> -->
+                            </div>
+                            <div v-if="m.candidateLanguages.length != 0" :class="languageTableClass">
+                                <!-- <miniTable :key="tableType" :tableType="tableType" :tableRow="tableRow" :tableData="candidateLanguage" @messageFromChild="childMessage"></miniTable> -->
+                                <div class="panel-body wt-panel-body">
+                                    <div class="p-a20 table-responsive">
+                                        <table class="table twm-table table-striped table-borderless">
+                                            <thead>
+                                                <tr>
+                                                <th>N</th>
+                                                <th>ენა</th>
+                                                <th>დონე</th>
+                                                <th>actions</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <!--1-->
+                                                <tr v-for="(item, index) in m.candidateLanguages">
+                                                <td>{{ index + 1 }}</td>
+                                                <td>{{ item.language[`name_${getLang}`] }}</td>
+                                                <td>{{ item.level[`name_${getLang}`] }}</td>
+                                                <td>
+                                                    <button @click="removeRow('language', index)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
+                                                        <i class="fa fa-trash-alt"></i>
+                                                    </button>
+                                                </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                  <!--ცნობები-->
                 <div class="panel panel-default">
                     <div class="panel-heading wt-panel-heading p-a20">
@@ -799,6 +873,7 @@ import miniTable from './miniTable.vue'
 import _ from 'lodash'
 import { useVuelidate } from '@vuelidate/core'
 import { minLength,required, email } from '@vuelidate/validators'
+
 export default {
     setup () {
         return { v$: useVuelidate() }
@@ -816,7 +891,7 @@ export default {
             languageLevels: {},
             formData:new FormData(),
             drivingLicenseCategory:['A', 'B', 'C', 'D','E'],
-            checkedLicenseNames:[],
+            checkedLicenseNames:[1,2,4],
             candidateFullData: {},
 
             //v-model
@@ -875,12 +950,18 @@ export default {
         }
     },
     created(){
-
         this.m = { ...this.data.candidate, ...this.data.basic };
         console.log('this.m.', this.m);
         // this.candidateWorkExperienceModel = this.initWorkExperience([...this.m.candidateWorkExperience]);
 
-
+        // this.candidateDrivingLicense
+        if(this.m.candidateDrivingLicense.length > 0){
+            var arr = []
+            this.m.candidateDrivingLicense.forEach(element => {
+                arr.push(element.driving_license_id)
+            });
+            this.m.candidateDrivingLicense = arr
+        }
 
     },
     computed:{
@@ -896,7 +977,7 @@ export default {
             }else{
                 return this.candidate_id
             }
-        }
+        },
     },
     methods:{
 

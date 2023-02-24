@@ -13,6 +13,7 @@ use App\Models\Candidate_citizenship;
 use App\Models\Candidate_profession;
 use App\Models\Candidate_specialty;
 use App\Models\CandidateAllergy;
+use App\Models\CandidateDrivingLicense;
 use App\Models\CandidateLanguage;
 use App\Models\CandidateNotice;
 use App\Models\CandidateRecommendation;
@@ -20,6 +21,7 @@ use App\Models\Education;
 use App\Models\Specialty;
 use App\Models\Profession;
 use App\Models\Citizenship;
+use App\Models\DrivingLicense;
 use App\Models\Nationality;
 use Illuminate\Http\Request;
 use App\Models\MaritalStatus;
@@ -130,6 +132,13 @@ class MyprofileController extends Controller
             // $candidateNotices = [array_map(function ($item) {  return ""; }, array_flip($candidateNotices))];
             $candidateNotices = [];
         }
+        if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('candidate_driving_licenses')->where('candidate_id', $candidate->id)->exists()) {
+            $candidateDrivingLicense = CandidateDrivingLicense::where('candidate_id', $candidate->id)->select('driving_license_id')->get()->toArray();
+        }else{
+            // $candidateNotices = Schema::getColumnListing('candidate_notices');
+            // $candidateNotices = [array_map(function ($item) {  return ""; }, array_flip($candidateNotices))];
+            $candidateDrivingLicense = [];
+        }
 
 
 
@@ -149,6 +158,7 @@ class MyprofileController extends Controller
         $notices = Notice::All()->toArray();
         $noExperienceReason = NoReason::where('category', 1)->get()->toArray();
         $noRecommendationReason = NoReason::where('category', 2)->get()->toArray();
+        $drivingLicense = DrivingLicense::all()->toArray();
 
         // dd($candidate);
         $data = [
@@ -165,7 +175,8 @@ class MyprofileController extends Controller
                 'candidateLanguages' => $candidateLanguages,
                 // 'candidateRecommendation' => $candidateRecommendation,
                 'candidateNotices' => $candidateNotices,
-                'candidateWorkExperience' => $candidateWorkExperience
+                'candidateWorkExperience' => $candidateWorkExperience,
+                'candidateDrivingLicense' => $candidateDrivingLicense
             ],
             'classificator' => [
                 'gender' => $gender,
@@ -183,6 +194,7 @@ class MyprofileController extends Controller
                 'notices' => $notices,
                 'workExperiences' => $workExperiences,
                 'noExperienceReason' => $noExperienceReason,
+                'drivingLicense' => $drivingLicense,
                 // 'noRecommendationReason' => $noRecommendationReason
             ]
          ];
