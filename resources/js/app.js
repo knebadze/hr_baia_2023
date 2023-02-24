@@ -15,6 +15,8 @@ import howWork from './component/how_work.vue'
 //candidate
 import candidateProfile from './component/candidate/candidate_profile.vue'
 
+//modal
+import modalManager from './component/modal/modalManager.vue'
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import VueToastr from 'vue-toastr';
@@ -36,6 +38,9 @@ app.component('test-vue', test)
 
 //candidate
 app.component('candidate-profile', candidateProfile)
+
+//modal
+app.component('modal-manager', modalManager);
 // const i18n =
 // app.use(lang)
 app.use(i18nVue
