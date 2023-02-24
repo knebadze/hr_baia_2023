@@ -93,10 +93,9 @@
                                     <div class="form-group">
                                         <label>{{ $t('lang.user_profile_page_personal_number') }}</label>
                                         <div class="ls-inputicon-box">
-                                            <input class="form-control" v-model="m.candidate.personal_number" type="text" placeholder="">
+                                            <input class="form-control" v-model="m.candidate.personal_number" type="text" placeholder=""  @blur="v$.m.candidate.personal_number.$touch">
                                             <i class="fs-input-icon fa fa-user"></i>
-                                            <span v-for="error of v$.$errors"
-  :key="error.$uid" v-if="v$.m.candidate.personal_number.$error" style='color:red'>{{ error.$message }}</span>
+                                            <span v-if="v$.m.candidate.personal_number.required.$invalid && v$.m.candidate.personal_number.$dirty" style='color:red'>* {{ v$.m.candidate.personal_number.required.$message}}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -368,11 +367,12 @@
                                 <div class="form-group">
                                     <label>გაქვთ თუ არა სამუშაო გამოცდილება?</label>
                                     <div class="ls-inputicon-box">
-                                        <select class="wt-select-box selectpicker" v-model="candidateWorkExperienceModel.experience"  data-live-search="false" title=""  data-bv-field="size">
+                                        <select class="wt-select-box selectpicker" v-model="candidateWorkExperienceModel.experience"  data-live-search="false" title=""  data-bv-field="size" @blur="v$.candidateWorkExperienceModel.experience.$touch">
                                             <option :value="1">კი</option>
                                             <option :value="2">არა</option>
                                         </select>
                                         <i class="fs-input-icon fa fa-smoking"></i>
+                                        <span v-if="v$.candidateWorkExperienceModel.experience.required.$invalid && v$.candidateWorkExperienceModel.experience.$dirty" style='color:red'>* {{ v$.candidateWorkExperienceModel.experience.required.$message}}</span>
                                     </div>
                                 </div>
                             </div>
@@ -405,6 +405,23 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-xl-6 col-lg-6 col-md-12" :class="(candidateWorkExperienceModel.experience == 2)?'':'visually-hidden'">
+                                <div class="form-group">
+                                    <label>სამუშაო გამოცდილების არ ქონის მიზეზი</label>
+                                    <div class="ls-inputicon-box">
+                                        <select class="wt-select-box selectpicker"  v-model="candidateWorkExperienceModel.no_reason_id"  data-live-search="true" title=""  data-bv-field="size">
+                                            <option v-for="workExperience in data.classificator.noExperienceReason" :value="workExperience.id">{{ workExperience[`name_${getLang}`] }}</option>
+                                        </select>
+                                        <i class="fs-input-icon fa fa-history"></i>
+                                    </div>
+                                </div>
+                            </div>
+                             <div :class="(candidateWorkExperienceModel.experience == 2)?'':'visually-hidden'" class="col-md-12">
+                                <div class="form-group">
+                                    <label>დამატაბითი ინფორმაცია</label>
+                                    <textarea class="form-control" rows="3" v-model="candidateWorkExperienceModel.no_reason_info" :placeholder="$t('lang.user_profile_page_medical_please_info')"></textarea>
+                                </div>
+                            </div>
                             <div v-if="candidateWorkExperienceModel.experience == 1" class="col-lg-12 col-md-12">
                                 <div class="text-right ">
                                     <button class="btn btn-success"
@@ -414,6 +431,7 @@
                                     </button>
                                 </div>
                             </div>
+
                             <div v-if="m.candidateWorkExperience.length != 0 && m.candidateWorkExperience[0].experience == 1" class="col-lg-12 col-md-12">
 
                                 <div class="panel-body wt-panel-body">
@@ -447,23 +465,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-xl-6 col-lg-6 col-md-12" :class="(candidateWorkExperienceModel.experience == 2)?'':'visually-hidden'">
-                                <div class="form-group">
-                                    <label>სამუშაო გამოცდილების არ ქონის მიზეზი</label>
-                                    <div class="ls-inputicon-box">
-                                        <select class="wt-select-box selectpicker"  v-model="candidateWorkExperienceModel.no_reason_id"  data-live-search="true" title=""  data-bv-field="size">
-                                            <option v-for="workExperience in data.classificator.noExperienceReason" :value="workExperience.id">{{ workExperience[`name_${getLang}`] }}</option>
-                                        </select>
-                                        <i class="fs-input-icon fa fa-history"></i>
-                                    </div>
-                                </div>
-                            </div>
-                             <div :class="(candidateWorkExperienceModel.experience == 2)?'':'visually-hidden'" class="col-md-12">
-                                <div class="form-group">
-                                    <label>დამატაბითი ინფორმაცია</label>
-                                    <textarea class="form-control" rows="3" v-model="candidateWorkExperienceModel.no_reason_info" :placeholder="$t('lang.user_profile_page_medical_please_info')"></textarea>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -684,11 +686,11 @@
                                 <div class="form-group">
                                     <label>{{ 'ნომერი' }}</label>
                                     <div class="input-group mb-3">
-                                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><span :class="`fi fi-${numberCode.iso.toLowerCase()}`"></span>+{{ numberCode.code }}</button>
+                                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><span :class="`fi fi-${numberCode.iso.toLowerCase()}`"></span>+{{ numberCode.phonecode }}</button>
                                     <ul class="dropdown-menu" style=" overflow: hidden; overflow-y: auto; max-height: calc(100vh - 550px);">
                                         <li v-for="item in data.classificator.numberCode" @click="chooseNumberCode(item.phonecode, item.iso.toLowerCase())"><a class="dropdown-item" href="#"><span :class="`fi fi-${item.iso.toLowerCase()}`"></span>+{{ item.phonecode }}</a></li>
                                     </ul>
-                                    <input type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="555666777">
+                                    <input type="text" class="form-control" aria-label="Text input with dropdown button" v-model="candidateNumberModel.number" placeholder="555666777">
                                     </div>
                                 </div>
                             </div>
@@ -696,16 +698,17 @@
                                 <div class="form-group">
                                     <label>{{ 'მფლობელი' }}</label>
                                     <div class="ls-inputicon-box">
-                                        <input class="form-control" v-model="m.candidate.height" type="text" placeholder="სახელი გვარი">
+                                        <input class="form-control" v-model="candidateNumberModel.owner" type="text" placeholder="სახელი გვარი">
                                         <i class="fs-input-icon fa fa-arrows-alt-v" aria-hidden="true"></i>
                                     </div>
 
                                 </div>
                             </div>
+                            <!-- <input type="text" hidden v-model="candidateNumberModel.number_code_id"> -->
                             <div class="col-lg-12 col-md-12">
                                 <div class="text-right ">
                                     <button class="btn btn-success"
-                                    @click="addLanguage(languages.id, languageLevels.id)"
+                                    @click="addNumber(numberCode, candidateNumberModel)"
                                     title="დამატება" data-bs-toggle="tooltip"
                                     data-bs-placement="top">{{ $t('lang.user_profile_page_foreign_lang_button_add_info') }}
                                         <span class="fa fa-plus"></span>
@@ -715,28 +718,29 @@
                                     <button type="submit" class="site-button">დამატება</button>
                                 </div> -->
                             </div>
-                            <div v-if="m.candidateLanguages.length != 0" :class="languageTableClass">
-                                <!-- <miniTable :key="tableType" :tableType="tableType" :tableRow="tableRow" :tableData="candidateLanguage" @messageFromChild="childMessage"></miniTable> -->
+                            <div v-if="m.candidateNumber.length != 0" class="col-lg-12 col-md-12">
                                 <div class="panel-body wt-panel-body">
                                     <div class="p-a20 table-responsive">
                                         <table class="table twm-table table-striped table-borderless">
                                             <thead>
                                                 <tr>
                                                 <th>N</th>
-                                                <th>ენა</th>
-                                                <th>დონე</th>
+                                                <th>კოდი</th>
+                                                <th>ნომერი</th>
+                                                <th>მფლობელი</th>
                                                 <th>actions</th>
                                                 </tr>
                                             </thead>
 
                                             <tbody>
                                                 <!--1-->
-                                                <tr v-for="(item, index) in m.candidateLanguages">
+                                                <tr v-for="(item, index) in m.candidateNumber">
                                                 <td>{{ index + 1 }}</td>
-                                                <td>{{ item.language[`name_${getLang}`] }}</td>
-                                                <td>{{ item.level[`name_${getLang}`] }}</td>
+                                                <td>+{{ item.number_code.phonecode }}</td>
+                                                <td>{{ item.number }}</td>
+                                                <td>{{ item.owner }}</td>
                                                 <td>
-                                                    <button @click="removeRow('language', index)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
+                                                    <button @click="removeRow('number', index)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
                                                         <i class="fa fa-trash-alt"></i>
                                                     </button>
                                                 </td>
@@ -871,7 +875,7 @@ import { I18n } from 'laravel-vue-i18n'
 import miniTable from './miniTable.vue'
 import _ from 'lodash'
 import { useVuelidate } from '@vuelidate/core'
-import { minLength,required, email } from '@vuelidate/validators'
+import { required, email, helpers, requiredIf, numeric, maxLength } from '@vuelidate/validators'
 
 export default {
     setup () {
@@ -932,25 +936,29 @@ export default {
             imgSrc:'',
             noticeFileInfo:[],
             numberCode: {
-                code: 995,
+                phonecode: 995,
                 iso:'ge'
             },
+            candidateNumberModel:{
+                'number_code_id':'',
+                'number':'',
+                'owner':'',
+            }
 
         }
     },
     validations () {
-        return {
+        const validations = {
             m:{
                 candidate:{
-                    personal_number: { minLength: minLength(3) },
-                }
+                    personal_number: { required: helpers.withMessage('პირადი ნომრის შევსება სავალდებულოა', required)},
+                },
             },
-            // personal_number: { required }, // Matches this.firstName
-            // lastName: { required }, // Matches this.lastName
-            // contact: {
-            //     email: { required, email } // Matches this.contact.email
-            // }
+                candidateWorkExperienceModel:{
+                    experience: { required: helpers.withMessage('სამუშაო გამოცდილების შესახებ ინფორმაციის შევსება სავალდებულოა', required)},
+                }
         }
+        return validations
     },
     created(){
         this.m = { ...this.data.candidate, ...this.data.basic };
@@ -1032,8 +1040,8 @@ export default {
         },
         async addCandidate(){
             const isFormCorrect = await this.v$.$validate()
-            alert('Form failed validation')
-            if (!isFormCorrect) return
+            // alert('Form failed validation')
+            if (!isFormCorrect) return;
             if (this.candidateWorkExperienceModel.experience == 2) {
                 this.m['candidateWorkExperienceModel'] = this.candidateWorkExperienceModel
             }
@@ -1137,10 +1145,14 @@ export default {
         //     console.log('this.m.candidateRecommendation_2', this.m.candidateRecommendation);
         // },
         chooseNumberCode(code, iso){
-            console.log('code', code);
-            console.log('iso', iso);
-            this.numberCode['code'] = code;
+            this.numberCode['phonecode'] = code;
             this.numberCode['iso'] = iso
+        },
+        addNumber(code, model){
+            var numberCodeId = _.find(this.data.classificator.numberCode, function(o) { return o.phonecode == code.phonecode; });
+            model['number_code_id'] = numberCodeId.id
+            model['number_code'] = code
+            this.m.candidateNumber.push(JSON.parse(JSON.stringify(model)))
         },
         removeRow(type, index){
             if (type == 'language') {
@@ -1150,9 +1162,9 @@ export default {
             }else if(type == 'notice'){
                 const removed = this.m.candidateNotices.splice(index, 1)
             }
-            // else if( type == 'recommendation'){
-            //     const removed = this.m.candidateRecommendation.splice(index, 1)
-            // }
+            else if( type == 'number'){
+                const removed = this.m.candidateNumber.splice(index, 1)
+            }
 
         },
         showFile(name){

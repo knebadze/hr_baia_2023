@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Additional_number;
 use App\Models\User;
 use App\Models\gender;
 use App\Models\Notice;
@@ -140,6 +141,14 @@ class MyprofileController extends Controller
             // $candidateNotices = [array_map(function ($item) {  return ""; }, array_flip($candidateNotices))];
             $candidateDrivingLicense = [];
         }
+        if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('additional_numbers')->where('candidate_id', $candidate->id)->exists()) {
+            $candidateNumber = Additional_number::where('candidate_id', $candidate->id)->with('numberCode')->get()->toArray();
+            // dd($candidateNumber);
+        }else{
+            // $candidateNotices = Schema::getColumnListing('candidate_notices');
+            // $candidateNotices = [array_map(function ($item) {  return ""; }, array_flip($candidateNotices))];
+            $candidateNumber = [];
+        }
 
 
 
@@ -178,7 +187,8 @@ class MyprofileController extends Controller
                 // 'candidateRecommendation' => $candidateRecommendation,
                 'candidateNotices' => $candidateNotices,
                 'candidateWorkExperience' => $candidateWorkExperience,
-                'candidateDrivingLicense' => $candidateDrivingLicense
+                'candidateDrivingLicense' => $candidateDrivingLicense,
+                'candidateNumber' => $candidateNumber
             ],
             'classificator' => [
                 'gender' => $gender,

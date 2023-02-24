@@ -4,10 +4,12 @@ namespace App\Repositories;
 
 use stdClass;
 use App\Models\Candidate;
+use Illuminate\Support\Arr;
+use App\Models\Additional_number;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Models\CandidateRecommendation;
 use App\Models\General_work_experience;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Auth;
 
 class CandidateRepository
 {
@@ -104,6 +106,22 @@ class CandidateRepository
                 ]
             );
         }
+        if (count($data['candidateNumber'])) {
+            if (DB::table('additional_numbers')->where('candidate_id', $candidate->id)->exists()) {
+                Additional_number::where('candidate_id', $candidate->id)->delete();
+            }
+            foreach ($data['candidateNumber'] as $key => $value) {
+
+                $additionalNumber = new Additional_number();
+                $additionalNumber->candidate_id = $candidate->id;
+                $additionalNumber->number_code_id = $value['number_code_id'];
+                $additionalNumber->number = $value['number'];
+                $additionalNumber->owner = $value['owner'];
+                $additionalNumber->save();
+            }
+        }
+
+      
         // print_r($data['candidateNotices']);
         //     exit;
         // $selectNoticeId = collect($data['candidateNotices'])->reduce(function ($carry, $item) {
