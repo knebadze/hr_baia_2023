@@ -681,75 +681,7 @@
                     </div>
                 </div>
 
-                 <!--ცნობები-->
-                <div class="panel panel-default">
-                    <div class="panel-heading wt-panel-heading p-a20">
-                        <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_references_title') }}</h4>
-                    </div>
-                    <div class="panel-body wt-panel-body p-a20 m-b30 ">
 
-                        <div class="row">
-                            <div class="col-xl-6 col-lg-6 col-md-12">
-                                <div class="form-group">
-                                    <label>{{ $t('lang.user_profile_page_references_name_notice') }}</label>
-                                    <div class="ls-inputicon-box">
-                                        <select class="wt-select-box selectpicker" v-model="candidateNoticeModel.notice_id"  data-live-search="true" title=""  data-bv-field="size">
-                                            <option v-for="notice in data.classificator.notices " :value="notice.id">{{ notice[`name_${getLang}`] }}</option>
-                                        </select>
-                                        <i class="fs-input-icon fa fa-sticky-note"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-12">
-                                <div class="form-group">
-                                    <label>{{ $t('lang.user_profile_page_references_file') }}</label>
-                                    <div class="ls-inputicon-box">
-                                        <input class="form-control" type="file" @change="noticeFileUpload"  :placeholder="$t('lang.user_profile_page_medical_please_info')">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-12 col-md-12">
-                                <div class="text-right ">
-                                    <button class="btn btn-success"
-                                    @click="addNotice(candidateNoticeModel)"
-                                    title="დამატება" data-bs-toggle="tooltip" data-bs-placement="top">{{ $t('lang.user_profile_page_references_button_add_info') }}
-                                        <span class="fa fa-plus"></span>
-                                    </button>
-                                </div>
-                            </div>
-                            <div v-if="m.candidateNotices.length != 0" class="col-lg-12 col-md-12">
-                                <div class="panel-body wt-panel-body">
-                                    <div class="p-a20 table-responsive">
-                                        <table class="table twm-table table-striped table-borderless">
-                                            <thead>
-                                                <tr>
-                                                <th>N</th>
-                                                <th>ცნობა</th>
-                                                <th>ფაილი</th>
-                                                <th>actions</th>
-                                                </tr>
-                                            </thead>
-
-                                            <tbody>
-                                                <tr v-for="(item, index) in m.candidateNotices">
-                                                <td>{{ index + 1 }}</td>
-                                                <td>{{ item.notice[`name_${getLang}`] }}</td>
-                                                <td> <a v-on:click="showFile(item.file)">{{ item.file }}</a> </td>
-                                                <td>
-                                                    <button @click="removeRow('notice', index)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
-                                                        <i class="fa fa-trash-alt"></i>
-                                                    </button>
-                                                </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
 
                 <!--Social Network-->
                 <div class="panel panel-default">
@@ -792,6 +724,81 @@
                     </div>
                 </div>
             <!-- </form> -->
+
+                <!--ცნობები-->
+                <div class="panel panel-default">
+                <div class="panel-heading wt-panel-heading p-a20">
+                    <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_references_title') }}</h4>
+                </div>
+                <div class="panel-body wt-panel-body p-a20 m-b30 ">
+
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-12">
+                            <div class="form-group">
+                                <label>{{ $t('lang.user_profile_page_references_name_notice') }}</label>
+                                <div class="ls-inputicon-box">
+                                    <select class="wt-select-box selectpicker" v-model="candidateNoticeModel.notice_id"  data-live-search="true" title=""  data-bv-field="size">
+                                        <option v-for="notice in data.classificator.notices " :value="notice.id">{{ notice[`name_${getLang}`] }}</option>
+                                    </select>
+                                    <i class="fs-input-icon fa fa-sticky-note"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12">
+                            <div class="form-group">
+                                <label>{{ $t('lang.user_profile_page_references_file') }}</label>
+                                <div class="ls-inputicon-box">
+                                    <input class="form-control" type="file" @change="noticeFileUpload"  :placeholder="$t('lang.user_profile_page_medical_please_info')">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12">
+                            <div class="text-right ">
+                                <button class="btn btn-success"
+                                @click="addNotice(candidateNoticeModel)"
+                                title="დამატება" data-bs-toggle="tooltip" data-bs-placement="top">{{ $t('lang.user_profile_page_references_button_add_info') }}
+                                    <span class="fa fa-plus"></span>
+                                </button>
+                            </div>
+                        </div>
+                        <div v-if="m.candidateNotices.length != 0" class="col-lg-12 col-md-12">
+                            <div class="panel-body wt-panel-body">
+                                <div class="p-a20 table-responsive">
+                                    <table class="table twm-table table-striped table-borderless">
+                                        <thead>
+                                            <tr>
+                                            <th>N</th>
+                                            <th>ცნობა</th>
+                                            <th>ფაილი</th>
+                                            <th>actions</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <tr v-for="(item, index) in m.candidateNotices">
+                                            <td>{{ index + 1 }}</td>
+                                            <td>{{ item.notice[`name_${getLang}`] }}</td>
+                                            <td> <a v-on:click="showFile(item.file)">{{ item.file }}</a> </td>
+                                            <td>
+                                                <button @click="removeRow('notice', index)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
+                                                    <i class="fa fa-trash-alt"></i>
+                                                </button>
+                                            </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12">
+                            <div class="text-left">
+                                <button type="submit" @click.prevent="uploadNotice()"  class="site-button">{{ $t('lang.user_profile_page_social_button_save') }}</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -823,8 +830,6 @@ export default {
             languages: {},
             languageLevels: {},
             formData:new FormData(),
-            drivingLicenseCategory:['A', 'B', 'C', 'D','E'],
-            checkedLicenseNames:[1,2,4],
             candidateFullData: {},
 
             //v-model
@@ -873,7 +878,8 @@ export default {
                 'number_code_id':'',
                 'number':'',
                 'owner':'',
-            }
+            },
+            candidate_id: null,
 
         }
     },
@@ -904,6 +910,7 @@ export default {
     created(){
         this.m = { ...this.data.candidate, ...this.data.basic };
         console.log('this.m.', this.m);
+        console.log('m.candidateNotices',this.m.candidateNotices);
         // this.candidateWorkExperienceModel = this.initWorkExperience([...this.m.candidateWorkExperience]);
 
         // this.candidateDrivingLicense
@@ -925,9 +932,9 @@ export default {
             return (this.m.candidateLanguages.length > 0 )?'col-lg-12 col-md-12':'col-lg-12 col-md-12 visually-hidden'
         },
         candidateID(){
-            if (Object.keys(this.candidate).length != 0) {
-                return this.candidate.id
-            }else{
+            if (this.m.candidate != '') {
+                return this.m.candidate.id
+            }else if(this.candidate_id != null){
                 return this.candidate_id
             }
         },
@@ -983,28 +990,13 @@ export default {
                 // handle success
                 console.log(response.data);
                 if (response.data.status == 200) {
-                    alert()
-                    const config = {
-                        headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                    }
-                    let formData = new FormData();
-                    for( var i = 0; i < currentObj.noticeFileInfo.length; i++ ){
-                        let file = currentObj.noticeFileInfo[i][1];
-                        formData.append('file_'+ currentObj.noticeFileInfo[i][0] , file);
-                    }
-                    formData.append('candidate_id', response.data.data);
-
-                    // send upload request
-                    axios.post('/add_candidate_file', formData, config)
-                    .then(function (response) {
-                        console.log('response',response);
-                    })
-                    .catch(function (error) {
-                        console.log('error',error);
-                    // currentObj.output = error;
+                    currentObj.candidate_id = response.data.data;
+                    toast.success("ინფორმაცია წარმატებით შეინახა", {
+                        theme: 'colored',
+                        autoClose: 1000,
                     });
+                    // alert()
+
                 }
 
 
@@ -1013,6 +1005,37 @@ export default {
                 // handle error
                 console.log(error);
             })
+        },
+        uploadNotice(){
+            let currentObj = this;
+            const config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }
+            let formData = new FormData();
+            console.log('currentObj.noticeFileInfo', currentObj.noticeFileInfo);
+            for( var i = 0; i < currentObj.noticeFileInfo.length; i++ ){
+                let file = currentObj.noticeFileInfo[i][1];
+                formData.append('file_'+ currentObj.noticeFileInfo[i][0] , file);
+            }
+            formData.append('candidate_id', this.candidateID);
+
+            // send upload request
+            axios.post('/add_candidate_file', formData, config)
+            .then(function (response) {
+                console.log('response',response);
+                if (response.data.status == 200) {
+                    toast.success("ცნობები წარმატებით დაემატა", {
+                        theme: 'colored',
+                        autoClose: 1000,
+                    });
+                }
+            })
+            .catch(function (error) {
+                console.log('error',error);
+            // currentObj.output = error;
+            });
         },
         recommendationFileUpload(event){
             this.recommendationFile = event.target.files[0]
@@ -1125,7 +1148,14 @@ export default {
             this.candidateWorkExperienceModel['no_reason_id'] = this.m.candidateWorkExperience[0].no_reason_id;
             this.candidateWorkExperienceModel['no_reason_info'] = this.m.candidateWorkExperience[0].no_reason_info
         }
-        console.log('v$', this.v$.m);
+        // console.log('candidateID',this.candidateID);
+
+        // if(this.m.candidateNotices.length != 0){
+        //     this.m.candidateNotices.forEach(element => {
+        //         var arr = [element.notice_id, event.target.files[0]]
+        //         this.noticeFileInfo.push(arr)
+        //     });
+        // }
 
     }
 }

@@ -10,6 +10,7 @@ use App\Models\CandidateNotice;
 use App\Models\Additional_number;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use App\Models\CandidateRecommendation;
 use App\Models\General_work_experience;
 
@@ -183,23 +184,25 @@ class CandidateRepository
 
     public function saveFile($data)
     {
-        print_r($data);
-        exit;
-        CandidateNotice::where('candidate_id', $data->candidate_id)->delete();
+        $upload_path = public_path('user-documentation/');
+        $candidateNoticeDelete = CandidateNotice::where('candidate_id', $data['candidate_id'])->select('file')->get();
+        foreach ($candidateNoticeDelete as $key => $value) {
+            File::delete(public_path('user-documentation/'.$value->file));
+        }
+        CandidateNotice::where('candidate_id', $data['candidate_id'])->delete();
+
         foreach ($data  as $key => $value) {
-            $check = Str::contains($key, 'file');
-            if ($check == true) {
+            $test = Str::contains($key, 'file');
+            if ($test == true) {
                 $notice_id = substr($key, strlen($key)-1, 1);
-                $candidateNoticeDelete = CandidateNotice::where('candidate_id', $data->candidate_id)->first();
-                unlink('user-documentation/'. $candidateNoticeDelete->file);
-
-                $candidateNotice = new CandidateNotice();
-                $candidateNotice->candidate_id = $data->candidate_id;
-                $candidateNotice->notice_id = $notice_id;
-
-                $upload_path = public_path('user-documentation/');
                 $file_name = $value->getClientOriginalName();
                 $generated_new_name = time() . '.' . $file_name;
+                $candidateNotice = new CandidateNotice();
+                $candidateNotice->candidate_id = $data['candidate_id'];
+                $candidateNotice->notice_id = $notice_id;
+
+
+
                 $value->move($upload_path, $generated_new_name);
                 $candidateNotice->file = $generated_new_name ;
                 $candidateNotice->save();
@@ -207,6 +210,6 @@ class CandidateRepository
 
 
         }
-        return 'ok';
+        return $data;
     }
 }
