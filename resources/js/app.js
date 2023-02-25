@@ -19,7 +19,7 @@ import candidateProfile from './component/candidate/candidate_profile.vue'
 import modalManager from './component/modal/modalManager.vue'
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
-import VueToastr from 'vue-toastr';
+// import VueToastr from 'vue-toastr';
 
 import Vue3Toasity from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css'
@@ -51,5 +51,5 @@ app.use(i18nVue
 
 app.use(VueSweetalert2);
 // app.use(VueToastr);
-// app.use(Vue3Toasity)
+app.use(Vue3Toasity)
 app.mount("#app")
