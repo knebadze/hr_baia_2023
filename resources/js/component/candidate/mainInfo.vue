@@ -82,7 +82,7 @@
 <script>
 import { I18n } from 'laravel-vue-i18n'
 import { useVuelidate } from '@vuelidate/core'
-import { required, email, helpers, requiredIf, numeric, maxLength } from '@vuelidate/validators'
+import { required, email, helpers,  numeric, maxLength } from '@vuelidate/validators'
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 export default {

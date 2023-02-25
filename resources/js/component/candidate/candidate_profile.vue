@@ -299,7 +299,7 @@
                                             <option :value="2">არა</option>
                                         </select>
                                         <i class="fs-input-icon fa fa-star"></i>
-                                        <span v-if="v$.candidateWorkExperienceModel.experience.required.$invalid && v$.candidateWorkExperienceModel.experience.$dirty" style='color:red'>* {{ v$.candidateWorkExperienceModel.experience.required.$message}}</span>
+                                        <!-- <span v-if="v$.candidateWorkExperienceModel.experience.required.$invalid && v$.candidateWorkExperienceModel.experience.$dirty" style='color:red'>* {{ v$.candidateWorkExperienceModel.experience.required.$message}}</span> -->
                                     </div>
                                 </div>
                             </div>
@@ -896,7 +896,7 @@ export default {
 
             },
             candidateWorkExperienceModel:{
-                experience: { required: helpers.withMessage('სამუშაო გამოცდილების შესახებ ინფორმაციის შევსება სავალდებულოა', required)},
+                // experience: { required: helpers.withMessage('სამუშაო გამოცდილების შესახებ ინფორმაციის შევსება სავალდებულოა', required)},
             }
         }
         return validations
@@ -982,30 +982,31 @@ export default {
                 console.log('this.noticeFile',currentObj);
                 // handle success
                 console.log(response.data);
-                const config = {
-                    headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-                }
-                // form data
-                console.log('currentObj.m.candidateNotices',currentObj.m.candidateNotices);
-                let formData = new FormData();
-                console.log('currentObj.noticeFileInfo', currentObj.noticeFileInfo);
-                for( var i = 0; i < currentObj.noticeFileInfo.length; i++ ){
-                    let file = currentObj.noticeFileInfo[i][1];
-                    formData.append('file_'+ currentObj.noticeFileInfo[i][0] , file);
-                }
-                formData.append('candidate_id', response.data.data);
+                if (response.data.status == 200) {
+                    alert()
+                    const config = {
+                        headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                    }
+                    let formData = new FormData();
+                    for( var i = 0; i < currentObj.noticeFileInfo.length; i++ ){
+                        let file = currentObj.noticeFileInfo[i][1];
+                        formData.append('file_'+ currentObj.noticeFileInfo[i][0] , file);
+                    }
+                    formData.append('candidate_id', response.data.data);
 
-                // send upload request
-                axios.post('/add_candidate_file', formData, config)
-                .then(function (response) {
-                    console.log('response',response);
-                })
-                .catch(function (error) {
-                    console.log('error',error);
-                // currentObj.output = error;
-                });
+                    // send upload request
+                    axios.post('/add_candidate_file', formData, config)
+                    .then(function (response) {
+                        console.log('response',response);
+                    })
+                    .catch(function (error) {
+                        console.log('error',error);
+                    // currentObj.output = error;
+                    });
+                }
+
 
             })
             .catch(function (error) {

@@ -5,6 +5,8 @@ namespace App\Repositories;
 use stdClass;
 use App\Models\Candidate;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
+use App\Models\CandidateNotice;
 use App\Models\Additional_number;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -121,7 +123,7 @@ class CandidateRepository
             }
         }
 
-      
+
         // print_r($data['candidateNotices']);
         //     exit;
         // $selectNoticeId = collect($data['candidateNotices'])->reduce(function ($carry, $item) {
@@ -177,5 +179,34 @@ class CandidateRepository
         // return $candidate->fresh();
 
         return $candidate->id;
+    }
+
+    public function saveFile($data)
+    {
+        print_r($data);
+        exit;
+        CandidateNotice::where('candidate_id', $data->candidate_id)->delete();
+        foreach ($data  as $key => $value) {
+            $check = Str::contains($key, 'file');
+            if ($check == true) {
+                $notice_id = substr($key, strlen($key)-1, 1);
+                $candidateNoticeDelete = CandidateNotice::where('candidate_id', $data->candidate_id)->first();
+                unlink('user-documentation/'. $candidateNoticeDelete->file);
+
+                $candidateNotice = new CandidateNotice();
+                $candidateNotice->candidate_id = $data->candidate_id;
+                $candidateNotice->notice_id = $notice_id;
+
+                $upload_path = public_path('user-documentation/');
+                $file_name = $value->getClientOriginalName();
+                $generated_new_name = time() . '.' . $file_name;
+                $value->move($upload_path, $generated_new_name);
+                $candidateNotice->file = $generated_new_name ;
+                $candidateNotice->save();
+            }
+
+
+        }
+        return 'ok';
     }
 }

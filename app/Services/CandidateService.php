@@ -30,4 +30,10 @@ class CandidateService
         $result = $this->candidateRepository->save($data);
         return $result;
     }
+    public function candidateFile($data){
+        print_r('hello');
+        exit;
+        $result = $this->candidateRepository->saveFile($data);
+        return $result;
+    }
 }
