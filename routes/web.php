@@ -37,7 +37,7 @@ Route::get('', function() {
 Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}'], ],
        function()
     {
-        
+
         Route::get('/terms_end_conditions', [TermsController::class, 'index'])->name('terms_end_conditions');
 
         Route::get('/', [MainController::class, 'index'])->name('welcome');
@@ -49,7 +49,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
         Route::get('/about', [AboutController::class, 'index'])->name('about');
         Route::get('/candidate', [CandidateController::class, 'index'])->name('candidate');
         Route::get('/blog', [BlogController::class, 'index'])->name('blog');
-        
+
         // Account Pages
         Route::get('/user/candidateProfile', [MyprofileController::class, 'index'])->name('candidateProfile');
 
@@ -63,6 +63,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
 
     //AXIOS
     Route::post('profile_update', [MyprofileController::class, 'update']);
+    Route::post('unknown_profile_update', [MyprofileController::class, 'unknownUpdate']);
     // Route::post('candidate_personal_info', [CandidateInfoController::class, 'personalInfo']);
     // Route::post('candidate_medical_info', [CandidateInfoController::class, 'medicalInfo']);
     // Route::post('candidate_language_info', [CandidateInfoController::class, 'languageInfo']);
