@@ -371,7 +371,7 @@
                                             <option :value="1">კი</option>
                                             <option :value="2">არა</option>
                                         </select>
-                                        <i class="fs-input-icon fa fa-smoking"></i>
+                                        <i class="fs-input-icon fa fa-star"></i>
                                         <span v-if="v$.candidateWorkExperienceModel.experience.required.$invalid && v$.candidateWorkExperienceModel.experience.$dirty" style='color:red'>* {{ v$.candidateWorkExperienceModel.experience.required.$message}}</span>
                                     </div>
                                 </div>
@@ -686,9 +686,9 @@
                                 <div class="form-group">
                                     <label>{{ 'ნომერი' }}</label>
                                     <div class="input-group mb-3">
-                                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><span :class="`fi fi-${numberCode.iso.toLowerCase()}`"></span>+{{ numberCode.phonecode }}</button>
+                                    <a href="#" class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><span :class="`fi fi-${numberCode.iso.toLowerCase()}`"></span>+{{ numberCode.phonecode }}</a>
                                     <ul class="dropdown-menu" style=" overflow: hidden; overflow-y: auto; max-height: calc(100vh - 550px);">
-                                        <li v-for="item in data.classificator.numberCode" @click="chooseNumberCode(item.phonecode, item.iso.toLowerCase())"><a class="dropdown-item" href="#"><span :class="`fi fi-${item.iso.toLowerCase()}`"></span>+{{ item.phonecode }}</a></li>
+                                        <li v-for="item in data.classificator.numberCode" @click="chooseNumberCode(item.phonecode, item.iso.toLowerCase())"><a class="dropdown-item"><span :class="`fi fi-${item.iso.toLowerCase()}`"></span>+{{ item.phonecode }}</a></li>
                                     </ul>
                                     <input type="text" class="form-control" aria-label="Text input with dropdown button" v-model="candidateNumberModel.number" placeholder="555666777">
                                     </div>
