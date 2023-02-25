@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use stdClass;
+use App\Models\User;
 use App\Models\Candidate;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
@@ -210,6 +211,17 @@ class CandidateRepository
 
 
         }
-        return $data;
+        if (CandidateNotice::where('candidate_id', $data['candidate_id'])->exists()) {
+            $id = Auth::id();
+            $user = User::find($id);
+            if ($user->user_type_id == 1) {
+
+                $user->update([
+                    'is_active' => 2,
+                    'updated_at' => now()
+                ]);
+            }
+        }
+        return $user;
     }
 }

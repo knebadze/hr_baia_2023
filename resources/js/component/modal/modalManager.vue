@@ -1,15 +1,18 @@
 <template lang="">
         <unknownUser :visible="showUnknownUser" v-if="auth && auth.user_type_id == 4"></unknownUser>
-        <personInformation :visible="showPersonInformation"></personInformation>
+        <personInformation :visible="showPersonInformation" v-if="this.auth && this.auth.user_type_id == 1 && this.auth.is_active == 1"></personInformation>
+        <workInformation :visible="showWorkInformation" v-if="this.auth && this.auth.user_type_id == 1 && this.auth.is_active == 2" :lang="getLang"></workInformation>
 </template>
 <script>
 import unknownUser from './unknownUser.vue';
 import personInformation from './personInformation.vue';
+import workInformation from './workInformation.vue';
 import { I18n } from 'laravel-vue-i18n'
 export default {
     components:{
         unknownUser,
         personInformation,
+        workInformation
     },
     props:{
         auth:Object
@@ -17,7 +20,8 @@ export default {
     data() {
         return {
             showUnknownUser: false,
-            showPersonInformation: false
+            showPersonInformation: false,
+            showWorkInformation: false,
         }
     },
     created(){
@@ -29,6 +33,12 @@ export default {
                 return;
             }
             this.showPersonInformation = true
+        }else if(this.auth && this.auth.user_type_id == 1 && this.auth.is_active == 2){
+            var url = new URL( location.href)
+            if (url.pathname == `/${this.getLang}/user/work_information`) {
+                return;
+            }
+            this.showWorkInformation = true
         }
     },
     computed:{

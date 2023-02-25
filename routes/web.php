@@ -17,6 +17,7 @@ use App\Http\Controllers\MyprofileController;
 
 
 use App\Http\Controllers\Auth\SocialController;
+use App\Http\Controllers\Candidate\WorkInformationController;
 use App\Http\Controllers\CandidateInfoController;
 
 /*
@@ -52,6 +53,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
 
         // Account Pages
         Route::get('/user/candidateProfile', [MyprofileController::class, 'index'])->name('candidateProfile');
+        Route::get('/user/work_information', [WorkInformationController::class, 'index'])->name('work_information');
 
         Route::get('/home', [HomeController::class, 'index'])->name('home');
     });

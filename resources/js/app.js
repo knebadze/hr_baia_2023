@@ -14,6 +14,7 @@ import test from './component/test.vue'
 import howWork from './component/how_work.vue'
 //candidate
 import candidateProfile from './component/candidate/candidate_profile.vue'
+import candidateWorkInformation from './component/candidate/candidate_work_information.vue'
 
 //modal
 import modalManager from './component/modal/modalManager.vue'
@@ -38,6 +39,7 @@ app.component('test-vue', test)
 
 //candidate
 app.component('candidate-profile', candidateProfile)
+app.component('candidate-work-information', candidateWorkInformation)
 
 //modal
 app.component('modal-manager', modalManager);
