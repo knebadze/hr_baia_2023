@@ -281,7 +281,7 @@
                                     <div class="form-group">
                                         <label>{{ 'ოჯახში მუშაობდით' }}</label>
                                         <div class="ls-inputicon-box">
-                                            <select class="wt-select-box selectpicker"   data-live-search="true" title=""  data-bv-field="size" multiple>
+                                            <select class="wt-select-box selectpicker" v-model="m.familyWorkedSelected"  data-live-search="true" title=""  data-bv-field="size" multiple>
                                                 <option v-for="familyCategory in data.classificator.familyCategory " :value="familyCategory.id">{{ familyCategory[`name_${getLang}`] }}</option>
                                             </select>
                                             <i class="fs-input-icon fa fa-microscope"></i>
@@ -324,7 +324,7 @@
                         </div>
                         <div class="col-lg-12 col-md-12">
                             <div class="text-left">
-                                <button type="submit" @click.prevent="uploadNotice()"  class="site-button">{{ 'შენახვა' }}</button>
+                                <button type="submit" @click.prevent="addFamilyWorkExperience()"  class="site-button">{{ 'შენახვა' }}</button>
                             </div>
                         </div>
                     </div>
@@ -373,7 +373,7 @@ export default {
             //     no_reason_id: '',
             //     no_reason_info: '',
             // },
-            recommendationFile:null,
+            recommendationFile:[],
         }
     },
     created(){
@@ -393,11 +393,6 @@ export default {
             if (this.candidateRecommendationModel.recommendation == 2) {
                 this.m.candidateRecommendation.push(this.candidateRecommendationModel)
             }
-            var obj = {
-                hello:{
-                    'id': 1
-                }
-            }
             // const formData = new FormData();
             // formData.append('obj',JSON.stringify(this.m))
             let currentObj = this;
@@ -413,7 +408,31 @@ export default {
                 // handle success
                 console.log('response.data',response.data);
                 if (response.data.status == 200) {
-                    currentObj.candidate_id = response.data.data;
+                    toast.success("ინფორმაცია წარმატებით დაემატა", {
+                        theme: 'colored',
+                        autoClose: 1000,
+                    });
+                }
+
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+        },
+        addFamilyWorkExperience(){
+            // let currentObj = this;
+            axios({
+                method: "post",
+                url: "/add_family_work_experience",
+                data: this.m,
+
+            })
+            .then(function (response) {
+                // console.log('this.noticeFile',currentObj);
+                // handle success
+                console.log('response.data',response.data);
+                if (response.data.status == 200) {
                     toast.success("ინფორმაცია წარმატებით დაემატა", {
                         theme: 'colored',
                         autoClose: 1000,
@@ -437,7 +456,14 @@ export default {
         },
 
         recommendationFileUpload(event){
-            this.recommendationFile = event.target.files[0]
+            var key = this.m.candidateRecommendation.length + 1
+            console.log('key', key);
+            var obj = {
+                'key': key,
+                'file': event.target.files[0]
+            }
+            this.recommendationFile.push(obj)
+            console.log('this.recommendationFile',this.recommendationFile);
         },
     },
 

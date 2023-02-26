@@ -15,19 +15,23 @@ use App\Models\Work_experience;
 use App\Models\WorkInformation;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\CandidateFamilyWorkSkill;
 use App\Models\FamilyWorkExperience;
 use Illuminate\Support\Facades\Auth;
 use App\Models\RecommendationFromWhom;
 use Illuminate\Support\Facades\Schema;
 use App\Models\CandidateRecommendation;
+use App\Services\FAmilyWorkExperienceService;
 use App\Services\WorkInformationService;
 
 class WorkInformationController extends Controller
 {
-    private WorkInformationService $workInformationRepository;
-    public function __construct(WorkInformationService $workInformationRepository)
+    private WorkInformationService $workInformationService;
+    private FamilyWorkExperienceService $familyWorkExperience;
+    public function __construct(WorkInformationService $workInformationService, FamilyWorkExperienceService $familyWorkExperience)
     {
-        $this->workInformationRepository = $workInformationRepository;
+        $this->workInformationService = $workInformationService;
+        $this->familyWorkExperience = $familyWorkExperience;
     }
     public function index(){
         $data = [];
@@ -53,14 +57,22 @@ class WorkInformationController extends Controller
             $candidateRecommendation = [];
         }
         if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('candidate_family_work_skills')->where('candidate_id', $user->candidate->id)->exists()) {
-            $candidateFamilyWorkSkill = CandidateRecommendation::where('candidate_id', $user->candidate->id)->with('recommendationWhom')->get()->toArray();
+            $candidateFamilyWorkSkills = CandidateFamilyWorkSkill::where('candidate_id', $user->candidate->id)->select('skill_id')->get();
+            foreach ($candidateFamilyWorkSkills as $key => $value) {
+                $candidateFamilyWorkSkill[] = $value->skill_id;
+            }
+            $familyWorked = DB::table('candidate_family_work_skills')->where('candidate_id', $user->candidate->id)
+                            ->join('skills', 'candidate_family_work_skills.skill_id', 'skills.id')->select('skills.category_id')->get();
+            foreach ($familyWorked as $key => $value) {
+                $familyWorkedSelected[] = $value->category_id;
+            }
         }else{
             // $candidateFamilyWorkSkill = Schema::getColumnListing('candidate_family_work_skills');
             // $candidateFamilyWorkSkill = array_map(function ($item) {  return ""; }, array_flip($candidateFamilyWorkSkill));
             $candidateFamilyWorkSkill = [];
         }
         if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('family_work_experiences')->where('candidate_id', $user->candidate->id)->exists()) {
-            $familyWorkExperience = FamilyWorkExperience::where('candidate_id', $user->candidate->id)->get()->toArray();
+            $familyWorkExperience = FamilyWorkExperience::where('candidate_id', $user->candidate->id)->first()->toArray();
         }else{
             $familyWorkExperience = Schema::getColumnListing('family_work_experiences');
             $familyWorkExperience = array_map(function ($item) {  return ""; }, array_flip($familyWorkExperience));
@@ -85,7 +97,8 @@ class WorkInformationController extends Controller
                 'getWorkInformation' => $getWorkInformation,
                 'candidateRecommendation' => $candidateRecommendation,
                 'candidateFamilyWorkSkill' => $candidateFamilyWorkSkill,
-                'familyWorkExperience' => $familyWorkExperience
+                'familyWorkExperience' => $familyWorkExperience,
+                'familyWorkedSelected' => $familyWorkedSelected,
             ],
             'classificator' => [
                 'category' => $category,
@@ -108,7 +121,24 @@ class WorkInformationController extends Controller
         $result = ['status' => 200];
 
         try {
-            $result['data'] = $this->workInformationRepository->saveData($data);
+            $result['data'] = $this->workInformationService->saveData($data);
+        } catch (Exception $e) {
+            $result = [
+                'status' => 500,
+                'error' => $e->getMessage()
+            ];
+        }
+
+        return response()->json($result, $result['status']);
+    }
+
+    public function familyStore(Request $request)
+    {
+        $data = $request->all();
+        $result = ['status' => 200];
+
+        try {
+            $result['data'] = $this->familyWorkExperience->saveData($data);
         } catch (Exception $e) {
             $result = [
                 'status' => 500,

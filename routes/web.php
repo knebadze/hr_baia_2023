@@ -73,5 +73,6 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('add_candidate_file', [CandidateInfoController::class, 'addCandidateFile']);
 
     Route::post('add_work_information', [WorkInformationController::class, 'store']);
+    Route::post('add_family_work_experience', [WorkInformationController::class, 'familyStore']);
 
 
