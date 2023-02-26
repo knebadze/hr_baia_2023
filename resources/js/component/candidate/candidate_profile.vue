@@ -810,8 +810,7 @@ import miniTable from './miniTable.vue'
 import _ from 'lodash'
 import { useVuelidate } from '@vuelidate/core'
 import { required, email, helpers, requiredIf, numeric, maxLength } from '@vuelidate/validators'
-import { toast } from 'vue3-toastify';
-import 'vue3-toastify/dist/index.css';
+
 
 export default {
     setup () {
@@ -1037,9 +1036,9 @@ export default {
             // currentObj.output = error;
             });
         },
-        recommendationFileUpload(event){
-            this.recommendationFile = event.target.files[0]
-        },
+        // recommendationFileUpload(event){
+        //     this.recommendationFile = event.target.files[0]
+        // },
         noticeFileUpload(event){
             this.noticeFile = event.target.files[0]
             var arr = [this.candidateNoticeModel.notice_id, event.target.files[0]]

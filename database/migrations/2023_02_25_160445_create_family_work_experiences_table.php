@@ -15,12 +15,17 @@ return new class extends Migration
     {
         Schema::create('family_work_experiences', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('work_information_id')->constrained();
-            $table->tinyInteger('experience');
+            $table->foreignId('candidate_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->smallInteger('experience');
+            $table->integer('families_worked_count')->nullable();
+            $table->unsignedBigInteger('longest_time')->nullable();
             $table->foreignId('work_experience_id')->nullable()->constrained();
             $table->foreignId('no_reason_id')->nullable()->constrained();
             $table->string('no_reason_info')->nullable();
             $table->timestamps();
+
+
+            $table->foreign('longest_time')->references('id')->on('work_experiences');
         });
     }
 

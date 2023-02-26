@@ -66,4 +66,9 @@ class User extends Authenticatable
         // $this->provider_token;
         return Crypt::deCrypt($value);
     }
+
+    public function candidate()
+    {
+        return $this->hasOne(Candidate::class);
+    }
 }

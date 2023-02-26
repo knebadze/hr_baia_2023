@@ -164,10 +164,10 @@ class MyprofileController extends Controller
         $languages = Language::all()->toArray();
         $languageLevels = Language_level::all()->toArray();
         $workExperiences = Work_experience::all()->toArray();
-        $recommendationFromWhom = RecommendationFromWhom::all()->toArray();
+        // $recommendationFromWhom = RecommendationFromWhom::all()->toArray();
         $notices = Notice::All()->toArray();
         $noExperienceReason = NoReason::where('category', 1)->get()->toArray();
-        $noRecommendationReason = NoReason::where('category', 2)->get()->toArray();
+        // $noRecommendationReason = NoReason::where('category', 2)->get()->toArray();
         $drivingLicense = DrivingLicense::all()->toArray();
         $numberCode = numberCode::all()->toArray();
 

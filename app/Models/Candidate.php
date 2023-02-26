@@ -73,4 +73,9 @@ class Candidate extends Model
     {
         return $this->belongsToMany(Notice::class, 'candidate_notices');
     }
+
+    // public function user()
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
 }

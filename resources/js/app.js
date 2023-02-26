@@ -2,7 +2,7 @@
 import('./bootstrap');
 import('./register_form')
 import {createApp} from 'vue/dist/vue.esm-bundler'
-import { i18nVue } from 'laravel-vue-i18n'
+import { i18nVue, I18n } from 'laravel-vue-i18n'
 
 const lang = localStorage.getItem('localLang');
 
@@ -20,16 +20,10 @@ import candidateWorkInformation from './component/candidate/candidate_work_infor
 import modalManager from './component/modal/modalManager.vue'
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
-// import VueToastr from 'vue-toastr';
 
-import Vue3Toasity from 'vue3-toastify';
+import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css'
-// console.log('Vue3Toasity', Vue3Toasity);
 
-// import "vue-toastr";
-// import * as  VueToastr from "../../node_modules/vue-toastr/dist/vue-toastr.es.js";
-// import "vue-toastr/dist/style.css";
-// console.log('VueToastr', VueToastr );
 const app = createApp({})
 // console.log(app);
 
@@ -43,15 +37,17 @@ app.component('candidate-work-information', candidateWorkInformation)
 
 //modal
 app.component('modal-manager', modalManager);
-// const i18n =
-// app.use(lang)
+
 app.use(i18nVue
     , {
     lang: lang,
     resolve: lang => import(`../../lang/php_${lang}.json`),
 })
 
+window.I18n = I18n;
+window.toast = toast
+
 app.use(VueSweetalert2);
-// app.use(VueToastr);
-app.use(Vue3Toasity)
+
+
 app.mount("#app")
