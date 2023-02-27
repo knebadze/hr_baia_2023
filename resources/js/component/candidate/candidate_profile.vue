@@ -268,9 +268,9 @@
                                             <thead>
                                                 <tr>
                                                 <th>N</th>
-                                                <th>ენა</th>
-                                                <th>დონე</th>
-                                                <th>actions</th>
+                                                <th>{{ $t('lang.user_profile_page_foreign_lang_language_lang') }}</th>
+                                                <th>{{ $t('lang.user_profile_page_foreign_lang_language_level') }}</th>
+                                                <th>{{ $t('lang.user_profile_page_foreign_lang_language_action') }}</th>
                                                 </tr>
                                             </thead>
 
@@ -305,7 +305,7 @@
                         <div class="row">
                             <div class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                    <label>გაქვთ თუ არა სამუშაო გამოცდილება?</label>
+                                    <label>{{ $t('lang.user_profile_page_work_exp_experience') }}</label>
                                     <div class="ls-inputicon-box">
                                         <select class="wt-select-box selectpicker" v-model="candidateWorkExperienceModel.experience"  data-live-search="false" title=""  data-bv-field="size" @blur="v$.candidateWorkExperienceModel.experience.$touch">
                                             <option :value="1">კი</option>
