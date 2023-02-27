@@ -672,8 +672,8 @@ fieldset[disabled] .multiselect {
     display: block;
     padding: 8px 40px 0 8px;
     border-radius: 5px;
-    border: 1px solid #e8e8e8;
-    background: #fff;
+    /* border: 1px solid #e8e8e8; */
+    background: #f0f6fe;
     font-size: 14px;
   }
 
