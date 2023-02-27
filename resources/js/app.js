@@ -12,9 +12,14 @@ import test from './component/test.vue'
 
 // import App from './App.vue'
 import howWork from './component/how_work.vue'
+//user
+import uploadAvatar from './component/user/upload_avatar.vue'
 //candidate
 import candidateProfile from './component/candidate/candidate_profile.vue'
 import candidateWorkInformation from './component/candidate/candidate_work_information.vue'
+
+//employer
+import employerProfile from './component/employer/employer_profile.vue'
 
 //modal
 import modalManager from './component/modal/modalManager.vue'
@@ -35,9 +40,14 @@ const app = createApp({})
 app.component('language-switcher', languageSwitcher)
 app.component('test-vue', test)
 
+app.component('upload-avatar', uploadAvatar)
 //candidate
 app.component('candidate-profile', candidateProfile)
 app.component('candidate-work-information', candidateWorkInformation)
+
+//employer
+app.component('employer-profile', employerProfile)
+
 
 //modal
 app.component('modal-manager', modalManager);

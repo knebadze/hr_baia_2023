@@ -19,6 +19,7 @@ use App\Http\Controllers\MyprofileController;
 use App\Http\Controllers\Auth\SocialController;
 use App\Http\Controllers\Candidate\WorkInformationController;
 use App\Http\Controllers\CandidateInfoController;
+use App\Http\Controllers\User\UserProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,7 +53,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
         Route::get('/blog', [BlogController::class, 'index'])->name('blog');
 
         // Account Pages
-        Route::get('/user/candidateProfile', [MyprofileController::class, 'index'])->name('candidateProfile');
+        Route::get('/user/userProfile', [UserProfileController::class, 'index'])->name('userProfile');
         Route::get('/user/work_information', [WorkInformationController::class, 'index'])->name('work_information');
 
         Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -63,12 +64,11 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::get('auth/{provider}/redirect', [SocialController::class, 'redirect'])->name('auth.social.redirect');
     Route::get('auth/{provider}/callback', [SocialController::class, 'callback'])->name('auth.social.callback');
 
+    Route::post('upload_avatar', [MyprofileController::class, 'store']);
     //AXIOS
     Route::post('profile_update', [MyprofileController::class, 'update']);
     Route::post('unknown_profile_update', [MyprofileController::class, 'unknownUpdate']);
-    // Route::post('candidate_personal_info', [CandidateInfoController::class, 'personalInfo']);
-    // Route::post('candidate_medical_info', [CandidateInfoController::class, 'medicalInfo']);
-    // Route::post('candidate_language_info', [CandidateInfoController::class, 'languageInfo']);
+
     Route::post('add_candidate', [CandidateInfoController::class, 'addCandidate']);
     Route::post('add_candidate_file', [CandidateInfoController::class, 'addCandidateFile']);
 
