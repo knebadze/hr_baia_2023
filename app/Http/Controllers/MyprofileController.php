@@ -14,6 +14,7 @@ use App\Models\Candidate_citizenship;
 use App\Models\Candidate_profession;
 use App\Models\Candidate_specialty;
 use App\Models\CandidateAllergy;
+use App\Models\CandidateCharacteristic;
 use App\Models\CandidateDrivingLicense;
 use App\Models\CandidateLanguage;
 use App\Models\CandidateNotice;
@@ -36,6 +37,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\RecommendationFromWhom;
 use Illuminate\Support\Facades\Schema;
 use App\Models\General_work_experience;
+use App\Models\GeneralCharacteristic;
 use App\Models\NoReason;
 use App\Models\numberCode;
 
@@ -110,6 +112,17 @@ class MyprofileController extends Controller
             // [array_map(function ($item) {  return ""; }, array_flip($candidateSpecialties))];
         }
 
+        if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('candidate_characteristics')->where('candidate_id', $candidate->id)->exists()) {
+            $candidateCharacteristics = CandidateCharacteristic::where('candidate_id', $candidate->id)->select('general_characteristic_id')->get();
+            foreach ($candidateCharacteristics as $key => $value) {
+                $candidateCharacteristic[] = $value['general_characteristic_id'];
+            }
+        }else{
+            // $candidateSpecialties = Schema::getColumnListing('candidate_specialties');
+            $candidateCharacteristic = [];
+            // [array_map(function ($item) {  return ""; }, array_flip($candidateSpecialties))];
+        }
+
         if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('general_work_experiences')->where('candidate_id', $candidate->id)->exists()) {
             $candidateWorkExperience = General_work_experience::where('candidate_id', $candidate->id)->with('workExperience')->get()->toArray();
             // dd($candidateWorkExperience);
@@ -170,6 +183,7 @@ class MyprofileController extends Controller
         // $noRecommendationReason = NoReason::where('category', 2)->get()->toArray();
         $drivingLicense = DrivingLicense::all()->toArray();
         $numberCode = numberCode::all()->toArray();
+        $characteristic = GeneralCharacteristic::all()->toArray();
 
         // dd($candidate);
         $data = [
@@ -188,7 +202,8 @@ class MyprofileController extends Controller
                 'candidateNotices' => $candidateNotices,
                 'candidateWorkExperience' => $candidateWorkExperience,
                 'candidateDrivingLicense' => $candidateDrivingLicense,
-                'candidateNumber' => $candidateNumber
+                'candidateNumber' => $candidateNumber,
+                'candidateCharacteristic' => $candidateCharacteristic
             ],
             'classificator' => [
                 'gender' => $gender,
@@ -207,7 +222,8 @@ class MyprofileController extends Controller
                 'workExperiences' => $workExperiences,
                 'noExperienceReason' => $noExperienceReason,
                 'drivingLicense' => $drivingLicense,
-                'numberCode' => $numberCode
+                'numberCode' => $numberCode,
+                'characteristic' => $characteristic
                 // 'noRecommendationReason' => $noRecommendationReason
             ]
          ];

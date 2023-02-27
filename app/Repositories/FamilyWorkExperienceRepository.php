@@ -14,7 +14,12 @@ class FamilyWorkExperienceRepository
         $auth = Auth::user();
         $user = User::where('id', $auth->id)->first();
         $candidate = Candidate::where('user_id', $user->id)->first();
-        $candidate->familyWorkSkill()->sync($data['candidateFamilyWorkSkill']);
+        $selectSkillId = collect($data['candidateFamilyWorkSkill'])->reduce(function ($carry, $item) {
+            if($carry  == null) $carry = [];
+            $carry[] = $item["id"];
+            return $carry;
+        }, []);
+        $candidate->familyWorkSkill()->sync($selectSkillId);
 
         FamilyWorkExperience::updateOrCreate(
             [

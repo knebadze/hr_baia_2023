@@ -57,13 +57,10 @@ class WorkInformationController extends Controller
             $candidateRecommendation = [];
         }
         if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('candidate_family_work_skills')->where('candidate_id', $user->candidate->id)->exists()) {
-            $candidateFamilyWorkSkills = CandidateFamilyWorkSkill::where('candidate_id', $user->candidate->id)->select('skill_id')->get();
-            foreach ($candidateFamilyWorkSkills as $key => $value) {
-                $candidateFamilyWorkSkill[] = $value->skill_id;
-            }
-            $familyWorked = DB::table('candidate_family_work_skills')->where('candidate_id', $user->candidate->id)
-                            ->join('skills', 'candidate_family_work_skills.skill_id', 'skills.id')->select('skills.category_id')->get();
-            foreach ($familyWorked as $key => $value) {
+
+            $candidateFamilyWorkSkill = DB::table('candidate_family_work_skills')->where('candidate_id', $user->candidate->id)
+                            ->join('skills', 'candidate_family_work_skills.skill_id', 'skills.id')->get();
+            foreach ($candidateFamilyWorkSkill as $key => $value) {
                 $familyWorkedSelectedArr[] = $value->category_id;
             }
 
@@ -97,7 +94,7 @@ class WorkInformationController extends Controller
         $data = [
             'auth', $auth,
             'model' => [
-                'getWorkInformation' => $getWorkInformation,
+                'getWorkInformation' => $workInformation,
                 'candidateRecommendation' => $candidateRecommendation,
                 'candidateFamilyWorkSkill' => $candidateFamilyWorkSkill,
                 'familyWorkExperience' => $familyWorkExperience,
@@ -121,6 +118,8 @@ class WorkInformationController extends Controller
     }
     public function store(Request $request){
         $data = $request->all();
+        // print_r($request->getWorkInformation);
+        // exit;
         $result = ['status' => 200];
 
         try {

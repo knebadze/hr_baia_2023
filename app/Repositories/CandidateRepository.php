@@ -66,12 +66,12 @@ class CandidateRepository
                 'convection' => ($objData->candidate->convection == null)?0:$objData->candidate->convection,
                 'smoke' =>  ($objData->candidate->smoke == null)?0:$objData->candidate->smoke,
                 'work_abroad' =>  ($objData->candidate->work_abroad == null)?0:$objData->candidate->work_abroad,
-                // 'driving_license' => $convertStringLicense,
             ]
         );
         $candidate->citizenship()->sync( $objData->candidateCitizenships );
         $candidate->professions()->sync($objData->candidateProfessions);
         $candidate->specialty()->sync($objData->candidateSpecialties);
+        $candidate->characteristic()->sync($objData->candidateCharacteristic);
         $candidate->allergy()->sync($objData->candidateAllergies);
         $candidate->drivingLicense()->sync($objData->candidateDrivingLicense);
 
@@ -86,21 +86,15 @@ class CandidateRepository
 
         $candidate->languages()->sync($selectLanguage);
 
-        // print_r($objData);
-        //     exit;
         if (count($data['candidateWorkExperience'])) {
             General_work_experience::where('candidate_id', $candidate->id)->delete();
             $selectExperience = collect($data['candidateWorkExperience'])->reduce(function ($carry, $item) {
                 if($carry  == null) $carry = [];
                 $carry[$item["work_experience_id"]] = ["experience" => $item["experience"], "position" => $item["position"], "object" => $item["object"]];
                 return $carry;
-            }, []);
-            // print_r($selectExperience);
-            // exit;
+            }, []);;
             $candidate->generalWorkExperience()->attach($selectExperience);
         }else{
-            // print_r($data['candidateWorkExperience']);
-            // exit;
             General_work_experience::updateOrCreate(
                 ['candidate_id' => $candidate->id],
                 [
@@ -126,62 +120,9 @@ class CandidateRepository
         }
 
 
-        // print_r($data['candidateNotices']);
-        //     exit;
-        // $selectNoticeId = collect($data['candidateNotices'])->reduce(function ($carry, $item) {
-        //     if($carry  == null) $carry = [];
-        //     $carry[] = $item["notice_id"];
-        //     return $carry;
-        // }, []);
-        // $candidate->notice()->sync($selectNoticeId);
-        // print_r($selectNoticeId);
-        //     exit;
-            // foreach ($data['candidateRecommendation'] as $key => $value) {
-
-            //     // print_r($candidate->id);
-            //     // exit;
-            //     if ($value['recommendation'] == 1) {
-            //         $candidateRecommendation = new CandidateRecommendation();
-            //         $candidateRecommendation->candidate_id = $candidate->id;
-            //         $candidateId = $candidate->id;
-            //         // $candidateRecommendation->save();
-            //         // print_r($candidateId);
-            //         // exit;
-            //        $add =  CandidateRecommendation::updateOrCreate(
-            //             [
-            //                 'candidate_id' => $candidateId,
-            //                 'number' => $value['number']
-            //             ],
-            //             [
-            //                 'recommendation' => $value['recommendation'],
-            //                 'recommendation_from_whom_id' => $value['recommendation_from_whom_id'],
-            //                 'name' => $value['name'],
-            //                 'position' => $value['position'],
-            //             ]
-            //         );
-            //         print_r($add);
-            //         exit;
-            //     }else{
-            //        print_r('else');
-            //         exit;
-            //     }
-
-            // }
-
-        // $candidateRecommendation = CandidateRecommendation::updateOrCreate(
-        //     ['candidate_id' => $candidate->id],
-        //     [
-        //         'recommendation_id' => $objData->recommendation_id,
-        //         'recommendation_from_whom_id' => $objData->recommendation_from_whom_id,
-        //         'position' => $objData->position,
-        //         'number' => $objData->number,
-        //     ]
-        // );
-
-        // return $candidate->fresh();
-
         return $candidate->id;
     }
+
 
     public function saveFile($data)
     {
@@ -222,6 +163,6 @@ class CandidateRepository
                 ]);
             }
         }
-        return $user;
+        return $data;
     }
 }

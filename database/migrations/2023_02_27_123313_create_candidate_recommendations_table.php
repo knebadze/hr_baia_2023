@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('number', 20)->nullable();
             $table->string('file')->nullable();
             $table->foreignId('no_reason_id')->nullable()->constrained();
-            $table->string('no_reason_info', 400);
+            $table->string('no_reason_info', 400)->nullable();
             $table->timestamps();
         });
     }

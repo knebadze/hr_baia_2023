@@ -11,7 +11,8 @@
                  <!--personal information-->
                 <div class="panel panel-default">
                     <div class="panel-heading wt-panel-heading p-a20">
-                        <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_personal_info') }}</h4>
+                        <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_input_basic_info') }}</h4>
+                        <!-- $t('lang.user_profile_page_personal_info') -->
                     </div>
                     <div class="panel-body wt-panel-body p-a20 m-b30 ">
                         <!-- <form @submit.prevent="addPersonalInfo()"> -->
@@ -93,6 +94,18 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-xl-6 col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label>{{ 'ზოგადი მახასიათებელი' }}</label>
+                                        <div class="ls-inputicon-box">
+                                            <select class="wt-select-box selectpicker" v-model="m.candidateCharacteristic"  data-live-search="true" title=""  data-bv-field="size" multiple>
+                                                <option v-for="item in data.classificator.characteristic " :value="item.id">{{ item[`name_${getLang}`] }}</option>
+                                            </select>
+                                            <i class="fs-input-icon fa fa-microscope"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
 
                                 <div class="col-xl-6 col-lg-6 col-md-12">
                                     <div class="form-group">

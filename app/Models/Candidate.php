@@ -52,6 +52,10 @@ class Candidate extends Model
     {
         return $this->belongsToMany(Specialty::class, 'candidate_specialties');
     }
+    public function characteristic()
+    {
+        return $this->belongsToMany(GeneralCharacteristic::class, 'candidate_characteristics');
+    }
     public function languages()
     {
         return $this->belongsToMany(Language::class, 'candidate_languages')->withPivot('language_level_id');

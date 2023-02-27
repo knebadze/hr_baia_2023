@@ -22,7 +22,7 @@ class WorkInformationRepository
         $workInformation->to_hour = $data['getWorkInformation']['to_hour'];
         $workInformation->payment = $data['getWorkInformation']['payment'];
         $workInformation->currency_id  = $data['getWorkInformation']['currency_id'];
-        // $workInformation->save();
+        $workInformation->save();
 
         foreach ($data['candidateRecommendation'] as $key => $value) {
             $candidateRecommendation = new CandidateRecommendation();
@@ -34,7 +34,7 @@ class WorkInformationRepository
             $candidateRecommendation->number = $value['number'];
             $candidateRecommendation->no_reason_id = $value['no_reason_id'];
             $candidateRecommendation->no_reason_info = $value['no_reason_info'];
-            // $candidateRecommendation->save();
+            $candidateRecommendation->save();
         }
         return $data;
     }
