@@ -64,12 +64,15 @@ class WorkInformationController extends Controller
             $familyWorked = DB::table('candidate_family_work_skills')->where('candidate_id', $user->candidate->id)
                             ->join('skills', 'candidate_family_work_skills.skill_id', 'skills.id')->select('skills.category_id')->get();
             foreach ($familyWorked as $key => $value) {
-                $familyWorkedSelected[] = $value->category_id;
+                $familyWorkedSelectedArr[] = $value->category_id;
             }
+
+            $familyWorkedSelected = array_unique($familyWorkedSelectedArr);
         }else{
             // $candidateFamilyWorkSkill = Schema::getColumnListing('candidate_family_work_skills');
             // $candidateFamilyWorkSkill = array_map(function ($item) {  return ""; }, array_flip($candidateFamilyWorkSkill));
             $candidateFamilyWorkSkill = [];
+            $familyWorkedSelected = [];
         }
         if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('family_work_experiences')->where('candidate_id', $user->candidate->id)->exists()) {
             $familyWorkExperience = FamilyWorkExperience::where('candidate_id', $user->candidate->id)->first()->toArray();

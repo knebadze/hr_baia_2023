@@ -36,6 +36,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/flaticon.css') }}"> <!-- Flaticon -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}"><!-- MAIN STYLE SHEET -->
     <script  src="{{ asset('js/jquery-3.6.0.min.js') }}"></script><!-- JQUERY.MIN JS -->
+   
 
     {{-- <link
   rel="stylesheet"
@@ -363,6 +364,6 @@
     <script  src="{{ asset('js/chart.js') }}"></script><!-- Chart -->
     <script  src="{{ asset('js/custom.js') }}"></script><!-- CUSTOM FUCTIONS  -->
     <script  src="{{ asset('js/register_form.js') }}"></script><!-- MY ADD JS  -->
-    
+
 </body>
 </html>

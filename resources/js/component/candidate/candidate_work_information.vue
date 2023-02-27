@@ -292,11 +292,27 @@
                                     <div class="form-group">
                                         <label>{{ 'გევალებოდათ' }}</label>
                                         <div class="ls-inputicon-box">
+                                            <!-- <multiselect v-model="value" class="wt-select-box" :options="options" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name" track-by="name" :preselect-first="true">
+                                                <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                            </multiselect> -->
                                             <select class="wt-select-box selectpicker" v-model="m.candidateFamilyWorkSkill"   data-live-search="true" title=""  data-bv-field="size" multiple>
-                                                <option v-for="skill in data.classificator.skill " :value="skill.id">{{ skill[`name_${getLang}`] }}</option>
+                                                <option v-for="skill in setSkill" :value="skill.id">{{ skill[`name_${getLang}`] }}</option>
                                             </select>
                                             <i class="fs-input-icon fa fa-microscope"></i>
                                         </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label>{{ 'გევალებოდათ' }}</label>
+                                        <div class="ls-inputicon-box">
+                                            <multiselect v-model="value" :options="setSkill" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name_ka" track-by="name_ka" :preselect-first="false">
+                                                <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                            </multiselect>
+
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -374,6 +390,16 @@ export default {
             //     no_reason_info: '',
             // },
             recommendationFile:[],
+            setSkill:[],
+            value: [],
+            options: [
+        { name: 'Vue.js', language: 'JavaScript' },
+        { name: 'Adonis', language: 'JavaScript' },
+        { name: 'Rails', language: 'Ruby' },
+        { name: 'Sinatra', language: 'Ruby' },
+        { name: 'Laravel', language: 'PHP' },
+        { name: 'Phoenix', language: 'Elixir' }
+      ]
         }
     },
     created(){
@@ -384,6 +410,7 @@ export default {
         getLang(){
             return I18n.getSharedInstance().options.lang
         },
+
     },
     methods:{
         childMessageReceived(arg){
@@ -466,6 +493,18 @@ export default {
             console.log('this.recommendationFile',this.recommendationFile);
         },
     },
+    watch: {
+        'm.familyWorkedSelected': function(newVal, oldVal){
+            if (this.m.familyWorkedSelected.length == 0) {
+                this.setSkill = []
+            }else{
+                let filteredX = this.data.classificator.skill.filter(itemX => this.m.familyWorkedSelected.includes(itemX.category_id));
+                this.setSkill = filteredX
+
+            }
+            console.log('this.setSkill', this.setSkill);
+        }
+    },
 
     mounted() {
         // console.log('this', this.getLang);
@@ -473,6 +512,18 @@ export default {
 
 }
 </script>
-<style lang="">
-
+<style src="vue-multiselect/dist/vue-multiselect.css"></style>
+<style>
+.multiselect {
+    box-sizing: content-box;
+    border: solid #f0f6fe 1px;
+    display: block;
+    position: relative;
+    width: 100%;
+    min-height: 40px;
+    text-align: left;
+    color: #35495e;
+    background-color: #f0f6fe;
+    /*border-color: #f0f6fe; */
+  }
 </style>

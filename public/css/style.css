@@ -27,10 +27,10 @@ body {
   color: #1967d2 !important;
 }
 
-.categorySideBar h4, 
-.keywordSideBar h4, 
-.locationSideBar h4, 
-.jobTypeSideBar h4, 
+.categorySideBar h4,
+.keywordSideBar h4,
+.locationSideBar h4,
+.jobTypeSideBar h4,
 .publicationSideBar h4,
 .sallarySideBar h4,
 .sheduldeSideBar h4,
@@ -79,7 +79,7 @@ template.
 This files [Table of contents] are outlined below
 ---------------------------------------------------
 ** - ========================
-	 GENERAL 
+	 GENERAL
 	 ========================
 ** - Title separators
 ** - Title separators
@@ -152,8 +152,8 @@ This files [Table of contents] are outlined below
 ** - Work Experience
 ** - Social Share
 ** - Employer detail
-** - Home Page 2 Banner Section Css Start 
-** - Home Page 1 Banner Section Css Start 
+** - Home Page 2 Banner Section Css Start
+** - Home Page 1 Banner Section Css Start
 ** - Side Map
 ** - Side Map2
 ** - Sidebar Info
@@ -166,11 +166,11 @@ This files [Table of contents] are outlined below
 ** - Dashboard Header
 ** - My Account css
 ** - Dashboard message Dropdown
-** - Dashboard Notification Dropdown 
+** - Dashboard Notification Dropdown
 ** - Dashboard Message
 ** - Dashboard Notification
-** - Admin Nav 
-** - Form Elements 
+** - Admin Nav
+** - Form Elements
 ** - Dashboard Card
 ** - Upload Video Button
 ** - dashboard List
@@ -183,11 +183,11 @@ This files [Table of contents] are outlined below
 ** - msg user list side button
 ** - Chart
 ** - Dashboard candidates style
-** - Data Table Candidets 
+** - Data Table Candidets
 ** - default table
-** - Data Table Candidets 
+** - Data Table Candidets
 ** - Data Table
-** - Model Popup 
+** - Model Popup
 ---------------------------------------------------
 */
 @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&amp;display=swap");
@@ -2557,7 +2557,7 @@ ol li {
 }
 
 /*-------------------------------------
-	Tabs 
+	Tabs
 -------------------------------------*/
 /*Tabs style 1 [ default ] */
 .wt-tabs .tab-pane {

@@ -24,6 +24,10 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css'
 
+import Multiselect from 'vue-multiselect'
+// import 'vue-multiselect/dist/vue3-multiselect.css'
+
+
 const app = createApp({})
 // console.log(app);
 
@@ -37,6 +41,7 @@ app.component('candidate-work-information', candidateWorkInformation)
 
 //modal
 app.component('modal-manager', modalManager);
+app.component('multiselect', Multiselect)
 
 app.use(i18nVue
     , {

@@ -29,6 +29,12 @@ class FamilyWorkExperienceRepository
                 'no_reason_info' => $data['familyWorkExperience']['no_reason_info'],
             ]
         );
+
+
+        $user->update([
+            'is_active' => 3,
+            'updated_at' => now()
+        ]);
         return $data;
     }
 }
