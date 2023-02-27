@@ -420,8 +420,8 @@ export default {
             if (this.candidateRecommendationModel.recommendation == 2) {
                 this.m.candidateRecommendation.push(this.candidateRecommendationModel)
             }
-            // const formData = new FormData();
-            // formData.append('obj',JSON.stringify(this.m))
+            const formData = new FormData();
+            formData.append('obj',JSON.stringify(this.m))
             let currentObj = this;
             console.log('currentObj',currentObj);
             axios({
