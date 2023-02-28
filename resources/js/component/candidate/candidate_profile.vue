@@ -280,9 +280,9 @@
                                             <thead>
                                                 <tr>
                                                 <th>N</th>
-                                                <th>ენა</th>
-                                                <th>დონე</th>
-                                                <th>actions</th>
+                                                <th>{{ $t('lang.user_profile_page_foreign_lang_language_lang') }}</th>
+                                                <th>{{ $t('lang.user_profile_page_foreign_lang_language_level') }}</th>
+                                                <th>{{ $t('lang.user_profile_page_foreign_lang_language_action') }}</th>
                                                 </tr>
                                             </thead>
 
@@ -317,7 +317,7 @@
                         <div class="row">
                             <div class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                    <label>გაქვთ თუ არა სამუშაო გამოცდილება?</label>
+                                    <label>{{ $t('lang.user_profile_page_work_exp_experience') }}</label>
                                     <div class="ls-inputicon-box">
                                         <select class="wt-select-box selectpicker" v-model="candidateWorkExperienceModel.experience"  data-live-search="false" title=""  data-bv-field="size" @blur="v$.candidateWorkExperienceModel.experience.$touch">
                                             <option :value="1">კი</option>
@@ -392,10 +392,10 @@
                                             <thead>
                                                 <tr>
                                                 <th>N</th>
-                                                <th>გამოცდილება</th>
-                                                <th>პოზიცია</th>
-                                                <th>ობიექტი</th>
-                                                <th>actions</th>
+                                                <th>{{ $t('lang.user_profile_page_work_exp') }}</th>
+                                                <th>{{ $t('lang.user_profile_page_work_position') }}</th>
+                                                <th>{{ $t('lang.user_profile_page_work_object') }}</th>
+                                                <th>{{ $t('lang.user_profile_page_work_actions') }}</th>
                                                 </tr>
                                             </thead>
 
@@ -494,14 +494,14 @@
                  <!--დამატებითი ნომრები-->
                  <div class="panel panel-default">
                     <div class="panel-heading wt-panel-heading p-a20">
-                        <h4 class="panel-tittle m-a0">{{ 'დამატებითი ნომრები' }}</h4>
+                        <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_title') }}</h4>
                     </div>
                     <div class="panel-body wt-panel-body p-a20 m-b30 ">
 
                         <div class="row">
                             <div class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                    <label>{{ 'ნომერი' }}</label>
+                                    <label>{{ $t('lang.user_profile_page_number') }}</label>
                                     <div class="input-group mb-3">
                                     <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><span :class="`fi fi-${numberCode.iso.toLowerCase()}`"></span>+{{ numberCode.phonecode }}</button>
                                     <ul class="dropdown-menu" style=" overflow: hidden; overflow-y: auto; max-height: calc(100vh - 550px);">
@@ -513,9 +513,9 @@
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                    <label>{{ 'მფლობელი' }}</label>
+                                    <label>{{ $t('lang.user_profile_page_number_owner') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <input class="form-control" v-model="candidateNumberModel.owner" type="text" placeholder="სახელი გვარი">
+                                        <input class="form-control" v-model="candidateNumberModel.owner" type="text" :placeholder="$t('lang.user_profile_page_number_owner_name')">
                                         <i class="fs-input-icon fa fa-arrows-alt-v" aria-hidden="true"></i>
                                     </div>
 
@@ -526,7 +526,7 @@
                                 <div class="text-right ">
                                     <button class="btn btn-success"
                                     @click="addNumber(numberCode, candidateNumberModel)"
-                                    title="დამატება" data-bs-toggle="tooltip"
+                                    title="Add Number" data-bs-toggle="tooltip"
                                     data-bs-placement="top">{{ $t('lang.user_profile_page_foreign_lang_button_add_info') }}
                                         <span class="fa fa-plus"></span>
                                     </button>
@@ -542,10 +542,10 @@
                                             <thead>
                                                 <tr>
                                                 <th>N</th>
-                                                <th>კოდი</th>
-                                                <th>ნომერი</th>
-                                                <th>მფლობელი</th>
-                                                <th>actions</th>
+                                                <th>{{ $t('lang.user_profile_page_work_number_code') }}</th>
+                                                <th>{{ $t('lang.user_profile_page_number') }}</th>
+                                                <th>{{ $t('lang.user_profile_page_number_owner') }}</th>
+                                                <th>{{ $t('lang.user_profile_page_work_number_actions') }}</th>
                                                 </tr>
                                             </thead>
 
@@ -658,9 +658,9 @@
                                         <thead>
                                             <tr>
                                             <th>N</th>
-                                            <th>ცნობა</th>
-                                            <th>ფაილი</th>
-                                            <th>actions</th>
+                                            <th>{{ $t('lang.user_profile_page_references_reference') }}</th>
+                                            <th>{{ $t('lang.user_profile_page_references_file') }}</th>
+                                            <th>{{ $t('lang.user_profile_page_references_action') }}</th>
                                             </tr>
                                         </thead>
 

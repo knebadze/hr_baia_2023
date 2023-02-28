@@ -2,7 +2,7 @@
 <!--Basic Information-->
 <div class="panel panel-default">
     <div class="panel-heading wt-panel-heading p-a20">
-        <h4 class="panel-tittle m-a0">{{ 'სარეგისტრაციო ინფორმაცია' }}</h4>
+        <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_input_basic_info') }}</h4>
     </div>
     <div class="panel-body wt-panel-body p-a20 m-b30 ">
         <form @submit.prevent="authUpdate()">

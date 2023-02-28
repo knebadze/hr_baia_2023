@@ -436,7 +436,7 @@ return [
 
     // ----------------------------------------------------------------------------------------------------
     // User Home Page Lang
-    'user_profile_page_input_basic_info' => 'ძირითადი ინფორმაცია',
+    'user_profile_page_input_basic_info' => 'სარეგისტრაციო ინფორმაცია',
 
     'user_profile_page_input_name' => 'სახელი',
     'user_profile_page_input_email' => 'იმეილ მისამართი',
@@ -475,12 +475,18 @@ return [
     'user_profile_page_foreign_lang_level' => 'დონე',
     'user_profile_page_foreign_lang_button_add_info' => 'დამატება',
 
+    'user_profile_page_foreign_lang_language_lang' => 'ენა',
+    'user_profile_page_foreign_lang_language_level' => 'დონე',
+    'user_profile_page_foreign_lang_language_action' => 'მოქმედება',
+
     // Work Experience Block Lang
     'user_profile_page_work_exp_title' => 'ზოგადი სამუშაო გამოცდილება',
     'user_profile_page_work_exp' => 'სამუშაო გამოცდილება',
     'user_profile_page_work_position' => 'პოზიცია',
     'user_profile_page_work_object' => 'ობიექტი',
+    'user_profile_page_work_actions' => 'მოქმედებები',
     'user_profile_page_work_button_add_info' => 'დამატება',
+    'user_profile_page_work_exp_experience' => 'გაქვთ თუ არა სამუშაო გამოცდილება?',
 
     // Work Recommendation Block Lang
     'user_profile_page_recomendation_title' => 'რეკომენდაცია',
@@ -502,6 +508,16 @@ return [
     'user_profile_page_references_name_notice' => 'ცნობის დასახელება',
     'user_profile_page_references_file' => 'ფაილი',
     'user_profile_page_references_button_add_info' => 'დამატება',
+    'user_profile_page_references_reference' => 'ცნობა',
+    'user_profile_page_references_action' => 'მოქმედებები',
+
+    // Numbers
+    'user_profile_page_title' => 'დამატებითი ნომრები',
+    'user_profile_page_number' => 'ნომერი',
+    'user_profile_page_number_owner' => 'მფლობელი',
+    'user_profile_page_number_owner_name' => 'სახელი / გვარი',
+    'user_profile_page_work_number_code' => 'კოდი',
+    'user_profile_page_work_number_actions' => 'მოქმედებები',
 
     // Social Network Block Lang
     'user_profile_page_social_title' => 'სოციალური ქსელი',

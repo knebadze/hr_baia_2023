@@ -443,7 +443,7 @@ return [
 
     // ----------------------------------------------------------------------------------------------------
     // User Home Page Lang
-    'user_profile_page_input_basic_info' => 'Основная информация',
+    'user_profile_page_input_basic_info' => 'Регистрационная информация',
 
     'user_profile_page_input_name' => 'Ваше имя',
     'user_profile_page_input_email' => 'Адрес электронной почты',
@@ -478,17 +478,23 @@ return [
     'user_profile_page_medical_please_info' => 'Пожалуйста, предоставьте информацию о серьезных операциях и хронических заболеваниях, если таковые имеются.', 
     
     // Foreign Language Block Lang
-    'user_profile_page_foreign_lang_title' => 'Иностранные языки',~
+    'user_profile_page_foreign_lang_title' => 'Иностранные языки',
     'user_profile_page_foreign_lang_language' => 'Иностранный язык',
     'user_profile_page_foreign_lang_level' => 'Уровень языка',
     'user_profile_page_foreign_lang_button_add_info' => 'Добавить',
+
+    'user_profile_page_foreign_lang_language_lang' => ' Язык',
+    'user_profile_page_foreign_lang_language_level' => 'Уровень',
+    'user_profile_page_foreign_lang_language_action' => 'Действия',
 
     // Work Experience Block Lang
     'user_profile_page_work_exp_title' => 'Общий опыт работы',
     'user_profile_page_work_exp' => 'Опыт работы',
     'user_profile_page_work_position' => 'Позиция',
     'user_profile_page_work_object' => 'Объект',
+    'user_profile_page_work_actions' => 'Действия',
     'user_profile_page_work_button_add_info' => 'Добавить',
+    'user_profile_page_work_exp_experience' => 'У вас есть опыт работы?',
 
     // Work Recommendation Block Lang
     'user_profile_page_recomendation_title' => 'Рекомендация',
@@ -510,6 +516,16 @@ return [
     'user_profile_page_references_name_notice' => 'Название уведомления',
     'user_profile_page_references_file' => 'Файл',
     'user_profile_page_references_button_add_info' => 'Добавить',
+    'user_profile_page_references_reference' => 'Уведомление',
+    'user_profile_page_references_action' => 'Действия',
+
+    // Numbers
+    'user_profile_page_title' => 'Дополнительные номера',
+    'user_profile_page_number' => 'Номер',
+    'user_profile_page_number_owner' => 'Владелец',
+    'user_profile_page_number_owner_name' => 'Имя / Фамилия',
+    'user_profile_page_work_number_code' => 'Код',
+    'user_profile_page_work_number_actions' => 'Действия',
 
     // Social Network Block Lang
     'user_profile_page_social_title' => 'Социальная сеть',
