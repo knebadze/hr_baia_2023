@@ -56,8 +56,8 @@ class MyprofileController extends Controller
     {
         $user = User::where('id', Auth::id())->first();
         if ($user->avatar) {
-            File::delete(public_path('user-documentation/'.$user->avatar));
-            return;
+            File::delete(public_path('images/user-avatar/'.$user->avatar));
+
         }
         $upload_path = public_path('images/user-avatar/');
         $file_name = $request->avatar->getClientOriginalName();

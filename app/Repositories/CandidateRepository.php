@@ -66,6 +66,8 @@ class CandidateRepository
                 'convection' => ($objData->candidate->convection == null)?0:$objData->candidate->convection,
                 'smoke' =>  ($objData->candidate->smoke == null)?0:$objData->candidate->smoke,
                 'work_abroad' =>  ($objData->candidate->work_abroad == null)?0:$objData->candidate->work_abroad,
+                'latitude' => $objData->candidate->latitude,
+                'longitude' => $objData->candidate->longitude,
             ]
         );
         $candidate->citizenship()->sync( $objData->candidateCitizenships );

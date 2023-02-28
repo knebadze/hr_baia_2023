@@ -150,30 +150,8 @@
                                             <input class="form-check-input" type="checkbox" id="driving_license_a" :value="category.id" v-model="m.candidateDrivingLicense" >
                                             <label class="form-check-label" for="driving_license_a">{{ category.name }}</label>
                                         </div>
-                                        <!-- <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" id="driving_license_b" value="B" v-model="checkedLicenseNames">
-                                            <label class="form-check-label" for="driving_license_b">B</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" id="driving_license_c" value="C" v-model="checkedLicenseNames">
-                                            <label class="form-check-label" for="driving_license_c">C</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" id="driving_license_d" value="D" v-model="checkedLicenseNames">
-                                            <label class="form-check-label" for="driving_license_d">D</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" id="driving_license_e" value="E" v-model="checkedLicenseNames">
-                                            <label class="form-check-label" for="driving_license_e">E</label>
-                                        </div> -->
                                     </div>
                                 </div>
-
-                                <!-- <div class="col-lg-12 col-md-12 mt-4">
-                                    <div class="text-left">
-                                        <button type="" class="site-button" >{{ (candidateID == null)?'შენახვა':'შეინახე ცვლილება' }}</button>
-                                    </div>
-                                </div> -->
                             </div>
                         <!-- </form> -->
                     </div>
@@ -217,7 +195,41 @@
                     </div>
                 </div>
 
-                 <!--უცხო ენები-->
+                <!-- address -->
+                <div class="panel panel-default">
+                    <div class="panel-heading wt-panel-heading p-a20">
+                        <h4 class="panel-tittle m-a0">{{ 'მისამართი' }}</h4>
+                    </div>
+                    <div class="panel-body wt-panel-body p-a20 m-b30 ">
+                        <p>მისამართის შესავსებათ უმჯობესია გამოიყენოთ რუკის საძიებო ველი, გაგიმარტივებთ შევსებას.</p>
+                        <p>მოძებვნის შემდეგ შეგიძლიათ ამოძრაოთ მარკერი რათა დააზუსთოთ თქვენი მისამართი</p>
+                        <div class="row">
+                            <addressMap :data="m.candidate.address" @messageFromChild="childMessage"></addressMap>
+                            <div class="col-xl-6 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label>{{ 'მისამართი' }}</label>
+                                    <div class="ls-inputicon-box">
+                                        <input class="form-control" v-model="m.candidate.address" type="text" placeholder=""  @blur="v$.m.candidate.personal_number.$touch">
+                                        <i class="fs-input-icon fa fa-user"></i>
+                                        <span v-if="v$.m.candidate.personal_number.required.$invalid && v$.m.candidate.personal_number.$dirty" style='color:red'>* {{ v$.m.candidate.personal_number.required.$message}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label>{{ 'ქუჩა' }}</label>
+                                    <div class="ls-inputicon-box">
+                                        <input class="form-control" v-model="m.candidate.street" type="text" placeholder=""  @blur="v$.m.candidate.personal_number.$touch">
+                                        <i class="fs-input-icon fa fa-user"></i>
+                                        <span v-if="v$.m.candidate.personal_number.required.$invalid && v$.m.candidate.personal_number.$dirty" style='color:red'>* {{ v$.m.candidate.personal_number.required.$message}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                            <!--უცხო ენები-->
                  <div class="panel panel-default">
                     <div class="panel-heading wt-panel-heading p-a20">
                         <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_foreign_lang_title') }}</h4>
@@ -410,141 +422,6 @@
                     </div>
                 </div>
 
-                <!--რეკომენდაცია-->
-                <!-- <div class="panel panel-default">
-                    <div class="panel-heading wt-panel-heading p-a20">
-                        <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_recomendation_title') }}</h4>
-                    </div>
-                    <div class="panel-body wt-panel-body p-a20 m-b30 ">
-
-                        <div class="row">
-                            <div class="col-xl-6 col-lg-6 col-md-12">
-                                <div class="form-group">
-                                    <label>{{ $t('lang.user_profile_page_recomendation_from') }}</label>
-                                    <div class="ls-inputicon-box">
-                                        <select class="wt-select-box selectpicker"  v-model="candidateRecommendationModel.recommendation"  data-live-search="false" title=""  data-bv-field="size">
-                                            <option :value="1">წარმოვადგენ</option>
-                                            <option :value="2">ვერ წარმოვადგენ</option>
-                                        </select>
-                                        <i class="fs-input-icon fa fa-thumbs-up"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-12 " :class="(candidateRecommendationModel.recommendation == 1)?'':'visually-hidden'" >
-                                <div class="form-group">
-                                    <label>{{ $t('lang.user_profile_page_recomendation_where_from') }}</label>
-                                    <div class="ls-inputicon-box">
-                                        <select class="wt-select-box selectpicker"  v-model="candidateRecommendationModel.recommendation_from_whom_id"  data-live-search="false" title=""  data-bv-field="size">
-                                            <option v-for="recommendationFrom in data.classificator.recommendationFromWhom " :value="recommendationFrom.id">{{ recommendationFrom[`name_${getLang}`] }}</option>
-                                        </select>
-                                        <i class="fs-input-icon fa fa-industry"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div v-if="candidateRecommendationModel.recommendation == 1 " class="col-xl-6 col-lg-6 col-md-12">
-                                <div class="form-group">
-                                    <label>{{ $t('lang.user_profile_page_recomendation_name') }}</label>
-                                    <div class="ls-inputicon-box">
-                                        <input class="form-control" v-model="candidateRecommendationModel.name" type="text" placeholder="">
-                                        <i class="fs-input-icon fa fa-star"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div v-if="candidateRecommendationModel.recommendation_from_whom_id == 2 " class="col-xl-6 col-lg-6 col-md-12">
-                                <div class="form-group">
-                                    <label>თანამდებობა</label>
-                                    <div class="ls-inputicon-box">
-                                        <input class="form-control" v-model="candidateRecommendationModel.position" type="text" placeholder="">
-                                        <i class="fs-input-icon fa fa-user"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div v-if="candidateRecommendationModel.recommendation == 1" class="col-xl-6 col-lg-6 col-md-12">
-                                <div class="form-group">
-                                    <label>{{ $t('lang.user_profile_page_recomendation_number') }}</label>
-                                    <div class="ls-inputicon-box">
-                                        <input class="form-control" v-model="candidateRecommendationModel.number" type="text" placeholder="">
-                                        <i class="fs-input-icon fa fa-phone"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div v-if="candidateRecommendationModel.recommendation == 1" class="col-lg-12 col-md-12">
-                                <p>----------------------ან ატვირთეთ ფაილი-------------------------</p>
-                            </div>
-                            <div v-if="candidateRecommendationModel.recommendation == 1" class="col-lg-12 col-md-12">
-                                <div class="form-group">
-                                    <label>ფაილი</label>
-                                    <div class="ls-inputicon-box">
-                                        <input class="form-control" ref="upload" type="file" @change="recommendationFileUpload" placeholder="">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-12" :class="(candidateRecommendationModel.recommendation == 2)?'':'visually-hidden'">
-                                <div class="form-group">
-                                    <label>რეცომდაციის არ ქონის მიზეზი</label>
-                                    <div class="ls-inputicon-box">
-                                        <select class="wt-select-box selectpicker"  v-model="candidateRecommendationModel.no_reason_id"  data-live-search="true" title=""  data-bv-field="size">
-                                            <option v-for="recommendation in data.classificator.noRecommendationReason" :value="recommendation.id">{{ recommendation[`name_${getLang}`] }}</option>
-                                        </select>
-                                        <i class="fs-input-icon fa fa-history"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div v-if="candidateRecommendationModel.recommendation == 2" class="col-md-12">
-                                <div class="form-group">
-                                    <label>დამატაბითი ინფორმაცია</label>
-                                    <textarea class="form-control" rows="3" v-model="candidateRecommendationModel.no_reason_info" :placeholder="$t('lang.user_profile_page_medical_please_info')"></textarea>
-                                </div>
-                            </div>
-                            <div v-if="candidateRecommendationModel.recommendation == 1" class="col-lg-12 col-md-12">
-                                <div class="text-right ">
-                                    <button class="btn btn-success"
-                                    @click="addCandidateRecommendation(candidateRecommendationModel)"
-                                    title="დამატება" data-bs-toggle="tooltip" data-bs-placement="top">დამატება
-                                        <span class="fa fa-plus"></span>
-                                    </button>
-                                </div>
-                            </div>
-                            <div  class="col-lg-12 col-md-12">
-                                <div class="panel-body wt-panel-body">
-                                    <div class="p-a20 table-responsive">
-                                        <table class="table twm-table table-striped table-borderless">
-                                            <thead>
-                                                <tr>
-                                                <th>N</th>
-                                                <th>საიდან?</th>
-                                                <th>სახელი გვარი</th>
-                                                <th>ნომერი</th>
-                                                <th>თანამდებობა</th>
-                                                <th>ფაილი</th>
-                                                <th>action</th>
-                                                </tr>
-                                            </thead>
-
-                                            <tbody>
-                                                <tr v-for="(item, index) in m.candidateRecommendation">
-                                                <td>{{ index + 1 }}</td>
-                                                <td><span :class="(item.recommendation_from_whom_id == 1)?'badge bg-success p-2':'badge bg-info text-dark p-2'">{{ item.recommendation_whom[`name_${getLang}`] }}</span></td>
-                                                <td>{{ item.name }}</td>
-                                                <td>{{ item.number }}</td>
-                                                <td>{{ item.position }}</td>
-                                                <td>{{ item.file }}</td>
-                                                <td>
-                                                    <button @click="removeRow('recommendation',index)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
-                                                        <i class="fa fa-trash-alt"></i>
-                                                    </button>
-                                                </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div> -->
-
                 <!--Additional information-->
                 <div class="panel panel-default">
                     <div class="panel-heading wt-panel-heading p-a20">
@@ -709,7 +586,7 @@
                                 <div class="form-group">
                                     <label>{{ $t('lang.user_profile_page_social_facebook') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <input class="form-control wt-form-control" name="company_name" type="text" placeholder="https://www.youtube.com/">
+                                        <input class="form-control wt-form-control" v-model="m.candidate.fb_link"  type="text" placeholder="https://www.facebook.com/">
                                         <i class="fs-input-icon fab fa-facebook-f"></i>
                                     </div>
                                 </div>
@@ -719,7 +596,7 @@
                                 <div class="form-group">
                                     <label>{{ $t('lang.user_profile_page_social_youtube') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <input class="form-control wt-form-control" name="company_name" type="text" placeholder="https://www.youtube.com/">
+                                        <input class="form-control wt-form-control" v-model="m.candidate.youtube_link" type="text" placeholder="https://www.youtube.com/">
                                         <i class="fs-input-icon fab fa-youtube"></i>
                                     </div>
                                 </div>
@@ -823,7 +700,7 @@ import miniTable from './miniTable.vue'
 import _ from 'lodash'
 import { useVuelidate } from '@vuelidate/core'
 import { required, email, helpers, requiredIf, numeric, maxLength } from '@vuelidate/validators'
-
+import addressMap from '../map/address_map.vue'
 
 export default {
     setup () {
@@ -831,7 +708,8 @@ export default {
     },
     components:{
         miniTable,
-        mainInfo
+        mainInfo,
+        addressMap
     },
     props:{
         data:Object
@@ -866,15 +744,6 @@ export default {
                 no_reason_id:'',
                 no_reason_info:'',
             },
-            // candidateRecommendationModel: {
-            //     recommendation: '',
-            //     recommendation_from_whom_id :'',
-            //     name:'',
-            //     position:'',
-            //     number:'',
-            //     no_reason_id:'',
-            //     no_reason_info:'',
-            // }
             candidateNoticeModel:{
                 'notice_id':'',
                 'notice':'',
@@ -1088,16 +957,6 @@ export default {
             notice['file'] = this.noticeFile.name
             this.upsert(this.m.candidateNotices, notice, "notice");
         },
-        // addCandidateRecommendation(recommendation){
-        //     recommendation['file'] = this.recommendationFile.name
-        //     var recomendationWhomFind = _.find(this.data.classificator.recommendationFromWhom, function(o) { return o.id == recommendation.recommendation_from_whom_id; });
-        //     recommendation['recommendation_whom'] = recomendationWhomFind;
-        //     console.log('recommendation', recommendation);
-
-        //     console.log('this.m.candidateRecommendation_1', this.m.candidateRecommendation);
-        //     this.m.candidateRecommendation.push(JSON.parse(JSON.stringify(recommendation)))
-        //     console.log('this.m.candidateRecommendation_2', this.m.candidateRecommendation);
-        // },
         chooseNumberCode(code, iso){
             this.numberCode['phonecode'] = code;
             this.numberCode['iso'] = iso
@@ -1124,6 +983,12 @@ export default {
         showFile(name){
             var pdf = `../../../public/user-documentation/${name}`;
             window.open(pdf);
+        },
+        childMessage(arg){
+            this.m.candidate.address = arg.name
+            this.m.candidate.latitude = arg.lngLat.lat
+            this.m.candidate.longitude = arg.lngLat.lng
+            console.log('this.m.candidate.latitude', this.m.candidate.latitude);
         }
     },
     watch:{

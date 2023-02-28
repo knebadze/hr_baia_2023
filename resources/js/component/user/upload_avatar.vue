@@ -1,15 +1,14 @@
 <template lang="">
-        <div class="twm-candidate-profile-pic">
-
-            <img :src="photo">
+<div class="twm-candidate-profile-pic">
+    <img :src="src" alt="">
             <div class="upload-btn-wrapper">
 
                 <div id="upload-image-grid"></div>
                 <button class="site-button button-sm">{{ $t('lang.user_page_candidate_left_side_bar_photo_upload')}}</button>
                 <input type="file" @change="selectImage" id="file-uploader" accept=".jpg, .jpeg, .png">
             </div>
+</div>
 
-        </div>
 </template>
 <script>
 export default {
@@ -18,12 +17,22 @@ export default {
     },
     data() {
         return {
-            avatar:null
+            avatar: null,
+            img: null,
+            path: '/images/user-avatar/',
+            src: null
         }
+    },
+    created(){
+        this.src = this.path + this.auth.avatar
     },
     computed:{
         photo(){
-            return '../../../../public/images/user-avatar/1677509801.download.png';
+            // this.avatar =
+            if (this.img != null) {
+                return '/images/user-avatar/'+this.img;
+            }
+            return '/images/user-avatar/'+this.auth.avatar;
         }
     },
     methods:{
@@ -39,11 +48,14 @@ export default {
             }
             let formData = new FormData();
             formData.append('avatar', this.avatar)
+            let currentObj = this;
             axios.post('/upload_avatar', formData, config)
             .then(function (response) {
                 console.log('response',response.data);
-                if (response.data.status == 200) {
-                    toast.success("ცნობები წარმატებით დაემატა", {
+                if (response.status == 200) {
+                    currentObj.img = response.data.avatar
+                    console.log('this.img',currentObj.img);
+                    toast.success("სურათი წარმატებით შეიცვალა", {
                         theme: 'colored',
                         autoClose: 1000,
                     });
@@ -54,6 +66,15 @@ export default {
             });
         }
 
+    },
+    watch: {
+        img: {
+            handler(newValue, oldValue) {
+                this.src = this.path + newValue
+                console.log('this.src', this.src);
+            },
+            deep: true
+        }
     },
     mounted(){
         console.log('this.auth',this.auth);

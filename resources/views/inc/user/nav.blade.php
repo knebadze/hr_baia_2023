@@ -2,8 +2,10 @@
 @php
     $auth = Auth::user();
 @endphp
-<upload-avatar :auth='@json($auth)'></upload-avatar>
-
+{{-- <div class="twm-candidate-profile-pic">
+    <img src="{{ asset('images/user-avatar/'.$auth->avatar) }}"> --}}
+    <upload-avatar :auth='@json($auth)'></upload-avatar>
+{{-- </div> --}}
 {{-- Menu --}}
 <div class="twm-nav-list-1">
     <ul>
