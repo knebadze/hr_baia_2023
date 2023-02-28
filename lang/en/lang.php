@@ -438,7 +438,7 @@ return [
 
     // ----------------------------------------------------------------------------------------------------
     // User Home Page Lang
-    'user_profile_page_input_basic_info' => 'Basic Informations',
+    'user_profile_page_input_basic_info' => 'Registration information',
 
     'user_profile_page_input_name' => 'Your Name',
     'user_profile_page_input_email' => 'Email Address',
@@ -486,8 +486,9 @@ return [
     'user_profile_page_work_exp' => 'Work Experience',
     'user_profile_page_work_position' => 'Position',
     'user_profile_page_work_object' => 'Object',
+    'user_profile_page_work_actions' => 'Actions',
     'user_profile_page_work_button_add_info' => 'Add',
-    'user_profile_page_work_exp_experience' => 'Do you have work experience?',
+    'user_profile_page_work_exp_experience' => 'Do you have work experience?', 
 
     // Work Recommendation Block Lang
     'user_profile_page_recomendation_title' => 'Recommendation',
@@ -509,6 +510,16 @@ return [
     'user_profile_page_references_name_notice' => 'The name of the notice',
     'user_profile_page_references_file' => 'File',
     'user_profile_page_references_button_add_info' => 'Add',
+    'user_profile_page_references_reference' => 'Reference',
+    'user_profile_page_references_action' => 'Actions',
+
+    // Numbers
+    'user_profile_page_title' => 'Additional numbers',
+    'user_profile_page_number' => 'Number',
+    'user_profile_page_number_owner' => 'Owner',
+    'user_profile_page_number_owner_name' => 'Name / Lastname',
+    'user_profile_page_work_number_code' => 'Code',
+    'user_profile_page_work_number_actions' => 'Actions',
 
     // Social Network Block Lang
     'user_profile_page_social_title' => 'Social Network',

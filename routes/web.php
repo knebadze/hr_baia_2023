@@ -14,6 +14,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\HomeController;
 
 use App\Http\Controllers\MyprofileController;
+use App\Http\Controllers\RezumeController;
 
 
 use App\Http\Controllers\Auth\SocialController;
@@ -55,6 +56,9 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
         // Account Pages
         Route::get('/user/userProfile', [UserProfileController::class, 'index'])->name('userProfile');
         Route::get('/user/work_information', [WorkInformationController::class, 'index'])->name('work_information');
+
+        // My Rezume
+        Route::get('/user/myrezume', [RezumeController::class, 'index'])->name('myrezume');
 
         Route::get('/home', [HomeController::class, 'index'])->name('home');
     });
