@@ -40,13 +40,16 @@ class WorkInformationController extends Controller
         // dd($user->candidate->id);
         // exit;
         if (DB::table('work_information')->where('candidate_id', $user->candidate->id)->exists()) {
-            $workInformation = WorkInformation::where('candidate_id', $user->candidate->id)->first();
+            $workInformation = WorkInformation::where('candidate_id', $user->candidate->id)->with('category')->with('workSchedule')->get()->toArray();
+            $getWorkInformation =  Schema::getColumnListing('work_information');
+            $getWorkInformation = array_map(function ($item) { return ""; }, array_flip($getWorkInformation));
             // dd($candidate);
         }else{
             $workInformation = [];
+            $getWorkInformation =  Schema::getColumnListing('work_information');
+            $getWorkInformation = array_map(function ($item) { return ""; }, array_flip($getWorkInformation));
         }
-        $getWorkInformation =  Schema::getColumnListing('work_information');
-        $getWorkInformation = array_map(function ($item) { return ""; }, array_flip($getWorkInformation));
+
         // dd($getWorkInformation);
             // $workInformation = [];
         if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('candidate_recommendations')->where('candidate_id', $user->candidate->id)->exists()) {
@@ -94,7 +97,8 @@ class WorkInformationController extends Controller
         $data = [
             'auth', $auth,
             'model' => [
-                'getWorkInformation' => $workInformation,
+                'workInformation' => $workInformation,
+                'getWorkInformation' => $getWorkInformation,
                 'candidateRecommendation' => $candidateRecommendation,
                 'candidateFamilyWorkSkill' => $candidateFamilyWorkSkill,
                 'familyWorkExperience' => $familyWorkExperience,

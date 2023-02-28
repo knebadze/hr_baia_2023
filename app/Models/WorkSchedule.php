@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class WorkSchedule extends Model
 {
     use HasFactory;
+
+    public function workInformation()
+    {
+        return $this->hasOne(WorkInformation::class);
+    }
 }

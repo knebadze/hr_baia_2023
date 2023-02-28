@@ -216,8 +216,54 @@
                         </div>
                     </div>
                 </div>
-<!--  -->
-            <div class="panel panel-default" v-if="m.getWorkInformation.category_id > 0 && m.getWorkInformation.category_id < 9">
+
+                <div class="panel panel-default" v-if="m.workInformation.length != 0" >
+                    <div class="panel-heading wt-panel-heading p-a20">
+                        <h4 class="panel-tittle m-a0">{{ 'კატეგორიის და გრაფიკის ცხრილი' }}</h4>
+                    </div>
+                    <div class="panel-body wt-panel-body p-a20 m-b30 ">
+                        <div class="p-a20 table-responsive">
+                          <table class="table twm-table table-striped table-borderless">
+                            <thead>
+                              <tr>
+                                <th>კატეგორია</th>
+                                <th>გრაფიკი</th>
+                                <th>სთ_დან - სთ_მდე</th>
+                                <th>ანაზღაურება</th>
+                                <!-- <th>რეკომენდაცია</th> -->
+                                <th>Actions</th>
+                              </tr>
+                            </thead>
+
+                            <tbody>
+                              <!--1-->
+                              <tr v-for="item in m.workInformation">
+                                <td><span class="badge rounded-pill bg-success p-2">{{ item.category[`name_${getLang}`] }}</span></td>
+                                <td><span class="badge rounded-pill bg-primary p-2">{{ item.work_schedule[`name_${getLang}`] }}</span></td>
+                                <td>{{ item.from_hour.slice(0, -3)+ ' -- ' + item.to_hour.slice(0, -3)}}</td>
+                                <td>{{ item.payment }}</td>
+                                <!-- <td>{{ item.payment }}</td> -->
+                                <td>
+                                    <button type="button" title="ნახვა" data-bs-toggle="tooltip" data-bs-placement="top">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
+                                    <button title="წაშლა" data-bs-toggle="tooltip" data-bs-placement="top">
+                                        <i class="fa fa-trash-alt"></i>
+                                    </button>
+                                </td>
+                              </tr>
+
+
+
+
+
+                            </tbody>
+                          </table>
+                        </div>
+                    </div>
+                </div>
+            <!--ოჯახში მუშაობის გამოცდიელბა  -->
+            <div class="panel panel-default" v-if="(m.getWorkInformation.category_id > 0 && m.getWorkInformation.category_id < 9) || (m.workInformation[0].category_id > 0 && m.workInformation[0].category_id < 9)">
                 <div class="panel-heading wt-panel-heading p-a20">
                     <!-- <div class="d-flex justify-content-between"> -->
                         <h4 class="panel-tittle m-a0">{{ 'ოჯახში მუშაობის გამოცდილება' }}</h4>
@@ -348,6 +394,7 @@
 
 </template>
 <script>
+import moment from 'moment'
 export default {
     components:{
     },
@@ -373,6 +420,9 @@ export default {
         }
     },
     created(){
+        this.data.model.getWorkInformation['payment'] = 800;
+
+
         this.m = { ...this.data.model };
         console.log(this.m);
     },
@@ -380,7 +430,9 @@ export default {
         getLang(){
             return I18n.getSharedInstance().options.lang
         },
-
+        // time(){
+        //     var startTime = moment(this.data..start_time, 'HH:mm:ss')
+        // }
     },
     methods:{
         childMessageReceived(arg){
