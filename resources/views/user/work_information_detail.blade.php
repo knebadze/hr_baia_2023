@@ -1,6 +1,6 @@
 @extends('layouts.appPage')
 @section('title-block')
-{{ __('lang.user_page_title_profile') }}
+{{ __('სამუშაო ინფორმაციის დეტალები') }}
 @endsection
 @section('content')
 
@@ -45,8 +45,8 @@
                     </div>
                 </div>
                 {{-- <candidate-profile :data='@json($data)'></candidate-profile> --}}
-                <candidate-work-information :data='@json($data)'></candidate-work-information>
-                
+                {{-- <candidate-work-information :data='@json($data)'></candidate-work-information> --}}
+
                     </div>
                 </div>
             </div>

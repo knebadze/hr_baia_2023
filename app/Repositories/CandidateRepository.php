@@ -140,7 +140,7 @@ class CandidateRepository
             if ($test == true) {
                 $notice_id = substr($key, strlen($key)-1, 1);
                 $file_name = $value->getClientOriginalName();
-                $generated_new_name = time() . '.' . $file_name;
+                $generated_new_name = time() . '.' .$file_name;
                 $candidateNotice = new CandidateNotice();
                 $candidateNotice->candidate_id = $data['candidate_id'];
                 $candidateNotice->notice_id = $notice_id;
@@ -148,7 +148,7 @@ class CandidateRepository
 
 
                 $value->move($upload_path, $generated_new_name);
-                $candidateNotice->file = $generated_new_name ;
+                $candidateNotice->file = $generated_new_name;
                 $candidateNotice->save();
             }
 

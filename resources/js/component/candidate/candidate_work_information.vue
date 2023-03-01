@@ -173,7 +173,7 @@
                                     </button>
                                 </div>
                             </div>
-                            <div v-if="m.candidateRecommendation.length > 0" class="col-lg-12 col-md-12">
+                            <div v-if="candidateRecommendationArr.length > 0" class="col-lg-12 col-md-12">
                                 <div class="panel-body wt-panel-body">
                                     <div class="p-a20 table-responsive">
                                         <table class="table twm-table table-striped table-borderless">
@@ -190,7 +190,7 @@
                                             </thead>
 
                                             <tbody>
-                                                <tr v-for="(item, index) in m.candidateRecommendation">
+                                                <tr v-for="(item, index) in candidateRecommendationArr">
                                                 <td>{{ index + 1 }}</td>
                                                 <td><span :class="(item.recommendation_from_whom_id == 1)?'badge bg-success p-2':'badge bg-info text-dark p-2'">{{ item.recommendation_whom[`name_${getLang}`] }}</span></td>
                                                 <td>{{ item.name }}</td>
@@ -198,7 +198,7 @@
                                                 <td>{{ item.position }}</td>
                                                 <td>{{ item.file }}</td>
                                                 <td>
-                                                    <button @click="removeRow('recommendation',index)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
+                                                    <button @click="removeRow(index, item.id)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
                                                         <i class="fa fa-trash-alt"></i>
                                                     </button>
                                                 </td>
@@ -244,9 +244,12 @@
                                 <td>{{ item.payment }}</td>
                                 <!-- <td>{{ item.payment }}</td> -->
                                 <td>
-                                    <button type="button" title="ნახვა" data-bs-toggle="tooltip" data-bs-placement="top">
+                                    <button type="button" title="ნახვა" data-bs-toggle="tooltip" data-bs-placement="top" @click="openModal(item)">
                                         <i class="fa fa-eye"></i>
                                     </button>
+                                    <!-- <a type="button" title="ნახვა" data-bs-toggle="tooltip" data-bs-placement="top" :href="`/${this.getLang}/user/work_information_detail/${item.id}`">
+                                        <i class="fa fa-eye"></i>
+                                    </a> -->
                                     <button title="წაშლა" data-bs-toggle="tooltip" data-bs-placement="top">
                                         <i class="fa fa-trash-alt"></i>
                                     </button>
@@ -263,7 +266,7 @@
                     </div>
                 </div>
             <!--ოჯახში მუშაობის გამოცდიელბა  -->
-            <div class="panel panel-default" v-if="(m.getWorkInformation.category_id > 0 && m.getWorkInformation.category_id < 9) || (m.workInformation[0].category_id > 0 && m.workInformation[0].category_id < 9)">
+            <div class="panel panel-default" v-if="(m.getWorkInformation.category_id > 0 && m.getWorkInformation.category_id < 9) || (m.workInformation[0] && m.workInformation[0].category_id > 0 && m.workInformation[0].category_id < 9)">
                 <div class="panel-heading wt-panel-heading p-a20">
                     <!-- <div class="d-flex justify-content-between"> -->
                         <h4 class="panel-tittle m-a0">{{ 'ოჯახში მუშაობის გამოცდილება' }}</h4>
@@ -391,19 +394,21 @@
             </div>
         </div>
     </div>
-
+    <workInformation :visible="showWorkInformation" :m="modalData" :classificator="data.classificator" ></workInformation>
 </template>
 <script>
-import moment from 'moment'
+import workInformation from '../modal/workInformation.vue'
 export default {
     components:{
+        workInformation
     },
     props:{
         data: Object
     },
     data() {
         return {
-            time:'15:20:00',
+            showWorkInformation: false,
+            modalData:{},
             m: null,
             candidateRecommendationModel: {
                 recommendation: '',
@@ -417,6 +422,7 @@ export default {
             recommendationFile:null,
             setSkill:[],
             formData:new FormData(),
+            candidateRecommendationArr: [],
         }
     },
     created(){
@@ -430,9 +436,6 @@ export default {
         getLang(){
             return I18n.getSharedInstance().options.lang
         },
-        // time(){
-        //     var startTime = moment(this.data..start_time, 'HH:mm:ss')
-        // }
     },
     methods:{
         childMessageReceived(arg){
@@ -440,11 +443,10 @@ export default {
         },
         addWorkInfo(){
             if (this.candidateRecommendationModel.recommendation == 2) {
-                this.m.candidateRecommendation.push(this.candidateRecommendationModel)
+                this.m['candidateRecommendationModel'] = this.candidateRecommendationModel
+            }else{
+                this.m['candidateRecommendationModel'] = []
             }
-            const formData = new FormData();
-            const config = {headers: {'content-type': 'multipart/from-data'}}
-            formData.append('obj',this.m)
             let currentObj = this;
             axios({
                 method: "post",
@@ -461,6 +463,9 @@ export default {
                         theme: 'colored',
                         autoClose: 1000,
                     });
+                    setTimeout(() => {
+                        document.location.reload();
+                    }, 1500);
                 }
 
             })
@@ -481,10 +486,6 @@ export default {
             .then(function (response) {
                 console.log('response.data',response.data);
                 if (response.data.status == 200) {
-                    // toast.success("ინფორმაცია წარმატებით დაემატა", {
-                    //     theme: 'colored',
-                    //     autoClose: 1000,
-                    // });
                     currentObj.$swal(
                     {
                         title: '<p>გილოცავთ თქვენ დაასრულეთ ინფორმაციის შევსება</p>',
@@ -504,28 +505,99 @@ export default {
                 console.log(error);
             })
         },
-        addCandidateRecommendation(recommendation){
-            if (this.recommendationFile != null) {
-                recommendation['file'] = this.recommendationFile.name
+        saveRecomendationFile(id){
+            let currentObj = this;
+            const config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
             }
+            let formData = new FormData();
+            formData.append('file', this.recommendationFile);
+            formData.append('id', id);
 
-            var recomendationWhomFind = _.find(this.data.classificator.recommendationFromWhom, function(o) { return o.id == recommendation.recommendation_from_whom_id; });
-            recommendation['recommendation_whom'] = recomendationWhomFind;
-            this.m.candidateRecommendation.push(JSON.parse(JSON.stringify(recommendation)))
+            // send upload request
+            axios.post('/add_recommendation_file', formData, config)
+            .then(function (response) {
+                console.log('response',response);
+                if (response.data.status == 200) {
+                    var recomendationWhomFind = _.find(currentObj.data.classificator.recommendationFromWhom, function(o) { return o.id == response.data.data.recommendation_from_whom_id; });
+                    response.data.data['recommendation_whom'] = recomendationWhomFind;
+                    currentObj.candidateRecommendationArr.push(response.data.data)
+                }
+            })
+            .catch(function (error) {
+                console.log('error',error);
+            // currentObj.output = error;
+            });
+        },
+        addCandidateRecommendation(recommendation){
+            recommendation['category_id'] = this.m.getWorkInformation.category_id
+            // console.log('recommendation', recommendation);
+            // if (this.recommendationFile != null) {
+            //     recommendation['file'] = this.recommendationFile.name
+            // }
+
+            // var recomendationWhomFind = _.find(this.data.classificator.recommendationFromWhom, function(o) { return o.id == recommendation.recommendation_from_whom_id; });
+            // recommendation['recommendation_whom'] = recomendationWhomFind;
+
+            // this.m.candidateRecommendation.push(JSON.parse(JSON.stringify(recommendation)))
+            let currentObj = this;
+            axios({
+                method: "post",
+                url: "/add_recommendation",
+                data: recommendation,
+
+            })
+            .then(function (response) {
+                console.log('response.data',response.data);
+                if (response.data.status == 200) {
+                    currentObj.saveRecomendationFile(response.data.data)
+                }
+
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+
         },
 
         recommendationFileUpload(event){
-            var key = this.m.candidateRecommendation.length + 1
-            // console.log('key', key);
-            // var obj = {
-            //     'key': key,
-            //     'file': event.target.files[0]
-            // }
 
             this.recommendationFile = event.target.files[0]
-            this.formData.append(`${key}`, JSON.stringify(this.recommendationFile))
-            // console.log('this.recommendationFile',this.recommendationFile);
         },
+        removeRow(index, id){
+            const removed = this.candidateRecommendationArr.splice(index, 1);
+            axios.post('/remove_recommendation' ,{
+                id: id
+            })
+            .then((response)=> {
+                console.log(response.data);
+                if (response.status == 200) {
+                    toast.success("წარმატებით წაიშალა", {
+                        theme: 'colored',
+                        autoClose: 1000,
+                    });
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+        },
+        openModal(item){
+           var recommendation =  _.filter(this.m.candidateRecommendation, function(o) { return item.category_id ==  o.category_id});
+        //    console.log('recomendation',recomendation);
+            this.modalData = {
+                'workInformation':item,
+                'recommendation': recommendation
+            }
+            console.log('this.modalData', this.modalData);
+            this.showWorkInformation = !this.showWorkInformation
+            console.log('this.showWorkInformation',this.showWorkInformation);
+            // window.location.replace(`/${this.getLang}/user/userProfile`)
+        }
     },
     watch: {
         'm.familyWorkedSelected': function(newVal, oldVal){
@@ -536,7 +608,6 @@ export default {
                 this.setSkill = filteredX
 
             }
-            // console.log('this.setSkill', this.setSkill);
         },
         'm.familyWorkExperience.experience': function(newVal, oldVa){
             console.log('newVal', newVal);
@@ -557,7 +628,6 @@ export default {
     },
 
     mounted() {
-        // console.log('this', this.data);
     },
 
 }

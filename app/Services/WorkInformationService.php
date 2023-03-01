@@ -17,5 +17,15 @@ class WorkInformationService
         $result = $this->workInformationRepository->save($data);
         return $result;
     }
+    public function saveRecommendation($data)
+    {
+        $result = $this->workInformationRepository->addRecommendation($data);
+        return $result;
+    }
+    public function saveRecommendationFile($data)
+    {
+        $result = $this->workInformationRepository->addRecommendationFile($data);
+        return $result;
+    }
 
 }

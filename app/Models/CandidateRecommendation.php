@@ -9,14 +9,14 @@ class CandidateRecommendation extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'candidate_id ',
+        'candidate_id',
         'recommendation',
-        'recommendation_from_whom_id ',
+        'recommendation_from_whom_id',
         'name',
         'position',
         'number',
         'file',
-        'no_reason_id ',
+        'no_reason_id',
         'no_reason_info',
     ];
     // public function candidate()

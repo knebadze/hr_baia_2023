@@ -15,14 +15,15 @@ use App\Models\Work_experience;
 use App\Models\WorkInformation;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\CandidateFamilyWorkSkill;
 use App\Models\FamilyWorkExperience;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use App\Models\RecommendationFromWhom;
 use Illuminate\Support\Facades\Schema;
 use App\Models\CandidateRecommendation;
-use App\Services\FAmilyWorkExperienceService;
+use App\Models\CandidateFamilyWorkSkill;
 use App\Services\WorkInformationService;
+use App\Services\FAmilyWorkExperienceService;
 
 class WorkInformationController extends Controller
 {
@@ -53,7 +54,12 @@ class WorkInformationController extends Controller
         // dd($getWorkInformation);
             // $workInformation = [];
         if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('candidate_recommendations')->where('candidate_id', $user->candidate->id)->exists()) {
-            $candidateRecommendation = CandidateRecommendation::where('candidate_id', $user->candidate->id)->with('recommendationWhom')->first();
+            // $candidateRecommendation = CandidateRecommendation::where('candidate_id', $user->candidate->id)->with('recommendationWhom')->get();
+            $candidateRecommendation = DB::table('candidate_recommendations')->where('candidate_id', $user->candidate->id)
+                                        ->join('recommendation_from_whoms', 'candidate_recommendations.recommendation_from_whom_id', 'recommendation_from_whoms.id')->get();
+            // dd($candidateRecommendation->recommendationWhom);
+            // print_r($candidateRecommendation);
+            // exit;
         }else{
             // $candidateRecommendation = Schema::getColumnListing('candidate_recommendations');
             // $candidateRecommendation = [array_map(function ($item) {  return ""; }, array_flip($candidateRecommendation))];
@@ -122,8 +128,6 @@ class WorkInformationController extends Controller
     }
     public function store(Request $request){
         $data = $request->all();
-        // print_r($request->getWorkInformation);
-        // exit;
         $result = ['status' => 200];
 
         try {
@@ -153,5 +157,55 @@ class WorkInformationController extends Controller
         }
 
         return response()->json($result, $result['status']);
+    }
+
+    public function addRecommendation(Request $request)
+    {
+        $data = $request->all();
+        $result = ['status' => 200];
+
+        try {
+            $result['data'] = $this->workInformationService->saveRecommendation($data);
+        } catch (Exception $e) {
+            $result = [
+                'status' => 500,
+                'error' => $e->getMessage()
+            ];
+        }
+
+        return response()->json($result, $result['status']);
+    }
+
+    public function addRecommendationFile(Request $request)
+    {
+        $data = $request->all();
+        $result = ['status' => 200];
+
+        try {
+            $result['data'] = $this->workInformationService->saveRecommendationFile($data);
+        } catch (Exception $e) {
+            $result = [
+                'status' => 500,
+                'error' => $e->getMessage()
+            ];
+        }
+
+        return response()->json($result, $result['status']);
+    }
+
+    public function removeRecommendation(Request $request)
+    {
+        $recommendation = CandidateRecommendation::find($request->id);
+        if ($recommendation->file) {
+            File::delete(public_path('user-documentation/'.$recommendation->file));
+        }
+        $recommendation->delete();
+        return response()->json($recommendation);
+    }
+
+    public function show($lang, $id)
+    {
+        // dd($lang,$id);
+        return view('user.work_information_detail', compact('id'));
     }
 }

@@ -55,7 +55,9 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
 
         // Account Pages
         Route::get('/user/userProfile', [UserProfileController::class, 'index'])->name('userProfile');
+
         Route::get('/user/work_information', [WorkInformationController::class, 'index'])->name('work_information');
+        // Route::get('/user/work_information_detail/{id}', [WorkInformationController::class, 'show'])->name('work.information.detail');
 
         // My Rezume
         Route::get('/user/myrezume', [RezumeController::class, 'index'])->name('myrezume');
@@ -78,5 +80,9 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
 
     Route::post('add_work_information', [WorkInformationController::class, 'store']);
     Route::post('add_family_work_experience', [WorkInformationController::class, 'familyStore']);
+
+    Route::post('add_recommendation', [WorkInformationController::class, 'addRecommendation']);
+    Route::post('add_recommendation_file', [WorkInformationController::class, 'addRecommendationFile']);
+    Route::post('remove_recommendation', [WorkInformationController::class, 'removeRecommendation']);
 
 
