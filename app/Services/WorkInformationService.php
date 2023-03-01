@@ -22,9 +22,13 @@ class WorkInformationService
     {
         $workInformation = WorkInformation::where('candidate_id',$data['candidate_id'])->where('category_id', $data['category_id'])->first();
         if ($workInformation->category_id == $data['category_id']){
+            print_r($data['category_id']);
+            exit;
             $result = $this->workInformationRepository->update($workInformation,$data);
             return $result;
         }else {
+            print_r('else');
+            exit;
             $result = $this->workInformationRepository->updateRecommendation($workInformation, $data);
             // $result = $this->workInformationRepository->update($workInformation, $data);
             return $result;
