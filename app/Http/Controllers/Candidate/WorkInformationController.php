@@ -54,9 +54,9 @@ class WorkInformationController extends Controller
         // dd($getWorkInformation);
             // $workInformation = [];
         if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('candidate_recommendations')->where('candidate_id', $user->candidate->id)->exists()) {
-            // $candidateRecommendation = CandidateRecommendation::where('candidate_id', $user->candidate->id)->with('recommendationWhom')->get();
-            $candidateRecommendation = DB::table('candidate_recommendations')->where('candidate_id', $user->candidate->id)
-                                        ->join('recommendation_from_whoms', 'candidate_recommendations.recommendation_from_whom_id', 'recommendation_from_whoms.id')->get();
+            $candidateRecommendation = CandidateRecommendation::where('candidate_id', $user->candidate->id)->with('recommendationWhom')->with('recommendationReason')->get();
+            // $candidateRecommendation = DB::table('candidate_recommendations')->where('candidate_id', $user->candidate->id)
+            //                             ->join('recommendation_from_whoms', 'candidate_recommendations.recommendation_from_whom_id', 'recommendation_from_whoms.id')->get();
             // dd($candidateRecommendation->recommendationWhom);
             // print_r($candidateRecommendation);
             // exit;
@@ -132,6 +132,23 @@ class WorkInformationController extends Controller
 
         try {
             $result['data'] = $this->workInformationService->saveData($data);
+        } catch (Exception $e) {
+            $result = [
+                'status' => 500,
+                'error' => $e->getMessage()
+            ];
+        }
+
+        return response()->json($result, $result['status']);
+    }
+
+    public function updateWorkInformation(Request $request)
+    {
+        $data = $request->all();
+        $result = ['status' => 200];
+
+        try {
+            $result['data'] = $this->workInformationService->updateData($data);
         } catch (Exception $e) {
             $result = [
                 'status' => 500,

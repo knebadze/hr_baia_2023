@@ -25,6 +25,10 @@ class CandidateRecommendation extends Model
     // }
     public function recommendationWhom()
     {
-        return $this->belongsTo(RecommendationFromWhom::class);
+        return $this->belongsTo(RecommendationFromWhom::class, 'recommendation_from_whom_id', 'id');
+    }
+    public function recommendationReason()
+    {
+        return $this->belongsTo(NoReason::class, 'no_reason_id', 'id');
     }
 }

@@ -28,6 +28,7 @@ class WorkInformationRepository
         if ($data['candidateRecommendationModel'] != []) {
             $candidateRecommendation = new CandidateRecommendation();
             $candidateRecommendation->candidate_id = $candidate_id;
+            $candidateRecommendation->recommendation = 2;
             $candidateRecommendation->category_id = $data['getWorkInformation']['category_id'];
             $candidateRecommendation->no_reason_id = $data['candidateRecommendationModel']['no_reason_id'];
             $candidateRecommendation->no_reason_info = $data['candidateRecommendationModel']['no_reason_info'];
@@ -36,6 +37,26 @@ class WorkInformationRepository
         return $data;
     }
 
+    public function update($workInformation, $data)
+    {
+
+        $workInformation->category_id = $data['category_id'];
+        $workInformation->work_schedule_id = $data['work_schedule_id'];
+        $workInformation->from_hour = $data['from_hour'];
+        $workInformation->to_hour = $data['to_hour'];
+        $workInformation->payment = $data['payment'];
+        $workInformation->currency_id = $data['currency_id'];
+        $workInformation->update();
+        return $data;
+    }
+
+    public function updateRecommendation($workInformation, $data)
+    {
+        $recommendation = CandidateRecommendation::where('candidate_id',$data['candidate_id'])->where('category_id', $data['category_id'])->get();
+        $recommendation->update(['category_id' => $data['category_id']]);
+        $this->update($workInformation, $data);
+        return $data;
+    }
     public function addRecommendation($data)
     {
         $auth = Auth::user();
@@ -54,6 +75,7 @@ class WorkInformationRepository
         $candidateRecommendation->save();
         return $candidateRecommendation->id;
     }
+
     public function addRecommendationFile($data)
     {
         $upload_path = public_path('user-documentation/');

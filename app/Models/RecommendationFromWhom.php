@@ -14,9 +14,8 @@ class RecommendationFromWhom extends Model
         'name_en',
         'name_ru',
     ];
-    public function candidateRecommendation()
-    {
-
-        return $this->hasOne(CandidateRecommendation::class);
-    }
+    // public function candidateRecommendation()
+    // {
+    //     return $this->hasOne(CandidateRecommendation::class);
+    // }
 }

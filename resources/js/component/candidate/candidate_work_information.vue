@@ -394,13 +394,13 @@
             </div>
         </div>
     </div>
-    <workInformation :visible="showWorkInformation" :m="modalData" :classificator="data.classificator" ></workInformation>
+    <workInformationDetail :visible="showWorkInformation" :data="modalData" :classificator="data.classificator" ></workInformationDetail>
 </template>
 <script>
-import workInformation from '../modal/workInformation.vue'
+import workInformationDetail from '../modal/workInformationDetail.vue'
 export default {
     components:{
-        workInformation
+        workInformationDetail
     },
     props:{
         data: Object
