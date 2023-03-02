@@ -19,4 +19,17 @@ class FamilyWorkExperience extends Model
         'no_reason_id',
         'no_reason_info',
     ];
+
+    public function workExperience()
+    {
+        return $this->belongsTo(Work_experience::class, 'work_experience_id', 'id');
+    }
+    public function longest()
+    {
+        return $this->belongsTo(Work_experience::class, 'work_experience_id', 'id');
+    }
+    public function noReason()
+    {
+        return $this->belongsTo(NoReason::class, 'no_reason_id', 'id');
+    }
 }

@@ -38,33 +38,23 @@ class WorkInformationController extends Controller
         $data = [];
         $auth = Auth::user();
         $user = User::where('id', $auth->id)->first();
-        // dd($user->candidate->id);
-        // exit;
+
         if (DB::table('work_information')->where('candidate_id', $user->candidate->id)->exists()) {
             $workInformation = WorkInformation::where('candidate_id', $user->candidate->id)->with('category')->with('workSchedule')->get()->toArray();
             $getWorkInformation =  Schema::getColumnListing('work_information');
             $getWorkInformation = array_map(function ($item) { return ""; }, array_flip($getWorkInformation));
-            // dd($candidate);
         }else{
             $workInformation = [];
             $getWorkInformation =  Schema::getColumnListing('work_information');
             $getWorkInformation = array_map(function ($item) { return ""; }, array_flip($getWorkInformation));
         }
 
-        // dd($getWorkInformation);
-            // $workInformation = [];
-        if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('candidate_recommendations')->where('candidate_id', $user->candidate->id)->exists()) {
-            $candidateRecommendation = CandidateRecommendation::where('candidate_id', $user->candidate->id)->with('recommendationWhom')->with('recommendationReason')->get();
-            // $candidateRecommendation = DB::table('candidate_recommendations')->where('candidate_id', $user->candidate->id)
-            //                             ->join('recommendation_from_whoms', 'candidate_recommendations.recommendation_from_whom_id', 'recommendation_from_whoms.id')->get();
-            // dd($candidateRecommendation->recommendationWhom);
-            // print_r($candidateRecommendation);
-            // exit;
+        if (DB::table('work_information')->where('candidate_id', $user->candidate->id)->exists() && DB::table('candidate_recommendations')->where('candidate_id', $user->candidate->id)->exists()) {
+            $candidateRecommendation = CandidateRecommendation::where('candidate_id', $user->candidate->id)->with('recommendationWhom')->with('noReason')->get();
         }else{
-            // $candidateRecommendation = Schema::getColumnListing('candidate_recommendations');
-            // $candidateRecommendation = [array_map(function ($item) {  return ""; }, array_flip($candidateRecommendation))];
             $candidateRecommendation = [];
         }
+
         if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('candidate_family_work_skills')->where('candidate_id', $user->candidate->id)->exists()) {
 
             $candidateFamilyWorkSkill = DB::table('candidate_family_work_skills')->where('candidate_id', $user->candidate->id)
@@ -73,19 +63,16 @@ class WorkInformationController extends Controller
                 $familyWorkedSelectedArr[] = $value->category_id;
             }
 
-            $familyWorkedSelected = array_unique($familyWorkedSelectedArr);
+            $familyWorkedSelected = Category::whereIn('id', $familyWorkedSelectedArr)->get();
         }else{
-            // $candidateFamilyWorkSkill = Schema::getColumnListing('candidate_family_work_skills');
-            // $candidateFamilyWorkSkill = array_map(function ($item) {  return ""; }, array_flip($candidateFamilyWorkSkill));
-            $candidateFamilyWorkSkill = [];
             $familyWorkedSelected = [];
         }
+
         if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('family_work_experiences')->where('candidate_id', $user->candidate->id)->exists()) {
-            $familyWorkExperience = FamilyWorkExperience::where('candidate_id', $user->candidate->id)->first()->toArray();
+            $familyWorkExperience = FamilyWorkExperience::where('candidate_id', $user->candidate->id)->with('workExperience')->with('longest')->with('noReason')->first()->toArray();
         }else{
             $familyWorkExperience = Schema::getColumnListing('family_work_experiences');
             $familyWorkExperience = array_map(function ($item) {  return ""; }, array_flip($familyWorkExperience));
-            // $familyWorkExperience = [];
         }
 
         //classificator

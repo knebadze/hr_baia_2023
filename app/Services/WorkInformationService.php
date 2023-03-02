@@ -2,8 +2,13 @@
 
 namespace App\Services;
 
+use App\Models\CandidateRecommendation;
+use App\Models\User;
 use App\Models\WorkInformation;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Repositories\WorkInformationRepository;
+use LDAP\Result;
 
 class WorkInformationService
 {
@@ -15,22 +20,29 @@ class WorkInformationService
     }
     public function saveData($data)
     {
-        $result = $this->workInformationRepository->save($data);
+        $result = null;
+        $auth = Auth::user();
+        $user = User::where('id', $auth->id)->first();
+        $candidate_id = $user->candidate->id;
+        if (DB::table('work_information')->where('candidate_id', $candidate_id)->where('category_id', $data['category_id']['id'])->exists()) {
+            return $result = ['message' => 'თქვენს მიერ მითითებულ კატეგორიაზე უკვე არსებობს ინფორმაცია'];
+        }
+        $result = $this->workInformationRepository->save($data, $candidate_id);
         return $result;
     }
     public function updateData($data)
     {
-        $workInformation = WorkInformation::where('candidate_id',$data['candidate_id'])->where('category_id', $data['category_id'])->first();
+        $workInformation = WorkInformation::find($data['id']);
         if ($workInformation->category_id == $data['category_id']){
-            print_r($data['category_id']);
-            exit;
             $result = $this->workInformationRepository->update($workInformation,$data);
             return $result;
         }else {
-            print_r('else');
-            exit;
-            $result = $this->workInformationRepository->updateRecommendation($workInformation, $data);
-            // $result = $this->workInformationRepository->update($workInformation, $data);
+            $result = null;
+            if (DB::table('work_information')->where('candidate_id',$data['candidate_id'])->where('category_id', $data['category_id'])->exists()) {
+                $result = ['message' => 'თქვენს მიერ მითითებულ კატეგორიაზე უკვე არსებობს ინფორმაცია'];
+            }else{
+                $result = $this->workInformationRepository->updateRecommendation($workInformation, $data);
+            }
             return $result;
         }
 
@@ -41,6 +53,17 @@ class WorkInformationService
 
     public function saveRecommendation($data)
     {
+        $auth = Auth::user();
+        $user = User::where('id', $auth->id)->first();
+        $candidate_id = $user->candidate->id;
+        if (DB::table('candidate_recommendations')->exists() && DB::table('candidate_recommendations')->where('candidate_id', $candidate_id)->exists()) {
+            // $recommendation = CandidateRecommendation::where('candidate_id', $candidate_id)->get();
+            print_r('if');
+            $result = $this->workInformationRepository->deleteRecommendation($candidate_id, $data);
+
+            return $result;
+        }
+
         $result = $this->workInformationRepository->addRecommendation($data);
         return $result;
     }

@@ -18,14 +18,12 @@ return new class extends Migration
             $table->foreignId('candidate_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('category_id')->constrained();
             $table->foreignId('work_schedule_id')->constrained();
-            $table->time('from_hour', 0);
-            $table->time('to_hour', 0);
             $table->integer('payment');
             $table->foreignId('currency_id')->constrained();
 
             $table->timestamps();
 
-            
+
         });
     }
 

@@ -32,6 +32,8 @@ import 'vue3-toastify/dist/index.css'
 import Multiselect from 'vue-multiselect'
 // import 'vue-multiselect/dist/vue3-multiselect.css'
 
+import withUUID from "vue-uuid";
+
 
 const app = createApp({})
 // console.log(app);
@@ -63,6 +65,6 @@ window.I18n = I18n;
 window.toast = toast
 
 app.use(VueSweetalert2);
-
+app.use(withUUID);
 
 app.mount("#app")

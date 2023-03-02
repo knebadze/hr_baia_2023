@@ -17,4 +17,9 @@ class WorkInformation extends Model
     {
         return $this->belongsTo(WorkSchedule::class);
     }
+
+    public function candidateRecommendation()
+    {
+        return $this->hasMany(CandidateRecommendation::class, 'work_information_id', 'id');
+    }
 }

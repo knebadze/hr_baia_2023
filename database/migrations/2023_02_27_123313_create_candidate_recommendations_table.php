@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('candidate_recommendations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('candidate_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('category_id')->constrained();
             $table->tinyInteger('recommendation')->nullable();
             $table->foreignId('recommendation_from_whom_id')->nullable()->constrained();
             $table->string('name', 45)->nullable();
@@ -25,6 +24,7 @@ return new class extends Migration
             $table->string('file')->nullable();
             $table->foreignId('no_reason_id')->nullable()->constrained();
             $table->string('no_reason_info', 400)->nullable();
+            $table->string('uuid');
             $table->timestamps();
         });
     }

@@ -20,9 +20,9 @@
                             <div class="form-group">
                                 <label>{{ 'კატეგორია' }}</label>
                                 <div class="ls-inputicon-box">
-                                    <select class="wt-select-box selectpicker" v-model="m.getWorkInformation.category_id"   data-live-search="true" title=""  data-bv-field="size">
-                                        <option v-for="category in data.classificator.category" :value="category.id">{{ category[`name_${getLang}`] }}</option>
-                                    </select>
+                                    <multiselect v-model="m.getWorkInformation.category_id" :options="data.classificator.category" :searchable="true" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :allow-empty="false">
+                                        <template slot="singleLabel" slot-scope="{ option }"></template>
+                                    </multiselect>
                                     <!-- <i class="fs-input-icon fa fa-smoking"></i> -->
                                 </div>
                             </div>
@@ -31,32 +31,14 @@
                             <div class="form-group">
                                 <label>{{ 'სამუშაო გრაფიკი' }}</label>
                                 <div class="ls-inputicon-box">
-                                    <select class="wt-select-box selectpicker" v-model="m.getWorkInformation.work_schedule_id"  data-live-search="false" title=""  data-bv-field="size">
-                                        <option v-for="schedule in data.classificator.workSchedule" :value="schedule.id">{{ schedule[`name_${getLang}`] }}</option>
-                                    </select>
+                                    <multiselect v-model="m.getWorkInformation.work_schedule_id" :options="data.classificator.workSchedule" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false">
+                                        <template slot="singleLabel" slot-scope="{ option }"></template>
+                                    </multiselect>
                                     <!-- <i class="fs-input-icon fa fa-smoking"></i> -->
                                 </div>
                             </div>
                         </div>
                         <div class="col-xl-4 col-lg-6 col-md-12">
-                            <div class="form-group">
-                                <label>{{ 'რომელი სათიდან?' }}</label>
-                                <div class="ls-inputicon-box">
-                                    <input class="form-control" type="time" step="1" v-model="m.getWorkInformation.from_hour">
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-4 col-lg-6 col-md-12">
-                            <div class="form-group">
-                                <label>{{ 'რომელი სათამდე?' }}</label>
-                                <div class="ls-inputicon-box">
-                                    <input class="form-control" type="time" step="1" v-model="m.getWorkInformation.to_hour">
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-6 col-lg-6 col-md-12">
                             <div class="form-group">
                                 <label>{{ 'ანაზღაურება' }}</label>
                                 <div class="ls-inputicon-box">
@@ -65,15 +47,20 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-6 col-lg-6 col-md-12">
+                        <div class="col-xl-4 col-lg-6 col-md-12">
                             <div class="form-group">
                                 <label>{{ 'ვალუტა' }}</label>
                                 <div class="ls-inputicon-box">
-                                    <select class="wt-select-box selectpicker" v-model="m.getWorkInformation.currency_id" data-live-search="false" title=""  data-bv-field="size">
-                                        <option v-for="currency in data.classificator.currency" :value="currency.id">{{ currency[`name_${getLang}`] }}</option>
-                                    </select>
+                                    <multiselect v-model="m.getWorkInformation.currency_id" :options="data.classificator.currency" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false">
+                                        <template slot="singleLabel" slot-scope="{ option }"></template>
+                                    </multiselect>
                                     <i class="fs-input-icon fa fa-usd"></i>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 mt-4">
+                            <div class="text-left">
+                                <button type="submit" @click.prevent="addWorkInfo()"  class="site-button">{{ 'შენახვა' }}</button>
                             </div>
                         </div>
 
@@ -81,141 +68,7 @@
                 </div>
             </div>
 
-            <!--რეკომენდაცია-->
-                 <div class="panel panel-default">
-                    <div class="panel-heading wt-panel-heading p-a20">
-                        <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_recomendation_title') }}</h4>
-                    </div>
-                    <div class="panel-body wt-panel-body p-a20 m-b30 ">
 
-                        <div class="row">
-                            <div class="col-xl-6 col-lg-6 col-md-12">
-                                <div class="form-group">
-                                    <label>{{ $t('lang.user_profile_page_recomendation_from') }}</label>
-                                    <div class="ls-inputicon-box">
-                                        <select class="wt-select-box selectpicker"  v-model="candidateRecommendationModel.recommendation"  data-live-search="false" title=""  data-bv-field="size">
-                                            <option :value="1">წარმოვადგენ</option>
-                                            <option :value="2">ვერ წარმოვადგენ</option>
-                                        </select>
-                                        <i class="fs-input-icon fa fa-thumbs-up"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-12 " :class="(candidateRecommendationModel.recommendation == 1)?'':'visually-hidden'" >
-                                <div class="form-group">
-                                    <label>{{ $t('lang.user_profile_page_recomendation_where_from') }}</label>
-                                    <div class="ls-inputicon-box">
-                                        <select class="wt-select-box selectpicker"  v-model="candidateRecommendationModel.recommendation_from_whom_id"  data-live-search="false" title=""  data-bv-field="size">
-                                            <option v-for="recommendationFrom in data.classificator.recommendationFromWhom " :value="recommendationFrom.id">{{ recommendationFrom[`name_${getLang}`] }}</option>
-                                        </select>
-                                        <i class="fs-input-icon fa fa-industry"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div v-if="candidateRecommendationModel.recommendation == 1 " class="col-xl-6 col-lg-6 col-md-12">
-                                <div class="form-group">
-                                    <label>{{ $t('lang.user_profile_page_recomendation_name') }}</label>
-                                    <div class="ls-inputicon-box">
-                                        <input class="form-control" v-model="candidateRecommendationModel.name" type="text" placeholder="">
-                                        <i class="fs-input-icon fa fa-star"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div v-if="candidateRecommendationModel.recommendation_from_whom_id == 2 " class="col-xl-6 col-lg-6 col-md-12">
-                                <div class="form-group">
-                                    <label>თანამდებობა</label>
-                                    <div class="ls-inputicon-box">
-                                        <input class="form-control" v-model="candidateRecommendationModel.position" type="text" placeholder="">
-                                        <i class="fs-input-icon fa fa-user"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div v-if="candidateRecommendationModel.recommendation == 1" class="col-xl-6 col-lg-6 col-md-12">
-                                <div class="form-group">
-                                    <label>{{ $t('lang.user_profile_page_recomendation_number') }}</label>
-                                    <div class="ls-inputicon-box">
-                                        <input class="form-control" v-model="candidateRecommendationModel.number" type="text" placeholder="">
-                                        <i class="fs-input-icon fa fa-phone"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div v-if="candidateRecommendationModel.recommendation == 1" class="col-lg-12 col-md-12">
-                                <div class="form-group">
-                                    <label>ფაილი</label>
-                                    <div class="ls-inputicon-box">
-                                        <input class="form-control" ref="upload" type="file" @change="recommendationFileUpload" placeholder="">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-12" :class="(candidateRecommendationModel.recommendation == 2)?'':'visually-hidden'">
-                                <div class="form-group">
-                                    <label>რეცომდაციის არ ქონის მიზეზი</label>
-                                    <div class="ls-inputicon-box">
-                                        <select class="wt-select-box selectpicker"  v-model="candidateRecommendationModel.no_reason_id"  data-live-search="true" title=""  data-bv-field="size">
-                                            <option v-for="recommendation in data.classificator.noRecommendationReason" :value="recommendation.id">{{ recommendation[`name_${getLang}`] }}</option>
-                                        </select>
-                                        <i class="fs-input-icon fa fa-history"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div v-if="candidateRecommendationModel.recommendation == 2" class="col-md-12">
-                                <div class="form-group">
-                                    <label>დამატაბითი ინფორმაცია</label>
-                                    <textarea class="form-control" rows="3" v-model="candidateRecommendationModel.no_reason_info" placeholder="ჩაწერეთ იმ შემთხვევაში თუ ასარჩევ ველში ვერ ნახეთ შესაფერისი მიზეზი ან გსურთ დამატებითი ინფორმაციის მოწოდება"></textarea>
-                                </div>
-                            </div>
-                            <div v-if="candidateRecommendationModel.recommendation == 1" class="col-lg-12 col-md-12">
-                                <div class="text-right ">
-                                    <button class="btn btn-success"
-                                    @click="addCandidateRecommendation(candidateRecommendationModel)"
-                                    title="დამატება" data-bs-toggle="tooltip" data-bs-placement="top">დამატება
-                                        <span class="fa fa-plus"></span>
-                                    </button>
-                                </div>
-                            </div>
-                            <div v-if="candidateRecommendationArr.length > 0" class="col-lg-12 col-md-12">
-                                <div class="panel-body wt-panel-body">
-                                    <div class="p-a20 table-responsive">
-                                        <table class="table twm-table table-striped table-borderless">
-                                            <thead>
-                                                <tr>
-                                                <th>N</th>
-                                                <th>საიდან?</th>
-                                                <th>სახელი გვარი</th>
-                                                <th>ნომერი</th>
-                                                <th>თანამდებობა</th>
-                                                <th>ფაილი</th>
-                                                <th>action</th>
-                                                </tr>
-                                            </thead>
-
-                                            <tbody>
-                                                <tr v-for="(item, index) in candidateRecommendationArr">
-                                                <td>{{ index + 1 }}</td>
-                                                <td><span :class="(item.recommendation_from_whom_id == 1)?'badge bg-success p-2':'badge bg-info text-dark p-2'">{{ item.recommendation_whom[`name_${getLang}`] }}</span></td>
-                                                <td>{{ item.name }}</td>
-                                                <td>{{ item.number }}</td>
-                                                <td>{{ item.position }}</td>
-                                                <td>{{ item.file }}</td>
-                                                <td>
-                                                    <button @click="removeRow(index, item.id)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
-                                                        <i class="fa fa-trash-alt"></i>
-                                                    </button>
-                                                </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-12 col-md-12 mt-4">
-                                <div class="text-left">
-                                    <button type="submit" @click.prevent="addWorkInfo()"  class="site-button">{{ 'შენახვა' }}</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="panel panel-default" v-if="m.workInformation.length != 0" >
                     <div class="panel-heading wt-panel-heading p-a20">
@@ -228,9 +81,8 @@
                               <tr>
                                 <th>კატეგორია</th>
                                 <th>გრაფიკი</th>
-                                <th>სთ_დან - სთ_მდე</th>
                                 <th>ანაზღაურება</th>
-                                <!-- <th>რეკომენდაცია</th> -->
+                                <th>რეკომენდაცია</th>
                                 <th>Actions</th>
                               </tr>
                             </thead>
@@ -240,9 +92,8 @@
                               <tr v-for="item in m.workInformation">
                                 <td><span class="badge rounded-pill bg-success p-2">{{ item.category[`name_${getLang}`] }}</span></td>
                                 <td><span class="badge rounded-pill bg-primary p-2">{{ item.work_schedule[`name_${getLang}`] }}</span></td>
-                                <td>{{ item.from_hour.slice(0, -3)+ ' -- ' + item.to_hour.slice(0, -3)}}</td>
                                 <td>{{ item.payment }}</td>
-                                <!-- <td>{{ item.payment }}</td> -->
+                                <td>{{ (item.candidate_recommendation != null)?'კი':'არა' }}</td>
                                 <td>
                                     <button type="button" title="ნახვა" data-bs-toggle="tooltip" data-bs-placement="top" @click="openModal(item)">
                                         <i class="fa fa-eye"></i>
@@ -266,7 +117,7 @@
                     </div>
                 </div>
             <!--ოჯახში მუშაობის გამოცდიელბა  -->
-            <div class="panel panel-default" v-if="(m.getWorkInformation.category_id > 0 && m.getWorkInformation.category_id < 9) || (m.workInformation[0] && m.workInformation[0].category_id > 0 && m.workInformation[0].category_id < 9)">
+            <div class="panel panel-default" v-if="(m.getWorkInformation.category_id.id > 0 && m.getWorkInformation.category_id.id < 9) || (m.workInformation[0] && m.workInformation[0].category_id > 0 && m.workInformation[0].category_id < 9)">
                 <div class="panel-heading wt-panel-heading p-a20">
                     <!-- <div class="d-flex justify-content-between"> -->
                         <h4 class="panel-tittle m-a0">{{ 'ოჯახში მუშაობის გამოცდილება' }}</h4>
@@ -282,16 +133,18 @@
                             <div class="form-group">
                                 <label>გაქვთ ოჯახში მუშაობის გამოცდილება?</label>
                                 <div class="ls-inputicon-box">
-                                    <select class="wt-select-box selectpicker" v-model="m.familyWorkExperience.experience"  data-live-search="false" title=""  data-bv-field="size">
-                                        <option :value="1">კი</option>
-                                        <option :value="2">არა</option>
-                                    </select>
-                                    <i class="fs-input-icon fa fa-star"></i>
+                                    <multiselect v-model="m.familyWorkExperience.experience" :options="yesNo" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false">
+                                        <template slot="singleLabel" slot-scope="{ option }"></template>
+                                    </multiselect>
+                                    <!-- <i class="fs-input-icon fa fa-star"></i> -->
                                     <!-- <span v-if="v$.candidateWorkExperienceModel.experience.required.$invalid && v$.candidateWorkExperienceModel.experience.$dirty" style='color:red'>* {{ v$.candidateWorkExperienceModel.experience.required.$message}}</span> -->
                                 </div>
                             </div>
                         </div>
-                        <div :class="(m.familyWorkExperience.experience == 1)?'':'visually-hidden'" class=" col-md-12">
+                        <div v-if="m.familyWorkExperience.experience.id == 2" class=" col-md-12 mb-2">
+                            <strong>ჩვენი კლიენტები დასაქმების დროს ითვალისწინებელ სამუშაო გამოცდილებას ვინაიდან არ გაქვთ გამოცდილება გთხოვთ შეავსოთ გამოცდილების არ ქონის მიზეზი</strong>
+                        </div>
+                        <div v-if="m.familyWorkExperience.experience.id == 1" class=" col-md-12">
                             <div class="row">
                                 <div class="col-xl-4 col-lg-6 col-md-12">
                                     <div class="form-group">
@@ -302,13 +155,14 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="col-xl-4 col-lg-6 col-md-12">
                                     <div class="form-group">
                                         <label>{{ 'სტაჟი (ჯამში)' }}</label>
                                         <div class="ls-inputicon-box">
-                                            <select class="wt-select-box selectpicker" v-model="m.familyWorkExperience.work_experience_id"  data-live-search="false" title=""  data-bv-field="size">
-                                                <option v-for="workExperience in data.classificator.workExperience" :value="workExperience.id">{{ workExperience[`name_${getLang}`] }}</option>
-                                            </select>
+                                            <multiselect v-model="m.familyWorkExperience.work_experience" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one" :options="data.classificator.workExperience" :searchable="false" :allow-empty="false">
+                                                <template slot="singleLabel" slot-scope="{ option }"></template>
+                                            </multiselect>
 
                                         </div>
                                     </div>
@@ -317,9 +171,9 @@
                                     <div class="form-group">
                                         <label>{{ 'ყველაზე ხანგრძლივად' }}</label>
                                         <div class="ls-inputicon-box">
-                                            <select class="wt-select-box selectpicker" v-model="m.familyWorkExperience.longest_time"  data-live-search="false" title=""  data-bv-field="size">
-                                                <option v-for="workExperience in data.classificator.workExperience" :value="workExperience.id">{{ workExperience[`name_${getLang}`] }}</option>
-                                            </select>
+                                            <multiselect v-model="m.familyWorkExperience.longest" :options="data.classificator.workExperience" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false">
+                                                <template slot="singleLabel" slot-scope="{ option }"></template>
+                                            </multiselect>
 
                                         </div>
                                     </div>
@@ -330,10 +184,9 @@
                                     <div class="form-group">
                                         <label>{{ 'ოჯახში მუშაობდით' }}</label>
                                         <div class="ls-inputicon-box">
-                                            <select class="wt-select-box selectpicker" v-model="m.familyWorkedSelected"  data-live-search="true" title=""  data-bv-field="size" multiple>
-                                                <option v-for="familyCategory in data.classificator.familyCategory " :value="familyCategory.id">{{ familyCategory[`name_${getLang}`] }}</option>
-                                            </select>
-                                            <i class="fs-input-icon fa fa-microscope"></i>
+                                            <multiselect v-model="m.familyWorkedSelected"  :options="data.classificator.familyCategory" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name_ka" track-by="name_ka" :preselect-first="false">
+                                                <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                            </multiselect>
                                         </div>
                                     </div>
                                 </div>
@@ -363,20 +216,19 @@
                                 </div>
                             </div>
                         </div>
-                        <div :class="(m.familyWorkExperience.experience == 2)?'':'visually-hidden'" class=" col-md-12">
+                        <div v-if="m.familyWorkExperience.experience.id == 2"  class=" col-md-12">
                             <div  class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>სამუშაო გამოცდილების არ ქონის მიზეზი</label>
                                         <div class="ls-inputicon-box">
-                                            <select class="wt-select-box selectpicker"  v-model="m.familyWorkExperience.no_reason_id"  data-live-search="true" title=""  data-bv-field="size">
-                                                <option v-for="workExperience in data.classificator.noExperienceReason" :value="workExperience.id">{{ workExperience[`name_${getLang}`] }}</option>
-                                            </select>
-                                            <i class="fs-input-icon fa fa-history"></i>
+                                            <multiselect v-model="m.familyWorkExperience.no_reason" :options="data.classificator.noExperienceReason" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false">
+                                                <template slot="singleLabel" slot-scope="{ option }"></template>
+                                            </multiselect>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
+                                <div v-if="m.familyWorkExperience.no_reason" class="col-md-12">
                                     <div class="form-group">
                                         <label>დამატაბითი ინფორმაცია</label>
                                         <textarea class="form-control" rows="3" v-model="m.familyWorkExperience.no_reason_info" placeholder="ჩაწერეთ იმ შემთხვევაში თუ ასარჩევ ველში ვერ ნახეთ შესაფერისი მიზეზი ან გსურთ დამატებითი ინფორმაციის მოწოდება"></textarea>
@@ -392,12 +244,153 @@
                     </div>
                 </div>
             </div>
+            <!--რეკომენდაცია-->
+            <div class="panel panel-default" v-if="m.familyWorkExperience.experience.id == 1">
+                    <div class="panel-heading wt-panel-heading p-a20">
+                        <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_recomendation_title') }}</h4>
+                    </div>
+                    <div class="panel-body wt-panel-body p-a20 m-b30 ">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>{{ $t('lang.user_profile_page_recomendation_from') }}</label>
+                                    <div class="ls-inputicon-box">
+                                        <!-- <select class="wt-select-box selectpicker"  v-model="candidateRecommendationModel.recommendation"  data-live-search="false" title=""  data-bv-field="size">
+                                            <option :value="1">წარმოვადგენ</option>
+                                            <option :value="2">ვერ წარმოვადგენ</option>
+                                        </select> -->
+                                        <multiselect v-model="candidateRecommendationModel.recommendation" :options="yesNo" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false">
+                                            <template slot="singleLabel" slot-scope="{ option }"></template>
+                                        </multiselect>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" v-if="candidateRecommendationModel.recommendation.id == 1">
+                                <div class="col-xl-6 col-lg-6 col-md-12 " >
+                                    <div class="form-group">
+                                        <label>{{ $t('lang.user_profile_page_recomendation_where_from') }}</label>
+                                        <div class="ls-inputicon-box">
+                                            <multiselect v-model="candidateRecommendationModel.recommendation_whom" :options="data.classificator.recommendationFromWhom" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false">
+                                                <template slot="singleLabel" slot-scope="{ option }"></template>
+                                            </multiselect>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label>{{ $t('lang.user_profile_page_recomendation_name') }}</label>
+                                        <div class="ls-inputicon-box">
+                                            <input class="form-control" v-model="candidateRecommendationModel.name" type="text" placeholder="">
+                                            <i class="fs-input-icon fa fa-star"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div v-if="candidateRecommendationModel.recommendation_whom.id == 2 " class="col-xl-6 col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label>თანამდებობა</label>
+                                        <div class="ls-inputicon-box">
+                                            <input class="form-control" v-model="candidateRecommendationModel.position" type="text" placeholder="">
+                                            <i class="fs-input-icon fa fa-user"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div  class="col-xl-6 col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label>{{ $t('lang.user_profile_page_recomendation_number') }}</label>
+                                        <div class="ls-inputicon-box">
+                                            <input class="form-control" v-model="candidateRecommendationModel.number" type="text" placeholder="">
+                                            <i class="fs-input-icon fa fa-phone"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div  class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+                                        <label>ფაილი</label>
+                                        <div class="ls-inputicon-box">
+                                            <input class="form-control" ref="upload" type="file" @change="recommendationFileUpload" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" v-if="candidateRecommendationModel.recommendation.id == 2">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>რეცომდაციის არ ქონის მიზეზი</label>
+                                        <div class="ls-inputicon-box">
+                                            <multiselect v-model="candidateRecommendationModel.no_reason" :options="data.classificator.noRecommendationReason" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false">
+                                                <template slot="singleLabel" slot-scope="{ option }"></template>
+                                            </multiselect>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>დამატაბითი ინფორმაცია</label>
+                                        <textarea class="form-control" rows="3" v-model="candidateRecommendationModel.no_reason_info" placeholder="ჩაწერეთ იმ შემთხვევაში თუ ასარჩევ ველში ვერ ნახეთ შესაფერისი მიზეზი ან გსურთ დამატებითი ინფორმაციის მოწოდება"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div v-if="candidateRecommendationModel.recommendation.id == 1" class="col-lg-12 col-md-12">
+                                <div class="text-right ">
+                                    <button class="btn btn-success"
+                                    @click="addCandidateRecommendation(candidateRecommendationModel)"
+                                    title="დამატება" data-bs-toggle="tooltip" data-bs-placement="top">დამატება
+                                        <span class="fa fa-plus"></span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div v-if="m.candidateRecommendation.length > 0" class="col-lg-12 col-md-12">
+                                <div class="panel-body wt-panel-body">
+                                    <div class="p-a20 table-responsive">
+                                        <table class="table twm-table table-striped table-borderless">
+                                            <thead>
+                                                <tr>
+                                                <th>N</th>
+                                                <th>საიდან?</th>
+                                                <th>სახელი გვარი</th>
+                                                <th>ნომერი</th>
+                                                <th>თანამდებობა</th>
+                                                <th>ფაილი</th>
+                                                <th>action</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <tr v-for="(item, index) in m.candidateRecommendation">
+                                                <td>{{ index + 1 }}</td>
+                                                <td><span :class="(item.recommendation_whom.id == 1)?'badge bg-success p-2':'badge bg-info text-dark p-2'">{{ item.recommendation_whom[`name_${getLang}`] }}</span></td>
+                                                <td>{{ item.name }}</td>
+                                                <td>{{ item.number }}</td>
+                                                <td>{{ item.position }}</td>
+                                                <td>{{ item.file }}</td>
+                                                <td>
+                                                    <button @click="removeRow(index, item.id)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
+                                                        <i class="fa fa-trash-alt"></i>
+                                                    </button>
+                                                </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 mt-4">
+                                <div class="text-left">
+                                    <button type="submit" @click.prevent="addRecomendation()"  class="site-button">{{ 'შენახვა' }}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         </div>
     </div>
     <workInformationDetail :visible="showWorkInformation" :data="modalData" :classificator="data.classificator" ></workInformationDetail>
 </template>
 <script>
 import workInformationDetail from '../modal/workInformationDetail.vue'
+import { uuid } from 'vue-uuid'
+import _ from 'lodash'
 export default {
     components:{
         workInformationDetail
@@ -407,18 +400,28 @@ export default {
     },
     data() {
         return {
+            uuid: uuid.v1(),
             showWorkInformation: false,
             modalData:{},
             m: null,
             candidateRecommendationModel: {
                 recommendation: '',
-                recommendation_from_whom_id :'',
+                recommendation_whom:'',
                 name:'',
                 position:'',
                 number:'',
-                no_reason_id:'',
+                file:'',
+                no_reason:'',
                 no_reason_info:'',
             },
+            yesNo:[
+                {
+                    id: 1, name_ka:'კი',
+                },
+                {
+                    id: 2, name_ka:'არა',
+                }
+            ],
             recommendationFile:null,
             setSkill:[],
             formData:new FormData(),
@@ -430,6 +433,11 @@ export default {
 
 
         this.m = { ...this.data.model };
+        if (this.m.familyWorkExperience.experience != null) {
+            var That = this;
+            this.m.familyWorkExperience.experience = _.find(this.yesNo, function(o) { return o.id == That.m.familyWorkExperience.experience; });
+
+        }
         console.log(this.m);
     },
     computed:{
@@ -441,17 +449,36 @@ export default {
         childMessageReceived(arg){
             this.showWorkInformation = arg
         },
+        swal(){
+            this.$swal({
+                title: '<p>გილოცავთ თქვენ დაასრულეთ ინფორმაციის შევსება</p>',
+                icon: 'info',
+                html:
+                    'თქვენი კანდიდატურა უკვე ჩანს დამსაქმებლებთან და ასევე ჩვენი ეიჩარები ვაკანსიების მიღებს შემთხვევაში გაითვალისწინებენ თქვენს კანდიდატურას',
+                showCloseButton: true,
+                showCancelButton: false,
+                focusConfirm: false,
+                // confirmButtonText: 'შესავსებად გადასვლა',
+            })
+        },
+        successToast(msg){
+            toast.success(msg, {
+                theme: 'colored',
+                autoClose: 1000,
+            });
+        },
+        errorToast(msg){
+            toast.error(msg, {
+                theme: 'colored',
+                autoClose: 1000,
+            });
+        },
         addWorkInfo(){
-            if (this.candidateRecommendationModel.recommendation == 2) {
-                this.m['candidateRecommendationModel'] = this.candidateRecommendationModel
-            }else{
-                this.m['candidateRecommendationModel'] = []
-            }
             let currentObj = this;
             axios({
                 method: "post",
                 url: "/add_work_information",
-                data: this.m,
+                data: this.m.getWorkInformation,
 
             })
             .then(function (response) {
@@ -459,13 +486,21 @@ export default {
                 // handle success
                 console.log('response.data',response.data);
                 if (response.data.status == 200) {
-                    toast.success("ინფორმაცია წარმატებით დაემატა", {
+                    if (response.data.data.message) {
+                        toast.error(response.data.data.message, {
+                            theme: 'colored',
+                            autoClose: 1000,
+                        });
+                        return
+                    }
+                    toast.success("წარმატებით დაემატა", {
                         theme: 'colored',
                         autoClose: 1000,
                     });
                     setTimeout(() => {
                         document.location.reload();
                     }, 1500);
+                    // currentObj.saveRecomendationFile()
                 }
 
             })
@@ -486,17 +521,9 @@ export default {
             .then(function (response) {
                 console.log('response.data',response.data);
                 if (response.data.status == 200) {
-                    currentObj.$swal(
-                    {
-                        title: '<p>გილოცავთ თქვენ დაასრულეთ ინფორმაციის შევსება</p>',
-                        icon: 'info',
-                        html:
-                            'თქვენი კანდიდატურა უკვე ჩანს დამსაქმებლებთან და ასევე ჩვენი ეიჩარები ვაკანსიების მიღებს შემთხვევაში გაითვალისწინებენ თქვენს კანდიდატურას',
-                        showCloseButton: true,
-                        showCancelButton: false,
-                        focusConfirm: false,
-                        // confirmButtonText: 'შესავსებად გადასვლა',
-                    })
+                    if (response.data.data == 2) {
+                        this.swal()
+                    }
                 }
 
             })
@@ -505,25 +532,24 @@ export default {
                 console.log(error);
             })
         },
-        saveRecomendationFile(id){
+        saveRecomendationFile(){
             let currentObj = this;
             const config = {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             }
-            let formData = new FormData();
-            formData.append('file', this.recommendationFile);
-            formData.append('id', id);
-
-            // send upload request
-            axios.post('/add_recommendation_file', formData, config)
+            axios.post('/add_recommendation_file', this.formData, config)
             .then(function (response) {
                 console.log('response',response);
                 if (response.data.status == 200) {
-                    var recomendationWhomFind = _.find(currentObj.data.classificator.recommendationFromWhom, function(o) { return o.id == response.data.data.recommendation_from_whom_id; });
-                    response.data.data['recommendation_whom'] = recomendationWhomFind;
-                    currentObj.candidateRecommendationArr.push(response.data.data)
+                     toast.success("ინფორმაცია წარმატებით დაემატა", {
+                        theme: 'colored',
+                        autoClose: 1000,
+                    });
+                    setTimeout(() => {
+                        document.location.reload();
+                    }, 1500);
                 }
             })
             .catch(function (error) {
@@ -532,27 +558,42 @@ export default {
             });
         },
         addCandidateRecommendation(recommendation){
-            recommendation['category_id'] = this.m.getWorkInformation.category_id
-            // console.log('recommendation', recommendation);
-            // if (this.recommendationFile != null) {
-            //     recommendation['file'] = this.recommendationFile.name
-            // }
+            var uuid = this.$uuid.v4()
+            if (this.recommendationFile != null) {
+                recommendation['file'] = this.recommendationFile.name
+                this.formData.append(uuid, this.recommendationFile)
+            }
+            recommendation['uuid'] = uuid
+            console.log('recommendation', recommendation);
 
-            // var recomendationWhomFind = _.find(this.data.classificator.recommendationFromWhom, function(o) { return o.id == recommendation.recommendation_from_whom_id; });
-            // recommendation['recommendation_whom'] = recomendationWhomFind;
+            this.m.candidateRecommendation.push(JSON.parse(JSON.stringify(recommendation)))
 
-            // this.m.candidateRecommendation.push(JSON.parse(JSON.stringify(recommendation)))
-            let currentObj = this;
+        },
+        addRecomendation(){
+            if (this.candidateRecommendationModel.recommendation.id == 2) {
+                this.m.candidateRecommendation.push(this.candidateRecommendationModel)
+            }
+            if (this.m.candidateRecommendation.length == 0) {
+                this.errorToast('რეკომენდაციის შესანახად აუცილებელია გამოიყენოთ დამატების ღილაკი')
+                return;
+            }
+            console.log('this.m.candidateRecommendation',this.m.candidateRecommendation);
+            let currentObj = this
             axios({
                 method: "post",
                 url: "/add_recommendation",
-                data: recommendation,
+                data: this.m.candidateRecommendation,
 
             })
             .then(function (response) {
                 console.log('response.data',response.data);
                 if (response.data.status == 200) {
-                    currentObj.saveRecomendationFile(response.data.data)
+                    if (response.data.data.hasFile == true) {
+                        currentObj.saveRecomendationFile()
+                    }else{
+                        currentObj.swal()
+                    }
+
                 }
 
             })
@@ -560,7 +601,6 @@ export default {
                 // handle error
                 console.log(error);
             })
-
         },
 
         recommendationFileUpload(event){
@@ -568,31 +608,28 @@ export default {
             this.recommendationFile = event.target.files[0]
         },
         removeRow(index, id){
-            const removed = this.candidateRecommendationArr.splice(index, 1);
-            axios.post('/remove_recommendation' ,{
-                id: id
-            })
-            .then((response)=> {
-                console.log(response.data);
-                if (response.status == 200) {
-                    toast.success("წარმატებით წაიშალა", {
-                        theme: 'colored',
-                        autoClose: 1000,
-                    });
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+            const removed = this.candidateRecommendation.splice(index, 1);
+            // axios.post('/remove_recommendation' ,{
+            //     id: id
+            // })
+            // .then((response)=> {
+            //     console.log(response.data);
+            //     if (response.status == 200) {
+            //         toast.success("წარმატებით წაიშალა", {
+            //             theme: 'colored',
+            //             autoClose: 1000,
+            //         });
+            //     }
+            // })
+            // .catch(function (error) {
+            //     console.log(error);
+            // });
 
         },
         openModal(item){
-           var recommendation =  _.filter(this.m.candidateRecommendation, function(o) { return item.category_id ==  o.category_id});
+        //    var recommendation =  _.filter(this.m.candidateRecommendation, function(o) { return item.category_id ==  o.category_id});
         //    console.log('recomendation',recomendation);
-            this.modalData = {
-                'workInformation':item,
-                'recommendation': recommendation
-            }
+            this.modalData = item
             console.log('this.modalData', this.modalData);
             this.showWorkInformation = !this.showWorkInformation
             console.log('this.showWorkInformation',this.showWorkInformation);
@@ -601,33 +638,45 @@ export default {
     },
     watch: {
         'm.familyWorkedSelected': function(newVal, oldVal){
+            var arr = [];
             if (this.m.familyWorkedSelected.length == 0) {
                 this.setSkill = []
             }else{
-                let filteredX = this.data.classificator.skill.filter(itemX => this.m.familyWorkedSelected.includes(itemX.category_id));
+                this.m.familyWorkedSelected.forEach(element => {
+                    arr.push(element.id)
+                });
+
+                console.log(this.m.familyWorkedSelected);
+                console.log('arr',arr);
+                let filteredX = this.data.classificator.skill.filter(item => arr.includes(item.category_id));
+                console.log('filteredX',filteredX);
                 this.setSkill = filteredX
 
             }
         },
-        'm.familyWorkExperience.experience': function(newVal, oldVa){
-            console.log('newVal', newVal);
-            if (newVal == 2 ) {
-                this.$swal(
-                {
-                    title: '<p>შეგახსენებთ!!!</p>',
-                    icon: 'info',
-                    html:
-                        'ჩვენი კლიენტები დასაქმების დროს ითვალისწინებელ სამუშაო გამოცდილებას ვინაიდან არ გაქვთ გამოცდილება გთხოვთ შეავსოთ გამოცდილების არ ქონის მიზეზი ',
-                    showCloseButton: true,
-                    showCancelButton: false,
-                    focusConfirm: false,
-                    // confirmButtonText: 'შესავსებად გადასვლა',
-                })
-            }
-        }
+        // 'candidateRecommendationModel.recommendation': function (newVal, oldVa) {
+        //     console.log('new', newVal.id);
+        // }
+        // 'm.familyWorkExperience.experience': function(newVal, oldVa){
+        //     console.log('newVal', newVal);
+        //     if (newVal.id == 2 ) {
+        //         this.$swal(
+        //         {
+        //             title: '<p>შეგახსენებთ!!!</p>',
+        //             icon: 'info',
+        //             html:
+        //                 'ჩვენი კლიენტები დასაქმების დროს ითვალისწინებელ სამუშაო გამოცდილებას ვინაიდან არ გაქვთ გამოცდილება გთხოვთ შეავსოთ გამოცდილების არ ქონის მიზეზი ',
+        //             showCloseButton: true,
+        //             showCancelButton: false,
+        //             focusConfirm: false,
+        //             // confirmButtonText: 'შესავსებად გადასვლა',
+        //         })
+        //     }
+        // }
     },
 
     mounted() {
+        // console.log('uuid.v1()', uuid.v4());
     },
 
 }

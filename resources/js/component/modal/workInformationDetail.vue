@@ -14,9 +14,9 @@
                     <div class="form-group">
                         <label>{{ 'კატეგორია' }}</label>
                         <div class="ls-inputicon-box">
-                            <select class="form-select form-select-lg border-0 rounded " v-model="m.workInformation.category_id" style="background-color: #f0f6fe;" name="" id="">
+                            <!-- <select class="form-select form-select-lg border-0 rounded " v-model="m.workInformation.category_id" style="background-color: #f0f6fe;" name="" id="">
                                 <option class="mb-2" v-for="category in classificator.category" :value="category.id">{{ category[`name_${getLang}`] }}</option>
-                            </select>
+                            </select> -->
                             <!-- <i class="fs-input-icon fa fa-smoking"></i> -->
                         </div>
                     </div>
@@ -34,24 +34,6 @@
                 </div>
                 <div class="col-xl-4 col-lg-6 col-md-12">
                     <div class="form-group">
-                        <label>{{ 'რომელი სათიდან?' }}</label>
-                        <div class="ls-inputicon-box">
-                            <input class="form-control" type="time" step="1" v-model="m.workInformation.from_hour">
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-lg-6 col-md-12">
-                    <div class="form-group">
-                        <label>{{ 'რომელი სათამდე?' }}</label>
-                        <div class="ls-inputicon-box">
-                            <input class="form-control" type="time" step="1" v-model="m.workInformation.to_hour">
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-lg-6 col-md-12">
-                    <div class="form-group">
                         <label>{{ 'ანაზღაურება' }}</label>
                         <div class="ls-inputicon-box">
                             <input class="form-control" type="number" step="50" v-model="m.workInformation.payment">
@@ -59,7 +41,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-6 col-lg-6 col-md-12">
+                <div class="col-xl-4 col-lg-6 col-md-12">
                     <div class="form-group">
                         <label>{{ 'ვალუტა' }}</label>
                         <div class="ls-inputicon-box">
@@ -229,6 +211,13 @@ export default {
                 // handle success
                 console.log('response.data',response.data);
                 if (response.data.status == 200) {
+                    if (response.data.data.message) {
+                        toast.error(response.data.data.message, {
+                            theme: 'colored',
+                            autoClose: 1000,
+                        });
+                        return
+                    }
                     toast.success("წარმატებით განახლდა", {
                         theme: 'colored',
                         autoClose: 1000,
@@ -247,7 +236,7 @@ export default {
     },
     watch:{
         visible: function(){
-            console.log('this.classificator', this.classificator);
+            console.log('this.data', this.data);
             this.show()
 
         },
