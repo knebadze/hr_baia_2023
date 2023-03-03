@@ -41,7 +41,7 @@ class WorkInformationController extends Controller
         $user = User::where('id', $auth->id)->first();
 
         if (DB::table('work_information')->where('candidate_id', $user->candidate->id)->exists()) {
-            $workInformation = WorkInformation::where('candidate_id', $user->candidate->id)->with('category')->with('workSchedule')->get()->toArray();
+            $workInformation = WorkInformation::where('candidate_id', $user->candidate->id)->with('category')->with('workSchedule')->with('currency')->get()->toArray();
             $getWorkInformation =  Schema::getColumnListing('work_information');
             $getWorkInformation = array_map(function ($item) { return ""; }, array_flip($getWorkInformation));
         }else{
@@ -148,6 +148,12 @@ class WorkInformationController extends Controller
         }
 
         return response()->json($result, $result['status']);
+    }
+
+    public function deleteWorkInformation(Request $request)
+    {
+        WorkInformation::find($request->id)->delete();
+        return response()->json('');
     }
 
     public function familyStore(Request $request)

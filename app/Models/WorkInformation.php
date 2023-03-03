@@ -17,6 +17,10 @@ class WorkInformation extends Model
     {
         return $this->belongsTo(WorkSchedule::class);
     }
+    public function currency()
+    {
+        return $this->belongsTo(Currency::class);
+    }
 
     public function candidateRecommendation()
     {

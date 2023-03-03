@@ -186,10 +186,10 @@ export default {
                         theme: 'colored',
                         autoClose: 1000,
                     });
-                    // currentObj.hide()
-                    // setTimeout(() => {
-                    //     document.location.reload();
-                    // }, 1400);
+                    currentObj.hide()
+                    setTimeout(() => {
+                        document.location.reload();
+                    }, 1400);
                 }
             })
             .catch(function (error) {

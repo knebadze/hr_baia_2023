@@ -79,29 +79,31 @@
                           <table class="table twm-table table-striped table-borderless">
                             <thead>
                               <tr>
+                                <th>N</th>
                                 <th>კატეგორია</th>
                                 <th>გრაფიკი</th>
                                 <th>ანაზღაურება</th>
-                                <th>რეკომენდაცია</th>
+                                <!-- <th>რეკომენდაცია</th> -->
                                 <th>Actions</th>
                               </tr>
                             </thead>
 
                             <tbody>
                               <!--1-->
-                              <tr v-for="item in m.workInformation">
+                              <tr v-for="(item,index) in m.workInformation">
+                                <td>{{ index + 1 }}</td>
                                 <td><span class="badge rounded-pill bg-success p-2">{{ item.category[`name_${getLang}`] }}</span></td>
                                 <td><span class="badge rounded-pill bg-primary p-2">{{ item.work_schedule[`name_${getLang}`] }}</span></td>
                                 <td>{{ item.payment }}</td>
-                                <td>{{ (item.candidate_recommendation != null)?'კი':'არა' }}</td>
+                                <!-- <td>{{ (item.candidate_recommendation != null)?'კი':'არა' }}</td> -->
                                 <td>
-                                    <button type="button" title="ნახვა" data-bs-toggle="tooltip" data-bs-placement="top" @click="openModal(item)">
+                                    <button type="button" title="ნახვა" data-bs-toggle="tooltip" data-bs-placement="top" @click="editWorkInformation(item)">
                                         <i class="fa fa-eye"></i>
                                     </button>
                                     <!-- <a type="button" title="ნახვა" data-bs-toggle="tooltip" data-bs-placement="top" :href="`/${this.getLang}/user/work_information_detail/${item.id}`">
                                         <i class="fa fa-eye"></i>
                                     </a> -->
-                                    <button title="წაშლა" data-bs-toggle="tooltip" data-bs-placement="top">
+                                    <button title="წაშლა" data-bs-toggle="tooltip" data-bs-placement="top" @click="deleteWorkInformation(index, item.id)">
                                         <i class="fa fa-trash-alt"></i>
                                     </button>
                                 </td>
@@ -418,17 +420,17 @@
                 </div>
         </div>
     </div>
-    <workInformationDetail :visible="showWorkInformation" :data="modalData" :classificator="data.classificator" ></workInformationDetail>
+    <editWorkInformation :visible="showWorkInformation" :data="editWorkInformationData"></editWorkInformation>
     <editRecommendation :visible="showRecommendationEditModal" :data="editRecommendationData"></editRecommendation>
 </template>
 <script>
-import workInformationDetail from '../modal/workInformationDetail.vue'
+import editWorkInformation from '../modal/editWorkInformation.vue'
 import editRecommendation from '../modal/editRecommendation.vue'
 import { uuid } from 'vue-uuid'
 import _ from 'lodash'
 export default {
     components:{
-        workInformationDetail,
+        editWorkInformation,
         editRecommendation
     },
     props:{
@@ -438,7 +440,7 @@ export default {
         return {
             uuid: uuid.v1(),
             showWorkInformation: false,
-            modalData:{},
+            editWorkInformationData:{},
             m: null,
             candidateRecommendationModel: {
                 id:'',
@@ -667,7 +669,45 @@ export default {
             });
         },
 
+        //workInformation
+        deleteWorkInformation(index, id){
+            this.$swal({
+                    title: 'ნამდვილად გსურთ წაშლა',
+                    showDenyButton: true,
+                    // showCancelButton: true,
+                    confirmButtonText: 'კი',
+                    denyButtonText: `არა`,
+                }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    const removed = this.m.workInformation.splice(index, 1);
+                    axios.post('/delete_work_information' ,{
+                        id:id
+                    })
+                    .then((response)=> {
+                        console.log(response.data);
+                        if (response.status == 200) {
+                            toast.success("წარმატებით წაიშალა", {
+                                theme: 'colored',
+                                autoClose: 1000,
+                            });
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
 
+                } else if (result.isDenied) {
+                }
+            })
+        },
+        editWorkInformation(item){
+            this.editWorkInformationData = {
+                'item':item,
+                'classificator': this.data.classificator
+            }
+            this.showWorkInformation = !this.showWorkInformation
+        },
         //recommendation Action
         removeRecommendation(index, id){
             this.$swal({
@@ -708,15 +748,7 @@ export default {
                 'classificator': this.data.classificator
             };
         },
-        openModal(item){
-        //    var recommendation =  _.filter(this.m.candidateRecommendation, function(o) { return item.category_id ==  o.category_id});
-        //    console.log('recomendation',recomendation);
-            this.modalData = item
-            console.log('this.modalData', this.modalData);
-            this.showWorkInformation = !this.showWorkInformation
-            console.log('this.showWorkInformation',this.showWorkInformation);
-            // window.location.replace(`/${this.getLang}/user/userProfile`)
-        }
+
     },
     watch: {
         'm.familyWorkedSelected': function(newVal, oldVal){

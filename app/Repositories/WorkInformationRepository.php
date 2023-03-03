@@ -30,13 +30,11 @@ class WorkInformationRepository
     {
 
         $workInformation->category_id = $data['category_id'];
-        $workInformation->work_schedule_id = $data['work_schedule_id'];
-        $workInformation->from_hour = $data['from_hour'];
-        $workInformation->to_hour = $data['to_hour'];
+        $workInformation->work_schedule_id = $data['work_schedule']['id'];
         $workInformation->payment = $data['payment'];
-        $workInformation->currency_id = $data['currency_id'];
+        $workInformation->currency_id = $data['currency']['id'];
         $workInformation->update();
-        return $data;
+        return $workInformation;
     }
 
 
