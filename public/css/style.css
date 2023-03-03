@@ -14,6 +14,28 @@ body {
     font-family: mtavruli !important;
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  /* border-radius: 10px; */
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(2,117,216,0.9); 
+  /* border-radius: 10px; */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #0275d8; 
+}
+
 .activeClass a {
   color: #5e2dfa !important;
   font-weight: bold !important;
@@ -6135,8 +6157,9 @@ button.scroltop span {
 
 .form-control {
   width: 100%;
-  height: 60px;
-  padding: 20px;
+  height: 40px;
+  padding-top: 0px;
+  padding-bottom: 0px;
   border: none;
   background-color: #f0f6fe;
   border-radius: 10px;
