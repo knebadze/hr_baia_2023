@@ -313,7 +313,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row" v-if="candidateRecommendationModel.has_recommendation.id == 2">
+                            <div class="row" v-if="showNoReccomendation">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>რეცომდაციის არ ქონის მიზეზი</label>
@@ -340,7 +340,7 @@
                                     </button>
                                 </div>
                             </div>
-                            <div v-if="m.candidateRecommendation.length > 0 && (m.candidateRecommendation[0].has_recommendation.id == 1 || candidateRecommendationModel.has_recommendation.id == 1)" class="col-lg-12 col-md-12">
+                            <div v-if="m.candidateRecommendation.length > 0 && m.candidateRecommendation[0].has_recommendation.id == 1 " class="col-lg-12 col-md-12">
                                 <div class="panel-body wt-panel-body">
                                     <div class="p-a20 table-responsive">
                                         <table class="table twm-table table-striped table-borderless">
@@ -378,7 +378,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div v-if="m.candidateRecommendation.length > 0 && (m.candidateRecommendation[0].has_recommendation.id == 1 || candidateRecommendationModel.has_recommendation.id == 1)" class="col-lg-12 col-md-12">
+                            <div v-if="m.candidateRecommendation.length > 0 && m.candidateRecommendation[0].has_recommendation.id == 2" class="col-lg-12 col-md-12">
                                 <div class="panel-body wt-panel-body">
                                     <div class="p-a20 table-responsive">
                                         <table class="table twm-table table-striped table-borderless">
@@ -392,10 +392,8 @@
 
                                             <tbody>
                                                 <tr v-for="(item, index) in m.candidateRecommendation">
-                                                <td>{{ item.name }}</td>
-                                                <td>{{ item.number }}</td>
-                                                <td>{{ item.position }}</td>
-                                                <td>{{ item.file }}</td>
+                                                <td>{{ item.no_reason[`name_${getLang}`] }}</td>
+                                                <td>{{ item.no_reason_info.substr(0, 30)+ '...' }}</td>
                                                 <td>
                                                     <button @click="removeRecommendation(index, item.id)" title="წაშლა" data-bs-toggle="tooltip" data-bs-placement="top">
                                                         <i class="fa fa-trash-alt"></i>
@@ -443,6 +441,7 @@ export default {
             modalData:{},
             m: null,
             candidateRecommendationModel: {
+                id:'',
                 recommendation: '',
                 has_recommendation: '',
                 recommendation_whom:'',
@@ -461,6 +460,8 @@ export default {
             //modal
             showRecommendationEditModal: false,
             editRecommendationData: {},
+
+            showNoReccomendation: false,
         }
     },
     created(){
@@ -735,9 +736,56 @@ export default {
 
             }
         },
-        // 'candidateRecommendationModel.recommendation': function (newVal, oldVa) {
-        //     console.log('new', newVal.id);
-        // }
+        'candidateRecommendationModel.has_recommendation': function (newVal, oldVa) {
+            if (newVal.id == 2) {
+                this.showNoReccomendation = true;
+            }
+
+            if (this.m.candidateRecommendation.length != 0 && this.m.candidateRecommendation[0].recommendation != this.candidateRecommendationModel.has_recommendation.id ) {
+                this.$swal({
+                    title: 'თქვენ უკვე შეავსეთ რეკომენდაციის ინფორმაცია თუ ამ ცვლილებას დაეთანხმებით ავტომატურად წაიშლება წინა შევსებული ინფორმაცია. <br><p>გსურთ გაგრძელება?</p>',
+                    showDenyButton: true,
+                    confirmButtonText: 'კი',
+                    denyButtonText: `არა`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        console.log('this.m', this.m.candidateRecommendation);
+                        var idArr = [];
+                        this.m.candidateRecommendation.forEach(element => {
+                            idArr.push(element.id)
+                            console.log('idArr',idArr);
+                        });
+                        axios.post('/trash_recommendation' ,{
+                            id: idArr
+                        })
+                        .then((response)=> {
+                            console.log('response.data', response.data);
+                            if (response.status == 200) {
+                                this.m.candidateRecommendation = [];
+                            }
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                    } else if (result.isDenied) {
+                    }
+                })
+            }
+            if(this.m.candidateRecommendation.length != 0 && this.m.candidateRecommendation[0].recommendation == 2 && this.candidateRecommendationModel.has_recommendation.id == 2){
+                this.showNoReccomendation = false
+                this.$swal({
+                    title: '<p>თქვენ უკვე შეავსეთ რეკომენდაციის ინფორმაცია</p>',
+                    icon: 'info',
+                    html:
+                        'ცვლილების შესატანად გამოიყენეთ რედაქტირების ღილაკი',
+                    showCloseButton: true,
+                    showCancelButton: false,
+                    focusConfirm: false,
+                    // confirmButtonText: 'შესავსებად გადასვლა',
+                })
+            }
+            console.log('new', newVal.id);
+        }
         // 'm.familyWorkExperience.experience': function(newVal, oldVa){
         //     console.log('newVal', newVal);
         //     if (newVal.id == 2 ) {

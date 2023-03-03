@@ -210,6 +210,22 @@ class WorkInformationController extends Controller
         $recommendation->delete();
         return response()->json();
     }
+    public function trashRecommendation(Request $request)
+    {
+        $data = $request->all();
+        $result = ['status' => 200];
+
+        try {
+            $result['data'] = $this->workInformationService->trashRecommendation($data);
+        } catch (Exception $e) {
+            $result = [
+                'status' => 500,
+                'error' => $e->getMessage()
+            ];
+        }
+
+        return response()->json($result, $result['status']);
+    }
     public function removeRecommendationFile(Request $request)
     {
         $data = $request->all();

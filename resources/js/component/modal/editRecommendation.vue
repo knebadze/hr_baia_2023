@@ -30,67 +30,71 @@
                         </div>
                     </div>
                 </div>
-                <div v-if="candidateRecommendationModel.recommendation == 1 " class="col-md-12">
-                    <div class="form-group">
-                        <label>{{ $t('lang.user_profile_page_recomendation_name') }}</label>
-                        <div class="ls-inputicon-box">
-                            <input class="form-control" v-model="candidateRecommendationModel.name" type="text" placeholder="">
-                            <i class="fs-input-icon fa fa-star"></i>
+                <div class="row" v-if="candidateRecommendationModel.has_recommendation.id == 1 ">
+                    <div  class="col-md-12">
+                        <div class="form-group">
+                            <label>{{ $t('lang.user_profile_page_recomendation_name') }}</label>
+                            <div class="ls-inputicon-box">
+                                <input class="form-control" v-model="candidateRecommendationModel.name" type="text" placeholder="">
+                                <i class="fs-input-icon fa fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" col-md-12">
+                        <div class="form-group">
+                            <label>თანამდებობა</label>
+                            <div class="ls-inputicon-box">
+                                <input class="form-control" v-model="candidateRecommendationModel.position" type="text" placeholder="">
+                                <i class="fs-input-icon fa fa-user"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" col-md-12">
+                        <div class="form-group">
+                            <label>{{ $t('lang.user_profile_page_recomendation_number') }}</label>
+                            <div class="ls-inputicon-box">
+                                <input class="form-control" v-model="candidateRecommendationModel.number" type="text" placeholder="">
+                                <i class="fs-input-icon fa fa-phone"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div v-if="candidateRecommendationModel.has_recommendation.id == 1 && candidateRecommendationModel.file" class="col-lg-12 col-md-12">
+                        <div class="mb-3 d-flex justify-content-between">
+                            <!-- <a href="./helloworld.pdf" target="_blank" class="text-primary">თქვენი ატვირთული ფაილის სანახავად დააჭირეთ აქ</a> -->
+                            <a type="button" class="btn btn-primary"  href="./helloworld.pdf" target="_blank"><i class=""></i>ფაილის ნახვა</a>
+                            <!-- <iframe src='user-documentation/helloworld.pdf' ></iframe> -->
+                            <a type="button" class="btn btn-danger"  @click.prevent="removeFile(candidateRecommendationModel.id)"><i class=""></i>ფაილის წაშლა</a>
+                        </div>
+                        <div class="w-100 text-center">
+                            <p>ან ატვირთეთ ახალი ფაილი</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12">
+                        <div class="form-group mt-4">
+                            <label>ფაილი</label>
+                            <div class="ls-inputicon-box">
+                                <input class="form-control" ref="upload" type="file" @change="recommendationFileUpload" >
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div v-if="candidateRecommendationModel.recommendation_from_whom_id == 2 " class=" col-md-12">
-                    <div class="form-group">
-                        <label>თანამდებობა</label>
-                        <div class="ls-inputicon-box">
-                            <input class="form-control" v-model="candidateRecommendationModel.position" type="text" placeholder="">
-                            <i class="fs-input-icon fa fa-user"></i>
+                <div class="row" v-if="candidateRecommendationModel.has_recommendation.id == 2">
+                    <div class=" col-md-12" >
+                        <div class="form-group">
+                            <label>რეცომდაციის არ ქონის მიზეზი</label>
+                            <div class="ls-inputicon-box">
+                                <multiselect v-model="candidateRecommendationModel.no_reason" :options="data.classificator.noRecommendationReason" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false">
+                                    <template slot="singleLabel" slot-scope="{ option }"></template>
+                                </multiselect>
+                                <!-- <i class="fs-input-icon fa fa-history"></i> -->
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div v-if="candidateRecommendationModel.recommendation == 1" class=" col-md-12">
-                    <div class="form-group">
-                        <label>{{ $t('lang.user_profile_page_recomendation_number') }}</label>
-                        <div class="ls-inputicon-box">
-                            <input class="form-control" v-model="candidateRecommendationModel.number" type="text" placeholder="">
-                            <i class="fs-input-icon fa fa-phone"></i>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>დამატაბითი ინფორმაცია</label>
+                            <textarea class="form-control" rows="3" v-model="candidateRecommendationModel.no_reason_info" placeholder="ჩაწერეთ იმ შემთხვევაში თუ ასარჩევ ველში ვერ ნახეთ შესაფერისი მიზეზი ან გსურთ დამატებითი ინფორმაციის მოწოდება"></textarea>
                         </div>
-                    </div>
-                </div>
-                <div v-if="candidateRecommendationModel.recommendation == 1 && candidateRecommendationModel.file" class="col-lg-12 col-md-12">
-                    <div class="mb-3 d-flex justify-content-between">
-                        <!-- <a href="./helloworld.pdf" target="_blank" class="text-primary">თქვენი ატვირთული ფაილის სანახავად დააჭირეთ აქ</a> -->
-                        <a type="button" class="btn btn-primary"  href="./helloworld.pdf" target="_blank"><i class=""></i>ფაილის ნახვა</a>
-                        <!-- <iframe src='user-documentation/helloworld.pdf' ></iframe> -->
-                        <a type="button" class="btn btn-danger"  @click.prevent="removeFile(candidateRecommendationModel.id)"><i class=""></i>ფაილის წაშლა</a>
-                    </div>
-                    <div class="w-100 text-center">
-                        <p>ან ატვირთეთ ახალი ფაილი</p>
-                    </div>
-                </div>
-                <div class="col-lg-12 col-md-12">
-                    <div class="form-group mt-4">
-                        <label>ფაილი</label>
-                        <div class="ls-inputicon-box">
-                            <input class="form-control" ref="upload" type="file" @change="recommendationFileUpload" >
-                        </div>
-                    </div>
-                </div>
-                <div class=" col-md-12" :class="(candidateRecommendationModel.recommendation == 2)?'':'visually-hidden'">
-                    <div class="form-group">
-                        <label>რეცომდაციის არ ქონის მიზეზი</label>
-                        <div class="ls-inputicon-box">
-                            <select class="form-select form-select-lg border-0 rounded " style="background-color: #f0f6fe;"  v-model="candidateRecommendationModel.no_reason_id" >
-                                <option v-for="recommendation in data.classificator.noRecommendationReason" :value="recommendation.id">{{ recommendation[`name_${getLang}`] }}</option>
-                            </select>
-                            <!-- <i class="fs-input-icon fa fa-history"></i> -->
-                        </div>
-                    </div>
-                </div>
-                <div v-if="candidateRecommendationModel.recommendation == 2" class="col-md-12">
-                    <div class="form-group">
-                        <label>დამატაბითი ინფორმაცია</label>
-                        <textarea class="form-control" rows="3" v-model="candidateRecommendationModel.no_reason_info" placeholder="ჩაწერეთ იმ შემთხვევაში თუ ასარჩევ ველში ვერ ნახეთ შესაფერისი მიზეზი ან გსურთ დამატებითი ინფორმაციის მოწოდება"></textarea>
                     </div>
                 </div>
             </div>

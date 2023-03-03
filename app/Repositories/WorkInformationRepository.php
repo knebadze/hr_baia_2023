@@ -2,8 +2,10 @@
 
 namespace App\Repositories;
 
+use Exception;
 use App\Models\User;
 use App\Models\WorkInformation;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use App\Models\RecommendationFromWhom;
@@ -55,15 +57,18 @@ class WorkInformationRepository
         $candidate_id = $user->candidate->id;
         $hasFile = false;
         foreach ($data as $key => $value) {
-            $candidateRecommendation = new CandidateRecommendation();
-            $candidateRecommendation->candidate_id = $candidate_id;
-            $candidateRecommendation->recommendation = ($value['has_recommendation']['id']);
-            $candidateRecommendation->recommendation_from_whom_id = $value['recommendation_whom']['id'];
-            $candidateRecommendation->name = $value['name'];
-            $candidateRecommendation->position = $value['position'];
-            $candidateRecommendation->number = $value['number'];
-            $candidateRecommendation->uuid = $value['uuid'];
-            $candidateRecommendation->save();
+            if (!$value['id']) {
+                $candidateRecommendation = new CandidateRecommendation();
+                $candidateRecommendation->candidate_id = $candidate_id;
+                $candidateRecommendation->recommendation = ($value['has_recommendation']['id']);
+                $candidateRecommendation->recommendation_from_whom_id = $value['recommendation_whom']['id'];
+                $candidateRecommendation->name = $value['name'];
+                $candidateRecommendation->position = $value['position'];
+                $candidateRecommendation->number = $value['number'];
+                $candidateRecommendation->uuid = $value['uuid'];
+                $candidateRecommendation->save();
+            }
+
             if ($value['file']) {
                 $hasFile = true;
             }
@@ -73,7 +78,8 @@ class WorkInformationRepository
         }
         return $hasFile;
     }
-    public function addNoRecommendation($data){
+    public function addNoRecommendation($data)
+    {
         $auth = Auth::user();
         $user = User::where('id', $auth->id)->first();
         $candidate_id = $user->candidate->id;
@@ -103,24 +109,24 @@ class WorkInformationRepository
 
         return $data;
     }
-    public function deleteArrayRecommendation($candidate_id, $data)
-    {
-        $recommendation = CandidateRecommendation::where('candidate_id', $candidate_id)->get();
-        foreach ($recommendation as $key => $value) {
-            if ($value->file) {
-                File::delete(public_path('user-documentation/'.$value->file));
-            }
-        }
-        CandidateRecommendation::where('candidate_id', $candidate_id)->delete();
-        $this->addNoRecommendation($data);
-    }
-    public function deleteRecommendation($data){
-        // $recommendation = CandidateRecommendation::find($data['id']);
-        // if ($recommendation->file) {
-        //     File::delete(public_path('user-documentation/'.$recommendation->file));
-        // }
-        // $recommendation->delete();
-    }
+    // public function deleteArrayRecommendation($candidate_id, $data)
+    // {
+    //     $recommendation = CandidateRecommendation::where('candidate_id', $candidate_id)->get();
+    //     foreach ($recommendation as $key => $value) {
+    //         if ($value->file) {
+    //             File::delete(public_path('user-documentation/'.$value->file));
+    //         }
+    //     }
+    //     CandidateRecommendation::where('candidate_id', $candidate_id)->delete();
+    //     $this->addRecommendation($data);
+    // }
+    // public function deleteRecommendation($data){
+    //     // $recommendation = CandidateRecommendation::find($data['id']);
+    //     // if ($recommendation->file) {
+    //     //     File::delete(public_path('user-documentation/'.$recommendation->file));
+    //     // }
+    //     // $recommendation->delete();
+    // }
     public function updateRecommendation($data)
     {
         $candidateRecommendation = CandidateRecommendation::find($data['id']);
@@ -128,6 +134,14 @@ class WorkInformationRepository
         $candidateRecommendation->name = $data['name'];
         $candidateRecommendation->position = $data['position'];
         $candidateRecommendation->number = $data['number'];
+        $candidateRecommendation->update();
+        return $candidateRecommendation;
+    }
+    public function updateNoRecommendation($data)
+    {
+        $candidateRecommendation = CandidateRecommendation::find($data['id']);
+        $candidateRecommendation->no_reason_id = $data['no_reason']['id'];
+        $candidateRecommendation->no_reason_info = $data['no_reason_info'];
         $candidateRecommendation->update();
         return $candidateRecommendation;
     }
@@ -152,5 +166,26 @@ class WorkInformationRepository
         File::delete(public_path('user-documentation/'.$recommendation->file));
         $recommendation->update(['file' => null]);
         return;
+    }
+    public function trashRecommendation($data)
+    {
+        try {
+
+            $recommendation = CandidateRecommendation::whereIn('id', $data['id'])->get();
+
+            foreach ($recommendation as $key => $value) {
+                if ($value->file) {
+                    File::delete(public_path('user-documentation/'.$value->file));
+                }
+
+            }
+
+            CandidateRecommendation::destroy($recommendation->pluck('id')->toArray());
+        }
+        catch(Exception $e) {
+            print_r($e);
+            exit;
+        }
+        return $data;
     }
 }
