@@ -84,6 +84,9 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
 
     Route::post('add_recommendation', [WorkInformationController::class, 'addRecommendation']);
     Route::post('add_recommendation_file', [WorkInformationController::class, 'addRecommendationFile']);
+    Route::post('update_recommendation', [WorkInformationController::class, 'updateRecommendation']);
+    Route::post('update_recommendation_file', [WorkInformationController::class, 'updateRecommendationFile']);
     Route::post('remove_recommendation', [WorkInformationController::class, 'removeRecommendation']);
+    Route::post('remove_recommendation_file', [WorkInformationController::class, 'removeRecommendationFile']);
 
 

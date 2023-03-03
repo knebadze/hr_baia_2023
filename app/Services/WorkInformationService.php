@@ -57,15 +57,23 @@ class WorkInformationService
         $user = User::where('id', $auth->id)->first();
         $candidate_id = $user->candidate->id;
         if (DB::table('candidate_recommendations')->exists() && DB::table('candidate_recommendations')->where('candidate_id', $candidate_id)->exists()) {
-            // $recommendation = CandidateRecommendation::where('candidate_id', $candidate_id)->get();
-            print_r('if');
-            $result = $this->workInformationRepository->deleteRecommendation($candidate_id, $data);
+            $recommendation = CandidateRecommendation::where('candidate_id', $candidate_id)->get();
+                if ($recommendation[0]->recommendation == 1) {
+                    $result = $this->workInformationRepository->deleteArrayRecommendation($candidate_id, $data);
+                    return $result;
+                }else{
+                    $result = $this->workInformationRepository->deleteRecommendation($candidate_id, $data);
+                    return $result;
+                }
 
+        }
+        if ($data[0]['has_recommendation']['id'] == 1) {
+            $result = $this->workInformationRepository->addRecommendation($data);
+            return $result;
+        }else{
+            $result = $this->workInformationRepository->addNoRecommendation($data);
             return $result;
         }
-
-        $result = $this->workInformationRepository->addRecommendation($data);
-        return $result;
     }
     public function saveRecommendationFile($data)
     {
@@ -73,4 +81,20 @@ class WorkInformationService
         return $result;
     }
 
+    public function updateRecommendation($data)
+    {
+        $result = $this->workInformationRepository->updateRecommendation($data);
+        return $result;
+    }
+    public function updateRecommendationFile($data)
+    {
+        $result = $this->workInformationRepository->updateRecommendationFile($data);
+        return $result;
+    }
+
+    public function removeRecommendationFile($data)
+    {
+        $result = $this->workInformationRepository->removeRecommendationFile($data);
+        return $result;
+    }
 }

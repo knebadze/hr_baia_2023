@@ -35,4 +35,8 @@ class CandidateRecommendation extends Model
     // {
     //     return $this->belongsTo(WorkInformation::class, 'work_information_id', 'id');
     // }
+    public function hasRecommendation()
+    {
+        return $this->belongsTo(YesNo::class, 'recommendation', 'id');
+    }
 }

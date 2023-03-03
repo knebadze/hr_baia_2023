@@ -12,10 +12,9 @@
                     <div class="form-group">
                         <label>{{ $t('lang.user_profile_page_recomendation_from') }}</label>
                         <div class="ls-inputicon-box">
-                            <select class="form-select form-select-lg border-0 rounded " style="background-color: #f0f6fe;"  v-model="candidateRecommendationModel.recommendation">
-                                <option :value="1">წარმოვადგენ</option>
-                                <option :value="2">ვერ წარმოვადგენ</option>
-                            </select>
+                            <multiselect v-model="candidateRecommendationModel.has_recommendation" :options="data.classificator.yesNo" :disabled="true" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false">
+                                <template slot="singleLabel" slot-scope="{ option }"></template>
+                            </multiselect>
                             <!-- <i class="fs-input-icon fa fa-thumbs-up"></i> -->
                         </div>
                     </div>
@@ -24,9 +23,9 @@
                     <div class="form-group">
                         <label>{{ $t('lang.user_profile_page_recomendation_where_from') }}</label>
                         <div class="ls-inputicon-box">
-                            <select class="form-select form-select-lg border-0 rounded " style="background-color: #f0f6fe;"  v-model="candidateRecommendationModel.recommendation_from_whom_id" >
-                                <option v-for="recommendationFrom in data.classificator.recommendationFromWhom " :value="recommendationFrom.id">{{ recommendationFrom[`name_${getLang}`] }}</option>
-                            </select>
+                            <multiselect v-model="candidateRecommendationModel.recommendation_whom" :options="data.classificator.recommendationFromWhom" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false">
+                                <template slot="singleLabel" slot-scope="{ option }"></template>
+                            </multiselect>
                             <!-- <i class="fs-input-icon fa fa-industry"></i> -->
                         </div>
                     </div>
@@ -58,16 +57,23 @@
                         </div>
                     </div>
                 </div>
-                <div v-if="candidateRecommendationModel.recommendation == 1" class="col-lg-12 col-md-12">
-                    <div class="form-group">
+                <div v-if="candidateRecommendationModel.recommendation == 1 && candidateRecommendationModel.file" class="col-lg-12 col-md-12">
+                    <div class="mb-3 d-flex justify-content-between">
+                        <!-- <a href="./helloworld.pdf" target="_blank" class="text-primary">თქვენი ატვირთული ფაილის სანახავად დააჭირეთ აქ</a> -->
+                        <a type="button" class="btn btn-primary"  href="./helloworld.pdf" target="_blank"><i class=""></i>ფაილის ნახვა</a>
+                        <!-- <iframe src='user-documentation/helloworld.pdf' ></iframe> -->
+                        <a type="button" class="btn btn-danger"  @click.prevent="removeFile(candidateRecommendationModel.id)"><i class=""></i>ფაილის წაშლა</a>
+                    </div>
+                    <div class="w-100 text-center">
+                        <p>ან ატვირთეთ ახალი ფაილი</p>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12">
+                    <div class="form-group mt-4">
                         <label>ფაილი</label>
                         <div class="ls-inputicon-box">
-                            <input class="form-control" ref="upload" type="file" @change="recommendationFileUpload" placeholder="">
+                            <input class="form-control" ref="upload" type="file" @change="recommendationFileUpload" >
                         </div>
-                    </div>
-                    <div>
-                        <a href="./helloworld.pdf" target="_blank" class="text-primary">თქვენი ატვირთული ფაილის სანახავად დააჭირეთ აქ</a>
-                        <!-- <iframe src='user-documentation/helloworld.pdf' ></iframe> -->
                     </div>
                 </div>
                 <div class=" col-md-12" :class="(candidateRecommendationModel.recommendation == 2)?'':'visually-hidden'">
@@ -89,13 +95,15 @@
                 </div>
             </div>
             <div  class="modal-footer">
-                <a type="button" class="btn btn-success"  @click="updateRecommendation(candidateRecommendationModel)"><i class=""></i>შენახვა</a>
+                <!-- <a type="button" class="btn btn-primary"  @click.prevent="recommendationFile()"><i class=""></i>ფაილის რედაქტირება</a> -->
+                <a type="button" class="btn btn-success"  @click="updateRecommendation()"><i class=""></i>რედაქტირება</a>
             </div>
             </div>
         </div>
     </div>
 </template>
 <script>
+import { uuid } from 'vue-uuid'
 export default {
     props:{
         visible: Boolean,
@@ -103,9 +111,11 @@ export default {
     },
     data() {
         return {
+            uuid: uuid.v1(),
             showConfirm: false,
             candidateRecommendationModel:null,
-            recommendationFile:{}
+            recommendationFile: null,
+            formData:new FormData(),
         }
     },
     created(){
@@ -120,17 +130,106 @@ export default {
         show(){
             this.showConfirm = true
             this.candidateRecommendationModel = this.data.item
-            console.log('this.candidateRecommendationModel',this.candidateRecommendationModel);
+            // console.log('this.candidateRecommendationModel',this.candidateRecommendationModel);
             console.log('this.data',this.data);
         },
         hide(){
            this.showConfirm = false
         },
         updateRecommendation(){
+            let currentObj = this
+            axios({
+                method: "post",
+                url: "/update_recommendation",
+                data: this.candidateRecommendationModel,
+
+            })
+            .then(function (response) {
+                console.log('response.data',response.data);
+                if (response.data.status == 200) {
+                    if (currentObj.recommendationFile != null) {
+                        currentObj.updateRecommendationFile()
+                        return;
+                    }
+                    toast.success('წარმატებით დარედაქტირდა', {
+                        theme: 'colored',
+                        autoClose: 1000,
+                    });
+                    currentObj.hide()
+                    setTimeout(() => {
+                        document.location.reload();
+                    }, 1400);
+
+                }
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+        },
+        updateRecommendationFile(){
+            let currentObj = this;
+            const config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }
+            axios.post('/update_recommendation_file', this.formData, config)
+            .then(function (response) {
+                console.log('response',response);
+                if (response.data.status == 200) {
+                    toast.success('წარმატებით დარედაქტირდა', {
+                        theme: 'colored',
+                        autoClose: 1000,
+                    });
+                    // currentObj.hide()
+                    // setTimeout(() => {
+                    //     document.location.reload();
+                    // }, 1400);
+                }
+            })
+            .catch(function (error) {
+                console.log('error',error);
+            // currentObj.output = error;
+            });
+        },
+        removeFile(id){
+            this.$swal({
+                title: 'ნამდვილად გსურთ ფაილის წაშლა',
+                showDenyButton: true,
+                // showCancelButton: true,
+                confirmButtonText: 'კი',
+                denyButtonText: `არა`,
+            }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    axios.post('/remove_recommendation_file' ,{
+                        id: id
+                    })
+                    .then((response)=> {
+                        console.log(response.data);
+                        if (response.status == 200) {
+                            toast.success("წარმატებით წაიშალა", {
+                                theme: 'colored',
+                                autoClose: 1000,
+                            });
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+
+                } else if (result.isDenied) {
+                }
+            })
 
         },
         recommendationFileUpload(event){
             this.recommendationFile = event.target.files[0]
+            this.formData.append('file', this.recommendationFile)
+            this.formData.append('id', this.candidateRecommendationModel.id)
+
+            console.log(this.recommendationFile);
         }
     },
     watch:{

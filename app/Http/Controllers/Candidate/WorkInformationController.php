@@ -22,6 +22,7 @@ use App\Models\RecommendationFromWhom;
 use Illuminate\Support\Facades\Schema;
 use App\Models\CandidateRecommendation;
 use App\Models\CandidateFamilyWorkSkill;
+use App\Models\YesNo;
 use App\Services\WorkInformationService;
 use App\Services\FAmilyWorkExperienceService;
 
@@ -50,7 +51,7 @@ class WorkInformationController extends Controller
         }
 
         if (DB::table('work_information')->where('candidate_id', $user->candidate->id)->exists() && DB::table('candidate_recommendations')->where('candidate_id', $user->candidate->id)->exists()) {
-            $candidateRecommendation = CandidateRecommendation::where('candidate_id', $user->candidate->id)->with('recommendationWhom')->with('noReason')->get();
+            $candidateRecommendation = CandidateRecommendation::where('candidate_id', $user->candidate->id)->with('recommendationWhom')->with('noReason')->with('hasRecommendation')->get();
         }else{
             $candidateRecommendation = [];
         }
@@ -66,10 +67,11 @@ class WorkInformationController extends Controller
             $familyWorkedSelected = Category::whereIn('id', $familyWorkedSelectedArr)->get();
         }else{
             $familyWorkedSelected = [];
+            $candidateFamilyWorkSkill = [];
         }
 
         if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('family_work_experiences')->where('candidate_id', $user->candidate->id)->exists()) {
-            $familyWorkExperience = FamilyWorkExperience::where('candidate_id', $user->candidate->id)->with('workExperience')->with('longest')->with('noReason')->first()->toArray();
+            $familyWorkExperience = FamilyWorkExperience::where('candidate_id', $user->candidate->id)->with('workExperience')->with('longest')->with('noReason')->with('hasExperience')->first()->toArray();
         }else{
             $familyWorkExperience = Schema::getColumnListing('family_work_experiences');
             $familyWorkExperience = array_map(function ($item) {  return ""; }, array_flip($familyWorkExperience));
@@ -85,6 +87,7 @@ class WorkInformationController extends Controller
         $noRecommendationReason = NoReason::where('category', 2)->get()->toArray();
         $skill = Skill::all()->toArray();
         $noExperienceReason = NoReason::where('category', 1)->get()->toArray();
+        $yesNo = YesNo::all()->toArray();
 
         // dd($workInformation);
         $data = [
@@ -106,7 +109,8 @@ class WorkInformationController extends Controller
                 'recommendationFromWhom' => $recommendationFromWhom,
                 'skill' => $skill,
                 'noRecommendationReason' => $noRecommendationReason,
-                'noExperienceReason' => $noExperienceReason
+                'noExperienceReason' => $noExperienceReason,
+                'yesNo' => $yesNo,
             ],
 
         ];
@@ -204,12 +208,57 @@ class WorkInformationController extends Controller
             File::delete(public_path('user-documentation/'.$recommendation->file));
         }
         $recommendation->delete();
-        return response()->json($recommendation);
+        return response()->json();
+    }
+    public function removeRecommendationFile(Request $request)
+    {
+        $data = $request->all();
+        $result = ['status' => 200];
+
+        try {
+            $result['data'] = $this->workInformationService->removeRecommendationFile($data);
+        } catch (Exception $e) {
+            $result = [
+                'status' => 500,
+                'error' => $e->getMessage()
+            ];
+        }
+
+        return response()->json($result, $result['status']);
+
     }
 
-    public function show($lang, $id)
+    public function updateRecommendation(Request $request)
     {
-        // dd($lang,$id);
-        return view('user.work_information_detail', compact('id'));
+
+        $data = $request->all();
+        $result = ['status' => 200];
+
+        try {
+            $result['data'] = $this->workInformationService->updateRecommendation($data);
+        } catch (Exception $e) {
+            $result = [
+                'status' => 500,
+                'error' => $e->getMessage()
+            ];
+        }
+
+        return response()->json($result, $result['status']);
+    }
+    public function updateRecommendationFile(Request $request)
+    {
+        $data = $request->all();
+        $result = ['status' => 200];
+
+        try {
+            $result['data'] = $this->workInformationService->updateRecommendationFile($data);
+        } catch (Exception $e) {
+            $result = [
+                'status' => 500,
+                'error' => $e->getMessage()
+            ];
+        }
+
+        return response()->json($result, $result['status']);
     }
 }

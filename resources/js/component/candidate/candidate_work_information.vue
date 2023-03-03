@@ -133,18 +133,18 @@
                             <div class="form-group">
                                 <label>გაქვთ ოჯახში მუშაობის გამოცდილება?</label>
                                 <div class="ls-inputicon-box">
-                                    <multiselect v-model="m.familyWorkExperience.experience" :options="yesNo" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false">
+                                    <multiselect v-model="m.familyWorkExperience.has_experience" :options="data.classificator.yesNo" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false">
                                         <template slot="singleLabel" slot-scope="{ option }"></template>
                                     </multiselect>
                                     <!-- <i class="fs-input-icon fa fa-star"></i> -->
-                                    <!-- <span v-if="v$.candidateWorkExperienceModel.experience.required.$invalid && v$.candidateWorkExperienceModel.experience.$dirty" style='color:red'>* {{ v$.candidateWorkExperienceModel.experience.required.$message}}</span> -->
+                                    <!-- <span v-if="v$.candidateWorkExperienceModel.has_experience.required.$invalid && v$.candidateWorkExperienceModel.has_experience.$dirty" style='color:red'>* {{ v$.candidateWorkExperienceModel.has_experience.required.$message}}</span> -->
                                 </div>
                             </div>
                         </div>
-                        <div v-if="m.familyWorkExperience.experience.id == 2" class=" col-md-12 mb-2">
+                        <div v-if="m.familyWorkExperience.has_experience && m.familyWorkExperience.has_experience.id == 2" class=" col-md-12 mb-2">
                             <strong>ჩვენი კლიენტები დასაქმების დროს ითვალისწინებელ სამუშაო გამოცდილებას ვინაიდან არ გაქვთ გამოცდილება გთხოვთ შეავსოთ გამოცდილების არ ქონის მიზეზი</strong>
                         </div>
-                        <div v-if="m.familyWorkExperience.experience.id == 1" class=" col-md-12">
+                        <div v-if="m.familyWorkExperience.has_experience && m.familyWorkExperience.has_experience.id == 1" class=" col-md-12">
                             <div class="row">
                                 <div class="col-xl-4 col-lg-6 col-md-12">
                                     <div class="form-group">
@@ -216,7 +216,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div v-if="m.familyWorkExperience.experience.id == 2"  class=" col-md-12">
+                        <div v-if="m.familyWorkExperience.has_experience && m.familyWorkExperience.has_experience.id == 2"  class=" col-md-12">
                             <div  class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
@@ -245,7 +245,7 @@
                 </div>
             </div>
             <!--რეკომენდაცია-->
-            <div class="panel panel-default" v-if="m.familyWorkExperience.experience.id == 1">
+            <div class="panel panel-default" v-if="m.familyWorkExperience.has_experience && m.familyWorkExperience.has_experience.id == 1">
                     <div class="panel-heading wt-panel-heading p-a20">
                         <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_recomendation_title') }}</h4>
                     </div>
@@ -260,13 +260,13 @@
                                             <option :value="1">წარმოვადგენ</option>
                                             <option :value="2">ვერ წარმოვადგენ</option>
                                         </select> -->
-                                        <multiselect v-model="candidateRecommendationModel.recommendation" :options="yesNo" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false">
+                                        <multiselect v-model="candidateRecommendationModel.has_recommendation" :options="data.classificator.yesNo" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false">
                                             <template slot="singleLabel" slot-scope="{ option }"></template>
                                         </multiselect>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row" v-if="candidateRecommendationModel.recommendation.id == 1">
+                            <div class="row" v-if="candidateRecommendationModel.has_recommendation.id == 1">
                                 <div class="col-xl-6 col-lg-6 col-md-12 " >
                                     <div class="form-group">
                                         <label>{{ $t('lang.user_profile_page_recomendation_where_from') }}</label>
@@ -313,7 +313,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row" v-if="candidateRecommendationModel.recommendation.id == 2">
+                            <div class="row" v-if="candidateRecommendationModel.has_recommendation.id == 2">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>რეცომდაციის არ ქონის მიზეზი</label>
@@ -331,7 +331,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div v-if="candidateRecommendationModel.recommendation.id == 1" class="col-lg-12 col-md-12">
+                            <div v-if="candidateRecommendationModel.has_recommendation.id == 1" class="col-lg-12 col-md-12">
                                 <div class="text-right ">
                                     <button class="btn btn-success"
                                     @click="addCandidateRecommendation(candidateRecommendationModel)"
@@ -340,7 +340,7 @@
                                     </button>
                                 </div>
                             </div>
-                            <div v-if="m.candidateRecommendation.length > 0" class="col-lg-12 col-md-12">
+                            <div v-if="m.candidateRecommendation.length > 0 && (m.candidateRecommendation[0].has_recommendation.id == 1 || candidateRecommendationModel.has_recommendation.id == 1)" class="col-lg-12 col-md-12">
                                 <div class="panel-body wt-panel-body">
                                     <div class="p-a20 table-responsive">
                                         <table class="table twm-table table-striped table-borderless">
@@ -359,14 +359,49 @@
                                             <tbody>
                                                 <tr v-for="(item, index) in m.candidateRecommendation">
                                                 <td>{{ index + 1 }}</td>
-                                                <td><span :class="(item.recommendation_whom.id == 1)?'badge bg-success p-2':'badge bg-info text-dark p-2'">{{ item.recommendation_whom[`name_${getLang}`] }}</span></td>
+                                                <td><span :class="( item.recommendation_whom.id == 1)?'badge bg-success p-2':'badge bg-info text-dark p-2'">{{ item.recommendation_whom[`name_${getLang}`] }}</span></td>
                                                 <td>{{ item.name }}</td>
                                                 <td>{{ item.number }}</td>
                                                 <td>{{ item.position }}</td>
                                                 <td>{{ item.file }}</td>
                                                 <td>
-                                                    <button @click="removeRow(index, item.id)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
+                                                    <button @click="removeRecommendation(index, item.id)" title="წაშლა" data-bs-toggle="tooltip" data-bs-placement="top">
                                                         <i class="fa fa-trash-alt"></i>
+                                                    </button>
+                                                    <button @click="editRecommendation(item)" title="რედაქტირება" data-bs-toggle="tooltip" data-bs-placement="top">
+                                                        <i class="fa fa-pen"></i>
+                                                    </button>
+                                                </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div v-if="m.candidateRecommendation.length > 0 && (m.candidateRecommendation[0].has_recommendation.id == 1 || candidateRecommendationModel.has_recommendation.id == 1)" class="col-lg-12 col-md-12">
+                                <div class="panel-body wt-panel-body">
+                                    <div class="p-a20 table-responsive">
+                                        <table class="table twm-table table-striped table-borderless">
+                                            <thead>
+                                                <tr>
+                                                <th>არ ქონის მიზეზი</th>
+                                                <th>დამატებითი ინფორმაცია</th>
+                                                <th>action</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <tr v-for="(item, index) in m.candidateRecommendation">
+                                                <td>{{ item.name }}</td>
+                                                <td>{{ item.number }}</td>
+                                                <td>{{ item.position }}</td>
+                                                <td>{{ item.file }}</td>
+                                                <td>
+                                                    <button @click="removeRecommendation(index, item.id)" title="წაშლა" data-bs-toggle="tooltip" data-bs-placement="top">
+                                                        <i class="fa fa-trash-alt"></i>
+                                                    </button>
+                                                    <button @click="editRecommendation(item)" title="რედაქტირება" data-bs-toggle="tooltip" data-bs-placement="top">
+                                                        <i class="fa fa-pen"></i>
                                                     </button>
                                                 </td>
                                                 </tr>
@@ -386,14 +421,17 @@
         </div>
     </div>
     <workInformationDetail :visible="showWorkInformation" :data="modalData" :classificator="data.classificator" ></workInformationDetail>
+    <editRecommendation :visible="showRecommendationEditModal" :data="editRecommendationData"></editRecommendation>
 </template>
 <script>
 import workInformationDetail from '../modal/workInformationDetail.vue'
+import editRecommendation from '../modal/editRecommendation.vue'
 import { uuid } from 'vue-uuid'
 import _ from 'lodash'
 export default {
     components:{
-        workInformationDetail
+        workInformationDetail,
+        editRecommendation
     },
     props:{
         data: Object
@@ -406,6 +444,7 @@ export default {
             m: null,
             candidateRecommendationModel: {
                 recommendation: '',
+                has_recommendation: '',
                 recommendation_whom:'',
                 name:'',
                 position:'',
@@ -414,30 +453,26 @@ export default {
                 no_reason:'',
                 no_reason_info:'',
             },
-            yesNo:[
-                {
-                    id: 1, name_ka:'კი',
-                },
-                {
-                    id: 2, name_ka:'არა',
-                }
-            ],
             recommendationFile:null,
             setSkill:[],
             formData:new FormData(),
             candidateRecommendationArr: [],
+
+            //modal
+            showRecommendationEditModal: false,
+            editRecommendationData: {},
         }
     },
     created(){
         this.data.model.getWorkInformation['payment'] = 800;
-
+        console.log('data', this.data);
 
         this.m = { ...this.data.model };
-        if (this.m.familyWorkExperience.experience != null) {
-            var That = this;
-            this.m.familyWorkExperience.experience = _.find(this.yesNo, function(o) { return o.id == That.m.familyWorkExperience.experience; });
+        // if (this.m.familyWorkExperience.experience != null) {
+        //     var That = this;
+        //     this.m.familyWorkExperience.experience = _.find(this.yesNo, function(o) { return o.id == That.m.familyWorkExperience.experience; });
 
-        }
+        // }
         console.log(this.m);
     },
     computed:{
@@ -473,6 +508,23 @@ export default {
                 autoClose: 1000,
             });
         },
+        //add table and model
+        addCandidateRecommendation(recommendation){
+            var uuid = this.$uuid.v4()
+            if (this.recommendationFile != null) {
+                recommendation['file'] = this.recommendationFile.name
+                this.formData.append(uuid, this.recommendationFile)
+            }
+            recommendation['uuid'] = uuid
+            console.log('recommendation', recommendation);
+
+            this.m.candidateRecommendation.push(JSON.parse(JSON.stringify(recommendation)))
+
+        },
+        recommendationFileUpload(event){
+            this.recommendationFile = event.target.files[0]
+        },
+        //axios
         addWorkInfo(){
             let currentObj = this;
             axios({
@@ -522,7 +574,9 @@ export default {
                 console.log('response.data',response.data);
                 if (response.data.status == 200) {
                     if (response.data.data == 2) {
-                        this.swal()
+                        currentObj.swal()
+                    }else{
+                        currentObj.successToast('წარმატებით შეინახა')
                     }
                 }
 
@@ -532,51 +586,33 @@ export default {
                 console.log(error);
             })
         },
-        saveRecomendationFile(){
-            let currentObj = this;
-            const config = {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            }
-            axios.post('/add_recommendation_file', this.formData, config)
-            .then(function (response) {
-                console.log('response',response);
-                if (response.data.status == 200) {
-                     toast.success("ინფორმაცია წარმატებით დაემატა", {
-                        theme: 'colored',
-                        autoClose: 1000,
-                    });
-                    setTimeout(() => {
-                        document.location.reload();
-                    }, 1500);
-                }
-            })
-            .catch(function (error) {
-                console.log('error',error);
-            // currentObj.output = error;
-            });
-        },
-        addCandidateRecommendation(recommendation){
-            var uuid = this.$uuid.v4()
-            if (this.recommendationFile != null) {
-                recommendation['file'] = this.recommendationFile.name
-                this.formData.append(uuid, this.recommendationFile)
-            }
-            recommendation['uuid'] = uuid
-            console.log('recommendation', recommendation);
-
-            this.m.candidateRecommendation.push(JSON.parse(JSON.stringify(recommendation)))
-
-        },
-        addRecomendation(){
-            if (this.candidateRecommendationModel.recommendation.id == 2) {
-                this.m.candidateRecommendation.push(this.candidateRecommendationModel)
+        addRecomendationRule(){
+            console.log('typeof', typeof this.candidateRecommendationModel);
+            if (this.m.candidateRecommendation.length != 0 && this.m.candidateRecommendation[0].recommendation != this.candidateRecommendationModel.has_recommendation.id ) {
+                this.$swal({
+                    title: 'თქვენ უკვე შეავსეთ რეკომენდაციის ინფორმაცია თუ ამ ცვლილებას შეინახავთ წაიშლება წინა შევსებული ინფორმაცია. <br><p>გსურთ გაგრძელება?</p>',
+                    showDenyButton: true,
+                    confirmButtonText: 'კი',
+                    denyButtonText: `არა`,
+                }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        this.addRecomendation()
+                    } else if (result.isDenied) {
+                    }
+                })
             }
             if (this.m.candidateRecommendation.length == 0) {
                 this.errorToast('რეკომენდაციის შესანახად აუცილებელია გამოიყენოთ დამატების ღილაკი')
                 return;
             }
+        },
+        addRecomendation(){
+
+            if (this.candidateRecommendationModel.has_recommendation.id == 2) {
+                this.m.candidateRecommendation.push(this.candidateRecommendationModel)
+            }
+
             console.log('this.m.candidateRecommendation',this.m.candidateRecommendation);
             let currentObj = this
             axios({
@@ -588,8 +624,8 @@ export default {
             .then(function (response) {
                 console.log('response.data',response.data);
                 if (response.data.status == 200) {
-                    if (response.data.data.hasFile == true) {
-                        currentObj.saveRecomendationFile()
+                    if (response.data.data == true) {
+                        currentObj.saveRecommendationFile()
                     }else{
                         currentObj.swal()
                     }
@@ -601,30 +637,75 @@ export default {
                 // handle error
                 console.log(error);
             })
+
+        },
+        saveRecommendationFile(){
+            let currentObj = this;
+            const config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }
+            axios.post('/add_recommendation_file', this.formData, config)
+            .then(function (response) {
+                console.log('response',response);
+                if (response.data.status == 200) {
+                    //  toast.success("ინფორმაცია წარმატებით დაემატა", {
+                    //     theme: 'colored',
+                    //     autoClose: 1000,
+                    // });
+                    // setTimeout(() => {
+                    //     document.location.reload();
+                    // }, 1500);
+                    currentObj.swal()
+                }
+            })
+            .catch(function (error) {
+                console.log('error',error);
+            // currentObj.output = error;
+            });
         },
 
-        recommendationFileUpload(event){
 
-            this.recommendationFile = event.target.files[0]
+        //recommendation Action
+        removeRecommendation(index, id){
+            this.$swal({
+                title: 'ნამდვილად გსურთ წაშლა',
+                showDenyButton: true,
+                // showCancelButton: true,
+                confirmButtonText: 'კი',
+                denyButtonText: `არა`,
+                }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        const removed = this.m.candidateRecommendation.splice(index, 1);
+                        axios.post('/remove_recommendation' ,{
+                            id: id
+                        })
+                        .then((response)=> {
+                            console.log(response.data);
+                            if (response.status == 200) {
+                                toast.success("წარმატებით წაიშალა", {
+                                    theme: 'colored',
+                                    autoClose: 1000,
+                                });
+                            }
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+
+                    } else if (result.isDenied) {
+                    }
+                })
+
         },
-        removeRow(index, id){
-            const removed = this.candidateRecommendation.splice(index, 1);
-            // axios.post('/remove_recommendation' ,{
-            //     id: id
-            // })
-            // .then((response)=> {
-            //     console.log(response.data);
-            //     if (response.status == 200) {
-            //         toast.success("წარმატებით წაიშალა", {
-            //             theme: 'colored',
-            //             autoClose: 1000,
-            //         });
-            //     }
-            // })
-            // .catch(function (error) {
-            //     console.log(error);
-            // });
-
+        editRecommendation(item){
+            this.showRecommendationEditModal = !this.showRecommendationEditModal;
+            this.editRecommendationData = {
+                'item': item,
+                'classificator': this.data.classificator
+            };
         },
         openModal(item){
         //    var recommendation =  _.filter(this.m.candidateRecommendation, function(o) { return item.category_id ==  o.category_id});
@@ -676,7 +757,7 @@ export default {
     },
 
     mounted() {
-        // console.log('uuid.v1()', uuid.v4());
+        // console.log('data', this.data);
     },
 
 }

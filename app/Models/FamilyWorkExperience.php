@@ -32,4 +32,8 @@ class FamilyWorkExperience extends Model
     {
         return $this->belongsTo(NoReason::class, 'no_reason_id', 'id');
     }
+    public function hasExperience()
+    {
+        return $this->belongsTo(YesNo::class, 'experience', 'id');
+    }
 }
