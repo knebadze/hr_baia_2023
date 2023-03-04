@@ -9,7 +9,8 @@ class RezumeController extends Controller
 
     public function index()
     {
-        return view ('myrezume');
+        $data = [];
+        return view ('user.myrezume', compact('data'));
     }
 
 
