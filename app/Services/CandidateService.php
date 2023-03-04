@@ -36,4 +36,10 @@ class CandidateService
         $result = $this->candidateRepository->saveFile($data);
         return $result;
     }
+
+    public function removeOldWorkExperience($data)
+    {
+        $result = $this->candidateRepository->removeOldWorkExperience($data);
+        return $result;
+    }
 }

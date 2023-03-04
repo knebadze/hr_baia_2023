@@ -347,7 +347,7 @@
                     <div class="panel-body wt-panel-body p-a20 m-b30 ">
 
                         <div class="row">
-                            <div class="col-xl-6 col-lg-6 col-md-12">
+                            <div class=" col-md-12">
                                 <div class="form-group">
                                     <label>{{ $t('lang.user_profile_page_work_exp_experience') }}</label>
                                     <div class="ls-inputicon-box">
@@ -355,7 +355,7 @@
                                             <option :value="1">კი</option>
                                             <option :value="2">არა</option>
                                         </select> -->
-                                        <multiselect v-model="candidateWorkExperienceModel.experience" :options="data.classificator.yesNo" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                        <multiselect v-model="candidateWorkExperienceModel.hasExperience" :options="data.classificator.yesNo" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
                                             <template slot="singleLabel" slot-scope="{ option }"></template>
                                         </multiselect>
                                         <!-- <i class="fs-input-icon fa fa-star"></i> -->
@@ -363,7 +363,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row" v-if="candidateWorkExperienceModel.experience.id == 1">
+                            <div class="row" v-if="candidateWorkExperienceModel.hasExperience.id == 1">
                                 <div class="col-xl-6 col-lg-6 col-md-12">
                                     <div class="form-group">
                                         <label>{{ $t('lang.user_profile_page_work_exp') }}</label>
@@ -397,8 +397,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row" v-if="candidateWorkExperienceModel.experience.id == 2">
-                                <div class="col-xl-6 col-lg-6 col-md-12">
+                            <div class="row" v-if="showNoWorkExperience">
+                                <div class="col-md-12">
                                     <div class="form-group">
                                         <label>სამუშაო გამოცდილების არ ქონის მიზეზი</label>
                                         <div class="ls-inputicon-box">
@@ -419,7 +419,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div v-if="candidateWorkExperienceModel.experience.id == 1" class="col-lg-12 col-md-12">
+                            <div v-if="candidateWorkExperienceModel.hasExperience.id == 1" class="col-lg-12 col-md-12">
                                 <div class="text-right ">
                                     <button class="btn btn-success"
                                     @click="addCandidateWorkExperience(candidateWorkExperienceModel)"
@@ -429,11 +429,11 @@
                                 </div>
                             </div>
 
-                            <div v-if="m.candidateWorkExperience.length != 0 && m.candidateWorkExperience[0].experience == 1" class="col-lg-12 col-md-12">
+                            <div v-if="m.candidateWorkExperience.length != 0" class="col-lg-12 col-md-12">
 
                                 <div class="panel-body wt-panel-body">
                                     <div class="p-a20 table-responsive">
-                                        <table class="table twm-table table-striped table-borderless">
+                                        <table class="table twm-table table-striped table-borderless" v-if="m.candidateWorkExperience[0].experience == 1">
                                             <thead>
                                                 <tr>
                                                 <th>N</th>
@@ -454,6 +454,32 @@
                                                     <button @click="removeRow('experience',index)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
                                                         <i class="fa fa-trash-alt"></i>
                                                     </button>
+                                                </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <table class="table twm-table table-striped table-borderless" v-else>
+                                            <thead>
+                                                <tr>
+
+                                                <th>არ ქონის მიზეზი</th>
+                                                <th>დამატებითი ინფორმაცია</th>
+                                                <th>action</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <tr v-for="(item, index) in m.candidateWorkExperience">
+                                                    <td>{{ item.no_reason[`name_${getLang}`] }}</td>
+                                                    <td>{{(item.no_reason_info)?item.no_reason_info.substr(0, 30)+ '...':''  }}</td>
+                                                <td>
+                                                    <button @click="removeRow('experience',index)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
+                                                        <i class="fa fa-pen"></i>
+                                                    </button>
+                                                    <button @click="removeRow('experience',index)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
+                                                        <i class="fa fa-trash-alt"></i>
+                                                    </button>
+
                                                 </td>
                                                 </tr>
                                             </tbody>
@@ -497,28 +523,34 @@
                             </div>
                             <div class="col-xl-4 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                    <label>{{ $t('lang.user_profile_page_additional_conviction') }}</label>
+
                                     <div class="ls-inputicon-box">
                                         <!-- <select class="wt-select-box selectpicker" v-model="m.candidate.convection"  data-live-search="false" title=""  data-bv-field="size">
                                             <option :value="1">კი</option>
                                             <option :value="0">არა</option>
                                         </select>
                                         <i class="fs-input-icon fa fa-gavel"></i> -->
-                                        <multiselect v-model="candidateWorkExperienceModel.work_experience" :options="data.classificator.workExperiences" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                        <!-- <label>{{ $t('lang.user_profile_page_additional_conviction') }}</label>
+                                        <multiselect v-model="m.candidate.convection" :options="data.classificator.yesNo" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false">
                                             <template slot="singleLabel" slot-scope="{ option }"></template>
-                                        </multiselect>
+                                        </multiselect> -->
+                                        <div class="form-check">
+                                          <input class="form-check-input" type="checkbox" value="1" v-model="m.candidate.convection" id="flexCheckDefault">
+                                          <label>{{ 'ნასამართლევი ხართ?' }}</label>
+                                          <!-- $t('lang.user_profile_page_additional_conviction') -->
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-4 col-lg-6 col-md-12">
                                 <div class="form-group form-check">
-                                    <label>{{ $t('lang.user_profile_page_additional_smoke') }}</label>
+
                                     <div class="ls-inputicon-box">
 
                                         <div class="form-check">
-                                          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                          <label class="form-check-label" for="flexCheckDefault">
-                                          </label>
+                                          <input class="form-check-input" type="checkbox" value="1" v-model="m.candidate.smoke" id="flexCheckDefault">
+                                          <label>{{ $t('lang.user_profile_page_additional_smoke') }}</label>
+                                          <!-- <label class="form-check-label" for="flexCheckDefault"></label> -->
                                         </div>
                                         <!-- <select class="wt-select-box selectpicker" v-model="m.candidate.smoke"  data-live-search="false" title=""  data-bv-field="size">
                                             <option :value="1">კი</option>
@@ -530,12 +562,11 @@
                             </div>
                             <div class="col-xl-4 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                    <label>{{ $t('lang.user_profile_page_additional_work_abroad') }}</label>
+
                                     <div class="ls-inputicon-box">
                                         <div class="form-check">
-                                          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                          <label class="form-check-label" for="flexCheckDefault">
-                                          </label>
+                                          <input class="form-check-input" type="checkbox" value="1" v-model="m.candidate.work_abroad" id="flexCheckDefault">
+                                          <label>{{ $t('lang.user_profile_page_additional_work_abroad') }}</label>
                                         </div>
                                         <!-- <select class="wt-select-box selectpicker" v-model="m.candidate.work_abroad"  data-live-search="false" title=""  data-bv-field="size">
                                             <option :value="1">კი</option>
@@ -574,8 +605,11 @@
                                 <div class="form-group">
                                     <label>{{ $t('lang.user_profile_page_number_owner') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <input class="form-control" v-model="candidateNumberModel.owner" type="text" :placeholder="$t('lang.user_profile_page_number_owner_name')">
-                                        <i class="fs-input-icon fa fa-arrows-alt-v" aria-hidden="true"></i>
+                                        <!-- <input class="form-control" v-model="candidateNumberModel.owner" type="text" :placeholder="$t('lang.user_profile_page_number_owner_name')">
+                                        <i class="fs-input-icon fa fa-arrows-alt-v" aria-hidden="true"></i> -->
+                                        <multiselect v-model="candidateNumberModel.number_owner" :options="data.classificator.numberOwner" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                            <template slot="singleLabel" slot-scope="{ option }"></template>
+                                        </multiselect>
                                     </div>
 
                                 </div>
@@ -614,7 +648,7 @@
                                                 <td>{{ index + 1 }}</td>
                                                 <td>+{{ item.number_code.phonecode }}</td>
                                                 <td>{{ item.number }}</td>
-                                                <td>{{ item.owner }}</td>
+                                                <td>{{ item.number_owner[`name_${getLang}`] }}</td>
                                                 <td>
                                                     <button @click="removeRow('number', index)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
                                                         <i class="fa fa-trash-alt"></i>
@@ -686,10 +720,13 @@
                             <div class="form-group">
                                 <label>{{ $t('lang.user_profile_page_references_name_notice') }}</label>
                                 <div class="ls-inputicon-box">
-                                    <select class="wt-select-box selectpicker" v-model="candidateNoticeModel.notice_id"  data-live-search="true" title=""  data-bv-field="size">
+                                    <!-- <select class="wt-select-box selectpicker" v-model="candidateNoticeModel.notice_id"  data-live-search="true" title=""  data-bv-field="size">
                                         <option v-for="notice in data.classificator.notices " :value="notice.id">{{ notice[`name_${getLang}`] }}</option>
                                     </select>
-                                    <i class="fs-input-icon fa fa-sticky-note"></i>
+                                    <i class="fs-input-icon fa fa-sticky-note"></i> -->
+                                    <multiselect v-model="candidateNoticeModel.notice" :options="data.classificator.notices" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                        <template slot="singleLabel" slot-scope="{ option }"></template>
+                                    </multiselect>
                                 </div>
                             </div>
                         </div>
@@ -796,8 +833,8 @@ export default {
 
             // experienceCheck:null
             candidateWorkExperienceModel: {
-                experience:'',
-                work_experience_id :'',
+                hasExperience:'',
+                work_experience:'',
                 position:'',
                 object:'',
                 no_reason_id:'',
@@ -817,9 +854,10 @@ export default {
             candidateNumberModel:{
                 'number_code_id':'',
                 'number':'',
-                'owner':'',
+                'number_owner':'',
             },
             candidate_id: null,
+            showNoWorkExperience: false
 
         }
     },
@@ -849,6 +887,15 @@ export default {
     },
     created(){
         this.m = { ...this.data.candidate, ...this.data.basic };
+        if (this.m.candidate.convction == 1) {
+            this.m.candidate.convction = true
+        }
+        if (this.m.candidate.smoke == 1) {
+            this.m.candidate.smoke = true
+        }
+        if (this.m.candidate.work_abroad == 1) {
+            this.m.candidate.work_abroad = true
+        }
         console.log('this.m.', this.data);
         console.log('m.candidateNotices',this.m.candidateNotices);
         // this.candidateWorkExperienceModel = this.initWorkExperience([...this.m.candidateWorkExperience]);
@@ -914,8 +961,8 @@ export default {
             const isFormCorrect = await this.v$.$validate()
             // alert('Form failed validation')
             if (!isFormCorrect) return;
-            if (this.candidateWorkExperienceModel.experience == 2) {
-                this.m['candidateWorkExperienceModel'] = this.candidateWorkExperienceModel
+            if (this.candidateWorkExperienceModel.hasExperience.id == 2) {
+                this.m.candidateWorkExperience.push(this.candidateWorkExperienceModel)
             }
             let currentObj = this;
             console.log('currentObj',currentObj);
@@ -1006,13 +1053,12 @@ export default {
             }, "language");
         },
         addCandidateWorkExperience(workExperience){
-            var workExperienceFind = _.find(this.data.classificator.workExperiences, function(o) { return o.id == workExperience.work_experience_id; });
-            workExperience['work_experience'] = workExperienceFind;
+            // var workExperienceFind = _.find(this.data.classificator.workExperiences, function(o) { return o.id == workExperience.work_experience_id; });
             this.m.candidateWorkExperience.push(JSON.parse(JSON.stringify(workExperience)))
         },
         addNotice(notice){
-            var noticeFind = _.find(this.data.classificator.notices, function(o) { return o.id == notice.notice_id; });
-            notice['notice'] = noticeFind;
+            // var noticeFind = _.find(this.data.classificator.notices, function(o) { return o.id == notice.notice_id; });
+            // notice['notice'] = noticeFind;
             notice['file'] = this.noticeFile.name
             this.upsert(this.m.candidateNotices, notice, "notice");
         },
@@ -1076,6 +1122,51 @@ export default {
         //         }
         //     }
         // }
+        'candidateWorkExperienceModel.hasExperience': function(newVal, oldVa){
+            if (newVal.id == 2) {
+                this.showNoWorkExperience = true;
+            }
+            console.log('newValue', newVal);
+            if (this.m.candidateWorkExperience.length != 0 && this.m.candidateWorkExperience[0].experience != newVal.id) {
+                // alert()
+                this.$swal({
+                    title: 'თქვენ უკვე შეავსეთ ზოგადი სამუშაო ინფორმაცია თუ ამ ცვლილებას დაეთანხმებით ავტომატურად წაიშლება წინა შევსებული ინფორმაცია. <br><p>გსურთ გაგრძელება?</p>',
+                    showDenyButton: true,
+                    confirmButtonText: 'კი',
+                    denyButtonText: `არა`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        let currentObj = this
+                        axios.post('/remove_old_general_work_experience' ,{
+                            id: this.m.candidateWorkExperience[0].id
+                        })
+                        .then((response)=> {
+                            console.log('response.data', response.data);
+                            if (response.status == 200) {
+                                currentObj.m.candidateWorkExperience = [];
+                            }
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                    } else if (result.isDenied) {
+                    }
+                })
+            }
+            if(this.m.candidateWorkExperience.length != 0 && this.m.candidateWorkExperience[0].experience == 2 && newVal.id == 2){
+                this.showNoWorkExperience = false
+                this.$swal({
+                    title: '<p>თქვენ უკვე შეავსეთ ზოგადი სამუშაო ინფორმაცია</p>',
+                    icon: 'info',
+                    html:
+                        'ცვლილების შესატანად გამოიყენეთ რედაქტირების ღილაკი',
+                    showCloseButton: true,
+                    showCancelButton: false,
+                    focusConfirm: false,
+                    // confirmButtonText: 'შესავსებად გადასვლა',
+                })
+            }
+        }
     },
 
     mounted(){

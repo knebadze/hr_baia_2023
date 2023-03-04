@@ -11,11 +11,15 @@ class Additional_number extends Model
     protected $fillable = [
         'candidate_id',
         'number_code_id',
-        'number',
+        'number_owner_id',
         'owner',
     ];
     public function numberCode()
     {
         return $this->belongsTo(numberCode::class);
+    }
+    public function numberOwner()
+    {
+        return $this->belongsTo(numberOwner::class);
     }
 }

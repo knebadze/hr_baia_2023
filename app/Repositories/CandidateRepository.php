@@ -42,16 +42,18 @@ class CandidateRepository
 
     public function save($data)
     {
+        // print_r($data);
+        // exit;
 ;
         $objData = $this->array_to_object($data);
         $candidate = Candidate::updateOrCreate(
             ['user_id' => Auth::id()],
             [
                 'personal_number' => $objData->candidate->personal_number,
-                'nationality_id' => $objData->candidate->nationality_id,
-                'religion_id' => $objData->candidate->religion_id,
-                'education_id' => $objData->candidate->education_id,
-                'marital_status_id' => $objData->candidate->marital_status_id,
+                'nationality_id' => $objData->candidate->nationality->id,
+                'religion_id' => $objData->candidate->religion->id,
+                'education_id' => $objData->candidate->education->id,
+                'marital_status_id' => $objData->candidate->marital_status->id,
                 'children' => $objData->candidate->children,
                 'children_age' => $objData->candidate->children_age,
                 'spouse' => $objData->candidate->spouse,
@@ -70,11 +72,42 @@ class CandidateRepository
                 'longitude' => $objData->candidate->longitude,
             ]
         );
-        $candidate->citizenship()->sync( $objData->candidateCitizenships );
-        $candidate->professions()->sync($objData->candidateProfessions);
-        $candidate->specialty()->sync($objData->candidateSpecialties);
-        $candidate->characteristic()->sync($objData->candidateCharacteristic);
-        $candidate->allergy()->sync($objData->candidateAllergies);
+        $selectCitizenship = collect($data['candidateCitizenships'])->reduce(function ($carry, $item) {
+            if($carry  == null) $carry = [];
+            $carry[] = $item['id'];
+            return $carry;
+        }, []);
+        $candidate->citizenship()->sync( $selectCitizenship );
+
+        $selectProfession = collect($data['candidateProfessions'])->reduce(function ($carry, $item) {
+            if($carry  == null) $carry = [];
+            $carry[] = $item['id'];
+            return $carry;
+        }, []);
+        $candidate->professions()->sync( $selectProfession );
+
+        $selectSpecialty = collect($data['candidateSpecialties'])->reduce(function ($carry, $item) {
+            if($carry  == null) $carry = [];
+            $carry[] = $item['id'];
+            return $carry;
+        }, []);
+        $candidate->specialty()->sync( $selectSpecialty );
+
+        $selectCharacteristic = collect($data['candidateCharacteristic'])->reduce(function ($carry, $item) {
+            if($carry  == null) $carry = [];
+            $carry[] = $item['id'];
+            return $carry;
+        }, []);
+        $candidate->characteristic()->sync( $selectCharacteristic );
+
+        $selectAllergy = collect($data['candidateAllergies'])->reduce(function ($carry, $item) {
+            if($carry  == null) $carry = [];
+            $carry[] = $item['id'];
+            return $carry;
+        }, []);
+        $candidate->allergy()->sync( $selectAllergy );
+
+
         $candidate->drivingLicense()->sync($objData->candidateDrivingLicense);
 
 
@@ -88,23 +121,34 @@ class CandidateRepository
 
         $candidate->languages()->sync($selectLanguage);
 
+        // print_r($data['candidateWorkExperience']);
+        //     exit;
         if (count($data['candidateWorkExperience'])) {
-            General_work_experience::where('candidate_id', $candidate->id)->delete();
-            $selectExperience = collect($data['candidateWorkExperience'])->reduce(function ($carry, $item) {
-                if($carry  == null) $carry = [];
-                $carry[$item["work_experience_id"]] = ["experience" => $item["experience"], "position" => $item["position"], "object" => $item["object"]];
-                return $carry;
-            }, []);;
-            $candidate->generalWorkExperience()->attach($selectExperience);
-        }else{
-            General_work_experience::updateOrCreate(
-                ['candidate_id' => $candidate->id],
-                [
-                    'experience' => $objData->candidateWorkExperienceModel->experience,
-                    'no_reason_id' => $objData->candidateWorkExperienceModel->no_reason_id,
-                    'no_reason_info' => $objData->candidateWorkExperienceModel->no_reason_info,
-                ]
-            );
+
+            if (DB::table('general_work_experiences')->where('candidate_id', $candidate->id)->exists()) {
+                General_work_experience::where('candidate_id', $candidate->id)->delete();
+            }
+            if ($data['candidateWorkExperience'][0]["hasExperience"]['id'] == 1) {
+
+                $selectExperience = collect($data['candidateWorkExperience'])->reduce(function ($carry, $item) {
+                    if($carry  == null) $carry = [];
+                    $carry[$item["work_experience"]['id']] = ["experience" => $item["hasExperience"]['id'], "position" => $item["position"], "object" => $item["object"]];
+                    return $carry;
+                }, []);;
+                $candidate->generalWorkExperience()->attach($selectExperience);
+            }else{
+
+                General_work_experience::updateOrCreate(
+                    ['candidate_id' => $candidate->id],
+                    [
+                        'experience' => $data['candidateWorkExperience'][0]["hasExperience"]['id'],
+                        'no_reason_id' => $data['candidateWorkExperience'][0]['no_reason']['id'],
+                        'no_reason_info' => $data['candidateWorkExperience'][0]['no_reason_info'],
+                    ]
+                );
+            }
+
+
         }
         if (count($data['candidateNumber'])) {
             if (DB::table('additional_numbers')->where('candidate_id', $candidate->id)->exists()) {
@@ -116,7 +160,7 @@ class CandidateRepository
                 $additionalNumber->candidate_id = $candidate->id;
                 $additionalNumber->number_code_id = $value['number_code_id'];
                 $additionalNumber->number = $value['number'];
-                $additionalNumber->owner = $value['owner'];
+                $additionalNumber->number_owner_id = $value['number_owner']['id'];
                 $additionalNumber->save();
             }
         }
@@ -165,6 +209,11 @@ class CandidateRepository
                 ]);
             }
         }
+        return $data;
+    }
+    public function removeOldWorkExperience($data)
+    {
+        CandidateNotice::where('candidate_id', $data)->delete();
         return $data;
     }
 }

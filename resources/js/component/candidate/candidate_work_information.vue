@@ -773,7 +773,7 @@ export default {
                 this.showNoReccomendation = true;
             }
 
-            if (this.m.candidateRecommendation.length != 0 && this.m.candidateRecommendation[0].recommendation != this.candidateRecommendationModel.has_recommendation.id ) {
+            if (this.m.candidateRecommendation.length != 0 && this.m.candidateRecommendation[0].recommendation != newVal.id ) {
                 this.$swal({
                     title: 'თქვენ უკვე შეავსეთ რეკომენდაციის ინფორმაცია თუ ამ ცვლილებას დაეთანხმებით ავტომატურად წაიშლება წინა შევსებული ინფორმაცია. <br><p>გსურთ გაგრძელება?</p>',
                     showDenyButton: true,
@@ -803,7 +803,7 @@ export default {
                     }
                 })
             }
-            if(this.m.candidateRecommendation.length != 0 && this.m.candidateRecommendation[0].recommendation == 2 && this.candidateRecommendationModel.has_recommendation.id == 2){
+            if(this.m.candidateRecommendation.length != 0 && this.m.candidateRecommendation[0].recommendation == 2 && newVal.id == 2){
                 this.showNoReccomendation = false
                 this.$swal({
                     title: '<p>თქვენ უკვე შეავსეთ რეკომენდაციის ინფორმაცია</p>',

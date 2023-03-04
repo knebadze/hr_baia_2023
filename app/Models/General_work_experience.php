@@ -26,5 +26,9 @@ class General_work_experience extends Model
     {
         return $this->belongsTo(NoReason::class, 'no_reason_id');
     }
+    public function hasExperience()
+    {
+        return $this->belongsTo(YesNo::class, 'experience');
+    }
 
 }

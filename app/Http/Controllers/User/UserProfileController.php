@@ -41,6 +41,7 @@ use App\Models\General_work_experience;
 use App\Models\GeneralCharacteristic;
 use App\Models\NoReason;
 use App\Models\numberCode;
+use App\Models\NumberOwner;
 use App\Models\YesNo;
 
 class UserProfileController extends Controller
@@ -116,7 +117,7 @@ class UserProfileController extends Controller
         }
 
         if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('general_work_experiences')->where('candidate_id', $candidate->id)->exists()) {
-            $candidateWorkExperience = General_work_experience::where('candidate_id', $candidate->id)->with(['workExperience', 'noReason'])->get()->toArray();
+            $candidateWorkExperience = General_work_experience::where('candidate_id', $candidate->id)->with(['workExperience', 'noReason', 'hasExperience'])->get()->toArray();
         }else{
             $candidateWorkExperience = [];
         }
@@ -144,7 +145,7 @@ class UserProfileController extends Controller
             $candidateDrivingLicense = [];
         }
         if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('additional_numbers')->where('candidate_id', $candidate->id)->exists()) {
-            $candidateNumber = Additional_number::where('candidate_id', $candidate->id)->with('numberCode')->get()->toArray();
+            $candidateNumber = Additional_number::where('candidate_id', $candidate->id)->with(['numberCode', 'numberOwner'])->get()->toArray();
             // dd($candidateNumber);
         }else{
             // $candidateNotices = Schema::getColumnListing('candidate_notices');
@@ -174,6 +175,7 @@ class UserProfileController extends Controller
         $numberCode = numberCode::all()->toArray();
         $characteristic = GeneralCharacteristic::all()->toArray();
         $yesNo = YesNo::all()->toArray();
+        $numberOwner = NumberOwner::all()->toArray();
 
         // dd($candidate);
         $data = [
@@ -215,7 +217,8 @@ class UserProfileController extends Controller
                 'drivingLicense' => $drivingLicense,
                 'numberCode' => $numberCode,
                 'characteristic' => $characteristic,
-                'yesNo' => $yesNo
+                'yesNo' => $yesNo,
+                'numberOwner' => $numberOwner
                 // 'noRecommendationReason' => $noRecommendationReason
             ]
          ];
