@@ -142,7 +142,7 @@
                                 </div>
                                 <div v-if="m.candidate.marital_status && m.candidate.marital_status.id != 1 " class="col-xl-6 col-lg-6 col-md-12">
                                     <div class="form-group">
-                                        <label>{{ $t('lang.user_profile_page_personal_children') }}</label>
+                                        <label>{{ $t('lang.user_profile_page_personal_family_children') }}</label>
                                         <div class="ls-inputicon-box">
                                             <input class="form-control" v-model="m.candidate.children" type="number" placeholder="">
                                             <i class="fs-input-icon fa fa-user"></i>
@@ -160,7 +160,7 @@
                                 </div>
                                 <div v-if="m.candidate.marital_status && m.candidate.marital_status.id == 2 " class="col-md-12">
                                     <div class="form-group">
-                                        <label>{{ $t('lang.user_profile_page_personal_spouse') }}</label>
+                                        <label>{{ $t('lang.user_profile_page_personal_family_spouse') }}</label>
                                         <textarea class="form-control" v-model="m.candidate.spouse" rows="3" :placeholder="$t('lang.user_profile_page_personal_family_fill_info')"></textarea>
                                         <!-- " -->
                                     </div>
@@ -511,14 +511,20 @@
                                 </div>
                             </div>
                             <div class="col-xl-4 col-lg-6 col-md-12">
-                                <div class="form-group">
+                                <div class="form-group form-check">
                                     <label>{{ $t('lang.user_profile_page_additional_smoke') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <select class="wt-select-box selectpicker" v-model="m.candidate.smoke"  data-live-search="false" title=""  data-bv-field="size">
+
+                                        <div class="form-check">
+                                          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                          <label class="form-check-label" for="flexCheckDefault">
+                                          </label>
+                                        </div>
+                                        <!-- <select class="wt-select-box selectpicker" v-model="m.candidate.smoke"  data-live-search="false" title=""  data-bv-field="size">
                                             <option :value="1">კი</option>
                                             <option :value="0">არა</option>
-                                        </select>
-                                        <i class="fs-input-icon fa fa-smoking"></i>
+                                        </select> -->
+                                        <!-- <i class="fs-input-icon fa fa-smoking"></i> -->
                                     </div>
                                 </div>
                             </div>
@@ -526,11 +532,16 @@
                                 <div class="form-group">
                                     <label>{{ $t('lang.user_profile_page_additional_work_abroad') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <select class="wt-select-box selectpicker" v-model="m.candidate.work_abroad"  data-live-search="false" title=""  data-bv-field="size">
+                                        <div class="form-check">
+                                          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                          <label class="form-check-label" for="flexCheckDefault">
+                                          </label>
+                                        </div>
+                                        <!-- <select class="wt-select-box selectpicker" v-model="m.candidate.work_abroad"  data-live-search="false" title=""  data-bv-field="size">
                                             <option :value="1">კი</option>
                                             <option :value="0">არა</option>
                                         </select>
-                                        <i class="fs-input-icon fa fa-globe-europe"></i>
+                                        <i class="fs-input-icon fa fa-globe-europe"></i> -->
                                     </div>
                                 </div>
                             </div>
