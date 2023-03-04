@@ -505,8 +505,8 @@
                                         </select>
                                         <i class="fs-input-icon fa fa-gavel"></i> -->
                                         <multiselect v-model="candidateWorkExperienceModel.work_experience" :options="data.classificator.workExperiences" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
-                                                <template slot="singleLabel" slot-scope="{ option }"></template>
-                                            </multiselect>
+                                            <template slot="singleLabel" slot-scope="{ option }"></template>
+                                        </multiselect>
                                     </div>
                                 </div>
                             </div>

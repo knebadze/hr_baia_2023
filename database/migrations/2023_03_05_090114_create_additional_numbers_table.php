@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('candidate_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('number_code_id')->constrained();
             $table->string('number');
-            $table->string('owner');
+            $table->foreignId('number_owner_id')->constrained();
             $table->timestamps();
         });
     }
