@@ -32,10 +32,10 @@
                                     <div class="form-group">
                                         <label>{{ $t('lang.user_profile_page_personal_nationality') }}</label>
                                         <div class="ls-inputicon-box">
-                                            <select class="wt-select-box selectpicker" v-model="m.candidate.nationality_id"  data-live-search="true" title=""  data-bv-field="size">
-                                                <option v-for="national in data.classificator.nationality " :value="national.id">{{ national[`name_${getLang}`] }}</option>
-                                            </select>
-                                            <i class="fs-input-icon fa fa-flag"></i>
+                                            <multiselect v-model="m.candidate.nationality" :options="data.classificator.nationality" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                                <template slot="singleLabel" slot-scope="{ option }"></template>
+                                            </multiselect>
+                                            <!-- <i class="fs-input-icon fa fa-flag"></i> -->
                                         </div>
                                     </div>
                                 </div>
@@ -43,10 +43,13 @@
                                     <div class="form-group">
                                         <label>{{ $t('lang.user_profile_page_personal_citizenship') }}</label>
                                         <div class="ls-inputicon-box">
-                                            <select class="wt-select-box selectpicker" v-model="m.candidateCitizenships"  data-live-search="true" title=""  data-bv-field="size" multiple>
+                                            <!-- <select class="wt-select-box selectpicker" v-model="m.candidateCitizenships"  data-live-search="true" title=""  data-bv-field="size" multiple>
                                                 <option v-for="citizen in data.classificator.citizenship " :value="citizen.id">{{ citizen[`name_${getLang}`] }}</option>
                                             </select>
-                                            <i class="fs-input-icon fa fa-user-plus"></i>
+                                            <i class="fs-input-icon fa fa-user-plus"></i> -->
+                                            <multiselect v-model="m.candidateCitizenships"  :options="data.classificator.citizenship" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name_ka" track-by="name_ka" :preselect-first="false">
+                                                <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                            </multiselect>
                                         </div>
                                     </div>
                                 </div>
@@ -54,10 +57,13 @@
                                     <div class="form-group">
                                         <label>{{ $t('lang.user_profile_page_personal_religion') }}</label>
                                         <div class="ls-inputicon-box">
-                                            <select class="wt-select-box selectpicker" v-model="m.candidate.religion_id"  data-live-search="true" title=""  data-bv-field="size">
+                                            <!-- <select class="wt-select-box selectpicker" v-model="m.candidate.religion_id"  data-live-search="true" title=""  data-bv-field="size">
                                                 <option v-for="religion in data.classificator.religions " :value="religion.id">{{ religion[`name_${getLang}`] }}</option>
                                             </select>
-                                            <i class="fs-input-icon fa fa-cross"></i>
+                                            <i class="fs-input-icon fa fa-cross"></i> -->
+                                            <multiselect v-model="m.candidate.religion" :options="data.classificator.religions" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                                <template slot="singleLabel" slot-scope="{ option }"></template>
+                                            </multiselect>
                                         </div>
                                     </div>
                                 </div>
@@ -65,10 +71,14 @@
                                     <div class="form-group">
                                         <label>{{ $t('lang.user_profile_page_personal_education') }}</label>
                                         <div class="ls-inputicon-box">
-                                            <select class="wt-select-box selectpicker" v-model="m.candidate.education_id"  data-live-search="true" title=""  data-bv-field="size">
+                                            <!-- <select class="wt-select-box selectpicker" v-model="m.candidate.education_id"  data-live-search="true" title=""  data-bv-field="size">
                                                 <option v-for="education in data.classificator.educations " :value="education.id">{{ education[`name_${getLang}`] }}</option>
                                             </select>
-                                            <i class="fs-input-icon fa fa-school"></i>
+                                            <i class="fs-input-icon fa fa-school"></i> -->
+                                            <multiselect v-model="m.candidate.education" :options="data.classificator.educations" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                                <template slot="singleLabel" slot-scope="{ option }"></template>
+                                            </multiselect>
+
                                         </div>
                                     </div>
                                 </div>
@@ -76,10 +86,13 @@
                                     <div class="form-group">
                                         <label>{{ $t('lang.user_profile_page_personal_profession') }}</label>
                                         <div class="ls-inputicon-box">
-                                            <select class="wt-select-box selectpicker" v-model="m.candidateProfessions"  data-live-search="true" title=""  data-bv-field="size" multiple>
+                                            <!-- <select class="wt-select-box selectpicker" v-model="m.candidateProfessions"  data-live-search="true" title=""  data-bv-field="size" multiple>
                                                 <option v-for="profession in data.classificator.professions " :value="profession.id" >{{ profession[`name_${getLang}`] }}</option>
                                             </select>
-                                            <i class="fs-input-icon fa fa-graduation-cap"></i>
+                                            <i class="fs-input-icon fa fa-graduation-cap"></i> -->
+                                            <multiselect v-model="m.candidateProfessions"  :options="data.classificator.professions" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name_ka" track-by="name_ka" :preselect-first="false">
+                                                <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                            </multiselect>
                                         </div>
                                     </div>
                                 </div>
@@ -87,10 +100,13 @@
                                     <div class="form-group">
                                         <label>{{ $t('lang.user_profile_page_personal_specialty') }}</label>
                                         <div class="ls-inputicon-box">
-                                            <select class="wt-select-box selectpicker" v-model="m.candidateSpecialties"  data-live-search="true" title=""  data-bv-field="size" multiple>
+                                            <!-- <select class="wt-select-box selectpicker" v-model="m.candidateSpecialties"  data-live-search="true" title=""  data-bv-field="size" multiple>
                                                 <option v-for="specialty in data.classificator.specialties " :value="specialty.id">{{ specialty[`name_${getLang}`] }}</option>
                                             </select>
-                                            <i class="fs-input-icon fa fa-microscope"></i>
+                                            <i class="fs-input-icon fa fa-microscope"></i> -->
+                                            <multiselect v-model="m.candidateSpecialties"  :options="data.classificator.specialties" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name_ka" track-by="name_ka" :preselect-first="false">
+                                                <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                            </multiselect>
                                         </div>
                                     </div>
                                 </div>
@@ -98,10 +114,13 @@
                                     <div class="form-group">
                                         <label>{{ 'ზოგადი მახასიათებელი' }}</label>
                                         <div class="ls-inputicon-box">
-                                            <select class="wt-select-box selectpicker" v-model="m.candidateCharacteristic"  data-live-search="true" title=""  data-bv-field="size" multiple>
+                                            <!-- <select class="wt-select-box selectpicker" v-model="m.candidateCharacteristic"  data-live-search="true" title=""  data-bv-field="size" multiple>
                                                 <option v-for="item in data.classificator.characteristic " :value="item.id">{{ item[`name_${getLang}`] }}</option>
                                             </select>
-                                            <i class="fs-input-icon fa fa-microscope"></i>
+                                            <i class="fs-input-icon fa fa-microscope"></i> -->
+                                            <multiselect v-model="m.candidateCharacteristic"  :options="data.classificator.characteristic" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name_ka" track-by="name_ka" :preselect-first="false">
+                                                <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                            </multiselect>
                                         </div>
                                     </div>
                                 </div>
@@ -111,14 +130,17 @@
                                     <div class="form-group">
                                         <label>{{ $t('lang.user_profile_page_personal_family') }}</label>
                                         <div class="ls-inputicon-box">
-                                            <select class="wt-select-box selectpicker" v-model="m.candidate.marital_status_id"  data-live-search="false" title=""  data-bv-field="size">
+                                            <!-- <select class="wt-select-box selectpicker" v-model="m.candidate.marital_status_id"  data-live-search="false" title=""  data-bv-field="size">
                                                 <option v-for="marital in data.classificator.maritalStatus " :value="marital.id">{{ marital[`name_${getLang}`] }}</option>
                                             </select>
-                                            <i class="fs-input-icon fa fa-users"></i>
+                                            <i class="fs-input-icon fa fa-users"></i> -->
+                                            <multiselect v-model="m.candidate.marital_status" :options="data.classificator.maritalStatus" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                                <template slot="singleLabel" slot-scope="{ option }"></template>
+                                            </multiselect>
                                         </div>
                                     </div>
                                 </div>
-                                <div v-if="m.candidate.marital_status_id && m.candidate.marital_status_id != 1 " class="col-xl-6 col-lg-6 col-md-12">
+                                <div v-if="m.candidate.marital_status && m.candidate.marital_status.id != 1 " class="col-xl-6 col-lg-6 col-md-12">
                                     <div class="form-group">
                                         <label>{{ $t('lang.user_profile_page_personal_children') }}</label>
                                         <div class="ls-inputicon-box">
@@ -127,7 +149,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div v-if="m.candidate.marital_status_id && m.candidate.marital_status_id != 1 && m.candidate.children && m.candidate.children != 0" class="col-xl-6 col-lg-6 col-md-12">
+                                <div v-if="m.candidate.marital_status && m.candidate.marital_status.id != 1 && m.candidate.children && m.candidate.children != 0" class="col-xl-6 col-lg-6 col-md-12">
                                     <div class="form-group">
                                         <label>{{ $t('lang.user_profile_page_personal_children_age') }}</label>
                                         <div class="ls-inputicon-box">
@@ -136,10 +158,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div v-if="m.candidate.marital_status_id && m.candidate.marital_status_id == 2 " class="col-md-12">
+                                <div v-if="m.candidate.marital_status && m.candidate.marital_status.id == 2 " class="col-md-12">
                                     <div class="form-group">
                                         <label>{{ $t('lang.user_profile_page_personal_spouse') }}</label>
-                                        <textarea class="form-control" v-model="m.candidate.spouse" rows="3" placeholder="{{ $t('lang.user_profile_page_personal_family_fill_info') }}"></textarea>
+                                        <textarea class="form-control" v-model="m.candidate.spouse" rows="3" :placeholder="$t('lang.user_profile_page_personal_family_fill_info')"></textarea>
+                                        <!-- " -->
                                     </div>
                                 </div>
                                          <!-- Driving License -->
@@ -171,10 +194,13 @@
                                     <div class="form-group">
                                         <label>{{ $t('lang.user_profile_page_medical_alergy') }}</label>
                                         <div class="ls-inputicon-box">
-                                            <select class="wt-select-box selectpicker" v-model="m.candidateAllergies"  data-live-search="true" title=""  data-bv-field="size" multiple>
+                                            <!-- <select class="wt-select-box selectpicker" v-model="m.candidateAllergies"  data-live-search="true" title=""  data-bv-field="size" multiple>
                                                 <option v-for="allergy in data.classificator.allergies " :value="allergy.id">{{ allergy[`name_${getLang}`] }}</option>
                                             </select>
-                                            <i class="fs-input-icon fa fa-allergies"></i>
+                                            <i class="fs-input-icon fa fa-allergies"></i> -->
+                                            <multiselect v-model="m.candidateAllergies"  :options="data.classificator.allergies" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name_ka" track-by="name_ka" :preselect-first="false">
+                                                <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                            </multiselect>
                                         </div>
                                     </div>
                                 </div>
@@ -241,10 +267,13 @@
                                 <div class="form-group">
                                     <label>{{ $t('lang.user_profile_page_foreign_lang_language') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <select class="wt-select-box selectpicker"  v-model="languages.id"  data-live-search="true" title=""  data-bv-field="size">
+                                        <!-- <select class="wt-select-box selectpicker"  v-model="languages.id"  data-live-search="true" title=""  data-bv-field="size">
                                             <option v-for="language in data.classificator.languages " :value="language">{{ language[`name_${getLang}`] }}</option>
                                         </select>
-                                        <i class="fs-input-icon fa fa-language"></i>
+                                        <i class="fs-input-icon fa fa-language"></i> -->
+                                        <multiselect v-model="languages" :options="data.classificator.languages" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                            <template slot="singleLabel" slot-scope="{ option }"></template>
+                                        </multiselect>
                                     </div>
                                 </div>
                             </div>
@@ -252,17 +281,20 @@
                                 <div class="form-group">
                                     <label>{{ $t('lang.user_profile_page_foreign_lang_level') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <select class="wt-select-box selectpicker" v-model="languageLevels.id"   data-live-search="false" title=""  data-bv-field="size">
+                                        <!-- <select class="wt-select-box selectpicker" v-model="languageLevels.id"   data-live-search="false" title=""  data-bv-field="size">
                                             <option v-for="languageLevel in data.classificator.languageLevels " :value="languageLevel">{{ languageLevel[`name_${getLang}`] }}</option>
                                         </select>
-                                        <i class="fs-input-icon fa fa-level-up-alt"></i>
+                                        <i class="fs-input-icon fa fa-level-up-alt"></i> -->
+                                        <multiselect v-model="languageLevels" :options="data.classificator.languageLevels" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                            <template slot="singleLabel" slot-scope="{ option }"></template>
+                                        </multiselect>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-12 col-md-12">
                                 <div class="text-right ">
                                     <button class="btn btn-success"
-                                    @click="addLanguage(languages.id, languageLevels.id)"
+                                    @click="addLanguage(languages, languageLevels)"
                                     title="დამატება" data-bs-toggle="tooltip"
                                     data-bs-placement="top">{{ $t('lang.user_profile_page_foreign_lang_button_add_info') }}
                                         <span class="fa fa-plus"></span>
@@ -319,62 +351,75 @@
                                 <div class="form-group">
                                     <label>{{ $t('lang.user_profile_page_work_exp_experience') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <select class="wt-select-box selectpicker" v-model="candidateWorkExperienceModel.experience"  data-live-search="false" title=""  data-bv-field="size" @blur="v$.candidateWorkExperienceModel.experience.$touch">
+                                        <!-- <select class="wt-select-box selectpicker" v-model="candidateWorkExperienceModel.experience"  data-live-search="false" title=""  data-bv-field="size" @blur="v$.candidateWorkExperienceModel.experience.$touch">
                                             <option :value="1">კი</option>
                                             <option :value="2">არა</option>
-                                        </select>
-                                        <i class="fs-input-icon fa fa-star"></i>
+                                        </select> -->
+                                        <multiselect v-model="candidateWorkExperienceModel.experience" :options="data.classificator.yesNo" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                            <template slot="singleLabel" slot-scope="{ option }"></template>
+                                        </multiselect>
+                                        <!-- <i class="fs-input-icon fa fa-star"></i> -->
                                         <!-- <span v-if="v$.candidateWorkExperienceModel.experience.required.$invalid && v$.candidateWorkExperienceModel.experience.$dirty" style='color:red'>* {{ v$.candidateWorkExperienceModel.experience.required.$message}}</span> -->
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-6 col-lg-6 col-md-12" :class="(candidateWorkExperienceModel.experience ==1)?'':'visually-hidden'">
-                                <div class="form-group">
-                                    <label>{{ $t('lang.user_profile_page_work_exp') }}</label>
-                                    <div class="ls-inputicon-box">
-                                        <select class="wt-select-box selectpicker"  v-model="candidateWorkExperienceModel.work_experience_id"  data-live-search="true" title=""  data-bv-field="size">
-                                            <option v-for="workExperience in data.classificator.workExperiences " :value="workExperience.id">{{ workExperience[`name_${getLang}`] }}</option>
-                                        </select>
-                                        <i class="fs-input-icon fa fa-history"></i>
+                            <div class="row" v-if="candidateWorkExperienceModel.experience.id == 1">
+                                <div class="col-xl-6 col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label>{{ $t('lang.user_profile_page_work_exp') }}</label>
+                                        <div class="ls-inputicon-box">
+                                            <!-- <select class="wt-select-box selectpicker"  v-model="candidateWorkExperienceModel.work_experience_id"  data-live-search="true" title=""  data-bv-field="size">
+                                                <option v-for="workExperience in data.classificator.workExperiences " :value="workExperience.id">{{ workExperience[`name_${getLang}`] }}</option>
+                                            </select>
+                                            <i class="fs-input-icon fa fa-history"></i> -->
+                                            <multiselect v-model="candidateWorkExperienceModel.work_experience" :options="data.classificator.workExperiences" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                                <template slot="singleLabel" slot-scope="{ option }"></template>
+                                            </multiselect>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div  class="col-xl-6 col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label>{{ $t('lang.user_profile_page_work_position') }}</label>
+                                        <div class="ls-inputicon-box">
+                                            <input class="form-control" v-model="candidateWorkExperienceModel.position" type="text" placeholder="">
+                                            <i class="fs-input-icon fa fa-tasks"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div  class="col-xl-6 col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label>{{ $t('lang.user_profile_page_work_object') }}</label>
+                                        <div class="ls-inputicon-box">
+                                            <input class="form-control" v-model="candidateWorkExperienceModel.object" type="text" placeholder="">
+                                            <i class="fs-input-icon fa fa-map-marker"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div v-if="candidateWorkExperienceModel.experience == 1" class="col-xl-6 col-lg-6 col-md-12">
-                                <div class="form-group">
-                                    <label>{{ $t('lang.user_profile_page_work_position') }}</label>
-                                    <div class="ls-inputicon-box">
-                                        <input class="form-control" v-model="candidateWorkExperienceModel.position" type="text" placeholder="">
-                                        <i class="fs-input-icon fa fa-tasks"></i>
+                            <div class="row" v-if="candidateWorkExperienceModel.experience.id == 2">
+                                <div class="col-xl-6 col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label>სამუშაო გამოცდილების არ ქონის მიზეზი</label>
+                                        <div class="ls-inputicon-box">
+                                            <!-- <select class="wt-select-box selectpicker"  v-model="candidateWorkExperienceModel.no_reason_id"  data-live-search="true" title=""  data-bv-field="size">
+                                                <option v-for="workExperience in data.classificator.noExperienceReason" :value="workExperience.id">{{ workExperience[`name_${getLang}`] }}</option>
+                                            </select>
+                                            <i class="fs-input-icon fa fa-history"></i> -->
+                                            <multiselect v-model="candidateWorkExperienceModel.no_reason" :options="data.classificator.noExperienceReason" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                                <template slot="singleLabel" slot-scope="{ option }"></template>
+                                            </multiselect>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>დამატაბითი ინფორმაცია</label>
+                                        <textarea class="form-control" rows="3" v-model="candidateWorkExperienceModel.no_reason_info" :placeholder="$t('lang.user_profile_page_medical_please_info')"></textarea>
                                     </div>
                                 </div>
                             </div>
-                            <div v-if="candidateWorkExperienceModel.experience == 1" class="col-xl-6 col-lg-6 col-md-12">
-                                <div class="form-group">
-                                    <label>{{ $t('lang.user_profile_page_work_object') }}</label>
-                                    <div class="ls-inputicon-box">
-                                        <input class="form-control" v-model="candidateWorkExperienceModel.object" type="text" placeholder="">
-                                        <i class="fs-input-icon fa fa-map-marker"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-12" :class="(candidateWorkExperienceModel.experience == 2)?'':'visually-hidden'">
-                                <div class="form-group">
-                                    <label>სამუშაო გამოცდილების არ ქონის მიზეზი</label>
-                                    <div class="ls-inputicon-box">
-                                        <select class="wt-select-box selectpicker"  v-model="candidateWorkExperienceModel.no_reason_id"  data-live-search="true" title=""  data-bv-field="size">
-                                            <option v-for="workExperience in data.classificator.noExperienceReason" :value="workExperience.id">{{ workExperience[`name_${getLang}`] }}</option>
-                                        </select>
-                                        <i class="fs-input-icon fa fa-history"></i>
-                                    </div>
-                                </div>
-                            </div>
-                             <div :class="(candidateWorkExperienceModel.experience == 2)?'':'visually-hidden'" class="col-md-12">
-                                <div class="form-group">
-                                    <label>დამატაბითი ინფორმაცია</label>
-                                    <textarea class="form-control" rows="3" v-model="candidateWorkExperienceModel.no_reason_info" :placeholder="$t('lang.user_profile_page_medical_please_info')"></textarea>
-                                </div>
-                            </div>
-                            <div v-if="candidateWorkExperienceModel.experience == 1" class="col-lg-12 col-md-12">
+                            <div v-if="candidateWorkExperienceModel.experience.id == 1" class="col-lg-12 col-md-12">
                                 <div class="text-right ">
                                     <button class="btn btn-success"
                                     @click="addCandidateWorkExperience(candidateWorkExperienceModel)"
@@ -454,11 +499,14 @@
                                 <div class="form-group">
                                     <label>{{ $t('lang.user_profile_page_additional_conviction') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <select class="wt-select-box selectpicker" v-model="m.candidate.convection"  data-live-search="false" title=""  data-bv-field="size">
+                                        <!-- <select class="wt-select-box selectpicker" v-model="m.candidate.convection"  data-live-search="false" title=""  data-bv-field="size">
                                             <option :value="1">კი</option>
                                             <option :value="0">არა</option>
                                         </select>
-                                        <i class="fs-input-icon fa fa-gavel"></i>
+                                        <i class="fs-input-icon fa fa-gavel"></i> -->
+                                        <multiselect v-model="candidateWorkExperienceModel.work_experience" :options="data.classificator.workExperiences" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                                <template slot="singleLabel" slot-scope="{ option }"></template>
+                                            </multiselect>
                                     </div>
                                 </div>
                             </div>
@@ -790,7 +838,7 @@ export default {
     },
     created(){
         this.m = { ...this.data.candidate, ...this.data.basic };
-        console.log('this.m.', this.m);
+        console.log('this.m.', this.data);
         console.log('m.candidateNotices',this.m.candidateNotices);
         // this.candidateWorkExperienceModel = this.initWorkExperience([...this.m.candidateWorkExperience]);
 

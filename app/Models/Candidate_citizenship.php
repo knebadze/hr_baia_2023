@@ -12,4 +12,8 @@ class Candidate_citizenship extends Model
         'candidate_id',
         'citizenship_id',
     ];
+    public function citizenship()
+    {
+        return $this->belongsTo(Citizenship::class, 'citizenship_id');
+    }
 }

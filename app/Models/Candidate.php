@@ -40,6 +40,22 @@ class Candidate extends Model
         'work_abroad' => 0
     ];
 
+    public function nationality()
+    {
+        return $this->belongsTo(Nationality::class, 'nationality_id');
+    }
+    public function religion()
+    {
+        return $this->belongsTo(Religion::class, 'religion_id');
+    }
+    public function education()
+    {
+        return $this->belongsTo(Education::class, 'education_id');
+    }
+    public function maritalStatus()
+    {
+        return $this->belongsTo(MaritalStatus::class, 'marital_status_id');
+    }
     public function citizenship()
     {
          return $this->belongsToMany(Citizenship::class, 'candidate_citizenships');

@@ -41,6 +41,7 @@ use App\Models\General_work_experience;
 use App\Models\GeneralCharacteristic;
 use App\Models\NoReason;
 use App\Models\numberCode;
+use App\Models\YesNo;
 
 class UserProfileController extends Controller
 {
@@ -52,8 +53,7 @@ class UserProfileController extends Controller
         $gender = gender::all()->toArray();
 
         if (DB::table('candidates')->where('user_id', $auth->id)->exists()) {
-            $candidate = Candidate::where('user_id', $auth->id)->first();
-            // dd($candidate);
+            $candidate = Candidate::where('user_id', $auth->id)->with(['nationality','religion', 'education', 'maritalStatus'])->first();
         } else {
             $candidate =  Schema::getColumnListing('candidates');
             $candidate = array_map(function ($item) { return ""; }, array_flip($candidate));
@@ -62,73 +62,62 @@ class UserProfileController extends Controller
         if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('candidate_languages')->where('candidate_id', $candidate->id)->exists()) {
             $candidateLanguages = CandidateLanguage::where('candidate_id', $candidate->id)->with('language')->with('level')->get();
         }else{
-            // $candidateLanguages= Schema::getColumnListing('candidate_languages');
             $candidateLanguages = [];
-            // [array_map(function ($item) {  return ""; }, array_flip($candidateLanguages))];
         }
 
         if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('candidate_allergies')->where('candidate_id', $candidate->id)->exists()) {
             $candidateAllergy = CandidateAllergy::where('candidate_id', $candidate->id)->select('allergy_id')->get();
             foreach ($candidateAllergy as $key => $value) {
-                $candidateAllergies[] = $value['allergy_id'];
+                $ids[] = $value['allergy_id'];
             }
+            $candidateAllergies = Allergy::whereIn('id', $ids)->get()->toArray();
         }else{
             $candidateAllergies = [];
-            // $candidateAllergies = [array_map(function ($item) {  return ""; }, array_flip($candidateAllergies))];
-
         }
 
         if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('candidate_citizenships')->where('candidate_id', $candidate->id)->exists()) {
             $candidateCitizenship = Candidate_citizenship::where('candidate_id', $candidate->id)->select('citizenship_id')->get()->toArray();
             foreach ($candidateCitizenship as $key => $value) {
-                $candidateCitizenships[] = $value['citizenship_id'];
+                $ids[] = $value['citizenship_id'];
             }
+            $candidateCitizenships = Citizenship::whereIn('id', $ids)->get()->toArray();
         }else{
-            // $candidateCitizenships = Schema::getColumnListing('candidate_citizenships');
-            // $candidateCitizenships = [array_map(function ($item) {  return ""; }, array_flip($candidateCitizenships))];
             $candidateCitizenships = [];
         }
-        // dd(DB::table('candidates')->where('user_id', $auth->id)->exists(),  Candidate_profession::all(), $candidate->id);
+
         if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('candidate_professions')->where('candidate_id', $candidate->id)->exists()) {
             $candidateProfession = Candidate_profession::where('candidate_id', $candidate->id)->select('profession_id')->get();
             foreach ($candidateProfession as $key => $value) {
-                $candidateProfessions[] = $value['profession_id'];
+                $ids[] = $value['profession_id'];
             }
-            // dd($candidateProfessions);
+            $candidateProfessions = Profession::whereIn('id', $ids)->get()->toArray();
         }else{
-            // $candidateProfessions = Schema::getColumnListing('candidate_professions');
             $candidateProfessions = [];
-            // [array_map(function ($item) {  return ""; }, array_flip($candidateProfessions))];
         }
 
         if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('candidate_specialties')->where('candidate_id', $candidate->id)->exists()) {
             $candidateSpecialty = Candidate_specialty::where('candidate_id', $candidate->id)->select('specialty_id')->get();
             foreach ($candidateSpecialty as $key => $value) {
-                $candidateSpecialties[] = $value['specialty_id'];
+                $ids[] = $value['specialty_id'];
             }
+            $candidateSpecialties = Specialty::whereIn('id', $ids)->get()->toArray();
         }else{
-            // $candidateSpecialties = Schema::getColumnListing('candidate_specialties');
             $candidateSpecialties = [];
-            // [array_map(function ($item) {  return ""; }, array_flip($candidateSpecialties))];
         }
 
         if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('candidate_characteristics')->where('candidate_id', $candidate->id)->exists()) {
             $candidateCharacteristics = CandidateCharacteristic::where('candidate_id', $candidate->id)->select('general_characteristic_id')->get();
             foreach ($candidateCharacteristics as $key => $value) {
-                $candidateCharacteristic[] = $value['general_characteristic_id'];
+                $ids[] = $value['general_characteristic_id'];
             }
+            $candidateCharacteristic = GeneralCharacteristic::whereIn('id', $ids)->get()->toArray();
         }else{
-            // $candidateSpecialties = Schema::getColumnListing('candidate_specialties');
             $candidateCharacteristic = [];
-            // [array_map(function ($item) {  return ""; }, array_flip($candidateSpecialties))];
         }
 
         if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('general_work_experiences')->where('candidate_id', $candidate->id)->exists()) {
-            $candidateWorkExperience = General_work_experience::where('candidate_id', $candidate->id)->with('workExperience')->get()->toArray();
-            // dd($candidateWorkExperience);
+            $candidateWorkExperience = General_work_experience::where('candidate_id', $candidate->id)->with(['workExperience', 'noReason'])->get()->toArray();
         }else{
-            // $candidateWorkExperience = Schema::getColumnListing('general_work_experiences');
-            // $candidateWorkExperience = [array_map(function ($item) {  return ""; }, array_flip($candidateWorkExperience))];
             $candidateWorkExperience = [];
         }
 
@@ -184,6 +173,7 @@ class UserProfileController extends Controller
         $drivingLicense = DrivingLicense::all()->toArray();
         $numberCode = numberCode::all()->toArray();
         $characteristic = GeneralCharacteristic::all()->toArray();
+        $yesNo = YesNo::all()->toArray();
 
         // dd($candidate);
         $data = [
@@ -203,13 +193,14 @@ class UserProfileController extends Controller
                 'candidateWorkExperience' => $candidateWorkExperience,
                 'candidateDrivingLicense' => $candidateDrivingLicense,
                 'candidateNumber' => $candidateNumber,
-                'candidateCharacteristic' => $candidateCharacteristic
+                'candidateCharacteristic' => $candidateCharacteristic,
+
             ],
             'classificator' => [
                 'gender' => $gender,
                 'nationality' => $nationality,
                 'religions' => $religions,
-                'educations ' => $educations,
+                'educations' => $educations,
                 'maritalStatus' => $maritalStatus,
                 'citizenship' => $citizenship,
                 'professions' => $professions,
@@ -223,7 +214,8 @@ class UserProfileController extends Controller
                 'noExperienceReason' => $noExperienceReason,
                 'drivingLicense' => $drivingLicense,
                 'numberCode' => $numberCode,
-                'characteristic' => $characteristic
+                'characteristic' => $characteristic,
+                'yesNo' => $yesNo
                 // 'noRecommendationReason' => $noRecommendationReason
             ]
          ];

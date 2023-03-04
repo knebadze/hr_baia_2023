@@ -18,9 +18,13 @@ class General_work_experience extends Model
         'no_reason_info',
     ];
 
-    public function WorkExperience()
+    public function workExperience()
     {
         return $this->belongsTo(Work_experience::class);
+    }
+    public function noReason()
+    {
+        return $this->belongsTo(NoReason::class, 'no_reason_id');
     }
 
 }
