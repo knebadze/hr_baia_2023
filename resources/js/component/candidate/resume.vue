@@ -2,9 +2,9 @@
     <div class="col-xl-9 col-lg-8 col-md-12 m-b30">
         <div class="twm-right-section-panel site-bg-gray">
                 <!--Resume Headline-->
-                <div class="panel panel-default mb-3">
+                <div v-if="data.workInformation.length > 1" class="panel panel-default mb-3">
                     <div class="panel-heading wt-panel-heading p-a20 panel-heading-with-btn ">
-                        <h4 class="panel-tittle m-a0">თქვენ გაქვთ რამდენიმე რეზიუმე თვენს მიერ შევსებული სამუშაო კატეგორიებიდან</h4>
+                        <h4 class="panel-tittle m-a0">თქვენ გაქვთ <b>{{ data.workInformation.length }}</b> რეზიუმე </h4>
                         <a data-bs-toggle="modal" href="#Resume_Headline" role="button" title="Edit" class="site-text-primary">
                             <!-- <span class="fa fa-edit"></span> -->
                         </a>
@@ -12,10 +12,10 @@
                     <div class="panel-body wt-panel-body p-a20 ">
                         <div class="btn-group">
                             <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                Action
+                                აირჩიეთ კატეგორია
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li v-for="(item, index) in data.workInformation" :key="index"><a class="dropdown-item" href="#">{{ item.category[`name_${getLang}`] }}</a></li>
                                 <!-- <li><a class="dropdown-item" href="#">Another action</a></li>
                                 <li><a class="dropdown-item" href="#">Something else here</a></li>
                                 <li><hr class="dropdown-divider"></li>
@@ -28,14 +28,14 @@
                 <!--Resume Headline-->
                 <div class="panel panel-default mb-3">
                     <div class="panel-heading wt-panel-heading p-a20 panel-heading-with-btn ">
-                        <h4 class="panel-tittle m-a0">Resume Headline</h4>
+                        <h4 class="panel-tittle m-a0">რეზიუმეს სათაური</h4>
                         <a data-bs-toggle="modal" href="#Resume_Headline" role="button" title="Edit" class="site-text-primary">
                             <span class="fa fa-edit"></span>
                         </a>
                     </div>
                     <div class="panel-body wt-panel-body p-a20 ">
                         <div class="twm-panel-inner">
-                            <p>Senior UI / UX Designer and Developer at Google INC</p>
+                            <p>{{ headLine }}</p>
                         </div>
                     </div>
                     <!--Modal Popup -->
@@ -1992,6 +1992,11 @@ export default {
             var age_dt = new Date(diff_ms);
 
             return Math.abs(age_dt.getUTCFullYear() - 1970);
+        },
+        headLine(){
+            if (this.data.workInformation.length == 1) {
+                return this.data.workInformation[0].category[`name_${this.getLang}`]
+            }
         }
     },
     mounted() {
