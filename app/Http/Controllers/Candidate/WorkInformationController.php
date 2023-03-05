@@ -22,6 +22,7 @@ use App\Models\RecommendationFromWhom;
 use Illuminate\Support\Facades\Schema;
 use App\Models\CandidateRecommendation;
 use App\Models\CandidateFamilyWorkSkill;
+use App\Models\WorkInformationWorkSchedule;
 use App\Models\YesNo;
 use App\Services\WorkInformationService;
 use App\Services\FAmilyWorkExperienceService;
@@ -41,7 +42,7 @@ class WorkInformationController extends Controller
         $user = User::where('id', $auth->id)->first();
 
         if (DB::table('work_information')->where('candidate_id', $user->candidate->id)->exists()) {
-            $workInformation = WorkInformation::where('candidate_id', $user->candidate->id)->with('category')->with('workSchedule')->with('currency')->get()->toArray();
+            $workInformation = WorkInformation::where('candidate_id', $user->candidate->id)->with(['category', 'workSchedule','currency'])->get()->toArray();
             $getWorkInformation =  Schema::getColumnListing('work_information');
             $getWorkInformation = array_map(function ($item) { return ""; }, array_flip($getWorkInformation));
         }else{
@@ -55,6 +56,12 @@ class WorkInformationController extends Controller
         }else{
             $candidateRecommendation = [];
         }
+
+        // if (DB::table('work_information')->where('candidate_id', $user->candidate->id)->exists() && DB::table('work_information_work_schedules')->where('work_information_id', $workInformation[0]->id)->exists()) {
+        //     $workInformationSchedule = WorkInformationWorkSchedule::where('work_information_id', $workInformation->id)->get();
+        // }else{
+        //     $workInformationSchedule = [];
+        // }
 
         if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('candidate_family_work_skills')->where('candidate_id', $user->candidate->id)->exists()) {
 
@@ -99,6 +106,7 @@ class WorkInformationController extends Controller
                 'candidateFamilyWorkSkill' => $candidateFamilyWorkSkill,
                 'familyWorkExperience' => $familyWorkExperience,
                 'familyWorkedSelected' => $familyWorkedSelected,
+                // 'workInformationSchedule' => $workInformationSchedule
             ],
             'classificator' => [
                 'category' => $category,

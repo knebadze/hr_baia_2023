@@ -31,8 +31,8 @@
                             <div class="form-group">
                                 <label>{{ 'სამუშაო გრაფიკი' }}</label>
                                 <div class="ls-inputicon-box">
-                                    <multiselect v-model="m.getWorkInformation.work_schedule_id" :options="data.classificator.workSchedule" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false">
-                                        <template slot="singleLabel" slot-scope="{ option }"></template>
+                                    <multiselect v-model="m.workInformationSchedule"  :options="data.classificator.workSchedule" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name_ka" track-by="name_ka" :preselect-first="false">
+                                        <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                                     </multiselect>
                                     <!-- <i class="fs-input-icon fa fa-smoking"></i> -->
                                 </div>
@@ -83,7 +83,7 @@
                                 <th>კატეგორია</th>
                                 <th>გრაფიკი</th>
                                 <th>ანაზღაურება</th>
-                                <!-- <th>რეკომენდაცია</th> -->
+                                <th>ვალუტა</th>
                                 <th>Actions</th>
                               </tr>
                             </thead>
@@ -93,12 +93,12 @@
                               <tr v-for="(item,index) in m.workInformation">
                                 <td>{{ index + 1 }}</td>
                                 <td><span class="badge rounded-pill bg-success p-2">{{ item.category[`name_${getLang}`] }}</span></td>
-                                <td><span class="badge rounded-pill bg-primary p-2">{{ item.work_schedule[`name_${getLang}`] }}</span></td>
+                                <td><span v-for="i in item.work_schedule" class="badge rounded-pill bg-primary p-2">{{ i[`name_${getLang}`] }}</span></td>
                                 <td>{{ item.payment }}</td>
-                                <!-- <td>{{ (item.candidate_recommendation != null)?'კი':'არა' }}</td> -->
+                                <td>{{ item.currency[`name_${getLang}`] }}</td>
                                 <td>
                                     <button type="button" title="ნახვა" data-bs-toggle="tooltip" data-bs-placement="top" @click="editWorkInformation(item)">
-                                        <i class="fa fa-eye"></i>
+                                        <i class="fa fa-pen"></i>
                                     </button>
                                     <!-- <a type="button" title="ნახვა" data-bs-toggle="tooltip" data-bs-placement="top" :href="`/${this.getLang}/user/work_information_detail/${item.id}`">
                                         <i class="fa fa-eye"></i>
@@ -454,6 +454,7 @@ export default {
                 no_reason:'',
                 no_reason_info:'',
             },
+            workInformationSchedule: [],
             recommendationFile:null,
             setSkill:[],
             formData:new FormData(),
@@ -533,7 +534,7 @@ export default {
             axios({
                 method: "post",
                 url: "/add_work_information",
-                data: this.m.getWorkInformation,
+                data: {'getWorkInformation': this.m.getWorkInformation, 'workInformationSchedule': this.workInformationSchedule},
 
             })
             .then(function (response) {

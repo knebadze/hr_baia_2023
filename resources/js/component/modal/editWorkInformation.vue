@@ -28,8 +28,8 @@
                     <div class="form-group">
                         <label>{{ 'სამუშაო გრაფიკი' }}</label>
                         <div class="ls-inputicon-box">
-                            <multiselect v-model="m.work_schedule" :options="data.classificator.workSchedule" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false">
-                                <template slot="singleLabel" slot-scope="{ option }"></template>
+                            <multiselect v-model="m.work_schedule"  :options="data.classificator.workSchedule" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name_ka" track-by="name_ka" :preselect-first="false">
+                                <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                             </multiselect>
                             <!-- <i class="fs-input-icon fa fa-smoking"></i> -->
                         </div>

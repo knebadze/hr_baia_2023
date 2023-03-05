@@ -121,18 +121,18 @@ class CandidateRepository
 
         $candidate->languages()->sync($selectLanguage);
 
-        // print_r($data['candidateWorkExperience']);
+        // print_r($data);
         //     exit;
         if (count($data['candidateWorkExperience'])) {
 
             if (DB::table('general_work_experiences')->where('candidate_id', $candidate->id)->exists()) {
                 General_work_experience::where('candidate_id', $candidate->id)->delete();
             }
-            if ($data['candidateWorkExperience'][0]["hasExperience"]['id'] == 1) {
+            if ($data['candidateWorkExperience'][0]["has_experience"]['id'] == 1) {
 
                 $selectExperience = collect($data['candidateWorkExperience'])->reduce(function ($carry, $item) {
                     if($carry  == null) $carry = [];
-                    $carry[$item["work_experience"]['id']] = ["experience" => $item["hasExperience"]['id'], "position" => $item["position"], "object" => $item["object"]];
+                    $carry[$item["work_experience"]['id']] = ["experience" => $item["has_experience"]['id'], "position" => $item["position"], "object" => $item["object"]];
                     return $carry;
                 }, []);;
                 $candidate->generalWorkExperience()->attach($selectExperience);
@@ -141,7 +141,7 @@ class CandidateRepository
                 General_work_experience::updateOrCreate(
                     ['candidate_id' => $candidate->id],
                     [
-                        'experience' => $data['candidateWorkExperience'][0]["hasExperience"]['id'],
+                        'experience' => $data['candidateWorkExperience'][0]["has_experience"]['id'],
                         'no_reason_id' => $data['candidateWorkExperience'][0]['no_reason']['id'],
                         'no_reason_info' => $data['candidateWorkExperience'][0]['no_reason_info'],
                     ]

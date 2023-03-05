@@ -71,4 +71,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Candidate::class);
     }
+
+    public function gender()
+    {
+        return $this->belongsTo(gender::class);
+    }
 }

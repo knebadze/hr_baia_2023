@@ -15,14 +15,20 @@ class WorkInformationRepository
 {
     public function save($data,$candidate_id)
     {
-
         $workInformation = new WorkInformation();
+
         $workInformation->candidate_id = $candidate_id;
-        $workInformation->category_id = $data['category_id']['id'];
-        $workInformation->work_schedule_id = $data['work_schedule_id']['id'];
-        $workInformation->payment = $data['payment'];
-        $workInformation->currency_id  = $data['currency_id']['id'];
+        $workInformation->category_id = $data['getWorkInformation']['category_id']['id'];
+        $workInformation->payment = $data['getWorkInformation']['payment'];
+        $workInformation->currency_id  = $data['getWorkInformation']['currency_id']['id'];
         $workInformation->save();
+
+        $selectSchedule = collect($data['workInformationSchedule'])->reduce(function ($carry, $item) {
+            if($carry  == null) $carry = [];
+            $carry[] = $item['id'];
+            return $carry;
+        }, []);
+        $workInformation->workSchedule()->sync( $selectSchedule );
         return $data;
     }
 
@@ -30,10 +36,15 @@ class WorkInformationRepository
     {
 
         $workInformation->category_id = $data['category_id'];
-        $workInformation->work_schedule_id = $data['work_schedule']['id'];
         $workInformation->payment = $data['payment'];
         $workInformation->currency_id = $data['currency']['id'];
         $workInformation->update();
+        $selectSchedule = collect($data['work_schedule'])->reduce(function ($carry, $item) {
+            if($carry  == null) $carry = [];
+            $carry[] = $item['id'];
+            return $carry;
+        }, []);
+        $workInformation->workSchedule()->sync( $selectSchedule );
         return $workInformation;
     }
 

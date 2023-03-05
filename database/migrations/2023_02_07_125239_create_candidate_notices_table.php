@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('candidate_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('notice_id')->constrained();
             $table->string('file');
+            $table->string('uuid');
             $table->timestamps();
         });
     }

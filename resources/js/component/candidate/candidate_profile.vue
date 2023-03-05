@@ -355,7 +355,7 @@
                                             <option :value="1">კი</option>
                                             <option :value="2">არა</option>
                                         </select> -->
-                                        <multiselect v-model="candidateWorkExperienceModel.hasExperience" :options="data.classificator.yesNo" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                        <multiselect v-model="candidateWorkExperienceModel.has_experience" :options="data.classificator.yesNo" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
                                             <template slot="singleLabel" slot-scope="{ option }"></template>
                                         </multiselect>
                                         <!-- <i class="fs-input-icon fa fa-star"></i> -->
@@ -363,7 +363,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row" v-if="candidateWorkExperienceModel.hasExperience.id == 1">
+                            <div class="row" v-if="showYesWorkExperience">
                                 <div class="col-xl-6 col-lg-6 col-md-12">
                                     <div class="form-group">
                                         <label>{{ $t('lang.user_profile_page_work_exp') }}</label>
@@ -419,7 +419,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div v-if="candidateWorkExperienceModel.hasExperience.id == 1" class="col-lg-12 col-md-12">
+                            <div v-if="showYesWorkExperience" class="col-lg-12 col-md-12">
                                 <div class="text-right ">
                                     <button class="btn btn-success"
                                     @click="addCandidateWorkExperience(candidateWorkExperienceModel)"
@@ -433,7 +433,7 @@
 
                                 <div class="panel-body wt-panel-body">
                                     <div class="p-a20 table-responsive">
-                                        <table class="table twm-table table-striped table-borderless" v-if="m.candidateWorkExperience[0].experience == 1">
+                                        <table class="table twm-table table-striped table-borderless" v-if="m.candidateWorkExperience[0].has_experience.id == 1">
                                             <thead>
                                                 <tr>
                                                 <th>N</th>
@@ -458,7 +458,7 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <table class="table twm-table table-striped table-borderless" v-else>
+                                        <table class="table twm-table table-striped table-borderless" v-if="m.candidateWorkExperience[0].has_experience.id == 2">
                                             <thead>
                                                 <tr>
 
@@ -797,6 +797,7 @@ import _ from 'lodash'
 import { useVuelidate } from '@vuelidate/core'
 import { required, email, helpers, requiredIf, numeric, maxLength } from '@vuelidate/validators'
 import addressMap from '../map/address_map.vue'
+import { uuid } from 'vue-uuid'
 
 export default {
     setup () {
@@ -812,6 +813,7 @@ export default {
     },
     data() {
         return {
+            uuid: uuid.v1(),
             m: null,
             languages: {},
             languageLevels: {},
@@ -833,7 +835,7 @@ export default {
 
             // experienceCheck:null
             candidateWorkExperienceModel: {
-                hasExperience:'',
+                has_experience:'',
                 work_experience:'',
                 position:'',
                 object:'',
@@ -857,7 +859,8 @@ export default {
                 'number_owner':'',
             },
             candidate_id: null,
-            showNoWorkExperience: false
+            showNoWorkExperience: false,
+            showYesWorkExperience: false
 
         }
     },
@@ -961,7 +964,7 @@ export default {
             const isFormCorrect = await this.v$.$validate()
             // alert('Form failed validation')
             if (!isFormCorrect) return;
-            if (this.candidateWorkExperienceModel.hasExperience.id == 2) {
+            if (this.candidateWorkExperienceModel.has_experience.id == 2) {
                 this.m.candidateWorkExperience.push(this.candidateWorkExperienceModel)
             }
             let currentObj = this;
@@ -1029,7 +1032,7 @@ export default {
         // },
         noticeFileUpload(event){
             this.noticeFile = event.target.files[0]
-            var arr = [this.candidateNoticeModel.notice_id, event.target.files[0]]
+            var arr = [this.candidateNoticeModel.notice.id, event.target.files[0]]
             this.noticeFileInfo.push(arr)
         },
 
@@ -1122,13 +1125,15 @@ export default {
         //         }
         //     }
         // }
-        'candidateWorkExperienceModel.hasExperience': function(newVal, oldVa){
-            if (newVal.id == 2) {
+        'candidateWorkExperienceModel.has_experience.id': function(newVal, oldVa){
+            if (newVal == 2) {
                 this.showNoWorkExperience = true;
             }
+
+            if(newVal == 1)this.showYesWorkExperience = true;
+
             console.log('newValue', newVal);
-            if (this.m.candidateWorkExperience.length != 0 && this.m.candidateWorkExperience[0].experience != newVal.id) {
-                // alert()
+            if (this.m.candidateWorkExperience.length != 0 && this.m.candidateWorkExperience[0].experience != newVal && newVal != '') {
                 this.$swal({
                     title: 'თქვენ უკვე შეავსეთ ზოგადი სამუშაო ინფორმაცია თუ ამ ცვლილებას დაეთანხმებით ავტომატურად წაიშლება წინა შევსებული ინფორმაცია. <br><p>გსურთ გაგრძელება?</p>',
                     showDenyButton: true,
@@ -1150,11 +1155,14 @@ export default {
                             console.log(error);
                         });
                     } else if (result.isDenied) {
+                        this.showYesWorkExperience = false;
+                        this.candidateWorkExperienceModel.has_experience = '';
                     }
                 })
             }
-            if(this.m.candidateWorkExperience.length != 0 && this.m.candidateWorkExperience[0].experience == 2 && newVal.id == 2){
+            if(this.m.candidateWorkExperience.length != 0 && this.m.candidateWorkExperience[0].experience == 2 && newVal == 2){
                 this.showNoWorkExperience = false
+                this.candidateWorkExperienceModel.has_experience = '';
                 this.$swal({
                     title: '<p>თქვენ უკვე შეავსეთ ზოგადი სამუშაო ინფორმაცია</p>',
                     icon: 'info',

@@ -13,17 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('work_information', function (Blueprint $table) {
+        Schema::create('work_information_work_schedules', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('candidate_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('category_id')->constrained();
-            // $table->foreignId('work_schedule_id')->constrained();
-            $table->integer('payment');
-            $table->foreignId('currency_id')->constrained();
-
+            $table->unsignedBigInteger('work_information_id');
+            $table->foreignId('work_schedule_id')->constrained();
             $table->timestamps();
-
-
+            $table->foreign('work_information_id')
+              ->references('id')->on('work_information')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
@@ -34,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('work_information');
+        Schema::dropIfExists('work_information_work_schedules');
     }
 };

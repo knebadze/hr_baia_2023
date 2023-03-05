@@ -20,11 +20,13 @@ class WorkInformationService
     }
     public function saveData($data)
     {
+        // print_r($data);
+        // exit;
         $result = null;
         $auth = Auth::user();
         $user = User::where('id', $auth->id)->first();
         $candidate_id = $user->candidate->id;
-        if (DB::table('work_information')->where('candidate_id', $candidate_id)->where('category_id', $data['category_id']['id'])->exists()) {
+        if (DB::table('work_information')->where('candidate_id', $candidate_id)->where('category_id', $data['getWorkInformation']['category_id']['id'])->exists()) {
             return $result = ['message' => 'თქვენს მიერ მითითებულ კატეგორიაზე უკვე არსებობს ინფორმაცია'];
         }
         $result = $this->workInformationRepository->save($data, $candidate_id);

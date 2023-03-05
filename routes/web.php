@@ -2,25 +2,25 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\TermsController;
-
-use App\Http\Controllers\MainController;
-use App\Http\Controllers\IndividualController;
-use App\Http\Controllers\CompanyController;
-use App\Http\Controllers\MapvacancieController;
-use App\Http\Controllers\AboutController;
-use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\BlogController;
+
 use App\Http\Controllers\HomeController;
-
+use App\Http\Controllers\MainController;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\TermsController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\MyprofileController;
-use App\Http\Controllers\RezumeController;
 
-
+use App\Http\Controllers\IndividualController;
 use App\Http\Controllers\Auth\SocialController;
-use App\Http\Controllers\Candidate\WorkInformationController;
+
+
+use App\Http\Controllers\MapvacancieController;
+use App\Http\Controllers\User\ResumeController;
 use App\Http\Controllers\CandidateInfoController;
 use App\Http\Controllers\User\UserProfileController;
+use App\Http\Controllers\Candidate\WorkInformationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,7 +60,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
         // Route::get('/user/work_information_detail/{id}', [WorkInformationController::class, 'show'])->name('work.information.detail');
 
         // My Rezume
-        Route::get('/user/myrezume', [RezumeController::class, 'index'])->name('myrezume');
+        Route::get('/user/myrezume', [ResumeController::class, 'index'])->name('myrezume');
 
         Route::get('/home', [HomeController::class, 'index'])->name('home');
     });

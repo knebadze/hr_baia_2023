@@ -40,6 +40,8 @@ class Candidate extends Model
         'work_abroad' => 0
     ];
 
+    // protected $appends = ['generalWorkNoExperience'];
+
     public function nationality()
     {
         return $this->belongsTo(Nationality::class, 'nationality_id');
@@ -98,8 +100,21 @@ class Candidate extends Model
         return $this->belongsToMany(Skill::class, 'candidate_family_work_skills');
     }
 
-    // public function user()
+    public function familyWorkExperience()
+    {
+        return $this->belongsTo(FamilyWorkExperience::class, 'id', 'candidate_id');
+    }
+
+    // public function workInformation()
     // {
-    //     return $this->belongsTo(User::class);
+    //     return $this->belongsTo(WorkInformation::class,'id', 'candidate_id');
     // }
+
+    // public function familyWorkSkillCategory()
+    // {
+    //     return $this->belongsTo(CandidateFamilyWorkSkill::class, 'id', 'candidate_id');
+    // }
+
+
+
 }

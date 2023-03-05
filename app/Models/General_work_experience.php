@@ -30,5 +30,9 @@ class General_work_experience extends Model
     {
         return $this->belongsTo(YesNo::class, 'experience');
     }
+    public function candidate()
+    {
+        return $this->hasMany(Candidate::class, 'candidate_id');
+    }
 
 }

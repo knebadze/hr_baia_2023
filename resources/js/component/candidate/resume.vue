@@ -10,7 +10,18 @@
                         </a>
                     </div>
                     <div class="panel-body wt-panel-body p-a20 ">
-                        
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                Action
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <!-- <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#">Separated link</a></li> -->
+                            </ul>
+                        </div>
 
                     </div>
                 </div>
@@ -64,162 +75,228 @@
                     </div>
                 </div>
 
-                <!--Key Skills-->
-                <div class="panel panel-default mb-3">
+                  <!--Personal Details-->
+                  <div class="panel panel-default mb-3">
                     <div class="panel-heading wt-panel-heading p-a20 panel-heading-with-btn ">
-                        <h4 class="panel-tittle m-a0">Key Skills</h4>
-                        <a data-bs-toggle="modal" href="#Key_Skills" role="button" title="Edit" class="site-text-primary">
-                            <span class="fa fa-edit"></span>
-                        </a>
-                    </div>
-                    <div class="panel-body wt-panel-body p-a20 ">
-                        <div class="tw-sidebar-tags-wrap">
-                            <div class="tagcloud">
-                                <a href="javascript:void(0)">Finance</a>
-                                <a href="javascript:void(0)">Sales</a>
-                                <a href="javascript:void(0)">Part-time</a>
-                                <a href="javascript:void(0)">Administration</a>
-                                <a href="javascript:void(0)">Retail</a>
-                                <a href="javascript:void(0)">Engineering</a>
-                                <a href="javascript:void(0)">Developer</a>
-                                <a href="javascript:void(0)">Work from home</a>
-                                <a href="javascript:void(0)">IT Consulting</a>
-                                <a href="javascript:void(0)">Manufacturing</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!--Modal popup -->
-                    <div class="modal fade twm-saved-jobs-view" id="Key_Skills" tabindex="-1">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <form>
-
-                                    <div class="modal-header">
-                                        <h2 class="modal-title">Key Skills</h2>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-
-                                    <div class="modal-body">
-                                        <p>It is the first thing recruiters notice in your profile. Write concisely what makes you unique and right person for the job you are looking for.</p>
-
-                                        <div class="form-group">
-                                            <input class="form-control"  type="text" value="Finance, Sales, Retail, Engineering">
-                                        </div>
-
-                                    </div>
-
-                                    <div class="modal-footer">
-
-                                        <button type="button" class="site-button" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="site-button">Save</button>
-
-                                    </div>
-
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!--Employment-->
-                <div class="panel panel-default mb-3">
-                    <div class="panel-heading wt-panel-heading p-a20 panel-heading-with-btn ">
-                        <h4 class="panel-tittle m-a0">Employment</h4>
-                        <a data-bs-toggle="modal" href="#Employment" role="button" title="Edit" class="site-text-primary">
+                        <h4 class="panel-tittle m-a0">Personal Details</h4>
+                        <a data-bs-toggle="modal" href="#Personal_Details" role="button" title="Edit" class="site-text-primary">
                             <span class="fa fa-edit"></span>
                         </a>
                     </div>
                     <div class="panel-body wt-panel-body p-a20 ">
                         <div class="twm-panel-inner">
-                            <p><b>Senior UI / UX Designer and Developer</b></p>
-                            <p>Google INC</p>
-                            <p>Experience (6 Year)</p>
-                            <p>Available to join in 1 Months</p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="twm-s-detail-section">
+                                        <div class="twm-title">სახელი გვარი</div>
+                                        <span class="twm-s-info-discription">{{ data.user[`name_${getLang}`] }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="twm-s-detail-section">
+                                        <div class="twm-title">ტელეფონის ნომერი</div>
+                                        <span class="twm-s-info-discription">{{ data.user.number }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="twm-s-detail-section">
+                                        <div class="twm-title">Date of Birth</div>
+                                        <span class="twm-s-info-discription">{{ data.user.date_of_birth }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="twm-s-detail-section">
+                                        <div class="twm-title">ეროვნება</div>
+                                        <span class="twm-s-info-discription">{{ data.candidate.nationality[`name_${getLang}`] }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="twm-s-detail-section">
+                                        <div class="twm-title">Gender</div>
+                                        <span class="twm-s-info-discription">{{ data.user.gender[`name_${getLang}`] }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="twm-s-detail-section">
+                                        <div class="twm-title">მოქალაქეობა</div>
+                                        <span v-for="(item, index) in data.candidate.citizenship" :key="index" class="twm-s-info-discription">{{ item[`name_${getLang}`]+', ' }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="twm-s-detail-section">
+                                        <div class="twm-title">Marital Status</div>
+                                        <span class="twm-s-info-discription">{{ data.candidate.marital_status[`name_${getLang}`] }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="twm-s-detail-section">
+                                        <div class="twm-title">Permanent Address</div>
+                                        <span class="twm-s-info-discription">{{ data.candidate.address+' '+ data.candidate.street}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="twm-s-detail-section">
+                                        <div class="twm-title">Passport Number</div>
+                                        <span class="twm-s-info-discription">{{ data.candidate.personal_number }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="twm-s-detail-section">
+                                        <div class="twm-title">რელიგია</div>
+                                        <span class="twm-s-info-discription">{{ data.candidate.religion[`name_${getLang}`] }}</span>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
                         </div>
                     </div>
 
-                    <!--Employment -->
-                    <div class="modal fade twm-saved-jobs-view" id="Employment" tabindex="-1">
+                    <!--Personal Details Modal -->
+                    <div class="modal fade twm-saved-jobs-view" id="Personal_Details" tabindex="-1">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <form>
 
                                     <div class="modal-header">
-                                        <h2 class="modal-title">Add Employment</h2>
+                                        <h2 class="modal-title">Personal Detail</h2>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
 
                                     <div class="modal-body">
 
-                                        <div class="row">
-                                            <div class="col-xl-12 col-lg-12">
-                                                <div class="form-group">
-                                                    <label>Your Designation</label>
-                                                    <div class="ls-inputicon-box">
-                                                        <input class="form-control"  type="text" placeholder="Enter Your Designation">
-                                                        <i class="fs-input-icon fa fa-address-card"></i>
+                                            <div class="row">
+                                                <!--Birth Date-->
+                                                <div class="col-xl-12 col-lg-12">
+                                                    <div class="form-group">
+                                                        <label>Date of Birth</label>
+                                                        <div class="ls-inputicon-box">
+                                                            <input class="form-control datepicker" data-provide="datepicker" name="company_since" type="text" placeholder="mm/dd/yyyy">
+                                                            <i class="fs-input-icon far fa-calendar"></i>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-xl-12 col-lg-12">
-                                                <div class="form-group">
-                                                    <label>Your Organization</label>
-                                                    <div class="ls-inputicon-box">
-                                                        <input class="form-control" type="text" placeholder="Enter Your Organization">
-                                                        <i class="fs-input-icon fa fa-building"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-12 col-lg-12">
-                                                <div class="form-group">
-                                                    <label>Is this your current company?</label>
-                                                    <div class="row twm-form-radio-inline">
 
-                                                        <div class="col-md-6">
-                                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                                            <label class="form-check-label" for="flexRadioDefault1">
-                                                                Yes
-                                                            </label>
-                                                            </div>
+                                                <div class="col-xl-12 col-lg-12">
+                                                    <div class="form-group">
+                                                        <label>Gender</label>
+                                                        <div class="row twm-form-radio-inline">
+
                                                             <div class="col-md-6">
-                                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="S_no" checked>
-                                                            <label class="form-check-label" for="S_no">
-                                                                No
-                                                            </label>
-                                                            </div>
+                                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="S_male">
+                                                                <label class="form-check-label" for="S_male">
+                                                                    Male
+                                                                </label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="S_female" checked>
+                                                                <label class="form-check-label" for="S_female">
+                                                                    Female
+                                                                </label>
+                                                                </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            <!--Start Date-->
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Started Working From</label>
-                                                    <div class="ls-inputicon-box">
-                                                        <input class="form-control datepicker" data-provide="datepicker" name="company_since" type="text" placeholder="mm/dd/yyyy">
-                                                        <i class="fs-input-icon far fa-calendar"></i>
+                                                <div class="col-xl-12 col-lg-12">
+                                                    <div class="form-group">
+                                                        <label>Permanent Address</label>
+                                                        <div class="ls-inputicon-box">
+                                                            <input class="form-control"  type="text" placeholder="Enter Permanent Address">
+                                                            <i class="fs-input-icon fa fa-map-marker-alt"></i>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            <!--End Date-->
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Worked Till</label>
-                                                    <div class="ls-inputicon-box">
-                                                        <input class="form-control datepicker" data-provide="datepicker" name="company_since" type="text" placeholder="mm/dd/yyyy">
-                                                        <i class="fs-input-icon far fa-calendar"></i>
+                                                <div class="col-xl-12 col-lg-12">
+                                                    <div class="form-group">
+                                                        <label>Hometown</label>
+                                                        <div class="ls-inputicon-box">
+                                                            <input class="form-control"  type="text" placeholder="Enter Hometown">
+                                                            <i class="fs-input-icon fa fa-map-marker-alt"></i>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group mb-0">
-                                                    <label>Describe your Job Profile</label>
-                                                    <textarea class="form-control" rows="3" placeholder="Describe your Job"></textarea>
-                                                </div>
-                                            </div>
 
-                                        </div>
+                                                <div class="col-xl-12 col-lg-12">
+                                                    <div class="form-group">
+                                                        <label>Pincode</label>
+                                                        <div class="ls-inputicon-box">
+                                                            <input class="form-control"  type="text" placeholder="Enter Pincode">
+                                                            <i class="fs-input-icon fa fa-map-pin"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-12 col-lg-12">
+                                                    <div class="form-group">
+                                                        <label>Marital Status</label>
+                                                        <div class="ls-inputicon-box">
+                                                            <select class="wt-select-box selectpicker"  data-live-search="true" title=""  data-bv-field="size">
+                                                                <option class="bs-title-option" value="">Select Category</option>
+                                                                <option>Married</option>
+                                                                <option>Single</option>
+                                                            </select>
+                                                            <i class="fs-input-icon fa fa-user"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-12 col-lg-12">
+                                                    <div class="form-group">
+                                                        <label>Passport Number</label>
+                                                        <div class="ls-inputicon-box">
+                                                            <input class="form-control" type="text" placeholder="Enter Passport Number">
+                                                            <i class="fs-input-icon fa fa-star-of-life"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>What assistance do you need</label>
+                                                        <textarea class="form-control" rows="3" placeholder="Describe"></textarea>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-12 col-lg-12">
+                                                    <div class="form-group mb-0">
+                                                        <label>Work Permit for Other Countries</label>
+                                                        <div class="ls-inputicon-box">
+                                                            <select class="wt-select-box selectpicker"  data-live-search="true" title=""  data-bv-field="size">
+                                                                <option class="bs-title-option" value="">Country</option>
+                                                                <option>Afghanistan</option>
+                                                                <option>Albania</option>
+                                                                <option>Algeria</option>
+                                                                <option>Andorra</option>
+                                                                <option>Angola</option>
+                                                                <option>Antigua and Barbuda</option>
+                                                                <option>Argentina</option>
+                                                                <option>Armenia</option>
+                                                                <option>Australia</option>
+                                                                <option>Austria</option>
+                                                                <option>Azerbaijan</option>
+                                                                <option>The Bahamas</option>
+                                                                <option>Bahrain</option>
+                                                                <option>Bangladesh</option>
+                                                                <option>Barbados</option>
+                                                            </select>
+                                                            <i class="fs-input-icon fa fa-globe-americas"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
 
 
                                     </div>
@@ -238,26 +315,110 @@
 
                 </div>
 
-                <!--Education-->
-                <div class="panel panel-default mb-3">
+                  <!--Additional Details-->
+                  <div class="panel panel-default mb-3">
                     <div class="panel-heading wt-panel-heading p-a20 panel-heading-with-btn ">
-                        <h4 class="panel-tittle m-a0">Education</h4>
+                        <h4 class="panel-tittle m-a0">დამატაბითი ინფორმაცია</h4>
+                        <a data-bs-toggle="modal" href="#Personal_Details" role="button" title="Edit" class="site-text-primary">
+                            <span class="fa fa-edit"></span>
+                        </a>
+                    </div>
+                    <div class="panel-body wt-panel-body p-a20 ">
+                        <div class="twm-panel-inner">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="twm-s-detail-section">
+                                        <div class="twm-title">სიმაღლე</div>
+                                        <span class="twm-s-info-discription">{{ data.candidate.height }} სმ.</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="twm-s-detail-section">
+                                        <div class="twm-title">წონა</div>
+                                        <span class="twm-s-info-discription">{{ data.candidate.weight }} კგ.</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="twm-s-detail-section">
+                                        <div class="twm-title">ასაკი</div>
+                                        <span class="twm-s-info-discription">{{ age }} წლის</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="twm-s-detail-section">
+                                        <div class="twm-title">მახასიათებლები</div>
+                                        <span v-for="(item, index) in data.candidate.characteristic" :key="index" class="twm-s-info-discription">{{ item[`name_${getLang}`]+', ' }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="twm-s-detail-section">
+                                        <div class="twm-title">ნასამართლეობა</div>
+                                        <span class="twm-s-info-discription">{{ (data.candidate.convection == 1)?data.yesNo[0][`name_${getLang}`]:data.yesNo[1][`name_${getLang}`] }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="twm-s-detail-section">
+                                        <div class="twm-title">მწეველი</div>
+                                        <span class="twm-s-info-discription">{{ (data.candidate.smoke == 1)?data.yesNo[0][`name_${getLang}`]:data.yesNo[1][`name_${getLang}`] }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="twm-s-detail-section">
+                                        <div class="twm-title">იმუშავებდით საზღარგარეთ</div>
+                                        <span class="twm-s-info-discription">{{ (data.candidate.work_abroad == 1)?data.yesNo[0][`name_${getLang}`]:data.yesNo[1][`name_${getLang}`] }}</span>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                  <!--Education-->
+                  <div class="panel panel-default mb-3">
+                    <div class="panel-heading wt-panel-heading p-a20 panel-heading-with-btn ">
+                        <h4 class="panel-tittle m-a0">განათლება</h4>
                         <a data-bs-toggle="modal" href="#Education" role="button" title="Edit" class="site-text-primary">
                             <span class="fa fa-edit"></span>
                         </a>
                     </div>
                     <div class="panel-body wt-panel-body p-a20 ">
                         <div class="twm-panel-inner">
-                            <p>Mention your employment details including your current and previous company work experience</p>
-                            <p>2004 to 2006</p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="twm-s-detail-section">
+                                        <div class="twm-title">განათლება</div>
+                                        <span class="twm-s-info-discription">{{ data.candidate.education[`name_${getLang}`] }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="twm-s-detail-section">
+                                        <div class="twm-title">პროფესია</div>
+                                        <span v-for="(item, index) in data.candidate.professions" :key="index" class="twm-s-info-discription">{{ item[`name_${getLang}`]+', ' }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="twm-s-detail-section">
+                                        <div class="twm-title">სპეციალობა</div>
+                                        <span v-for="(item, index) in data.candidate.specialty" :key="index" class="twm-s-info-discription">{{ item[`name_${getLang}`]+', ' }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <p>2004 to 2006</p>
                             <p><b>BCA - Bachelor of Computer Applications</b></p>
                             <p>2006 to 2008</p>
                             <p><b>MCA - Master of Computer Application</b></p>
                             <p>2008 to 20011</p>
-                            <p><b>Design Communication Visual</b></p>
-                            <p><a class="site-text-primary" href="javascript:;">Add Doctorate/PhD</a></p>
-                            <p><a class="site-text-primary" href="javascript:;">Add Masters/Post-Graduation</a></p>
-                            <p><a class="site-text-primary" href="javascript:;">Add Graduation/Diploma</a></p>
+                            <p><b>Design Communication Visual</b></p> -->
+                            <!-- <p><a class="site-text-primary" href="javascript:;">Add Doctorate/PhD</a></p>
+                            <p><a class="site-text-primary" href="javascript:;">Add Masters/Post-Graduation</a></p> -->
+                            <p><a class="site-text-primary" href="javascript:;">დიპლომი</a></p>
                         </div>
                     </div>
 
@@ -336,6 +497,214 @@
                     </div>
 
                 </div>
+
+                <!--ოხახური მდგომარეობა-->
+                <div v-if="data.candidate.marital_status_id != 1" class="panel panel-default mb-3">
+                    <div class="panel-heading wt-panel-heading p-a20 panel-heading-with-btn ">
+                        <h4 class="panel-tittle m-a0">ინფორმაცია ოჯახის შესახებ</h4>
+                        <a data-bs-toggle="modal" href="#Personal_Details" role="button" title="Edit" class="site-text-primary">
+                            <span class="fa fa-edit"></span>
+                        </a>
+                    </div>
+                    <div class="panel-body wt-panel-body p-a20 ">
+                        <div class="twm-panel-inner">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="twm-s-detail-section">
+                                        <div class="twm-title">შვილების რაოდენობა</div>
+                                        <span class="twm-s-info-discription">{{ data.candidate.children }}</span>
+                                    </div>
+                                </div>
+
+                                <div v-if="data.candidate.children != null || data.candidate.children != 0" class="col-md-6">
+                                    <div class="twm-s-detail-section">
+                                        <div class="twm-title">შვილების ასაკი</div>
+                                        <span class="twm-s-info-discription">{{ data.candidate.children_age }} კგ.</span>
+                                    </div>
+                                </div>
+
+                                <div v-if="data.candidate.marital_status_id == 2" class="col-md-6">
+                                    <div class="twm-s-detail-section">
+                                        <div class="twm-title">ინფორმაცია მეუღლეზე</div>
+                                        <span class="twm-s-info-discription">{{ data.candidate.spouse }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Employment-->
+                <div class="panel panel-default mb-3">
+                    <div class="panel-heading wt-panel-heading p-a20 panel-heading-with-btn ">
+                        <h4 class="panel-tittle m-a0">ზოგადი სამუშაო გამოცდილება</h4>
+                        <a data-bs-toggle="modal" href="#Employment" role="button" title="Edit" class="site-text-primary">
+                            <span class="fa fa-edit"></span>
+                        </a>
+                    </div>
+                    <div class="row">
+                        <div v-for="(item, index) in data.candidate.general_work_experience" :key="index" class="col-md-6">
+                            <div  v-if="item.pivot.experience == 1" class="panel-body wt-panel-body p-a20">
+                                <div class="twm-panel-inner">
+                                    <div class="twm-s-detail-section">
+                                        <div class="twm-title">პოზიცია</div>
+                                        <span class="twm-s-info-discription">{{ item.pivot.position }}</span>
+                                    </div>
+                                    <div class="twm-s-detail-section">
+                                        <div class="twm-title">ობიექტი</div>
+                                        <span class="twm-s-info-discription">{{ item.pivot.object }}</span>
+                                    </div>
+                                    <div class="twm-s-detail-section">
+                                        <div class="twm-title">ხანგრძლივობა</div>
+                                        <span class="twm-s-info-discription">{{ item[`name_${getLang}`] }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- -->
+                        </div>
+                        <div v-if="data.generalWorkNoExperience && data.generalWorkNoExperience.experience == 2" class="col-md-12">
+                            <div  class="panel-body wt-panel-body p-a20 ">
+                                <div class="twm-panel-inner">
+                                    <div class="twm-s-detail-section">
+                                        <div class="twm-title">მიზეზი</div>
+                                        <span class="twm-s-info-discription">{{ data.generalWorkNoExperience.no_reason[`name_${getLang}`] }}</span>
+                                    </div>
+                                    <div class="twm-s-detail-section">
+                                        <div class="twm-title">დამატებითი ინფორმაცია</div>
+                                        <span class="twm-s-info-discription">{{ data.generalWorkNoExperience.no_reason_info }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                 <!--family Employment-->
+                 <div class="panel panel-default mb-3">
+                    <div class="panel-heading wt-panel-heading p-a20 panel-heading-with-btn ">
+                        <h4 class="panel-tittle m-a0">სამუშაო ინფორმაცია</h4>
+                        <a data-bs-toggle="modal" href="#Employment" role="button" title="Edit" class="site-text-primary">
+                            <span class="fa fa-edit"></span>
+                        </a>
+                    </div>
+                    <div class="panel-body wt-panel-body p-a20 ">
+                        <div class="twm-panel-inner">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="twm-s-detail-section">
+                                        <div class="twm-title">გრაფიკი</div>
+                                        <span class="twm-s-info-discription">{{ data.candidate.family_work_experience.families_worked_count }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="twm-s-detail-section">
+                                        <div class="twm-title">ანაზღაურება</div>
+                                        <span class="twm-s-info-discription">{{ data.candidate.family_work_experience.longest[`name_${getLang}`] }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="twm-s-detail-section">
+                                        <div class="twm-title">ვალუტა</div>
+                                        <span class="twm-s-info-discription">{{ data.candidate.family_work_experience.work_experience[`name_${getLang}`] }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                 <!--family Employment-->
+                 <div class="panel panel-default mb-3">
+                    <div class="panel-heading wt-panel-heading p-a20 panel-heading-with-btn ">
+                        <h4 class="panel-tittle m-a0">ოჯახში მუშაობის გამოცდილება</h4>
+                        <a data-bs-toggle="modal" href="#Employment" role="button" title="Edit" class="site-text-primary">
+                            <span class="fa fa-edit"></span>
+                        </a>
+                    </div>
+                    <div class="panel-body wt-panel-body p-a20 ">
+                        <div class="twm-panel-inner">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="twm-s-detail-section">
+                                        <div class="twm-title">რამდენ ოჯახში გიმუშავით</div>
+                                        <span class="twm-s-info-discription">{{ data.candidate.family_work_experience.families_worked_count }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="twm-s-detail-section">
+                                        <div class="twm-title">მუშაობის ხანგრძლივობა ჯამში</div>
+                                        <span class="twm-s-info-discription">{{ data.candidate.family_work_experience.longest[`name_${getLang}`] }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="twm-s-detail-section">
+                                        <div class="twm-title">ყველაზე ხანგძლივად</div>
+                                        <span class="twm-s-info-discription">{{ data.candidate.family_work_experience.work_experience[`name_${getLang}`] }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="twm-s-detail-section">
+                                        <div class="twm-title">ოჯახში მუშაობდით</div>
+                                        <span v-for="(item, index) in data.familyWorkSkillCategory" :key="index" class="twm-s-info-discription">{{ item[`name_${getLang}`]+', ' }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Key Skills-->
+                <div class="panel panel-default mb-3">
+                    <div class="panel-heading wt-panel-heading p-a20 panel-heading-with-btn ">
+                        <h4 class="panel-tittle m-a0">სქილები</h4>
+                        <a data-bs-toggle="modal" href="#Key_Skills" role="button" title="Edit" class="site-text-primary">
+                            <span class="fa fa-edit"></span>
+                        </a>
+                    </div>
+                    <div class="panel-body wt-panel-body p-a20 ">
+                        <div class="tw-sidebar-tags-wrap">
+                            <div class="tagcloud">
+                                <a v-for="item in data.candidate.family_work_skill" href="javascript:void(0)">{{ item[`name_${getLang}`] }}</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Modal popup -->
+                    <div class="modal fade twm-saved-jobs-view" id="Key_Skills" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <form>
+
+                                    <div class="modal-header">
+                                        <h2 class="modal-title">Key Skills</h2>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <p>It is the first thing recruiters notice in your profile. Write concisely what makes you unique and right person for the job you are looking for.</p>
+
+                                        <div class="form-group">
+                                            <input class="form-control"  type="text" value="Finance, Sales, Retail, Engineering">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="modal-footer">
+
+                                        <button type="button" class="site-button" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="site-button">Save</button>
+
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
 
                 <!--IT Skills-->
                 <div class="panel panel-default mb-3">
@@ -1007,244 +1376,7 @@
 
                 </div>
 
-                <!--Personal Details-->
-                <div class="panel panel-default mb-3">
-                    <div class="panel-heading wt-panel-heading p-a20 panel-heading-with-btn ">
-                        <h4 class="panel-tittle m-a0">Personal Details</h4>
-                        <a data-bs-toggle="modal" href="#Personal_Details" role="button" title="Edit" class="site-text-primary">
-                            <span class="fa fa-edit"></span>
-                        </a>
-                    </div>
-                    <div class="panel-body wt-panel-body p-a20 ">
-                        <div class="twm-panel-inner">
-                            <div class="row">
 
-                                <div class="col-md-6">
-                                    <div class="twm-s-detail-section">
-                                        <div class="twm-title">Date of Birth</div>
-                                        <span class="twm-s-info-discription">31 July 1998</span>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="twm-s-detail-section">
-                                        <div class="twm-title">Permanent Address</div>
-                                        <span class="twm-s-info-discription">Add Permanent Address</span>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="twm-s-detail-section">
-                                        <div class="twm-title">Gender</div>
-                                        <span class="twm-s-info-discription">Male</span>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="twm-s-detail-section">
-                                        <div class="twm-title">Area Pin Code</div>
-                                        <span class="twm-s-info-discription">302021</span>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="twm-s-detail-section">
-                                        <div class="twm-title">Marital Status</div>
-                                        <span class="twm-s-info-discription">Single / unmarried</span>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="twm-s-detail-section">
-                                        <div class="twm-title">Hometown</div>
-                                        <span class="twm-s-info-discription">USA</span>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="twm-s-detail-section">
-                                        <div class="twm-title">Passport Number</div>
-                                        <span class="twm-s-info-discription">+123 456 7890</span>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="twm-s-detail-section">
-                                        <div class="twm-title">Work permit of other country</div>
-                                        <span class="twm-s-info-discription">UK</span>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="twm-s-detail-section">
-                                        <div class="twm-title">Differently Abled</div>
-                                        <span class="twm-s-info-discription">None</span>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="twm-s-detail-section">
-                                        <div class="twm-title">Languages</div>
-                                        <span class="twm-s-info-discription">English</span>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--Personal Details Modal -->
-                    <div class="modal fade twm-saved-jobs-view" id="Personal_Details" tabindex="-1">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <form>
-
-                                    <div class="modal-header">
-                                        <h2 class="modal-title">Personal Detail</h2>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-
-                                    <div class="modal-body">
-
-                                            <div class="row">
-                                                <!--Birth Date-->
-                                                <div class="col-xl-12 col-lg-12">
-                                                    <div class="form-group">
-                                                        <label>Date of Birth</label>
-                                                        <div class="ls-inputicon-box">
-                                                            <input class="form-control datepicker" data-provide="datepicker" name="company_since" type="text" placeholder="mm/dd/yyyy">
-                                                            <i class="fs-input-icon far fa-calendar"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-xl-12 col-lg-12">
-                                                    <div class="form-group">
-                                                        <label>Gender</label>
-                                                        <div class="row twm-form-radio-inline">
-
-                                                            <div class="col-md-6">
-                                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="S_male">
-                                                                <label class="form-check-label" for="S_male">
-                                                                    Male
-                                                                </label>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="S_female" checked>
-                                                                <label class="form-check-label" for="S_female">
-                                                                    Female
-                                                                </label>
-                                                                </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-xl-12 col-lg-12">
-                                                    <div class="form-group">
-                                                        <label>Permanent Address</label>
-                                                        <div class="ls-inputicon-box">
-                                                            <input class="form-control"  type="text" placeholder="Enter Permanent Address">
-                                                            <i class="fs-input-icon fa fa-map-marker-alt"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-xl-12 col-lg-12">
-                                                    <div class="form-group">
-                                                        <label>Hometown</label>
-                                                        <div class="ls-inputicon-box">
-                                                            <input class="form-control"  type="text" placeholder="Enter Hometown">
-                                                            <i class="fs-input-icon fa fa-map-marker-alt"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-xl-12 col-lg-12">
-                                                    <div class="form-group">
-                                                        <label>Pincode</label>
-                                                        <div class="ls-inputicon-box">
-                                                            <input class="form-control"  type="text" placeholder="Enter Pincode">
-                                                            <i class="fs-input-icon fa fa-map-pin"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-xl-12 col-lg-12">
-                                                    <div class="form-group">
-                                                        <label>Marital Status</label>
-                                                        <div class="ls-inputicon-box">
-                                                            <select class="wt-select-box selectpicker"  data-live-search="true" title=""  data-bv-field="size">
-                                                                <option class="bs-title-option" value="">Select Category</option>
-                                                                <option>Married</option>
-                                                                <option>Single</option>
-                                                            </select>
-                                                            <i class="fs-input-icon fa fa-user"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-xl-12 col-lg-12">
-                                                    <div class="form-group">
-                                                        <label>Passport Number</label>
-                                                        <div class="ls-inputicon-box">
-                                                            <input class="form-control" type="text" placeholder="Enter Passport Number">
-                                                            <i class="fs-input-icon fa fa-star-of-life"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label>What assistance do you need</label>
-                                                        <textarea class="form-control" rows="3" placeholder="Describe"></textarea>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-xl-12 col-lg-12">
-                                                    <div class="form-group mb-0">
-                                                        <label>Work Permit for Other Countries</label>
-                                                        <div class="ls-inputicon-box">
-                                                            <select class="wt-select-box selectpicker"  data-live-search="true" title=""  data-bv-field="size">
-                                                                <option class="bs-title-option" value="">Country</option>
-                                                                <option>Afghanistan</option>
-                                                                <option>Albania</option>
-                                                                <option>Algeria</option>
-                                                                <option>Andorra</option>
-                                                                <option>Angola</option>
-                                                                <option>Antigua and Barbuda</option>
-                                                                <option>Argentina</option>
-                                                                <option>Armenia</option>
-                                                                <option>Australia</option>
-                                                                <option>Austria</option>
-                                                                <option>Azerbaijan</option>
-                                                                <option>The Bahamas</option>
-                                                                <option>Bahrain</option>
-                                                                <option>Bangladesh</option>
-                                                                <option>Barbados</option>
-                                                            </select>
-                                                            <i class="fs-input-icon fa fa-globe-americas"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-
-                                    </div>
-
-                                    <div class="modal-footer">
-
-                                        <button type="button" class="site-button" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="site-button">Save</button>
-
-                                    </div>
-
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
 
                 <!--Attach Resume-->
                 <div class="panel panel-default mb-3">
@@ -1841,7 +1973,30 @@
 export default {
     props:{
         data: Object
-    }
+    },
+    data() {
+        return {
+
+        }
+    },
+    // created(){
+
+    // },
+    computed:{
+        getLang(){
+            return I18n.getSharedInstance().options.lang
+        },
+        age(){
+            var dob = new Date(this.data.user.date_of_birth)
+            var diff_ms = Date.now() - dob.getTime();
+            var age_dt = new Date(diff_ms);
+
+            return Math.abs(age_dt.getUTCFullYear() - 1970);
+        }
+    },
+    mounted() {
+        console.log('data', this.data);
+    },
 }
 </script>
 <style lang="">
