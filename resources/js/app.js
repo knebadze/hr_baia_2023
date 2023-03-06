@@ -18,6 +18,7 @@ import uploadAvatar from './component/user/upload_avatar.vue'
 import candidateProfile from './component/candidate/candidate_profile.vue'
 import candidateWorkInformation from './component/candidate/candidate_work_information.vue'
 import resume from './component/candidate/resume.vue'
+import candidateList from './component/candidate/candidate_list.vue'
 
 //employer
 import employerProfile from './component/employer/employer_profile.vue'
@@ -48,6 +49,7 @@ app.component('upload-avatar', uploadAvatar)
 app.component('candidate-profile', candidateProfile)
 app.component('candidate-work-information', candidateWorkInformation)
 app.component('resume-vue', resume)
+app.component('candidate-list', candidateList)
 
 //employer
 app.component('employer-profile', employerProfile)

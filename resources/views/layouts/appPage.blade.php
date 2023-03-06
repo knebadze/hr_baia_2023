@@ -37,6 +37,11 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}"><!-- MAIN STYLE SHEET -->
     <script  src="{{ asset('js/jquery-3.6.0.min.js') }}"></script><!-- JQUERY.MIN JS -->
 
+    {{-- <script
+      src="https://maps.googleapis.com/maps/api/js?key=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&callback=initMap&v=weekly"
+      defer
+    ></script> --}}
+
     {{-- //mapBox --}}
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.css' rel='stylesheet' />

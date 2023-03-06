@@ -231,6 +231,7 @@
                         <p>მოძებვნის შემდეგ შეგიძლიათ ამოძრაოთ მარკერი რათა დააზუსთოთ თქვენი მისამართი</p>
                         <div class="row">
                             <addressMap :data="m.candidate.address" @messageFromChild="childMessage"></addressMap>
+                            <!-- <addressGoogleMap></addressGoogleMap> -->
                             <div class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
                                     <label>{{ 'მისამართი' }}</label>
@@ -797,6 +798,7 @@ import _ from 'lodash'
 import { useVuelidate } from '@vuelidate/core'
 import { required, email, helpers, requiredIf, numeric, maxLength } from '@vuelidate/validators'
 import addressMap from '../map/address_map.vue'
+import addressGoogleMap from '../map/address_google_map.vue'
 import { uuid } from 'vue-uuid'
 
 export default {
@@ -806,7 +808,8 @@ export default {
     components:{
         miniTable,
         mainInfo,
-        addressMap
+        addressMap,
+        addressGoogleMap
     },
     props:{
         data:Object
@@ -870,8 +873,8 @@ export default {
                 auth:{
                     number: {
                         required: helpers.withMessage('ნომრის შევსება სავალდებულოა', required ),
-                        numeric: helpers.withMessage('ნომრი უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric ),
-                        maxLength: helpers.withMessage('ნომრი უნდა შედგებოდეს 9 ციფრებისგან', maxLength(9) )
+                        numeric: helpers.withMessage('ნომერი უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric ),
+                        maxLength: helpers.withMessage('ნომერი უნდა შედგებოდეს 9 ციფრებისგან', maxLength(9) )
                     },
                     gender_id: {required: helpers.withMessage('სქესის არჩევა სავალდებულოა', required )},
                     date_of_birth: {required: helpers.withMessage('დაბადების თარიღის შევსება სავალდებულოა', required )}

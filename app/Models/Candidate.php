@@ -42,6 +42,10 @@ class Candidate extends Model
 
     // protected $appends = ['generalWorkNoExperience'];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
     public function nationality()
     {
         return $this->belongsTo(Nationality::class, 'nationality_id');
@@ -110,10 +114,10 @@ class Candidate extends Model
         return $this->belongsToMany(RecommendationFromWhom::class, 'candidate_recommendations')->withPivot('name','position', 'number', 'file');
     }
 
-    // public function workInformation()
-    // {
-    //     return $this->belongsTo(WorkInformation::class,'id', 'candidate_id');
-    // }
+    public function workInformation()
+    {
+        return $this->belongsToMany(Category::class,'work_information');
+    }
 
     // public function familyWorkSkillCategory()
     // {

@@ -20,9 +20,10 @@
                             <div class="form-group">
                                 <label>{{ 'კატეგორია' }}</label>
                                 <div class="ls-inputicon-box">
-                                    <multiselect v-model="m.getWorkInformation.category_id" :options="data.classificator.category" :searchable="true" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :allow-empty="false">
+                                    <multiselect v-model="m.getWorkInformation.category_id" :options="data.classificator.category" :searchable="true" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :allow-empty="false" @blur="v$.m.getWorkInformation.category_id.$touch">
                                         <template slot="singleLabel" slot-scope="{ option }"></template>
                                     </multiselect>
+                                    <span v-if="v$.m.getWorkInformation.category_id.required.$invalid && v$.m.getWorkInformation.category_id.$dirty" style='color:red'>* {{ v$.m.getWorkInformation.category_id.required.$message}}</span>
                                     <!-- <i class="fs-input-icon fa fa-smoking"></i> -->
                                 </div>
                             </div>
@@ -31,9 +32,10 @@
                             <div class="form-group">
                                 <label>{{ 'სამუშაო გრაფიკი' }}</label>
                                 <div class="ls-inputicon-box">
-                                    <multiselect v-model="workInformationSchedule"  :options="data.classificator.workSchedule" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name_ka" track-by="name_ka" :preselect-first="false">
+                                    <multiselect v-model="workInformationSchedule"  :options="data.classificator.workSchedule" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name_ka" track-by="name_ka" :preselect-first="false" @blur="v$.workInformationSchedule.$touch">
                                         <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                                     </multiselect>
+                                    <span v-if="v$.workInformationSchedule.required.$invalid && v$.workInformationSchedule.$dirty" style='color:red'>* {{ v$.workInformationSchedule.required.$message}}</span>
                                     <!-- <i class="fs-input-icon fa fa-smoking"></i> -->
                                 </div>
                             </div>
@@ -42,8 +44,9 @@
                             <div class="form-group">
                                 <label>{{ 'ანაზღაურება' }}</label>
                                 <div class="ls-inputicon-box">
-                                    <input class="form-control" type="number" step="50" v-model="m.getWorkInformation.payment">
-                                    <i class="fs-input-icon fa fa-money"></i>
+                                    <input class="form-control" type="number" step="50" v-model="m.getWorkInformation.payment" @blur="v$.m.getWorkInformation.payment.$touch">
+                                    <!-- <i class="fs-input-icon fa fa-money"></i> -->
+                                    <span v-if="v$.m.getWorkInformation.payment.numeric.$invalid && v$.m.getWorkInformation.payment.$dirty" style='color:red'>* {{ v$.m.getWorkInformation.payment.numeric.$message}}</span>
                                 </div>
                             </div>
                         </div>
@@ -51,10 +54,11 @@
                             <div class="form-group">
                                 <label>{{ 'ვალუტა' }}</label>
                                 <div class="ls-inputicon-box">
-                                    <multiselect v-model="m.getWorkInformation.currency_id" :options="data.classificator.currency" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false">
+                                    <multiselect v-model="m.getWorkInformation.currency_id" :options="data.classificator.currency" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false" @blur="v$.m.getWorkInformation.currency_id.$touch">
                                         <template slot="singleLabel" slot-scope="{ option }"></template>
                                     </multiselect>
-                                    <i class="fs-input-icon fa fa-usd"></i>
+                                    <span v-if="v$.m.getWorkInformation.currency_id.required.$invalid && v$.m.getWorkInformation.currency_id.$dirty" style='color:red'>* {{ v$.m.getWorkInformation.currency_id.required.$message}}</span>
+                                    <!-- <i class="fs-input-icon fa fa-usd"></i> -->
                                 </div>
                             </div>
                         </div>
@@ -135,9 +139,10 @@
                             <div class="form-group">
                                 <label>გაქვთ ოჯახში მუშაობის გამოცდილება?</label>
                                 <div class="ls-inputicon-box">
-                                    <multiselect v-model="m.familyWorkExperience.has_experience" :options="data.classificator.yesNo" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false">
+                                    <multiselect v-model="m.familyWorkExperience.has_experience" :options="data.classificator.yesNo" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false" @blur="v$.m.familyWorkExperience.has_experience.$touch">
                                         <template slot="singleLabel" slot-scope="{ option }"></template>
                                     </multiselect>
+                                    <span v-if="v$.m.familyWorkExperience.has_experience.required.$invalid && v$.m.familyWorkExperience.has_experience.$dirty" style='color:red'>* {{ v$.m.familyWorkExperience.has_experience.required.$message}}</span>
                                     <!-- <i class="fs-input-icon fa fa-star"></i> -->
                                     <!-- <span v-if="v$.candidateWorkExperienceModel.has_experience.required.$invalid && v$.candidateWorkExperienceModel.has_experience.$dirty" style='color:red'>* {{ v$.candidateWorkExperienceModel.has_experience.required.$message}}</span> -->
                                 </div>
@@ -152,8 +157,9 @@
                                     <div class="form-group">
                                         <label>{{ 'რამდენ ოჯახში გიმუშავიათ?' }}</label>
                                         <div class="ls-inputicon-box">
-                                            <input class="form-control" type="text" v-model="m.familyWorkExperience.families_worked_count">
+                                            <input class="form-control" type="number" v-model="m.familyWorkExperience.families_worked_count" @blur="v$.m.familyWorkExperience.families_worked_count.$touch">
                                             <i class="fs-input-icon fa fa-smoking"></i>
+                                            <span v-if="v$.m.familyWorkExperience.families_worked_count.required.$invalid && v$.m.familyWorkExperience.families_worked_count.$dirty" style='color:red'>* {{ v$.m.familyWorkExperience.families_worked_count.required.$message}}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -162,10 +168,10 @@
                                     <div class="form-group">
                                         <label>{{ 'სტაჟი (ჯამში)' }}</label>
                                         <div class="ls-inputicon-box">
-                                            <multiselect v-model="m.familyWorkExperience.work_experience" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one" :options="data.classificator.workExperience" :searchable="false" :allow-empty="false">
+                                            <multiselect v-model="m.familyWorkExperience.work_experience" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one" :options="data.classificator.workExperience" :searchable="false" :allow-empty="false" @blur="v$.m.familyWorkExperience.work_experience.$touch">
                                                 <template slot="singleLabel" slot-scope="{ option }"></template>
                                             </multiselect>
-
+                                            <span v-if="v$.m.familyWorkExperience.work_experience.required.$invalid && v$.m.familyWorkExperience.work_experience.$dirty" style='color:red'>* {{ v$.m.familyWorkExperience.work_experience.required.$message}}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -173,10 +179,10 @@
                                     <div class="form-group">
                                         <label>{{ 'ყველაზე ხანგრძლივად' }}</label>
                                         <div class="ls-inputicon-box">
-                                            <multiselect v-model="m.familyWorkExperience.longest" :options="data.classificator.workExperience" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false">
+                                            <multiselect v-model="m.familyWorkExperience.longest" :options="data.classificator.workExperience" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false" @blur="v$.m.familyWorkExperience.longest.$touch">
                                                 <template slot="singleLabel" slot-scope="{ option }"></template>
                                             </multiselect>
-
+                                            <span v-if="v$.m.familyWorkExperience.longest.required.$invalid && v$.m.familyWorkExperience.longest.$dirty" style='color:red'>* {{ v$.m.familyWorkExperience.longest.required.$message}}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -186,32 +192,21 @@
                                     <div class="form-group">
                                         <label>{{ 'ოჯახში მუშაობდით' }}</label>
                                         <div class="ls-inputicon-box">
-                                            <multiselect v-model="m.familyWorkedSelected"  :options="data.classificator.familyCategory" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name_ka" track-by="name_ka" :preselect-first="false">
+                                            <multiselect v-model="m.familyWorkedSelected"  :options="data.classificator.familyCategory" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name_ka" track-by="name_ka" :preselect-first="false" @blur="v$.m.familyWorkedSelected.$touch">
                                                 <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                                             </multiselect>
+                                            <span v-if="v$.m.familyWorkedSelected.required.$invalid && v$.m.familyWorkedSelected.$dirty" style='color:red'>* {{ v$.m.familyWorkedSelected.required.$message}}</span>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- <div class="col-xl-6 col-lg-6 col-md-12">
-                                    <div class="form-group">
-                                        <label>{{ 'გევალებოდათ' }}</label>
-                                        <div class="ls-inputicon-box">
-                                            <select class="wt-select-box selectpicker" v-model="m.candidateFamilyWorkSkill"   data-live-search="true" title=""  data-bv-field="size" multiple>
-                                                <option v-for="skill in setSkill" :value="skill.id">{{ skill[`name_${getLang}`] }}</option>
-                                            </select>
-                                            <i class="fs-input-icon fa fa-microscope"></i>
-                                        </div>
-
-                                    </div>
-                                </div> -->
                                 <div class="col-xl-6 col-lg-6 col-md-12">
                                     <div class="form-group">
                                         <label>{{ 'გევალებოდათ' }}</label>
                                         <div class="ls-inputicon-box">
-                                            <multiselect v-model="m.candidateFamilyWorkSkill"  :options="setSkill" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name_ka" track-by="name_ka" :preselect-first="false">
+                                            <multiselect v-model="m.candidateFamilyWorkSkill"  :options="setSkill" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name_ka" track-by="name_ka" :preselect-first="false" @blur="v$.m.candidateFamilyWorkSkill.$touch">
                                                 <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                                             </multiselect>
-
+                                            <span v-if="v$.m.familyWorkedSelected.required.$invalid && v$.m.familyWorkedSelected.$dirty" style='color:red'>* {{ v$.m.candidateFamilyWorkSkill.required.$message}}</span>
                                         </div>
 
                                     </div>
@@ -224,16 +219,18 @@
                                     <div class="form-group">
                                         <label>სამუშაო გამოცდილების არ ქონის მიზეზი</label>
                                         <div class="ls-inputicon-box">
-                                            <multiselect v-model="m.familyWorkExperience.no_reason" :options="data.classificator.noExperienceReason" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false">
+                                            <multiselect v-model="m.familyWorkExperience.no_reason" :options="data.classificator.noExperienceReason" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false" @blur="v$.m.familyWorkExperience.no_reason.$touch">
                                                 <template slot="singleLabel" slot-scope="{ option }"></template>
                                             </multiselect>
+                                            <span v-if="v$.m.familyWorkExperience.no_reason.required.$invalid && v$.m.familyWorkExperience.no_reason.$dirty" style='color:red'>* {{ v$.m.familyWorkExperience.no_reason.required.$message}}</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div v-if="m.familyWorkExperience.no_reason" class="col-md-12">
                                     <div class="form-group">
                                         <label>დამატაბითი ინფორმაცია</label>
-                                        <textarea class="form-control" rows="3" v-model="m.familyWorkExperience.no_reason_info" placeholder="ჩაწერეთ იმ შემთხვევაში თუ ასარჩევ ველში ვერ ნახეთ შესაფერისი მიზეზი ან გსურთ დამატებითი ინფორმაციის მოწოდება"></textarea>
+                                        <textarea class="form-control" rows="3" v-model="m.familyWorkExperience.no_reason_info" placeholder="ჩაწერეთ იმ შემთხვევაში თუ ასარჩევ ველში ვერ ნახეთ შესაფერისი მიზეზი ან გსურთ დამატებითი ინფორმაციის მოწოდება" @blur="v$.m.familyWorkExperience.no_reason_info.$touch"></textarea>
+                                        <span v-if="v$.m.familyWorkExperience.no_reason_info.maxLength.$invalid && v$.m.familyWorkExperience.no_reason_info.$dirty" style='color:red'>* {{ v$.m.familyWorkExperience.no_reason_info.maxLength.$message}}</span>
                                     </div>
                                 </div>
                             </div>
@@ -262,9 +259,11 @@
                                             <option :value="1">წარმოვადგენ</option>
                                             <option :value="2">ვერ წარმოვადგენ</option>
                                         </select> -->
-                                        <multiselect v-model="candidateRecommendationModel.has_recommendation" :options="data.classificator.yesNo" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false">
+                                        <multiselect v-model="candidateRecommendationModel.has_recommendation" :options="data.classificator.yesNo" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false" @blur="v$.candidateRecommendationModel.has_recommendation.$touch">
                                             <template slot="singleLabel" slot-scope="{ option }"></template>
                                         </multiselect>
+                                        <span v-if="v$.candidateRecommendationModel.has_recommendation.required.$invalid && v$.candidateRecommendationModel.has_recommendation.$dirty" style='color:red'>* {{ v$.candidateRecommendationModel.has_recommendation.required.$message}}</span>
+
                                     </div>
                                 </div>
                             </div>
@@ -273,9 +272,10 @@
                                     <div class="form-group">
                                         <label>{{ $t('lang.user_profile_page_recomendation_where_from') }}</label>
                                         <div class="ls-inputicon-box">
-                                            <multiselect v-model="candidateRecommendationModel.recommendation_whom" :options="data.classificator.recommendationFromWhom" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false">
+                                            <multiselect v-model="candidateRecommendationModel.recommendation_whom" :options="data.classificator.recommendationFromWhom" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false" @blur="v$.candidateRecommendationModel.recommendation_whom.$touch">
                                                 <template slot="singleLabel" slot-scope="{ option }"></template>
                                             </multiselect>
+                                            <span v-if="v$.candidateRecommendationModel.recommendation_whom.required.$invalid && v$.candidateRecommendationModel.recommendation_whom.$dirty" style='color:red'>* {{ v$.candidateRecommendationModel.recommendation_whom.required.$message}}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -283,8 +283,9 @@
                                     <div class="form-group">
                                         <label>{{ $t('lang.user_profile_page_recomendation_name') }}</label>
                                         <div class="ls-inputicon-box">
-                                            <input class="form-control" v-model="candidateRecommendationModel.name" type="text" placeholder="">
+                                            <input class="form-control" v-model="candidateRecommendationModel.name" type="text" placeholder="" @blur="v$.candidateRecommendationModel.name.$touch">
                                             <i class="fs-input-icon fa fa-star"></i>
+                                            <span v-if="v$.candidateRecommendationModel.name.required.$invalid && v$.candidateRecommendationModel.name.$dirty" style='color:red'>* {{ v$.candidateRecommendationModel.name.required.$message}}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -292,7 +293,8 @@
                                     <div class="form-group">
                                         <label>თანამდებობა</label>
                                         <div class="ls-inputicon-box">
-                                            <input class="form-control" v-model="candidateRecommendationModel.position" type="text" placeholder="">
+                                            <input class="form-control" v-model="candidateRecommendationModel.position" type="text" placeholder="" @blur="v$.candidateRecommendationModel.position.$touch">
+                                            <span v-if="v$.candidateRecommendationModel.position.required.$invalid && v$.candidateRecommendationModel.position.$dirty" style='color:red'>* {{ v$.candidateRecommendationModel.position.required.$message}}</span>
                                             <i class="fs-input-icon fa fa-user"></i>
                                         </div>
                                     </div>
@@ -301,8 +303,10 @@
                                     <div class="form-group">
                                         <label>{{ $t('lang.user_profile_page_recomendation_number') }}</label>
                                         <div class="ls-inputicon-box">
-                                            <input class="form-control" v-model="candidateRecommendationModel.number" type="text" placeholder="">
+                                            <input class="form-control" v-model="candidateRecommendationModel.number" type="text" placeholder="" @blur="v$.candidateRecommendationModel.number.$touch">
                                             <i class="fs-input-icon fa fa-phone"></i>
+                                            <span v-if="v$.candidateRecommendationModel.number.required.$invalid && v$.candidateRecommendationModel.number.$dirty" style='color:red'>* {{ v$.candidateRecommendationModel.number.required.$message}}</span>
+                                            <span v-if="v$.candidateRecommendationModel.number.numeric.$invalid && v$.candidateRecommendationModel.number.$dirty" style='color:red'>* {{ v$.candidateRecommendationModel.number.numeric.$message}}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -320,9 +324,10 @@
                                     <div class="form-group">
                                         <label>რეცომდაციის არ ქონის მიზეზი</label>
                                         <div class="ls-inputicon-box">
-                                            <multiselect v-model="candidateRecommendationModel.no_reason" :options="data.classificator.noRecommendationReason" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false">
+                                            <multiselect v-model="candidateRecommendationModel.no_reason" :options="data.classificator.noRecommendationReason" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false" @blur="v$.candidateRecommendationModel.no_reason.$touch">
                                                 <template slot="singleLabel" slot-scope="{ option }"></template>
                                             </multiselect>
+                                            <span v-if="v$.candidateRecommendationModel.no_reason.required.$invalid && v$.candidateRecommendationModel.no_reason.$dirty" style='color:red'>* {{ v$.candidateRecommendationModel.no_reason.required.$message}}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -428,7 +433,12 @@ import editWorkInformation from '../modal/editWorkInformation.vue'
 import editRecommendation from '../modal/editRecommendation.vue'
 import { uuid } from 'vue-uuid'
 import _ from 'lodash'
+import { useVuelidate } from '@vuelidate/core'
+import { required, email, helpers, requiredIf, numeric, maxLength } from '@vuelidate/validators'
 export default {
+    setup () {
+        return { v$: useVuelidate() }
+    },
     components:{
         editWorkInformation,
         editRecommendation
@@ -466,6 +476,104 @@ export default {
 
             showNoReccomendation: false,
         }
+    },
+    validations () {
+        const validations = {
+            m:{
+                getWorkInformation:{
+                    category_id:{
+                        required:helpers.withMessage('კატეგორიის არჩევა სავალდებულოა', required ),
+                    },
+                    payment:{
+                        numeric: helpers.withMessage('ანაზღაურება უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric ),
+                    },
+                    currency_id:{
+                        required:helpers.withMessage('ვალუტის არჩევა სავალდებულოა', required )
+                    }
+                },
+                familyWorkExperience:{
+                    has_experience:{
+                        required:helpers.withMessage('ოჯახში მუშაობის გამოცდილების შევსება სავალდებულოა', required ),
+                    },
+                    families_worked_count:{},
+                    work_experience:{},
+                    longest:{},
+                    no_reason:{},
+                    no_reason_info:{}
+                },
+                familyWorkedSelected:{},
+                candidateFamilyWorkSkill:{},
+
+
+            },
+
+            workInformationSchedule:{required:helpers.withMessage('სამუშაო გრაფიკის არჩევა სავალდებულოა', required )},
+
+            candidateRecommendationModel:{
+                has_recommendation:{
+                    required:helpers.withMessage('რეკომენდაციის შევსება სავალდებულოა', required )
+                },
+                recommendation_whom:{},
+                name:{},
+                position:{},
+                number:{},
+                no_reason:{},
+                no_reason_info:{}
+            }
+        }
+
+        if (this.m.familyWorkExperience.has_experience && this.m.familyWorkExperience.has_experience.id == 1) {
+            validations.m.familyWorkExperience.work_experience = {
+                required:helpers.withMessage('სტაჟის შევსება სავალდებულოა', required )
+            }
+            validations.m.familyWorkExperience.families_worked_count = {
+                required:helpers.withMessage('შევსება სავალდებულოა', required ),
+                numeric: helpers.withMessage('უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric ),
+            }
+            validations.m.familyWorkExperience.longest = {
+                required:helpers.withMessage('არჩევა სავალდებულოა', required ),
+            }
+            validations.m.familyWorkedSelected = {
+                required:helpers.withMessage('არჩევა სავალდებულოა', required ),
+            }
+            validations.m.candidateFamilyWorkSkill = {
+                required:helpers.withMessage('არჩევა სავალდებულოა', required ),
+            }
+        }else{
+            validations.m.familyWorkExperience.no_reason = {
+                required:helpers.withMessage('არჩევა სავალდებულოა', required ),
+            }
+            validations.m.familyWorkExperience.no_reason_info = {
+                maxLength: helpers.withMessage('დაშვებულია 100 სიმბოლო', maxLength(100) )
+            }
+
+        }
+
+        if (this.candidateRecommendationModel.has_experience && this.candidateRecommendationModel.has_recommendation.id == 1) {
+            validations.candidateRecommendationModel.recommendation_whom = {
+                required:helpers.withMessage('არჩევა სავალდებულოა', required )
+            }
+            if (this.candidateRecommendationModel.recommendation_whom.id == 2) {
+                validations.candidateRecommendationModel.position = {
+                    required:helpers.withMessage('შევსება სავალდებულოა', required )
+                }
+            }
+            validations.candidateRecommendationModel.name = {
+                required:helpers.withMessage('შევსება სავალდებულოა', required )
+            }
+            validations.candidateRecommendationModel.number = {
+                required:helpers.withMessage('შევსება სავალდებულოა', required ),
+                numeric: helpers.withMessage('ნომერი უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric ),
+            }
+        } else {
+            validations.candidateRecommendationModel.no_reason = {
+                required:helpers.withMessage('არჩევა სავალდებულოა', required )
+            }
+            validations.candidateRecommendationModel.no_reason_info = {
+                maxLength: helpers.withMessage('დაშვებულია 100 სიმბოლო', maxLength(100) )
+            }
+        }
+        return validations
     },
     created(){
         this.data.model.getWorkInformation['payment'] = 800;
@@ -524,12 +632,20 @@ export default {
 
             this.m.candidateRecommendation.push(JSON.parse(JSON.stringify(recommendation)))
 
+            this.candidateRecommendationModel['recommendation_whom'] = '';
+            this.candidateRecommendationModel['name'] = '';
+            this.candidateRecommendationModel['position'] = '';
+            this.candidateRecommendationModel['number'] = '';
+            this.candidateRecommendationModel['file'] = '';
         },
         recommendationFileUpload(event){
             this.recommendationFile = event.target.files[0]
         },
         //axios
-        addWorkInfo(){
+        async addWorkInfo(){
+            const isFormCorrect = await this.v$.m.getWorkInformation.$validate()
+            console.log('isFormCorrect', isFormCorrect);
+            if (!isFormCorrect) return;
             let currentObj = this;
             axios({
                 method: "post",
