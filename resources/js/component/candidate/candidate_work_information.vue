@@ -31,7 +31,7 @@
                             <div class="form-group">
                                 <label>{{ 'სამუშაო გრაფიკი' }}</label>
                                 <div class="ls-inputicon-box">
-                                    <multiselect v-model="m.workInformationSchedule"  :options="data.classificator.workSchedule" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name_ka" track-by="name_ka" :preselect-first="false">
+                                    <multiselect v-model="workInformationSchedule"  :options="data.classificator.workSchedule" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name_ka" track-by="name_ka" :preselect-first="false">
                                         <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                                     </multiselect>
                                     <!-- <i class="fs-input-icon fa fa-smoking"></i> -->

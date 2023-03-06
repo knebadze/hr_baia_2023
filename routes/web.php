@@ -92,4 +92,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('trash_recommendation', [WorkInformationController::class, 'trashRecommendation']);
     Route::post('remove_recommendation_file', [WorkInformationController::class, 'removeRecommendationFile']);
 
+    Route::post('resume_data', [ResumeController::class, 'resumeData']);
+
+
 
