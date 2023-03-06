@@ -34,7 +34,7 @@ class ResumeController extends Controller
                         'nationality','religion', 'education', 'maritalStatus',
                         'familyWorkSkill', 'citizenship','professions', 'specialty',
                         'generalWorkExperience', 'characteristic', 'familyWorkExperience', 'languages',
-                        'allergy'
+                        'allergy', 'recommendation'
                     ])->first();
 
         $generalWorkNoExperience = General_work_experience::where('candidate_id', $candidate->id)->with('noReason')->first()->toArray();
@@ -46,6 +46,8 @@ class ResumeController extends Controller
         $familyWorkSkillCategory = Category::whereIn('id', $ids)->get()->toArray();
 
         $workInformation = WorkInformation::where('candidate_id', $candidate->id)->with('category')->get()->toArray();
+
+
         $data = [
            'candidate' => $candidate,
            'user' => $user,

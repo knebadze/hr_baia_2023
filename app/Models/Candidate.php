@@ -105,6 +105,11 @@ class Candidate extends Model
         return $this->belongsTo(FamilyWorkExperience::class, 'id', 'candidate_id');
     }
 
+    public function recommendation()
+    {
+        return $this->belongsToMany(RecommendationFromWhom::class, 'candidate_recommendations')->withPivot('name','position', 'number', 'file');
+    }
+
     // public function workInformation()
     // {
     //     return $this->belongsTo(WorkInformation::class,'id', 'candidate_id');

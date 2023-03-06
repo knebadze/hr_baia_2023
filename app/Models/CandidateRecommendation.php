@@ -31,9 +31,9 @@ class CandidateRecommendation extends Model
     {
         return $this->belongsTo(NoReason::class, 'no_reason_id', 'id');
     }
-    // public function workInformation()
+    // public function candidate()
     // {
-    //     return $this->belongsTo(WorkInformation::class, 'work_information_id', 'id');
+    //     return $this->hasMany(candidate::class, 'candidate_id', 'id');
     // }
     public function hasRecommendation()
     {
