@@ -69,6 +69,11 @@
                         @else
                         <div class="twm-nav-btn-right">
                             <a href="{{ route('home', App()->getLocale() ) }}" class="twm-nav-post-a-job">
+                                <i class="feather-plus"></i> {{ __('დაამატე ვაკანსია') }}
+                            </a>
+                        </div>
+                        <div class="twm-nav-btn-right">
+                            <a href="{{ route('home', App()->getLocale() ) }}" class="twm-nav-post-a-job">
                                 <i class="feather-user"></i> {{ __('lang.user_page_my_cabinet') }}
                             </a>
                         </div>
