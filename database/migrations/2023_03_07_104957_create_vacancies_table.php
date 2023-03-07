@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->integer('payment');
             $table->foreignId('currency_id')->constrained();
-            $table->
+            $table->string('for_who');
             $table->timestamps();
             $table->foreign('author_id')
             ->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
