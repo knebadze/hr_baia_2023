@@ -67,6 +67,7 @@ app.use(i18nVue
 
 window.I18n = I18n;
 window.toast = toast
+// window.initMap = initMap;
 
 app.use(VueSweetalert2);
 app.use(withUUID);

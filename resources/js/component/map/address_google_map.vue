@@ -46,6 +46,7 @@
     </div>
 </template>
 <script>
+import { Loader } from "@googlemaps/js-api-loader"
 export default {
     // mounted() {
     //             // This example requires the Places library. Include the libraries=places
@@ -163,16 +164,19 @@ export default {
     //     window.initMap = initMap;
     // },
     mounted(){
-        let map;
-
-        function initMap() {
-        map = new google.maps.Map(document.getElementById("map"), {
-            center: { lat: -34.397, lng: 150.644 },
-            zoom: 8,
+        const loader = new Loader({
+            // apiKey: 'AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg',
+            apiKey: 'AIzaSyDxlRPqzqBfScFfNuutG3GvdWJKu5nYwU8',
+            version: "weekly",
+            // ...additionalOptions,
         });
-        }
 
-        window.initMap = initMap;
+        loader.load().then(() => {
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: -34.397, lng: 150.644 },
+                zoom: 8,
+            });
+        });
     }
 }
 </script>

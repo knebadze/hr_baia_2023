@@ -230,8 +230,8 @@
                         <p>{{ $t('lang.user_profile_page_address_map') }}</p>
                         <p>{{ $t('lang.user_profile_page_address_map_2') }}</p>
                         <div class="row">
-                            <addressMap :data="m.candidate.address" @messageFromChild="childMessage"></addressMap>
-                            <!-- <addressGoogleMap></addressGoogleMap> -->
+                            <!-- <addressMap :data="m.candidate.address" @messageFromChild="childMessage"></addressMap> -->
+                            <addressGoogleMap></addressGoogleMap>
                             <div class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
                                     <label>{{ 'მისამართი' }}</label>
