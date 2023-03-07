@@ -110,6 +110,21 @@ export default {
             }
         })
 
+        const search = new MapboxSearchBox();
+        search.accessToken = mapboxgl.accessToken;
+        map.addControl(search);
+        // const search = new MapboxSearch({
+        //     accessToken: mapboxgl.accessToken,
+        //     language: That.getLang,
+        //     mapboxgl: mapboxgl,
+        //     types: 'country,region,place,postcode,locality,neighborhood, street, address',
+        //     marker: false,
+        //     proximity: {
+        //         longitude: 44.8271,
+        //         latitude: 41.7151
+        //     }
+        // })
+
         const marker = new mapboxgl.Marker({
             draggable: true
         })
