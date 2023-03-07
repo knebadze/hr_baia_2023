@@ -6,19 +6,19 @@
             <div class="panel panel-default">
                 <div class="panel-heading wt-panel-heading p-a20">
                     <!-- <div class="d-flex justify-content-between"> -->
-                        <h4 class="panel-tittle m-a0">{{ 'კატეგორია და გრაფიკი' }}</h4>
+                        <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_category_end_schedule') }}</h4>
                         <!-- <button type="button" class="btn btn-success" @click="addWorkInfoModal()"><i class="fa fa-plus"></i> დამატება</button> -->
 
                     <!-- </div> -->
                 </div>
                 <div class="panel-body wt-panel-body p-a20 m-b30 ">
-                    <p class="text-danger">შეგიძლიათ შეავსოთ რამოდენიმე კატეგორიაზე და ჩვენ შემოგთავაზებთ თქვენ მიერ არჩეული კატეგორიების შესაბამის ვაკანისებს.</p>
-                    <small>ინფორმაციის შევსების შემდეგ გამოიყენეთ ღილაკი შენახვა რის შემდეგაც საშვალება მოგეცემათ დაიწყოთ ინფორმაციის შევსება სხვა კატეგორიაზე.</small>
+                    <p class="text-danger">{{ $t('lang.user_profile_page_category_end_schedule_title') }}</p>
+                    <small>{{ $t('lang.user_profile_page_category_end_schedule_title_2') }}</small>
                     <hr>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label>{{ 'კატეგორია' }}</label>
+                                <label>{{ $t('lang.user_profile_page_category_title') }}</label>
                                 <div class="ls-inputicon-box">
                                     <multiselect v-model="m.getWorkInformation.category_id" :options="data.classificator.category" :searchable="true" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :allow-empty="false" @blur="v$.m.getWorkInformation.category_id.$touch">
                                         <template slot="singleLabel" slot-scope="{ option }"></template>
@@ -30,7 +30,7 @@
                         </div>
                         <div class="col-xl-4 col-lg-6 col-md-12">
                             <div class="form-group">
-                                <label>{{ 'სამუშაო გრაფიკი' }}</label>
+                                <label>{{ $t('lang.user_profile_page_work_schedule_title') }}</label>
                                 <div class="ls-inputicon-box">
                                     <multiselect v-model="workInformationSchedule"  :options="data.classificator.workSchedule" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name_ka" track-by="name_ka" :preselect-first="false" @blur="v$.workInformationSchedule.$touch">
                                         <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
@@ -42,9 +42,9 @@
                         </div>
                         <div class="col-xl-4 col-lg-6 col-md-12">
                             <div class="form-group">
-                                <label>{{ 'ანაზღაურება' }}</label>
+                                <label>{{ $t('lang.user_profile_page_work_salary_title') }}</label>
                                 <div class="ls-inputicon-box">
-                                    <input class="form-control" type="number" step="50" v-model="m.getWorkInformation.payment" @blur="v$.m.getWorkInformation.payment.$touch">
+                                    <input class="form-control" type="number" step="50" v-model="m.getWorkInformation.payment" @blur="v$.m.getWorkInformation.payment.$touch" style='height:45px;'>
                                     <!-- <i class="fs-input-icon fa fa-money"></i> -->
                                     <span v-if="v$.m.getWorkInformation.payment.numeric.$invalid && v$.m.getWorkInformation.payment.$dirty" style='color:red'>* {{ v$.m.getWorkInformation.payment.numeric.$message}}</span>
                                 </div>
@@ -52,7 +52,7 @@
                         </div>
                         <div class="col-xl-4 col-lg-6 col-md-12">
                             <div class="form-group">
-                                <label>{{ 'ვალუტა' }}</label>
+                                <label>{{ $t('lang.user_profile_page_work_currency_title') }}</label>
                                 <div class="ls-inputicon-box">
                                     <multiselect v-model="m.getWorkInformation.currency_id" :options="data.classificator.currency" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false" @blur="v$.m.getWorkInformation.currency_id.$touch">
                                         <template slot="singleLabel" slot-scope="{ option }"></template>
@@ -64,7 +64,7 @@
                         </div>
                         <div class="col-lg-12 col-md-12 mt-4">
                             <div class="text-left">
-                                <button type="submit" @click.prevent="addWorkInfo()"  class="site-button">{{ 'შენახვა' }}</button>
+                                <button type="submit" @click.prevent="addWorkInfo()"  class="site-button">{{ $t('lang.user_profile_page_work_button_save') }}</button>
                             </div>
                         </div>
 
@@ -76,7 +76,7 @@
 
                 <div class="panel panel-default" v-if="m.workInformation.length != 0" >
                     <div class="panel-heading wt-panel-heading p-a20">
-                        <h4 class="panel-tittle m-a0">{{ 'კატეგორიის და გრაფიკის ცხრილი' }}</h4>
+                        <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_category_end_schedule_table') }}</h4>
                     </div>
                     <div class="panel-body wt-panel-body p-a20 m-b30 ">
                         <div class="p-a20 table-responsive">
@@ -84,11 +84,11 @@
                             <thead>
                               <tr>
                                 <th>N</th>
-                                <th>კატეგორია</th>
-                                <th>გრაფიკი</th>
-                                <th>ანაზღაურება</th>
-                                <th>ვალუტა</th>
-                                <th>Actions</th>
+                                <th>{{ $t('lang.user_profile_page_category_title') }}</th>
+                                <th>{{ $t('lang.user_profile_page_work_schedule_title') }}</th>
+                                <th>{{ $t('lang.user_profile_page_work_salary_title') }}</th>
+                                <th>{{ $t('lang.user_profile_page_work_currency_title') }}</th>
+                                <th>{{ $t('lang.user_profile_page_work_actions_title') }}</th>
                               </tr>
                             </thead>
 
@@ -126,18 +126,18 @@
             <div class="panel panel-default" v-if="(m.getWorkInformation.category_id.id > 0 && m.getWorkInformation.category_id.id < 9) || (m.workInformation[0] && m.workInformation[0].category_id > 0 && m.workInformation[0].category_id < 9)">
                 <div class="panel-heading wt-panel-heading p-a20">
                     <!-- <div class="d-flex justify-content-between"> -->
-                        <h4 class="panel-tittle m-a0">{{ 'ოჯახში მუშაობის გამოცდილება' }}</h4>
+                        <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_family_work_experience_title') }}</h4>
                         <!-- <button type="button" class="btn btn-success" @click="addWorkInfoModal()"><i class="fa fa-plus"></i> დამატება</button> -->
 
                     <!-- </div> -->
                 </div>
                 <div class="panel-body wt-panel-body p-a20 m-b30 ">
-                    <p class="text-danger">რადგან გსურთ ოჯახში დასაქმება კლიენტებისთვის მნიშვნელოვანია იცოდნენ თქვენი გამოცილების შესახებ</p>
+                    <p class="text-danger">{{ $t('lang.user_profile_page_family_work_experience_description') }}</p>
                     <hr>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label>გაქვთ ოჯახში მუშაობის გამოცდილება?</label>
+                                <label>{{ $t('lang.user_profile_page_family_work_experience_answer') }}</label>
                                 <div class="ls-inputicon-box">
                                     <multiselect v-model="m.familyWorkExperience.has_experience" :options="data.classificator.yesNo" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false" @blur="v$.m.familyWorkExperience.has_experience.$touch">
                                         <template slot="singleLabel" slot-scope="{ option }"></template>
@@ -155,10 +155,10 @@
                             <div class="row">
                                 <div class="col-xl-4 col-lg-6 col-md-12">
                                     <div class="form-group">
-                                        <label>{{ 'რამდენ ოჯახში გიმუშავიათ?' }}</label>
+                                        <label>{{ $t('lang.user_profile_page_family_work_experience_answer_2') }}</label>
                                         <div class="ls-inputicon-box">
-                                            <input class="form-control" type="number" v-model="m.familyWorkExperience.families_worked_count" @blur="v$.m.familyWorkExperience.families_worked_count.$touch">
-                                            <i class="fs-input-icon fa fa-smoking"></i>
+                                            <input class="form-control" type="number" v-model="m.familyWorkExperience.families_worked_count" @blur="v$.m.familyWorkExperience.families_worked_count.$touch" style="height: 40px;">
+                                            <!-- <i class="fs-input-icon fa fa-smoking"></i> -->
                                             <span v-if="v$.m.familyWorkExperience.families_worked_count.required.$invalid && v$.m.familyWorkExperience.families_worked_count.$dirty" style='color:red'>* {{ v$.m.familyWorkExperience.families_worked_count.required.$message}}</span>
                                         </div>
                                     </div>
@@ -166,7 +166,7 @@
 
                                 <div class="col-xl-4 col-lg-6 col-md-12">
                                     <div class="form-group">
-                                        <label>{{ 'სტაჟი (ჯამში)' }}</label>
+                                        <label>{{ $t('lang.user_profile_page_family_work_staji') }}</label>
                                         <div class="ls-inputicon-box">
                                             <multiselect v-model="m.familyWorkExperience.work_experience" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one" :options="data.classificator.workExperience" :searchable="false" :allow-empty="false" @blur="v$.m.familyWorkExperience.work_experience.$touch">
                                                 <template slot="singleLabel" slot-scope="{ option }"></template>
@@ -177,7 +177,7 @@
                                 </div>
                                 <div class="col-xl-4 col-lg-6 col-md-12">
                                     <div class="form-group">
-                                        <label>{{ 'ყველაზე ხანგრძლივად' }}</label>
+                                        <label>{{ $t('lang.user_profile_page_family_work_staji_time') }}</label>
                                         <div class="ls-inputicon-box">
                                             <multiselect v-model="m.familyWorkExperience.longest" :options="data.classificator.workExperience" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false" @blur="v$.m.familyWorkExperience.longest.$touch">
                                                 <template slot="singleLabel" slot-scope="{ option }"></template>
@@ -190,7 +190,7 @@
 
                                 <div class="col-xl-6 col-lg-6 col-md-12">
                                     <div class="form-group">
-                                        <label>{{ 'ოჯახში მუშაობდით' }}</label>
+                                        <label>{{ $t('lang.user_profile_page_family_work_in_family') }}</label>
                                         <div class="ls-inputicon-box">
                                             <multiselect v-model="m.familyWorkedSelected"  :options="data.classificator.familyCategory" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name_ka" track-by="name_ka" :preselect-first="false" @blur="v$.m.familyWorkedSelected.$touch">
                                                 <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
@@ -201,7 +201,7 @@
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-12">
                                     <div class="form-group">
-                                        <label>{{ 'გევალებოდათ' }}</label>
+                                        <label>{{ $t('lang.user_profile_page_family_work_obligation') }}</label>
                                         <div class="ls-inputicon-box">
                                             <multiselect v-model="m.candidateFamilyWorkSkill"  :options="setSkill" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name_ka" track-by="name_ka" :preselect-first="false" @blur="v$.m.candidateFamilyWorkSkill.$touch">
                                                 <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
@@ -237,7 +237,7 @@
                         </div>
                         <div class="col-lg-12 col-md-12">
                             <div class="text-left">
-                                <button type="submit" @click.prevent="addFamilyWorkExperience()"  class="site-button">{{ 'შენახვა' }}</button>
+                                <button type="submit" @click.prevent="addFamilyWorkExperience()"  class="site-button">{{ $t('lang.user_profile_page_work_button_save') }}</button>
                             </div>
                         </div>
                     </div>
@@ -354,12 +354,12 @@
                                             <thead>
                                                 <tr>
                                                 <th>N</th>
-                                                <th>საიდან?</th>
-                                                <th>სახელი გვარი</th>
-                                                <th>ნომერი</th>
-                                                <th>თანამდებობა</th>
-                                                <th>ფაილი</th>
-                                                <th>action</th>
+                                                <th>{{ $t('lang.user_profile_page_recomendation_from') }}</th>
+                                                <th>{{$t('lang.user_profile_page_recomendation_name')}}</th>
+                                                <th>{{$t('lang.user_profile_page_recomendation_number')}}</th>
+                                                <th>{{$t('lang.user_profile_page_recomendation_position')}}</th>
+                                                <th>{{$t('lang.user_profile_page_recomendation_file')}}</th>
+                                                <th>{{$t('lang.user_profile_page_work_actions_title')}}</th>
                                                 </tr>
                                             </thead>
 
@@ -417,7 +417,7 @@
                             </div>
                             <div class="col-lg-12 col-md-12 mt-4">
                                 <div class="text-left">
-                                    <button type="submit" @click.prevent="addRecomendation()"  class="site-button">{{ 'შენახვა' }}</button>
+                                    <button type="submit" @click.prevent="addRecomendation()"  class="site-button">{{$t('lang.user_profile_page_work_button_save')}}</button>
                                 </div>
                             </div>
                         </div>
