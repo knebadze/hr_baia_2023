@@ -71,14 +71,9 @@
                                     <div class="form-group">
                                         <label>{{ $t('lang.user_profile_page_personal_education') }}</label>
                                         <div class="ls-inputicon-box">
-                                            <!-- <select class="wt-select-box selectpicker" v-model="m.candidate.education_id"  data-live-search="true" title=""  data-bv-field="size">
-                                                <option v-for="education in data.classificator.educations " :value="education.id">{{ education[`name_${getLang}`] }}</option>
-                                            </select>
-                                            <i class="fs-input-icon fa fa-school"></i> -->
                                             <multiselect v-model="m.candidate.education" :options="data.classificator.educations" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
                                                 <template slot="singleLabel" slot-scope="{ option }"></template>
                                             </multiselect>
-
                                         </div>
                                     </div>
                                 </div>
@@ -114,10 +109,6 @@
                                     <div class="form-group">
                                         <label>{{ 'ზოგადი მახასიათებელი' }}</label>
                                         <div class="ls-inputicon-box">
-                                            <!-- <select class="wt-select-box selectpicker" v-model="m.candidateCharacteristic"  data-live-search="true" title=""  data-bv-field="size" multiple>
-                                                <option v-for="item in data.classificator.characteristic " :value="item.id">{{ item[`name_${getLang}`] }}</option>
-                                            </select>
-                                            <i class="fs-input-icon fa fa-microscope"></i> -->
                                             <multiselect v-model="m.candidateCharacteristic"  :options="data.classificator.characteristic" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name_ka" track-by="name_ka" :preselect-first="false">
                                                 <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                                             </multiselect>

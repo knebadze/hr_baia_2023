@@ -22,6 +22,7 @@ import candidateList from './component/candidate/candidate_list.vue'
 
 //employer
 import employerProfile from './component/employer/employer_profile.vue'
+import postJob from './component/employer/post_job.vue'
 
 //modal
 import modalManager from './component/modal/modalManager.vue'
@@ -53,6 +54,7 @@ app.component('candidate-list', candidateList)
 
 //employer
 app.component('employer-profile', employerProfile)
+app.component('post-job', postJob)
 
 
 //modal

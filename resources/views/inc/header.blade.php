@@ -68,7 +68,7 @@
                             </div>
                         @else
                         <div class="twm-nav-btn-right">
-                            <a href="{{ route('home', App()->getLocale() ) }}" class="twm-nav-post-a-job">
+                            <a href="{{ route('post.job', App()->getLocale() ) }}" class="twm-nav-post-a-job">
                                 <i class="feather-plus"></i> {{ __('დაამატე ვაკანსია') }}
                             </a>
                         </div>

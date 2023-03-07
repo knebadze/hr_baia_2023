@@ -21,6 +21,7 @@ use App\Http\Controllers\User\ResumeController;
 use App\Http\Controllers\CandidateInfoController;
 use App\Http\Controllers\User\UserProfileController;
 use App\Http\Controllers\Candidate\WorkInformationController;
+use App\Http\Controllers\User\PostJobController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,6 +64,9 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
 
         // My Rezume
         Route::get('/user/myrezume', [ResumeController::class, 'index'])->name('myrezume');
+
+        //Post Job
+        Route::get('/user/post_job', [PostJobController::class, 'index'])->name('post.job');
 
         Route::get('/home', [HomeController::class, 'index'])->name('home');
     });
