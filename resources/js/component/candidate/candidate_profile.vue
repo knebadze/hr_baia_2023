@@ -230,8 +230,8 @@
                         <p>მისამართის შესავსებათ უმჯობესია გამოიყენოთ რუკის საძიებო ველი, გაგიმარტივებთ შევსებას.</p>
                         <p>მოძებვნის შემდეგ შეგიძლიათ ამოძრაოთ მარკერი რათა დააზუსთოთ თქვენი მისამართი</p>
                         <div class="row">
-                            <addressMap :data="m.candidate.address" @messageFromChild="childMessage"></addressMap>
-                            <!-- <addressGoogleMap></addressGoogleMap> -->
+                            <!-- <addressMap :data="m.candidate.address" @messageFromChild="childMessage"></addressMap> -->
+                            <addressGoogleMap></addressGoogleMap>
                             <div class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
                                     <label>{{ 'მისამართი' }}</label>
