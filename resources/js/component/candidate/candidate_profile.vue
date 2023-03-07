@@ -224,11 +224,11 @@
                 <!-- address -->
                 <div class="panel panel-default">
                     <div class="panel-heading wt-panel-heading p-a20">
-                        <h4 class="panel-tittle m-a0">{{ 'მისამართი' }}</h4>
+                        <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_address') }}</h4>
                     </div>
                     <div class="panel-body wt-panel-body p-a20 m-b30 ">
-                        <p>მისამართის შესავსებათ უმჯობესია გამოიყენოთ რუკის საძიებო ველი, გაგიმარტივებთ შევსებას.</p>
-                        <p>მოძებვნის შემდეგ შეგიძლიათ ამოძრაოთ მარკერი რათა დააზუსთოთ თქვენი მისამართი</p>
+                        <p>{{ $t('lang.user_profile_page_address_map') }}</p>
+                        <p>{{ $t('lang.user_profile_page_address_map_2') }}</p>
                         <div class="row">
                             <addressMap :data="m.candidate.address" @messageFromChild="childMessage"></addressMap>
                             <!-- <addressGoogleMap></addressGoogleMap> -->

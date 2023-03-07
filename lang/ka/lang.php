@@ -469,6 +469,12 @@ return [
     'user_profile_page_medical_operation' => 'ოპერაცია ან ქრონიკული დაავადება', 
     'user_profile_page_medical_please_info' => 'გთხოვთ მოგვაწოდოთ ინფორმაცია მნიშვნელოვანი ოპერაციების და ქრონიკული დაავადებების შესახებ ასეთის არსებობის შემთხვევაში.',  
 
+    // Map
+    'user_profile_page_address' => 'მისამართი',
+    'user_profile_page_address_map' => 'მისამართის შესავსებათ უმჯობესია გამოიყენოთ რუკის საძიებო ველი',
+    'user_profile_page_address_map_2' => 'მოძებვნის შემდეგ შეგიძლიათ ამოძრაოთ მარკერი რათა დააზუსთოთ 
+    თქვენი მისამართი',
+
     // Foreign Language Block Lang
     'user_profile_page_foreign_lang_title' => 'უცხო ენები',
     'user_profile_page_foreign_lang_language' => 'უცხო ენა',
@@ -494,6 +500,30 @@ return [
     'user_profile_page_recomendation_where_from' => 'საიდან წარმოადგენთ',
     'user_profile_page_recomendation_name' => 'რეკომენდატორის სახელი გვარი',
     'user_profile_page_recomendation_number' => 'ნომერი',
+    'user_profile_page_recomendation_positon' => 'თანამდებობა',
+    'user_profile_page_recomendation_file' => 'ფაილი',
+
+    'user_profile_page_category_end_schedule' => 'კატეგორია და გრაფიკი',
+    'user_profile_page_category_end_schedule_title' => 'შეგიძლიათ შეავსოთ რამოდენიმე კატეგორიაზე და ჩვენ შემოგთავაზებთ თქვენ მიერ არჩეული კატეგორიების შესაბამის ვაკანისებს.',
+    'user_profile_page_category_end_schedule_title_2' => 'ინფორმაციის შევსების შემდეგ გამოიყენეთ ღილაკი შენახვა რის შემდეგაც საშვალება მოგეცემათ დაიწყოთ ინფორმაციის შევსება სხვა კატეგორიაზე.',
+
+    'user_profile_page_category_end_schedule_table' => 'კატეგორიის და გრაფიკის ცხრილი',
+
+    'user_profile_page_category_title' => 'კატეგორია',
+    'user_profile_page_work_schedule_title' => 'სამუშაო გრაფიკი',
+    'user_profile_page_work_salary_title' => 'ანაზღაურება',
+    'user_profile_page_work_currency_title' => 'ვალუტა',
+    'user_profile_page_work_button_save' => 'შენახვა',
+    'user_profile_page_work_actions_title' => 'მოქმედებები',
+
+    'user_profile_page_family_work_experience_title' => 'ოჯახში მუშაობის გამოცდილება',
+    'user_profile_page_family_work_experience_description' => 'რადგან გსურთ ოჯახში დასაქმება, კლიენტებისთვის მნიშვნელოვანია იცოდნენ თქვენი გამოცილების შესახებ',
+    'user_profile_page_family_work_experience_answer' => 'გაქვთ ოჯახში მუშაობის გამოცდილება?',
+    'user_profile_page_family_work_experience_answer_2' => 'რამდენ ოჯახში გიმუშავიათ?',
+    'user_profile_page_family_work_staji' => 'სტაჟი (ჯამში)',
+    'user_profile_page_family_work_staji_time' => 'ყველაზე ხანგრძლივად',
+    'user_profile_page_family_work_in_family' => 'ოჯახში მუშაობდით',
+    'user_profile_page_family_work_obligation' => 'გევალებოდათ',
 
     // Work Additional Information Block Lang
     'user_profile_page_additional_title' => 'დამატებითი ინფორმაცია',
@@ -521,8 +551,8 @@ return [
 
     // Social Network Block Lang
     'user_profile_page_social_title' => 'სოციალური ქსელი',
-    'user_profile_page_social_facebook' => 'ფეისბუქი',
-    'user_profile_page_social_youtube' => 'იუთუბი',
+    'user_profile_page_social_facebook' => 'Facebook',
+    'user_profile_page_social_youtube' => 'Youtube',
     'user_profile_page_social_button_save' => 'შენახვა',
 
 ];

@@ -469,7 +469,13 @@ return [
     'user_profile_page_medical_info' => 'Medical Information',
     'user_profile_page_medical_alergy' => 'Alergy', 
     'user_profile_page_medical_operation' => 'Surgery or chronic illness', 
-    'user_profile_page_medical_please_info' => 'Please provide information about major surgeries and chronic illnesses, if any.',  
+    'user_profile_page_medical_please_info' => 'Please provide information about major surgeries and chronic illnesses, if any.',
+
+    // Map
+    'user_profile_page_address' => 'Address',
+    'user_profile_page_address_map' => 'It is better to use the map search field to fill in the address. It will make filling easier for you',
+    'user_profile_page_address_map_2' => 'After searching, you can drag the marker to refine your address',
+
     
     // Foreign Language Block Lang
     'user_profile_page_foreign_lang_title' => 'Foreign Languages',
@@ -496,6 +502,30 @@ return [
     'user_profile_page_recomendation_where_from' => 'Where From',
     'user_profile_page_recomendation_name' => 'Recommender\'s first and last name',
     'user_profile_page_recomendation_number' => 'Number',
+
+    'user_profile_page_category_end_schedule' => 'Category and Schedule',
+    'user_profile_page_category_end_schedule_title' => 'You can fill in several categories and we will offer you the vacancies corresponding to the categories you have chosen.',
+    'user_profile_page_category_end_schedule_title_2' => 'After filling the information, use the save button, after which you will be given permission to start filling the information on another category.',
+
+    'user_profile_page_category_end_schedule_table' => 'Category and Schedule Table',
+
+    'user_profile_page_category_title' => 'Category',
+    'user_profile_page_work_schedule_title' => 'Work Schedule',
+    'user_profile_page_work_salary_title' => 'Salary',
+    'user_profile_page_work_currency_title' => 'Currency',
+    'user_profile_page_work_button_save' => 'Save',
+    'user_profile_page_work_actions_title' => 'Actions',
+    'user_profile_page_recomendation_position' => 'Position',
+    'user_profile_page_recomendation_file' => 'File',
+
+    'user_profile_page_family_work_experience_title' => 'Family work experience',
+    'user_profile_page_family_work_experience_description' => 'Since you want to employ family, it is important for clients to know about your withdrawal',
+    'user_profile_page_family_work_experience_answer' => 'Do you have experience working in a family?',
+    'user_profile_page_family_work_experience_answer_2' => 'How many families have you worked with?',
+    'user_profile_page_family_work_staji' => 'Working Experience (total)',
+    'user_profile_page_family_work_staji_time' => 'For the longest time',
+    'user_profile_page_family_work_in_family' => 'Worked in the family',
+    'user_profile_page_family_work_obligation' => 'Obligation',
 
     // Work Additional Information Block Lang
     'user_profile_page_additional_title' => 'Additional Information',

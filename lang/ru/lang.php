@@ -476,6 +476,11 @@ return [
     'user_profile_page_medical_alergy' => 'Алергия',
     'user_profile_page_medical_operation' => 'Операция или хроническое заболевание',
     'user_profile_page_medical_please_info' => 'Пожалуйста, предоставьте информацию о серьезных операциях и хронических заболеваниях, если таковые имеются.', 
+
+    // Map
+    'user_profile_page_address' => 'Адрес',
+    'user_profile_page_address_map' =>'Для ввода адреса лучше использовать поле поиска по карте. Это облегчит вам заполнение',
+    'user_profile_page_address_map_2' => 'После поиска вы можете перетащить маркер, чтобы уточнить свой адрес',
     
     // Foreign Language Block Lang
     'user_profile_page_foreign_lang_title' => 'Иностранные языки',
@@ -503,6 +508,30 @@ return [
     'user_profile_page_recomendation_name' => 'Имя и фамилия рекомендателя',
     'user_profile_page_recomendation_number' => 'Номер',
 
+    'user_profile_page_category_end_schedule' => 'Категория и расписание',
+    'user_profile_page_category_end_schedule_title' => 'Вы можете заполнить несколько категорий, и мы предложим вам вакансии, соответствующие выбранным вами категориям.',
+    'user_profile_page_category_end_schedule_title_2' => 'После заполнения информации используйте кнопку сохранения, после чего вам будет дано разрешение начать заполнение информации по другой категории.',
+
+    'user_profile_page_category_end_schedule_table' => 'Таблица категории и расписания',
+
+    'user_profile_page_category_title' => 'Категория',
+    'user_profile_page_work_schedule_title' => 'График работы',
+    'user_profile_page_work_salary_title' => 'Зарплата',
+    'user_profile_page_work_currency_title' => 'Валюта',
+    'user_profile_page_work_button_save' => 'Сохранять',
+    'user_profile_page_work_actions_title' => 'Действия',
+    'user_profile_page_recomendation_position' => 'Позиция',
+    'user_profile_page_recomendation_file' => 'Файл',
+
+    'user_profile_page_family_work_experience_title' => 'Опыт семейной работы',
+    'user_profile_page_family_work_experience_description' => 'Поскольку вы хотите нанять семью, клиентам важно знать о вашем уходе.',
+    'user_profile_page_family_work_experience_answer' => 'Есть ли у вас опыт работы в семье?',
+    'user_profile_page_family_work_experience_answer_2' => 'Со сколькими семьями вы работали?',
+    'user_profile_page_family_work_staji' => 'Опыт работы (всего)',
+    'user_profile_page_family_work_staji_time' => 'В течение самого длительного времени',
+    'user_profile_page_family_work_in_family' => 'Работал в семье',
+    'user_profile_page_family_work_obligation' => 'Обязательство',
+
     // Work Additional Information Block Lang
     'user_profile_page_additional_title' => 'Дополнительная информация',
     'user_profile_page_additional_height' => 'Высота',
@@ -529,8 +558,8 @@ return [
 
     // Social Network Block Lang
     'user_profile_page_social_title' => 'Социальная сеть',
-    'user_profile_page_social_facebook' => 'Фейсбук',
-    'user_profile_page_social_youtube' => 'Ютуб',
+    'user_profile_page_social_facebook' => 'Facebook',
+    'user_profile_page_social_youtube' => 'Youtube',
     'user_profile_page_social_button_save' => 'Сохранить',
 
 ];
