@@ -1,27 +1,30 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\BlogController;
-
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\TermsController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CandidateController;
+
 use App\Http\Controllers\MyprofileController;
-
 use App\Http\Controllers\IndividualController;
+
+
 use App\Http\Controllers\Auth\SocialController;
-
-
 use App\Http\Controllers\MapvacancieController;
 use App\Http\Controllers\User\ResumeController;
-use App\Http\Controllers\CandidateInfoController;
-use App\Http\Controllers\User\UserProfileController;
-use App\Http\Controllers\Candidate\WorkInformationController;
 use App\Http\Controllers\User\PostJobController;
+use App\Http\Controllers\CandidateInfoController;
+use App\Http\Controllers\Employer\VacancyController;
+use App\Http\Controllers\User\UserProfileController;
+use App\Http\Controllers\Employer\EmployerInfoController;
+use App\Http\Controllers\Candidate\WorkInformationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -99,6 +102,10 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('remove_recommendation_file', [WorkInformationController::class, 'removeRecommendationFile']);
 
     Route::post('resume_data', [ResumeController::class, 'resumeData']);
+
+    Route::post('add_employer', [EmployerInfoController::class, 'store']);
+
+    Route::post('add_vacancy', [VacancyController::class, 'store']);
 
 
 

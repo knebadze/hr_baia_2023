@@ -21,6 +21,9 @@ return new class extends Migration
             $table->integer('min_age')->nullable();
             $table->integer('max_age')->nullable();
             $table->foreignId('education_id')->nullable()->constrained();
+            $table->string('additional_duty_ka', 400)->nullable();
+            $table->string('additional_duty_en', 400)->nullable();
+            $table->string('additional_duty_ru', 400)->nullable();
             $table->timestamps();
         });
     }

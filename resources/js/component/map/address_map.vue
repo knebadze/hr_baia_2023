@@ -110,9 +110,9 @@ export default {
             }
         })
 
-        const search = new MapboxSearchBox();
-        search.accessToken = mapboxgl.accessToken;
-        map.addControl(search);
+        // const search = new MapboxSearchBox();
+        // search.accessToken = mapboxgl.accessToken;
+        // map.addControl(search);
         // const search = new MapboxSearch({
         //     accessToken: mapboxgl.accessToken,
         //     language: That.getLang,

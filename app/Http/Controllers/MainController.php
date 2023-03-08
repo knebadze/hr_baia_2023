@@ -9,6 +9,7 @@ class MainController extends Controller
 {
     public function index()
     {
+        // dd(app()->getLocale());
         return view ('welcome');
     }
 

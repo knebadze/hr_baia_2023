@@ -4,23 +4,24 @@ namespace App\Http\Controllers\Employer;
 
 use Exception;
 use Illuminate\Http\Request;
+use App\Services\VacancyService;
 use App\Http\Controllers\Controller;
-use App\Services\EmployerService;
 
-class EmployerInfoController extends Controller
+class VacancyController extends Controller
 {
-    private EmployerService $employerService;
-    public function __construct(EmployerService $employerService)
+    private VacancyService $vacancyService;
+    public function __construct(VacancyService $vacancyService)
     {
-        $this->employerService = $employerService;
+        $this->vacancyService = $vacancyService;
     }
     public function store(Request $request)
     {
+
         $data = $request->all();
         $result = ['status' => 200];
 
         try {
-            $result['data'] = $this->employerService->saveData($data);
+            $result['data'] = $this->vacancyService->saveData($data);
         } catch (Exception $e) {
             $result = [
                 'status' => 500,

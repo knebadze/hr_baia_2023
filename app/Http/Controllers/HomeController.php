@@ -26,6 +26,7 @@ class HomeController extends Controller
     public function index()
     {
         // dd(App::setLocale());
+        // dd(app()->getLocale());
         $auth = Auth::User();
         return view('home', compact('auth'));
     }

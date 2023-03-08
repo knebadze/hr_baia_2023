@@ -56,10 +56,9 @@
                     <div class="form-group">
                         <label>{{ $t('lang.user_profile_page_input_gender') }}</label>
                         <div class="ls-inputicon-box">
-                            <select class="wt-select-box selectpicker is-invalid" v-model="auth.gender_id"  data-live-search="false" title="" id="gender" data-bv-field="size" @blur="v$.auth.gender_id.$touch">
-                                <option v-for="gender in genderCLA " :value="gender.id">{{ gender[`name_${getLang}`] }}</option>
-                            </select>
-                            <i class="fs-input-icon fa fa-venus-mars"></i>
+                            <multiselect v-model="auth.gender" :options="genderCLA" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one" :searchable="true" :allow-empty="false" @blur="v$.auth.gender_id.$touch">
+                                <template slot="singleLabel" slot-scope="{ option }"></template>
+                            </multiselect>
                             <span v-if="v$.auth.gender_id.required.$invalid && v$.auth.gender_id.$dirty" style='color:red'>* {{ v$.auth.gender_id.required.$message}}</span>
                         </div>
                     </div>

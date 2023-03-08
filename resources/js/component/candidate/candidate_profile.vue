@@ -5,7 +5,7 @@
             <!-- <form> -->
 
 
-                <mainInfo :data="m.auth" :genderCLA="data.classificator.gender"></mainInfo>
+                <mainInfo :data="m.user" :genderCLA="data.classificator.gender"></mainInfo>
 
             <!-- <form @submit.prevent="addCandidate()"> -->
                  <!--personal information-->

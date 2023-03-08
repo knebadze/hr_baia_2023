@@ -81,7 +81,6 @@ class MyprofileController extends Controller
     public function update(Request $request)
     {
         $data = $request->all();
-
         $lang = app()->getLocale();
         $user = User::findOrFail($request->id);
         if ($lang == 'ka') {
@@ -94,7 +93,7 @@ class MyprofileController extends Controller
         $user->email = $request->email;
         $user->number = $request->number;
         $user->date_of_birth = $request->date_of_birth;
-        $user->gender_id = $request->gender_id;
+        $user->gender_id = $request->gender['id'];
         $user->update();
         return response()->json();
     }
