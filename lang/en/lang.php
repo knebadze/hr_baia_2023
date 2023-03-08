@@ -188,8 +188,6 @@ return [
     'individual_vacancies_page_middle_show_me_50' => 'Show Me 50',
     'individual_vacancies_page_middle_show_me_60' => 'Show Me 60',
 
-    'individual_vacancies_page_middle_leftside_read_more' => 'Read More',
-
     // ----------------------------------------------------------------------------------------------------
     // Company Vacancies Lang Page
     'company_vacancies_page_big_title' => 'Most popular vacancies',

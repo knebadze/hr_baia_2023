@@ -329,252 +329,28 @@
 
                         </div>
 
-                        <div class="row">
-                            <!--Block one-->
-                            <div class="col-lg-6 col-md-12 m-b30">
+                        <div class="twm-jobs-list-wrap">
+                            <ul>
+                                 <li>
+                                     <div class="twm-jobs-list-style1 mb-5">
+                                         <div class="twm-media">
+                                             <img src="/images/jobs-company/pic1.jpg" alt="#">
+                                         </div>
+                                         <div class="twm-mid-content">
+                                             <a href="job-detail.html" class="twm-job-title">
+                                                 <h4>Senior Web Designer<span class="twm-job-post-duration">/ 1 days ago</span></h4>
+                                             </a>
+                                             <p class="twm-job-address">1363-1385 Sunset Blvd Los Angeles, CA 90026, USA</p>
+                                             <a href="https://themeforest.net/user/thewebmax/portfolio" class="twm-job-websites site-text-primary">https://thewebmax.com</a>
+                                         </div>
+                                         <div class="twm-right-content">
+                                             <div class="twm-jobs-category green"><span class="twm-bg-green">New</span></div>
+                                             <div class="twm-jobs-amount">$2500 <span>/ Month</span></div>
+                                         </div>
+                                     </div>
+                                 </li>
 
-                                <div class="twm-jobs-grid-style1">
-                                    <div class="twm-media">
-                                        <img src="/images/jobs-company/pic1.jpg" alt="#">
-                                    </div>
-                                    <span class="twm-job-post-duration">1 დღის წინ</span>
-                                    <div class="twm-jobs-category green"><span class="twm-bg-green">ახალი</span></div>
-                                    <div class="twm-mid-content">
-                                        <a href="job-detail.html" class="twm-job-title">
-                                            <h4>Senior Web Designer , Developer</h4>
-                                        </a>
-                                        <p class="twm-job-address">1363-1385 Sunset Blvd Los Angeles, CA 90026, USA</p>
-                                        <a href="#" class="twm-job-websites site-text-primary">https://thewebmax.com</a>
-                                    </div>
-                                    <div class="twm-right-content">
-                                        
-                                        <div class="twm-jobs-amount">₾2500 <span>/ თვეში</span></div>
-                                        <a href="job-detail.html" class="twm-jobs-browse site-text-primary">{{ __('lang.individual_vacancies_page_middle_leftside_read_more') }}</a>
-                                    </div>
-                                </div>
-
-                            </div>
-                            
-                            <!--Block two-->
-                            <div class="col-lg-6 col-md-12 m-b30">
-
-                                <div class="twm-jobs-grid-style1">
-                                    <div class="twm-media">
-                                        <img src="/images/jobs-company/pic2.jpg" alt="#">
-                                    </div>
-                                    <span class="twm-job-post-duration">15 დღის წინ</span>
-                                    <div class="twm-jobs-category green"><span class="twm-bg-brown">სტაჟირება</span></div>
-                                    <div class="twm-mid-content">
-                                        <a href="job-detail.html" class="twm-job-title">
-                                            <h4>Senior Rolling Stock Technician</h4>
-                                        </a>
-                                        <p class="twm-job-address">1363-1385 Sunset Blvd Los Angeles, CA 90026, USA</p>
-                                        <a href="https://themeforest.net/user/thewebmax/portfolio" class="twm-job-websites site-text-primary">https://thewebmax.com</a>
-                                    </div>
-                                    <div class="twm-right-content">
-                                        <div class="twm-jobs-amount">₾7 <span>/ საათში</span></div>
-                                        <a href="job-detail.html" class="twm-jobs-browse site-text-primary">სრულად</a>
-                                    </div>
-                                </div>
-
-                            </div>
-                            
-                            <!--Block three-->
-                            <div class="col-lg-6 col-md-12 m-b30">
-                                
-                                <div class="twm-jobs-grid-style1">
-                                    <div class="twm-media">
-                                        <img src="/images/jobs-company/pic3.jpg" alt="#">
-                                    </div>
-                                    <span class="twm-job-post-duration">6 თვის წინ</span>
-                                    <div class="twm-jobs-category green"><span class="twm-bg-purple">სრული</span></div>
-                                    <div class="twm-mid-content">
-                                        <a href="job-detail.html" class="twm-job-title">
-                                            <h4 class="twm-job-title">IT Department Manager</h4>
-                                        </a>
-                                        <p class="twm-job-address">1363-1385 Sunset Blvd Los Angeles, CA 90026, USA</p>
-                                        <a href="https://themeforest.net/user/thewebmax/portfolio" class="twm-job-websites site-text-primary">https://thewebmax.com</a>
-                                    </div>
-                                    <div class="twm-right-content">
-                                        
-                                        <div class="twm-jobs-amount">₾2500 <span>/ თვეში</span></div>
-                                        <a href="job-detail.html" class="twm-jobs-browse site-text-primary">სრულად</a>
-                                    </div>
-                                </div> 
-                                 
-                            </div>
-                            
-                             <!--Block Four-->
-                            <div class="col-lg-6 col-md-12 m-b30">
-
-                                <div class="twm-jobs-grid-style1">
-                                    <div class="twm-media">
-                                        <img src="/images/jobs-company/pic4.jpg" alt="#">
-                                    </div>
-                                    <span class="twm-job-post-duration">2 დღის წინ</span>
-                                    <div class="twm-jobs-category green"><span class="twm-bg-sky">თავისუფალი</span></div>
-                                    <div class="twm-mid-content">
-                                        <a href="job-detail.html" class="twm-job-title">
-                                            <h4 class="twm-job-title">Art Production Specialist</h4>
-                                        </a>
-                                        <p class="twm-job-address">1363-1385 Sunset Blvd Los Angeles, CA 90026, USA</p>
-                                        <a href="https://themeforest.net/user/thewebmax/portfolio" class="twm-job-websites site-text-primary">https://thewebmax.com</a>
-                                    </div>
-                                    <div class="twm-right-content">
-                                        
-                                        <div class="twm-jobs-amount">₾1800 <span>/ თვეში</span></div>
-                                        <a href="job-detail.html" class="twm-jobs-browse site-text-primary">სრულად</a>
-                                    </div>
-                                </div>
-
-                            </div>
-                            
-                            <!--Block Five-->
-                            <div class="masonry-item col-lg-6 col-md-12 m-b30">
-                                
-                                <div class="twm-jobs-grid-style1">
-                                    <div class="twm-media">
-                                        <img src="/images/jobs-company/pic5.jpg" alt="#">
-                                    </div>
-                                    <span class="twm-job-post-duration">1 დღის წინ</span>
-                                    <div class="twm-jobs-category green"><span class="twm-bg-golden">დროებითი</span></div>
-                                    <div class="twm-mid-content">
-                                        <a href="job-detail.html" class="twm-job-title">
-                                            <h4 class="twm-job-title">Recreation &amp; Fitness Worker</h4>
-                                        </a>
-                                        <p class="twm-job-address">1363-1385 Sunset Blvd Los Angeles, CA 90026, USA</p>
-                                        <a href="https://themeforest.net/user/thewebmax/portfolio" class="twm-job-websites site-text-primary">https://thewebmax.com</a>
-                                    </div>
-                                    <div class="twm-right-content">
-                                        <div class="twm-jobs-amount">₾1000 <span>/ თვეში</span></div>
-                                        <a href="job-detail.html" class="twm-jobs-browse site-text-primary">სრულად</a>
-                                    </div>
-                                </div>
-
-                            </div>
-                            
-                            <!--Block Six-->
-                            <div class="masonry-item col-lg-6 col-md-12 m-b30">
-                                <div class="twm-jobs-grid-style1">
-                                    <div class="twm-media">
-                                        <img src="/images/jobs-company/pic1.jpg" alt="#">
-                                    </div>
-                                    <span class="twm-job-post-duration">1 დძღის წინ</span>
-                                    <div class="twm-jobs-category green"><span class="twm-bg-green">ახალი</span></div>
-                                    <div class="twm-mid-content">
-                                        <a href="job-detail.html" class="twm-job-title">
-                                            <h4>Senior Web Designer , Developer</h4>
-                                        </a>
-                                        <p class="twm-job-address">1363-1385 Sunset Blvd Los Angeles, CA 90026, USA</p>
-                                        <a href="https://themeforest.net/user/thewebmax/portfolio" class="twm-job-websites site-text-primary">https://thewebmax.com</a>
-                                    </div>
-                                    <div class="twm-right-content">
-                                        
-                                        <div class="twm-jobs-amount">₾19 <span>/ საათში</span></div>
-                                        <a href="job-detail.html" class="twm-jobs-browse site-text-primary">სრულად</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!--Block Seven-->
-                            <div class="col-lg-6 col-md-12 m-b30">
-
-                                <div class="twm-jobs-grid-style1">
-                                    <div class="twm-media">
-                                        <img src="/images/jobs-company/pic1.jpg" alt="#">
-                                    </div>
-                                    <span class="twm-job-post-duration">1 დღის წინ</span>
-                                    <div class="twm-jobs-category green"><span class="twm-bg-green">ახალი</span></div>
-                                    <div class="twm-mid-content">
-                                        <a href="job-detail.html" class="twm-job-title">
-                                            <h4>Senior Web Designer , Developer</h4>
-                                        </a>
-                                        <p class="twm-job-address">1363-1385 Sunset Blvd Los Angeles, CA 90026, USA</p>
-                                        <a href="https://themeforest.net/user/thewebmax/portfolio" class="twm-job-websites site-text-primary">https://thewebmax.com</a>
-                                    </div>
-                                    <div class="twm-right-content">
-                                        
-                                        <div class="twm-jobs-amount">₾2500 <span>/ თვეში</span></div>
-                                        <a href="job-detail.html" class="twm-jobs-browse site-text-primary">სრულად</a>
-                                    </div>
-                                </div>
-
-                            </div>
-                            
-                            <!--Block Eight-->
-                            <div class="col-lg-6 col-md-12 m-b30">
-
-                                <div class="twm-jobs-grid-style1">
-                                    <div class="twm-media">
-                                        <img src="/images/jobs-company/pic2.jpg" alt="#">
-                                    </div>
-                                    <span class="twm-job-post-duration">15 დღის წინ</span>
-                                    <div class="twm-jobs-category green"><span class="twm-bg-brown">სტაჟირება</span></div>
-                                    <div class="twm-mid-content">
-                                        <a href="job-detail.html" class="twm-job-title">
-                                            <h4>Senior Rolling Stock Technician</h4>
-                                        </a>
-                                        <p class="twm-job-address">1363-1385 Sunset Blvd Los Angeles, CA 90026, USA</p>
-                                        <a href="https://themeforest.net/user/thewebmax/portfolio" class="twm-job-websites site-text-primary">https://thewebmax.com</a>
-                                    </div>
-                                    <div class="twm-right-content">
-                                        <div class="twm-jobs-amount">₾7 <span>/ საათში</span></div>
-                                        <a href="job-detail.html" class="twm-jobs-browse site-text-primary">სრულად</a>
-                                    </div>
-                                </div>
-
-                            </div>
-                            
-                            <!--Block Nine-->
-                            <div class="col-lg-6 col-md-12 m-b30">
-                                
-                                <div class="twm-jobs-grid-style1">
-                                    <div class="twm-media">
-                                        <img src="/images/jobs-company/pic3.jpg" alt="#">
-                                    </div>
-                                    <span class="twm-job-post-duration">6 თვის წინ</span>
-                                    <div class="twm-jobs-category green"><span class="twm-bg-purple">სრული</span></div>
-                                    <div class="twm-mid-content">
-                                        <a href="job-detail.html" class="twm-job-title">
-                                            <h4 class="twm-job-title">IT Department Manager</h4>
-                                        </a>
-                                        <p class="twm-job-address">1363-1385 Sunset Blvd Los Angeles, CA 90026, USA</p>
-                                        <a href="https://themeforest.net/user/thewebmax/portfolio" class="twm-job-websites site-text-primary">https://thewebmax.com</a>
-                                    </div>
-                                    <div class="twm-right-content">
-                                        
-                                        <div class="twm-jobs-amount">₾2500 <span>/ თვეში</span></div>
-                                        <a href="job-detail.html" class="twm-jobs-browse site-text-primary">სრულად</a>
-                                    </div>
-                                </div> 
-                                 
-                            </div>
-                            
-                             <!--Block ten-->
-                            <div class="col-lg-6 col-md-12 m-b30">
-
-                                <div class="twm-jobs-grid-style1">
-                                    <div class="twm-media">
-                                        <img src="/images/jobs-company/pic4.jpg" alt="#">
-                                    </div>
-                                    <span class="twm-job-post-duration">2 დღის წინ</span>
-                                    <div class="twm-jobs-category green"><span class="twm-bg-sky">თავისუფალი</span></div>
-                                    <div class="twm-mid-content">
-                                        <a href="job-detail.html" class="twm-job-title">
-                                            <h4 class="twm-job-title">Art Production Specialist</h4>
-                                        </a>
-                                        <p class="twm-job-address">1363-1385 Sunset Blvd Los Angeles, CA 90026, USA</p>
-                                        <a href="https://themeforest.net/user/thewebmax/portfolio" class="twm-job-websites site-text-primary">https://thewebmax.com</a>
-                                    </div>
-                                    <div class="twm-right-content">
-                                        
-                                        <div class="twm-jobs-amount">₾1800 <span>/ თვეში</span></div>
-                                        <a href="job-detail.html" class="twm-jobs-browse site-text-primary">სრულად</a>
-                                    </div>
-                                </div>
-
-                            </div>
-
+                            </ul>
                         </div>
 
                         <div class="pagination-outer">
