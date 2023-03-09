@@ -2,9 +2,11 @@
 
 namespace App\Services;
 
+use App\Models\User;
 use App\Repositories\VacancyRepository;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 use App\Http\Controllers\Employer\VacancyController;
+use App\Models\Vacancy;
 
 class VacancyService{
     protected $vacancyRepository;
@@ -90,10 +92,22 @@ class VacancyService{
         }
         return $data;
     }
+    public function addHr($data)
+    {
+        $hr = User::where('role_id', 2)->where('is_active', 1)->with('hr')->get()->toArray();
+        
+        $vacancy = Vacancy::orderBy('id', 'DESC')->first();
+        if ($vacancy) {
+
+        }
+        print_r($hr);
+        exit;
+    }
     public function saveData($data)
     {
 
         $lang = $data['lang'];
+        $this->addHr($data);
         $trData = $this->translate($lang, $data);
 
         // print_r($trData);

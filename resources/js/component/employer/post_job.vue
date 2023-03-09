@@ -245,7 +245,7 @@ export default {
         this.m['vacancy'] = {...this.data.model.vacancy};
         this.m['demand'] = {...this.data.model.demand};
         this.m.vacancy.payment = 800
-        this.m.vacancy[`address_${this.getLang}`] = this.data.model.employer[`address_${this.getLang}`].substring(0, this.data.model.employer[`address_${this.getLang}`].lastIndexOf(", "))+', '+this.data.model.employer[`street_${this.getLang}`]
+        if(this.data.model.employer[`address_${this.getLang}`]) this.m.vacancy[`address_${this.getLang}`] = this.data.model.employer[`address_${this.getLang}`].substring(0, this.data.model.employer[`address_${this.getLang}`].lastIndexOf(", "))+', '+this.data.model.employer[`street_${this.getLang}`]
         console.log('this.m', this.m);
     },
     computed:{

@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('vacancies', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('author_id');
+            $table->foreignId('hr_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->string('title_ka')->nullable();
             $table->string('title_en')->nullable();
             $table->string('title_ru')->nullable();
