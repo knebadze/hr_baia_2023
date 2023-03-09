@@ -44,4 +44,12 @@ class Vacancy extends Model
     {
         return $this->belongsToMany(GeneralCharacteristic::class, 'vacancy_candidate_characteristics',  'vacancy_id', 'characteristic_id');
     }
+    public function currency()
+    {
+        return $this->belongsTo(Currency::class);
+    }
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

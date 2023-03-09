@@ -18,6 +18,7 @@ return new class extends Migration
             $table->char('name_ka', 50);
             $table->char('name_en', 50);
             $table->char('name_ru', 50);
+            $table->char('icon', 20);
         });
     }
 

@@ -2,13 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Vacancy;
 use Illuminate\Http\Request;
 
 class IndividualController extends Controller
 {
     public function index()
     {
-        return view ('individual');
+        $vacancy = Vacancy::where('status_id', 1)->with(['currency', 'category'])->get()->toArray();
+        $data = [
+            'model' => [
+                'vacancy' => $vacancy,
+            ]
+            ];
+        return view ('individual', compact('data'));
     }
 
 
