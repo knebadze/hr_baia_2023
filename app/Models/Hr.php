@@ -13,4 +13,9 @@ class Hr extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    public function hrHasVacancy()
+    {
+        return $this->hasOne(User::class);
+    }
 }

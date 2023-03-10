@@ -2,11 +2,13 @@
 
 namespace App\Services;
 
+use App\Models\Hr;
 use App\Models\User;
+use App\Models\Vacancy;
+use App\Models\HrHasVacancy;
 use App\Repositories\VacancyRepository;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 use App\Http\Controllers\Employer\VacancyController;
-use App\Models\Vacancy;
 
 class VacancyService{
     protected $vacancyRepository;
@@ -94,14 +96,35 @@ class VacancyService{
     }
     public function addHr($data)
     {
-        $hr = User::where('role_id', 2)->where('is_active', 1)->with('hr')->get()->toArray();
-        
-        $vacancy = Vacancy::orderBy('id', 'DESC')->first();
-        if ($vacancy) {
 
+
+        $vacancy = Vacancy::orderBy('id', 'DESC')->first();
+        $hrHasVacancy = HrHasVacancy::where('has_vacancy', 0)->get();
+        if (count($hrHasVacancy)) {
+            foreach ($hrHasVacancy as $key => $value) {
+                $hr = Hr::find($value->hr_id);
+                if ($hr->user->is_active == 1) {
+                    print_r("if");
+                    exit;
+                    // $data['hr_id'] = $hrHasVacancy->hr_id;
+                    $value['has_vacancy']
+                    break;
+                }
+            }
+
+            // if ($hr->user->is_active == 1) {
+            //     print_r("if");
+            //     exit;
+            //     // $data['hr_id'] = $hrHasVacancy->hr_id;
+            // }
+            // else {
+            //     $hrHasVacancy = HrHasVacancy::where('has_vacancy', 0)->whereNot('hr_id', $hr->id)->first();
+            //     print_r('else');
+            //     exit;
+            // }
+            // $data['hr_id'] = $hrHasVacancy->hr_id;
         }
-        print_r($hr);
-        exit;
+
     }
     public function saveData($data)
     {
