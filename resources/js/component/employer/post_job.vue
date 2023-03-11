@@ -23,9 +23,9 @@
                             <div class="form-group">
                                 <label><span class="text-danger">* </span>{{ ('ვაკანსისი სათაური') }}</label>
                                 <div class="ls-inputicon-box">
-                                    <input class="form-control" v-model="m.vacancy[`title_${getLang}`]" type="text" placeholder="მაგ: ვეძებ გამოცდილ ძიძას" >
+                                    <input class="form-control" v-model="m.vacancy[`title_${getLang}`]" type="text" placeholder="მაგ: ვეძებ გამოცდილ ძიძას"  @blur="v$.m.vacancy[`title_${getLang}`].$touch">
                                     <i class="fs-input-icon fa fa-user"></i>
-                                    <!-- <span v-if="v$.m.candidate.personal_number.required.$invalid && v$.m.candidate.personal_number.$dirty" style='color:red'>* {{ v$.m.candidate.personal_number.required.$message}}</span> -->
+                                    <span v-if="v$.m.vacancy[`title_${getLang}`].required.$invalid && v$.m.vacancy[`title_${getLang}`].$dirty" style='color:red'>* {{ v$.m.vacancy[`title_${getLang}`].required.$message}}</span>
                                 </div>
                             </div>
                         </div>
@@ -224,7 +224,12 @@
     </div>
 </template>
 <script>
+import { useVuelidate } from '@vuelidate/core'
+import { required, email, helpers, requiredIf, numeric, maxLength } from '@vuelidate/validators'
 export default {
+    setup () {
+        return { v$: useVuelidate() }
+    },
     props:{
         data: Object
     },
@@ -237,9 +242,71 @@ export default {
                 'skill':[]
             },
             workInformationSchedule:null,
-            schedule: 'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე, შაბათ-კვირა დასვენა',
-            loader: false
+
+            loader: false,
+            localText:{
+                schedule: {
+                    '1':{
+                        ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
+                        en:'',
+                        ru:'',
+                    }
+
+                }
+            }
         }
+    },
+    validations () {
+        const validations = {
+            m:{
+                vacancy:{
+                    title_ka:{},
+                    title_en:{},
+                    title_ru:{},
+                    category_id:{
+                        required:helpers.withMessage('არჩევა სავალდებულოა', required ),
+                    },
+                    for_who_ka:{},
+                    for_who_en:{},
+                    for_who_ru:{},
+                    address_ka:{},
+                    address_en:{},
+                    address_ru:{},
+                    payment:{
+                        required:helpers.withMessage('შევსება სავალდებულოა', required ),
+                        numeric:helpers.withMessage('უნდა შეიცავდეც მხოლოდ ციფრებს', numeric ),
+                    },
+                    currency_id:{
+                        required:helpers.withMessage('არჩევა სავალდებულოა', required ),
+                    },
+                    work_schedule_id:{
+                        required:helpers.withMessage('არჩევა სავალდებულოა', required ),
+                    },
+                    additional_schedule_ka:{},
+                    additional_schedule_en:{},
+                    additional_schedule_ru:{},
+                },
+                demand:{
+                    
+                }
+            }
+
+
+        }
+        if (this.getLang == 'ka') {
+            validations.m.vacancy.title_ka ={
+                required:helpers.withMessage('შევსება სავალდებულოა', required )
+            }
+        }else if(this.getLang == 'en'){
+            validations.m.vacancy.title_en ={
+                required:helpers.withMessage('შევსება სავალდებულოა', required )
+            }
+        }else{
+            validations.m.vacancy.title_ru ={
+                required:helpers.withMessage('შევსება სავალდებულოა', required )
+            }
+        }
+        return validations
     },
     created(){
         this.m['vacancy'] = {...this.data.model.vacancy};
@@ -270,7 +337,7 @@ export default {
                 /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
                     let currentObj = this
-                    this.loader = true
+                    // this.loader = true
                     axios({
                         method: "post",
                         url: "/add_vacancy",
@@ -298,6 +365,15 @@ export default {
             // }
             })
 
+        }
+    },
+    watch:{
+        'm.vacancy.work_schedule_id': function (newValue, oldValue) {
+            console.log('new', newValue);
+            if (newValue != '') {
+                this.m.vacancy[`additional_schedule_${this.getLang}`] = this.localText.schedule[`${newValue.id}`][`${this.getLang}`]
+                console.log(this.localText.schedule[`${newValue.id}`][`${this.getLang}`]);
+            }
         }
     },
     mounted(){

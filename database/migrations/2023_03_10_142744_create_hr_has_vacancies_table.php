@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('hr_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->smallInteger('has_vacancy')->default(0);
+            $table->smallInteger('rewrite')->default(0);
             $table->timestamps();
         });
     }

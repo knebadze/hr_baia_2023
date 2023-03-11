@@ -71,6 +71,9 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
         //Post Job
         Route::get('/user/post_job', [PostJobController::class, 'index'])->name('post.job');
 
+        //user vacancy
+        Route::get('/user/vacancy', [VacancyController::class, 'index'])->name('user.vacancy');
+
         Route::get('/home', [HomeController::class, 'index'])->name('home');
     });
 

@@ -6,6 +6,8 @@ use Exception;
 use Illuminate\Http\Request;
 use App\Services\VacancyService;
 use App\Http\Controllers\Controller;
+use App\Models\Vacancy;
+use Illuminate\Support\Facades\Auth;
 
 class VacancyController extends Controller
 {
@@ -13,6 +15,19 @@ class VacancyController extends Controller
     public function __construct(VacancyService $vacancyService)
     {
         $this->vacancyService = $vacancyService;
+    }
+    public function index()
+    {
+        $vacancy = Vacancy::where('author_id', Auth::id())->with(['category', 'status', 'workSchedule'])->get();
+        $data = [
+            'model' => [
+                'vacancy' => $vacancy
+            ],
+            'classificator' => [
+
+            ]
+        ];
+        return view('user.vacancy', compact('data'));
     }
     public function store(Request $request)
     {

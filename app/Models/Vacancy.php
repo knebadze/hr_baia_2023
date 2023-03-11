@@ -35,7 +35,7 @@ class Vacancy extends Model
         'provider_token',
         'photo',
     ];
-
+    protected $appends = ['hrInfo'];
     public function vacancyDutySkill()
     {
         return $this->belongsToMany(Skill::class, 'vacancy_candidate_duties');
@@ -51,5 +51,23 @@ class Vacancy extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
+    }
+    public function workSchedule()
+    {
+        return $this->belongsTo(WorkSchedule::class);
+    }
+    public function hr()
+    {
+        return $this->belongsTo(Hr::class);
+    }
+    public function getHrInfoAttribute():array
+    {
+        $hr = Hr::where('id', $this->hr_id)->first()->toArray();
+        $user = User::where('id', $hr['user_id'])->where('role_id', 2)->first()->toArray();
+        return $user;
     }
 }

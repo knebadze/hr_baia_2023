@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class HrHasVacancy extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'hr_id',
+        'has_vacancy',
+        'rewrite',
+        'is_active',
+    ];
     public function hr()
     {
         return $this->belongsTo(Hr::class, 'hr_id', 'id');

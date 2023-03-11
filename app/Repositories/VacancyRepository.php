@@ -11,6 +11,7 @@ class VacancyRepository{
     {
         $vacancy = new Vacancy();
         $vacancy->author_id = Auth::id();
+        $vacancy->hr_id = $data['vacancy']['hr_id'];
         $vacancy->title_ka = $data['vacancy']['title_ka'];
         $vacancy->title_en = $data['vacancy']['title_en'];
         $vacancy->title_ru = $data['vacancy']['title_ru'];
