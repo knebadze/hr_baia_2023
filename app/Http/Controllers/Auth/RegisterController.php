@@ -84,20 +84,40 @@ class RegisterController extends Controller
     {
         // dd($data);
         // $tr= new GoogleTranslate();
-        // $name_en = GoogleTranslate::trans($data['name_ka'], 'en');
-        // $name_ru = GoogleTranslate::trans($data['name_ka'], 'ru');
+        $lang = app()->getLocale();
+        if ($lang == 'ka') {
+            $name_ka = $data['name_ka'];
+            $name_en = GoogleTranslate::trans($data['name_ka'], 'en');
+            $name_ru = GoogleTranslate::trans($data['name_ka'], 'ru');
+        }elseif ($lang == 'en') {
+            $name_ka = GoogleTranslate::trans($data['name_en'], 'ka');
+            $name_en = $data['name_en'];
+            $name_ru = GoogleTranslate::trans($data['name_en'], 'ru');
+        }elseif ($lang == 'ru') {
+            $name_ka = GoogleTranslate::trans($data['name_ru'], 'ka');
+            $name_en = GoogleTranslate::trans($data['name_ru'], 'en');
+            $name_ru = $data['name_ru'];
+        }
+        if ($data['gender_id'] == 1) {
+           $avatar = 'default_male.jpg';
+        }else{
+            $avatar = 'default_female.jpg';
+        }
+
         // dd();
         // GoogleTranslate::trans($data['name_ka'])
         return User::create([
             'user_type_id' =>$data['user_type_id'],
-            'name_ka' => $data['name_ka'],
-            // 'name_en' => $name_en,
-            // 'name_ru' => $name_ru,
+            'name_ka' => $name_ka,
+            'name_en' => $name_en,
+            'name_ru' => $name_ru,
             'email' => $data['email'],
             'date_of_birth' => $data['date_of_birth'],
             'gender_id' => $data['gender_id'],
+            'avatar' => $avatar,
             'number' => $data['number'],
             'password' => Hash::make($data['password']),
+            'lang' => $lang,
         ]);
     }
 }

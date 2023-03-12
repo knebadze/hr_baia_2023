@@ -13,7 +13,7 @@
 
             </div>
             <div  class="modal-footer">
-                <a type="button" class="btn btn-success"  href="user/candidateProfile"><i class=""></i>შესავსებად გადასვლა</a>
+                <a type="button" class="btn btn-success"  href="user/userProfile"><i class=""></i>შესავსებად გადასვლა</a>
             </div>
             </div>
         </div>

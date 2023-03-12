@@ -153,15 +153,38 @@
 
 
                                                 <div class="col-lg-12">
-                                                    <div class="form-group mb-3">
-                                                        <input id="name_ka" type="text" class="form-control @error('name_ka') is-invalid @enderror" name="name_ka" value="{{ old('name_ka') }}"  autocomplete="name_ka" autofocus placeholder="{{ __('lang.modal_registration_name_surname') }}">
+                                                    @if (app()->getLocale() == 'ka')
+                                                        <div class="form-group mb-3">
+                                                            <input id="name_ka" type="text" class="form-control @error('name_ka') is-invalid @enderror" name="name_ka" value="{{ old('name_ka') }}"  autocomplete="name_ka" autofocus placeholder="{{ __('lang.modal_registration_name_surname') }}">
 
-                                                        @error('name_ka')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $message }}</strong>
-                                                            </span>
-                                                        @enderror
-                                                    </div>
+                                                            @error('name_ka')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+                                                    @elseif (app()->getLocale() == 'en')
+                                                        <div class="form-group mb-3">
+                                                            <input id="name_en" type="text" class="form-control @error('name_en') is-invalid @enderror" name="name_en" value="{{ old('name_en') }}"  autocomplete="name_en" autofocus placeholder="{{ __('lang.modal_registration_name_surname') }}">
+
+                                                            @error('name_en')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+                                                    @else
+                                                        <div class="form-group mb-3">
+                                                            <input id="name_ru" type="text" class="form-control @error('name_ru') is-invalid @enderror" name="name_ru" value="{{ old('name_ru') }}"  autocomplete="name_ru" autofocus placeholder="{{ __('lang.modal_registration_name_surname') }}">
+
+                                                            @error('name_ru')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+                                                    @endif
+
                                                 </div>
 
                                                 <div class="col-lg-12">

@@ -17,10 +17,14 @@ return new class extends Migration
             $table->id();
             $table->foreignId('candidate_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('category_id')->constrained();
-            // $table->foreignId('work_schedule_id')->constrained();
             $table->integer('payment');
             $table->foreignId('currency_id')->constrained();
-
+            $table->string('additional_schedule_ka', 350)->nullable();
+            $table->string('additional_schedule_en', 350)->nullable();
+            $table->string('additional_schedule_ru', 350)->nullable();
+            $table->boolean('go_vacation')->default(0);
+            $table->boolean('stay_night')->default(0);
+            $table->boolean('work_additional_hours')->default(0);
             $table->timestamps();
 
 

@@ -29,9 +29,15 @@ return new class extends Migration
             $table->tinyInteger('children')->nullable();
             $table->string('children_age', 45)->nullable();
             $table->string('spouse', 500)->nullable();
-            $table->string('medical_info', 500)->nullable();
-            $table->string('address')->nullable();
-            $table->string('street')->nullable();
+            $table->string('medical_info_ka', 500)->nullable();
+            $table->string('medical_info_en', 500)->nullable();
+            $table->string('medical_info_ru', 500)->nullable();
+            $table->string('address_ka')->nullable();
+            $table->string('address_en')->nullable();
+            $table->string('address_ru')->nullable();
+            $table->string('street_ka')->nullable();
+            $table->string('street_en')->nullable();
+            $table->string('street_ru')->nullable();
             $table->string('latitude', 45)->nullable();
             $table->string('longitude', 45)->nullable();
             $table->string('fb_link', 500)->nullable();

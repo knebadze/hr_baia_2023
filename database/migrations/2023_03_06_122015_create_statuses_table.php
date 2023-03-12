@@ -15,7 +15,9 @@ return new class extends Migration
     {
         Schema::create('statuses', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 75);
+            $table->string('name_ka', 75);
+            $table->string('name_en', 75);
+            $table->string('name_ru', 75);
         });
     }
 

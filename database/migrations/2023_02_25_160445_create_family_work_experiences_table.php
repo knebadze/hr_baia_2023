@@ -21,7 +21,9 @@ return new class extends Migration
             $table->unsignedBigInteger('longest_time')->nullable();
             $table->foreignId('work_experience_id')->nullable()->constrained();
             $table->foreignId('no_reason_id')->nullable()->constrained();
-            $table->string('no_reason_info')->nullable();
+            $table->string('no_reason_info_ka')->nullable();
+            $table->string('no_reason_info_en')->nullable();
+            $table->string('no_reason_info_ru')->nullable();
             $table->timestamps();
 
 

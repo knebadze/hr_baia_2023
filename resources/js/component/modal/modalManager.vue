@@ -26,9 +26,9 @@ export default {
     created(){
         if (this.auth && this.auth.user_type_id == 4) {
             this.showUnknownUser = true
-        }else if(this.auth && this.auth.user_type_id == 1 && this.auth.is_active == 1){
+        }else if(this.auth && this.auth.user_type_id == 1 && this.auth.status == 0){
             var url = new URL( location.href)
-            if (url.pathname == `/${this.getLang}/user/candidateProfile`) {
+            if (url.pathname == `/${this.getLang}/user/userProfile`) {
                 return;
             }
             this.showPersonInformation = true

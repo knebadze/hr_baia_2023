@@ -18,10 +18,16 @@ return new class extends Migration
             $table->foreignId('candidate_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->tinyInteger('experience');
             $table->foreignId('work_experience_id')->nullable()->constrained();
-            $table->string('position')->nullable();
-            $table->string('object')->nullable();
+            $table->string('position_ka')->nullable();
+            $table->string('position_en')->nullable();
+            $table->string('position_ru')->nullable();
+            $table->string('object_ka')->nullable();
+            $table->string('object_en')->nullable();
+            $table->string('object_ru')->nullable();
             $table->foreignId('no_reason_id')->nullable()->constrained();
-            $table->string('no_reason_info')->nullable();
+            $table->string('no_reason_info_ka')->nullable();
+            $table->string('no_reason_info_en')->nullable();
+            $table->string('no_reason_info_ru')->nullable();
             $table->timestamps();
         });
     }
