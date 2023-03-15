@@ -32,7 +32,7 @@ export default {
                 return;
             }
             this.showPersonInformation = true
-        }else if(this.auth && this.auth.user_type_id == 1 && this.auth.is_active == 2){
+        }else if(this.auth && this.auth.user_type_id == 1 && this.auth.status == 1){
 
             var url = new URL( location.href)
             if (url.pathname == `/${this.getLang}/user/work_information`) {

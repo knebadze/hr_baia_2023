@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->string('personal_number', 25)->nullable()->unique();
-            $table->float('height')->nullable();
-            $table->float('weight')->nullable();
+            $table->integer('height')->nullable();
+            $table->integer('weight')->nullable();
             $table->tinyInteger('convection')->default(0);
             $table->tinyInteger('smoke')->default(0);
             $table->foreignId('nationality_id')->nullable()->constrained();

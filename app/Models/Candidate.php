@@ -24,10 +24,16 @@ class Candidate extends Model
         'children',
         'children_age',
         'spouse',
-        'medical_info',
+        'medical_info_ka',
+        'medical_info_en',
+        'medical_info_ru',
         'driving_license',
-        'address',
-        'street',
+        'address_ka',
+        'address_en',
+        'address_ru',
+        'street_ka',
+        'street_en',
+        'street_ru',
         'latitude',
         'longitude',
         'fb_link',
@@ -93,7 +99,7 @@ class Candidate extends Model
 
     public function generalWorkExperience()
     {
-        return $this->belongsToMany(Work_experience::class, 'general_work_experiences')->withPivot('experience','position', 'object');
+        return $this->belongsToMany(Work_experience::class, 'general_work_experiences')->withPivot('experience','position_ka','position_en','position_ru', 'object_ka', 'object_en', 'object_ru',);
     }
     public function notice()
     {

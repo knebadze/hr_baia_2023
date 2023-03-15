@@ -12,10 +12,16 @@ class General_work_experience extends Model
         'candidate_id',
         'experience',
         'work_experience_id',
-        'position',
-        'object',
+        'position_ka',
+        'position_en',
+        'position_ru',
+        'object_ka',
+        'object_en',
+        'object_ru',
         'no_reason_id',
-        'no_reason_info',
+        'no_reason_info_ka',
+        'no_reason_info_en',
+        'no_reason_info_ru',
     ];
 
     public function workExperience()

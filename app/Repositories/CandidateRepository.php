@@ -45,31 +45,37 @@ class CandidateRepository
         // print_r($data);
         // exit;
 ;
-        $objData = $this->array_to_object($data);
+        // $objData = $this->array_to_object($data);
         $candidate = Candidate::updateOrCreate(
             ['user_id' => Auth::id()],
             [
-                'personal_number' => $objData->candidate->personal_number,
-                'nationality_id' => $objData->candidate->nationality->id,
-                'religion_id' => $objData->candidate->religion->id,
-                'education_id' => $objData->candidate->education->id,
-                'marital_status_id' => $objData->candidate->marital_status->id,
-                'children' => $objData->candidate->children,
-                'children_age' => $objData->candidate->children_age,
-                'spouse' => $objData->candidate->spouse,
-                'fb_link' => $objData->candidate->fb_link,
-                'youtube_link' =>  $objData->candidate->youtube_link,
-                'map_link' =>  $objData->candidate->map_link,
-                'height' =>  $objData->candidate->height,
-                'weight' =>  $objData->candidate->weight,
-                'address' =>  $objData->candidate->address,
-                'street' =>  $objData->candidate->street,
-                'medical_info' =>  $objData->candidate->medical_info,
-                'convection' => ($objData->candidate->convection == null)?0:$objData->candidate->convection,
-                'smoke' =>  ($objData->candidate->smoke == null)?0:$objData->candidate->smoke,
-                'work_abroad' =>  ($objData->candidate->work_abroad == null)?0:$objData->candidate->work_abroad,
-                'latitude' => $objData->candidate->latitude,
-                'longitude' => $objData->candidate->longitude,
+                'personal_number' => $data['candidate']['personal_number'],
+                'nationality_id' => $data['candidate']['nationality']['id'],
+                'religion_id' => $data['candidate']['religion']['id'],
+                'education_id' => $data['candidate']['education']['id'],
+                'marital_status_id' => $data['candidate']['marital_status']['id'],
+                'children' => $data['candidate']['children'],
+                'children_age' => $data['candidate']['children_age'],
+                'spouse' => $data['candidate']['spouse'],
+                'fb_link' => $data['candidate']['fb_link'],
+                'youtube_link' =>  $data['candidate']['youtube_link'],
+                'map_link' =>  $data['candidate']['map_link'],
+                'height' =>  $data['candidate']['height'],
+                'weight' =>  $data['candidate']['weight'],
+                'address_ka' =>  $data['candidate']['address_ka'],
+                'address_en' =>  $data['candidate']['address_en'],
+                'address_ru' =>  $data['candidate']['address_ru'],
+                'street_ka' =>  $data['candidate']['street_ka'],
+                'street_en' =>  $data['candidate']['street_en'],
+                'street_ru' =>  $data['candidate']['street_ru'],
+                'medical_info_ka' =>  $data['candidate']['medical_info_ka'],
+                'medical_info_en' =>  $data['candidate']['medical_info_en'],
+                'medical_info_ru' =>  $data['candidate']['medical_info_ru'],
+                'convection' => ($data['candidate']['convection'] == null)?0:$data['candidate']['convection'],
+                'smoke' =>  ($data['candidate']['smoke'] == null)?0:$data['candidate']['smoke'],
+                'work_abroad' =>  ($data['candidate']['work_abroad'] == null)?0:$data['candidate']['work_abroad'],
+                'latitude' => $data['candidate']['latitude'],
+                'longitude' => $data['candidate']['longitude'],
             ]
         );
         $selectCitizenship = collect($data['candidateCitizenships'])->reduce(function ($carry, $item) {
@@ -108,7 +114,7 @@ class CandidateRepository
         $candidate->allergy()->sync( $selectAllergy );
 
 
-        $candidate->drivingLicense()->sync($objData->candidateDrivingLicense);
+        $candidate->drivingLicense()->sync($data['candidateDrivingLicense']);
 
 
 
@@ -132,7 +138,8 @@ class CandidateRepository
 
                 $selectExperience = collect($data['candidateWorkExperience'])->reduce(function ($carry, $item) {
                     if($carry  == null) $carry = [];
-                    $carry[$item["work_experience"]['id']] = ["experience" => $item["has_experience"]['id'], "position" => $item["position"], "object" => $item["object"]];
+                    $carry[$item["work_experience"]['id']] = ["experience" => $item["has_experience"]['id'], "position_ka" => $item["position_ka"], "position_en" => $item["position_en"], "position_ru" => $item["position_ru"],
+                    "object_ka" => $item["object_ka"],"object_en" => $item["object_en"],"object_ru" => $item["object_ru"],];
                     return $carry;
                 }, []);;
                 $candidate->generalWorkExperience()->attach($selectExperience);
@@ -143,7 +150,9 @@ class CandidateRepository
                     [
                         'experience' => $data['candidateWorkExperience'][0]["has_experience"]['id'],
                         'no_reason_id' => $data['candidateWorkExperience'][0]['no_reason']['id'],
-                        'no_reason_info' => $data['candidateWorkExperience'][0]['no_reason_info'],
+                        'no_reason_info_ka' => $data['candidateWorkExperience'][0]['no_reason_info_ka'],
+                        'no_reason_info_en' => $data['candidateWorkExperience'][0]['no_reason_info_en'],
+                        'no_reason_info_ru' => $data['candidateWorkExperience'][0]['no_reason_info_ru'],
                     ]
                 );
             }
@@ -155,7 +164,8 @@ class CandidateRepository
                 Additional_number::where('candidate_id', $candidate->id)->delete();
             }
             foreach ($data['candidateNumber'] as $key => $value) {
-
+                // print_r($value);
+                // exit;
                 $additionalNumber = new Additional_number();
                 $additionalNumber->candidate_id = $candidate->id;
                 $additionalNumber->number_code_id = $value['number_code_id'];
@@ -164,7 +174,7 @@ class CandidateRepository
                 $additionalNumber->save();
             }
         }
-
+        $this->userStatusUpdate();
 
         return $candidate->id;
     }
@@ -199,15 +209,7 @@ class CandidateRepository
 
         }
         if (CandidateNotice::where('candidate_id', $data['candidate_id'])->exists()) {
-            $id = Auth::id();
-            $user = User::find($id);
-            if ($user->user_type_id == 1) {
-
-                $user->update([
-                    'is_active' => 2,
-                    'updated_at' => now()
-                ]);
-            }
+            $this->userStatusUpdate();
         }
         return $data;
     }
@@ -215,5 +217,17 @@ class CandidateRepository
     {
         CandidateNotice::where('candidate_id', $data)->delete();
         return $data;
+    }
+
+    public function userStatusUpdate()
+    {
+        $id = Auth::id();
+        $user = User::find($id);
+        if ($user->user_type_id == 1 && $user->status == 0) {
+            $user->update([
+                'status' => 1,
+                'updated_at' => now()
+            ]);
+        }
     }
 }
