@@ -560,11 +560,6 @@
                                           <input class="form-check-input" type="checkbox" value="1" v-model="m.candidate.work_abroad" id="flexCheckDefault">
                                           <label>{{ $t('lang.user_profile_page_additional_work_abroad') }}</label>
                                         </div>
-                                        <!-- <select class="wt-select-box selectpicker" v-model="m.candidate.work_abroad"  data-live-search="false" title=""  data-bv-field="size">
-                                            <option :value="1">კი</option>
-                                            <option :value="0">არა</option>
-                                        </select>
-                                        <i class="fs-input-icon fa fa-globe-europe"></i> -->
                                     </div>
                                 </div>
                             </div>
@@ -1110,31 +1105,6 @@ export default {
         }
     },
     watch:{
-        // experienceCheck:{
-        //     handler(newValue, oldValue) {
-        //         if (newValue == 0 ) {
-        //             this.$swal(
-        //                 {
-        //                     title: '<p>შეგახსენებთ რომ დამსაქმებელთა უმეტესობისთვის პრიორიტეტია სამუშაო გამოცდილების ქონა</p>',
-        //                     icon: 'info',
-        //                     html:
-        //                         'თუმცა თქვენ შეგიძლიათ დამსაქმებელს აუხსნათ თუ რატომ არ გაქვთ გამოცდილება',
-        //                     showCloseButton: true,
-        //                     showCancelButton: false,
-        //                     focusConfirm: false,
-        //                 }
-        //             );
-        //         }
-        //     }
-        // }
-        // candidateWorkExperienceModel:{
-        //     handler(newValue, oldValue){
-        //         console.log('newValue', newValue);
-        //         if (this.candidateWorkExperienceModel.experience == 2) {
-        //             alert()
-        //         }
-        //     }
-        // }
         'candidateWorkExperienceModel.has_experience.id': function(newVal, oldVa){
             if (newVal == 2) {
                 this.showNoWorkExperience = true;

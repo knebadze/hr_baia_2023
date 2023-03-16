@@ -35,4 +35,9 @@ class WorkInformation extends Model
     {
         return $this->belongsToMany(WorkSchedule::class, 'work_information_work_schedules');
     }
+
+    public function noFamilyWorkExperience()
+    {
+        return $this->belongsTo(NoFamilyWorkExperience::class, 'work_information_id', 'id');
+    }
 }

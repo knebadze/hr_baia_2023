@@ -42,7 +42,7 @@ class WorkInformationController extends Controller
         $user = User::where('id', $auth->id)->first();
 
         if (DB::table('work_information')->where('candidate_id', $user->candidate->id)->exists()) {
-            $workInformation = WorkInformation::where('candidate_id', $user->candidate->id)->with(['category', 'workSchedule','currency'])->get()->toArray();
+            $workInformation = WorkInformation::where('candidate_id', $user->candidate->id)->with(['category', 'workSchedule','currency', 'noFamilyWorkExperience'])->get()->toArray();
             $getWorkInformation =  Schema::getColumnListing('work_information');
             $getWorkInformation = array_map(function ($item) { return ""; }, array_flip($getWorkInformation));
         }else{
@@ -57,10 +57,10 @@ class WorkInformationController extends Controller
             $candidateRecommendation = [];
         }
 
-        // if (DB::table('work_information')->where('candidate_id', $user->candidate->id)->exists() && DB::table('work_information_work_schedules')->where('work_information_id', $workInformation[0]->id)->exists()) {
-        //     $workInformationSchedule = WorkInformationWorkSchedule::where('work_information_id', $workInformation->id)->get();
+        // if (DB::table('work_information')->where('candidate_id', $user->candidate->id)->exists() && DB::table('no_family_work_experiences')->where('work_information_id', $workInformation[0]->id)->exists()) {
+        //     $noFamilyWorkInformation = WorkInformationWorkSchedule::where('work_information_id', $workInformation->id)->get();
         // }else{
-        //     $workInformationSchedule = [];
+        //     $noFamilyWorkInformation = [];
         // }
 
         if (DB::table('candidates')->where('user_id', $auth->id)->exists() && DB::table('candidate_family_work_skills')->where('candidate_id', $user->candidate->id)->exists()) {
