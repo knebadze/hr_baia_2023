@@ -101,6 +101,41 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row" v-if="m.vacancy.category_id.id == 7 || m.vacancy.category_id.id == 8 || m.vacancy.category_id.id == 10">
+                            <div class="col-xl-4 col-lg-6 col-md-12" v-if="m.vacancy.category_id != 10">
+                                <div class="form-group">
+
+                                    <div class="ls-inputicon-box">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="1" v-model="m.vacancy.go_vacation" id="flexCheckDefault">
+                                            <label>{{ ('შეძლებთ არდადეგებზე გაყოლას?') }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                <div class="form-group">
+
+                                    <div class="ls-inputicon-box">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="1" v-model="m.vacancy.stay_night" id="flexCheckDefault">
+                                            <label>{{ $t('შეძლებთ ღამე დარჩენას?') }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                <div class="form-group">
+
+                                    <div class="ls-inputicon-box">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="1" v-model="m.vacancy.work_additional_hours" id="flexCheckDefault">
+                                            <label>{{ $t('შეძლებთ დამატებით საათებში მუშაობას?') }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -287,7 +322,7 @@ export default {
                     additional_schedule_ru:{},
                 },
                 demand:{
-                    
+
                 }
             }
 

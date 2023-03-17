@@ -117,7 +117,7 @@ class Candidate extends Model
 
     public function recommendation()
     {
-        return $this->belongsToMany(RecommendationFromWhom::class, 'candidate_recommendations')->withPivot('name','position', 'number', 'file');
+        return $this->belongsToMany(RecommendationFromWhom::class, 'candidate_recommendations')->withPivot('name_ka','name_en','name_ru','position_ka','position_en','position_ru', 'number', 'file');
     }
 
     public function workInformation()

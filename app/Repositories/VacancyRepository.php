@@ -34,6 +34,9 @@ class VacancyRepository{
         $vacancy->additional_ka = $data['vacancy']['additional_ka'];
         $vacancy->additional_en = $data['vacancy']['additional_en'];
         $vacancy->additional_ru = $data['vacancy']['additional_ru'];
+        $vacancy->go_vacation = $data['vacancy']['go_vacation'];
+        $vacancy->stay_night = $data['vacancy']['stay_night'];
+        $vacancy->work_additional_hours = $data['vacancy']['work_additional_hours'];
         $vacancy->save();
 
         $demand = new VacancyDemand();

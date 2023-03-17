@@ -28,42 +28,51 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-4 col-lg-6 col-md-12">
-                            <div class="form-group">
-                                <label>{{ $t('lang.user_profile_page_work_schedule_title') }}</label>
-                                <div class="ls-inputicon-box">
-                                    <multiselect v-model="workInformationSchedule"  :options="data.classificator.workSchedule" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name_ka" track-by="name_ka" :preselect-first="false" @blur="v$.workInformationSchedule.$touch">
-                                        <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
-                                    </multiselect>
-                                    <span v-if="v$.workInformationSchedule.required.$invalid && v$.workInformationSchedule.$dirty" style='color:red'>* {{ v$.workInformationSchedule.required.$message}}</span>
-                                    <!-- <i class="fs-input-icon fa fa-smoking"></i> -->
+                        <div class="row" >
+                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label>{{ $t('lang.user_profile_page_work_schedule_title') }}</label>
+                                    <div class="ls-inputicon-box">
+                                        <multiselect v-model="workInformationSchedule"  :options="data.classificator.workSchedule" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name_ka" track-by="name_ka" :preselect-first="false" @blur="v$.workInformationSchedule.$touch">
+                                            <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                        </multiselect>
+                                        <span v-if="v$.workInformationSchedule.required.$invalid && v$.workInformationSchedule.$dirty" style='color:red'>* {{ v$.workInformationSchedule.required.$message}}</span>
+                                        <!-- <i class="fs-input-icon fa fa-smoking"></i> -->
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-xl-4 col-lg-6 col-md-12">
-                            <div class="form-group">
-                                <label>{{ $t('lang.user_profile_page_work_salary_title') }}</label>
-                                <div class="ls-inputicon-box">
-                                    <input class="form-control" type="number" step="50" v-model="m.getWorkInformation.payment" @blur="v$.m.getWorkInformation.payment.$touch" style='height:45px;'>
-                                    <!-- <i class="fs-input-icon fa fa-money"></i> -->
-                                    <span v-if="v$.m.getWorkInformation.payment.numeric.$invalid && v$.m.getWorkInformation.payment.$dirty" style='color:red'>* {{ v$.m.getWorkInformation.payment.numeric.$message}}</span>
+                            <div class="col-md-8" v-if="showAdditionalSchedule">
+                                <div class="form-group">
+                                    <label>სასურველი სამუშაო გრაფიკი</label>
+                                    <textarea class="form-control" rows="3" v-model="m.getWorkInformation[`additional_schedule_${getLang}`]" placeholder="ჩაწერეთ სასურველი სამუშაო დღეები და საათები"></textarea>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-xl-4 col-lg-6 col-md-12">
-                            <div class="form-group">
-                                <label>{{ $t('lang.user_profile_page_work_currency_title') }}</label>
-                                <div class="ls-inputicon-box">
-                                    <multiselect v-model="m.getWorkInformation.currency_id" :options="data.classificator.currency" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false" @blur="v$.m.getWorkInformation.currency_id.$touch">
-                                        <template slot="singleLabel" slot-scope="{ option }"></template>
-                                    </multiselect>
-                                    <span v-if="v$.m.getWorkInformation.currency_id.required.$invalid && v$.m.getWorkInformation.currency_id.$dirty" style='color:red'>* {{ v$.m.getWorkInformation.currency_id.required.$message}}</span>
-                                    <!-- <i class="fs-input-icon fa fa-usd"></i> -->
+
+                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label>{{ $t('lang.user_profile_page_work_salary_title') }}</label>
+                                    <div class="ls-inputicon-box">
+                                        <input class="form-control" type="number" step="50" v-model="m.getWorkInformation.payment" @blur="v$.m.getWorkInformation.payment.$touch" style='height:45px;'>
+                                        <!-- <i class="fs-input-icon fa fa-money"></i> -->
+                                        <span v-if="v$.m.getWorkInformation.payment.numeric.$invalid && v$.m.getWorkInformation.payment.$dirty" style='color:red'>* {{ v$.m.getWorkInformation.payment.numeric.$message}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label>{{ $t('lang.user_profile_page_work_currency_title') }}</label>
+                                    <div class="ls-inputicon-box">
+                                        <multiselect v-model="m.getWorkInformation.currency_id" :options="data.classificator.currency" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false" @blur="v$.m.getWorkInformation.currency_id.$touch">
+                                            <template slot="singleLabel" slot-scope="{ option }"></template>
+                                        </multiselect>
+                                        <span v-if="v$.m.getWorkInformation.currency_id.required.$invalid && v$.m.getWorkInformation.currency_id.$dirty" style='color:red'>* {{ v$.m.getWorkInformation.currency_id.required.$message}}</span>
+                                        <!-- <i class="fs-input-icon fa fa-usd"></i> -->
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <!-- <div v-if="m.getWorkInformation.category_id"> -->
-                        <div class="row" v-if="  m.getWorkInformation.category_id.id == 7 || m.getWorkInformation.category_id.id == 8 || m.getWorkInformation.category_id.id == 10">
+                        <div class="row" v-if=" m.getWorkInformation.category_id.id == 7 || m.getWorkInformation.category_id.id == 8 || m.getWorkInformation.category_id.id == 10">
                             <div class="col-xl-4 col-lg-6 col-md-12" v-if="m.getWorkInformation.category_id.id != 10">
                                 <div class="form-group">
 
@@ -99,7 +108,7 @@
                             </div>
                         </div>
                         <!-- </div> -->
-                        <div class="col-lg-12 col-md-12 mt-4" v-if="m.getWorkInformation.category_id.type == 1  ||( m.workInformation[0] && m.workInformation[0].category_id < 14)">
+                        <div class="col-lg-12 col-md-12 mt-4" v-if="m.getWorkInformation.category_id.type == 1  ">
                             <div class="text-left">
                                 <button type="submit" @click.prevent="addWorkInfo()"  class="site-button">{{ $t('lang.user_profile_page_work_button_save') }}</button>
                             </div>
@@ -184,11 +193,11 @@
                                 </div>
                             </div>
 
-                            <div v-if="m.getWorkInformation.no_family_work_information.length != 0" class="col-lg-12 col-md-12">
+                            <div v-if="m.getWorkInformation.no_family_has_work_information.length != 0" class="col-lg-12 col-md-12">
 
                                 <div class="panel-body wt-panel-body">
                                     <div class="p-a20 table-responsive">
-                                        <table class="table twm-table table-striped table-borderless" v-if="m.getWorkInformation.no_family_work_information[0].has_experience.id == 1">
+                                        <table class="table twm-table table-striped table-borderless" v-if="m.getWorkInformation.no_family_has_work_information[0].has_experience.id == 1">
                                             <thead>
                                                 <tr>
                                                 <th>N</th>
@@ -200,7 +209,7 @@
                                             </thead>
 
                                             <tbody>
-                                                <tr v-for="(item, index) in m.getWorkInformation.no_family_work_information">
+                                                <tr v-for="(item, index) in m.getWorkInformation.no_family_has_work_information">
                                                 <td>{{ index + 1 }}</td>
                                                 <td>{{ (item.work_experience)?item.work_experience[`name_${getLang}`]:'' }}</td>
                                                 <!-- <td>{{ item[`position_${getLang}`] }}</td> -->
@@ -213,7 +222,7 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <table class="table twm-table table-striped table-borderless" v-if="m.getWorkInformation.no_family_work_information[0].has_experience.id == 2">
+                                        <table class="table twm-table table-striped table-borderless" v-if="m.getWorkInformation.no_family_has_work_information[0].has_experience.id == 2">
                                             <thead>
                                                 <tr>
 
@@ -224,16 +233,16 @@
                                             </thead>
 
                                             <tbody>
-                                                <tr v-for="(item, index) in m.getWorkInformation.no_family_work_information">
+                                                <tr v-for="(item, index) in m.getWorkInformation.no_family_has_work_information">
                                                     <td>{{ item.no_reason[`name_${getLang}`] }}</td>
                                                     <td>{{(item[`no_reason_info_${getLang}`])?item[`no_reason_info_${getLang}`].substr(0, 30)+ '...':''  }}</td>
                                                 <td>
-                                                    <button @click="removeRow('experience',index)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
+                                                    <button @click="removeNWFE(index)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
                                                         <i class="fa fa-pen"></i>
                                                     </button>
-                                                    <button @click="removeRow('experience',index)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
+                                                    <!-- <button @click="removeRow('experience',index)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
                                                         <i class="fa fa-trash-alt"></i>
-                                                    </button>
+                                                    </button> -->
 
                                                 </td>
                                                 </tr>
@@ -409,7 +418,7 @@
                                 <div v-if="m.familyWorkExperience.no_reason" class="col-md-12">
                                     <div class="form-group">
                                         <label>დამატაბითი ინფორმაცია</label>
-                                        <textarea class="form-control" rows="3" v-model="m.familyWorkExperience.no_reason_info" placeholder="ჩაწერეთ იმ შემთხვევაში თუ ასარჩევ ველში ვერ ნახეთ შესაფერისი მიზეზი ან გსურთ დამატებითი ინფორმაციის მოწოდება" @blur="v$.m.familyWorkExperience.no_reason_info.$touch"></textarea>
+                                        <textarea class="form-control" rows="3" v-model="m.familyWorkExperience[`no_reason_info_${getLang}`]" placeholder="ჩაწერეთ იმ შემთხვევაში თუ ასარჩევ ველში ვერ ნახეთ შესაფერისი მიზეზი ან გსურთ დამატებითი ინფორმაციის მოწოდება" @blur="v$.m.familyWorkExperience.no_reason_info.$touch"></textarea>
                                         <span v-if="v$.m.familyWorkExperience.no_reason_info.maxLength.$invalid && v$.m.familyWorkExperience.no_reason_info.$dirty" style='color:red'>* {{ v$.m.familyWorkExperience.no_reason_info.maxLength.$message}}</span>
                                     </div>
                                 </div>
@@ -463,9 +472,9 @@
                                     <div class="form-group">
                                         <label>{{ $t('lang.user_profile_page_recomendation_name') }}</label>
                                         <div class="ls-inputicon-box">
-                                            <input class="form-control" v-model="candidateRecommendationModel.name" type="text" placeholder="" @blur="v$.candidateRecommendationModel.name.$touch">
+                                            <input class="form-control" v-model="candidateRecommendationModel[`name_${getLang}`]" type="text" placeholder="" @blur="v$.candidateRecommendationModel[`name_${getLang}`].$touch">
                                             <i class="fs-input-icon fa fa-star"></i>
-                                            <span v-if="v$.candidateRecommendationModel.name.required.$invalid && v$.candidateRecommendationModel.name.$dirty" style='color:red'>* {{ v$.candidateRecommendationModel.name.required.$message}}</span>
+                                            <span v-if="v$.candidateRecommendationModel[`name_${getLang}`].required.$invalid && v$.candidateRecommendationModel[`name_${getLang}`].$dirty" style='color:red'>* {{ v$.candidateRecommendationModel[`name_${getLang}`].required.$message}}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -473,23 +482,26 @@
                                     <div class="form-group">
                                         <label>თანამდებობა</label>
                                         <div class="ls-inputicon-box">
-                                            <input class="form-control" v-model="candidateRecommendationModel.position" type="text" placeholder="" @blur="v$.candidateRecommendationModel.position.$touch">
-                                            <span v-if="v$.candidateRecommendationModel.position.required.$invalid && v$.candidateRecommendationModel.position.$dirty" style='color:red'>* {{ v$.candidateRecommendationModel.position.required.$message}}</span>
+                                            <input class="form-control" v-model="candidateRecommendationModel[`position_${getLang}`]" type="text" placeholder="" @blur="v$.candidateRecommendationModel[`position_${getLang}`].$touch">
+                                            <span v-if="v$.candidateRecommendationModel[`position_${getLang}`].required.$invalid && v$.candidateRecommendationModel[`position_${getLang}`].$dirty" style='color:red'>* {{ v$.candidateRecommendationModel[`position_${getLang}`].required.$message}}</span>
                                             <i class="fs-input-icon fa fa-user"></i>
                                         </div>
                                     </div>
                                 </div>
-                                <div  class="col-xl-6 col-lg-6 col-md-12">
-                                    <div class="form-group">
-                                        <label>{{ $t('lang.user_profile_page_recomendation_number') }}</label>
-                                        <div class="ls-inputicon-box">
-                                            <input class="form-control" v-model="candidateRecommendationModel.number" type="text" placeholder="" @blur="v$.candidateRecommendationModel.number.$touch">
-                                            <i class="fs-input-icon fa fa-phone"></i>
-                                            <span v-if="v$.candidateRecommendationModel.number.required.$invalid && v$.candidateRecommendationModel.number.$dirty" style='color:red'>* {{ v$.candidateRecommendationModel.number.required.$message}}</span>
-                                            <span v-if="v$.candidateRecommendationModel.number.numeric.$invalid && v$.candidateRecommendationModel.number.$dirty" style='color:red'>* {{ v$.candidateRecommendationModel.number.numeric.$message}}</span>
-                                        </div>
+                                <div class="col-xl-6 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label>{{ $t('lang.user_profile_page_number') }}</label>
+                                    <div class="input-group mb-3">
+                                    <button style="border-style: none;" class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><span :class="`fi fi-${numberCode.iso.toLowerCase()}`"></span>+{{ numberCode.phonecode }}</button>
+                                    <ul class="dropdown-menu" style=" overflow: hidden; overflow-y: auto; max-height: calc(100vh - 550px);">
+                                        <li v-for="item in data.classificator.numberCode" @click="chooseNumberCode(item.phonecode, item.iso.toLowerCase())"><a class="dropdown-item"><span :class="`fi fi-${item.iso.toLowerCase()}`"></span>+{{ item.phonecode }}</a></li>
+                                    </ul>
+                                    <input type="text" class="form-control" aria-label="Text input with dropdown button" v-model="candidateRecommendationModel.number" placeholder="555666777" @blur="v$.candidateRecommendationModel.number.$touch">
+                                        <span v-if="v$.candidateRecommendationModel.number.required.$invalid && v$.candidateRecommendationModel.number.$dirty" style='color:red'>* {{ v$.candidateRecommendationModel.number.required.$message}}</span>
+                                        <span v-if="v$.candidateRecommendationModel.number.numeric.$invalid && v$.candidateRecommendationModel.number.$dirty" style='color:red'>* {{ v$.candidateRecommendationModel.number.numeric.$message}}</span>
                                     </div>
                                 </div>
+                            </div>
                                 <div  class="col-lg-12 col-md-12">
                                     <div class="form-group">
                                         <label>ფაილი</label>
@@ -514,7 +526,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>დამატაბითი ინფორმაცია</label>
-                                        <textarea class="form-control" rows="3" v-model="candidateRecommendationModel.no_reason_info" placeholder="ჩაწერეთ იმ შემთხვევაში თუ ასარჩევ ველში ვერ ნახეთ შესაფერისი მიზეზი ან გსურთ დამატებითი ინფორმაციის მოწოდება"></textarea>
+                                        <textarea class="form-control" rows="3" v-model="candidateRecommendationModel[`no_reason_info_${getLang}`]" placeholder="ჩაწერეთ იმ შემთხვევაში თუ ასარჩევ ველში ვერ ნახეთ შესაფერისი მიზეზი ან გსურთ დამატებითი ინფორმაციის მოწოდება"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -536,8 +548,9 @@
                                                 <th>N</th>
                                                 <th>{{ $t('lang.user_profile_page_recomendation_from') }}</th>
                                                 <th>{{$t('lang.user_profile_page_recomendation_name')}}</th>
+                                                <th>{{ $t('lang.user_profile_page_work_number_code') }}</th>
                                                 <th>{{$t('lang.user_profile_page_recomendation_number')}}</th>
-                                                <th>{{$t('lang.user_profile_page_recomendation_position')}}</th>
+                                                <th>{{$t('პოზიცია')}}</th>
                                                 <th>{{$t('lang.user_profile_page_recomendation_file')}}</th>
                                                 <th>{{$t('lang.user_profile_page_work_actions_title')}}</th>
                                                 </tr>
@@ -547,9 +560,10 @@
                                                 <tr v-for="(item, index) in m.candidateRecommendation">
                                                 <td>{{ index + 1 }}</td>
                                                 <td><span :class="( item.recommendation_whom.id == 1)?'badge bg-success p-2':'badge bg-info text-dark p-2'">{{ item.recommendation_whom[`name_${getLang}`] }}</span></td>
-                                                <td>{{ item.name }}</td>
+                                                <td>{{ item[`name_${getLang}`] }}</td>
+                                                <td>+{{ item.number_code.phonecode}}</td>
                                                 <td>{{ item.number }}</td>
-                                                <td>{{ item.position }}</td>
+                                                <td>{{ item[`position_${getLang}`] }}</td>
                                                 <td>{{ item.file }}</td>
                                                 <td>
                                                     <button @click="removeRecommendation(index, item.id)" title="წაშლა" data-bs-toggle="tooltip" data-bs-placement="top">
@@ -580,7 +594,7 @@
                                             <tbody>
                                                 <tr v-for="(item, index) in m.candidateRecommendation">
                                                 <td>{{ item.no_reason[`name_${getLang}`] }}</td>
-                                                <td>{{ item.no_reason_info.substr(0, 30)+ '...' }}</td>
+                                                <td>{{ item[`no_reason_info_${getLang}`].substr(0, 30)+ '...' }}</td>
                                                 <td>
                                                     <button @click="removeRecommendation(index, item.id)" title="წაშლა" data-bs-toggle="tooltip" data-bs-placement="top">
                                                         <i class="fa fa-trash-alt"></i>
@@ -633,16 +647,22 @@ export default {
             editWorkInformationData:{},
             m: null,
             candidateRecommendationModel: {
-                id:'',
-                recommendation: '',
-                has_recommendation: '',
-                recommendation_whom:'',
-                name:'',
-                position:'',
-                number:'',
-                file:'',
-                no_reason:'',
-                no_reason_info:'',
+                'id':'',
+                'recommendation': '',
+                'has_recommendation': '',
+                'recommendation_whom':'',
+                'name_ka':'',
+                'name_en':'',
+                'name_ru':'',
+                'position_ka':'',
+                'position_en':'',
+                'position_ru':'',
+                'number':'',
+                'file':'',
+                'no_reason':'',
+                'no_reason_info_ka':'',
+                'no_reason_info_en':'',
+                'no_reason_info_ru':'',
             },
             candidateWorkExperienceModel: {
                 'has_experience':'',
@@ -667,10 +687,15 @@ export default {
             //modal
             showRecommendationEditModal: false,
             editRecommendationData: {},
-
+            showNoReccomendation:false,
             showNoWorkExperience: false,
             showYesWorkExperience:false,
+            showAdditionalSchedule:false,
             noFamilyWorkInformation: [],
+            numberCode: {
+                phonecode: 995,
+                iso:'ge'
+            },
         }
     },
     validations () {
@@ -711,11 +736,17 @@ export default {
                     required:helpers.withMessage('რეკომენდაციის შევსება სავალდებულოა', required )
                 },
                 recommendation_whom:{},
-                name:{},
-                position:{},
+                name_ka:{},
+                name_en:{},
+                name_ru:{},
+                position_ka:{},
+                position_en:{},
+                position_ru:{},
                 number:{},
                 no_reason:{},
-                no_reason_info:{}
+                no_reason_info_ka:{},
+                no_reason_info_en:{},
+                no_reason_info_ru:{},
             }
         }
 
@@ -746,16 +777,16 @@ export default {
 
         }
 
-        if (this.candidateRecommendationModel.has_experience && this.candidateRecommendationModel.has_recommendation.id == 1) {
+        if (this.candidateRecommendationModel.has_recommendation && this.candidateRecommendationModel.has_recommendation.id == 1) {
             validations.candidateRecommendationModel.recommendation_whom = {
                 required:helpers.withMessage('არჩევა სავალდებულოა', required )
             }
             if (this.candidateRecommendationModel.recommendation_whom.id == 2) {
-                validations.candidateRecommendationModel.position = {
+                validations.candidateRecommendationModel[`position_${this.getLang}`] = {
                     required:helpers.withMessage('შევსება სავალდებულოა', required )
                 }
             }
-            validations.candidateRecommendationModel.name = {
+            validations.candidateRecommendationModel[`name_${this.getLang}`] = {
                 required:helpers.withMessage('შევსება სავალდებულოა', required )
             }
             validations.candidateRecommendationModel.number = {
@@ -766,7 +797,7 @@ export default {
             validations.candidateRecommendationModel.no_reason = {
                 required:helpers.withMessage('არჩევა სავალდებულოა', required )
             }
-            validations.candidateRecommendationModel.no_reason_info = {
+            validations.candidateRecommendationModel[`no_reason_info_${this.getLang}`] = {
                 maxLength: helpers.withMessage('დაშვებულია 100 სიმბოლო', maxLength(100) )
             }
         }
@@ -777,7 +808,7 @@ export default {
         console.log('data', this.data);
 
         this.m = { ...this.data.model };
-        this.m.getWorkInformation['no_family_work_information'] = []
+        this.m.getWorkInformation['no_family_has_work_information'] = []
         // if (this.m.familyWorkExperience.experience != null) {
         //     var That = this;
         //     this.m.familyWorkExperience.experience = _.find(this.yesNo, function(o) { return o.id == That.m.familyWorkExperience.experience; });
@@ -827,12 +858,17 @@ export default {
             }
             recommendation['uuid'] = uuid
             console.log('recommendation', recommendation);
-
+            var code = this.numberCode.phonecode
+            var numberCode = _.find(this.data.classificator.numberCode, function(o) { return o.phonecode == code; });
+            console.log('numberCode', numberCode);
+            // recommendation['number_code_id'] = numberCode.id
+            recommendation['number_code'] = numberCode
+            recommendation['lang'] = this.getLang
             this.m.candidateRecommendation.push(JSON.parse(JSON.stringify(recommendation)))
 
             this.candidateRecommendationModel['recommendation_whom'] = '';
-            this.candidateRecommendationModel['name'] = '';
-            this.candidateRecommendationModel['position'] = '';
+            this.candidateRecommendationModel[`name_${this.getLang}`] = '';
+            this.candidateRecommendationModel[`position_${this.getLang}`] = '';
             this.candidateRecommendationModel['number'] = '';
             this.candidateRecommendationModel['file'] = '';
         },
@@ -851,7 +887,8 @@ export default {
                 data: {
                     'getWorkInformation': this.m.getWorkInformation,
                     'workInformationSchedule': this.workInformationSchedule,
-                    'noFamilyWorkExperience': this.m.getWorkInformation.no_family_work_information
+                    'noFamilyWorkExperience': this.m.getWorkInformation.no_family_has_work_information,
+                    'lang':this.getLang
                 },
 
             })
@@ -934,7 +971,7 @@ export default {
             if (this.candidateRecommendationModel.has_recommendation.id == 2) {
                 this.m.candidateRecommendation.push(this.candidateRecommendationModel)
             }
-
+            // this.m.candidateRecommendation['lang'] = this.getLang
             console.log('this.m.candidateRecommendation',this.m.candidateRecommendation);
             let currentObj = this
             axios({
@@ -1070,20 +1107,21 @@ export default {
 
         addCandidateWorkExperience(workExperience){
             // var workExperienceFind = _.find(this.data.classificator.workExperiences, function(o) { return o.id == workExperience.work_experience_id; });
-            // this.m.getWorkInformation['no_family_work_information'] = []
-            this.m.getWorkInformation.no_family_work_information.push(JSON.parse(JSON.stringify(workExperience)))
+            // this.m.getWorkInformation['no_family_has_work_information'] = []
+            this.m.getWorkInformation.no_family_has_work_information.push(JSON.parse(JSON.stringify(workExperience)))
 
-            this.candidateWorkExperienceModel = {
-
-                'object_ka':'',
-                'object_en':'',
-                'object_ru':'',
-            }
-
+            this.candidateWorkExperienceModel['object_ka'] = ''
+            this.candidateWorkExperienceModel['object_en'] = ''
+            this.candidateWorkExperienceModel['object_ru'] = ''
+            this.candidateWorkExperienceModel['work_experience'] = ''
         },
         removeNWFE( index){
-            const removed = this.m.getWorkInformation.no_family_work_information.splice(index, 1);
+            const removed = this.m.getWorkInformation.no_family_has_work_information.splice(index, 1);
 
+        },
+        chooseNumberCode(code, iso){
+            this.numberCode['phonecode'] = code;
+            this.numberCode['iso'] = iso
         },
     },
     watch: {
@@ -1153,6 +1191,10 @@ export default {
                 })
             }
             console.log('new', newVal.id);
+        },
+        'workInformationSchedule': function (newVal, oldVa) {
+            console.log('newVal', newVal);
+            this.showAdditionalSchedule = _.find(newVal, function(o) { if(o.id == 9) return true; });
         },
         'candidateWorkExperienceModel.has_experience.id': function(newVal, oldVa){
             if (newVal == 2) {

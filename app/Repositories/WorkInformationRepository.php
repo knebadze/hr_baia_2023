@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use App\Models\RecommendationFromWhom;
 use App\Models\CandidateRecommendation;
+use App\Models\NoFamilyWorkExperience;
 
 class WorkInformationRepository
 {
@@ -21,6 +22,9 @@ class WorkInformationRepository
         $workInformation->category_id = $data['getWorkInformation']['category_id']['id'];
         $workInformation->payment = $data['getWorkInformation']['payment'];
         $workInformation->currency_id  = $data['getWorkInformation']['currency_id']['id'];
+        $workInformation->additional_schedule_ka = $data['getWorkInformation']['additional_schedule_ka'];
+        $workInformation->additional_schedule_en = $data['getWorkInformation']['additional_schedule_en'];
+        $workInformation->additional_schedule_ru = $data['getWorkInformation']['additional_schedule_ru'];
         $workInformation->save();
 
         $selectSchedule = collect($data['workInformationSchedule'])->reduce(function ($carry, $item) {
@@ -29,15 +33,52 @@ class WorkInformationRepository
             return $carry;
         }, []);
         $workInformation->workSchedule()->sync( $selectSchedule );
+
+        if (count($data['noFamilyWorkExperience']) > 0 ) {
+            if ($data['noFamilyWorkExperience'][0]['has_experience']['id'] == 1) {
+                $this->noFamilyHasWorkExperience($data['noFamilyWorkExperience'], $workInformation->id);
+            }else{
+                $this->noFamilyHasNotWorkExperience($data['noFamilyWorkExperience'][0], $workInformation->id);
+            }
+
+        }
         return $data;
     }
 
+    public function noFamilyHasWorkExperience($data, $id)
+    {
+        foreach ($data as $key => $value) {
+            $noFamilyWorkExperience = new NoFamilyWorkExperience();
+            $noFamilyWorkExperience->work_information_id = $id;
+            $noFamilyWorkExperience->experience	= $value['has_experience']['id'];
+            $noFamilyWorkExperience->work_experience_id = $value['work_experience']['id'];
+            $noFamilyWorkExperience->object_ka = $value['object_ka'];
+            $noFamilyWorkExperience->object_en = $value['object_en'];
+            $noFamilyWorkExperience->object_ru = $value['object_ru'];
+            $noFamilyWorkExperience->save();
+        }
+    }
+
+    public function noFamilyHasNotWorkExperience($data, $id)
+    {
+            $noFamilyWorkExperience = new NoFamilyWorkExperience();
+            $noFamilyWorkExperience->work_information_id = $id;
+            $noFamilyWorkExperience->experience	= $data['has_experience']['id'];
+            $noFamilyWorkExperience->no_reason_id = $data['no_reason']['id'];
+            $noFamilyWorkExperience->no_reason_info_ka = $data['no_reason_info_ka'];
+            $noFamilyWorkExperience->no_reason_info_en = $data['no_reason_info_en'];
+            $noFamilyWorkExperience->no_reason_info_en = $data['no_reason_info_en'];
+            $noFamilyWorkExperience->save();
+    }
     public function update($workInformation, $data)
     {
 
         $workInformation->category_id = $data['category_id'];
         $workInformation->payment = $data['payment'];
         $workInformation->currency_id = $data['currency']['id'];
+        $workInformation->additional_schedule_ka = $data['additional_schedule_ka'];
+        $workInformation->additional_schedule_en = $data['additional_schedule_en'];
+        $workInformation->additional_schedule_ru = $data['additional_schedule_ru'];
         $workInformation->update();
         $selectSchedule = collect($data['work_schedule'])->reduce(function ($carry, $item) {
             if($carry  == null) $carry = [];
@@ -53,10 +94,13 @@ class WorkInformationRepository
     {
         $auth = Auth::user();
         $user = User::where('id', $auth->id)->first();
-        $user->update([
-            'is_active' => 3,
-            'updated_at' => now()
-        ]);
+        if ($user->status == 1) {
+            $user->update([
+                'status' => 2,
+                'updated_at' => now()
+            ]);
+        }
+
         return $auth;
     }
     public function addRecommendation($data)
@@ -71,8 +115,13 @@ class WorkInformationRepository
                 $candidateRecommendation->candidate_id = $candidate_id;
                 $candidateRecommendation->recommendation = ($value['has_recommendation']['id']);
                 $candidateRecommendation->recommendation_from_whom_id = $value['recommendation_whom']['id'];
-                $candidateRecommendation->name = $value['name'];
-                $candidateRecommendation->position = $value['position'];
+                $candidateRecommendation->name_ka = $value['name_ka'];
+                $candidateRecommendation->name_en = $value['name_en'];
+                $candidateRecommendation->name_ru = $value['name_ru'];
+                $candidateRecommendation->position_ka = $value['position_ka'];
+                $candidateRecommendation->position_en = $value['position_en'];
+                $candidateRecommendation->position_ru = $value['position_ru'];
+                $candidateRecommendation->number_code_id = $value['number_code']['id'];
                 $candidateRecommendation->number = $value['number'];
                 $candidateRecommendation->uuid = $value['uuid'];
                 $candidateRecommendation->save();
@@ -97,7 +146,9 @@ class WorkInformationRepository
             $candidateRecommendation->candidate_id = $candidate_id;
             $candidateRecommendation->recommendation = ($value['has_recommendation']['id']);
             $candidateRecommendation->no_reason_id = $value['no_reason']['id'];
-            $candidateRecommendation->no_reason_info = $value['no_reason_info'];
+            $candidateRecommendation->no_reason_info_ka = $value['no_reason_info_ka'];
+            $candidateRecommendation->no_reason_info_en = $value['no_reason_info_en'];
+            $candidateRecommendation->no_reason_info_en = $value['no_reason_info_en'];
             $candidateRecommendation->save();
         }
     }
@@ -140,8 +191,12 @@ class WorkInformationRepository
     {
         $candidateRecommendation = CandidateRecommendation::find($data['id']);
         $candidateRecommendation->recommendation_from_whom_id = $data['recommendation_whom']['id'];
-        $candidateRecommendation->name = $data['name'];
-        $candidateRecommendation->position = $data['position'];
+        $candidateRecommendation->name_ka = $data['name_ka'];
+        $candidateRecommendation->name_en = $data['name_en'];
+        $candidateRecommendation->name_ru = $data['name_ru'];
+        $candidateRecommendation->position_ka = $data['position_ka'];
+        $candidateRecommendation->position_en = $data['position_en'];
+        $candidateRecommendation->position_ru = $data['position_ru'];
         $candidateRecommendation->number = $data['number'];
         $candidateRecommendation->update();
         return $candidateRecommendation;
@@ -150,7 +205,9 @@ class WorkInformationRepository
     {
         $candidateRecommendation = CandidateRecommendation::find($data['id']);
         $candidateRecommendation->no_reason_id = $data['no_reason']['id'];
-        $candidateRecommendation->no_reason_info = $data['no_reason_info'];
+        $candidateRecommendation->no_reason_info_ka = $data['no_reason_info_ka'];
+        $candidateRecommendation->no_reason_info_en = $data['no_reason_info_en'];
+        $candidateRecommendation->no_reason_info_en = $data['no_reason_info_en'];
         $candidateRecommendation->update();
         return $candidateRecommendation;
     }

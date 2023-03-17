@@ -6,9 +6,11 @@ namespace App\Http\Controllers\Candidate;
 use Exception;
 use App\Models\User;
 use App\Models\Skill;
+use App\Models\YesNo;
 use App\Models\Category;
 use App\Models\Currency;
 use App\Models\NoReason;
+use App\Models\numberCode;
 use App\Models\WorkSchedule;
 use Illuminate\Http\Request;
 use App\Models\Work_experience;
@@ -22,9 +24,8 @@ use App\Models\RecommendationFromWhom;
 use Illuminate\Support\Facades\Schema;
 use App\Models\CandidateRecommendation;
 use App\Models\CandidateFamilyWorkSkill;
-use App\Models\WorkInformationWorkSchedule;
-use App\Models\YesNo;
 use App\Services\WorkInformationService;
+use App\Models\WorkInformationWorkSchedule;
 use App\Services\FAmilyWorkExperienceService;
 
 class WorkInformationController extends Controller
@@ -42,7 +43,7 @@ class WorkInformationController extends Controller
         $user = User::where('id', $auth->id)->first();
 
         if (DB::table('work_information')->where('candidate_id', $user->candidate->id)->exists()) {
-            $workInformation = WorkInformation::where('candidate_id', $user->candidate->id)->with(['category', 'workSchedule','currency', 'noFamilyWorkExperience'])->get()->toArray();
+            $workInformation = WorkInformation::where('candidate_id', $user->candidate->id)->with(['category', 'workSchedule','currency', 'noFamilyHasWorkExperience'])->get()->toArray();
             $getWorkInformation =  Schema::getColumnListing('work_information');
             $getWorkInformation = array_map(function ($item) { return ""; }, array_flip($getWorkInformation));
         }else{
@@ -52,7 +53,7 @@ class WorkInformationController extends Controller
         }
 
         if (DB::table('work_information')->where('candidate_id', $user->candidate->id)->exists() && DB::table('candidate_recommendations')->where('candidate_id', $user->candidate->id)->exists()) {
-            $candidateRecommendation = CandidateRecommendation::where('candidate_id', $user->candidate->id)->with('recommendationWhom')->with('noReason')->with('hasRecommendation')->get();
+            $candidateRecommendation = CandidateRecommendation::where('candidate_id', $user->candidate->id)->with(['recommendationWhom', 'numberCode', 'noReason', 'hasRecommendation'])->get();
         }else{
             $candidateRecommendation = [];
         }
@@ -95,6 +96,7 @@ class WorkInformationController extends Controller
         $skill = Skill::all()->toArray();
         $noExperienceReason = NoReason::where('category', 1)->get()->toArray();
         $yesNo = YesNo::all()->toArray();
+        $numberCode = numberCode::all()->toArray();
 
         // dd($workInformation);
         $data = [
@@ -119,6 +121,7 @@ class WorkInformationController extends Controller
                 'noRecommendationReason' => $noRecommendationReason,
                 'noExperienceReason' => $noExperienceReason,
                 'yesNo' => $yesNo,
+                'numberCode' => $numberCode
             ],
 
         ];

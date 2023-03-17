@@ -39,4 +39,9 @@ class CandidateRecommendation extends Model
     {
         return $this->belongsTo(YesNo::class, 'recommendation', 'id');
     }
+
+    public function numberCode()
+    {
+        return $this->belongsTo(numberCode::class);
+    }
 }

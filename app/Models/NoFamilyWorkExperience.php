@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class NoFamilyWorkExperience extends Model
 {
     use HasFactory;
+
+    public function workInformation()
+    {
+        $this->hasMany(WorkInformation::class, 'work_information_id', 'id');
+    }
 }

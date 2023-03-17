@@ -67,11 +67,14 @@
                                 </a>
                             </div>
                         @else
-                        <div class="twm-nav-btn-right">
-                            <a href="{{ route('post.job', App()->getLocale() ) }}" class="twm-nav-post-a-job">
-                                <i class="feather-plus"></i> {{ __('დაამატე ვაკანსია') }}
-                            </a>
-                        </div>
+                        @if (Auth::user()->user_type_id == 2 || Auth::user()->user_type_id == 3)
+                            <div class="twm-nav-btn-right">
+                                <a href="{{ route('post.job', App()->getLocale() ) }}" class="twm-nav-post-a-job">
+                                    <i class="feather-plus"></i> {{ __('დაამატე ვაკანსია') }}
+                                </a>
+                            </div>
+                        @endif
+
                         <div class="twm-nav-btn-right">
                             <a href="{{ route('home', App()->getLocale() ) }}" class="twm-nav-post-a-job">
                                 <i class="feather-user"></i> {{ __('lang.user_page_my_cabinet') }}

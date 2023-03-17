@@ -127,8 +127,6 @@ class CandidateService
     {
 
         $lang = $data['lang'];
-        // print_r(count($data['candidateWorkExperience']));
-        // exit;
 
         $trData = $this->translate($lang, $data);
         // print_r($trData);
