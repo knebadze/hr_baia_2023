@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use PharIo\Manifest\Author;
 
 class Vacancy extends Model
 {
@@ -44,6 +45,10 @@ class Vacancy extends Model
     {
         return $this->belongsToMany(GeneralCharacteristic::class, 'vacancy_candidate_characteristics',  'vacancy_id', 'characteristic_id');
     }
+    public function author()
+    {
+        return $this->belongsTo(User::class);
+    }
     public function currency()
     {
         return $this->belongsTo(Currency::class);
@@ -70,4 +75,8 @@ class Vacancy extends Model
         $user = User::where('id', $hr['user_id'])->where('role_id', 2)->first()->toArray();
         return $user;
     }
+
+
+
+
 }

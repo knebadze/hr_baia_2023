@@ -13,12 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('candidate_notices', function (Blueprint $table) {
+        Schema::create('company_object_types', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('candidate_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('notice_id')->constrained();
-            $table->string('file');
-            $table->string('uuid')->nullable();
+            $table->string('name_ka', 75);
+            $table->string('name_en', 75);
+            $table->string('name_ru', 75);
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('candidate_notices');
+        Schema::dropIfExists('company_object_types');
     }
 };

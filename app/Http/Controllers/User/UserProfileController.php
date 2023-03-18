@@ -25,6 +25,8 @@ use App\Models\Education;
 use App\Models\Specialty;
 use App\Models\Profession;
 use App\Models\Citizenship;
+use App\Models\Company;
+use App\Models\Company_object_type;
 use App\Models\DrivingLicense;
 use App\Models\Employer;
 use App\Models\Nationality;
@@ -76,6 +78,7 @@ class UserProfileController extends Controller
         $characteristic = GeneralCharacteristic::all()->toArray();
         $yesNo = YesNo::all()->toArray();
         $numberOwner = NumberOwner::all()->toArray();
+        $companyObjectType = Company_object_type::all()->toArray();
 
         if ($auth->user_type_id == 1) {
             if (DB::table('candidates')->where('user_id', $auth->id)->exists()) {
@@ -237,6 +240,26 @@ class UserProfileController extends Controller
                 ],
                 'classificator' =>[
                     'gender' => $gender
+                ]
+            ];
+        }elseif ($auth->user_type_id == 3) {
+            if (DB::table('companies')->where('user_id', $auth->id)->exists()) {
+                $company = Company::where('user_id', $auth->id)->with('companyObjectType')->first();
+            } else {
+                $company =  Schema::getColumnListing('companies');
+                $company = array_map(function ($item) { return ""; }, array_flip($company));
+            }
+            $data = [
+                "basic" => [
+                    'auth' => $auth,
+                    'user' => $user
+                ],
+                'company' => [
+                  'company' => $company
+                ],
+                'classificator' =>[
+                    'gender' => $gender,
+                    'companyObjectType' => $companyObjectType
                 ]
             ];
         }

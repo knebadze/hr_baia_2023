@@ -23,6 +23,7 @@ use App\Http\Controllers\User\PostJobController;
 use App\Http\Controllers\CandidateInfoController;
 use App\Http\Controllers\Employer\VacancyController;
 use App\Http\Controllers\User\UserProfileController;
+use App\Http\Controllers\Company\CompanyInfoController;
 use App\Http\Controllers\Employer\EmployerInfoController;
 use App\Http\Controllers\Candidate\WorkInformationController;
 
@@ -110,5 +111,6 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
 
     Route::post('add_vacancy', [VacancyController::class, 'store']);
 
+    Route::post('add_company', [CompanyInfoController::class, 'store']);
 
 

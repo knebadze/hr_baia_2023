@@ -26,6 +26,8 @@ import postJob from './component/employer/post_job.vue'
 import jobList from './component/employer/job_list.vue'
 import myVacancy from './component/employer/my_vacancy.vue'
 
+//company
+import companyProfile from './component/company/company_profile.vue'
 //modal
 import modalManager from './component/modal/modalManager.vue'
 import VueSweetalert2 from 'vue-sweetalert2';
@@ -60,6 +62,8 @@ app.component('post-job', postJob)
 app.component('job-list', jobList)
 app.component('my-vacancy', myVacancy)
 
+//company
+app.component('company-profile', companyProfile)
 
 //modal
 app.component('modal-manager', modalManager);

@@ -23,6 +23,6 @@ class EmployerRepository{
                 'fb_link' => $data['fb_link'],
             ]
         );
-        return $data;
+        return $employer;
     }
 }

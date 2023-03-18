@@ -7,14 +7,15 @@ use Illuminate\Http\Request;
 
 class IndividualController extends Controller
 {
+    
     public function index()
     {
-        $vacancy = Vacancy::where('status_id', 1)->with(['currency', 'category'])->get()->toArray();
+        $vacancy = Vacancy::where('status_id', 1)->where('e_or_c', 2)->with(['currency', 'category', 'workSchedule'])->get()->toArray();
         $data = [
             'model' => [
                 'vacancy' => $vacancy,
             ]
-            ];
+        ];
         return view ('individual', compact('data'));
     }
 

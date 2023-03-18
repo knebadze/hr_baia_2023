@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('author_id');
             $table->foreignId('hr_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->smallInteger('e_or_c', 1);
             $table->string('title_ka')->nullable();
             $table->string('title_en')->nullable();
             $table->string('title_ru')->nullable();

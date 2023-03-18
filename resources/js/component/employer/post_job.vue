@@ -39,7 +39,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-6 col-lg-6 col-md-12">
+                        <div class="col-xl-6 col-lg-6 col-md-12" v-if="m.vacancy.category_id.id == 7 || m.vacancy.category_id.id == 8 || m.vacancy.category_id.id == 9 || m.vacancy.category_id.id == 11">
                             <div class="form-group">
                                 <label><span class="text-danger">* </span>{{ ('ვისთვის გესაჭიროებათ?') }}</label>
                                 <div class="ls-inputicon-box">
@@ -108,7 +108,7 @@
                                     <div class="ls-inputicon-box">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="1" v-model="m.vacancy.go_vacation" id="flexCheckDefault">
-                                            <label>{{ ('შეძლებთ არდადეგებზე გაყოლას?') }}</label>
+                                            <label>{{ ('უნდა შეეძლოს არდადეგებზე გამოყოლა') }}</label>
                                         </div>
                                     </div>
                                 </div>
@@ -119,7 +119,7 @@
                                     <div class="ls-inputicon-box">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="1" v-model="m.vacancy.stay_night" id="flexCheckDefault">
-                                            <label>{{ $t('შეძლებთ ღამე დარჩენას?') }}</label>
+                                            <label>{{ $t('უნდა შეეძლოს ღამე დარჩენა') }}</label>
                                         </div>
                                     </div>
                                 </div>
@@ -130,7 +130,7 @@
                                     <div class="ls-inputicon-box">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="1" v-model="m.vacancy.work_additional_hours" id="flexCheckDefault">
-                                            <label>{{ $t('შეძლებთ დამატებით საათებში მუშაობას?') }}</label>
+                                            <label>{{ $t('უნდა შეეძლო დამატებით საათებში მუშაობა') }}</label>
                                         </div>
                                     </div>
                                 </div>
@@ -211,6 +211,26 @@
                                 <label>{{ ('მინიმალური განათლება') }}</label>
                                 <div class="ls-inputicon-box">
                                     <multiselect v-model="m.demand.education_id" :options="data.classificator.education" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                        <template slot="singleLabel" slot-scope="{ option }"></template>
+                                    </multiselect>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12">
+                            <div class="form-group">
+                                <label>{{ ('სასურველი უცხო ენა') }}</label>
+                                <div class="ls-inputicon-box">
+                                    <multiselect v-model="m.demand.language_id" :options="data.classificator.languages" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                        <template slot="singleLabel" slot-scope="{ option }"></template>
+                                    </multiselect>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12">
+                            <div class="form-group">
+                                <label>{{ ('უცხო ენის ცოდნის დონე') }}</label>
+                                <div class="ls-inputicon-box">
+                                    <multiselect v-model="m.demand.language_level_id" :options="data.classificator.languageLevels" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
                                         <template slot="singleLabel" slot-scope="{ option }"></template>
                                     </multiselect>
                                 </div>
@@ -345,10 +365,13 @@ export default {
     },
     created(){
         this.m['vacancy'] = {...this.data.model.vacancy};
+        this.m.vacancy['go_vacation'] = 0;
+        this.m.vacancy['stay_night'] = 0;
+        this.m.vacancy['work_additional_hours'] = 0;
         this.m['demand'] = {...this.data.model.demand};
         this.m.vacancy.payment = 800
-        if(this.data.model.employer[`address_${this.getLang}`]) this.m.vacancy[`address_${this.getLang}`] = this.data.model.employer[`address_${this.getLang}`].substring(0, this.data.model.employer[`address_${this.getLang}`].lastIndexOf(", "))+', '+this.data.model.employer[`street_${this.getLang}`]
-        console.log('this.m', this.m);
+        this.m.vacancy[`address_${this.getLang}`] = this.data.classificator.fullAddress
+         console.log('this.m', this.m);
     },
     computed:{
         getLang(){
@@ -358,12 +381,12 @@ export default {
     methods:{
         addVacancy(){
             this.m['lang'] = this.getLang
+            var html = `${this.m.vacancy[`address_${this.getLang}`]}_ზე ${(this.m.vacancy[`for_who_${this.getLang}`])?this.m.vacancy[`for_who_${this.getLang}`]:''} გვესაჭიროება ${this.m.vacancy.category_id[`name_${this.getLang}`]}. ${this.m.vacancy.work_schedule_id[`name_${this.getLang}`]} გრაფიკით, ${this.m.vacancy[`additional_schedule_${this.getLang}`]}. ანაზღაურება: ${this.m.vacancy.payment} ${this.m.vacancy.currency_id[`name_${this.getLang}`]}.  ${`დამატებით: `+this.m.vacancy[`additional_${this.getLang}`]} `
             this.$swal(
                 {
                     title: '<p>თქვენი ვაკანსია</p>',
                     // icon: 'info',
-                    html:
-                        `${this.m.vacancy[`address_${this.getLang}`]}_ზე ${this.m.vacancy[`for_who_${this.getLang}`]} გვესაჭიროება ${this.m.vacancy.category_id[`name_${this.getLang}`]}. ${this.m.vacancy.work_schedule_id[`name_${this.getLang}`]} გრაფიკით, ${this.m.vacancy[`additional_schedule_${this.getLang}`]}. ანაზღაურება: ${this.m.vacancy.payment} ${this.m.vacancy.currency_id[`name_${this.getLang}`]}.  ${`დამატებით: `+this.m.vacancy[`additional_${this.getLang}`]} `,
+                    html:html,
                     showCloseButton: true,
                     showCancelButton: false,
                     focusConfirm: false,
