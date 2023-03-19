@@ -3,18 +3,8 @@
 namespace App\Http\Controllers;
 
 use Exception;
-use App\Models\Candidate;
-use App\Models\Citizenship;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Models\CandidateAllergy;
 use App\Services\CandidateService;
-use Illuminate\Support\Facades\DB;
-use App\Models\Candidate_specialty;
-use App\Models\Candidate_profession;
-use Illuminate\Support\Facades\Auth;
-use App\Models\Candidate_citizenship;
-use App\Models\CandidateNotice;
 
 class CandidateInfoController extends Controller
 {

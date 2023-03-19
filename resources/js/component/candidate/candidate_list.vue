@@ -313,7 +313,7 @@
 
                                          <div class="twm-fot-content">
                                              <div class="twm-left-info">
-                                                <p class="twm-candidate-address"><i class="feather-map-pin"></i>{{ item.address.substring(0, item.address.lastIndexOf(" ")) }}</p>
+                                                <p class="twm-candidate-address"><i class="feather-map-pin"></i>{{ item[`address_${getLang}`].substring(0, item[`address_${getLang}`].lastIndexOf(" ")) }}</p>
                                                 <!-- <div class="twm-jobs-vacancies">$</div> -->
                                              </div>
 

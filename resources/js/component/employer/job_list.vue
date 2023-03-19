@@ -16,10 +16,13 @@
 
                             <div class="form-group mb-4 categorySideBar">
                                 <h4 class="section-head-small mb-4">{{ $t('lang.individual_vacancies_page_leftside_category') }}</h4>
-                                <select class="wt-select-bar-large selectpicker"  data-live-search="true" data-bv-field="size">
-                                    <option selected>{{ $t('lang.individual_vacancies_page_leftside_category_allcategory') }}</option>
-                                    <option>ძიძა</option>
-                                </select>
+                                <!-- <select class="wt-select-bar-large selectpicker"  data-live-search="true" data-bv-field="size" @change="categoryFilter(category)" v-model="category">
+                                    <option selected value="0">{{ $t('lang.individual_vacancies_page_leftside_category_allcategory') }}</option>
+                                    <option v-for="(item, index) in data.classificatory.category" :key="index" :value="item.id">{{ item[`name_${getLang}`] }}</option>
+                                </select> -->
+                                <multiselect v-model="category" :options="data.classificatory.category" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" :label="`name_${getLang}`" :track-by="`name_${getLang}`" :preselect-first="false">
+                                    <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                </multiselect>
                             </div>
 
                             <div class="form-group mb-4 keywordSideBar">
@@ -239,7 +242,7 @@
 
                     </div>
 
-                    <div class="widget tw-sidebar-tags-wrap">
+                    <!-- <div class="widget tw-sidebar-tags-wrap">
                         <h4 class="section-head-small mb-4">{{ $t('lang.individual_vacancies_page_leftside_tags') }}</h4>
 
                         <div class="tagcloud">
@@ -252,7 +255,7 @@
                             <a href="job-list.html">შემოსავალი</a>
                             <a href="job-list.html">რჩევები</a>
                         </div>
-                    </div>
+                    </div> -->
 
 
                 </div>
@@ -302,7 +305,7 @@
                                 <div >
                                     <!-- class="twm-mid-content" -->
                                     <a href="job-detail.html" class="twm-job-title">
-                                        <h4>{{ item[`title_${getLang}`] }}<span class="twm-job-post-duration"> /{{ item.created_at }} 1 days ago</span></h4>
+                                        <h4>{{ item[`title_${getLang}`] }}<span class="twm-job-post-duration"> /{{ item.timeAgo }}</span></h4>
                                     </a>
                                     <p class="twm-job-address">{{ item[`address_${getLang}`].split(/\s+/).slice(0, 2).join(" ") }} {{ (item[`for_who_${getLang}`])?item[`for_who_${getLang}`]:'' }}.</p>
                                     <p class="twm-job-address">გრაფიკი: {{ item.work_schedule[`name_${getLang}`]+', '+ item[`additional_schedule_${getLang}`] }}.</p>
@@ -350,10 +353,14 @@ export default {
     },
     data() {
         return {
-            vacancy:{}
+            vacancy:{},
+            staticVacancy:{},
+            category:[],
+            categoryFilterOn: false,
         }
     },
     created() {
+        this.staticVacancy = this.data.model.vacancy
         this.vacancy = this.data.model.vacancy
         console.log('this.vacancy',this.vacancy);
     },
@@ -363,10 +370,33 @@ export default {
         },
     },
     methods: {
-
+        categoryFilter(item){
+            if (Object.keys(item).length == 0 || item[0].id == 0) {
+                this.categoryFilterOn = false
+                this.vacancy = this.staticVacancy;
+                return;
+            }
+            this.categoryFilterOn = true
+            var filter = (this.categoryFilterOn)?this.staticVacancy:this.vacancy
+            var vacancy = [];
+            _.forEach(item, function(value) {
+                _.filter(filter, function(o) {
+                    if(o.category_id == value.id) vacancy.push(o)
+                    return vacancy;
+                })
+            });
+            this.vacancy = vacancy;
+        }
+    },
+    watch:{
+        'category': function (newVal, oldVal) {
+            console.log('newVal',newVal);
+            this.categoryFilter(newVal)
+        }
     },
     mounted() {
-
+        console.log('this.data',this.data);
+        this.data
     },
 }
 </script>

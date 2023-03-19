@@ -36,7 +36,7 @@ class Vacancy extends Model
         'provider_token',
         'photo',
     ];
-    protected $appends = ['hrInfo'];
+    protected $appends = ['hrInfo','timeAgo'];
     public function vacancyDutySkill()
     {
         return $this->belongsToMany(Skill::class, 'vacancy_candidate_duties');
@@ -77,6 +77,32 @@ class Vacancy extends Model
     }
 
 
+    function getTimeAgoAttribute():string
+    {
 
+        $time = strtotime($this->created_at);
+        $out    = ''; // what we will print out
+        $now    = time(); // current time
+        $diff   = $now - $time; // difference between the current and the provided dates
+
+        if( $diff < 60 ) // it happened now
+            return 'now';
+
+        elseif( $diff < 3600 ) // it happened X minutes ago
+            return str_replace( '{num}', ( $out = round( $diff / 60 ) ),'{num} წუთის წინ');
+            // $out == 1 ? '{num} minute ago' : '{num} minutes ago' );
+
+        elseif( $diff < 3600 * 24 ) // it happened X hours ago
+            return str_replace( '{num}', ( $out = round( $diff / 3600 ) ),'{num} საათის წინ');
+            // $out == 1 ? '{num} hour ago' : '{num} hours ago' );
+
+        elseif( $diff < 3600 * 24 * 2 ) // it happened yesterday
+            return 'yesterday';
+
+        else // falling back on a usual date format as it happened later than yesterday
+            // setlocale(LC_TIME, '	ka_GE.UTF-8');
+            // dd(setlocale(LC_TIME, "de_DE"));
+            return strftime( date( 'Y', $time ) == date( 'Y' ) ? '%e %B' : '%e %B, %Y', $time );
+    }
 
 }

@@ -703,13 +703,13 @@ export default {
             m:{
                 getWorkInformation:{
                     category_id:{
-                        required:helpers.withMessage('კატეგორიის არჩევა სავალდებულოა', required ),
+                        required:helpers.withMessage('არჩევა სავალდებულოა', required ),
                     },
                     payment:{
-                        numeric: helpers.withMessage('ანაზღაურება უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric ),
+                        numeric: helpers.withMessage('უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric ),
                     },
                     currency_id:{
-                        required:helpers.withMessage('ვალუტის არჩევა სავალდებულოა', required )
+                        required:helpers.withMessage('არჩევა სავალდებულოა', required )
                     }
                 },
                 familyWorkExperience:{
