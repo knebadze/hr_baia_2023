@@ -15,9 +15,9 @@
                             <div class="form-group">
                                 <label><span class="text-danger">* </span>{{ 'მისამართი' }}</label>
                                 <div class="ls-inputicon-box">
-                                    <input class="form-control" v-model="m.employer[`address_${getLang}`]" type="text" placeholder=""  >
+                                    <input class="form-control" v-model="m.employer[`address_${getLang}`]" type="text" placeholder=""  @blur="v$.m.employer[`address_${getLang}`].$touch">
                                     <i class="fs-input-icon fa fa-user"></i>
-                                    <!-- <span v-if="v$.m.candidate.personal_number.required.$invalid && v$.m.candidate.personal_number.$dirty" style='color:red'>* {{ v$.m.candidate.personal_number.required.$message}}</span> -->
+                                    <span v-if="v$.m.employer[`address_${getLang}`].required.$invalid && v$.m.employer[`address_${getLang}`].$dirty" style='color:red'>* {{ v$.m.employer[`address_${getLang}`].required.$message}}</span>
                                 </div>
                             </div>
                         </div>
@@ -53,9 +53,14 @@
     </div>
 </template>
 <script>
+import { useVuelidate } from '@vuelidate/core'
+import { required, email, helpers, requiredIf, numeric, maxLength } from '@vuelidate/validators'
 import mainInfo from '../candidate/mainInfo.vue';
 import addressMap from '../map/address_map.vue'
 export default {
+    setup () {
+        return { v$: useVuelidate() }
+    },
     components:{
         mainInfo,
         addressMap,
@@ -67,6 +72,25 @@ export default {
         return {
             m:null
         }
+    },
+    validations(){
+        const validations = {
+            m:{
+                employer:{
+                    address_ka:{},
+                    address_en:{},
+                    address_ru:{},
+                }
+            }
+        }
+        if (this.getLang == 'ka') {
+                validations.m.employer.address_ka = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
+            }else if(this.getLang == 'en'){
+                validations.m.employer.address_en = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
+            }else if(this.getLang == 'ru'){
+                validations.m.employer.address_ru = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
+            }
+        return validations
     },
     created(){
         this.m = { ...this.data.employer, ...this.data.basic };
@@ -84,7 +108,9 @@ export default {
             this.m.employer.longitude = arg.lngLat.lng
             console.log('this.m.candidate.latitude', this.m.employer.latitude);
         },
-        addEmployer(){
+        async addEmployer(){
+            const isFormCorrect = await this.v$.$validate()
+            if (!isFormCorrect) return;
             this.m.employer['lang'] = this.getLang
             let currentObj = this;
             // console.log('currentObj',currentObj);

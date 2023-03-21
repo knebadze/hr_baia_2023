@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 
 class Candidate extends Model
 {
@@ -46,7 +47,7 @@ class Candidate extends Model
         'work_abroad' => 0
     ];
 
-    // protected $appends = ['generalWorkNoExperience'];
+    // protected $appends = ['HasRecommendation'];
 
     public function user()
     {
@@ -117,7 +118,7 @@ class Candidate extends Model
 
     public function recommendation()
     {
-        return $this->belongsToMany(RecommendationFromWhom::class, 'candidate_recommendations')->withPivot('name_ka','name_en','name_ru','position_ka','position_en','position_ru', 'number', 'file');
+        return $this->belongsToMany(RecommendationFromWhom::class, 'candidate_recommendations')->withPivot('name_ka','name_en','name_ru','position_ka','position_en','position_ru', 'number', 'file', 'recommendation');
     }
 
     public function workInformation()
@@ -128,6 +129,18 @@ class Candidate extends Model
     // public function familyWorkSkillCategory()
     // {
     //     return $this->belongsTo(CandidateFamilyWorkSkill::class, 'id', 'candidate_id');
+    // }
+
+    // public function getHasRecommendationAttribute():array
+    // {
+    //     // dd($this->recommendation[0]->pivot->recommendation);
+    //     // foreach ($this->recommendation as $key => $value) {
+    //     //     return $value;
+    //     // }
+    //     dd($this);
+    //     $recommendation = CandidateRecommendation::where('candidate_id', $this->id)->first();
+    //     // dd($recommendation);
+    //     return $recommendation;
     // }
 
 

@@ -19,6 +19,7 @@ import candidateProfile from './component/candidate/candidate_profile.vue'
 import candidateWorkInformation from './component/candidate/candidate_work_information.vue'
 import resume from './component/candidate/resume.vue'
 import candidateList from './component/candidate/candidate_list.vue'
+import candidateDetail from './component/candidate/candidate_detail.vue'
 
 //employer
 import employerProfile from './component/employer/employer_profile.vue'
@@ -55,6 +56,7 @@ app.component('candidate-profile', candidateProfile)
 app.component('candidate-work-information', candidateWorkInformation)
 app.component('resume-vue', resume)
 app.component('candidate-list', candidateList)
+app.component('candidate-detail', candidateDetail)
 
 //employer
 app.component('employer-profile', employerProfile)

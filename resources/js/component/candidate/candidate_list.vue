@@ -309,7 +309,7 @@
                                              <h4>{{ item.user[`name_${getLang}`] }} </h4>
                                          </a>
                                          <p><span v-for="(i, index) in item.work_information" :key="index">{{ i[`name_${getLang}`]+', ' }}</span></p>
-                                         <a href="#" class="twm-view-prifile site-text-primary">{{ $t('lang.company_vacancies_page_middle_leftside_read_more') }}</a>
+                                         <a :href="detailUrl+'/'+item.id" class="twm-view-prifile site-text-primary">{{ $t('lang.company_vacancies_page_middle_leftside_read_more') }}</a>
 
                                          <div class="twm-fot-content">
                                              <div class="twm-left-info">
@@ -362,12 +362,15 @@ export default {
         }
     },
     created(){
-
     },
     computed:{
         getLang(){
             return I18n.getSharedInstance().options.lang
         },
+        detailUrl(){
+            var url = new URL( location.href)
+            return url.origin+'/'+this.getLang+'/candidate-detail'
+        }
     },
     methods: {
 

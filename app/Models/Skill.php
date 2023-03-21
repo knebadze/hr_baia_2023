@@ -8,9 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Skill extends Model
 {
     use HasFactory;
+    protected $appends = ['categoryName'];
 
     public function candidateSkill()
     {
         return $this->hasOne(CandidateFamilyWorkSkill::class, 'skill_id');
+    }
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+    public function getCategoryNameAttribute()
+    {
+        return Category::where('id', $this->category_id)->first();
     }
 }

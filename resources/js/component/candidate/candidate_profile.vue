@@ -937,7 +937,6 @@ export default {
 
         async addCandidate(){
             const isFormCorrect = await this.v$.$validate()
-            // alert('Form failed validation')
             if (!isFormCorrect) return;
             if (this.candidateWorkExperienceModel.has_experience.id == 2) {
                 this.m.candidateWorkExperience.push(this.candidateWorkExperienceModel)

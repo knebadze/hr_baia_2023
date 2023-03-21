@@ -14,9 +14,9 @@
                             <div class="form-group">
                                 <label><span class="text-danger">* </span>{{ 'კომპანიის სახელი' }}</label>
                                 <div class="ls-inputicon-box">
-                                    <input class="form-control" v-model="m.company[`company_name_${getLang}`]" type="text" placeholder=""  >
+                                    <input class="form-control" v-model="m.company[`company_name_${getLang}`]" type="text" placeholder=""  @blur="v$.m.company[`company_name_${getLang}`].$touch">
                                     <i class="fs-input-icon fa fa-user"></i>
-                                    <!-- <span v-if="v$.m.candidate.personal_number.required.$invalid && v$.m.candidate.personal_number.$dirty" style='color:red'>* {{ v$.m.candidate.personal_number.required.$message}}</span> -->
+                                    <span v-if="v$.m.company[`company_name_${getLang}`].required.$invalid && v$.m.company[`company_name_${getLang}`].$dirty" style='color:red'>* {{ v$.m.company[`company_name_${getLang}`].required.$message}}</span>
                                 </div>
                             </div>
                         </div>
@@ -24,11 +24,10 @@
                             <div class="form-group">
                                 <label><span class="text-danger">* </span>{{ 'კომპანიის ობიექტის ტიპი' }}</label>
                                 <div class="ls-inputicon-box">
-                                    <multiselect v-model="m.company.company_object_type" :options="data.classificator.companyObjectType" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                    <multiselect v-model="m.company.company_object_type" :options="data.classificator.companyObjectType" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false" @blur="v$.m.company.company_object_type.$touch">
                                         <template slot="singleLabel" slot-scope="{ option }"></template>
                                     </multiselect>
-                                    <!-- <i class="fs-input-icon fa fa-user"></i> -->
-                                    <!-- <span v-if="v$.m.candidate.personal_number.required.$invalid && v$.m.candidate.personal_number.$dirty" style='color:red'>* {{ v$.m.candidate.personal_number.required.$message}}</span> -->
+                                    <span v-if="v$.m.company.company_object_type.required.$invalid && v$.m.company.company_object_type.$dirty" style='color:red'>* {{ v$.m.company.company_object_type.required.$message}}</span>
                                 </div>
                             </div>
                         </div>
@@ -46,9 +45,9 @@
                             <div class="form-group">
                                 <label><span class="text-danger">* </span>{{ 'თქვენი პოზიცია კომპანიაში?' }}</label>
                                 <div class="ls-inputicon-box">
-                                    <input class="form-control" v-model="m.company.position" type="text" placeholder=""  >
+                                    <input class="form-control" v-model="m.company.position" type="text" placeholder=""  @blur="v$.m.company.position.$touch">
                                     <i class="fs-input-icon fa fa-user"></i>
-                                    <!-- <span v-if="v$.m.candidate.personal_number.required.$invalid && v$.m.candidate.personal_number.$dirty" style='color:red'>* {{ v$.m.candidate.personal_number.required.$message}}</span> -->
+                                    <span v-if="v$.m.company.position.required.$invalid && v$.m.company.position.$dirty" style='color:red'>* {{ v$.m.company.position.required.$message}}</span>
                                 </div>
                             </div>
                         </div>
@@ -58,9 +57,10 @@
                             <div class="form-group">
                                 <label><span class="text-danger">* </span>{{ 'მისამართი' }}</label>
                                 <div class="ls-inputicon-box">
-                                    <input class="form-control" v-model="m.company[`address_${getLang}`]" type="text" placeholder=""  >
+                                    <input class="form-control" v-model="m.company[`address_${getLang}`]" type="text" placeholder=""  @blur="v$.m.company[`address_${getLang}`].$touch">
                                     <i class="fs-input-icon fa fa-user"></i>
-                                    <!-- <span v-if="v$.m.candidate.personal_number.required.$invalid && v$.m.candidate.personal_number.$dirty" style='color:red'>* {{ v$.m.candidate.personal_number.required.$message}}</span> -->
+                                    <span v-if="v$.m.company[`address_${getLang}`].required.$invalid && v$.m.company[`address_${getLang}`].$dirty" style='color:red'>* {{ v$.m.company[`address_${getLang}`].required.$message}}</span>
+
                                 </div>
                             </div>
                         </div>
@@ -99,7 +99,12 @@
 <script>
 import mainInfo from '../candidate/mainInfo.vue';
 import addressMap from '../map/address_map.vue'
+import { useVuelidate } from '@vuelidate/core'
+import { required, email, helpers, requiredIf, numeric, maxLength } from '@vuelidate/validators'
 export default {
+    setup () {
+        return { v$: useVuelidate() }
+    },
     components:{
         mainInfo,
         addressMap,
@@ -111,6 +116,40 @@ export default {
         return {
             m:null
         }
+    },
+    validations(){
+        const validations = {
+            m:{
+                company:{
+                    company_name_ka:{},
+                    company_name_en:{},
+                    company_name_ru:{},
+                    address_ka:{},
+                    address_en:{},
+                    address_ru:{},
+                    company_object_type:{required: helpers.withMessage('არჩევა სავალდებულოა', required)},
+                    object_type_ka:{},
+                    object_type_en:{},
+                    object_type_ru:{},
+                    position:{required: helpers.withMessage('არჩევა სავალდებულოა', required)}
+                }
+            }
+        }
+        if (this.getLang == 'ka') {
+            validations.m.company.address_ka = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
+            validations.m.company.company_name_ka = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
+            // validations.m.company.object_type_ka = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
+        }else if(this.getLang == 'en'){
+            validations.m.company.address_en = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
+            validations.m.company.company_name_en = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
+            // validations.m.company.object_type_en = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
+
+        }else if(this.getLang == 'ru'){
+            validations.m.company.address_ru = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
+            validations.m.company.company_name_ru = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
+            // validations.m.company.object_type_ru = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
+        }
+        return validations
     },
     created(){
         this.m = { ...this.data.company, ...this.data.basic };
@@ -128,7 +167,9 @@ export default {
             this.m.company.longitude = arg.lngLat.lng
             // console.log('this.m.candidate.latitude', this.m.company.latitude);
         },
-        addCompany(){
+        async addCompany(){
+            const isFormCorrect = await this.v$.$validate()
+            if (!isFormCorrect) return;
             this.m.company['lang'] = this.getLang
             let currentObj = this;
             // console.log('currentObj',currentObj);
