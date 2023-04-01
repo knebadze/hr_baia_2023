@@ -55,7 +55,7 @@ return [
     // ----------------------------------------------------------------------------------------------------
     // Page Title Lang
     'page_title_home' => 'Home',
-        'page_title_individual' => 'Individual Vacancies',
+        'page_title_individual' => 'Family Vacancies',
         'page_title_company' => 'Company Vacancies',
         'page_title_onmap' => 'Vacancies On Map',
     'page_title_about' => 'About Us',
@@ -66,7 +66,7 @@ return [
     // Menu Lang Block
     'menu_home' => 'Home',
     'menu_vacancies' => 'Vacancies',
-        'menu_individual_vacancies' => 'Individual Vacancies',
+        'menu_individual_vacancies' => 'Family Vacancies',
         'menu_company_vacancies' => 'Company Vacancies',
         'menu_vacancies_onmap' => 'Vacancies On Map',
     'menu_about_us' => 'About Us',
@@ -86,10 +86,10 @@ return [
     'welcome_leftside_bar_search_title' => 'Enter the desired information to search for a job.',
 
     'welcome_leftside_bar_search_job_select_job' => 'Select',
-        'welcome_leftside_bar_search_job_select_job_category' => 'Job Title',
+        'welcome_leftside_bar_search_job_select_job_category' => 'Category',
 
     'welcome_leftside_bar_search_job_category_job' => 'Category',
-        'welcome_leftside_bar_search_job_category_job_all_category' => 'All Category',
+        'welcome_leftside_bar_search_job_category_job_all_category' => 'Vacancies',
 
     'welcome_leftside_bar_search_job_location_job' => 'Location',
         'welcome_leftside_bar_search_job_location_job_search' => 'Search',
@@ -97,7 +97,7 @@ return [
     'welcome_leftside_bar_popular' => 'Popular',
     // ----------------------------------------------------------------------------------------------------
     'welcome_rightside_bar_companyvacancie' => 'Company vacancies',
-    'welcome_rightside_bar_individualvacancie' => 'Individual Vacancies',
+    'welcome_rightside_bar_individualvacancie' => 'Family Vacancies',
     'welcome_rightside_bar_employees' => 'Employees',
     // ----------------------------------------------------------------------------------------------------
     'welcome_middle_leftblock_small_text' => 'With Work categories',
@@ -115,7 +115,7 @@ return [
     'welcome_middle_count_history' => 'A million shared stories',
 
     'welcome_middle_career_allpost' => 'All job postings',
-    'welcome_middle_career_search' => 'Find the career you deserve',
+    'welcome_middle_career_search' => 'Latest vacancies',
     'welcome_middle_career_search_block_buttonreadmore' => 'Read More',
     'welcome_middle_career_search_block_buttonallwork' => 'All work',
     'welcome_middle_blog_smalltext' => 'Blog',
@@ -123,10 +123,10 @@ return [
     'welcome_middle_blog_article_button_read' => 'Read More',
 
     // ----------------------------------------------------------------------------------------------------
-    // Individual Vacancies Lang Page
+    // Family Vacancies Lang Page
     'individual_vacancies_page_big_title' => 'Most popular vacancies',
     'individual_vacancies_page_small_title_first' => 'home',
-    'individual_vacancies_page_small_title_second' => 'Individual Vacancies',
+    'individual_vacancies_page_small_title_second' => 'Family Vacancies',
 
     'individual_vacancies_page_leftside_category' => 'Category',
         'individual_vacancies_page_leftside_category_allcategory' => 'All Categories',
@@ -165,12 +165,9 @@ return [
         'individual_vacancies_page_leftside_second_location_5km' => '5 km from you',
         'individual_vacancies_page_leftside_second_location_7km' => '7 km from you',
 
-    'individual_vacancies_page_leftside_tags' => 'Tags',
 
-    'individual_vacancies_page_leftside_box_title' => 'Get the jobs that suit you by email. Submit your resume now!',
-    'individual_vacancies_page_leftside_box_read_more' => 'Read More',
     // -------------------------------------------------------------
-    'individual_vacancies_page_middle_first_title' => '2150 jobs are displayed',
+    'individual_vacancies_page_middle_first_title' => '2150 jobs are represented',
 
     'individual_vacancies_page_middle_title_sort' => 'Sort',
 
@@ -192,7 +189,7 @@ return [
     // Company Vacancies Lang Page
     'company_vacancies_page_big_title' => 'Most popular vacancies',
     'company_vacancies_page_small_title_first' => 'home',
-    'company_vacancies_page_small_title_second' => 'Individual Vacancies',
+    'company_vacancies_page_small_title_second' => 'Family Vacancies',
 
     'company_vacancies_page_leftside_category' => 'Category',
         'company_vacancies_page_leftside_category_allcategory' => 'All Categories',
@@ -359,7 +356,6 @@ return [
         'candidate_page_leftside_second_location_5km' => '5 km from you',
         'candidate_page_leftside_second_location_7km' => '7 km from you',
 
-    'candidate_page_leftside_tags' => 'Tags',
 
     'candidate_page_leftside_box_title' => 'Get the jobs that suit you by email. Submit your resume now!',
     'candidate_page_leftside_box_read_more' => 'Read More',
@@ -398,7 +394,6 @@ return [
     // Footer Lang Page
     'footer_fast_link' => 'Quick links',
     'footer_by_category' => 'By Category',
-    'footer_by_profession' => 'By Professions',
 
     'footer_address_one' => 'Address :',
         'footer_address_two' => 'Vazha-Pshavela Avenue - 76B II: Archil Jorjadze Street N5',

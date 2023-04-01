@@ -260,12 +260,6 @@
 
                 </div>
 
-                <div class="twm-advertisment" style="background-image:url(/images/add-bg.jpg);">
-                <div class="overlay"></div>
-                <p>{{ $t('lang.individual_vacancies_page_leftside_box_title') }} </p>
-                    <a href="about-1.html" class="site-button white">{{ $t('lang.individual_vacancies_page_leftside_box_read_more') }}</a>
-                </div>
-
             </div>
 
             <div class="col-lg-8 col-md-12">

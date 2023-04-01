@@ -55,7 +55,7 @@ return [
     // ----------------------------------------------------------------------------------------------------
     // Title Lang
     'page_title_home' => 'მთავარი',
-        'page_title_individual' => 'ინდივიდუალი ვაკანსიები',
+        'page_title_individual' => 'ვაკანსიები ოჯახში',
         'page_title_company' => 'კომპანიის ვაკანსიები',
         'page_title_onmap' => 'ვაკანსიები რუქაზე',
     'page_title_about' => 'ჩვენს შესახებ',
@@ -66,7 +66,7 @@ return [
     // Menu Lang Block
     'menu_home' => 'მთავარი',
     'menu_vacancies' => 'ვაკანსიები',
-        'menu_individual_vacancies' => 'ინდივიდუალი ვაკანსიები',
+        'menu_individual_vacancies' => 'ვაკანსიები ოჯახში',
         'menu_company_vacancies' => 'კომპანიის ვაკანსიები',
         'menu_vacancies_onmap' => 'ვაკანსიები რუქაზე',
     'menu_about_us' => 'ჩვენს შესახებ',
@@ -86,10 +86,10 @@ return [
     'welcome_leftside_bar_search_title' => 'სამსახურის ძიებისთვის ჩაწერეთ სასურველი ინფორმაცია.',
 
     'welcome_leftside_bar_search_job_select_job' => 'აირჩიეთ',
-        'welcome_leftside_bar_search_job_select_job_category' => 'ვაკანსიის სახელი',
+        'welcome_leftside_bar_search_job_select_job_category' => 'კატეგორია',
 
     'welcome_leftside_bar_search_job_category_job' => 'კაეტეგორია',
-        'welcome_leftside_bar_search_job_category_job_all_category' => 'ყველა კატეგორია',
+        'welcome_leftside_bar_search_job_category_job_all_category' => 'ვაკანსიები',
 
     'welcome_leftside_bar_search_job_location_job' => 'ლოკაცია',
         'welcome_leftside_bar_search_job_location_job_search' => 'ძებნა',
@@ -97,7 +97,7 @@ return [
         'welcome_leftside_bar_popular' => 'პოპულარული',
     // ----------------------------------------------------------------------------------------------------
     'welcome_rightside_bar_companyvacancie' => 'კომპანიის ვაკანსიები',
-    'welcome_rightside_bar_individualvacancie' => 'ინდივიდუალური ვაკანსიები',
+    'welcome_rightside_bar_individualvacancie' => 'ვაკანსიები ოჯახში',
     'welcome_rightside_bar_employees' => 'დასაქმებულები',
     // ----------------------------------------------------------------------------------------------------
     'welcome_middle_leftblock_small_text' => 'სამუშაო კატეგორიებით',
@@ -115,7 +115,7 @@ return [
     'welcome_middle_count_history' => 'მილიონი გაზიარებული ისტორია',
 
     'welcome_middle_career_allpost' => 'ყველა ვაკანსიის პოსტი',
-    'welcome_middle_career_search' => 'იპოვე შენი კარიერა, რომელსაც იმსახურებ',
+    'welcome_middle_career_search' => 'უახლესი ვაკანსიები',
     'welcome_middle_career_search_block_buttonreadmore' => 'სრულად',
     'welcome_middle_career_search_block_buttonallwork' => 'ყველა სამუშაო',
 
@@ -127,7 +127,7 @@ return [
     // Individual Vacancies Lang Page
     'individual_vacancies_page_big_title' => 'ყველაზე პოპულარული ვაკანსიები',
     'individual_vacancies_page_small_title_first' => 'მთავარი',
-    'individual_vacancies_page_small_title_second' => 'ინდივიდუალური ვაკანსიები',
+    'individual_vacancies_page_small_title_second' => 'ვაკანსიები ოჯახში',
 
     'individual_vacancies_page_leftside_category' => 'კატეგორია',
     'individual_vacancies_page_leftside_category_allcategory' => 'ყველა კატეგორია',
@@ -166,13 +166,9 @@ return [
         'individual_vacancies_page_leftside_second_location_5km' => 'თქვენგან 5 კმ-ში',
         'individual_vacancies_page_leftside_second_location_7km' => 'თქვენგან 7 კმ-ში',
 
-    'individual_vacancies_page_leftside_tags' => 'ტეგები',
-
-    'individual_vacancies_page_leftside_box_title' => 'მიიღეთ თქვენთვის შესაფერისი ვაკანსიები Email-ზე. გააგზავნეთ თქვენი რეზიუმე ახლავე!',
-    'individual_vacancies_page_leftside_box_read_more' => 'სრულად',
 
     // -------------------------------------------------------------
-    'individual_vacancies_page_middle_first_title' => 'ნაჩვენებია 2150 სამუშაო ადგილი',
+    'individual_vacancies_page_middle_first_title' => 'წარმოდგენილია 2150 სამუშაო ადგილი',
     'individual_vacancies_page_middle_title_sort' => 'დალაგება',
 
     'individual_vacancies_page_middle_latest' => 'უახლესი',
@@ -195,7 +191,7 @@ return [
     // Company Vacancies Lang Page
     'company_vacancies_page_big_title' => 'ყველაზე პოპულარული ვაკანსიები',
     'company_vacancies_page_small_title_first' => 'მთავარი',
-    'company_vacancies_page_small_title_second' => 'ინდივიდუალური ვაკანსიები',
+    'company_vacancies_page_small_title_second' => 'ვაკანსიები ოჯახში',
 
     'company_vacancies_page_leftside_category' => 'კატეგორია',
     'company_vacancies_page_leftside_category_allcategory' => 'ყველა კატეგორია',
@@ -359,7 +355,6 @@ return [
         'candidate_page_leftside_second_location_5km' => 'თქვენგან 5 კმ-ში',
         'candidate_page_leftside_second_location_7km' => 'თქვენგან 7 კმ-ში',
 
-    'candidate_page_leftside_tags' => 'ტეგები',
 
     'candidate_page_leftside_box_title' => 'მიიღეთ თქვენთვის შესაფერისი ვაკანსიები Email-ზე. გააგზავნეთ თქვენი რეზიუმე ახლავე!',
     'candidate_page_leftside_box_read_more' => 'სრულად',
@@ -398,7 +393,6 @@ return [
     // Footer Lang Page
     'footer_fast_link' => 'სწრაფი ლინკები',
     'footer_by_category' => 'კატეგორიის მიხედვით',
-    'footer_by_profession' => 'პროფესიების მიხედვით',
 
     'footer_address_one' => 'მისამართი :',
         'footer_address_two' => 'ვაჟა-ფშაველას გამზირი - 76B II: არჩილ ჯორჯაძის ქუჩა N5',

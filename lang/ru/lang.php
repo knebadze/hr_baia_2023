@@ -55,7 +55,7 @@ return [
     // ----------------------------------------------------------------------------------------------------
     // Title Lang
     'page_title_home' => 'Главная',
-        'page_title_individual' => 'Индивидуальные вакансии',
+        'page_title_individual' => 'Вакансии в семье',
         'page_title_company' => 'Вакансии компании',
         'page_title_onmap' => 'Вакансии на карте',
     'page_title_about' => 'О нас',
@@ -66,7 +66,7 @@ return [
     // Menu Lang Block
     'menu_home' => 'Главная',
     'menu_vacancies' => 'Вакансии',
-        'menu_individual_vacancies' => 'Индивидуальные вакансии',
+        'menu_individual_vacancies' => 'Вакансии в семье',
         'menu_company_vacancies' => 'Вакансии компании',
         'menu_vacancies_onmap' => 'Вакансии на карте',
     'menu_about_us' => 'О нас',
@@ -87,10 +87,10 @@ return [
 
 
     'welcome_leftside_bar_search_job_select_job' => 'Выбрать',
-        'welcome_leftside_bar_search_job_select_job_category' => 'Должность',
+        'welcome_leftside_bar_search_job_select_job_category' => 'категория',
 
     'welcome_leftside_bar_search_job_category_job' => 'категория',
-        'welcome_leftside_bar_search_job_category_job_all_category' => 'Все категории',
+        'welcome_leftside_bar_search_job_category_job_all_category' => 'Вакансии',
 
     'welcome_leftside_bar_search_job_location_job' => 'местоположение',
         'welcome_leftside_bar_search_job_location_job_search' => 'Поиск',
@@ -98,7 +98,7 @@ return [
     'welcome_leftside_bar_popular' => 'Популярный',
     // ----------------------------------------------------------------------------------------------------
     'welcome_rightside_bar_companyvacancie' => 'Вакансии компании',
-    'welcome_rightside_bar_individualvacancie' => 'Индивидуальные вакансии',
+    'welcome_rightside_bar_individualvacancie' => 'Вакансии в семье',
     'welcome_rightside_bar_employees' => 'Сотрудники',
     // ----------------------------------------------------------------------------------------------------
     'welcome_middle_leftblock_small_text' => 'С рабочими категориями',
@@ -117,7 +117,7 @@ return [
     'welcome_middle_count_history' => 'миллион общих историй',
 
     'welcome_middle_career_allpost' => 'Все вакансии',
-    'welcome_middle_career_search' => 'Найдите карьеру, которую вы заслуживаете',
+    'welcome_middle_career_search' => 'Последние вакансии',
     'welcome_middle_career_search_block_buttonreadmore' => 'Читать далее',
     'welcome_middle_career_search_block_buttonallwork' => 'Все работы',
 
@@ -129,7 +129,7 @@ return [
     // Individual Vacancies Lang Page
     'individual_vacancies_page_big_title' => 'Самые популярные вакансии',
     'individual_vacancies_page_small_title_first' => 'Главная',
-    'individual_vacancies_page_small_title_second' => 'Индивидуальные вакансии',
+    'individual_vacancies_page_small_title_second' => 'Вакансии в семье',
     
     'individual_vacancies_page_leftside_category' => 'Категория',
         'individual_vacancies_page_leftside_category_allcategory' => 'Все категории',
@@ -168,12 +168,8 @@ return [
         'individual_vacancies_page_leftside_second_location_5km' => '5 км от вас',
         'individual_vacancies_page_leftside_second_location_7km' => '7 км от вас',
 
-    'individual_vacancies_page_leftside_tags' => 'Теги',
-
-    'individual_vacancies_page_leftside_box_title' => 'Получите подходящие вакансии по электронной почте. Отправьте свое резюме прямо сейчас!',
-    'individual_vacancies_page_leftside_box_read_more' => 'Читать далее',
     // -------------------------------------------------------------
-    'individual_vacancies_page_middle_first_title' => 'Отображено 2150 вакансий',
+    'individual_vacancies_page_middle_first_title' => 'Представлено 2150 рабочих мест',
     'individual_vacancies_page_middle_title_sort' => 'Сортировка',
 
     'individual_vacancies_page_middle_latest' => 'Последние',
@@ -196,7 +192,7 @@ return [
     // Company Vacancies Lang Page
     'company_vacancies_page_big_title' => 'Самые популярные вакансии',
     'company_vacancies_page_small_title_first' => 'Главная',
-    'company_vacancies_page_small_title_second' => 'Индивидуальные вакансии',
+    'company_vacancies_page_small_title_second' => 'Вакансии в семье',
     
     'company_vacancies_page_leftside_category' => 'Категория',
         'company_vacancies_page_leftside_category_allcategory' => 'Все категории',
@@ -367,7 +363,6 @@ return [
         'candidate_page_leftside_second_location_5km' => '5 км от вас',
         'candidate_page_leftside_second_location_7km' => '7 км от вас',
 
-    'candidate_page_leftside_tags' => 'Теги',
 
     'candidate_page_leftside_box_title' => 'Получите подходящие вакансии по электронной почте. Отправьте свое резюме прямо сейчас!',
     'candidate_page_leftside_box_read_more' => 'Читать далее',
@@ -405,7 +400,6 @@ return [
     // Footer Lang Page
     'footer_fast_link' => 'Быстрые ссылки',
     'footer_by_category' => 'По категории',
-    'footer_by_profession' => 'По профессиям',
 
     'footer_address_one' => 'Адрес :',
         'footer_address_two' => 'Проспект Важа-Пшавела - 76Б II: улица Арчила Джорджадзе N5',

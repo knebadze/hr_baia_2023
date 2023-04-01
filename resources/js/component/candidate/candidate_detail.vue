@@ -37,7 +37,7 @@
                             <!-- <p>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? </p> -->
                             <!-- <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi.</p> -->
                             <div v-if="data.skill">
-                                <h4 class="twm-s-title">უნარები</h4>
+                                <h4 class="twm-s-title">ოჯახში მუშაობის გამოცდილება</h4>
                                 <div class="tw-sidebar-tags-wrap">
                                     <div class="tagcloud">
                                         <a v-for="(item, index) in data.skill" :key="index" href="javascript:void(0)">{{ item.skill[`name_${getLang}`] }}</a>
@@ -112,14 +112,14 @@
 
                                         <li>
                                             <div class="twm-s-info-inner">
-                                                <i class="fas fa-mobile-alt"></i>
+                                                <i class="fas fa-user-plus"></i>
                                                 <span class="twm-title">მოქალაქეობა</span>
                                                 <div class="twm-s-info-discription"><span v-for="(item, index) in data.candidate.citizenship" :key="index">{{ item[`name_${getLang}`]+', ' }}</span></div>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="twm-s-info-inner">
-                                                <i class="fas fa-at"></i>
+                                                <i class="fas fa-cross"></i>
                                                 <span class="twm-title">რელიგია</span>
                                                 <div class="twm-s-info-discription">{{ data.candidate.religion[`name_${getLang}`] }}</div>
                                             </div>
@@ -133,35 +133,35 @@
                                         </li>
                                         <li>
                                             <div class="twm-s-info-inner">
-                                                <i class="fas fa-map-marker-alt"></i>
+                                                <i class="fas fa-globe"></i>
                                                 <span class="twm-title">უცხო ენები</span>
                                                 <div class="twm-s-info-discription"><span v-for="(item, index) in language" :key="index">{{ item[`name_${getLang}`]+' - '+item.language_level[`name_${getLang}`]+', ' }}</span>  </div>
                                             </div>
                                         </li>
                                         <li v-if="data.candidate.professions.length > 0">
                                             <div class="twm-s-info-inner">
-                                                <i class="fas fa-book-reader"></i>
+                                                <i class="fas fa-graduation-cap"></i>
                                                 <span class="twm-title">პროფესია</span>
                                                 <div class="twm-s-info-discription"><span v-for="(item, index) in data.candidate.professions" :key="index">{{ item[`name_${getLang}`]+', ' }}</span></div>
                                             </div>
                                         </li>
                                         <li v-if="data.candidate.specialty.length > 0">
                                             <div class="twm-s-info-inner">
-                                                <i class="fas fa-book-reader"></i>
+                                                <i class="fas fa-briefcase"></i>
                                                 <span class="twm-title">სპეციალობა</span>
                                                 <div class="twm-s-info-discription"><span v-for="(item, index) in data.candidate.specialty" :key="index">{{ item[`name_${getLang}`]+', ' }}</span></div>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="twm-s-info-inner">
-                                                <i class="fas fa-clock"></i>
+                                                <i class="fas fa-marker"></i>
                                                 <span class="twm-title">რეკომენდაცია</span>
                                                 <div class="twm-s-info-discription">{{ hasRecommendation[`name_${getLang}`] }}</div>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="twm-s-info-inner">
-                                                <i class="fas fa-book-reader"></i>
+                                                <i class="fas fa-file"></i>
                                                 <span class="twm-title">მახასიათებლები</span>
                                                 <div class="twm-s-info-discription"><span v-for="(item, index) in data.candidate.characteristic" :key="index">{{ item[`name_${getLang}`]+', ' }}</span></div>
                                             </div>
