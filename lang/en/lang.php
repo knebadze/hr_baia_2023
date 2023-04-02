@@ -73,6 +73,7 @@ return [
     'menu_candidate' => 'Candidates',
     'menu_blog' => 'Blog',
     'menu_registration' => 'Registration',
+    'menu_add_vacancy' => 'Add job',
     'menu_log_in' => 'Log In',
     // ----------------------------------------------------------------------------------------------------
     // Welcome Lang Page
@@ -312,6 +313,23 @@ return [
     'about_us_page_box_card_upload_resume' => 'Upload your resume',
 
     // ----------------------------------------------------------------------------------------------------
+    // Employer Page
+    'employer_profile_page_personal_info' => 'Personal Information',
+    'employer_profile_page_address' => 'Address',
+    'employer_profile_page_street' => 'Street',
+
+    'employer_jobs_page_first_title' => 'Jobs',
+    'employer_jobs_page_grid_first_title' => 'category',
+    'employer_jobs_page_grid_second_title' => 'status',
+    'employer_jobs_page_grid_third_title' => 'HR Information',
+    'employer_jobs_page_grid_fourth_title' => 'interest',
+    'employer_jobs_page_grid_fifth_title' => 'actions',
+
+    'employer_jobs_page_tooltip_interested' => 'View interested candidates',
+    'employer_jobs_page_tooltip_view' => 'Job View',
+    'employer_jobs_page_tooltip_reminder' => 'Reminder',
+    'employer_jobs_page_tooltip_del' => 'delete',
+
     // Candidates Us Lang Page
     'candidate_page_big_title' => 'Candidates',
     'candidate_page_small_title_first' => 'home',

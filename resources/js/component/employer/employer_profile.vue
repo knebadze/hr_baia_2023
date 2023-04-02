@@ -1,11 +1,11 @@
 <template lang="">
-    <div class="col-xl-9 col-lg-8 col-md-12 m-b30">
+    <div class="col-xl-9 col-lg-8 col-md-12 m-b30 employerPageBorder">
         <!--Filter Short By-->
         <div class="twm-right-section-panel site-bg-gray">
             <mainInfo :data="m.user" :genderCLA="data.classificator.gender"></mainInfo>
             <div class="panel panel-default">
                 <div class="panel-heading wt-panel-heading p-a20">
-                    <h4 class="panel-tittle m-a0">{{ ('პირადი ინფორმაცია') }}</h4>
+                    <h4 class="panel-tittle m-a0">{{ $t('lang.employer_profile_page_personal_info') }}</h4>
                     <!-- <small class="text-danger">* აუცილებლად შესავსები ველები</small> -->
                 </div>
                 <div class="panel-body wt-panel-body p-a20 m-b30 ">
@@ -13,7 +13,7 @@
                         <addressMap  @messageFromChild="childMessage"></addressMap>
                         <div class="col-xl-6 col-lg-6 col-md-12">
                             <div class="form-group">
-                                <label><span class="text-danger">* </span>{{ 'მისამართი' }}</label>
+                                <label><span class="text-danger">* </span>{{ $t('lang.employer_profile_page_address') }}</label>
                                 <div class="ls-inputicon-box">
                                     <input class="form-control" v-model="m.employer[`address_${getLang}`]" type="text" placeholder=""  @blur="v$.m.employer[`address_${getLang}`].$touch">
                                     <i class="fs-input-icon fa fa-user"></i>
@@ -23,7 +23,7 @@
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-12">
                             <div class="form-group">
-                                <label><span class="text-danger">* </span>{{ 'ქუჩა' }}</label>
+                                <label><span class="text-danger">* </span>{{ $t('lang.employer_profile_page_street') }}</label>
                                 <div class="ls-inputicon-box">
                                     <input class="form-control" v-model="m.employer[`street_${getLang}`]" type="text" placeholder=""  >
                                     <i class="fs-input-icon fa fa-user"></i>

@@ -73,6 +73,7 @@ return [
     'menu_candidate' => 'Кандидаты',
     'menu_blog' => 'Блог',
     'menu_registration' => 'Регистрация',
+    'menu_add_vacancy' => 'Добавить вакансию',
     'menu_log_in' => 'Авторизоваться',
     // ----------------------------------------------------------------------------------------------------
     // Welcome Lang Page
@@ -314,6 +315,23 @@ return [
     'about_us_page_box_card_upload_resume' => 'Загрузите резюме',
 
     // ----------------------------------------------------------------------------------------------------
+    // Empliyer Page
+    'employer_profile_page_personal_info' => 'Личная информация',
+    'employer_profile_page_address' => 'Адрес',
+    'employer_profile_page_street' => 'Улица',
+
+    'employer_jobs_page_first_title' => 'Вакансии',
+    'employer_jobs_page_grid_first_title' => 'категория',
+    'employer_jobs_page_grid_second_title' => 'статус',
+    'employer_jobs_page_grid_third_title' => 'Кадровая информация',
+    'employer_jobs_page_grid_fourth_title' => 'интерес',
+    'employer_jobs_page_grid_fifth_title' => 'действия',
+
+    'employer_jobs_page_tooltip_interested' => 'Просмотреть заинтересованных кандидатов',
+    'employer_jobs_page_tooltip_view' => 'Просмотр вакансий',
+    'employer_jobs_page_tooltip_reminder' => 'Напоминание',
+    'employer_jobs_page_tooltip_del' => 'удалить',
+
     // Candidates Us Lang Page
     'candidate_page_big_title' => 'Кандидаты',
     'candidate_page_small_title_first' => 'Главная',

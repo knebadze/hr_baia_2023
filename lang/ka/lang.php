@@ -73,6 +73,7 @@ return [
     'menu_candidate' => 'კანდიდატები',
     'menu_blog' => 'ბლოგი',
     'menu_registration' => 'რეგისტრაცია',
+    'menu_add_vacancy' => 'დაამატე ვაკანსია',
     'menu_log_in' => 'ავტორიაზაცია',
     // ----------------------------------------------------------------------------------------------------
     // Welcome Lang Page
@@ -311,6 +312,23 @@ return [
     'about_us_page_box_card_upload_resume' => 'რეზიუმეს ატვირთვა',
 
     // ----------------------------------------------------------------------------------------------------
+    // Employer  Page
+    'employer_profile_page_personal_info' => 'პირადი ინფორმაცია',
+    'employer_profile_page_address' => 'მისამართი',
+    'employer_profile_page_street' => 'ქუჩა',
+
+    'employer_jobs_page_first_title' => 'ვაკანსიები',
+    'employer_jobs_page_grid_first_title' => 'კატეგორია',
+    'employer_jobs_page_grid_second_title' => 'სტატუსი',
+    'employer_jobs_page_grid_third_title' => 'HR ინფორმაცია',
+    'employer_jobs_page_grid_fourth_title' => 'დაინტერესება',
+    'employer_jobs_page_grid_fifth_title' => 'მოქმედებები',
+
+    'employer_jobs_page_tooltip_interested' => 'დაინტერესებული კანდიდატების ნახვა',
+    'employer_jobs_page_tooltip_view' => 'ვაკანსიის ნახვა',
+    'employer_jobs_page_tooltip_reminder' => 'შეხსენება',
+    'employer_jobs_page_tooltip_del' => 'წაშლა',
+
     // Candidates Us Lang Page
     'candidate_page_big_title' => 'კანდიდატები',
     'candidate_page_small_title_first' => 'მთავარი',

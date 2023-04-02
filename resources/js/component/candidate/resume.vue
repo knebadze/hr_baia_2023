@@ -1,5 +1,5 @@
 <template lang="">
-    <div class="col-xl-9 col-lg-8 col-md-12 m-b30">
+    <div class="col-xl-9 col-lg-8 col-md-12 m-b30 employerPageBorder">
         <div class="twm-right-section-panel site-bg-gray">
                 <!--Resume Headline-->
                 <div v-if="data.workInformation.length > 1" class="panel panel-default mb-3">
