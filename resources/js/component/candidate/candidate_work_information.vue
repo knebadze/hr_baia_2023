@@ -281,18 +281,18 @@
                               <!--1-->
                               <tr v-for="(item,index) in m.workInformation">
                                 <td>{{ index + 1 }}</td>
-                                <td><span class="badge rounded-pill bg-success p-2">{{ item.category[`name_${getLang}`] }}</span></td>
-                                <td><span v-for="i in item.work_schedule" class="badge rounded-pill bg-primary p-2">{{ i[`name_${getLang}`] }}</span></td>
+                                <td><span style="margin-bottom: 5px; margin-right: 5px;" class="badge rounded-pill bg-success p-2">{{ item.category[`name_${getLang}`] }}</span></td>
+                                <td><span style="margin-bottom: 5px; margin-right: 5px;" v-for="i in item.work_schedule" class="badge rounded-pill bg-primary p-2">{{ i[`name_${getLang}`] }}</span></td>
                                 <td>{{ item.payment }}</td>
                                 <td>{{ item.currency[`name_${getLang}`] }}</td>
                                 <td>
-                                    <button type="button" title="ნახვა" data-bs-toggle="tooltip" data-bs-placement="top" @click="editWorkInformation(item)">
-                                        <i class="fa fa-pen"></i>
+                                    <button type="button" :title="$t('lang.user_profile_page_category_end_schedule_table_action_tooltips_view')" data-bs-toggle="tooltip" data-bs-placement="top" @click="editWorkInformation(item)">
+                                        <i class="fa fa-eye"></i>
                                     </button>
                                     <!-- <a type="button" title="ნახვა" data-bs-toggle="tooltip" data-bs-placement="top" :href="`/${this.getLang}/user/work_information_detail/${item.id}`">
                                         <i class="fa fa-eye"></i>
                                     </a> -->
-                                    <button title="წაშლა" data-bs-toggle="tooltip" data-bs-placement="top" @click="deleteWorkInformation(index, item.id)">
+                                    <button :title="$t('lang.user_profile_page_category_end_schedule_table_action_tooltips_del')" data-bs-toggle="tooltip" data-bs-placement="top" @click="deleteWorkInformation(index, item.id)">
                                         <i class="fa fa-trash-alt"></i>
                                     </button>
                                 </td>

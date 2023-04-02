@@ -15,6 +15,7 @@
                                 <div class="twm-candi-self-info">
                                     <div class="twm-candi-self-top">
                                         <!-- <div class="twm-candi-fee">$20 / Day</div> -->
+                                        <h3 style="color: white">ეძებს სამსახურს</h3>
                                         <div class="twm-media">
                                             <img :src="'/images/user-avatar/'+data.candidate.user.avatar" alt="#">
                                         </div>
@@ -22,8 +23,8 @@
 
                                             <h4 class="twm-job-title">{{ data.candidate.user[`name_${getLang}`] }} </h4>
 
-                                            <p v-for="(i, index) in data.candidate.work_information" :key="index">{{ i[`name_${getLang}`]+', ' }}</p>
-                                            <p class="twm-candidate-address"><i class="feather-map-pin"></i>{{ data.candidate[`address_${getLang}`] }}</p>
+                                            <p style="margin-bottom: 0px; text-decoration: underline" v-for="(i, index) in data.candidate.work_information" :key="index">{{ i[`name_${getLang}`] }}</p>
+                                            <p style="margin-top: 10px;" class="twm-candidate-address"><i class="feather-map-pin"></i>{{ data.candidate[`address_${getLang}`] }}</p>
 
                                         </div>
                                     </div>

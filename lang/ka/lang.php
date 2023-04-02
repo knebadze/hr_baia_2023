@@ -104,11 +104,12 @@ return [
     'welcome_middle_leftblock_big_text' => 'აირჩიეთ თქვენთვის სასურველი კატეგორია',
     'welcome_middle_submit' => 'ყველა კატეგორია',
 
+    'welcome_middle_leftblock_small_text_candidate' => 'კანდიდატი კატეგორიებით',
+    'welcome_middle_leftblock_big_text_candidate' => 'აირჩიეთ თქვენთვის სასურველი კანდიდატი',
+    'welcome_middle_submit_candidate' => 'ყველა კანდიდატი',
+
     'welcome_middle_uploadresume_block' => 'ჯერ კიდევ ვერ მოძებნეთ შესაბამისი სამსახური? ატვირთეთ თქვენი რეზიუმე / CV.',
     'welcome_middle_uploadresume_button' => 'რეზიუმეს ატვირთვა',
-
-    'welcome_middle_top_company' => 'ტოპ კკმპანიები',
-    'welcome_middle_top_company_getoffers' => 'მიიღეთ შემოთავაზებები ტოპ კომპანიებში',
 
     'welcome_middle_count_user' => 'ყოველდღიურად მილიონობით აქტიური მომხმარებელი',
     'welcome_middle_count_position' => 'ღია სამუშაო პოზიციები',
@@ -168,7 +169,7 @@ return [
 
 
     // -------------------------------------------------------------
-    'individual_vacancies_page_middle_first_title' => 'წარმოდგენილია 2150 სამუშაო ადგილი',
+    'individual_vacancies_page_middle_first_title' => 'სამუშაო ადგილი: ',
     'individual_vacancies_page_middle_title_sort' => 'დალაგება',
 
     'individual_vacancies_page_middle_latest' => 'უახლესი',
@@ -309,9 +310,6 @@ return [
     'about_us_page_box_card_description' => 'ჯერ კიდევ ვერ მოძებნეთ შესაბამისი სამსახური? ატვირთეთ თქვენი რეზიუმე',
     'about_us_page_box_card_upload_resume' => 'რეზიუმეს ატვირთვა',
 
-    'about_us_page_top_company' => 'ტოპ კომპანიები',
-    'about_us_page_top_company_description' => 'მიიღეთ შემოთავაზებები ტოპ კომპანიებში',
-
     // ----------------------------------------------------------------------------------------------------
     // Candidates Us Lang Page
     'candidate_page_big_title' => 'კანდიდატები',
@@ -419,10 +417,13 @@ return [
     'user_page_log_out' => 'გასვლა',
     'user_page_candidate_first_title' => 'კანდიდატი',
     'user_page_candidate_second_title' => 'დამსაქმებლი',
+    'user_page_candidate_third_title' => 'დამსაქმებელი კომპანია',
+    'user_page_candidate_fourth_title' => 'უცნობი',
     // leftside
     'user_page_candidate_left_side_bar_photo_upload' => 'ფოტოს ატვირთვა',
     'user_page_candidate_left_side_bar_dashboard' => 'სამართავი პანელი',
     'user_page_candidate_left_side_bar_profile' => 'პროფილი',
+    'user_page_candidate_left_side_bar_work_info' => 'სამუშაო ინფორმაცია',
     'user_page_candidate_left_side_bar_applied_jobs' => 'ვაკანსიები',
     'user_page_candidate_left_side_bar_my_resume' => 'ჩემი რეზიუმე',
     'user_page_candidate_left_side_bar_job_alerts' => 'შეტყბინებებები',
@@ -448,10 +449,12 @@ return [
     'user_profile_page_personal_citizenship' => 'მოქალაქეობა',
     'user_profile_page_personal_education' => 'განათლება',
     'user_profile_page_personal_specialty' => 'სპეციალობა',
+    'user_profile_page_personal_general_characters' => 'ზოგადი მახასიათებლები',
     'user_profile_page_personal_nationality' => 'ეროვნება',
     'user_profile_page_personal_religion' => 'რელიგია',
     'user_profile_page_personal_profession' => 'პროფესია',
     'user_profile_page_personal_family' => 'ოჯახური მდგომარეობა',
+        'user_profile_page_personal_children_age' => 'ბავშვების ასაკი',
         'user_profile_page_personal_family_children' => 'შვილების რაოდენობა',
         'user_profile_page_personal_family_children_age' => 'შვილების ასაკი',
         'user_profile_page_personal_family_spouse' => 'მეუღლის სახელი გვარი და სამუშაო ადგილი',
@@ -459,12 +462,13 @@ return [
 
     // Medical information Block Lang
     'user_profile_page_medical_info' => 'სამედიცინო ინფორმაცია',
-    'user_profile_page_medical_alergy' => 'ალერგია', 
+    'user_profile_page_medical_alergy' => 'რაზე გაქვთ ალერგია', 
     'user_profile_page_medical_operation' => 'ოპერაცია ან ქრონიკული დაავადება', 
     'user_profile_page_medical_please_info' => 'გთხოვთ მოგვაწოდოთ ინფორმაცია მნიშვნელოვანი ოპერაციების და ქრონიკული დაავადებების შესახებ ასეთის არსებობის შემთხვევაში.',  
 
     // Map
     'user_profile_page_address' => 'მისამართი',
+        'user_profile_page_street' => 'ქუჩა',
     'user_profile_page_address_map' => 'მისამართის შესავსებათ უმჯობესია გამოიყენოთ რუკის საძიებო ველი',
     'user_profile_page_address_map_2' => 'მოძებვნის შემდეგ შეგიძლიათ ამოძრაოთ მარკერი რათა დააზუსთოთ 
     თქვენი მისამართი',
@@ -472,6 +476,7 @@ return [
     // Foreign Language Block Lang
     'user_profile_page_foreign_lang_title' => 'უცხო ენები',
     'user_profile_page_foreign_lang_language' => 'უცხო ენა',
+    'user_profile_page_foreign_lang_language_comiitment' => 'სავალდებულოა მშობლიური ენის მითითება',
     'user_profile_page_foreign_lang_level' => 'დონე',
     'user_profile_page_foreign_lang_button_add_info' => 'დამატება',
 
@@ -481,6 +486,7 @@ return [
 
     // Work Experience Block Lang
     'user_profile_page_work_exp_title' => 'ზოგადი სამუშაო გამოცდილება',
+    'user_profile_page_work_exp_please_feel' => 'გთხოვთ შეავსოთ მხოლოდ ზოგადი სამუშაო გამოცდილება, ხოლო საოჯახო და შერჩეული კატეგორის სამუშაო გამოცდილება შეავსებთ მოგვიანებით',
     'user_profile_page_work_exp' => 'სამუშაო გამოცდილება',
     'user_profile_page_work_position' => 'პოზიცია',
     'user_profile_page_work_object' => 'ობიექტი',
@@ -502,6 +508,8 @@ return [
     'user_profile_page_category_end_schedule_title_2' => 'ინფორმაციის შევსების შემდეგ გამოიყენეთ ღილაკი შენახვა რის შემდეგაც საშვალება მოგეცემათ დაიწყოთ ინფორმაციის შევსება სხვა კატეგორიაზე.',
 
     'user_profile_page_category_end_schedule_table' => 'კატეგორიის და გრაფიკის ცხრილი',
+    'user_profile_page_category_end_schedule_table_action_tooltips_view' => 'ნახვა',
+    'user_profile_page_category_end_schedule_table_action_tooltips_del' => 'წაშლა',
 
     'user_profile_page_category_title' => 'კატეგორია',
     'user_profile_page_work_schedule_title' => 'სამუშაო გრაფიკი',

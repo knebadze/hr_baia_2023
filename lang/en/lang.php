@@ -104,11 +104,12 @@ return [
     'welcome_middle_leftblock_big_text' => 'Choose the category you want',
     'welcome_middle_submit' => 'All Categories',
 
+    'welcome_middle_leftblock_small_text_candidate' => 'With Candidate categories',
+    'welcome_middle_leftblock_big_text_candidate' => 'Choose the category you want',
+    'welcome_middle_submit_candidate' => 'All Candidates',
+
     'welcome_middle_uploadresume_block' => 'Still can\'t find the right job? Upload your Resume / CV.',
     'welcome_middle_uploadresume_button' => 'Upload Resume',
-
-    'welcome_middle_top_company' => 'Top companies',
-    'welcome_middle_top_company_getoffers' => 'Get offers at top companies',
 
     'welcome_middle_count_user' => 'Millions of active users every day',
     'welcome_middle_count_position' => 'Open job positions',
@@ -167,7 +168,7 @@ return [
 
 
     // -------------------------------------------------------------
-    'individual_vacancies_page_middle_first_title' => '2150 jobs are represented',
+    'individual_vacancies_page_middle_first_title' => 'Workplace',
 
     'individual_vacancies_page_middle_title_sort' => 'Sort',
 
@@ -310,9 +311,6 @@ return [
     'about_us_page_box_card_description' => 'Still can\'t find the right job? Upload your resume',
     'about_us_page_box_card_upload_resume' => 'Upload your resume',
 
-    'about_us_page_top_company' => 'Top Companies',
-    'about_us_page_top_company_description' => 'Get offers at top companies',
-
     // ----------------------------------------------------------------------------------------------------
     // Candidates Us Lang Page
     'candidate_page_big_title' => 'Candidates',
@@ -420,10 +418,13 @@ return [
     'user_page_log_out' => 'Log Out',
     'user_page_candidate_first_title' => 'Candidate',
     'user_page_candidate_second_title' => 'Employer',
+    'user_page_candidate_third_title' => 'Employer Company',
+    'user_page_candidate_fourth_title' => 'Unknow',
     // leftside
     'user_page_candidate_left_side_bar_photo_upload' => 'Upload Photo',
     'user_page_candidate_left_side_bar_dashboard' => 'Dashboard',
     'user_page_candidate_left_side_bar_profile' => 'My Profile',
+    'user_page_candidate_left_side_bar_work_info' => 'Work information',
     'user_page_candidate_left_side_bar_applied_jobs' => 'Applied Jobs',
     'user_page_candidate_left_side_bar_my_resume' => 'My Resume',
     'user_page_candidate_left_side_bar_job_alerts' => 'Job Alerts',
@@ -449,10 +450,12 @@ return [
     'user_profile_page_personal_citizenship' => 'Citizenship',
     'user_profile_page_personal_education' => 'Education',
     'user_profile_page_personal_specialty' => 'Specialty',
+    'user_profile_page_personal_general_characters' => 'General characteristics',
     'user_profile_page_personal_nationality' => 'Nationality',
     'user_profile_page_personal_religion' => 'Religion',
     'user_profile_page_personal_profession' => 'Profession',
     'user_profile_page_personal_family' => 'Marital Status',
+        'user_profile_page_personal_children_age' => 'Children Age',
         'user_profile_page_personal_family_children' => 'Number of children',
         'user_profile_page_personal_family_children_age' => 'Children\'s age',
         'user_profile_page_personal_family_spouse' => 'Spouse\'s name, surname and place of work',
@@ -466,6 +469,7 @@ return [
 
     // Map
     'user_profile_page_address' => 'Address',
+    'user_profile_page_street' => 'Street',
     'user_profile_page_address_map' => 'It is better to use the map search field to fill in the address. It will make filling easier for you',
     'user_profile_page_address_map_2' => 'After searching, you can drag the marker to refine your address',
 
@@ -473,6 +477,7 @@ return [
     // Foreign Language Block Lang
     'user_profile_page_foreign_lang_title' => 'Foreign Languages',
     'user_profile_page_foreign_lang_language' => 'Foreign Language',
+    'user_profile_page_foreign_lang_language_comiitment' => 'It\'s mandatory to specify the native language',
     'user_profile_page_foreign_lang_level' => 'Language Level',
     'user_profile_page_foreign_lang_button_add_info' => 'Add',
 
@@ -482,6 +487,7 @@ return [
 
     // Work Experience Block Lang
     'user_profile_page_work_exp_title' => 'General Work Experience',
+    'user_profile_page_work_exp_please_feel' => 'Please fill in general work experience only, you will fill in family and selected work experience later.',
     'user_profile_page_work_exp' => 'Work Experience',
     'user_profile_page_work_position' => 'Position',
     'user_profile_page_work_object' => 'Object',
@@ -501,6 +507,8 @@ return [
     'user_profile_page_category_end_schedule_title_2' => 'After filling the information, use the save button, after which you will be given permission to start filling the information on another category.',
 
     'user_profile_page_category_end_schedule_table' => 'Category and Schedule Table',
+    'user_profile_page_category_end_schedule_table_action_tooltips_view' => 'View',
+    'user_profile_page_category_end_schedule_table_action_tooltips_del' => 'Delete',
 
     'user_profile_page_category_title' => 'Category',
     'user_profile_page_work_schedule_title' => 'Work Schedule',

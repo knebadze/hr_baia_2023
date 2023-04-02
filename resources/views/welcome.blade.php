@@ -477,94 +477,8 @@
     <!-- EXPLORE NEW LIFE END -->
 
     <!-- TOP COMPANIES START -->
-    <div class="section-full p-t120  site-bg-white twm-companies-wrap">
+    <div class="section-full p-t120 site-bg-white twm-companies-wrap">
 
-            <!-- TITLE START-->
-            <div class="section-head center wt-small-separator-outer">
-                <div class="wt-small-separator site-text-primary">
-                   <div>{{ __('lang.welcome_middle_top_company') }}</div>
-                </div>
-                <h2 class="wt-title">{{ __('lang.welcome_middle_top_company_getoffers') }}</h2>
-            </div>
-            <!-- TITLE END-->
-
-            <div class="container">
-                <div class="section-content">
-                    <div class="owl-carousel home-client-carousel2 owl-btn-vertical-center">
-
-                        <div class="item">
-                            <div class="ow-client-logo">
-                                <div class="client-logo client-logo-media">
-                                <a href="#" target="_blank"><img src="images/client-logo/w1.png" alt=""></a></div>
-                            </div>
-                        </div>
-
-                        <div class="item">
-                            <div class="ow-client-logo">
-                                <div class="client-logo client-logo-media">
-                                <a href="#" target="_blank"><img src="images/client-logo/w2.png" alt=""></a></div>
-                            </div>
-                        </div>
-
-                        <div class="item">
-                            <div class="ow-client-logo">
-                                <div class="client-logo client-logo-media">
-                                <a href="#" target="_blank"><img src="images/client-logo/w3.png" alt=""></a></div>
-                            </div>
-                        </div>
-
-                        <div class="item">
-                            <div class="ow-client-logo">
-                                <div class="client-logo client-logo-media">
-                                <a href="#" target="_blank"><img src="images/client-logo/w4.png" alt=""></a></div>
-                            </div>
-                        </div>
-
-                        <div class="item">
-                            <div class="ow-client-logo">
-                                <div class="client-logo client-logo-media">
-                                <a href="#" target="_blank"><img src="images/client-logo/w5.png" alt=""></a></div>
-                            </div>
-                        </div>
-
-                        <div class="item">
-                            <div class="ow-client-logo">
-                                <div class="client-logo client-logo-media">
-                                <a href="#" target="_blank"><img src="images/client-logo/w6.png" alt=""></a></div>
-                            </div>
-                        </div>
-
-                        <div class="item">
-                            <div class="ow-client-logo">
-                                <div class="client-logo client-logo-media">
-                                <a href="#" target="_blank"><img src="images/client-logo/w1.png" alt=""></a></div>
-                            </div>
-                        </div>
-
-                        <div class="item">
-                            <div class="ow-client-logo">
-                                <div class="client-logo client-logo-media">
-                                <a href="#" target="_blank"><img src="images/client-logo/w2.png" alt=""></a></div>
-                            </div>
-                        </div>
-
-                        <div class="item">
-                            <div class="ow-client-logo">
-                                <div class="client-logo client-logo-media">
-                                <a href="#" target="_blank"><img src="images/client-logo/w3.png" alt=""></a></div>
-                            </div>
-                        </div>
-
-                        <div class="item">
-                            <div class="ow-client-logo">
-                                <div class="client-logo client-logo-media">
-                                <a href="#" target="_blank"><img src="images/client-logo/w5.png" alt=""></a></div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
             <div class="twm-company-approch-outer">
                 <div class="twm-company-approch">
                     <div class="row">
@@ -738,6 +652,270 @@
         </div>
     </div>
     <!-- JOB POST END -->
+
+    <div class="section-full p-t120 p-b90 site-bg-gray twm-job-categories-area">
+
+        <div class="container">
+
+            <div class="wt-separator-two-part">
+                <div class="row wt-separator-two-part-row">
+                    <div class="col-xl-5 col-lg-5 col-md-12 wt-separator-two-part-left">
+                        <!-- TITLE START-->
+                        <div class="section-head left wt-small-separator-outer">
+                            <div class="wt-small-separator site-text-primary">
+                            <div>{{ __('lang.welcome_middle_leftblock_small_text_candidate') }}</div>
+                            </div>
+                            <h2 class="wt-title">{{ __('lang.welcome_middle_leftblock_big_text_candidate') }}</h2>
+                        </div>
+                        <!-- TITLE END-->
+                    </div>
+
+                    {{-- <div class="col-xl-6 col-lg-6 col-md-12 wt-separator-two-part-right">
+                        <p>Lorem Ipsum არის უბრალოდ ბეჭდვისა და ბეჭდვის ინდუსტრიის მოჩვენებითი ტექსტი, სტანდარტული მოჩვენებითი ტექსტი მას შემდეგ, რაც პრინტერი აიღო.</p>
+                    </div> --}}
+
+                </div>
+            </div>
+
+            <div class="twm-job-categories-section">
+
+                <div class="job-categories-style1 m-b30">
+                    <div class="owl-carousel job-categories-carousel owl-btn-left-bottom ">
+
+                        <!-- COLUMNS 1 -->
+                        <div class="item ">
+                            <div class="job-categories-block">
+                                <div class="twm-media">
+                                    <div class="flaticon-dashboard"></div>
+                                </div>
+                                <div class="twm-content">
+                                    <div class="twm-jobs-available">9,185 სამუშაო</div>
+                                    <a href="job-detail.html">ძიძა</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- COLUMNS 2 -->
+                        <div class="item ">
+                            <div class="job-categories-block">
+                                <div class="twm-media">
+                                    <div class="flaticon-project-management"></div>
+                                </div>
+                                <div class="twm-content">
+                                    <div class="twm-jobs-available">3,205 სამუშაო</div>
+                                    <a href="job-detail.html">მზარეული</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- COLUMNS 3 -->
+                        <div class="item ">
+                            <div class="job-categories-block">
+                                <div class="twm-media">
+                                    <div class="flaticon-note"></div>
+                                </div>
+                                <div class="twm-content">
+                                    <div class="twm-jobs-available">2,100 სამუშაო</div>
+                                    <a href="job-detail.html">მომვლელი</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- COLUMNS 4 -->
+                        <div class="item ">
+                            <div class="job-categories-block">
+                                <div class="twm-media">
+                                    <div class="flaticon-customer-support"></div>
+                                </div>
+                                <div class="twm-content">
+                                    <div class="twm-jobs-available">1,500 სამუშაო</div>
+                                    <a href="job-detail.html">ჭურჭლის მრეცხავი</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- COLUMNS 5 -->
+                        <div class="item ">
+                            <div class="job-categories-block">
+                                <div class="twm-media">
+                                    <div class="flaticon-bars"></div>
+                                </div>
+                                <div class="twm-content">
+                                    <div class="twm-jobs-available">9,185 სამუშაო</div>
+                                    <a href="job-detail.html">ადმინისტრატორი</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- COLUMNS 6 -->
+                        <div class="item ">
+                            <div class="job-categories-block">
+                                <div class="twm-media">
+                                    <div class="flaticon-user"></div>
+                                </div>
+                                <div class="twm-content">
+                                    <div class="twm-jobs-available">3,205 სამუშაო</div>
+                                    <a href="job-detail.html">მარკეტინგი</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- COLUMNS 7 -->
+                        <div class="item ">
+                            <div class="job-categories-block">
+                                <div class="twm-media">
+                                    <div class="flaticon-computer"></div>
+                                </div>
+                                <div class="twm-content">
+                                    <div class="twm-jobs-available">2,100 სამუშაო</div>
+                                    <a href="job-detail.html">მოლარე-ოპერატორი</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- COLUMNS 8 -->
+                        <div class="item ">
+                            <div class="job-categories-block">
+                                <div class="twm-media">
+                                    <div class="flaticon-coding"></div>
+                                </div>
+                                <div class="twm-content">
+                                    <div class="twm-jobs-available">1,500 სამუშაო</div>
+                                    <a href="job-detail.html">ბარმენი</a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- COLUMNS 9 -->
+                        <div class="item ">
+                            <div class="job-categories-block">
+                                <div class="twm-media">
+                                    <div class="flaticon-hr"></div>
+                                </div>
+                                <div class="twm-content">
+                                    <div class="twm-jobs-available">9,185 სამუშაო</div>
+                                    <a href="job-detail.html">ოჯახში დამხმარე</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- COLUMNS 10 -->
+                        <div class="item ">
+                            <div class="job-categories-block">
+                                <div class="twm-media">
+                                    <div class="flaticon-healthcare"></div>
+                                </div>
+                                <div class="twm-content">
+                                    <div class="twm-jobs-available">3,205 სამუშაო</div>
+                                    <a href="job-detail.html">ოჯახური წყვილები </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- COLUMNS 11 -->
+                        <div class="item ">
+                            <div class="job-categories-block">
+                                <div class="twm-media">
+                                    <div class="flaticon-repair"></div>
+                                </div>
+                                <div class="twm-content">
+                                    <div class="twm-jobs-available">2,100 სამუშაო</div>
+                                    <a href="job-detail.html">პრომო-გოგონა</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- COLUMNS 12 -->
+                        <div class="item ">
+                            <div class="job-categories-block">
+                                <div class="twm-media">
+                                    <div class="flaticon-teacher"></div>
+                                </div>
+                                <div class="twm-content">
+                                    <div class="twm-jobs-available">1,500 სამუშაო</div>
+                                    <a href="job-detail.html">იურისტები / ადვოკატები</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- COLUMNS 13 -->
+                        <div class="item ">
+                            <div class="job-categories-block">
+                                <div class="twm-media">
+                                    <div class="flaticon-bank"></div>
+                                </div>
+                                <div class="twm-content">
+                                    <div class="twm-jobs-available">9,185 სამუშაო</div>
+                                    <a href="job-detail.html">მცხობელი</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- COLUMNS 14 -->
+                        <div class="item ">
+                            <div class="job-categories-block">
+                                <div class="twm-media">
+                                    <div class="flaticon-deal"></div>
+                                </div>
+                                <div class="twm-content">
+                                    <div class="twm-jobs-available">3,205 სამუშაო</div>
+                                    <a href="job-detail.html">ავადმყოფის მომვლელი</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- COLUMNS 15 -->
+                        <div class="item ">
+                            <div class="job-categories-block">
+                                <div class="twm-media">
+                                    <div class="flaticon-tray"></div>
+                                </div>
+                                <div class="twm-content">
+                                    <div class="twm-jobs-available">2,100 სამუშაო</div>
+                                    <a href="job-detail.html">საბავშვო ბაღის აღმზრდელი</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- COLUMNS 16 -->
+                        <div class="item ">
+                            <div class="job-categories-block">
+                                <div class="twm-media">
+                                    <div class="flaticon-tower"></div>
+                                </div>
+                                <div class="twm-content">
+                                    <div class="twm-jobs-available">1,500 სამუშაო</div>
+                                    <a href="job-detail.html">რესტორანი</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- COLUMNS 17 -->
+                        <div class="item ">
+                            <div class="job-categories-block">
+                                <div class="twm-media">
+                                    <div class="flaticon-lotus"></div>
+                                </div>
+                                <div class="twm-content">
+                                    <div class="twm-jobs-available">9,185 სამუშაო</div>
+                                    <a href="job-detail.html">დამლაგებელი</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="text-right job-categories-btn">
+                    <a href="job-grid.html" class=" site-button">{{ __('lang.welcome_middle_submit_candidate') }}</a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>    
 
     <!-- OUR BLOG START -->
     <div class="section-full p-t120 p-b90 site-bg-gray">

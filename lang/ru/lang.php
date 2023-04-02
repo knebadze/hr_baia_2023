@@ -108,10 +108,6 @@ return [
     'welcome_middle_uploadresume_block' => 'Все еще не можете найти подходящую работу? Загрузите свое резюме / CV.',
     'welcome_middle_uploadresume_button' => 'Загрузите резюме',
 
-    'welcome_middle_top_company' => 'Лучшие компании',
-    'welcome_middle_top_company_getoffers' => 'Получайте предложения от ведущих компаний',
-
-
     'welcome_middle_count_user' => 'Миллионы активных пользователей каждый день',
     'welcome_middle_count_position' => 'Открытые вакансии',
     'welcome_middle_count_history' => 'миллион общих историй',
@@ -169,7 +165,7 @@ return [
         'individual_vacancies_page_leftside_second_location_7km' => '7 км от вас',
 
     // -------------------------------------------------------------
-    'individual_vacancies_page_middle_first_title' => 'Представлено 2150 рабочих мест',
+    'individual_vacancies_page_middle_first_title' => 'Рабочее место',
     'individual_vacancies_page_middle_title_sort' => 'Сортировка',
 
     'individual_vacancies_page_middle_latest' => 'Последние',
@@ -317,9 +313,6 @@ return [
     'about_us_page_box_card_description' => 'Все еще не можете найти подходящую работу? Загрузите свое резюме',
     'about_us_page_box_card_upload_resume' => 'Загрузите резюме',
 
-    'about_us_page_top_company' => 'Лучшие компании',
-    'about_us_page_top_company_description' => 'Получите предложения от лучших компаний',
-
     // ----------------------------------------------------------------------------------------------------
     // Candidates Us Lang Page
     'candidate_page_big_title' => 'Кандидаты',
@@ -426,10 +419,13 @@ return [
     'user_page_log_out' => 'Выйти',
     'user_page_candidate_first_title' => 'Кандидат',
     'user_page_candidate_second_title' => 'Работодатель',
+    'user_page_candidate_third_title' => 'Компания-работодатель',
+    'user_page_candidate_fourth_title' => 'Неизвестный',
     // leftside
     'user_page_candidate_left_side_bar_photo_upload' => 'Загрузить фото',
     'user_page_candidate_left_side_bar_dashboard' => 'Панель управления',
     'user_page_candidate_left_side_bar_profile' => 'Мой профиль',
+    'user_page_candidate_left_side_bar_work_info' => 'Информация о работе',
     'user_page_candidate_left_side_bar_applied_jobs' => 'Вакансии',
     'user_page_candidate_left_side_bar_my_resume' => 'Мое резюме',
     'user_page_candidate_left_side_bar_job_alerts' => 'Оповещения о вакансиях',
@@ -456,10 +452,12 @@ return [
     'user_profile_page_personal_citizenship' => 'Гражданство',
     'user_profile_page_personal_education' => 'Образование',
     'user_profile_page_personal_specialty' => 'Специальность',
+    'user_profile_page_personal_general_characters' => 'Общие характеристики',
     'user_profile_page_personal_nationality' => 'Национальность',
     'user_profile_page_personal_religion' => 'Религия',
     'user_profile_page_personal_profession' => 'Профессия',
     'user_profile_page_personal_family' => 'Семейное положение',
+        'user_profile_page_personal_children_age' => 'Детский возраст',
         'user_profile_page_personal_family_children' => 'Количество детей',
         'user_profile_page_personal_family_children_age' => 'Возраст детей',
         'user_profile_page_personal_family_spouse' => 'Имя, фамилия и место работы супруги',
@@ -467,18 +465,20 @@ return [
  
     // Medical information Block Lang
     'user_profile_page_medical_info' => 'Медицинская информация',
-    'user_profile_page_medical_alergy' => 'Алергия',
+    'user_profile_page_medical_alergy' => 'Алергия на',
     'user_profile_page_medical_operation' => 'Операция или хроническое заболевание',
     'user_profile_page_medical_please_info' => 'Пожалуйста, предоставьте информацию о серьезных операциях и хронических заболеваниях, если таковые имеются.', 
 
     // Map
     'user_profile_page_address' => 'Адрес',
+        'user_profile_page_street' => 'Улица',
     'user_profile_page_address_map' =>'Для ввода адреса лучше использовать поле поиска по карте. Это облегчит вам заполнение',
     'user_profile_page_address_map_2' => 'После поиска вы можете перетащить маркер, чтобы уточнить свой адрес',
     
     // Foreign Language Block Lang
     'user_profile_page_foreign_lang_title' => 'Иностранные языки',
     'user_profile_page_foreign_lang_language' => 'Иностранный язык',
+    'user_profile_page_foreign_lang_language_comiitment' => 'Обязательно указать родной язык',
     'user_profile_page_foreign_lang_level' => 'Уровень языка',
     'user_profile_page_foreign_lang_button_add_info' => 'Добавить',
 
@@ -488,6 +488,7 @@ return [
 
     // Work Experience Block Lang
     'user_profile_page_work_exp_title' => 'Общий опыт работы',
+    'user_profile_page_work_exp_please_feel' => 'Пожалуйста, заполните только общий опыт работы, а семейный и выбранный опыт работы вы заполните позже.',
     'user_profile_page_work_exp' => 'Опыт работы',
     'user_profile_page_work_position' => 'Позиция',
     'user_profile_page_work_object' => 'Объект',
@@ -507,6 +508,8 @@ return [
     'user_profile_page_category_end_schedule_title_2' => 'После заполнения информации используйте кнопку сохранения, после чего вам будет дано разрешение начать заполнение информации по другой категории.',
 
     'user_profile_page_category_end_schedule_table' => 'Таблица категории и расписания',
+    'user_profile_page_category_end_schedule_table_action_tooltips_view' => 'Вид',
+    'user_profile_page_category_end_schedule_table_action_tooltips_del' => 'Удалить',
 
     'user_profile_page_category_title' => 'Категория',
     'user_profile_page_work_schedule_title' => 'График работы',
