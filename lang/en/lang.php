@@ -575,5 +575,36 @@ return [
     'user_profile_page_social_facebook' => 'Facebook',
     'user_profile_page_social_youtube' => 'Youtube',
     'user_profile_page_social_button_save' => 'Save',
+
+    // Employer Add Job Page
+    'employer_add_job_general_info' => 'General Info',
+    'employer_add_job_definitely_fields' => 'Definitely required fields',
+
+    'employer_add_job_vacancy_name' => 'Job title',
+        'employer_add_job_vacancy_name_placeholder' => 'Exemple: I am looking for an experienced babysitter',
+    'employer_add_job_address' => 'Address',
+    'employer_add_job_position' => 'Position',
+    'employer_add_job_jobs_day' => 'Working days and hours',
+
+    'employer_add_job_additional_info' => 'Additional info',
+    'employer_add_job_when_need' => 'when you need',
+    'employer_add_job_how_long' => 'how long',
+        'employer_add_job_how_long_placeholdser' => 'example: 6 months..',
+    'employer_add_job_additional_offers' => 'Additional offer, terms or requirements',
+        'employer_add_job_additional_offers_placeholder' => 'Unlimited travel card, driver will bring you, etc.',
+    'employer_add_job_comment_for_agency' => 'Comment for agency',
+        'employer_add_job_comment_for_agency_placeholder' => 'example: special requirements',
+
+    'employer_add_job_requirements_for_employer' => 'requirements for employer',
+    'employer_add_job_minimal_age' => 'minimum age',
+    'employer_add_job_max_age' => 'Maximum Age',
+    'employer_add_job_minimal_edu' => 'The level of education',
+    'employer_add_job_preferred_foreign_language' => 'Preferred foreign language',
+    'employer_add_job_foreign_language_level' => 'level of foreign language knowledge',
+    'employer_add_job_general_character' => 'General Character',
+    'employer_add_job_duties' => 'duties',
+    'employer_add_job_additional_duties' => 'Additional duties',
+    'employer_add_job_button_add' => 'Add',
+    'employer_add_job_select' => 'select', 
     
 ];

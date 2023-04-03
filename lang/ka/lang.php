@@ -575,4 +575,36 @@ return [
     'user_profile_page_social_youtube' => 'Youtube',
     'user_profile_page_social_button_save' => 'შენახვა',
 
+    // Employer Add Job Page
+    'employer_add_job_general_info' => 'ძირითადი ინფორმაცია',
+    'employer_add_job_definitely_fields' => 'აუცილებლად შესაცვსები ველები',
+
+    'employer_add_job_vacancy_name' => 'ვაკანსიის სათაური',
+        'employer_add_job_vacancy_name_placeholder' => 'მაგ: ვეძებ გამოცდილ ძიძას',
+    'employer_add_job_address' => 'მისამართი',
+    'employer_add_job_position' => 'პოზიცოა',
+    'employer_add_job_jobs_day' => 'სამუშაო დღეები და საათები',
+
+    'employer_add_job_additional_info' => 'დამატებითი ინფორმაცია',
+    'employer_add_job_when_need' => 'როდის გჭირდებათ',
+    'employer_add_job_how_long' => 'რამდენი ხნით',
+        'employer_add_job_how_long_placeholdser' => 'მაგ: 6 თვე..',
+    'employer_add_job_additional_offers' => 'დამატებითი შეთავაზება, პირობები ან მოთხოვნები',
+        'employer_add_job_additional_offers_placeholder' => 'ულიმიტო სამგზავრო ბარათი, მძღოლი მოგიყვანთ და ა.შ',
+    'employer_add_job_comment_for_agency' => 'კომენტარი სააგენტოსთვის',
+        'employer_add_job_comment_for_agency_placeholder' => 'მაგ: სპეციალური მოთხოვნები',   
+
+    'employer_add_job_requirements_for_employer' => 'მოთხოვნები დამსაქმებლის მიმართ',
+    'employer_add_job_minimal_age' => 'მინიმალური ასაკი',
+    'employer_add_job_max_age' => 'მაქსიმალური ასაკი',
+    'employer_add_job_minimal_edu' => 'განათლების დონე',   
+    'employer_add_job_preferred_foreign_language' => 'სასურველი უცხო ენა',
+    'employer_add_job_foreign_language_level' => 'უცხო ენის ცოდნის დონე',
+    'employer_add_job_general_character' => 'ზოგადი მახასიათებელი',
+    'employer_add_job_duties' => 'მოვალეობები',
+    'employer_add_job_additional_duties' => 'დამატებითი მოვალეობები',
+    'employer_add_job_button_add' => 'დამატება',
+    'employer_add_job_select' => 'აირჩიეთ', 
+
+
 ];

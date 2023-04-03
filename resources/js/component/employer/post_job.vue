@@ -14,16 +14,16 @@
         <div class="twm-right-section-panel site-bg-gray">
             <div class="panel panel-default">
                 <div class="panel-heading wt-panel-heading p-a20">
-                    <h4 class="panel-tittle m-a0">{{ ('ძირითადი ინფორმაცია') }}</h4>
-                    <small class="text-danger">* აუცილებლად შესავსები ველები</small>
+                    <h4 class="panel-tittle m-a0">{{ $t('lang.employer_add_job_general_info') }}</h4>
+                    <small class="text-danger">* {{ $t('lang.employer_add_job_definitely_fields') }}</small>
                 </div>
                 <div class="panel-body wt-panel-body p-a20 m-b30 ">
                     <div class="row">
                         <div class="col-xl-6 col-lg-6 col-md-12">
                             <div class="form-group">
-                                <label><span class="text-danger">* </span>{{ ('ვაკანსისი სათაური') }}</label>
+                                <label><span class="text-danger">* </span>{{ $t('lang.employer_add_job_vacancy_name') }}</label>
                                 <div class="ls-inputicon-box">
-                                    <input class="form-control" v-model="m.vacancy[`title_${getLang}`]" type="text" placeholder="მაგ: ვეძებ გამოცდილ ძიძას"  @blur="v$.m.vacancy[`title_${getLang}`].$touch">
+                                    <input class="form-control" v-model="m.vacancy[`title_${getLang}`]" type="text" :placeholder="$t('lang.employer_add_job_vacancy_name_placeholder')"  @blur="v$.m.vacancy[`title_${getLang}`].$touch">
                                     <i class="fs-input-icon fa fa-user"></i>
                                     <span v-if="v$.m.vacancy[`title_${getLang}`].required.$invalid && v$.m.vacancy[`title_${getLang}`].$dirty" style='color:red'>* {{ v$.m.vacancy[`title_${getLang}`].required.$message}}</span>
                                 </div>
@@ -31,7 +31,7 @@
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-12">
                             <div class="form-group">
-                                <label><span class="text-danger">* </span>{{ ('პოზიცია') }}</label>
+                                <label><span class="text-danger">* </span>{{ $t('lang.employer_add_job_position') }}</label>
                                 <div class="ls-inputicon-box">
                                     <multiselect v-model="m.vacancy.category_id" :options="data.classificator.category" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
                                         <template slot="singleLabel" slot-scope="{ option }"></template>
@@ -51,7 +51,7 @@
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-12">
                             <div class="form-group">
-                                <label><span class="text-danger">* </span>{{ ('მისამართი') }}</label>
+                                <label><span class="text-danger">* </span>{{ $t('lang.employer_add_job_address') }}</label>
                                 <div class="ls-inputicon-box">
                                     <input class="form-control" v-model="m.vacancy[`address_${getLang}`]"  type="text" placeholder="" >
                                     <i class="fs-input-icon fa fa-user"></i>
@@ -94,7 +94,7 @@
                         </div>
                         <div class="col-xl-9 col-lg-6 col-md-12">
                             <div class="form-group">
-                                <label><span class="text-danger">* </span>{{ ('სამუშაო დღეები და საათები') }}</label>
+                                <label><span class="text-danger">* </span>{{ $t('lang.employer_add_job_jobs_day') }}</label>
                                 <div class="ls-inputicon-box">
                                     <textarea class="form-control" v-model="m.vacancy[`additional_schedule_${getLang}`]" type="text" placeholder="" rows="3"></textarea>
                                     <!-- <span v-if="v$.m.candidate.personal_number.required.$invalid && v$.m.candidate.personal_number.$dirty" style='color:red'>* {{ v$.m.candidate.personal_number.required.$message}}</span> -->
@@ -141,13 +141,13 @@
             </div>
             <div class="panel panel-default">
                 <div class="panel-heading wt-panel-heading p-a20">
-                    <h4 class="panel-tittle m-a0">{{ ('დამატებითი ინფორმაცია') }}</h4>
+                    <h4 class="panel-tittle m-a0">{{ $t('lang.employer_add_job_jobs_day') }}</h4>
                 </div>
                 <div class="panel-body wt-panel-body p-a20 m-b30 ">
                     <div class="row">
                         <div class="col-xl-6 col-lg-6 col-md-12">
                             <div class="form-group">
-                                <label>{{ ('როდის გჭირდებათ') }}</label>
+                                <label>{{ $t('lang.employer_add_job_when_need') }}</label>
                                 <div class="ls-inputicon-box">
                                     <input class="form-control" v-model="m.demand.start_date" type="date" placeholder="" >
                                 </div>
@@ -155,17 +155,17 @@
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-12">
                             <div class="form-group">
-                                <label>{{ ('რამდენი ხნით') }}</label>
+                                <label>{{ $t('lang.employer_add_job_how_long') }}</label>
                                 <div class="ls-inputicon-box">
-                                    <input class="form-control" v-model="m.demand[`term_${getLang}`]" type="text" placeholder="მაგ: 6 თვე, 3 კვირა" >
+                                    <input class="form-control" v-model="m.demand[`term_${getLang}`]" type="text" :placeholder="$t('lang.employer_add_job_how_long_placeholdser')" >
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label>{{ ('დამატება შეთავაზება, პირობები ან მოთხოვნები') }}</label>
+                                <label>{{ $t('lang.employer_add_job_additional_offers') }}</label>
                                 <div class="ls-inputicon-box">
-                                    <textarea class="form-control" v-model="m.vacancy[`additional_${getLang}`]" type="text" placeholder="მაგ: ულიმიტო სამგზავრო ბარათი, მძღოლი მოგიყვანთ ა.შ" rows="2"></textarea>
+                                    <textarea class="form-control" v-model="m.vacancy[`additional_${getLang}`]" type="text" :placeholder="$t('lang.employer_add_job_additional_offers_placeholder')" rows="2"></textarea>
                                     <!-- <i class="fs-input-icon fa fa-user"></i> -->
                                     <!-- <span v-if="v$.m.candidate.personal_number.required.$invalid && v$.m.candidate.personal_number.$dirty" style='color:red'>* {{ v$.m.candidate.personal_number.required.$message}}</span> -->
                                 </div>
@@ -173,9 +173,9 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label>{{ ('კომენტარი სააგენტოსთვის') }}</label>
+                                <label>{{ $t('lang.employer_add_job_comment_for_agency') }}</label>
                                 <div class="ls-inputicon-box">
-                                    <textarea class="form-control" v-model="m.vacancy.comment" type="text" placeholder="მაგ: სპეც მოთხოვნები" rows="3"></textarea>
+                                    <textarea class="form-control" v-model="m.vacancy.comment" type="text" :placeholder="$t('lang.employer_add_job_comment_for_agency_placeholder')" rows="3"></textarea>
                                     <!-- <i class="fs-input-icon fa fa-user"></i> -->
                                     <!-- <span v-if="v$.m.candidate.personal_number.required.$invalid && v$.m.candidate.personal_number.$dirty" style='color:red'>* {{ v$.m.candidate.personal_number.required.$message}}</span> -->
                                 </div>
@@ -186,13 +186,13 @@
             </div>
             <div class="panel panel-default">
                 <div class="panel-heading wt-panel-heading p-a20">
-                    <h4 class="panel-tittle m-a0">{{ ('მოთხოვნები დამსაქმებლის მიმართ') }}</h4>
+                    <h4 class="panel-tittle m-a0">{{ $t('lang.employer_add_job_requirements_for_employer') }}</h4>
                 </div>
                 <div class="panel-body wt-panel-body p-a20 m-b30 ">
                     <div class="row">
                         <div class="col-xl-6 col-lg-6 col-md-12">
                             <div class="form-group">
-                                <label>{{ ('მინიმალური ასაკი') }}</label>
+                                <label>{{ $t('lang.employer_add_job_minimal_age') }}</label>
                                 <div class="ls-inputicon-box">
                                     <input class="form-control" v-model="m.demand.min_age" type="text" placeholder="" >
                                 </div>
@@ -200,7 +200,7 @@
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-12">
                             <div class="form-group">
-                                <label>{{ ('მაქსიმალური ასაკი') }}</label>
+                                <label>{{ $t('lang.employer_add_job_max_age') }}</label>
                                 <div class="ls-inputicon-box">
                                     <input class="form-control" v-model="m.demand.max_age" type="text" placeholder="" >
                                 </div>
@@ -208,9 +208,9 @@
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-12">
                             <div class="form-group">
-                                <label>{{ ('მინიმალური განათლება') }}</label>
+                                <label>{{ $t('lang.employer_add_job_minimal_edu') }}</label>
                                 <div class="ls-inputicon-box">
-                                    <multiselect v-model="m.demand.education_id" :options="data.classificator.education" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                    <multiselect v-model="m.demand.education_id" :options="data.classificator.education" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" :placeholder="$t('lang.employer_add_job_select')"  :searchable="true" :allow-empty="false">
                                         <template slot="singleLabel" slot-scope="{ option }"></template>
                                     </multiselect>
                                 </div>
@@ -218,9 +218,9 @@
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-12">
                             <div class="form-group">
-                                <label>{{ ('სასურველი უცხო ენა') }}</label>
+                                <label>{{ $t('lang.employer_add_job_preferred_foreign_language') }}</label>
                                 <div class="ls-inputicon-box">
-                                    <multiselect v-model="m.demand.language_id" :options="data.classificator.languages" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                    <multiselect v-model="m.demand.language_id" :options="data.classificator.languages" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" :placeholder="$t('lang.employer_add_job_select')"  :searchable="true" :allow-empty="false">
                                         <template slot="singleLabel" slot-scope="{ option }"></template>
                                     </multiselect>
                                 </div>
@@ -228,9 +228,9 @@
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-12">
                             <div class="form-group">
-                                <label>{{ ('უცხო ენის ცოდნის დონე') }}</label>
+                                <label>{{ $t('lang.employer_add_job_foreign_language_level') }}</label>
                                 <div class="ls-inputicon-box">
-                                    <multiselect v-model="m.demand.language_level_id" :options="data.classificator.languageLevels" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                    <multiselect v-model="m.demand.language_level_id" :options="data.classificator.languageLevels" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" :placeholder="$t('lang.employer_add_job_select')"  :searchable="true" :allow-empty="false">
                                         <template slot="singleLabel" slot-scope="{ option }"></template>
                                     </multiselect>
                                 </div>
@@ -238,9 +238,9 @@
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-12">
                             <div class="form-group">
-                                <label>{{ 'ზოგადი მახასიათებელი' }}</label>
+                                <label>{{ $t('lang.employer_add_job_general_character') }}</label>
                                 <div class="ls-inputicon-box">
-                                    <multiselect v-model="m.characteristic"  :options="data.classificator.characteristic" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name_ka" track-by="name_ka" :preselect-first="false">
+                                    <multiselect v-model="m.characteristic"  :options="data.classificator.characteristic" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" :placeholder="$t('lang.employer_add_job_select')" label="name_ka" track-by="name_ka" :preselect-first="false">
                                         <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                                     </multiselect>
                                 </div>
@@ -248,9 +248,9 @@
                         </div>
                         <div class=" col-md-12">
                             <div class="form-group">
-                                <label>{{ ('მოვალეობები') }}</label>
+                                <label>{{ $t('lang.employer_add_job_duties') }}</label>
                                 <div class="ls-inputicon-box">
-                                    <multiselect v-model="m.skill"  :options="data.classificator.skill" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name_ka" track-by="name_ka" :preselect-first="false" >
+                                    <multiselect v-model="m.skill"  :options="data.classificator.skill" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" :placeholder="$t('lang.employer_add_job_select')" label="name_ka" track-by="name_ka" :preselect-first="false" >
                                         <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                                     </multiselect>
                                     <!-- <span v-if="v$.m.familyWorkedSelected.required.$invalid && v$.m.familyWorkedSelected.$dirty" style='color:red'>* {{ v$.m.candidateFamilyWorkSkill.required.$message}}</span> -->
@@ -260,7 +260,7 @@
                         </div>
                         <div class=" col-md-12">
                             <div class="form-group">
-                                <label>{{ ('დამატებითი მოვალეობები') }}</label>
+                                <label>{{ $t('lang.employer_add_job_additional_duties') }}</label>
                                 <div class="ls-inputicon-box">
                                     <textarea class="form-control" v-model="m.demand[`additional_duty_${getLang}`]" type="text" placeholder="" rows="2"></textarea>
                                     <!-- <span v-if="v$.m.candidate.personal_number.required.$invalid && v$.m.candidate.personal_number.$dirty" style='color:red'>* {{ v$.m.candidate.personal_number.required.$message}}</span> -->
@@ -269,7 +269,7 @@
                         </div>
                         <div class="col-lg-12 col-md-12">
                             <div class="text-left">
-                                <button type="submit" @click.prevent="addVacancy()"  class="site-button">{{ ('დამატება') }}</button>
+                                <button type="submit" @click.prevent="addVacancy()"  class="site-button">{{ $t('lang.employer_add_job_button_add') }}</button>
                             </div>
                         </div>
                     </div>

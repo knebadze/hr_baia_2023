@@ -577,4 +577,36 @@ return [
     'user_profile_page_social_youtube' => 'Youtube',
     'user_profile_page_social_button_save' => 'Сохранить',
 
+    // Employer Add Job Page
+    'employer_add_job_general_info' => 'Общая информация',
+    'employer_add_job_definitely_fields' => 'Обязательные поля',
+
+    'employer_add_job_vacancy_name' => 'Название должности',
+        'employer_add_job_vacancy_name_placeholder' => 'Пример: я ищу опытную няню',
+    'employer_add_job_address' => 'Адрес',
+    'employer_add_job_position' => 'Должность',
+    'employer_add_job_jobs_day' => 'Рабочие дни и часы',
+
+    'employer_add_job_additional_info' => 'Дополнительная информация',
+    'employer_add_job_when_need' => 'когда вам нужно',
+    'employer_add_job_how_long' => 'как долго',
+        'employer_add_job_how_long_placeholdser' => 'пример: 6 месяцев..',
+    'employer_add_job_additional_offers' => 'Дополнительное предложение, условия или требования',
+        'employer_add_job_additional_offers_placeholder' => 'Безлимитный проездной, водитель привезет и т.д.',
+    'employer_add_job_comment_for_agency' => 'Комментарий для агентства',
+        'employer_add_job_comment_for_agency_placeholder' => 'пример: особые требования',
+
+    'employer_add_job_requirements_for_employer' => 'требования к работодателю',
+    'employer_add_job_minimal_age' => 'минимальный возраст',
+    'employer_add_job_max_age' => 'Максимальный возраст',
+    'employer_add_job_minimal_edu' => 'Уровень образования',
+        'employer_add_job_minimal_edu_select' => 'выбрать',
+    'employer_add_job_preferred_foreign_language' => 'предпочтительный иностранный язык',
+    'employer_add_job_foreign_language_level' => 'уровень знания иностранного языка',
+    'employer_add_job_general_character' => 'Общий персонаж',
+    'employer_add_job_duties' => 'обязанности',
+    'employer_add_job_additional_duties' => 'Дополнительные обязанности',
+    'employer_add_job_button_add' => 'Добавить',
+    'employer_add_job_select' => 'выбрать', 
+
 ];
