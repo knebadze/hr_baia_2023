@@ -200,6 +200,7 @@
                         <p>{{ $t('lang.user_profile_page_address_map') }}</p>
                         <p>{{ $t('lang.user_profile_page_address_map_2') }}</p>
                         <div class="row">
+                            <!-- <address_maplibre></address_maplibre> -->
                             <addressMap :data="m.candidate.address" @messageFromChild="childMessage"></addressMap>
                             <div class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
@@ -718,6 +719,7 @@ import { useVuelidate } from '@vuelidate/core'
 import { required, email, helpers, requiredIf, numeric, maxLength } from '@vuelidate/validators'
 import addressMap from '../map/address_map.vue'
 import addressGoogleMap from '../map/address_google_map.vue'
+import address_maplibre from '../map/address_maplibre.vue'
 import { uuid } from 'vue-uuid'
 
 export default {
@@ -728,7 +730,8 @@ export default {
         miniTable,
         mainInfo,
         addressMap,
-        addressGoogleMap
+        addressGoogleMap,
+        address_maplibre
     },
     props:{
         data:Object

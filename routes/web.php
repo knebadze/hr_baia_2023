@@ -8,6 +8,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\TermsController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CandidateController;
@@ -77,6 +78,9 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
         //user vacancy
         Route::get('/user/vacancy', [VacancyController::class, 'index'])->name('user.vacancy');
 
+        Route::get('/auth/passwords/change_password', [ChangePasswordController::class, 'index'])->name('auth.password.change_password');
+
+
         Route::get('/home', [HomeController::class, 'index'])->name('home');
     });
 
@@ -115,4 +119,5 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
 
     Route::post('add_company', [CompanyInfoController::class, 'store']);
 
+    Route::post('change_password', [ChangePasswordController::class, 'change'])->name('change_password');
 

@@ -53,6 +53,14 @@
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
     <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
 
+    {{-- //map Libre --}}
+   <!-- Load Leaflet from CDN -->
+{{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.3/leaflet.js">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.3/leaflet.css"></script>
+
+<!-- Load geocoding plugin after Leaflet -->
+<link rel="stylesheet" href="https://maps.locationiq.com/v2/libs/leaflet-geocoder/1.9.6/leaflet-geocoder-locationiq.min.css">
+<script src="https://maps.locationiq.com/v2/libs/leaflet-geocoder/1.9.6/leaflet-geocoder-locationiq.min.js"></script> --}}
 
     {{-- <link
   rel="stylesheet"

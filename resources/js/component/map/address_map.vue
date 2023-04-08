@@ -1,5 +1,19 @@
 <template lang="">
     <!-- <div class="col-md-12 "> -->
+        <div class="col-md-12">
+            <div class="form-group">
+                <label><span class="text-danger">* </span>{{ 'მისამართი' }}</label>
+                <div class="ls-inputicon-box">
+                    <input class="form-control" type="text" placeholder=""  v-model="search">
+                    <i class="fs-input-icon fa fa-user"></i>
+                    <!-- <span v-if="v$.m.candidate[`address_${getLang}`].required.$invalid && v$.m.candidate[`address_${getLang}`].$dirty" style='color:red'>* {{ v$.m.candidate[`address_${getLang}`].required.$message}}</span> -->
+                </div>
+            </div>
+        </div>
+        <!-- <input type="text" v-model="search"> -->
+        <div id="result" class="border border-2" style="box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;"><p v-for="(item, index) in results" :key="index"
+            class="mt-2" :class="divHidden"><a href="javascript:void(0)" @click="chosenAddress(item)">{{ item.display_name }}</a> <hr></p> </div>
+        <!-- <button type="submit" @click="searchAddress()">მოძებნა</button> -->
         <div id="geocoder" class="geocoder mb-3" :style="styleGeocoder"></div>
     <!-- </div> -->
     <div id='map' style='width: 100%; height: 400px;'></div>
@@ -27,6 +41,9 @@ export default {
             searchResult: {},
             markerPosition:[44.8271,41.7151],
             addressInput:'',
+            search:null,
+            results:[],
+            divHidden:''
             // longLat: null
         }
     },
@@ -41,11 +58,56 @@ export default {
     methods:{
         sendMessageToParent(arg){
             this.$emit('messageFromChild', arg)
+        },
+        // searchAddress(){
+        //     var key = 'pk.30ccd9a10e6073069fa62ae2434df5db'
+        //     var q = this.search
+        //     var url = `https://eu1.locationiq.com/v1/autocomplete?key=${key}&q=${q}&format=json`
+        //     var settings = {
+        //     "async": true,
+        //     "crossDomain": true,
+        //     "url": url,
+        //     "method": "GET"
+        //     }
+
+        //     $.ajax(settings).done(function (response) {
+        //     console.log('response',response);
+        //     });
+        // },
+        chosenAddress(item){
+            this.search = item.display_name
+
+            this.divHidden = 'visually-hidden'
+            console.log('item', item);
         }
     },
     watch: {
+        'search': function (newVal, oldVal) {
+            this.divHidden = ''
+            var key = 'pk.30ccd9a10e6073069fa62ae2434df5db'
+            var q = newVal
+            var language = this.getLang
+            var url = `https://eu1.locationiq.com/v1/search?key=${key}&q=${q}&accept-language=${language}&limit=20&normalizecity=1&format=json`
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": url,
+                "method": "GET",
+            }
+            let currentObj = this
+            $.ajax(settings).done(function (response) {
+                currentObj.results = response
+            console.log('response',response);
+            });
+            // axios(settings)
+            // .then(function (response) {
+            //     currentObj.results = response
+            // console.log('response',response);
+            // });
+        },
         searchResult: {
         handler(newValue, oldValue) {
+
             console.log('newValue', newValue);
             this.sendMessageToParent(newValue)
         },
@@ -58,33 +120,7 @@ export default {
     mounted(){
         let That = this
         mapboxgl.accessToken = 'pk.eyJ1IjoibmVibzEwMDQiLCJhIjoiY2w5bnhhMmVpMGRiaTN2bXVyOHBrMmF2bCJ9.wMPM0gdGewsI4HbQoCvYCA';
-        // const mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
-        // var address = this.addressInput
-        // console.log('address', address);
-        // if (address != null) {
-        //     mapboxClient.geocoding
-        //     .forwardGeocode({
-        //         query: address,
-        //         autocomplete: false,
-        //         limit: 1
-        //     })
-        //     .send()
-        //     .then((response) => {
-        //         if (
-        //             !response ||
-        //             !response.body ||
-        //             !response.body.features ||
-        //             !response.body.features.length
-        //         ) {
-        //             console.error('Invalid response:');
-        //             console.error(response);
-        //             return;
-        //         }
-        //         const responseFeature = response.body.features[0];
-        //         // this.markerPosition =  responseFeature.center
-        //         console.log('responseFeature', responseFeature );
-        //     })
-        // }
+
 
 
 
@@ -98,26 +134,11 @@ export default {
 
 
         // Add the control to the map.
-        const geocoder = new MapboxGeocoder({
-            accessToken: mapboxgl.accessToken,
-            language: That.getLang,
-            mapboxgl: mapboxgl,
-            types: 'country,region,place,postcode,locality,neighborhood',
-            marker: false,
-            proximity: {
-                longitude: 44.8271,
-                latitude: 41.7151
-            }
-        })
-
-        // const search = new MapboxSearchBox();
-        // search.accessToken = mapboxgl.accessToken;
-        // map.addControl(search);
-        // const search = new MapboxSearch({
+        // const geocoder = new MapboxGeocoder({
         //     accessToken: mapboxgl.accessToken,
         //     language: That.getLang,
-        //     mapboxgl: mapboxgl,
-        //     types: 'country,region,place,postcode,locality,neighborhood, street, address',
+        //     // mapboxgl: mapboxgl,
+        //     types: 'country,region,place,postcode,locality,neighborhood',
         //     marker: false,
         //     proximity: {
         //         longitude: 44.8271,
@@ -125,50 +146,49 @@ export default {
         //     }
         // })
 
-        const marker = new mapboxgl.Marker({
-            draggable: true
-        })
-        // console.log();
+        // const marker = new mapboxgl.Marker({
+        //     draggable: true
+        // })
 
-        geocoder.on('result', e => {
+        // geocoder.on('result', e => {
+        //     console.log("e",e);
+        //     marker.setLngLat(e.result.center)
+        //     marker.addTo(map)
+        //     That.searchResult['name'] = e.result.place_name
+        //     That.searchResult['lngLat'] = {
+        //         'lat': e.result.center[1],
+        //         'lng': e.result.center[0],
+        //     }
+        //     // console.log('e',That.searchResult);
 
-            marker.setLngLat(e.result.center)
-            marker.addTo(map)
-            That.searchResult['name'] = e.result.place_name
-            That.searchResult['lngLat'] = {
-                'lat': e.result.center[1],
-                'lng': e.result.center[0],
-            }
-            // console.log('e',That.searchResult);
-
-        })
-        // geocoder.addTo('#geocoder');
-        map.addControl(geocoder);
-        marker.on('dragend',function(e){
-            var lngLat = e.target.getLngLat();
-            That.searchResult['lngLat'] = lngLat
-            console.log(lngLat['lat'])
-            console.log(lngLat['lng'])
-            const features = map.queryRenderedFeatures(e.point);
-            const displayProperties = [
-                'type',
-                'properties',
-                'id',
-                'layer',
-                'source',
-                'sourceLayer',
-                'state'
-            ];
-            const displayFeatures = features.map((feat) => {
-                const displayFeat = {};
-                displayProperties.forEach((prop) => {
-                    displayFeat[prop] = feat[prop];
-                });
-                return displayFeat;
-            });
-            console.log('displayFeatures',displayFeatures);
-            console.log(JSON.stringify( displayFeatures, null,2));
-        })
+        // })
+        // // geocoder.addTo('#geocoder');
+        // map.addControl(geocoder);
+        // marker.on('dragend',function(e){
+        //     var lngLat = e.target.getLngLat();
+        //     That.searchResult['lngLat'] = lngLat
+        //     console.log(lngLat['lat'])
+        //     console.log(lngLat['lng'])
+        //     const features = map.queryRenderedFeatures(e.point);
+        //     const displayProperties = [
+        //         'type',
+        //         'properties',
+        //         'id',
+        //         'layer',
+        //         'source',
+        //         'sourceLayer',
+        //         'state'
+        //     ];
+        //     const displayFeatures = features.map((feat) => {
+        //         const displayFeat = {};
+        //         displayProperties.forEach((prop) => {
+        //             displayFeat[prop] = feat[prop];
+        //         });
+        //         return displayFeat;
+        //     });
+        //     console.log('displayFeatures',displayFeatures);
+        //     console.log(JSON.stringify( displayFeatures, null,2));
+        // })
         //add full screen control
         map.addControl(new mapboxgl.FullscreenControl());
 

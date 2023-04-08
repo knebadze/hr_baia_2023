@@ -14,6 +14,7 @@ import test from './component/test.vue'
 import howWork from './component/how_work.vue'
 //user
 import uploadAvatar from './component/user/upload_avatar.vue'
+import changePassword from './component/user/change_password.vue'
 //candidate
 import candidateProfile from './component/candidate/candidate_profile.vue'
 import candidateWorkInformation from './component/candidate/candidate_work_information.vue'
@@ -49,8 +50,9 @@ const app = createApp({})
 
 app.component('language-switcher', languageSwitcher)
 app.component('test-vue', test)
-
+//user
 app.component('upload-avatar', uploadAvatar)
+app.component('change-password', changePassword)
 //candidate
 app.component('candidate-profile', candidateProfile)
 app.component('candidate-work-information', candidateWorkInformation)

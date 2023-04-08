@@ -1,6 +1,6 @@
 @extends('layouts.appPage')
 @section('title-block')
-{{('My Rezume')}}
+{{('Change Password')}}
 @endsection
 @section('content')
     <!-- LOADING AREA  END ====== -->
@@ -17,7 +17,7 @@
                 <div class="wt-bnr-inr-entry">
                     <div class="banner-title-outer">
                         <div class="banner-title-name">
-                            <h2 class="wt-title">Candidate Resume</h2>
+                            <h2 class="wt-title">Candidate Change Password</h2>
                         </div>
                     </div>
                     <!-- BREADCRUMB ROW -->
@@ -25,7 +25,7 @@
                         <div>
                             <ul class="wt-breadcrumb breadcrumb-style-2">
                                 <li><a href="index.html">Home</a></li>
-                                <li>Candidate Resume</li>
+                                <li>Candidate Change Password</li>
                             </ul>
                         </div>
 
@@ -51,11 +51,8 @@
                             </div>
 
                         </div>
-
-
-                        @if (Auth::user()->user_type_id == 2)
-                            <my-vacancy :data='@json($data)'></my-vacancy>
-                        @endif
+                        <change-password></change-password>
+                        
 
                     </div>
                 </div>

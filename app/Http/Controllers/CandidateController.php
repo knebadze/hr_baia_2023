@@ -63,9 +63,9 @@ class CandidateController extends Controller
                 'recommendation',
                 'generalWorkExperience',
                 'familyWorkExperience',
-                'characteristic'
+                'characteristic',
             ])->first();
-        $workInformation = WorkInformation::where('candidate_id', $candidate->id)->with(['category', 'currency', 'workSchedule'])->get()->toArray();
+        $workInformation = WorkInformation::where('candidate_id', $candidate->id)->with(['category', 'currency', 'workSchedule','noFamilyHasWorkExperience'])->get()->toArray();
         $skill = CandidateFamilyWorkSkill::where('candidate_id', $candidate->id)->with('skill')->get()->toArray();
 
         $classificatoryArr = ['gender', 'languageLevels', 'yesNo'];
