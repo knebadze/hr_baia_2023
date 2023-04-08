@@ -70,7 +70,7 @@
                         @if (Auth::user()->user_type_id == 2 || Auth::user()->user_type_id == 3)
                             <div class="twm-nav-btn-right">
                                 <a href="{{ route('post.job', App()->getLocale() ) }}" class="twm-nav-post-a-job">
-                                    <i class="feather-plus"></i> {{ __('დაამატე ვაკანსია') }}
+                                    <i class="feather-plus"></i> {{ __('lang.menu_add_vacancy') }}
                                 </a>
                             </div>
                         @endif

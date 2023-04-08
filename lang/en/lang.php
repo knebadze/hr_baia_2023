@@ -55,7 +55,7 @@ return [
     // ----------------------------------------------------------------------------------------------------
     // Page Title Lang
     'page_title_home' => 'Home',
-        'page_title_individual' => 'Individual Vacancies',
+        'page_title_individual' => 'Family Vacancies',
         'page_title_company' => 'Company Vacancies',
         'page_title_onmap' => 'Vacancies On Map',
     'page_title_about' => 'About Us',
@@ -66,13 +66,14 @@ return [
     // Menu Lang Block
     'menu_home' => 'Home',
     'menu_vacancies' => 'Vacancies',
-        'menu_individual_vacancies' => 'Individual Vacancies',
+        'menu_individual_vacancies' => 'Family Vacancies',
         'menu_company_vacancies' => 'Company Vacancies',
         'menu_vacancies_onmap' => 'Vacancies On Map',
     'menu_about_us' => 'About Us',
     'menu_candidate' => 'Candidates',
     'menu_blog' => 'Blog',
     'menu_registration' => 'Registration',
+    'menu_add_vacancy' => 'Add job',
     'menu_log_in' => 'Log In',
     // ----------------------------------------------------------------------------------------------------
     // Welcome Lang Page
@@ -86,10 +87,10 @@ return [
     'welcome_leftside_bar_search_title' => 'Enter the desired information to search for a job.',
 
     'welcome_leftside_bar_search_job_select_job' => 'Select',
-        'welcome_leftside_bar_search_job_select_job_category' => 'Job Title',
+        'welcome_leftside_bar_search_job_select_job_category' => 'Category',
 
     'welcome_leftside_bar_search_job_category_job' => 'Category',
-        'welcome_leftside_bar_search_job_category_job_all_category' => 'All Category',
+        'welcome_leftside_bar_search_job_category_job_all_category' => 'Vacancies',
 
     'welcome_leftside_bar_search_job_location_job' => 'Location',
         'welcome_leftside_bar_search_job_location_job_search' => 'Search',
@@ -97,25 +98,26 @@ return [
     'welcome_leftside_bar_popular' => 'Popular',
     // ----------------------------------------------------------------------------------------------------
     'welcome_rightside_bar_companyvacancie' => 'Company vacancies',
-    'welcome_rightside_bar_individualvacancie' => 'Individual Vacancies',
+    'welcome_rightside_bar_individualvacancie' => 'Family Vacancies',
     'welcome_rightside_bar_employees' => 'Employees',
     // ----------------------------------------------------------------------------------------------------
     'welcome_middle_leftblock_small_text' => 'With Work categories',
     'welcome_middle_leftblock_big_text' => 'Choose the category you want',
     'welcome_middle_submit' => 'All Categories',
 
+    'welcome_middle_leftblock_small_text_candidate' => 'With Candidate categories',
+    'welcome_middle_leftblock_big_text_candidate' => 'Choose the category you want',
+    'welcome_middle_submit_candidate' => 'All Candidates',
+
     'welcome_middle_uploadresume_block' => 'Still can\'t find the right job? Upload your Resume / CV.',
     'welcome_middle_uploadresume_button' => 'Upload Resume',
-
-    'welcome_middle_top_company' => 'Top companies',
-    'welcome_middle_top_company_getoffers' => 'Get offers at top companies',
 
     'welcome_middle_count_user' => 'Millions of active users every day',
     'welcome_middle_count_position' => 'Open job positions',
     'welcome_middle_count_history' => 'A million shared stories',
 
     'welcome_middle_career_allpost' => 'All job postings',
-    'welcome_middle_career_search' => 'Find the career you deserve',
+    'welcome_middle_career_search' => 'Latest vacancies',
     'welcome_middle_career_search_block_buttonreadmore' => 'Read More',
     'welcome_middle_career_search_block_buttonallwork' => 'All work',
     'welcome_middle_blog_smalltext' => 'Blog',
@@ -123,10 +125,10 @@ return [
     'welcome_middle_blog_article_button_read' => 'Read More',
 
     // ----------------------------------------------------------------------------------------------------
-    // Individual Vacancies Lang Page
+    // Family Vacancies Lang Page
     'individual_vacancies_page_big_title' => 'Most popular vacancies',
     'individual_vacancies_page_small_title_first' => 'home',
-    'individual_vacancies_page_small_title_second' => 'Individual Vacancies',
+    'individual_vacancies_page_small_title_second' => 'Family Vacancies',
 
     'individual_vacancies_page_leftside_category' => 'Category',
         'individual_vacancies_page_leftside_category_allcategory' => 'All Categories',
@@ -165,12 +167,9 @@ return [
         'individual_vacancies_page_leftside_second_location_5km' => '5 km from you',
         'individual_vacancies_page_leftside_second_location_7km' => '7 km from you',
 
-    'individual_vacancies_page_leftside_tags' => 'Tags',
 
-    'individual_vacancies_page_leftside_box_title' => 'Get the jobs that suit you by email. Submit your resume now!',
-    'individual_vacancies_page_leftside_box_read_more' => 'Read More',
     // -------------------------------------------------------------
-    'individual_vacancies_page_middle_first_title' => '2150 jobs are displayed',
+    'individual_vacancies_page_middle_first_title' => 'Workplace',
 
     'individual_vacancies_page_middle_title_sort' => 'Sort',
 
@@ -192,7 +191,7 @@ return [
     // Company Vacancies Lang Page
     'company_vacancies_page_big_title' => 'Most popular vacancies',
     'company_vacancies_page_small_title_first' => 'home',
-    'company_vacancies_page_small_title_second' => 'Individual Vacancies',
+    'company_vacancies_page_small_title_second' => 'Family Vacancies',
 
     'company_vacancies_page_leftside_category' => 'Category',
         'company_vacancies_page_leftside_category_allcategory' => 'All Categories',
@@ -313,10 +312,24 @@ return [
     'about_us_page_box_card_description' => 'Still can\'t find the right job? Upload your resume',
     'about_us_page_box_card_upload_resume' => 'Upload your resume',
 
-    'about_us_page_top_company' => 'Top Companies',
-    'about_us_page_top_company_description' => 'Get offers at top companies',
-
     // ----------------------------------------------------------------------------------------------------
+    // Employer Page
+    'employer_profile_page_personal_info' => 'Personal Information',
+    'employer_profile_page_address' => 'Address',
+    'employer_profile_page_street' => 'Street',
+
+    'employer_jobs_page_first_title' => 'Jobs',
+    'employer_jobs_page_grid_first_title' => 'category',
+    'employer_jobs_page_grid_second_title' => 'status',
+    'employer_jobs_page_grid_third_title' => 'HR Information',
+    'employer_jobs_page_grid_fourth_title' => 'interest',
+    'employer_jobs_page_grid_fifth_title' => 'actions',
+
+    'employer_jobs_page_tooltip_interested' => 'View interested candidates',
+    'employer_jobs_page_tooltip_view' => 'Job View',
+    'employer_jobs_page_tooltip_reminder' => 'Reminder',
+    'employer_jobs_page_tooltip_del' => 'delete',
+
     // Candidates Us Lang Page
     'candidate_page_big_title' => 'Candidates',
     'candidate_page_small_title_first' => 'home',
@@ -359,7 +372,6 @@ return [
         'candidate_page_leftside_second_location_5km' => '5 km from you',
         'candidate_page_leftside_second_location_7km' => '7 km from you',
 
-    'candidate_page_leftside_tags' => 'Tags',
 
     'candidate_page_leftside_box_title' => 'Get the jobs that suit you by email. Submit your resume now!',
     'candidate_page_leftside_box_read_more' => 'Read More',
@@ -398,7 +410,6 @@ return [
     // Footer Lang Page
     'footer_fast_link' => 'Quick links',
     'footer_by_category' => 'By Category',
-    'footer_by_profession' => 'By Professions',
 
     'footer_address_one' => 'Address :',
         'footer_address_two' => 'Vazha-Pshavela Avenue - 76B II: Archil Jorjadze Street N5',
@@ -425,10 +436,13 @@ return [
     'user_page_log_out' => 'Log Out',
     'user_page_candidate_first_title' => 'Candidate',
     'user_page_candidate_second_title' => 'Employer',
+    'user_page_candidate_third_title' => 'Employer Company',
+    'user_page_candidate_fourth_title' => 'Unknow',
     // leftside
     'user_page_candidate_left_side_bar_photo_upload' => 'Upload Photo',
     'user_page_candidate_left_side_bar_dashboard' => 'Dashboard',
     'user_page_candidate_left_side_bar_profile' => 'My Profile',
+    'user_page_candidate_left_side_bar_work_info' => 'Work information',
     'user_page_candidate_left_side_bar_applied_jobs' => 'Applied Jobs',
     'user_page_candidate_left_side_bar_my_resume' => 'My Resume',
     'user_page_candidate_left_side_bar_job_alerts' => 'Job Alerts',
@@ -454,10 +468,12 @@ return [
     'user_profile_page_personal_citizenship' => 'Citizenship',
     'user_profile_page_personal_education' => 'Education',
     'user_profile_page_personal_specialty' => 'Specialty',
+    'user_profile_page_personal_general_characters' => 'General characteristics',
     'user_profile_page_personal_nationality' => 'Nationality',
     'user_profile_page_personal_religion' => 'Religion',
     'user_profile_page_personal_profession' => 'Profession',
     'user_profile_page_personal_family' => 'Marital Status',
+        'user_profile_page_personal_children_age' => 'Children Age',
         'user_profile_page_personal_family_children' => 'Number of children',
         'user_profile_page_personal_family_children_age' => 'Children\'s age',
         'user_profile_page_personal_family_spouse' => 'Spouse\'s name, surname and place of work',
@@ -471,6 +487,7 @@ return [
 
     // Map
     'user_profile_page_address' => 'Address',
+    'user_profile_page_street' => 'Street',
     'user_profile_page_address_map' => 'It is better to use the map search field to fill in the address. It will make filling easier for you',
     'user_profile_page_address_map_2' => 'After searching, you can drag the marker to refine your address',
 
@@ -478,6 +495,7 @@ return [
     // Foreign Language Block Lang
     'user_profile_page_foreign_lang_title' => 'Foreign Languages',
     'user_profile_page_foreign_lang_language' => 'Foreign Language',
+    'user_profile_page_foreign_lang_language_comiitment' => 'It\'s mandatory to specify the native language',
     'user_profile_page_foreign_lang_level' => 'Language Level',
     'user_profile_page_foreign_lang_button_add_info' => 'Add',
 
@@ -487,6 +505,7 @@ return [
 
     // Work Experience Block Lang
     'user_profile_page_work_exp_title' => 'General Work Experience',
+    'user_profile_page_work_exp_please_feel' => 'Please fill in general work experience only, you will fill in family and selected work experience later.',
     'user_profile_page_work_exp' => 'Work Experience',
     'user_profile_page_work_position' => 'Position',
     'user_profile_page_work_object' => 'Object',
@@ -506,6 +525,8 @@ return [
     'user_profile_page_category_end_schedule_title_2' => 'After filling the information, use the save button, after which you will be given permission to start filling the information on another category.',
 
     'user_profile_page_category_end_schedule_table' => 'Category and Schedule Table',
+    'user_profile_page_category_end_schedule_table_action_tooltips_view' => 'View',
+    'user_profile_page_category_end_schedule_table_action_tooltips_del' => 'Delete',
 
     'user_profile_page_category_title' => 'Category',
     'user_profile_page_work_schedule_title' => 'Work Schedule',
@@ -554,5 +575,36 @@ return [
     'user_profile_page_social_facebook' => 'Facebook',
     'user_profile_page_social_youtube' => 'Youtube',
     'user_profile_page_social_button_save' => 'Save',
+
+    // Employer Add Job Page
+    'employer_add_job_general_info' => 'General Info',
+    'employer_add_job_definitely_fields' => 'Definitely required fields',
+
+    'employer_add_job_vacancy_name' => 'Job title',
+        'employer_add_job_vacancy_name_placeholder' => 'Exemple: I am looking for an experienced babysitter',
+    'employer_add_job_address' => 'Address',
+    'employer_add_job_position' => 'Position',
+    'employer_add_job_jobs_day' => 'Working days and hours',
+
+    'employer_add_job_additional_info' => 'Additional info',
+    'employer_add_job_when_need' => 'when you need',
+    'employer_add_job_how_long' => 'how long',
+        'employer_add_job_how_long_placeholdser' => 'example: 6 months..',
+    'employer_add_job_additional_offers' => 'Additional offer, terms or requirements',
+        'employer_add_job_additional_offers_placeholder' => 'Unlimited travel card, driver will bring you, etc.',
+    'employer_add_job_comment_for_agency' => 'Comment for agency',
+        'employer_add_job_comment_for_agency_placeholder' => 'example: special requirements',
+
+    'employer_add_job_requirements_for_employer' => 'requirements for employer',
+    'employer_add_job_minimal_age' => 'minimum age',
+    'employer_add_job_max_age' => 'Maximum Age',
+    'employer_add_job_minimal_edu' => 'The level of education',
+    'employer_add_job_preferred_foreign_language' => 'Preferred foreign language',
+    'employer_add_job_foreign_language_level' => 'level of foreign language knowledge',
+    'employer_add_job_general_character' => 'General Character',
+    'employer_add_job_duties' => 'duties',
+    'employer_add_job_additional_duties' => 'Additional duties',
+    'employer_add_job_button_add' => 'Add',
+    'employer_add_job_select' => 'select', 
     
 ];

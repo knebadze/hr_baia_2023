@@ -26,7 +26,7 @@
                                     <div class="form-group mb-4 keywordSideBar">
                                         <h4 class="section-head-small mb-4">{{ $t('lang.candidate_page_leftside_keyword') }}</h4>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="{{ $t('lang.candidate_page_leftside_name_or_keyword') }}">
+                                            <input type="text" class="form-control" :placeholder="$t('lang.candidate_page_leftside_name_or_keyword') ">
                                             <button class="btn" type="button"><i class="feather-search"></i></button>
                                         </div>
                                     </div>
@@ -34,7 +34,7 @@
                                     <div class="form-group mb-4 locationSideBar">
                                         <h4 class="section-head-small mb-4">{{ $t('lang.candidate_page_leftside_location') }}</h4>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="{{ $t('lang.candidate_page_leftside_search_location') }}">
+                                            <input type="text" class="form-control" :placeholder="$t('lang.candidate_page_leftside_search_location') ">
                                             <button class="btn" type="button"><i class="feather-map-pin"></i></button>
                                         </div>
                                     </div>
@@ -240,21 +240,6 @@
 
                             </div>
 
-                            <div class="widget tw-sidebar-tags-wrap">
-                                <h4 class="section-head-small mb-4">{{ $t('lang.candidate_page_leftside_tags') }}</h4>
-
-                                <div class="tagcloud">
-                                    <a href="job-list.html">ვაკანსია </a>
-                                    <a href="job-list.html">გადახდა</a>
-                                    <a href="job-list.html">განაცხადი </a>
-                                    <a href="job-list.html">სამუშაო</a>
-                                    <a href="job-list.html">დაქირავება</a>
-                                    <a href="job-list.html">დამსაქმებელი</a>
-                                    <a href="job-list.html">შემოსავალი</a>
-                                    <a href="job-list.html">რჩევები</a>
-                                </div>
-                            </div>
-
 
                         </div>
 
@@ -290,21 +275,22 @@
                                     <option>{{ $t('lang.candidate_page_middle_show_me_60') }}</option>
                                 </select>
                             </form>
+                            <p style="color: red;"> ამის lang რო წაშლი ჩამიკოპირე</p>
 
                         </div>
 
-                    <div class="twm-candidates-grid-wrap">
+                    <div class="twm-candidates-grid-wrap" >
                         <div class="row">
 
                             <div class="col-lg-6 col-md-6" v-for="(item, index) in data.candidate" :key="index">
-                                 <div class="twm-candidates-grid-style1 mb-5">
-                                     <div class="twm-media">
+                                 <div class="twm-candidates-grid-style1 mb-5" style="background-color: #fdfff5;">
+                                     <div class="twm-media" >
                                          <div class="twm-media-pic">
                                             <img :src="'/images/user-avatar/'+item.user.avatar" alt="#">
                                          </div>
                                          <!-- <div class="twm-candidates-tag"><span>გამორჩეული</span></div> -->
                                      </div>
-                                     <div class="twm-mid-content">
+                                     <div class="twm-mid-content" >
                                          <a href="#" class="twm-job-title">
                                              <h4>{{ item.user[`name_${getLang}`] }} </h4>
                                          </a>
@@ -314,6 +300,7 @@
                                          <div class="twm-fot-content">
                                              <div class="twm-left-info">
                                                 <p class="twm-candidate-address"><i class="feather-map-pin"></i>{{ item[`address_${getLang}`].substring(0, item[`address_${getLang}`].lastIndexOf(" ")) }}</p>
+                                                <i class="fa fa-clock"> 11:23</i>
                                                 <!-- <div class="twm-jobs-vacancies">$</div> -->
                                              </div>
 

@@ -1,5 +1,5 @@
 <template lang="">
-    <div class="col-xl-9 col-lg-8 col-md-12 m-b30">
+    <div class="col-xl-9 col-lg-8 col-md-12 m-b30 employerPageBorder">
         <!--Filter Short By-->
         <div class="twm-right-section-panel site-bg-gray">
             <!-- <form> -->
@@ -97,7 +97,7 @@
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-12">
                                     <div class="form-group">
-                                        <label><span class="text-danger">* </span>{{ 'ზოგადი მახასიათებელი' }}</label>
+                                        <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_personal_general_characters') }}</label>
                                         <div class="ls-inputicon-box">
                                             <multiselect v-model="m.candidateCharacteristic"  :options="data.classificator.characteristic" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" :label="`name_${getLang}`" :track-by="`name_${getLang}`" :preselect-first="false" @blur="v$.m.candidateCharacteristic.$touch">
                                                 <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
@@ -204,7 +204,7 @@
                             <addressMap :data="m.candidate.address" @messageFromChild="childMessage"></addressMap>
                             <div class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                    <label><span class="text-danger">* </span>{{ 'მისამართი' }}</label>
+                                    <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_address') }}</label>
                                     <div class="ls-inputicon-box">
                                         <input class="form-control" v-model="m.candidate[`address_${getLang}`]" type="text" placeholder=""  @blur="v$.m.candidate[`address_${getLang}`].$touch">
                                         <i class="fs-input-icon fa fa-user"></i>
@@ -214,7 +214,7 @@
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                    <label>{{ 'ქუჩა' }}</label>
+                                    <label>{{ $t('lang.user_profile_page_street') }}</label>
                                     <div class="ls-inputicon-box">
                                         <input class="form-control" v-model="m.candidate[`street_${getLang}`]" type="text" placeholder=""  >
                                         <i class="fs-input-icon fa fa-user"></i>
@@ -231,7 +231,7 @@
                         <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_foreign_lang_title') }}</h4>
                     </div>
                     <div class="panel-body wt-panel-body p-a20 m-b30 ">
-                        <p class="text-danger">* სავალდებულოა მშობლიური ენის მითითება</p>
+                        <p class="text-danger">* {{ $t('lang.user_profile_page_foreign_lang_language_comiitment') }}</p>
                         <div class="row">
                             <div class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
@@ -303,7 +303,7 @@
                         <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_work_exp_title') }}</h4>
                     </div>
                     <div class="panel-body wt-panel-body p-a20 m-b30 ">
-                        <p class="text-danger">გთხოვთ შეავსოთ მხოლოდ ზოგადი სამუშაო გამოცდილება, ხოლო საოჯახო და შერჩეული კატეგორის სამუშაო გამოცდილეაბ შეავსებთ მოგვიანებით </p>
+                        <p class="text-danger">{{ $t('lang.user_profile_page_work_exp_please_feel') }} </p>
                         <div class="row">
                             <div class=" col-md-12">
                                 <div class="form-group">

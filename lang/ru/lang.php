@@ -55,7 +55,7 @@ return [
     // ----------------------------------------------------------------------------------------------------
     // Title Lang
     'page_title_home' => 'Главная',
-        'page_title_individual' => 'Индивидуальные вакансии',
+        'page_title_individual' => 'Вакансии в семье',
         'page_title_company' => 'Вакансии компании',
         'page_title_onmap' => 'Вакансии на карте',
     'page_title_about' => 'О нас',
@@ -66,13 +66,14 @@ return [
     // Menu Lang Block
     'menu_home' => 'Главная',
     'menu_vacancies' => 'Вакансии',
-        'menu_individual_vacancies' => 'Индивидуальные вакансии',
+        'menu_individual_vacancies' => 'Вакансии в семье',
         'menu_company_vacancies' => 'Вакансии компании',
         'menu_vacancies_onmap' => 'Вакансии на карте',
     'menu_about_us' => 'О нас',
     'menu_candidate' => 'Кандидаты',
     'menu_blog' => 'Блог',
     'menu_registration' => 'Регистрация',
+    'menu_add_vacancy' => 'Добавить вакансию',
     'menu_log_in' => 'Авторизоваться',
     // ----------------------------------------------------------------------------------------------------
     // Welcome Lang Page
@@ -87,10 +88,10 @@ return [
 
 
     'welcome_leftside_bar_search_job_select_job' => 'Выбрать',
-        'welcome_leftside_bar_search_job_select_job_category' => 'Должность',
+        'welcome_leftside_bar_search_job_select_job_category' => 'категория',
 
     'welcome_leftside_bar_search_job_category_job' => 'категория',
-        'welcome_leftside_bar_search_job_category_job_all_category' => 'Все категории',
+        'welcome_leftside_bar_search_job_category_job_all_category' => 'Вакансии',
 
     'welcome_leftside_bar_search_job_location_job' => 'местоположение',
         'welcome_leftside_bar_search_job_location_job_search' => 'Поиск',
@@ -98,7 +99,7 @@ return [
     'welcome_leftside_bar_popular' => 'Популярный',
     // ----------------------------------------------------------------------------------------------------
     'welcome_rightside_bar_companyvacancie' => 'Вакансии компании',
-    'welcome_rightside_bar_individualvacancie' => 'Индивидуальные вакансии',
+    'welcome_rightside_bar_individualvacancie' => 'Вакансии в семье',
     'welcome_rightside_bar_employees' => 'Сотрудники',
     // ----------------------------------------------------------------------------------------------------
     'welcome_middle_leftblock_small_text' => 'С рабочими категориями',
@@ -108,16 +109,12 @@ return [
     'welcome_middle_uploadresume_block' => 'Все еще не можете найти подходящую работу? Загрузите свое резюме / CV.',
     'welcome_middle_uploadresume_button' => 'Загрузите резюме',
 
-    'welcome_middle_top_company' => 'Лучшие компании',
-    'welcome_middle_top_company_getoffers' => 'Получайте предложения от ведущих компаний',
-
-
     'welcome_middle_count_user' => 'Миллионы активных пользователей каждый день',
     'welcome_middle_count_position' => 'Открытые вакансии',
     'welcome_middle_count_history' => 'миллион общих историй',
 
     'welcome_middle_career_allpost' => 'Все вакансии',
-    'welcome_middle_career_search' => 'Найдите карьеру, которую вы заслуживаете',
+    'welcome_middle_career_search' => 'Последние вакансии',
     'welcome_middle_career_search_block_buttonreadmore' => 'Читать далее',
     'welcome_middle_career_search_block_buttonallwork' => 'Все работы',
 
@@ -129,7 +126,7 @@ return [
     // Individual Vacancies Lang Page
     'individual_vacancies_page_big_title' => 'Самые популярные вакансии',
     'individual_vacancies_page_small_title_first' => 'Главная',
-    'individual_vacancies_page_small_title_second' => 'Индивидуальные вакансии',
+    'individual_vacancies_page_small_title_second' => 'Вакансии в семье',
     
     'individual_vacancies_page_leftside_category' => 'Категория',
         'individual_vacancies_page_leftside_category_allcategory' => 'Все категории',
@@ -168,12 +165,8 @@ return [
         'individual_vacancies_page_leftside_second_location_5km' => '5 км от вас',
         'individual_vacancies_page_leftside_second_location_7km' => '7 км от вас',
 
-    'individual_vacancies_page_leftside_tags' => 'Теги',
-
-    'individual_vacancies_page_leftside_box_title' => 'Получите подходящие вакансии по электронной почте. Отправьте свое резюме прямо сейчас!',
-    'individual_vacancies_page_leftside_box_read_more' => 'Читать далее',
     // -------------------------------------------------------------
-    'individual_vacancies_page_middle_first_title' => 'Отображено 2150 вакансий',
+    'individual_vacancies_page_middle_first_title' => 'Рабочее место',
     'individual_vacancies_page_middle_title_sort' => 'Сортировка',
 
     'individual_vacancies_page_middle_latest' => 'Последние',
@@ -196,7 +189,7 @@ return [
     // Company Vacancies Lang Page
     'company_vacancies_page_big_title' => 'Самые популярные вакансии',
     'company_vacancies_page_small_title_first' => 'Главная',
-    'company_vacancies_page_small_title_second' => 'Индивидуальные вакансии',
+    'company_vacancies_page_small_title_second' => 'Вакансии в семье',
     
     'company_vacancies_page_leftside_category' => 'Категория',
         'company_vacancies_page_leftside_category_allcategory' => 'Все категории',
@@ -321,10 +314,24 @@ return [
     'about_us_page_box_card_description' => 'Все еще не можете найти подходящую работу? Загрузите свое резюме',
     'about_us_page_box_card_upload_resume' => 'Загрузите резюме',
 
-    'about_us_page_top_company' => 'Лучшие компании',
-    'about_us_page_top_company_description' => 'Получите предложения от лучших компаний',
-
     // ----------------------------------------------------------------------------------------------------
+    // Empliyer Page
+    'employer_profile_page_personal_info' => 'Личная информация',
+    'employer_profile_page_address' => 'Адрес',
+    'employer_profile_page_street' => 'Улица',
+
+    'employer_jobs_page_first_title' => 'Вакансии',
+    'employer_jobs_page_grid_first_title' => 'категория',
+    'employer_jobs_page_grid_second_title' => 'статус',
+    'employer_jobs_page_grid_third_title' => 'Кадровая информация',
+    'employer_jobs_page_grid_fourth_title' => 'интерес',
+    'employer_jobs_page_grid_fifth_title' => 'действия',
+
+    'employer_jobs_page_tooltip_interested' => 'Просмотреть заинтересованных кандидатов',
+    'employer_jobs_page_tooltip_view' => 'Просмотр вакансий',
+    'employer_jobs_page_tooltip_reminder' => 'Напоминание',
+    'employer_jobs_page_tooltip_del' => 'удалить',
+
     // Candidates Us Lang Page
     'candidate_page_big_title' => 'Кандидаты',
     'candidate_page_small_title_first' => 'Главная',
@@ -367,7 +374,6 @@ return [
         'candidate_page_leftside_second_location_5km' => '5 км от вас',
         'candidate_page_leftside_second_location_7km' => '7 км от вас',
 
-    'candidate_page_leftside_tags' => 'Теги',
 
     'candidate_page_leftside_box_title' => 'Получите подходящие вакансии по электронной почте. Отправьте свое резюме прямо сейчас!',
     'candidate_page_leftside_box_read_more' => 'Читать далее',
@@ -405,7 +411,6 @@ return [
     // Footer Lang Page
     'footer_fast_link' => 'Быстрые ссылки',
     'footer_by_category' => 'По категории',
-    'footer_by_profession' => 'По профессиям',
 
     'footer_address_one' => 'Адрес :',
         'footer_address_two' => 'Проспект Важа-Пшавела - 76Б II: улица Арчила Джорджадзе N5',
@@ -432,10 +437,13 @@ return [
     'user_page_log_out' => 'Выйти',
     'user_page_candidate_first_title' => 'Кандидат',
     'user_page_candidate_second_title' => 'Работодатель',
+    'user_page_candidate_third_title' => 'Компания-работодатель',
+    'user_page_candidate_fourth_title' => 'Неизвестный',
     // leftside
     'user_page_candidate_left_side_bar_photo_upload' => 'Загрузить фото',
     'user_page_candidate_left_side_bar_dashboard' => 'Панель управления',
     'user_page_candidate_left_side_bar_profile' => 'Мой профиль',
+    'user_page_candidate_left_side_bar_work_info' => 'Информация о работе',
     'user_page_candidate_left_side_bar_applied_jobs' => 'Вакансии',
     'user_page_candidate_left_side_bar_my_resume' => 'Мое резюме',
     'user_page_candidate_left_side_bar_job_alerts' => 'Оповещения о вакансиях',
@@ -462,10 +470,12 @@ return [
     'user_profile_page_personal_citizenship' => 'Гражданство',
     'user_profile_page_personal_education' => 'Образование',
     'user_profile_page_personal_specialty' => 'Специальность',
+    'user_profile_page_personal_general_characters' => 'Общие характеристики',
     'user_profile_page_personal_nationality' => 'Национальность',
     'user_profile_page_personal_religion' => 'Религия',
     'user_profile_page_personal_profession' => 'Профессия',
     'user_profile_page_personal_family' => 'Семейное положение',
+        'user_profile_page_personal_children_age' => 'Детский возраст',
         'user_profile_page_personal_family_children' => 'Количество детей',
         'user_profile_page_personal_family_children_age' => 'Возраст детей',
         'user_profile_page_personal_family_spouse' => 'Имя, фамилия и место работы супруги',
@@ -473,18 +483,20 @@ return [
  
     // Medical information Block Lang
     'user_profile_page_medical_info' => 'Медицинская информация',
-    'user_profile_page_medical_alergy' => 'Алергия',
+    'user_profile_page_medical_alergy' => 'Алергия на',
     'user_profile_page_medical_operation' => 'Операция или хроническое заболевание',
     'user_profile_page_medical_please_info' => 'Пожалуйста, предоставьте информацию о серьезных операциях и хронических заболеваниях, если таковые имеются.', 
 
     // Map
     'user_profile_page_address' => 'Адрес',
+        'user_profile_page_street' => 'Улица',
     'user_profile_page_address_map' =>'Для ввода адреса лучше использовать поле поиска по карте. Это облегчит вам заполнение',
     'user_profile_page_address_map_2' => 'После поиска вы можете перетащить маркер, чтобы уточнить свой адрес',
     
     // Foreign Language Block Lang
     'user_profile_page_foreign_lang_title' => 'Иностранные языки',
     'user_profile_page_foreign_lang_language' => 'Иностранный язык',
+    'user_profile_page_foreign_lang_language_comiitment' => 'Обязательно указать родной язык',
     'user_profile_page_foreign_lang_level' => 'Уровень языка',
     'user_profile_page_foreign_lang_button_add_info' => 'Добавить',
 
@@ -494,6 +506,7 @@ return [
 
     // Work Experience Block Lang
     'user_profile_page_work_exp_title' => 'Общий опыт работы',
+    'user_profile_page_work_exp_please_feel' => 'Пожалуйста, заполните только общий опыт работы, а семейный и выбранный опыт работы вы заполните позже.',
     'user_profile_page_work_exp' => 'Опыт работы',
     'user_profile_page_work_position' => 'Позиция',
     'user_profile_page_work_object' => 'Объект',
@@ -513,6 +526,8 @@ return [
     'user_profile_page_category_end_schedule_title_2' => 'После заполнения информации используйте кнопку сохранения, после чего вам будет дано разрешение начать заполнение информации по другой категории.',
 
     'user_profile_page_category_end_schedule_table' => 'Таблица категории и расписания',
+    'user_profile_page_category_end_schedule_table_action_tooltips_view' => 'Вид',
+    'user_profile_page_category_end_schedule_table_action_tooltips_del' => 'Удалить',
 
     'user_profile_page_category_title' => 'Категория',
     'user_profile_page_work_schedule_title' => 'График работы',
@@ -561,5 +576,37 @@ return [
     'user_profile_page_social_facebook' => 'Facebook',
     'user_profile_page_social_youtube' => 'Youtube',
     'user_profile_page_social_button_save' => 'Сохранить',
+
+    // Employer Add Job Page
+    'employer_add_job_general_info' => 'Общая информация',
+    'employer_add_job_definitely_fields' => 'Обязательные поля',
+
+    'employer_add_job_vacancy_name' => 'Название должности',
+        'employer_add_job_vacancy_name_placeholder' => 'Пример: я ищу опытную няню',
+    'employer_add_job_address' => 'Адрес',
+    'employer_add_job_position' => 'Должность',
+    'employer_add_job_jobs_day' => 'Рабочие дни и часы',
+
+    'employer_add_job_additional_info' => 'Дополнительная информация',
+    'employer_add_job_when_need' => 'когда вам нужно',
+    'employer_add_job_how_long' => 'как долго',
+        'employer_add_job_how_long_placeholdser' => 'пример: 6 месяцев..',
+    'employer_add_job_additional_offers' => 'Дополнительное предложение, условия или требования',
+        'employer_add_job_additional_offers_placeholder' => 'Безлимитный проездной, водитель привезет и т.д.',
+    'employer_add_job_comment_for_agency' => 'Комментарий для агентства',
+        'employer_add_job_comment_for_agency_placeholder' => 'пример: особые требования',
+
+    'employer_add_job_requirements_for_employer' => 'требования к работодателю',
+    'employer_add_job_minimal_age' => 'минимальный возраст',
+    'employer_add_job_max_age' => 'Максимальный возраст',
+    'employer_add_job_minimal_edu' => 'Уровень образования',
+        'employer_add_job_minimal_edu_select' => 'выбрать',
+    'employer_add_job_preferred_foreign_language' => 'предпочтительный иностранный язык',
+    'employer_add_job_foreign_language_level' => 'уровень знания иностранного языка',
+    'employer_add_job_general_character' => 'Общий персонаж',
+    'employer_add_job_duties' => 'обязанности',
+    'employer_add_job_additional_duties' => 'Дополнительные обязанности',
+    'employer_add_job_button_add' => 'Добавить',
+    'employer_add_job_select' => 'выбрать', 
 
 ];
