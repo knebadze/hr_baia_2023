@@ -52,7 +52,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
         Route::get('/', [MainController::class, 'index'])->name('welcome');
 
             Route::get('/individual', [IndividualController::class, 'index'])->name('individual');
-            Route::get('/company', [CompanyController::class, 'index'])->name('company');
+            // Route::get('/company', [CompanyController::class, 'index'])->name('company');
             Route::get('/onmap', [MapvacancieController::class, 'index'])->name('onmap');
 
         Route::get('/about', [AboutController::class, 'index'])->name('about');
