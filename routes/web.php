@@ -117,7 +117,5 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
 
     Route::post('add_vacancy', [VacancyController::class, 'store']);
 
-    Route::post('add_company', [CompanyInfoController::class, 'store']);
-
     Route::post('change_password', [ChangePasswordController::class, 'change'])->name('change_password');
 

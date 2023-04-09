@@ -5,7 +5,7 @@
             <!-- <form> -->
 
 
-                <mainInfo :data="m.user" :genderCLA="data.classificator.gender"></mainInfo>
+                <mainInfo :data="m.user" :genderCLA="data.classificatory.gender"></mainInfo>
 
             <!-- <form @submit.prevent="addCandidate()"> -->
                  <!--personal information-->
@@ -32,7 +32,7 @@
                                     <div class="form-group">
                                         <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_personal_nationality') }}</label>
                                         <div class="ls-inputicon-box">
-                                            <multiselect v-model="m.candidate.nationality" :options="data.classificator.nationality" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false" @blur="v$.m.candidate.nationality.$touch">
+                                            <multiselect v-model="m.candidate.nationality" :options="data.classificatory.nationality" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false" @blur="v$.m.candidate.nationality.$touch">
                                                 <template slot="singleLabel" slot-scope="{ option }"></template>
                                             </multiselect>
                                             <span v-if="v$.m.candidate.nationality.required.$invalid && v$.m.candidate.nationality.$dirty" style='color:red'>* {{ v$.m.candidate.nationality.required.$message}}</span>
@@ -44,7 +44,7 @@
                                     <div class="form-group">
                                         <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_personal_citizenship') }}</label>
                                         <div class="ls-inputicon-box">
-                                            <multiselect v-model="m.candidateCitizenships"  :options="data.classificator.citizenship" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" :label="`name_${getLang}`" :track-by="`name_${getLang}`" :preselect-first="false" @blur="v$.m.candidateCitizenships.$touch">
+                                            <multiselect v-model="m.candidateCitizenships"  :options="data.classificatory.citizenship" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" :label="`name_${getLang}`" :track-by="`name_${getLang}`" :preselect-first="false" @blur="v$.m.candidateCitizenships.$touch">
                                                 <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                                             </multiselect>
                                             <span v-if="v$.m.candidateCitizenships.required.$invalid && v$.m.candidateCitizenships.$dirty" style='color:red'>* {{ v$.m.candidateCitizenships.required.$message}}</span>
@@ -55,7 +55,7 @@
                                     <div class="form-group">
                                         <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_personal_religion') }}</label>
                                         <div class="ls-inputicon-box">
-                                            <multiselect v-model="m.candidate.religion" :options="data.classificator.religions" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false" @blur="v$.m.candidate.religion.$touch">
+                                            <multiselect v-model="m.candidate.religion" :options="data.classificatory.religions" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false" @blur="v$.m.candidate.religion.$touch">
                                                 <template slot="singleLabel" slot-scope="{ option }"></template>
                                             </multiselect>
                                             <span v-if="v$.m.candidate.religion.required.$invalid && v$.m.candidate.religion.$dirty" style='color:red'>* {{ v$.m.candidate.religion.required.$message}}</span>
@@ -66,7 +66,7 @@
                                     <div class="form-group">
                                         <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_personal_education') }}</label>
                                         <div class="ls-inputicon-box">
-                                            <multiselect v-model="m.candidate.education" :options="data.classificator.educations" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false" @blur="v$.m.candidate.education.$touch">
+                                            <multiselect v-model="m.candidate.education" :options="data.classificatory.educations" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false" @blur="v$.m.candidate.education.$touch">
                                                 <template slot="singleLabel" slot-scope="{ option }"></template>
                                             </multiselect>
                                             <span v-if="v$.m.candidate.education.required.$invalid && v$.m.candidate.education.$dirty" style='color:red'>* {{ v$.m.candidate.education.required.$message}}</span>
@@ -77,7 +77,7 @@
                                     <div class="form-group">
                                         <label>{{ $t('lang.user_profile_page_personal_profession') }}</label>
                                         <div class="ls-inputicon-box">
-                                            <multiselect v-model="m.candidateProfessions"  :options="data.classificator.professions" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" :label="`name_${getLang}`" :track-by="`name_${getLang}`" :preselect-first="false" >
+                                            <multiselect v-model="m.candidateProfessions"  :options="data.classificatory.professions" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" :label="`name_${getLang}`" :track-by="`name_${getLang}`" :preselect-first="false" >
                                                 <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                                             </multiselect>
                                             <!-- <span v-if="v$.m.candidateProfessions.required.$invalid && v$.m.candidateProfessions.$dirty" style='color:red'>* {{ v$.m.candidateProfessions.required.$message}}</span> -->
@@ -88,7 +88,7 @@
                                     <div class="form-group">
                                         <label>{{ $t('lang.user_profile_page_personal_specialty') }}</label>
                                         <div class="ls-inputicon-box">
-                                            <multiselect v-model="m.candidateSpecialties"  :options="data.classificator.specialties" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" :label="`name_${getLang}`" :track-by="`name_${getLang}`" :preselect-first="false" >
+                                            <multiselect v-model="m.candidateSpecialties"  :options="data.classificatory.specialties" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" :label="`name_${getLang}`" :track-by="`name_${getLang}`" :preselect-first="false" >
                                                 <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                                             </multiselect>
                                             <!-- <span v-if="v$.m.candidateProfessions.required.$invalid && v$.m.candidateProfessions.$dirty" style='color:red'>* {{ v$.m.candidateProfessions.required.$message}}</span> -->
@@ -99,7 +99,7 @@
                                     <div class="form-group">
                                         <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_personal_general_characters') }}</label>
                                         <div class="ls-inputicon-box">
-                                            <multiselect v-model="m.candidateCharacteristic"  :options="data.classificator.characteristic" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" :label="`name_${getLang}`" :track-by="`name_${getLang}`" :preselect-first="false" @blur="v$.m.candidateCharacteristic.$touch">
+                                            <multiselect v-model="m.candidateCharacteristic"  :options="data.classificatory.characteristic" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" :label="`name_${getLang}`" :track-by="`name_${getLang}`" :preselect-first="false" @blur="v$.m.candidateCharacteristic.$touch">
                                                 <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                                             </multiselect>
                                             <span v-if="v$.m.candidateCharacteristic.required.$invalid && v$.m.candidateCharacteristic.$dirty" style='color:red'>* {{ v$.m.candidateCharacteristic.required.$message}}</span>
@@ -112,7 +112,7 @@
                                     <div class="form-group">
                                         <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_personal_family') }}</label>
                                         <div class="ls-inputicon-box">
-                                            <multiselect v-model="m.candidate.marital_status" :options="data.classificator.maritalStatus" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false" @blur="v$.m.candidate.marital_status.$touch">
+                                            <multiselect v-model="m.candidate.marital_status" :options="data.classificatory.maritalStatus" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false" @blur="v$.m.candidate.marital_status.$touch">
                                                 <template slot="singleLabel" slot-scope="{ option }"></template>
                                             </multiselect>
                                             <span v-if="v$.m.candidate.marital_status.required.$invalid && v$.m.candidate.marital_status.$dirty" style='color:red'>* {{ v$.m.candidate.marital_status.required.$message}}</span>
@@ -151,7 +151,7 @@
                                 <div class="col-xl-6 col-lg-6 col-md-12">
                                     <label>{{ $t('lang.user_profile_page_driving_license') }}</label>
                                     <div class="driving_license">
-                                        <div v-for="category in data.classificator.drivingLicense" class="form-check form-check-inline">
+                                        <div v-for="category in data.classificatory.drivingLicense" class="form-check form-check-inline">
                                             <input class="form-check-input" type="checkbox" id="driving_license_a" :value="category.id" v-model="m.candidateDrivingLicense" >
                                             <label class="form-check-label" for="driving_license_a">{{ category.name }}</label>
                                         </div>
@@ -175,7 +175,7 @@
                                     <div class="form-group">
                                         <label>{{ $t('lang.user_profile_page_medical_alergy') }}</label>
                                         <div class="ls-inputicon-box">
-                                            <multiselect v-model="m.candidateAllergies"  :options="data.classificator.allergies" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" :label="`name_${getLang}`" :track-by="`name_${getLang}`" :preselect-first="false">
+                                            <multiselect v-model="m.candidateAllergies"  :options="data.classificatory.allergies" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" :label="`name_${getLang}`" :track-by="`name_${getLang}`" :preselect-first="false">
                                                 <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                                             </multiselect>
                                         </div>
@@ -237,7 +237,7 @@
                                 <div class="form-group">
                                     <label>{{ $t('lang.user_profile_page_foreign_lang_language') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <multiselect v-model="languages" :options="data.classificator.languages" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                        <multiselect v-model="languages" :options="data.classificatory.languages" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
                                             <template slot="singleLabel" slot-scope="{ option }"></template>
                                         </multiselect>
                                     </div>
@@ -247,7 +247,7 @@
                                 <div class="form-group">
                                     <label>{{ $t('lang.user_profile_page_foreign_lang_level') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <multiselect v-model="languageLevels" :options="data.classificator.languageLevels" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                        <multiselect v-model="languageLevels" :options="data.classificatory.languageLevels" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
                                             <template slot="singleLabel" slot-scope="{ option }"></template>
                                         </multiselect>
                                     </div>
@@ -309,7 +309,7 @@
                                 <div class="form-group">
                                     <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_work_exp_experience') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <multiselect v-model="candidateWorkExperienceModel.has_experience" :options="data.classificator.yesNo" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false" @blur="v$.candidateWorkExperienceModel.has_experience.$touch">
+                                        <multiselect v-model="candidateWorkExperienceModel.has_experience" :options="data.classificatory.yesNo" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false" @blur="v$.candidateWorkExperienceModel.has_experience.$touch">
                                             <template slot="singleLabel" slot-scope="{ option }"></template>
                                         </multiselect>
                                         <span v-if="v$.candidateWorkExperienceModel.has_experience.required.$invalid && v$.candidateWorkExperienceModel.has_experience.$dirty" style='color:red'>* {{ v$.candidateWorkExperienceModel.has_experience.required.$message}}</span>
@@ -321,7 +321,7 @@
                                     <div class="form-group">
                                         <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_work_exp') }}</label>
                                         <div class="ls-inputicon-box">
-                                            <multiselect v-model="candidateWorkExperienceModel.work_experience" :options="data.classificator.workExperiences" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false" @blur="v$.candidateWorkExperienceModel.work_experience.$touch">
+                                            <multiselect v-model="candidateWorkExperienceModel.work_experience" :options="data.classificatory.workExperiences" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false" @blur="v$.candidateWorkExperienceModel.work_experience.$touch">
                                                 <template slot="singleLabel" slot-scope="{ option }"></template>
                                             </multiselect>
                                             <span v-if="v$.candidateWorkExperienceModel.work_experience.required.$invalid && v$.candidateWorkExperienceModel.work_experience.$dirty" style='color:red'>* {{ v$.candidateWorkExperienceModel.work_experience.required.$message}}</span>
@@ -354,7 +354,7 @@
                                     <div class="form-group">
                                         <label>სამუშაო გამოცდილების არ ქონის მიზეზი</label>
                                         <div class="ls-inputicon-box">
-                                            <multiselect v-model="candidateWorkExperienceModel.no_reason" :options="data.classificator.noExperienceReason" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                            <multiselect v-model="candidateWorkExperienceModel.no_reason" :options="data.classificatory.noExperienceReason" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
                                                 <template slot="singleLabel" slot-scope="{ option }"></template>
                                             </multiselect>
                                         </div>
@@ -524,7 +524,7 @@
                                     <div class="input-group mb-3">
                                     <button style="border-style: none;" class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><span :class="`fi fi-${numberCode.iso.toLowerCase()}`"></span>+{{ numberCode.phonecode }}</button>
                                     <ul class="dropdown-menu" style=" overflow: hidden; overflow-y: auto; max-height: calc(100vh - 550px);">
-                                        <li v-for="item in data.classificator.numberCode" @click="chooseNumberCode(item.phonecode, item.iso.toLowerCase())"><a class="dropdown-item"><span :class="`fi fi-${item.iso.toLowerCase()}`"></span>+{{ item.phonecode }}</a></li>
+                                        <li v-for="item in data.classificatory.numberCode" @click="chooseNumberCode(item.phonecode, item.iso.toLowerCase())"><a class="dropdown-item"><span :class="`fi fi-${item.iso.toLowerCase()}`"></span>+{{ item.phonecode }}</a></li>
                                     </ul>
                                     <input type="text" class="form-control" aria-label="Text input with dropdown button" v-model="candidateNumberModel.number" placeholder="555666777" onkeypress="return /[0-9]/i.test(event.key)" @blur="v$.candidateNumberModel.number.$touch">
                                     <span v-if="v$.candidateNumberModel.number.numeric.$invalid && v$.candidateNumberModel.number.$dirty" style='color:red'>* {{ v$.candidateNumberModel.number.numeric.$message}}</span>
@@ -535,7 +535,7 @@
                                 <div class="form-group">
                                     <label>{{ $t('lang.user_profile_page_number_owner') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <multiselect v-model="candidateNumberModel.number_owner" :options="data.classificator.numberOwner" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false" @blur="v$.candidateNumberModel.number_owner.$touch">
+                                        <multiselect v-model="candidateNumberModel.number_owner" :options="data.classificatory.numberOwner" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false" @blur="v$.candidateNumberModel.number_owner.$touch">
                                             <template slot="singleLabel" slot-scope="{ option }"></template>
                                         </multiselect>
                                         <!-- <span v-if="v$.candidateNumberModel.number_owner.required.$invalid && v$.candidateNumberModel.number_owner.$dirty" style='color:red'>* {{ v$.candidateNumberModel.number_owner.required.$message}}</span> -->
@@ -645,7 +645,7 @@
                             <div class="form-group">
                                 <label>{{ $t('lang.user_profile_page_references_name_notice') }}</label>
                                 <div class="ls-inputicon-box">
-                                    <multiselect v-model="candidateNoticeModel.notice" :options="data.classificator.notices" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                    <multiselect v-model="candidateNoticeModel.notice" :options="data.classificatory.notices" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
                                         <template slot="singleLabel" slot-scope="{ option }"></template>
                                     </multiselect>
                                 </div>
@@ -867,7 +867,7 @@ export default {
         return validations
     },
     created(){
-        this.m = { ...this.data.candidate, ...this.data.basic };
+        this.m = { ...this.data.model, ...this.data.basic };
         if (this.m.candidate.convction == 1) {
             this.m.candidate.convction = true
         }
@@ -1034,7 +1034,7 @@ export default {
             }, "language");
         },
         addCandidateWorkExperience(workExperience){
-            // var workExperienceFind = _.find(this.data.classificator.workExperiences, function(o) { return o.id == workExperience.work_experience_id; });
+            // var workExperienceFind = _.find(this.data.classificatory.workExperiences, function(o) { return o.id == workExperience.work_experience_id; });
             this.m.candidateWorkExperience.push(JSON.parse(JSON.stringify(workExperience)))
             this.candidateWorkExperienceModel = {
                 'position_ka':'',
@@ -1047,7 +1047,7 @@ export default {
 
         },
         addNotice(notice){
-            // var noticeFind = _.find(this.data.classificator.notices, function(o) { return o.id == notice.notice_id; });
+            // var noticeFind = _.find(this.data.classificatory.notices, function(o) { return o.id == notice.notice_id; });
             // notice['notice'] = noticeFind;
             notice['file'] = this.noticeFile.name
             this.upsert(this.m.candidateNotices, notice, "notice");
@@ -1057,7 +1057,7 @@ export default {
             this.numberCode['iso'] = iso
         },
         addNumber(code, model){
-            var numberCodeId = _.find(this.data.classificator.numberCode, function(o) { return o.phonecode == code.phonecode; });
+            var numberCodeId = _.find(this.data.classificatory.numberCode, function(o) { return o.phonecode == code.phonecode; });
             model['number_code_id'] = numberCodeId.id
             model['number_code'] = code
             this.m.candidateNumber.push(JSON.parse(JSON.stringify(model)))

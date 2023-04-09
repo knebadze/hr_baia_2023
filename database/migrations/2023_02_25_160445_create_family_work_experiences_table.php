@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('family_work_experiences', function (Blueprint $table) {
             $table->id();
             $table->foreignId('candidate_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->smallInteger('experience');
+            $table->unsignedBigInteger('experience');
             $table->integer('families_worked_count')->nullable();
             $table->unsignedBigInteger('longest_time')->nullable();
             $table->foreignId('work_experience_id')->nullable()->constrained();
@@ -28,6 +28,7 @@ return new class extends Migration
 
 
             $table->foreign('longest_time')->references('id')->on('work_experiences');
+            $table->foreign('experience')->references('id')->on('yes_nos');
         });
     }
 

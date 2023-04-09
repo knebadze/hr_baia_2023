@@ -24,6 +24,8 @@ return new class extends Migration
             $table->string('additional_duty_ka', 400)->nullable();
             $table->string('additional_duty_en', 400)->nullable();
             $table->string('additional_duty_ru', 400)->nullable();
+            $table->foreignId('language_id')->constrained()->nullable();
+            $table->foreignId('language_level_id')->constrained()->nullable();
             $table->timestamps();
         });
     }

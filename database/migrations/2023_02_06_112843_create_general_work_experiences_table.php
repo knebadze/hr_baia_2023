@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('general_work_experiences', function (Blueprint $table) {
             $table->id();
             $table->foreignId('candidate_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->tinyInteger('experience');
+            $table->unsignedBigInteger('experience');
             $table->foreignId('work_experience_id')->nullable()->constrained();
             $table->string('position_ka')->nullable();
             $table->string('position_en')->nullable();
@@ -29,6 +29,7 @@ return new class extends Migration
             $table->string('no_reason_info_en')->nullable();
             $table->string('no_reason_info_ru')->nullable();
             $table->timestamps();
+            $table->foreign('experience')->references('id')->on('yes_nos');
         });
     }
 

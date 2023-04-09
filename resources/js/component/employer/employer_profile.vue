@@ -2,7 +2,7 @@
     <div class="col-xl-9 col-lg-8 col-md-12 m-b30 employerPageBorder">
         <!--Filter Short By-->
         <div class="twm-right-section-panel site-bg-gray">
-            <mainInfo :data="m.user" :genderCLA="data.classificator.gender"></mainInfo>
+            <mainInfo :data="m.user" :genderCLA="data.classificatory.gender"></mainInfo>
             <div class="panel panel-default">
                 <div class="panel-heading wt-panel-heading p-a20">
                     <h4 class="panel-tittle m-a0">{{ $t('lang.employer_profile_page_personal_info') }}</h4>

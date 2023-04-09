@@ -57,7 +57,6 @@ class ClassificatoryService
             'yesNo' => YesNo::all()->toArray(),
             'numberOwner' => NumberOwner::all()->toArray(),
             'noRecommendationReason' => NoReason::where('category', 2)->get()->toArray(),
-            'companyObjectType' => Company_object_type::all()->toArray(),
             'category' => Category::all()->toArray(),
             'currency' => Currency::all()->toArray(),
             'workSchedule' => WorkSchedule::all()->toArray(),

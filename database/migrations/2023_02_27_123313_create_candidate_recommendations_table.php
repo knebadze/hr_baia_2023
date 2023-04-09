@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('candidate_recommendations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('candidate_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->tinyInteger('recommendation')->nullable();
+            $table->unsignedBigInteger('recommendation')->nullable();
             $table->foreignId('recommendation_from_whom_id')->nullable()->constrained();
             $table->string('name_ka', 45)->nullable();
             $table->string('name_en', 45)->nullable();
@@ -31,8 +31,9 @@ return new class extends Migration
             $table->string('no_reason_info_ka', 400)->nullable();
             $table->string('no_reason_info_en', 400)->nullable();
             $table->string('no_reason_info_ru', 400)->nullable();
-            $table->string('uuid');
+            $table->string('uuid')->nullable();
             $table->timestamps();
+            $table->foreign('recommendation')->references('id')->on('yes_nos');
         });
     }
 

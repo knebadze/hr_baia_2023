@@ -28,10 +28,11 @@ class PostJobController extends Controller
         if ($auth->user_type_id == 2) {
             $employer = Employer::where('user_id', $auth->id)->first();
             $address = (app()->getLocale() == 'ka')?substr($employer->address_ka, 0, strrpos($employer->address_ka, ",")).' '.$employer->street_ka:((app()->getLocale() == 'en')?substr($employer->address_en, 0, strrpos($employer->address_en, ",")).' '.$employer->street_en:substr($employer->address_ru, 0, strrpos($employer->address_ru, ",")).' '.$employer->street_ru);
-        }else{
-            $company = Company::where('user_id', $auth->id)->first();
-            $address = (app()->getLocale() == 'ka')?substr($company->address_ka, 0, strrpos($company->address_ka, ",")).' '.$company->street_ka:((app()->getLocale() == 'en')?substr($company->address_en, 0, strrpos($company->address_en, ",")).' '.$company->street_en:substr($company->address_ru, 0, strrpos($company->address_ru, ",")).' '.$company->street_ru);
         }
+        // else{
+        //     $company = Company::where('user_id', $auth->id)->first();
+        //     $address = (app()->getLocale() == 'ka')?substr($company->address_ka, 0, strrpos($company->address_ka, ",")).' '.$company->street_ka:((app()->getLocale() == 'en')?substr($company->address_en, 0, strrpos($company->address_en, ",")).' '.$company->street_en:substr($company->address_ru, 0, strrpos($company->address_ru, ",")).' '.$company->street_ru);
+        // }
 
         $vacancy = Schema::getColumnListing('vacancies');
         $vacancy = array_map(function ($item) { return ""; }, array_flip($vacancy));
