@@ -15,10 +15,9 @@ return new class extends Migration
     {
         Schema::create('yes_nos', function (Blueprint $table) {
             $table->id();
-            $table->char('name_ka', 30);
-            $table->char('name_en', 30);
-            $table->char('name_ru', 30);
-            $table->timestamps();
+            $table->char('name_ka', 10);
+            $table->char('name_en', 10);
+            $table->char('name_ru', 10);
         });
     }
 

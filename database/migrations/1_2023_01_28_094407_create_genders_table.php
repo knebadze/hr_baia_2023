@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('name_ka', 20);
             $table->string('name_en', 20);
             $table->string('name_ru', 20);
-            $table->timestamps();
         });
     }
 

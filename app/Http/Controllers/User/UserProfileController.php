@@ -33,7 +33,7 @@ class UserProfileController extends Controller
         'numberCode', 'characteristic', 'numberOwner', 'yesNo'];
         $employerClassificatoryArr = ['gender'];
         $classificatory = $this->classificatoryService->get(($auth->user_type_id == 1)?$candidateClassificatoryArr:$employerClassificatoryArr);
-        $model = $this->modelService->getModel();
+        $model = $this->modelService->getUserModel();
 
         $data = [
             'basic' => [

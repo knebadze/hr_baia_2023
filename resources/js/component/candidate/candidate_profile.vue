@@ -201,7 +201,7 @@
                         <p>{{ $t('lang.user_profile_page_address_map_2') }}</p>
                         <div class="row">
                             <!-- <address_maplibre></address_maplibre> -->
-                            <addressMap :data="m.candidate.address" @messageFromChild="childMessage"></addressMap>
+                            <!-- <addressMap :data="m.candidate.address" @messageFromChild="childMessage"></addressMap> -->
                             <div class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
                                     <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_address') }}</label>
@@ -309,10 +309,10 @@
                                 <div class="form-group">
                                     <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_work_exp_experience') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <multiselect v-model="candidateWorkExperienceModel.has_experience" :options="data.classificatory.yesNo" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false" @blur="v$.candidateWorkExperienceModel.has_experience.$touch">
+                                        <multiselect v-model="candidateWorkExperienceModel.has_experience" :options="data.classificatory.yesNo" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false" >
                                             <template slot="singleLabel" slot-scope="{ option }"></template>
                                         </multiselect>
-                                        <span v-if="v$.candidateWorkExperienceModel.has_experience.required.$invalid && v$.candidateWorkExperienceModel.has_experience.$dirty" style='color:red'>* {{ v$.candidateWorkExperienceModel.has_experience.required.$message}}</span>
+                                        <!-- <span v-if="v$.candidateWorkExperienceModel.has_experience.required.$invalid && v$.candidateWorkExperienceModel.has_experience.$dirty" style='color:red'>* {{ v$.candidateWorkExperienceModel.has_experience.required.$message}}</span> -->
                                     </div>
                                 </div>
                             </div>
@@ -321,10 +321,10 @@
                                     <div class="form-group">
                                         <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_work_exp') }}</label>
                                         <div class="ls-inputicon-box">
-                                            <multiselect v-model="candidateWorkExperienceModel.work_experience" :options="data.classificatory.workExperiences" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false" @blur="v$.candidateWorkExperienceModel.work_experience.$touch">
+                                            <multiselect v-model="candidateWorkExperienceModel.work_experience" :options="data.classificatory.workExperiences" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false" >
                                                 <template slot="singleLabel" slot-scope="{ option }"></template>
                                             </multiselect>
-                                            <span v-if="v$.candidateWorkExperienceModel.work_experience.required.$invalid && v$.candidateWorkExperienceModel.work_experience.$dirty" style='color:red'>* {{ v$.candidateWorkExperienceModel.work_experience.required.$message}}</span>
+                                            <!-- <span v-if="v$.candidateWorkExperienceModel.work_experience.required.$invalid && v$.candidateWorkExperienceModel.work_experience.$dirty" style='color:red'>* {{ v$.candidateWorkExperienceModel.work_experience.required.$message}}</span> -->
                                         </div>
                                     </div>
                                 </div>
@@ -332,9 +332,9 @@
                                     <div class="form-group">
                                         <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_work_position') }}</label>
                                         <div class="ls-inputicon-box">
-                                            <input class="form-control" v-model="candidateWorkExperienceModel[`position_${getLang}`]" type="text" placeholder="" @blur="v$.candidateWorkExperienceModel[`position_${getLang}`].$touch">
+                                            <input class="form-control" v-model="candidateWorkExperienceModel[`position_${getLang}`]" type="text" placeholder="" >
                                             <i class="fs-input-icon fa fa-tasks"></i>
-                                            <span v-if="v$.candidateWorkExperienceModel[`position_${getLang}`].required.$invalid && v$.candidateWorkExperienceModel[`position_${getLang}`].$dirty" style='color:red'>* {{ v$.candidateWorkExperienceModel[`position_${getLang}`].required.$message}}</span>
+                                            <!-- <span v-if="v$.candidateWorkExperienceModel[`position_${getLang}`].required.$invalid && v$.candidateWorkExperienceModel[`position_${getLang}`].$dirty" style='color:red'>* {{ v$.candidateWorkExperienceModel[`position_${getLang}`].required.$message}}</span> -->
                                         </div>
                                     </div>
                                 </div>
@@ -342,9 +342,9 @@
                                     <div class="form-group">
                                         <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_work_object') }}</label>
                                         <div class="ls-inputicon-box">
-                                            <input class="form-control" v-model="candidateWorkExperienceModel[`object_${getLang}`]" type="text" placeholder="" @blur="v$.candidateWorkExperienceModel[`object_${getLang}`].$touch">
+                                            <input class="form-control" v-model="candidateWorkExperienceModel[`object_${getLang}`]" type="text" placeholder="" >
                                             <i class="fs-input-icon fa fa-map-marker"></i>
-                                            <span v-if="v$.candidateWorkExperienceModel[`object_${getLang}`].required.$invalid && v$.candidateWorkExperienceModel[`object_${getLang}`].$dirty" style='color:red'>* {{ v$.candidateWorkExperienceModel[`object_${getLang}`].required.$message}}</span>
+                                            <!-- <span v-if="v$.candidateWorkExperienceModel[`object_${getLang}`].required.$invalid && v$.candidateWorkExperienceModel[`object_${getLang}`].$dirty" style='color:red'>* {{ v$.candidateWorkExperienceModel[`object_${getLang}`].required.$message}}</span> -->
                                         </div>
                                     </div>
                                 </div>
@@ -829,13 +829,6 @@ export default {
                 candidateCharacteristic: { required: helpers.withMessage('არჩევა სავალდებულოა', required) }
                 // candidateProfessions: { required: helpers.withMessage('არჩევა სავალდებულოა', required) },
             },
-            candidateWorkExperienceModel:{
-                has_experience: { required: helpers.withMessage('სამუშაო გამოცდილების შესახებ ინფორმაციის შევსება სავალდებულოა', required)},
-                work_experience:{},
-                position_ka:{},
-                position_en:{},
-                position_en:{},
-            },
             candidateNumberModel:{
                 number:{numeric: helpers.withMessage('უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric )},
                 number_owner:{}
@@ -850,16 +843,6 @@ export default {
             validations.m.candidate.address_ru = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
         }
 
-        if (this.candidateWorkExperienceModel.has_experience.id == 1) {
-            validations.candidateWorkExperienceModel.work_experience = { required: helpers.withMessage('არჩევა სავალდებულოა', required) }
-            if (this.getLang == 'ka') {
-                validations.candidateWorkExperienceModel.position_ka = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
-            }else if(this.getLang == 'en'){
-                validations.candidateWorkExperienceModel.position_en = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
-            }else if(this.getLang == 'ru'){
-                validations.candidateWorkExperienceModel.position_ru = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
-            }
-        }
 
         if (this.candidateNumberModel.number != '') {
             validations.candidateNumberModel.number_owner = { required: helpers.withMessage('არჩევა სავალდებულოა', required) }
@@ -1032,19 +1015,24 @@ export default {
                 'language': language,
                 'level': level,
             }, "language");
+            this.language = '';
+            this.languageLevels = '';
         },
         addCandidateWorkExperience(workExperience){
-            // var workExperienceFind = _.find(this.data.classificatory.workExperiences, function(o) { return o.id == workExperience.work_experience_id; });
-            this.m.candidateWorkExperience.push(JSON.parse(JSON.stringify(workExperience)))
-            this.candidateWorkExperienceModel = {
-                'position_ka':'',
-                'position_en':'',
-                'position_ru':'',
-                'object_ka':'',
-                'object_en':'',
-                'object_ru':'',
+            console.log('workExperience',JSON.parse(JSON.stringify(workExperience)));
+            var data = JSON.parse(JSON.stringify(workExperience))
+            if (data.has_experience.id == 1 && (data.work_experience == '' || data[`position_${this.getLang}`] == '' || data[`object_${this.getLang}`]== '')) {
+                toast.error("სამუშაო გამოცდილების ყველ ველის შევსება სავალდებულოა", {
+                    theme: 'colored',
+                    autoClose: 1000,
+                });
+                return;
             }
-
+            // var workExperienceFind = _.find(this.data.classificatory.workExperiences, function(o) { return o.id == workExperience.work_experience_id; });
+            this.m.candidateWorkExperience.push(data)
+            this.candidateWorkExperienceModel['work_experience'] = ''
+            this.candidateWorkExperienceModel[`position_${this.getLang}`] = ''
+            this.candidateWorkExperienceModel[`object_${this.getLang}`] = ''
         },
         addNotice(notice){
             // var noticeFind = _.find(this.data.classificatory.notices, function(o) { return o.id == notice.notice_id; });
@@ -1088,12 +1076,18 @@ export default {
     },
     watch:{
         'candidateWorkExperienceModel.has_experience.id': function(newVal, oldVa){
+            console.log();
             if (newVal == 2) {
                 this.showNoWorkExperience = true;
+                this.showYesWorkExperience = false;
             }
 
-            if(newVal == 1)this.showYesWorkExperience = true;
+            if(newVal == 1){
+                this.showYesWorkExperience = true;
+                this.showNoWorkExperience = false;
+            }
 
+            console.log('this.showNoWorkExperience',this.showYesWorkExperience);
             console.log('newValue', newVal);
             if (this.m.candidateWorkExperience.length != 0 && this.m.candidateWorkExperience[0].experience != newVal && newVal != '' && newVal != undefined) {
                 this.$swal({

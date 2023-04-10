@@ -8,6 +8,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\TermsController;
 use App\Http\Controllers\CompanyController;
@@ -82,7 +83,13 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
 
 
         Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+        Route::get('/admin', [AdminController::class, 'index'])->name('admin');
     });
+
+    //admin Route
+
+
 
     Auth::routes();
 
