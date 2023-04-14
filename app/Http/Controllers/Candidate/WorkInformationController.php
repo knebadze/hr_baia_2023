@@ -35,7 +35,7 @@ class WorkInformationController extends Controller
         $auth = Auth::user();
 
         //classificator
-        $classificatoryArr = ['category', 'workSchedule', 'workExperience','currency', 'recommendationFromWhom', 'noRecommendationReason', 'skill',
+        $classificatoryArr = ['category', 'workSchedule', 'workExperiences','currency', 'recommendationFromWhom', 'noRecommendationReason', 'skill',
         'noExperienceReason', 'yesNo', 'numberCode'];
         $classificatory = $this->classificatoryService->get($classificatoryArr);
         $model = $this->modelService->getWorkInformationModel();

@@ -8,14 +8,14 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\AboutController;
-use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\TermsController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\admin\HrController;
 use App\Http\Controllers\CandidateController;
-
 use App\Http\Controllers\MyprofileController;
+
 use App\Http\Controllers\IndividualController;
+use App\Http\Controllers\Admin\AdminController;
 
 
 use App\Http\Controllers\Auth\SocialController;
@@ -25,6 +25,7 @@ use App\Http\Controllers\User\PostJobController;
 use App\Http\Controllers\CandidateInfoController;
 use App\Http\Controllers\Employer\VacancyController;
 use App\Http\Controllers\User\UserProfileController;
+use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Company\CompanyInfoController;
 use App\Http\Controllers\Employer\EmployerInfoController;
 use App\Http\Controllers\Candidate\WorkInformationController;
@@ -83,19 +84,21 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
 
 
         Route::get('/home', [HomeController::class, 'index'])->name('home');
-
+        //______________________ADMIN PAGE_____________________________
         Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+        Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+        Route::get('/admin/hr', [HrController::class, 'index'])->name('admin.hr');
     });
 
     //admin Route
-
+    Route::post('/admin_login', [AdminController::class, 'login'])->name('admin.login');
 
 
     Auth::routes();
 
     Route::get('auth/{provider}/redirect', [SocialController::class, 'redirect'])->name('auth.social.redirect');
     Route::get('auth/{provider}/callback', [SocialController::class, 'callback'])->name('auth.social.callback');
-
+    //_______________________USER REQUEST_____________________________
     Route::post('upload_avatar', [MyprofileController::class, 'store']);
     //AXIOS
     Route::post('profile_update', [MyprofileController::class, 'update']);
@@ -125,4 +128,6 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('add_vacancy', [VacancyController::class, 'store']);
 
     Route::post('change_password', [ChangePasswordController::class, 'change'])->name('change_password');
+
+    //_____________________ADMIN REQUEST_______________________________
 

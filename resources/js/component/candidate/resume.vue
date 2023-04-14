@@ -9,21 +9,9 @@
                             <!-- <span class="fa fa-edit"></span> -->
                         </a>
                     </div>
-                    <!-- <div class="panel-body wt-panel-body p-a20 ">
-                        
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                               {{ (categoryName == null)?'აირჩიეთ კატეგორია':categoryName }}
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li v-for="(item, index) in data.workInformation" :key="index"><a class="dropdown-item" href="javascript:void(0)" @click="chooseResume(item)">{{ item.category[`name_${getLang}`] }}</a></li>
-                            </ul>
-                        </div>
+                 
+                    <a v-for="(item, index) in data.workInformation" :key="index" style="margin-right:1%; margin-top:1%;" class="btn btn-success" href="javascript:void(0)" @click="chooseResume(item)">{{ item.category[`name_${getLang}`] }}</a>
 
-                    </div> -->
-                    <a style="margin-right:1%; margin-top:1%;" class="btn btn-success" href="#">ძიძა</a> 
-                    <a style="margin-right:1%; margin-top:1%;" class="btn btn-success" href="#">კონსულტანტი</a> 
-                    <a style="margin-right:1%; margin-top:1%;" class="btn btn-success" href="#">მცხობელი</a> 
                 </div>
 
                 <!-- resume-body -->

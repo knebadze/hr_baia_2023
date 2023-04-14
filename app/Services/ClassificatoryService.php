@@ -24,7 +24,6 @@ use App\Models\MaritalStatus;
 use App\Models\DrivingLicense;
 use App\Models\Language_level;
 use App\Models\Work_experience;
-use App\Models\Company_object_type;
 use App\Models\GeneralCharacteristic;
 use App\Models\RecommendationFromWhom;
 

@@ -17,7 +17,7 @@ class WorkInformationModelRepository
     {
         $user = User::where('id', $auth_id)->first();
         if (WorkInformation::where('candidate_id', $user->candidate->id)->exists()) {
-            $workInformation = WorkInformation::where('candidate_id', $user->candidate->id)->with(['category', 'workSchedule','currency', 'noFamilyHasWorkExperience'])->get()->toArray();
+            $workInformation = WorkInformation::where('candidate_id', $user->candidate->id)->with(['category', 'workSchedule','currency'])->get()->toArray();
             $getWorkInformation =  Schema::getColumnListing('work_information');
             $getWorkInformation = array_map(function ($item) { return ""; }, array_flip($getWorkInformation));
         }else{
@@ -34,7 +34,7 @@ class WorkInformationModelRepository
 
         if (Candidate::where('user_id', $auth_id)->exists() && CandidateFamilyWorkSkill::where('candidate_id', $user->candidate->id)->exists()) {
 
-            $candidateFamilyWorkSkill = CandidateFamilyWorkSkill::table('candidate_family_work_skills')->where('candidate_id', $user->candidate->id)
+            $candidateFamilyWorkSkill = CandidateFamilyWorkSkill::where('candidate_id', $user->candidate->id)
                             ->join('skills', 'candidate_family_work_skills.skill_id', 'skills.id')->get();
             foreach ($candidateFamilyWorkSkill as $key => $value) {
                 $familyWorkedSelectedArr[] = $value->category_id;

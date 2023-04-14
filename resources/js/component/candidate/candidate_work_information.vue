@@ -74,8 +74,8 @@
                             </div>
                         </div>
                         <!-- <div v-if="m.getWorkInformation.category_id"> -->
-                        <div class="row" v-if=" m.getWorkInformation.category_id.id == 7 || m.getWorkInformation.category_id.id == 8 || m.getWorkInformation.category_id.id == 10">
-                            <div class="col-xl-4 col-lg-6 col-md-12" v-if="m.getWorkInformation.category_id.id != 10">
+                        <div class="row" v-if=" m.getWorkInformation.category_id.id == 1 || m.getWorkInformation.category_id.id == 2 || m.getWorkInformation.category_id.id == 4">
+                            <div class="col-xl-4 col-lg-6 col-md-12" v-if="m.getWorkInformation.category_id.id != 4">
                                 <div class="form-group">
 
                                     <div class="ls-inputicon-box">
@@ -110,7 +110,7 @@
                             </div>
                         </div>
                         <!-- </div> -->
-                        <div class="col-lg-12 col-md-12 mt-4" v-if="m.getWorkInformation.category_id.type == 1  ">
+                        <div class="col-lg-12 col-md-12 mt-4" >
                             <div class="text-left">
                                 <button type="submit" @click.prevent="addWorkInfo()"  class="site-button">{{ $t('lang.user_profile_page_work_button_save') }}</button>
                             </div>
@@ -119,143 +119,7 @@
                     </div>
                 </div>
             </div>
-            <div class="panel panel-default" v-if="m.getWorkInformation.category_id.type == 2  ||( m.workInformation[0] && m.workInformation[0].category_id > 13)">
-                    <div class="panel-heading wt-panel-heading p-a20">
-                        <h4 class="panel-tittle m-a0">{{ $t('სამუშაო გამოცდილე') }}</h4>
-                    </div>
-                    <div class="panel-body wt-panel-body p-a20 m-b30 ">
-                        <p class="text-danger">{{ $t('სავალდებულოა შეავსოთ არჩეული კატეგორიის შესაბამისი სამუშაო გამოცდილების შესახებ ინფორმაცია') }}</p>
-                        <hr>
-                        <div class="row">
-                            <div class=" col-md-12">
-                                <div class="form-group">
-                                    <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_work_exp_experience') }}</label>
-                                    <div class="ls-inputicon-box">
-                                        <multiselect v-model="noFamilyWorkExperienceModel.has_experience" :options="data.classificatory.yesNo" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false" @blur="v$.noFamilyWorkExperienceModel.has_experience.$touch">
-                                            <template slot="singleLabel" slot-scope="{ option }"></template>
-                                        </multiselect>
-                                        <span v-if="v$.noFamilyWorkExperienceModel.has_experience.required.$invalid && v$.noFamilyWorkExperienceModel.has_experience.$dirty" style='color:red'>* {{ v$.noFamilyWorkExperienceModel.has_experience.required.$message}}</span>
-                                     </div>
-                                </div>
-                            </div>
-                            <div class="row" v-if="showYesWorkExperience">
-                                <div class="col-xl-6 col-lg-6 col-md-12">
-                                    <div class="form-group">
-                                        <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_work_exp') }}</label>
-                                        <div class="ls-inputicon-box">
-                                            <multiselect v-model="noFamilyWorkExperienceModel.work_experience" :options="data.classificatory.workExperience" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false" @blur="v$.noFamilyWorkExperienceModel.work_experience.$touch">
-                                                <template slot="singleLabel" slot-scope="{ option }"></template>
-                                            </multiselect>
-                                            <span v-if="v$.noFamilyWorkExperienceModel.work_experience.required.$invalid && v$.noFamilyWorkExperienceModel.work_experience.$dirty" style='color:red'>* {{ v$.noFamilyWorkExperienceModel.work_experience.required.$message}}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div  class="col-xl-6 col-lg-6 col-md-12">
-                                    <div class="form-group">
-                                        <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_work_object') }}</label>
-                                        <div class="ls-inputicon-box">
-                                            <input class="form-control" v-model="noFamilyWorkExperienceModel[`object_${getLang}`]" type="text" placeholder="" @blur="v$.noFamilyWorkExperienceModel[`object_${getLang}`].$touch">
-                                            <i class="fs-input-icon fa fa-map-marker"></i>
-                                            <span v-if="v$.noFamilyWorkExperienceModel[`object_${getLang}`].required.$invalid && v$.noFamilyWorkExperienceModel[`object_${getLang}`].$dirty" style='color:red'>* {{ v$.noFamilyWorkExperienceModel[`object_${getLang}`].required.$message}}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row" v-if="showNoWorkExperience">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>სამუშაო გამოცდილების არ ქონის მიზეზი</label>
-                                        <div class="ls-inputicon-box">
-                                            <multiselect v-model="noFamilyWorkExperienceModel.no_reason" :options="data.classificatory.noExperienceReason" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
-                                                <template slot="singleLabel" slot-scope="{ option }"></template>
-                                            </multiselect>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>დამატაბითი ინფორმაცია</label>
-                                        <textarea class="form-control" rows="3" v-model="noFamilyWorkExperienceModel[`no_reason_info_${getLang}`]" :placeholder="$t('lang.user_profile_page_medical_please_info')"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <div v-if="showYesWorkExperience" class="col-lg-12 col-md-12">
-                                <div class="text-right ">
-                                    <button class="btn btn-success"
-                                    @click="addCandidateWorkExperience(noFamilyWorkExperienceModel)"
-                                    title="დამატება" data-bs-toggle="tooltip" data-bs-placement="top">{{ $t('lang.user_profile_page_work_button_add_info') }}
-                                        <span class="fa fa-plus"></span>
-                                    </button>
-                                </div>
-                            </div>
 
-                            <div v-if="m.getWorkInformation.no_family_has_work_information.length != 0" class="col-lg-12 col-md-12">
-
-                                <div class="panel-body wt-panel-body">
-                                    <div class="p-a20 table-responsive">
-                                        <table class="table twm-table table-striped table-borderless" v-if="m.getWorkInformation.no_family_has_work_information[0].has_experience.id == 1">
-                                            <thead>
-                                                <tr>
-                                                <th>N</th>
-                                                <th>{{ $t('lang.user_profile_page_work_exp') }}</th>
-                                                <!-- <th>{{ $t('lang.user_profile_page_work_position') }}</th> -->
-                                                <th>{{ $t('lang.user_profile_page_work_object') }}</th>
-                                                <th>{{ $t('lang.user_profile_page_work_actions') }}</th>
-                                                </tr>
-                                            </thead>
-
-                                            <tbody>
-                                                <tr v-for="(item, index) in m.getWorkInformation.no_family_has_work_information">
-                                                <td>{{ index + 1 }}</td>
-                                                <td>{{ (item.work_experience)?item.work_experience[`name_${getLang}`]:'' }}</td>
-                                                <!-- <td>{{ item[`position_${getLang}`] }}</td> -->
-                                                <td>{{ item[`object_${getLang}`] }}</td>
-                                                <td>
-                                                    <button @click="removeNWFE(index)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
-                                                        <i class="fa fa-trash-alt"></i>
-                                                    </button>
-                                                </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <table class="table twm-table table-striped table-borderless" v-if="m.getWorkInformation.no_family_has_work_information[0].has_experience.id == 2">
-                                            <thead>
-                                                <tr>
-
-                                                <th>არ ქონის მიზეზი</th>
-                                                <th>დამატებითი ინფორმაცია</th>
-                                                <th>action</th>
-                                                </tr>
-                                            </thead>
-
-                                            <tbody>
-                                                <tr v-for="(item, index) in m.getWorkInformation.no_family_has_work_information">
-                                                    <td>{{ item.no_reason[`name_${getLang}`] }}</td>
-                                                    <td>{{(item[`no_reason_info_${getLang}`])?item[`no_reason_info_${getLang}`].substr(0, 30)+ '...':''  }}</td>
-                                                <td>
-                                                    <button @click="removeNWFE(index)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
-                                                        <i class="fa fa-pen"></i>
-                                                    </button>
-                                                    <!-- <button @click="removeRow('experience',index)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
-                                                        <i class="fa fa-trash-alt"></i>
-                                                    </button> -->
-
-                                                </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-12 col-md-12 mt-4">
-                                <div class="text-left">
-                                    <button type="submit" @click.prevent="addWorkInfo()"  class="site-button">{{ $t('lang.user_profile_page_work_button_save') }}</button>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
 
 
 
@@ -297,18 +161,13 @@
                                     </button>
                                 </td>
                               </tr>
-
-
-
-
-
                             </tbody>
                           </table>
                         </div>
                     </div>
                 </div>
             <!--ოჯახში მუშაობის გამოცდიელბა  -->
-            <div class="panel panel-default" v-if="m.getWorkInformation.category_id.type == 1  || (m.workInformation[0] &&  m.workInformation[0].category_id < 14)">
+            <div class="panel panel-default" v-if="m.getWorkInformation.category_id || m.workInformation.length > 0">
                 <div class="panel-heading wt-panel-heading p-a20">
                     <!-- <div class="d-flex justify-content-between"> -->
                         <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_family_work_experience_title') }}</h4>
@@ -324,12 +183,11 @@
                             <div class="form-group">
                                 <label>{{ $t('lang.user_profile_page_family_work_experience_answer') }}</label>
                                 <div class="ls-inputicon-box">
-                                    <multiselect v-model="m.familyWorkExperience.has_experience" :options="data.classificatory.yesNo" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false" @blur="v$.m.familyWorkExperience.has_experience.$touch">
+
+                                    <multiselect v-model="m.familyWorkExperience.has_experience" :options="data.classificatory.yesNo" :searchable="false" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :allow-empty="false" >
                                         <template slot="singleLabel" slot-scope="{ option }"></template>
                                     </multiselect>
-                                    <span v-if="v$.m.familyWorkExperience.has_experience.required.$invalid && v$.m.familyWorkExperience.has_experience.$dirty" style='color:red'>* {{ v$.m.familyWorkExperience.has_experience.required.$message}}</span>
-                                    <!-- <i class="fs-input-icon fa fa-star"></i> -->
-                                    <!-- <span v-if="v$.noFamilyWorkExperienceModel.has_experience.required.$invalid && v$.noFamilyWorkExperienceModel.has_experience.$dirty" style='color:red'>* {{ v$.noFamilyWorkExperienceModel.has_experience.required.$message}}</span> -->
+                                    <!-- <span v-if="v$.m.familyWorkExperience.has_experience.required.$invalid && v$.m.familyWorkExperience.has_experience.$dirty" style='color:red'>* {{ v$.m.familyWorkExperience.has_experience.required.$message}}</span> -->
                                 </div>
                             </div>
                         </div>
@@ -353,7 +211,7 @@
                                     <div class="form-group">
                                         <label>{{ $t('lang.user_profile_page_family_work_staji') }}</label>
                                         <div class="ls-inputicon-box">
-                                            <multiselect v-model="m.familyWorkExperience.work_experience" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one" :options="data.classificatory.workExperience" :searchable="false" :allow-empty="false" @blur="v$.m.familyWorkExperience.work_experience.$touch">
+                                            <multiselect v-model="m.familyWorkExperience.work_experience" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one" :options="data.classificatory.workExperiences" :searchable="false" :allow-empty="false" @blur="v$.m.familyWorkExperience.work_experience.$touch">
                                                 <template slot="singleLabel" slot-scope="{ option }"></template>
                                             </multiselect>
                                             <span v-if="v$.m.familyWorkExperience.work_experience.required.$invalid && v$.m.familyWorkExperience.work_experience.$dirty" style='color:red'>* {{ v$.m.familyWorkExperience.work_experience.required.$message}}</span>
@@ -364,7 +222,7 @@
                                     <div class="form-group">
                                         <label>{{ $t('lang.user_profile_page_family_work_staji_time') }}</label>
                                         <div class="ls-inputicon-box">
-                                            <multiselect v-model="m.familyWorkExperience.longest" :options="data.classificatory.workExperience" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false" @blur="v$.m.familyWorkExperience.longest.$touch">
+                                            <multiselect v-model="m.familyWorkExperience.longest" :options="data.classificatory.workExperiences" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false" @blur="v$.m.familyWorkExperience.longest.$touch">
                                                 <template slot="singleLabel" slot-scope="{ option }"></template>
                                             </multiselect>
                                             <span v-if="v$.m.familyWorkExperience.longest.required.$invalid && v$.m.familyWorkExperience.longest.$dirty" style='color:red'>* {{ v$.m.familyWorkExperience.longest.required.$message}}</span>
@@ -377,10 +235,10 @@
                                     <div class="form-group">
                                         <label>{{ $t('lang.user_profile_page_family_work_in_family') }}</label>
                                         <div class="ls-inputicon-box">
-                                            <!-- <multiselect v-model="m.familyWorkedSelected"  :options="data.classificatory.familyCategory" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name_ka" track-by="name_ka" :preselect-first="false" @blur="v$.m.familyWorkedSelected.$touch">
+                                            <multiselect v-model="m.familyWorkedSelected"  :options="data.classificatory.category" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name_ka" track-by="name_ka" :preselect-first="false" @blur="v$.m.familyWorkedSelected.$touch">
                                                 <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
-                                            </multiselect> -->
-                                            <!-- <span v-if="v$.m.familyWorkedSelected.required.$invalid && v$.m.familyWorkedSelected.$dirty" style='color:red'>* {{ v$.m.familyWorkedSelected.required.$message}}</span> -->
+                                            </multiselect>
+                                            <span v-if="v$.m.familyWorkedSelected.required.$invalid && v$.m.familyWorkedSelected.$dirty" style='color:red'>* {{ v$.m.familyWorkedSelected.required.$message}}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -660,20 +518,6 @@ export default {
                 'no_reason_info_en':'',
                 'no_reason_info_ru':'',
             },
-            noFamilyWorkExperienceModel: {
-                'has_experience':'',
-                'work_experience':'',
-                // 'position_ka':'',
-                // 'position_en':'',
-                // 'position_ru':'',
-                'object_ka':'',
-                'object_en':'',
-                'object_ru':'',
-                'no_reason':'',
-                'no_reason_info_ka':'',
-                'no_reason_info_en':'',
-                'no_reason_info_ru':'',
-            },
             workInformationSchedule: [],
             recommendationFile:null,
             setSkill:[],
@@ -731,17 +575,7 @@ export default {
 
             workInformationSchedule:{required:helpers.withMessage('სამუშაო გრაფიკის არჩევა სავალდებულოა', required )},
 
-            noFamilyWorkExperienceModel:{
-                has_experience:{},
-                work_experience:{},
-                object_ka:{},
-                object_en:{},
-                object_ru:{},
-                no_reason:{},
-                no_reason_info_ka:{},
-                no_reason_info_en:{},
-                no_reason_info_ru:{},
-            },
+
 
 
             candidateRecommendationModel:{
@@ -825,30 +659,7 @@ export default {
             }
         }
 
-        if (this.m.getWorkInformation.category_id.type == 2) {
-            validations.noFamilyWorkExperienceModel.has_experience = {required:helpers.withMessage('არჩევა სავალდებულოა', required )}
-            if (this.noFamilyWorkExperienceModel.has_experience.id == 1) {
-                validations.noFamilyWorkExperienceModel.work_experience = {required:helpers.withMessage('არჩევა სავალდებულოა', required )}
-                if (this.getLang == 'ka') {
-                    validations.noFamilyWorkExperienceModel.object_ka = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
-                }else if(this.getLang == 'en'){
-                    validations.noFamilyWorkExperienceModel.object_ka = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
-                }else if(this.getLang == 'ru'){
-                    validations.noFamilyWorkExperienceModel.object_ka = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
-                }
-            }
-            else if(this.noFamilyWorkExperienceModel.has_experience.id == 2){
-                // if (!this.noFamilyWorkExperienceModel.no_reason) {
-                //     if (this.getLang == 'ka') {
-                //         validations.noFamilyWorkExperienceModel.no_reason_info_ka = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
-                //     }else if(this.getLang == 'en'){
-                //         validations.noFamilyWorkExperienceModel.no_reason_info_ka = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
-                //     }else if(this.getLang == 'ru'){
-                //         validations.noFamilyWorkExperienceModel.no_reason_info_ka = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
-                //     }
-                // }
-            }
-        }
+
         return validations
     },
     created(){
@@ -856,7 +667,7 @@ export default {
         console.log('data', this.data);
 
         this.m = { ...this.data.model };
-        this.m.getWorkInformation['no_family_has_work_information'] = []
+
         // if (this.m.familyWorkExperience.experience != null) {
         //     var That = this;
         //     this.m.familyWorkExperience.experience = _.find(this.yesNo, function(o) { return o.id == That.m.familyWorkExperience.experience; });
@@ -934,7 +745,6 @@ export default {
                 data: {
                     'getWorkInformation': this.m.getWorkInformation,
                     'workInformationSchedule': this.workInformationSchedule,
-                    'noFamilyWorkExperience': this.m.getWorkInformation.no_family_has_work_information,
                     'lang':this.getLang
                 },
 
@@ -1152,16 +962,16 @@ export default {
             };
         },
 
-        addCandidateWorkExperience(workExperience){
-            // var workExperienceFind = _.find(this.data.classificatory.workExperiences, function(o) { return o.id == workExperience.work_experience_id; });
-            // this.m.getWorkInformation['no_family_has_work_information'] = []
-            this.m.getWorkInformation.no_family_has_work_information.push(JSON.parse(JSON.stringify(workExperience)))
+        // addCandidateWorkExperience(workExperience){
+        //     // var workExperienceFind = _.find(this.data.classificatory.workExperiences, function(o) { return o.id == workExperience.work_experience_id; });
+        //     // this.m.getWorkInformation['no_family_has_work_information'] = []
+        //     this.m.getWorkInformation.no_family_has_work_information.push(JSON.parse(JSON.stringify(workExperience)))
 
-            this.noFamilyWorkExperienceModel['object_ka'] = ''
-            this.noFamilyWorkExperienceModel['object_en'] = ''
-            this.noFamilyWorkExperienceModel['object_ru'] = ''
-            this.noFamilyWorkExperienceModel['work_experience'] = ''
-        },
+        //     this.noFamilyWorkExperienceModel['object_ka'] = ''
+        //     this.noFamilyWorkExperienceModel['object_en'] = ''
+        //     this.noFamilyWorkExperienceModel['object_ru'] = ''
+        //     this.noFamilyWorkExperienceModel['work_experience'] = ''
+        // },
         removeNWFE( index){
             const removed = this.m.getWorkInformation.no_family_has_work_information.splice(index, 1);
 
@@ -1173,6 +983,7 @@ export default {
     },
     watch: {
         'm.familyWorkedSelected': function(newVal, oldVal){
+            console.log('newVal',newVal);
             var arr = [];
             if (this.m.familyWorkedSelected.length == 0) {
                 this.setSkill = []
@@ -1243,56 +1054,6 @@ export default {
             console.log('newVal', newVal);
             this.showAdditionalSchedule = _.find(newVal, function(o) { if(o.id == 9) return true; });
         },
-        'noFamilyWorkExperienceModel.has_experience.id': function(newVal, oldVa){
-            if (newVal == 2) {
-                this.showNoWorkExperience = true;
-            }
-
-            if(newVal == 1)this.showYesWorkExperience = true;
-
-            console.log('newValue', newVal);
-            // if (this.m.candidateWorkExperience.length != 0 && this.m.candidateWorkExperience[0].experience != newVal && newVal != '' && newVal != undefined) {
-            //     this.$swal({
-            //         title: 'თქვენ უკვე შეავსეთ ზოგადი სამუშაო ინფორმაცია თუ ამ ცვლილებას დაეთანხმებით ავტომატურად წაიშლება წინა შევსებული ინფორმაცია. <br><p>გსურთ გაგრძელება?</p>',
-            //         showDenyButton: true,
-            //         confirmButtonText: 'კი',
-            //         denyButtonText: `არა`,
-            //     }).then((result) => {
-            //         if (result.isConfirmed) {
-            //             let currentObj = this
-            //             axios.post('/remove_old_general_work_experience' ,{
-            //                 id: this.m.candidateWorkExperience[0].id
-            //             })
-            //             .then((response)=> {
-            //                 console.log('response.data', response.data);
-            //                 if (response.status == 200) {
-            //                     currentObj.m.candidateWorkExperience = [];
-            //                 }
-            //             })
-            //             .catch(function (error) {
-            //                 console.log(error);
-            //             });
-            //         } else if (result.isDenied) {
-            //             this.showYesWorkExperience = false;
-            //             this.noFamilyWorkExperienceModel.has_experience = '';
-            //         }
-            //     })
-            // }
-            // if(this.m.candidateWorkExperience.length != 0 && this.m.candidateWorkExperience[0].experience == 2 && newVal == 2){
-            //     this.showNoWorkExperience = false
-            //     this.noFamilyWorkExperienceModel.has_experience = '';
-            //     this.$swal({
-            //         title: '<p>თქვენ უკვე შეავსეთ ზოგადი სამუშაო ინფორმაცია</p>',
-            //         icon: 'info',
-            //         html:
-            //             'ცვლილების შესატანად გამოიყენეთ რედაქტირების ღილაკი',
-            //         showCloseButton: true,
-            //         showCancelButton: false,
-            //         focusConfirm: false,
-            //         // confirmButtonText: 'შესავსებად გადასვლა',
-            //     })
-            // }
-        }
 
         // 'm.familyWorkExperience.experience': function(newVal, oldVa){
         //     console.log('newVal', newVal);

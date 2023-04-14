@@ -2,7 +2,7 @@
     <div class="col-xl-9 col-lg-8 col-md-12 m-b30 employerPageBorder">
         <!--Filter Short By-->
         <div class="twm-right-section-panel site-bg-gray">
-            <mainInfo :data="m.user" :genderCLA="data.classificatory.gender"></mainInfo>
+            <mainInfo :data="data.basic.user" :genderCLA="data.classificatory.gender"></mainInfo>
             <div class="panel panel-default">
                 <div class="panel-heading wt-panel-heading p-a20">
                     <h4 class="panel-tittle m-a0">{{ $t('lang.employer_profile_page_personal_info') }}</h4>
@@ -10,7 +10,7 @@
                 </div>
                 <div class="panel-body wt-panel-body p-a20 m-b30 ">
                     <div class="row">
-                        <addressMap  @messageFromChild="childMessage"></addressMap>
+                        <!-- <addressMap  @messageFromChild="childMessage"></addressMap> -->
                         <div class="col-xl-6 col-lg-6 col-md-12">
                             <div class="form-group">
                                 <label><span class="text-danger">* </span>{{ $t('lang.employer_profile_page_address') }}</label>
@@ -93,8 +93,7 @@ export default {
         return validations
     },
     created(){
-        this.m = { ...this.data.employer, ...this.data.basic };
-        console.log('this.m', this.m);
+        this.m = { ...this.data.model};
     },
     computed:{
         getLang(){

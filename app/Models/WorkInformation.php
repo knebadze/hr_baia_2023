@@ -36,8 +36,5 @@ class WorkInformation extends Model
         return $this->belongsToMany(WorkSchedule::class, 'work_information_work_schedules');
     }
 
-    public function noFamilyHasWorkExperience()
-    {
-        return $this->belongsToMany(Work_experience::class, 'no_family_work_experiences')->withPivot('experience', 'object_ka', 'object_en', 'object_ru');
-    }
+  
 }

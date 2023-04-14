@@ -11,7 +11,7 @@ import languageSwitcher from './component/languageSwitcher.vue'
 import test from './component/test.vue'
 
 // import App from './App.vue'
-import howWork from './component/how_work.vue'
+//_________________________USER COMPONENT_________________________
 //user
 import uploadAvatar from './component/user/upload_avatar.vue'
 import changePassword from './component/user/change_password.vue'
@@ -30,6 +30,9 @@ import myVacancy from './component/employer/my_vacancy.vue'
 
 //modal
 import modalManager from './component/modal/modalManager.vue'
+//_______________________ADMIN COMPONENT_____________________
+import hrTable from './component/admin/hr/hr_table.vue'
+//_______________________VUE ITEM____________________
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
@@ -48,6 +51,7 @@ const app = createApp({})
 
 app.component('language-switcher', languageSwitcher)
 app.component('test-vue', test)
+//___________________USER COMPONENT_____________________
 //user
 app.component('upload-avatar', uploadAvatar)
 app.component('change-password', changePassword)
@@ -64,10 +68,13 @@ app.component('post-job', postJob)
 app.component('job-list', jobList)
 app.component('my-vacancy', myVacancy)
 
-
-
 //modal
 app.component('modal-manager', modalManager);
+
+//____________________ADMIN COMPONENT_____________
+app.component('hr-table', hrTable)
+
+
 app.component('multiselect', Multiselect)
 
 app.use(i18nVue

@@ -182,6 +182,8 @@ class CandidateRepository
 
     public function saveFile($data)
     {
+        // print_r($data['candidate_id']);
+        // exit;
         $upload_path = public_path('user-documentation/');
         $candidateNoticeDelete = CandidateNotice::where('candidate_id', $data['candidate_id'])->select('file')->get();
         foreach ($candidateNoticeDelete as $key => $value) {

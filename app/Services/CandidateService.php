@@ -136,7 +136,7 @@ class CandidateService
         return $result;
     }
     public function candidateFile($data){
-        // print_r('hello');
+        // print_r($data);
         // exit;
         $result = $this->candidateRepository->saveFile($data);
         return $result;

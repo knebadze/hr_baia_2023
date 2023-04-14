@@ -28,20 +28,6 @@ class WorkInformationService
                 $data['getWorkInformation']['additional_schedule_en'] = GoogleTranslate::trans($data['getWorkInformation']['additional_schedule_ka'], 'en');
                 $data['getWorkInformation']['additional_schedule_ru']  = GoogleTranslate::trans($data['getWorkInformation']['additional_schedule_ka'], 'ru');
             }
-            if (count($data['noFamilyWorkExperience']) > 0 ) {
-                foreach ($data['noFamilyWorkExperience'] as $key => $value) {
-
-
-                    if ($value['object_ka']) {
-                        $data['noFamilyWorkExperience'][$key]['object_en'] = GoogleTranslate::trans($value['object_ka'], 'en');
-                        $data['noFamilyWorkExperience'][$key]['object_ru']  = GoogleTranslate::trans($value['object_ka'], 'ru');
-                    }
-                    if ($value['no_reason_info_ka']) {
-                        $data['noFamilyWorkExperience'][$key]['no_reason_info_en'] = GoogleTranslate::trans($value['no_reason_info_ka'], 'en');
-                        $data['noFamilyWorkExperience'][$key]['no_reason_info_ru']  = GoogleTranslate::trans($value['no_reason_info_ka'], 'ru');
-                    }
-                }
-            }
 
 
         }elseif ($lang == 'en') {
@@ -50,19 +36,7 @@ class WorkInformationService
                 $data['getWorkInformation']['additional_schedule_ru']  = GoogleTranslate::trans($data['getWorkInformation']['additional_schedule_en'], 'ru');
             }
 
-            if (count($data['noFamilyWorkExperience']) > 0 ) {
-                foreach ($data['noFamilyWorkExperience'] as $key => $value) {
-                    if ($value['object_en']) {
-                        $data['noFamilyWorkExperience'][$key]['object_ka'] = GoogleTranslate::trans($value['object_en'], 'ka');
-                        $data['noFamilyWorkExperience'][$key]['object_ru']  = GoogleTranslate::trans($value['object_en'], 'ru');
-                    }
-                    if ($value['no_reason_info_en']) {
-                        $data['noFamilyWorkExperience'][$key]['no_reason_info_ka'] = GoogleTranslate::trans($value['no_reason_info_en'], 'ka');
-                        $data['noFamilyWorkExperience'][$key]['no_reason_info_ru']  = GoogleTranslate::trans($value['no_reason_info_en'], 'ru');
-                    }
-                }
 
-            }
 
 
 
@@ -70,19 +44,6 @@ class WorkInformationService
             if ($data['getWorkInformation']['additional_schedule_ru']) {
                 $data['getWorkInformation']['additional_schedule_ka'] = GoogleTranslate::trans($data['getWorkInformation']['additional_schedule_ru'], 'ka');
                 $data['getWorkInformation']['additional_schedule_en']  = GoogleTranslate::trans($data['getWorkInformation']['additional_schedule_ru'], 'en');
-            }
-            if (count($data['noFamilyWorkExperience']) > 0 ) {
-                foreach ($data['noFamilyWorkExperience'] as $key => $value) {
-
-                    if ($value['object_ru']) {
-                        $data['noFamilyWorkExperience'][$key]['object_en'] = GoogleTranslate::trans($value['object_ru'], 'en');
-                        $data['noFamilyWorkExperience'][$key]['object_ka']  = GoogleTranslate::trans($value['object_ru'], 'ka');
-                    }
-                    if ($value['no_reason_info_ru']) {
-                        $data['noFamilyWorkExperience'][$key]['no_reason_info_en'] = GoogleTranslate::trans($value['no_reason_info_ru'], 'en');
-                        $data['noFamilyWorkExperience'][$key]['no_reason_info_ka']  = GoogleTranslate::trans($value['no_reason_info_ru'], 'ka');
-                    }
-                }
             }
 
 

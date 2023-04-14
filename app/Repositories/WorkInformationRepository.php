@@ -5,12 +5,9 @@ namespace App\Repositories;
 use Exception;
 use App\Models\User;
 use App\Models\WorkInformation;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-use App\Models\RecommendationFromWhom;
 use App\Models\CandidateRecommendation;
-use App\Models\NoFamilyWorkExperience;
 
 class WorkInformationRepository
 {
@@ -34,42 +31,10 @@ class WorkInformationRepository
         }, []);
         $workInformation->workSchedule()->sync( $selectSchedule );
 
-        if (count($data['noFamilyWorkExperience']) > 0 ) {
-            if ($data['noFamilyWorkExperience'][0]['has_experience']['id'] == 1) {
-                $this->noFamilyHasWorkExperience($data['noFamilyWorkExperience'], $workInformation->id);
-            }else{
-                $this->noFamilyHasNotWorkExperience($data['noFamilyWorkExperience'][0], $workInformation->id);
-            }
-
-        }
         return $data;
     }
 
-    public function noFamilyHasWorkExperience($data, $id)
-    {
-        foreach ($data as $key => $value) {
-            $noFamilyWorkExperience = new NoFamilyWorkExperience();
-            $noFamilyWorkExperience->work_information_id = $id;
-            $noFamilyWorkExperience->experience	= $value['has_experience']['id'];
-            $noFamilyWorkExperience->work_experience_id = $value['work_experience']['id'];
-            $noFamilyWorkExperience->object_ka = $value['object_ka'];
-            $noFamilyWorkExperience->object_en = $value['object_en'];
-            $noFamilyWorkExperience->object_ru = $value['object_ru'];
-            $noFamilyWorkExperience->save();
-        }
-    }
 
-    public function noFamilyHasNotWorkExperience($data, $id)
-    {
-            $noFamilyWorkExperience = new NoFamilyWorkExperience();
-            $noFamilyWorkExperience->work_information_id = $id;
-            $noFamilyWorkExperience->experience	= $data['has_experience']['id'];
-            $noFamilyWorkExperience->no_reason_id = $data['no_reason']['id'];
-            $noFamilyWorkExperience->no_reason_info_ka = $data['no_reason_info_ka'];
-            $noFamilyWorkExperience->no_reason_info_en = $data['no_reason_info_en'];
-            $noFamilyWorkExperience->no_reason_info_en = $data['no_reason_info_en'];
-            $noFamilyWorkExperience->save();
-    }
     public function update($workInformation, $data)
     {
 

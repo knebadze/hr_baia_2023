@@ -958,6 +958,7 @@ export default {
             })
         },
         uploadNotice(){
+            console.log('this.candidateID', this.candidateID);
             let currentObj = this;
             const config = {
                 headers: {
