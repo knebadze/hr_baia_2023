@@ -123,7 +123,13 @@ class Candidate extends Model
 
     public function workInformation()
     {
-        return $this->belongsToMany(Category::class,'work_information');
+        return $this->belongsToMany(Category::class,'work_information')->withPivot('payment','currency_id');
+    }
+
+    // This is the scope we added
+    public function scopeFilter($query, $filters)
+    {
+        return $filters->apply($query);
     }
 
     // public function familyWorkSkillCategory()

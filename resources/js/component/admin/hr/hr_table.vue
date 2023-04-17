@@ -23,20 +23,24 @@
             <table class="table table-hover text-nowrap">
             <thead>
                 <tr>
-                <th>ID</th>
-                <th>User</th>
-                <th>Date</th>
-                <th>Status</th>
-                <th>Reason</th>
+                <th>N</th>
+                <th>სახელი გვარი</th>
+                <th>კორპ. ნომერი</th>
+                <th>შიდა ნომერი</th>
+                <th>საკ. ნომერი</th>
+                <th>სტატუსი</th>
+                <th>ნახვა/რედაქტირება</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                <td>183</td>
-                <td>John Doe</td>
-                <td>11-7-2014</td>
-                <td><span class="tag tag-success">Approved</span></td>
-                <td>Bacon ipsum dolor </td>
+                <tr v-for="(item, index) in data" :key="index">
+                <td>{{ index + 1 }}</td>
+                <td>{{ item.name_ka }}</td>
+                <td>{{ item.number }}</td>
+                <td>{{ item.hr.inside_number }}</td>
+                <td>{{ item.hr.mobile }}</td>
+                <td><Switch  v-model:checked="item.switch" label="" @click.self="isActiveUpdate(item)"/></td>
+                <td><button class="btn btn-info" @click="openViewModal(item)"><i class="fa fa-eye"></i> + <i class="fa fa-pen"></i></button></td>
                 </tr>
 
 
@@ -48,26 +52,86 @@
     </div>
     <!-- /.card -->
     <add_hr :visible="showAddModal" ></add_hr>
+    <view_and_update :visible="showViewModal" :data="viewData"></view_and_update>
 </template>
 <script>
 import add_hr from './modal/add_hr.vue';
+import Switch from '../../inc/Switch.vue'
+import view_and_update from './modal/view_and_update.vue';
+import _ from 'lodash';
 export default {
     components:{
-        add_hr
+        add_hr,
+        Switch,
+        view_and_update
     },
     props:{
-
+        data:Object
     },
     data() {
         return {
-            showAddModal:false
+            showAddModal:false,
+            showViewModal:false,
+            viewData:{},
+            hr:null
         }
+    },
+    created(){
+        this.hr = {...this.data}
+        _.forEach(this.hr, function(value) {
+            if (value.is_active == 1) {
+                value['switch'] = true
+            }else{
+                value['switch'] = false
+            }
+        });
+        console.log('this.hr', this.hr);
     },
     methods: {
         openAddModal(){
             this.showAddModal = !this.showAddModal
+        },
+        openViewModal(data){
+            this.viewData = data
+            this.showViewModal = !this.showViewModal
+        },
+        isActiveUpdate(item){
+            console.log('item', item);
+            let currentObj = this;
+            // console.log('currentObj',currentObj);
+            axios({
+                method: "post",
+                url: "/hr_is_active_update",
+                data: {'id': item.id, 'hr_id':item.hr.id, 'is_active': (item.is_active == 1)?0:1},
+
+            })
+            .then(function (response) {
+                // console.log('this.noticeFile',currentObj);
+                // handle success
+                console.log('response.data', response.data);
+                if (response.status == 200) {
+                    // currentObj.candidate_id = response.data.data;
+                    toast.success(response.data, {
+                        theme: 'colored',
+                        autoClose: 1000,
+                    });
+                    // alert()
+
+                }
+
+
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
         }
     },
+    watch:{
+        'item.switch': function (newVal, oldVal) {
+            console.log('newVal', newVal);
+        }
+    }
 }
 </script>
 <style lang="">

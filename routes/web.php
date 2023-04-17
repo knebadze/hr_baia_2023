@@ -27,6 +27,7 @@ use App\Http\Controllers\Employer\VacancyController;
 use App\Http\Controllers\User\UserProfileController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Company\CompanyInfoController;
+use App\Http\Controllers\Admin\AdminCandidateController;
 use App\Http\Controllers\Employer\EmployerInfoController;
 use App\Http\Controllers\Candidate\WorkInformationController;
 
@@ -88,6 +89,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
         Route::get('/admin', [AdminController::class, 'index'])->name('admin');
         Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
         Route::get('/admin/hr', [HrController::class, 'index'])->name('admin.hr');
+        Route::get('/admin/candidate', [AdminCandidateController::class, 'index'])->name('admin.candidate');
     });
 
     //admin Route
@@ -131,3 +133,8 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
 
     //_____________________ADMIN REQUEST_______________________________
 
+    Route::post('add_hr', [HrController::class, 'store']);
+    Route::post('hr_is_active_update', [HrController::class, 'isActiveUpdate']);
+    Route::post('update_hr', [HrController::class, 'update']);
+    Route::post('candidate_work_info_data', [AdminCandidateController::class, 'workInfoData']);
+    Route::post('candidate_family_work_info_data', [AdminCandidateController::class, 'familyWorkInfoData']);

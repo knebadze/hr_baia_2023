@@ -32,6 +32,8 @@ import myVacancy from './component/employer/my_vacancy.vue'
 import modalManager from './component/modal/modalManager.vue'
 //_______________________ADMIN COMPONENT_____________________
 import hrTable from './component/admin/hr/hr_table.vue'
+import candidateTable from './component/admin/candidate/candidate_table.vue'
+
 //_______________________VUE ITEM____________________
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
@@ -43,6 +45,8 @@ import Multiselect from 'vue-multiselect'
 // import 'vue-multiselect/dist/vue3-multiselect.css'
 
 import withUUID from "vue-uuid";
+
+//AG GRID
 
 
 const app = createApp({})
@@ -73,6 +77,7 @@ app.component('modal-manager', modalManager);
 
 //____________________ADMIN COMPONENT_____________
 app.component('hr-table', hrTable)
+app.component('candidate-table', candidateTable)
 
 
 app.component('multiselect', Multiselect)

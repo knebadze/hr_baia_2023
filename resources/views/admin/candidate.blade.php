@@ -5,7 +5,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">HR</h1>
+          <h1 class="m-0">კანდიდატები</h1>
         </div><!-- /.col -->
 
       </div><!-- /.row -->
@@ -16,7 +16,7 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-            <hr-table :data='@json($hr)'></hr-table>
+            <candidate-table :data='@json($data)'></candidate-table>
 
         </div>
     </section>
