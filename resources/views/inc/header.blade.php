@@ -65,7 +65,13 @@
                                     {{ __('lang.menu_log_in') }}
                                 </a>
                             </div>
+                            <div class="twm-nav-btn-right">
+                                <a href="{{ route('post.job', App()->getLocale() ) }}" class="twm-nav-post-a-job">
+                                    <i class="feather-briefcase"></i> {{ __('lang.menu_add_vacancy') }}
+                                </a>
+                            </div>
                         @else
+
                         @if (Auth::user()->user_type_id == 2 || Auth::user()->user_type_id == 3)
                             <div class="twm-nav-btn-right">
                                 <a href="{{ route('post.job', App()->getLocale() ) }}" class="twm-nav-post-a-job">

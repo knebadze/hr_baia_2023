@@ -24,11 +24,11 @@ class PostJobController extends Controller
     {
         $auth = Auth::user();
         // dd($auth_id);
-        $address = null;
-        if ($auth->user_type_id == 2) {
-            $employer = Employer::where('user_id', $auth->id)->first();
-            $address = (app()->getLocale() == 'ka')?substr($employer->address_ka, 0, strrpos($employer->address_ka, ",")).' '.$employer->street_ka:((app()->getLocale() == 'en')?substr($employer->address_en, 0, strrpos($employer->address_en, ",")).' '.$employer->street_en:substr($employer->address_ru, 0, strrpos($employer->address_ru, ",")).' '.$employer->street_ru);
-        }
+        // $address = null;
+        // if ($auth->user_type_id == 2) {
+        //     $employer = Employer::where('user_id', $auth->id)->first();
+        //     $address = (app()->getLocale() == 'ka')?substr($employer->address_ka, 0, strrpos($employer->address_ka, ",")).' '.$employer->street_ka:((app()->getLocale() == 'en')?substr($employer->address_en, 0, strrpos($employer->address_en, ",")).' '.$employer->street_en:substr($employer->address_ru, 0, strrpos($employer->address_ru, ",")).' '.$employer->street_ru);
+        // }
         // else{
         //     $company = Company::where('user_id', $auth->id)->first();
         //     $address = (app()->getLocale() == 'ka')?substr($company->address_ka, 0, strrpos($company->address_ka, ",")).' '.$company->street_ka:((app()->getLocale() == 'en')?substr($company->address_en, 0, strrpos($company->address_en, ",")).' '.$company->street_en:substr($company->address_ru, 0, strrpos($company->address_ru, ",")).' '.$company->street_ru);
@@ -54,7 +54,7 @@ class PostJobController extends Controller
                 'demand' => $demand
             ],
             'classificator' => [
-                'fullAddress' => $address,
+                // 'fullAddress' => $address,
                 'category' => $category,
                 'currency' => $currency,
                 'workSchedule' => $workSchedule,
@@ -65,6 +65,6 @@ class PostJobController extends Controller
                 'languageLevels' => $languageLevels,
             ]
         ];
-        return view('user.post_job', compact('data'));
+        return view('post_job', compact('data'));
     }
 }

@@ -18,7 +18,7 @@ class UserTypeSeeder extends Seeder
         DB::table('user_types')->delete();
         $role = array(
             array("name"=>"Candidate"),
-            array("name"=>"Employer"),
+            // array("name"=>"Employer"),
             array("name"=>"Personal"),
             array("name"=>"Unknown"),
         );

@@ -125,7 +125,7 @@
                                 <form method="POST" action="{{ route('register' ,app()->getLocale()) }}">
                                     @csrf
                                 <div class="twm-tabs-style-2">
-                                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    {{-- <ul class="nav nav-tabs" id="myTab" role="tablist">
 
                                         <!--Signup Candidate-->
                                         <li class="nav-item" role="presentation">
@@ -147,13 +147,13 @@
                                         <li class="nav-item" role="presentation">
                                             <button class="nav-link" id="companyEmployer"   type="button"><i class="fas fa-building"></i>{{ __('lang.modal_registration_company') }}</button>
                                         </li>
-                                    </ul>
-                                    <input type="text" name="user_type_id" value="{{ old('user_type_id') }}" class="form-control @error('user_type_id') is-invalid @enderror" id="user_type_id" hidden>
+                                    </ul> --}}
+                                    {{-- <input type="text" name="user_type_id" value="{{ old('user_type_id') }}" class="form-control @error('user_type_id') is-invalid @enderror" id="user_type_id" hidden>
                                     @error('user_type_id')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                    @enderror
+                                    @enderror --}}
                                     <div class="tab-content" id="myTabContent">
                                     <!--Signup Candidate Content-->
                                     <div class="tab-pane fade show active" id="sign-up">
