@@ -45,7 +45,7 @@ return new class extends Migration
             $table->boolean('work_additional_hours')->default(0);
             $table->timestamps();
             $table->foreign('author_id')
-            ->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            ->references('id')->on('employers')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

@@ -15,11 +15,10 @@ return new class extends Migration
     {
         Schema::create('employers', function (Blueprint $table) {
             $table->id();
-            // $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->string('name_ka')->nullable();
             $table->string('name_en')->nullable();
             $table->string('name_ru')->nullable();
-            $table->string('email');
+            $table->string('email')->nullable();
             $table->string('number')->nullable();
             $table->string('address_ka')->nullable();
             $table->string('street_ka')->nullable();

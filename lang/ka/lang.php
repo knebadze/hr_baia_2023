@@ -77,7 +77,7 @@ return [
     'menu_log_in' => 'ავტორიაზაცია',
     // ----------------------------------------------------------------------------------------------------
     // Welcome Lang Page
-    'welcome_leftside_bar_one' => 'ჩვენათნ', 
+    'welcome_leftside_bar_one' => 'ჩვენათნ',
     'welcome_leftside_bar_two' => 'რეალური სამსახურია',
 
     'welcome_leftside_bar_firstword_one' => 'სამსახური აქ',
@@ -281,7 +281,7 @@ return [
     'about_us_page_description' => 'თბილისის საოჯახო პერსონალის საკადრო ცენტრი ,,ბაია“   გთავაზობთ პერსონალის ოპერატიულ და პროფესიონალურ დონეზე შერჩევას, როგორც საოჯახო პერსონალის (ძიძების, გუვერნანტების, ოჯახში დამხმარეების, მოხუცისა თუ ავადმყოფის მომვლელების, პერსონალური მძღოლების, საკარმიდამო ნაკვეთშიოჯახური წყვილების) სახით,  ასევე სასტუმრო/რესტორნებისა და მაღაზიების ქსელისათვის მენეჯერების,ადმინისტრატორების, ჭურჭლის მრეცხავებისა თუ დამლაგებლების, მოლარე-ოპერატორების,მზარეულებისა და მრავალი სხვა პროფილით  როგორც საქართველოში ასევე საზღვარგარეთ.',
 
     'about_us_page_working_proccess' => 'სამუშაო პროცესი',
-    'about_us_page_working_how_does_it_work' => 'როგორ მუშაობს', 
+    'about_us_page_working_how_does_it_work' => 'როგორ მუშაობს',
 
         'about_us_page_card_register_user' => 'დაარეგისტრირე შენი ექაუნთი',
             'about_us_page_card_register_user_description' => 'თქვენ უნდა შექმნათ ექაუნთი, რომ იპოვოთ საუკეთესო და სასურველი სამუშაო.',
@@ -480,15 +480,15 @@ return [
 
     // Medical information Block Lang
     'user_profile_page_medical_info' => 'სამედიცინო ინფორმაცია',
-    'user_profile_page_medical_alergy' => 'რაზე გაქვთ ალერგია', 
-    'user_profile_page_medical_operation' => 'ოპერაცია ან ქრონიკული დაავადება', 
-    'user_profile_page_medical_please_info' => 'გთხოვთ მოგვაწოდოთ ინფორმაცია მნიშვნელოვანი ოპერაციების და ქრონიკული დაავადებების შესახებ ასეთის არსებობის შემთხვევაში.',  
+    'user_profile_page_medical_alergy' => 'რაზე გაქვთ ალერგია',
+    'user_profile_page_medical_operation' => 'ოპერაცია ან ქრონიკული დაავადება',
+    'user_profile_page_medical_please_info' => 'გთხოვთ მოგვაწოდოთ ინფორმაცია მნიშვნელოვანი ოპერაციების და ქრონიკული დაავადებების შესახებ ასეთის არსებობის შემთხვევაში.',
 
     // Map
     'user_profile_page_address' => 'მისამართი',
         'user_profile_page_street' => 'ქუჩა',
     'user_profile_page_address_map' => 'მისამართის შესავსებათ უმჯობესია გამოიყენოთ რუკის საძიებო ველი',
-    'user_profile_page_address_map_2' => 'მოძებვნის შემდეგ შეგიძლიათ ამოძრაოთ მარკერი რათა დააზუსთოთ 
+    'user_profile_page_address_map_2' => 'მოძებვნის შემდეგ შეგიძლიათ ამოძრაოთ მარკერი რათა დააზუსთოთ
     თქვენი მისამართი',
 
     // Foreign Language Block Lang
@@ -577,7 +577,7 @@ return [
 
     // Employer Add Job Page
     'employer_add_job_general_info' => 'ძირითადი ინფორმაცია',
-    'employer_add_job_definitely_fields' => 'აუცილებლად შესაცვსები ველები',
+    'employer_add_job_definitely_fields' => 'აუცილებლად შესავსები ველები',
 
     'employer_add_job_vacancy_name' => 'ვაკანსიის სათაური',
         'employer_add_job_vacancy_name_placeholder' => 'მაგ: ვეძებ გამოცდილ ძიძას',
@@ -592,19 +592,19 @@ return [
     'employer_add_job_additional_offers' => 'დამატებითი შეთავაზება, პირობები ან მოთხოვნები',
         'employer_add_job_additional_offers_placeholder' => 'ულიმიტო სამგზავრო ბარათი, მძღოლი მოგიყვანთ და ა.შ',
     'employer_add_job_comment_for_agency' => 'კომენტარი სააგენტოსთვის',
-        'employer_add_job_comment_for_agency_placeholder' => 'მაგ: სპეციალური მოთხოვნები',   
+        'employer_add_job_comment_for_agency_placeholder' => 'მაგ: სპეციალური მოთხოვნები',
 
     'employer_add_job_requirements_for_employer' => 'მოთხოვნები დამსაქმებლის მიმართ',
     'employer_add_job_minimal_age' => 'მინიმალური ასაკი',
     'employer_add_job_max_age' => 'მაქსიმალური ასაკი',
-    'employer_add_job_minimal_edu' => 'განათლების დონე',   
+    'employer_add_job_minimal_edu' => 'განათლების დონე',
     'employer_add_job_preferred_foreign_language' => 'სასურველი უცხო ენა',
     'employer_add_job_foreign_language_level' => 'უცხო ენის ცოდნის დონე',
     'employer_add_job_general_character' => 'ზოგადი მახასიათებელი',
     'employer_add_job_duties' => 'მოვალეობები',
     'employer_add_job_additional_duties' => 'დამატებითი მოვალეობები',
     'employer_add_job_button_add' => 'დამატება',
-    'employer_add_job_select' => 'აირჩიეთ', 
+    'employer_add_job_select' => 'აირჩიეთ',
 
 
 ];

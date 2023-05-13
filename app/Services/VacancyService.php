@@ -23,6 +23,9 @@ class VacancyService{
     public function translate($lang, $data)
     {
         if ($lang == 'ka') {
+            $data['vacancy']['name_en'] = GoogleTranslate::trans($data['vacancy']['name_ka'], 'en');
+            $data['vacancy']['name_ru']  = GoogleTranslate::trans($data['vacancy']['name_ka'], 'ru');
+
             $data['vacancy']['address_en'] = GoogleTranslate::trans($data['vacancy']['address_ka'], 'en');
             $data['vacancy']['address_ru']  = GoogleTranslate::trans($data['vacancy']['address_ka'], 'ru');
 
@@ -46,6 +49,9 @@ class VacancyService{
 
 
         }elseif ($lang == 'en') {
+            $data['vacancy']['name_ka'] = GoogleTranslate::trans($data['vacancy']['name_en'], 'ka');
+            $data['vacancy']['name_ru']  = GoogleTranslate::trans($data['vacancy']['name_en'], 'ru');
+
             $data['vacancy']['address_ka'] = GoogleTranslate::trans($data['vacancy']['address_en'], 'ka');
             $data['vacancy']['address_ru']  = GoogleTranslate::trans($data['vacancy']['address_en'], 'ru');
 
@@ -72,6 +78,9 @@ class VacancyService{
 
 
         }elseif ($lang == 'ru') {
+            $data['vacancy']['name_ka'] = GoogleTranslate::trans($data['vacancy']['name_ru'], 'ka');
+            $data['vacancy']['name_en']  = GoogleTranslate::trans($data['vacancy']['name_ru'], 'en');
+
             $data['vacancy']['address_ka'] = GoogleTranslate::trans($data['vacancy']['address_ru'], 'ka');
             $data['vacancy']['address_en']  = GoogleTranslate::trans($data['vacancy']['address_ru'], 'en');
 
