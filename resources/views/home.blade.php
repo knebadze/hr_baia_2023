@@ -13,15 +13,15 @@
             <div class="wt-bnr-inr-entry">
                 <div class="banner-title-outer">
                     <div class="banner-title-name">
-                        @if (Auth::user()->user_type_id == 1)
+                        {{-- @if (Auth::user()->user_type_id == 1) --}}
                             <h2 class="wt-title">{{ __('lang.user_page_candidate_first_title') }}</h2>
-                        @elseif (Auth::user()->user_type_id == 2)
+                        {{-- @elseif (Auth::user()->user_type_id == 2)
                             <h2 class="wt-title">{{ __('lang.user_page_candidate_second_title') }}</h2>
                         @elseif (Auth::user()->user_type_id == 3)
                             <h2 class="wt-title">{{ __('lang.user_page_candidate_third_title') }}</h2>
                         @elseif (Auth::user()->user_type_id == 4)
                             <h2 class="wt-title">{{ __('lang.user_page_candidate_fourth_title') }}</h2>
-                        @endif
+                        @endif --}}
                     </div>
                 </div>
             </div>
@@ -41,7 +41,7 @@
 
                     <div class="side-bar-st-1">
 
-                      
+
 
                         @include('inc.user.nav')
 

@@ -1,6 +1,6 @@
 // app.js
 import('./bootstrap');
-import('./register_form')
+// import('./register_form')
 import {createApp} from 'vue/dist/vue.esm-bundler'
 import { i18nVue, I18n } from 'laravel-vue-i18n'
 

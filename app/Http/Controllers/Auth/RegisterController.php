@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
-use App\Models\user_type;
+
 use Illuminate\Support\Facades\Hash;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
@@ -53,7 +53,6 @@ class RegisterController extends Controller
     {
         // dd($data);
         return Validator::make($data, [
-            'user_type_id' => ['required'],
             'name_ka' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'number' => ['required', 'size:9', 'unique:users'],
@@ -61,7 +60,6 @@ class RegisterController extends Controller
             'agree' => ['required'],
         ],
         [
-            'user_type_id.required' => 'მონიშნეთ კანდიდატი ხართ თუ დამსაქმებელი',
             'name_ka.required' => 'სახელი და გვარის შევსება სავალდებულოა',
             'email.required' => 'ემაილის შევსება სავალდებულოა',
             'email.email' => 'ემაილი აუცილებლად უნდა შეიცავდეს "@" სიმბოლოს',
@@ -99,9 +97,7 @@ class RegisterController extends Controller
             $name_en = GoogleTranslate::trans($data['name_ru'], 'en');
             $name_ru = $data['name_ru'];
         }
-        if ($data['user_type_id'] == 3) {
-            $avatar = 'company.jpg';
-        }else if ($data['gender_id'] == 1) {
+         if ($data['gender_id'] == 1) {
            $avatar = 'default_male.jpg';
         }else{
             $avatar = 'default_female.jpg';
@@ -110,13 +106,12 @@ class RegisterController extends Controller
         // dd();
         // GoogleTranslate::trans($data['name_ka'])
         return User::create([
-            'user_type_id' =>$data['user_type_id'],
             'name_ka' => $name_ka,
             'name_en' => $name_en,
             'name_ru' => $name_ru,
             'email' => $data['email'],
             'date_of_birth' => $data['date_of_birth'],
-            'gender_id' => ($data['user_type_id'] == 3)?NULL:$data['gender_id'],
+            'gender_id' => $data['gender_id'],
             'avatar' => $avatar,
             'number' => $data['number'],
             'password' => Hash::make($data['password']),

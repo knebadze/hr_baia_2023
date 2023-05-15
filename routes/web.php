@@ -138,3 +138,6 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('update_hr', [HrController::class, 'update']);
     Route::post('candidate_work_info_data', [AdminCandidateController::class, 'workInfoData']);
     Route::post('candidate_family_work_info_data', [AdminCandidateController::class, 'familyWorkInfoData']);
+
+
+    Route::get('vacancy_data', [IndividualController::class, 'data']);

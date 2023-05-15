@@ -31,8 +31,7 @@ class UserProfileController extends Controller
         $candidateClassificatoryArr = ['gender', 'nationality', 'religions','educations', 'maritalStatus', 'citizenship', 'professions',
         'specialties', 'allergies', 'languages', 'languageLevels', 'workExperiences', 'notices', 'noExperienceReason', 'drivingLicense',
         'numberCode', 'characteristic', 'numberOwner', 'yesNo'];
-        $employerClassificatoryArr = ['gender'];
-        $classificatory = $this->classificatoryService->get(($auth->user_type_id == 1)?$candidateClassificatoryArr:$employerClassificatoryArr);
+        $classificatory = $this->classificatoryService->get($candidateClassificatoryArr);
         $model = $this->modelService->getUserModel();
 
         $data = [

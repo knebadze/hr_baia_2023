@@ -125,17 +125,4 @@ class UserModelRepository
         ];
         return $data;
     }
-
-    public function employer($auth_id)
-    {
-        if (Employer::where('user_id', $auth_id)->exists()) {
-            $employer = Employer::where('user_id', $auth_id)->first();
-        } else {
-            $employer =  Schema::getColumnListing('employers');
-            $employer = array_map(function ($item) { return ""; }, array_flip($employer));
-        }
-
-        $data = [ 'employer' => $employer];
-        return $data;
-    }
 }

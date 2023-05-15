@@ -11,7 +11,8 @@
     <!-- LOADING AREA  END ====== -->
     <div class="panel panel-default">
         <div class="panel-heading wt-panel-heading p-a20">
-            <h4 class="panel-tittle m-a0">{{ $t('lang.employer_add_job_general_info') }}</h4>
+            <h4 class="panel-tittle m-a0">{{ ('პირადი ინფორმაცია') }}</h4>
+            <!-- <h4 class="panel-tittle m-a0">{{ $t('lang.employer_add_job_general_info') }}</h4> -->
             <small class="text-danger">* {{ $t('lang.employer_add_job_definitely_fields') }}</small>
         </div>
             <div class="panel-body wt-panel-body p-a20 m-b30 ">
@@ -22,7 +23,8 @@
                             <div class="form-group">
                                 <label><span class="text-danger">* </span>სახელი გვარი</label>
                                 <div class="ls-inputicon-box">
-                                    <input class="form-control" v-model="m.employer[`name_${getLang}`]"  type="text" placeholder="Devid Smith">
+                                    <input class="form-control" v-model="m.employer[`name_${getLang}`]"  type="text" placeholder="Devid Smith" @blur="v$.m.employer[`name_${getLang}`].$touch">
+                                    <span v-if="v$.m.employer[`name_${getLang}`].required.$invalid && v$.m.employer[`name_${getLang}`].$dirty" style='color:red'>* {{ v$.m.employer[`name_${getLang}`].required.$message}}</span>
                                     <!-- <i class="fs-input-icon fa fa-address-card"></i> -->
                                 </div>
                             </div>
@@ -30,7 +32,7 @@
                         <!--Job title-->
                         <div class="col-xl-4 col-lg-6 col-md-12">
                             <div class="form-group">
-                                <label><span class="text-danger">* </span>მაილი</label>
+                                <label>მაილი</label>
                                 <div class="ls-inputicon-box">
                                     <input class="form-control" v-model="m.employer.email" type="email" placeholder="employer@gmail.com">
                                     <!-- <i class="fs-input-icon fa fa-address-card"></i> -->
@@ -42,11 +44,26 @@
                             <div class="form-group">
                                 <label><span class="text-danger">* </span>ტელეფონის ნომერი</label>
                                 <div class="ls-inputicon-box">
-                                    <input class="form-control" v-model="m.employer.number" type="text" placeholder="555444333">
+                                    <input class="form-control" v-model="m.employer.number" type="text" placeholder="555444333" onkeypress="return /[0-9]/i.test(event.key)">
                                     <!-- <i class="fs-input-icon fa fa-address-card"></i> -->
                                 </div>
                             </div>
                         </div>
+                        <div class="col-xl-4 col-lg-6 col-md-12">
+                            <div class="form-group">
+                                <label><span class="text-danger">* </span>მისამართი</label>
+                                <div class="ls-inputicon-box">
+                                    <input class="form-control" v-model="m.employer[`address_${getLang}`]" type="text" placeholder="მაგ: თბილისი, სამგორი, კახეთის გზატკეცილი 36 ბ">
+                                    <!-- <i class="fs-input-icon fa fa-address-card"></i> -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel-heading wt-panel-heading p-a20 m-b30">
+                            <h4 class="panel-tittle m-a0">{{ $t('lang.employer_add_job_general_info') }}</h4>
+                            <!-- <small class="text-danger">* {{ $t('lang.employer_add_job_definitely_fields') }}</small> -->
+                        </div>
+                        <!-- <div class="panel-body wt-panel-body p-a20 m-b30 "></div> -->
                             <!--Job title-->
                             <div class="col-xl-4 col-lg-6 col-md-12">
                                 <div class="form-group">
@@ -107,7 +124,7 @@
                                 </div>
                             </div>
                             <!--Job Type-->
-                            <div class="col-xl-3 col-lg-6 col-md-12">
+                            <div class="col-xl-4 col-lg-6 col-md-12">
                                 <div class="form-group">
                                     <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_work_schedule_title') }}</label>
                                     <div class="ls-inputicon-box">
@@ -326,6 +343,16 @@ export default {
     validations () {
         const validations = {
             m:{
+                employer:{
+                    name_ka:{},
+                    name_en:{},
+                    name_ru:{},
+                    // email:{required:helpers.withMessage('შევსება სავალდებულოა', required )},
+                    number:{
+                        required:helpers.withMessage('შევსება სავალდებულოა', required ),
+                        numeric:helpers.withMessage('უნდა შეიცავდეც მხოლოდ ციფრებს', numeric )
+                    }
+                },
                 vacancy:{
                     title_ka:{},
                     title_en:{},
@@ -361,14 +388,23 @@ export default {
 
         }
         if (this.getLang == 'ka') {
+            validations.m.employer.name_ka ={
+                required:helpers.withMessage('შევსება სავალდებულოა', required )
+            }
             validations.m.vacancy.title_ka ={
                 required:helpers.withMessage('შევსება სავალდებულოა', required )
             }
         }else if(this.getLang == 'en'){
+            validations.m.employer.name_en ={
+                required:helpers.withMessage('შევსება სავალდებულოა', required )
+            }
             validations.m.vacancy.title_en ={
                 required:helpers.withMessage('შევსება სავალდებულოა', required )
             }
         }else{
+            validations.m.employer.name_ru ={
+                required:helpers.withMessage('შევსება სავალდებულოა', required )
+            }
             validations.m.vacancy.title_ru ={
                 required:helpers.withMessage('შევსება სავალდებულოა', required )
             }
@@ -376,15 +412,7 @@ export default {
         return validations
     },
     created(){
-        this.m['employer'] = {...this.data.model.employer}
-        this.m['vacancy'] = {...this.data.model.vacancy};
-        this.m.vacancy['go_vacation'] = 0;
-        this.m.vacancy['stay_night'] = 0;
-        this.m.vacancy['work_additional_hours'] = 0;
-        this.m['demand'] = {...this.data.model.demand};
-        this.m.vacancy.payment = 800
-        this.m.vacancy[`address_${this.getLang}`] = this.data.classificator.fullAddress
-         console.log('this.m', this.m);
+        this.createModel()
     },
     computed:{
         getLang(){
@@ -392,9 +420,22 @@ export default {
         },
     },
     methods:{
+
+        createModel(){
+            this.m['employer'] = {...this.data.model.employer}
+            this.m['vacancy'] = {...this.data.model.vacancy};
+            this.m.vacancy['go_vacation'] = 0;
+            this.m.vacancy['stay_night'] = 0;
+            this.m.vacancy['work_additional_hours'] = 0;
+            this.m['demand'] = {...this.data.model.demand};
+            this.m.vacancy.payment = 800
+            this.m['characteristic'] = []
+            this.m['skill'] = []
+            console.log('this.m', this.m);
+        },
         addVacancy(){
             this.m['lang'] = this.getLang
-            var html = `${this.m.vacancy[`address_${this.getLang}`]}_ზე ${(this.m.vacancy[`for_who_${this.getLang}`])?this.m.vacancy[`for_who_${this.getLang}`]:''} გვესაჭიროება ${this.m.vacancy.category_id[`name_${this.getLang}`]}. ${this.m.vacancy.work_schedule_id[`name_${this.getLang}`]} გრაფიკით, ${this.m.vacancy[`additional_schedule_${this.getLang}`]}. ანაზღაურება: ${this.m.vacancy.payment} ${this.m.vacancy.currency_id[`name_${this.getLang}`]}.  ${`დამატებით: `+this.m.vacancy[`additional_${this.getLang}`]} `
+            var html = `${this.m.employer[`address_${this.getLang}`]}_ზე ${(this.m.vacancy[`for_who_${this.getLang}`])?this.m.vacancy[`for_who_${this.getLang}`]:''} გვესაჭიროება ${this.m.vacancy.category_id[`name_${this.getLang}`]}. ${this.m.vacancy.work_schedule_id[`name_${this.getLang}`]} გრაფიკით, ${this.m.vacancy[`additional_schedule_${this.getLang}`]}. ანაზღაურება: ${this.m.vacancy.payment} ${this.m.vacancy.currency_id[`name_${this.getLang}`]}.  ${`დამატებით: `+this.m.vacancy[`additional_${this.getLang}`]} `
             this.$swal(
                 {
                     title: '<p>თქვენი ვაკანსია</p>',
@@ -409,6 +450,8 @@ export default {
                 if (result.isConfirmed) {
                     let currentObj = this
                     // this.loader = true
+                    console.log('this.m', this.m);
+                    // return;
                     axios({
                         method: "post",
                         url: "/add_vacancy",
@@ -419,10 +462,23 @@ export default {
                         console.log('response.data', response.data);
                         if (response.data.status == 200) {
                             currentObj.loader = false
-                            toast.success("ვაკანსია წარმატებით დაემატა", {
-                                theme: 'colored',
-                                autoClose: 1000,
-                            });
+                            currentObj.createModel()
+                            // toast.success("ვაკანსია წარმატებით დაემატა", {
+                            //     theme: 'colored',
+                            //     autoClose: 1000,
+                            // });
+
+                            currentObj.$swal({
+                                title: '<strong>ვაკანსია წარმატებით დაემატა</strong>',
+                                icon: 'info',
+                                html:
+                                    `თქვენი ვაკანსიის კოდია <b>${ response.data.data }</b>, დააკოპირეთ კოდი და ეწვიეთ
+                                    <a href="//sweetalert2.github.io"><u>ლინკს</u></a>
+                                    სადაც შეგიძლიათ მიიღოთ ინფორმაცია თქვენი ვაკანსიის შესახებ`,
+                                showCloseButton: true,
+                                showCancelButton: true,
+                                focusConfirm: false,
+                            })
 
                         }
                     })
@@ -436,11 +492,13 @@ export default {
             // }
             })
 
-        }
+        },
+
+
     },
     watch:{
         'm.vacancy.work_schedule_id': function (newValue, oldValue) {
-            console.log('new', newValue);
+            // console.log('new', newValue);
             if (newValue != '') {
                 this.m.vacancy[`additional_schedule_${this.getLang}`] = this.localText.schedule[`${newValue.id}`][`${this.getLang}`]
                 console.log(this.localText.schedule[`${newValue.id}`][`${this.getLang}`]);

@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('vacancies', function (Blueprint $table) {
             $table->id();
+            $table->integer('code')->unique();
             $table->unsignedBigInteger('author_id');
             $table->foreignId('hr_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->string('title_ka')->nullable();
@@ -23,9 +24,6 @@ return new class extends Migration
             $table->string('slug');
             $table->foreignId('category_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('status_id')->default(1)->constrained();
-            $table->string('address_ka')->nullable();
-            $table->string('address_en')->nullable();
-            $table->string('address_ru')->nullable();
             $table->integer('payment');
             $table->foreignId('currency_id')->constrained();
             $table->foreignId('work_schedule_id')->constrained();

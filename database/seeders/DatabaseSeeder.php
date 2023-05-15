@@ -28,7 +28,6 @@ class DatabaseSeeder extends Seeder
         $this->call(MaritalStatusSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(GenderSeeder::class);
-        $this->call(UserTypeSeeder::class);
         $this->call(WorkScheduleSeeder::class);
         $this->call(AllergySeeder::class);
         $this->call(WorkExperienceSeeder::class);
@@ -36,6 +35,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ProfessionSeeder::class);
         $this->call(SkillSeeder::class);
         $this->call(CurenceSeeder::class);
+        $this->call(LanguageLevelSeeder::class);
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([

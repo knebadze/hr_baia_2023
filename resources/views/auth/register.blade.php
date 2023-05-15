@@ -65,7 +65,7 @@
                                             </li>
 
                                         </ul>
-                                        <ul class="nav nav-tabs visually-hidden" id="employerTypeChoice" role="tablist">
+                                        {{-- <ul class="nav nav-tabs visually-hidden" id="employerTypeChoice" role="tablist">
 
                                             <!--Signup Candidate-->
                                             <li class="nav-item" role="presentation">
@@ -75,13 +75,13 @@
                                             <li class="nav-item" role="presentation">
                                                 <button class="nav-link" id="companyEmployer"   type="button"><i class="fas fa-building"></i>კომპანია</button>
                                             </li>
-                                        </ul>
-                                        <input type="text" name="user_type_id" value="{{ old('user_type_id') }}" class="form-control @error('user_type_id') is-invalid @enderror" id="user_type_id" hidden>
+                                        </ul> --}}
+                                        {{-- <input type="text" name="user_type_id" value="{{ old('user_type_id') }}" class="form-control @error('user_type_id') is-invalid @enderror" id="user_type_id" hidden>
                                         @error('user_type_id')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
-                                        @enderror
+                                        @enderror --}}
                                         <div class="tab-content" id="myTabContent">
                                         <!--Signup Candidate Content-->
                                         <div class="tab-pane fade show active" id="sign-up">

@@ -41,7 +41,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-6 col-lg-6 col-md-12" v-if="auth.user_type_id != 3">
+                <div class="col-xl-6 col-lg-6 col-md-12">
                     <div class="form-group">
                         <label>{{ $t('lang.user_profile_page_input_birth_date') }}</label>
                         <div class="ls-inputicon-box">
@@ -52,7 +52,7 @@
                     </div>
                 </div>
                 <!--Gender-->
-                <div class="col-xl-6 col-lg-6 col-md-12" v-if="auth.user_type_id != 3">
+                <div class="col-xl-6 col-lg-6 col-md-12">
                     <div class="form-group">
                         <label>{{ $t('lang.user_profile_page_input_gender') }}</label>
                         <div class="ls-inputicon-box">

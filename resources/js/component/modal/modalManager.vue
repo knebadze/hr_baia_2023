@@ -1,6 +1,6 @@
 <template lang="">
-        <unknownUser :visible="showUnknownUser" v-if="auth && auth.user_type_id == 4"></unknownUser>
-        <personInformation :visible="showPersonInformation" v-if="this.auth && this.auth.user_type_id == 1 && this.auth.is_active == 1"></personInformation>
+        <!-- <unknownUser :visible="showUnknownUser" v-if="auth && auth.user_type_id == 4"></unknownUser> -->
+        <personInformation :visible="showPersonInformation" v-if="this.auth &&  this.auth.is_active == 1"></personInformation>
         <!-- <workInformation :visible="showWorkInformation" v-if="this.auth && this.auth.user_type_id == 1 && this.auth.is_active == 2" :lang="getLang"></workInformation> -->
 </template>
 <script>
@@ -24,15 +24,13 @@ export default {
         }
     },
     created(){
-        if (this.auth && this.auth.user_type_id == 4) {
-            this.showUnknownUser = true
-        }else if(this.auth && this.auth.user_type_id == 1 && this.auth.status == 0){
+       if(this.auth &&  this.auth.status == 0){
             var url = new URL( location.href)
             if (url.pathname == `/${this.getLang}/user/userProfile`) {
                 return;
             }
             this.showPersonInformation = true
-        }else if(this.auth && this.auth.user_type_id == 1 && this.auth.status == 1){
+        }else if(this.auth && this.auth.status == 1){
 
             var url = new URL( location.href)
             if (url.pathname == `/${this.getLang}/user/work_information`) {
@@ -55,27 +53,6 @@ export default {
                 }
             })
 
-        }else if(this.auth && this.auth.user_type_id == 3 && this.auth.status == 0){
-            var url = new URL( location.href)
-            if (url.pathname == `/${this.getLang}/user/userProfile`) {
-                return;
-            }
-            this.$swal(
-                {
-                    title: '<p>მოგესალმებით!!!</p>',
-                    icon: 'info',
-                    html:
-                        'ვაკანსიის განთავსებამდე სასურველია კომპანიის შესახებ ინფორმაციის შევსება',
-                    showCloseButton: true,
-                    showCancelButton: false,
-                    focusConfirm: false,
-                    confirmButtonText: 'შესავსებად გადასვლა',
-                }).then((result) => {
-                /* Read more about isConfirmed, isDenied below */
-                if (result.isConfirmed) {
-                    window.location.replace(`/${this.getLang}/user/userProfile`)
-                }
-            })
         }
     },
     computed:{

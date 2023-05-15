@@ -301,7 +301,8 @@
                                     <a href="job-detail.html" class="twm-job-title">
                                         <h4>{{ item[`title_${getLang}`] }}<span class="twm-job-post-duration"> /{{ item.timeAgo }}</span></h4>
                                     </a>
-                                    <p class="twm-job-address">{{ item[`address_${getLang}`].split(/\s+/).slice(0, 2).join(" ") }} {{ (item[`for_who_${getLang}`])?item[`for_who_${getLang}`]:'' }}.</p>
+                                    <p class="twm-job-address">{{ item.author[`address_${getLang}`].split(/\s+/).slice(0, 2).join(" ") }} {{ (item[`for_who_${getLang}`])?item[`for_who_${getLang}`]:'' }}.</p>
+
                                     <p class="twm-job-address">გრაფიკი: {{ item.work_schedule[`name_${getLang}`]+', '+ item[`additional_schedule_${getLang}`] }}.</p>
                                     <p class="twm-job-address text-danger" v-if="item[`additional_${getLang}`]">დამატებით: {{ item[`additional_${getLang}`] }}.</p>
                                     <!-- <a href="https://themeforest.net/user/thewebmax/portfolio" class="twm-job-websites site-text-primary">https://thewebmax.com</a> -->
@@ -321,7 +322,7 @@
 
                 <div class="pagination-outer">
                     <div class="pagination-style1">
-                        <ul class="clearfix">
+                        <!-- <ul class="clearfix">
                             <li class="prev"><a href="javascript:;"><span> <i class="fa fa-angle-left"></i> </span></a></li>
                             <li><a href="javascript:;">1</a></li>
                             <li class="active"><a href="javascript:;">2</a></li>
@@ -329,8 +330,32 @@
                             <li><a class="javascript:;" href="javascript:;"><i class="fa fa-ellipsis-h"></i></a></li>
                             <li><a href="javascript:;">5</a></li>
                             <li class="next"><a href="javascript:;"><span> <i class="fa fa-angle-right"></i> </span></a></li>
-                        </ul>
+                        </ul> -->
+                        <paginate
+                            v-model="pagination.current_page"
+                            :page-count="pagination.last_page"
+                            :page-range="3"
+                            :margin-pages="2"
+                            :click-handler="getData"
+                            :prev-text="'უკან'"
+                            :next-text="'წინ'"
+                            :container-class="'pagination'"
+                            :page-class="'page-item'"
+                            >
+                        </paginate>
                     </div>
+                    <!-- <paginate
+                        v-model="pagination.current_page"
+                        :page-count="pagination.last_page"
+                        :page-range="3"
+                        :margin-pages="2"
+                        :click-handler="getData"
+                        :prev-text="'უკან'"
+                        :next-text="'წინ'"
+                        :container-class="'pagination'"
+                        :page-class="'page-item'"
+                        >
+                    </paginate> -->
                 </div>
 
             </div>
@@ -341,7 +366,12 @@
 <!-- OUR BLOG END -->
 </template>
 <script>
+import Paginate from 'vuejs-paginate-next';
+import axios from 'axios';
 export default {
+    components:{
+        paginate: Paginate,
+    },
     props:{
         data: Object
     },
@@ -351,12 +381,17 @@ export default {
             staticVacancy:{},
             category:[],
             categoryFilterOn: false,
+            pagination:{
+                current_page: 1,
+                last_page: 2,
+            },
         }
     },
     created() {
-        this.staticVacancy = this.data.model.vacancy
-        this.vacancy = this.data.model.vacancy
+        // this.staticVacancy = this.data.model.vacancy
+        // this.vacancy = this.data.model.vacancy
         console.log('this.vacancy',this.vacancy);
+        this.getData()
     },
     computed:{
         getLang(){
@@ -364,6 +399,24 @@ export default {
         },
     },
     methods: {
+        getData(){
+            axios.get('/vacancy_data?page=' + this.pagination.current_page )
+                .then((response)=> {
+                    // console.log('response.data', response.data);
+                        this.pagination = {
+                            'current_page':response.data.current_page,
+                            'last_page': response.data.last_page
+                        }
+                        this.vacancy = response.data.data
+                        this.staticVacancy = response.data.data
+
+
+                    // this.isLoading = false;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
         categoryFilter(item){
             if (Object.keys(item).length == 0 || item[0].id == 0) {
                 this.categoryFilterOn = false
@@ -391,6 +444,7 @@ export default {
     mounted() {
         console.log('this.data',this.data);
         this.data
+        console.log('axios', axios);
     },
 }
 </script>

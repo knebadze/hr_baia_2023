@@ -16,16 +16,21 @@ class IndividualController extends Controller
 
     public function index()
     {
-        $vacancy = Vacancy::where('status_id', 1)->where('e_or_c', 2)->with(['currency', 'category', 'workSchedule'])->get()->toArray();
+        // $vacancy = Vacancy::where('status_id', 1)->with(['author','currency', 'category', 'workSchedule'])->get()->toArray();
         $classificatoryArr = ['category'];
         $classificatory = $this->classificatoryService->get($classificatoryArr);
         $data = [
-            'model' => [
-                'vacancy' => $vacancy,
-            ],
+            // 'model' => [
+            //     'vacancy' => $vacancy,
+            // ],
             'classificatory' => $classificatory
         ];
         return view ('individual', compact('data'));
+    }
+    public function data(Request $request)
+    {
+        $vacancy = Vacancy::where('status_id', 1)->with(['author','currency', 'category', 'workSchedule'])->paginate(2)->toArray();
+        return response($vacancy);
     }
 
 

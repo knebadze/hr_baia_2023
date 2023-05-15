@@ -21,10 +21,10 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('number')->nullable();
             $table->string('address_ka')->nullable();
-            $table->string('street_ka')->nullable();
             $table->string('address_en')->nullable();
-            $table->string('street_en')->nullable();
             $table->string('address_ru')->nullable();
+            $table->string('street_ka')->nullable();
+            $table->string('street_en')->nullable();
             $table->string('street_ru')->nullable();
             $table->string('latitude', 45)->nullable();
             $table->string('longitude', 45)->nullable();

@@ -225,7 +225,7 @@ class CandidateRepository
     {
         $id = Auth::id();
         $user = User::find($id);
-        if ($user->user_type_id == 1 && $user->status == 0) {
+        if ($user->status == 0) {
             $user->update([
                 'status' => 1,
                 'updated_at' => now()

@@ -9,9 +9,13 @@ class Employer extends Model
 {
 
     protected $fillable = [
-        'user_id',
+        'name_ka',
+        'name_en',
+        'name_ru',
+        'email',
+        'number',
         'address_ka',
-        'address_eu',
+        'address_en',
         'address_ru',
         'street_ka',
         'street_eu',

@@ -20,11 +20,8 @@ class ModelService
     public function getUserModel()
     {
         $auth = Auth::user();
-        if ($auth->user_type_id == 1) {
-            $result = $this->userModelRepository->candidate($auth->id);
-        }elseif ($auth->user_type_id == 2) {
-            $result = $this->userModelRepository->employer($auth->id);
-        }
+        $result = $this->userModelRepository->candidate($auth->id);
+
         return $result;
     }
     public function getWorkInformationModel()

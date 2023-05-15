@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->foreignId('role_id')->default(3)->constrained();
-            $table->foreignId('user_type_id')->default(4)->constrained();
             $table->string('name_ka')->nullable();
             $table->string('name_en')->nullable();
             $table->string('name_ru')->nullable();

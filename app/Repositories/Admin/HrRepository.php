@@ -15,7 +15,6 @@ class HrRepository
 
         $hrUser = new User();
         $hrUser->role_id = 2;
-        $hrUser->user_type_id = 3;
         $hrUser->name_ka = $data['name'];
         $hrUser->name_en = GoogleTranslate::trans($data['name'], 'en');
         $hrUser->name_ru = GoogleTranslate::trans($data['name'], 'ru');
@@ -58,7 +57,7 @@ class HrRepository
 
    public function update($data)
    {
-    
+
         $hrUser = User::findOrFail($data['id']);
 
         $hrUser->name_ka = $data['name'];

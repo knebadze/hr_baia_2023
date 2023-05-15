@@ -37,7 +37,7 @@
                 <td>{{ index + 1 }}</td>
                 <td>{{ item.name_ka }}</td>
                 <td>{{ item.number }}</td>
-                <td>{{ item.hr.inside_number }}</td>
+                <td>{{ (item.hr.inside_number)?item.hr.inside_number:'' }}</td>
                 <td>{{ item.hr.mobile }}</td>
                 <td><Switch  v-model:checked="item.switch" label="" @click.self="isActiveUpdate(item)"/></td>
                 <td><button class="btn btn-info" @click="openViewModal(item)"><i class="fa fa-eye"></i> + <i class="fa fa-pen"></i></button></td>

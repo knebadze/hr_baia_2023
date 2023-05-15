@@ -17,7 +17,7 @@
     <ul>
         <li @if(Route::currentRouteName() === 'home') class="active" @else class="" @endif><a href="{{ route('home' , App()->getLocale())  }}"><i class="fa fa-tachometer-alt"></i> {{ __('lang.user_page_candidate_left_side_bar_dashboard') }}</a></li>
         <li @if(Route::currentRouteName() === 'userProfile') class="active" @else class="" @endif><a href="{{ route('userProfile' , App()->getLocale())  }}"><i class="fa fa-user"></i> {{ __('lang.user_page_candidate_left_side_bar_profile') }}</a></li>
-        @if (Auth::user()->user_type_id == 1)
+
             @if (Auth::user()->status != 0)
                 <li ><a href="{{ route('work_information' , App()->getLocale())  }}"><i class="fa fa-file-download"></i> {{ __('lang.user_page_candidate_left_side_bar_work_info') }}</a></li>
             @endif
@@ -25,7 +25,7 @@
                 <li><a href="{{ route('myrezume' , App()->getLocale())  }}"><i class="fa fa-receipt"></i> {{ __('lang.user_page_candidate_left_side_bar_my_resume') }}</a></li>
             @endif
 
-        @endif
+      
         @if (Auth::user()->user_type_id != 4)<li><a href="{{ route('user.vacancy' , App()->getLocale())  }}"><i class="fa fa-suitcase"></i> {{ __('lang.user_page_candidate_left_side_bar_applied_jobs') }}</a></li>@endif
 
 

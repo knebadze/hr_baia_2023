@@ -413,7 +413,7 @@
     <script  src="{{ asset('js/dataTables.bootstrap5.min.js') }}"></script><!-- Datatable -->
     <script  src="{{ asset('js/chart.js') }}"></script><!-- Chart -->
     <script  src="{{ asset('js/custom.js') }}"></script><!-- CUSTOM FUCTIONS  -->
-    <script  src="{{ asset('js/register_form.js') }}"></script><!-- MY ADD JS  -->
+    {{-- <script  src="{{ asset('js/register_form.js') }}"></script><!-- MY ADD JS  --> --}}
 
 </body>
 </html>

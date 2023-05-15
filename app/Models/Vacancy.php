@@ -47,7 +47,7 @@ class Vacancy extends Model
     }
     public function author()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Employer::class);
     }
     public function currency()
     {

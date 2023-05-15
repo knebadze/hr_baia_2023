@@ -53,9 +53,9 @@
                         </div>
 
 
-                        @if (Auth::user()->user_type_id == 2)
+                        {{-- @if (Auth::user()->user_type_id == 2) --}}
                             <my-vacancy :data='@json($data)'></my-vacancy>
-                        @endif
+                        {{-- @endif --}}
 
                     </div>
                 </div>

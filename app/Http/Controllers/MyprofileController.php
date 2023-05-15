@@ -98,32 +98,32 @@ class MyprofileController extends Controller
         return response()->json();
     }
 
-    public function unknownUpdate(Request $request)
-    {
-        // $data = $request->data;
-        // print_r('$request',$data);
-        // exit;
-        $id = 4;
-        if ($request->data == 'candidate') {
-            $id = 1;
-        }elseif ($request->data == 'person') {
-            $id = 2;
-        }
-        elseif ($request->data == 'company') {
-            $id = 3;
-        }
+    // public function unknownUpdate(Request $request)
+    // {
+    //     // $data = $request->data;
+    //     // print_r('$request',$data);
+    //     // exit;
+    //     $id = 4;
+    //     if ($request->data == 'candidate') {
+    //         $id = 1;
+    //     }elseif ($request->data == 'person') {
+    //         $id = 2;
+    //     }
+    //     elseif ($request->data == 'company') {
+    //         $id = 3;
+    //     }
 
-        // $user = Auth::user();
-        $user = User::find(1);
-        if ($user->user_type_id == 4) {
+    //     // $user = Auth::user();
+    //     $user = User::find(1);
+    //     if ($user->user_type_id == 4) {
 
-            $user->update([
-                'user_type_id' => $id,
-                'updated_at' => now()
-            ]);
-        }
-        return response()->json($user);
-    }
+    //         $user->update([
+    //             'user_type_id' => $id,
+    //             'updated_at' => now()
+    //         ]);
+    //     }
+    //     return response()->json($user);
+    // }
 
     public function destroy($id)
     {
