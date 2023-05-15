@@ -344,18 +344,6 @@
                             >
                         </paginate>
                     </div>
-                    <!-- <paginate
-                        v-model="pagination.current_page"
-                        :page-count="pagination.last_page"
-                        :page-range="3"
-                        :margin-pages="2"
-                        :click-handler="getData"
-                        :prev-text="'უკან'"
-                        :next-text="'წინ'"
-                        :container-class="'pagination'"
-                        :page-class="'page-item'"
-                        >
-                    </paginate> -->
                 </div>
 
             </div>
@@ -388,9 +376,6 @@ export default {
         }
     },
     created() {
-        // this.staticVacancy = this.data.model.vacancy
-        // this.vacancy = this.data.model.vacancy
-        console.log('this.vacancy',this.vacancy);
         this.getData()
     },
     computed:{
@@ -444,7 +429,7 @@ export default {
     mounted() {
         console.log('this.data',this.data);
         this.data
-        console.log('axios', axios);
+        // console.log('axios', axios);
     },
 }
 </script>
