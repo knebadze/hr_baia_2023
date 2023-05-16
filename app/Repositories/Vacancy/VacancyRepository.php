@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Vacancy;
 
 use App\Models\Vacancy;
 use App\Models\Employer;
@@ -141,7 +141,7 @@ class VacancyRepository{
     {
         $vacancy = Vacancy::orderBy('id', 'DESC')->first();
         $lastHrId = HrHasVacancy::orderBy('hr_id', 'DESC')->where('is_active', 1)->first();
-        
+
         //ყველა hr გარდა ბოლოს დაწერილი hr_ისა
         $hr = HrHasVacancy::orderBy('id', 'ASC')->whereNot('hr_id', $vacancy->hr_id)->where('is_active', 1)->where('rewrite', 0)->first();
         $id = $hr->hr_id;

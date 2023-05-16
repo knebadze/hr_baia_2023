@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Vacancy;
 use Illuminate\Http\Request;
+use App\Filters\Vacancy\VacancyFilter;
+use App\Filters\Vacancy\VacancyFilters;
 use App\Services\ClassificatoryService;
 
 class IndividualController extends Controller
@@ -29,8 +31,16 @@ class IndividualController extends Controller
     }
     public function data(Request $request)
     {
-        $vacancy = Vacancy::where('status_id', 1)->with(['author','currency', 'category', 'workSchedule'])->paginate(2)->toArray();
+        $vacancy = Vacancy::orderby('updated_at', 'DESC')->with(['author','currency', 'category', 'workSchedule'])->paginate(10)->toArray();
         return response($vacancy);
+    }
+
+    public function filter(VacancyFilters $filters)
+    {
+    //    dd($filters);
+
+        // dd(Vacancy::filter($filters)->paginate(10));
+        return Vacancy::filter($filters)->orderby('updated_at', 'DESC')->with(['author','currency', 'category', 'workSchedule'])->paginate(10);
     }
 
 

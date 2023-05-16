@@ -2,15 +2,8 @@
 
 namespace App\Services;
 
-use App\Models\Hr;
-use App\Models\User;
-use App\Models\Vacancy;
-use App\Models\HrHasVacancy;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
-use App\Repositories\VacancyRepository;
+use App\Repositories\Vacancy\VacancyRepository;
 use Stichoza\GoogleTranslate\GoogleTranslate;
-use App\Http\Controllers\Employer\VacancyController;
 
 class VacancyService{
     protected $vacancyRepository;
@@ -112,9 +105,7 @@ class VacancyService{
 
     public function saveData($data)
     {
-
         $lang = $data['lang'];
-        // $fullData = $this->addHr($data);
         $trData = $this->translate($lang, $data);
         $result = $this->vacancyRepository->save($trData);
         return $result;

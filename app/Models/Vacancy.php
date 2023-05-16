@@ -105,4 +105,10 @@ class Vacancy extends Model
             return strftime( date( 'Y', $time ) == date( 'Y' ) ? '%e %B' : '%e %B, %Y', $time );
     }
 
+     // This is the scope we added
+     public function scopeFilter($query, $filters)
+     {
+        return $filters->apply($query);
+     }
+
 }
