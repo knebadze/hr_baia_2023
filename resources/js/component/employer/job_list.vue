@@ -295,6 +295,7 @@ export default {
 
             },
             filterCount:0,
+            getDataType:'first_data',
 
         }
     },
@@ -308,6 +309,13 @@ export default {
     },
     methods: {
         getData(){
+            if (this.getDataType == 'first_data') {
+                this.firstData()
+            } else if (this.getDataType == 'filter') {
+                this.filter(this.filterItem)
+            }
+        },
+        firstData(){
             axios.get('/vacancy_data?page=' + this.pagination.current_page )
                 .then((response)=> {
                     console.log('response.data', response.data);
@@ -348,17 +356,12 @@ export default {
                 if (this.filterCount != 0 ) {
                     this.vacancy = this.staticVacancy
                 }
-        }
-    },
-    watch:{
-        filterItem: {
-            handler(newValue, oldValue) {
-                this.menageFilterItem()
-                var newVal = this.filterItem
-                let currentObj = this;
-                axios({
+        },
+        filter(newVal){
+            let currentObj = this;
+            axios({
                     method: "post",
-                    url: "/vacancy_filter",
+                    url: '/vacancy_filter?page=' + this.pagination.current_page,
                     data: newVal,
 
                 })
@@ -374,13 +377,23 @@ export default {
                     // handle error
                     console.log(error);
                 })
+        }
+    },
+    watch:{
+        filterItem: {
+            handler(newValue, oldValue) {
+                this.menageFilterItem()
+                var newVal = this.filterItem
+                this.getDataType = 'filter'
+
+                this.filter(newVal)
                 this.filterCount ++
             },
             deep: true
         }
     },
     mounted() {
-        console.log('this.data',this.data);
+        // console.log('this.data',this.data);
 
     },
 }

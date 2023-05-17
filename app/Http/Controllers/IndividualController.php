@@ -31,13 +31,13 @@ class IndividualController extends Controller
     }
     public function data(Request $request)
     {
-        $vacancy = Vacancy::orderby('updated_at', 'DESC')->with(['author','currency', 'category', 'workSchedule'])->paginate(10)->toArray();
+        $vacancy = Vacancy::orderby('updated_at', 'DESC')->with(['author','currency', 'category', 'workSchedule'])->paginate(20)->toArray();
         return response($vacancy);
     }
 
     public function filter(VacancyFilters $filters)
     {
-        return Vacancy::filter($filters)->orderby('updated_at', 'DESC')->with(['author','currency', 'category', 'workSchedule'])->paginate(10);
+        return Vacancy::filter($filters)->orderby('updated_at', 'DESC')->with(['author','currency', 'category', 'workSchedule'])->paginate(20);
     }
 
 
