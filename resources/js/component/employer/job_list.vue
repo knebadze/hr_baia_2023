@@ -346,7 +346,7 @@ export default {
                     delete this.filterItem['payment']
                 }
                 if (this.filterCount != 0 ) {
-                    this.getData()
+                    this.vacancy = this.staticVacancy
                 }
         }
     },
@@ -356,19 +356,18 @@ export default {
                 this.menageFilterItem()
                 var newVal = this.filterItem
                 let currentObj = this;
-                // axios({
-                //     method: "post",
-                //     url: "/vacancy_filter",
-                //     data: newVal,
+                axios({
+                    method: "post",
+                    url: "/vacancy_filter",
+                    data: newVal,
 
-                // })
-                axios.get('/vacancy_filter?page=' + this.pagination.current_page+'&data'+newVal )
+                })
                 .then(function (response) {
                     currentObj.pagination = {
-                        'current_page':response.data.current_page,
-                        'last_page': response.data.last_page
-                    }
-                    currentObj.vacancy = response.data.data
+                            'current_page':response.data.current_page,
+                            'last_page': response.data.last_page
+                        }
+                        currentObj.vacancy = response.data.data
 
                 })
                 .catch(function (error) {

@@ -35,10 +35,9 @@ class IndividualController extends Controller
         return response($vacancy);
     }
 
-    public function filter(Request $request, VacancyFilters $filters)
+    public function filter(VacancyFilters $filters)
     {
-        // dd($request->all());
-        return Vacancy::filter($filters)->orderby('updated_at', 'DESC')->with(['author','currency', 'category', 'workSchedule'])->paginate(1);
+        return Vacancy::filter($filters)->orderby('updated_at', 'DESC')->with(['author','currency', 'category', 'workSchedule'])->paginate(10);
     }
 
 
