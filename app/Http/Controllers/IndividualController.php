@@ -19,7 +19,7 @@ class IndividualController extends Controller
     public function index()
     {
         // $vacancy = Vacancy::where('status_id', 1)->with(['author','currency', 'category', 'workSchedule'])->get()->toArray();
-        $classificatoryArr = ['category'];
+        $classificatoryArr = ['category', 'workSchedule'];
         $classificatory = $this->classificatoryService->get($classificatoryArr);
         $data = [
             // 'model' => [
@@ -35,12 +35,10 @@ class IndividualController extends Controller
         return response($vacancy);
     }
 
-    public function filter(VacancyFilters $filters)
+    public function filter(Request $request, VacancyFilters $filters)
     {
-    //    dd($filters);
-
-        // dd(Vacancy::filter($filters)->paginate(10));
-        return Vacancy::filter($filters)->orderby('updated_at', 'DESC')->with(['author','currency', 'category', 'workSchedule'])->paginate(10);
+        // dd($request->all());
+        return Vacancy::filter($filters)->orderby('updated_at', 'DESC')->with(['author','currency', 'category', 'workSchedule'])->paginate(1);
     }
 
 

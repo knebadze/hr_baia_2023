@@ -11,16 +11,19 @@ class TimeFilter
     function __invoke($query, $id)
     {
 
-
         if ($id == 1) {
-            $time = Carbon::now()->subHours(3);
-            $start = substr_replace($time->toDateTimeString(), '00:00', 14, 5);
-            $end = substr_replace($time->toDateTimeString(), '59:59', 14, 5);
-            // dd($start, $end );
-            return $query->whereHas('category', function ($query) use ($start, $end) {
-                $query->whereBetween('updated_at', [ $start, $end ]);
-            });
+            $subHours = 3;
+        }elseif ($id == 2) {
+            $subHours = 7;
+        }elseif($id == 3){
+            $subHours = 24;
         }
+
+        $start = Carbon::now()->subHours($subHours)->toDateTimeString();
+        $end = Carbon::now()->toDateTimeString();
+        return $query->whereHas('category', function ($query) use ( $start, $end ) {
+            $query->whereBetween('updated_at', [$start, $end]);
+        });
 
     }
 }

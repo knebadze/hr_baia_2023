@@ -8,6 +8,7 @@ class CategoryFilter
 {
     function __invoke($query, $category)
     {
+        dd($category);
         $ids = [];
         foreach ($category as $key => $value) {
             $ids[] = $value['id'];

@@ -16,11 +16,13 @@
 
                             <div class="form-group mb-4 categorySideBar">
                                 <h4 class="section-head-small mb-4">{{ $t('lang.individual_vacancies_page_leftside_category') }}</h4>
-                                <!-- <select class="wt-select-bar-large selectpicker"  data-live-search="true" data-bv-field="size" @change="categoryFilter(category)" v-model="category">
-                                    <option selected value="0">{{ $t('lang.individual_vacancies_page_leftside_category_allcategory') }}</option>
-                                    <option v-for="(item, index) in data.classificatory.category" :key="index" :value="item.id">{{ item[`name_${getLang}`] }}</option>
-                                </select> -->
                                 <multiselect v-model="filterItem.category" :options="data.classificatory.category" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" :label="`name_${getLang}`" :track-by="`name_${getLang}`" :preselect-first="false">
+                                    <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                </multiselect>
+                            </div>
+                            <div class="form-group mb-4 categorySideBar">
+                                <h4 class="section-head-small mb-4">{{ $t('lang.individual_vacancies_page_leftside_shedulde') }}</h4>
+                                <multiselect v-model="filterItem.schedule" :options="data.classificatory.workSchedule" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" :label="`name_${getLang}`" :track-by="`name_${getLang}`" :preselect-first="false">
                                     <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                                 </multiselect>
                             </div>
@@ -36,64 +38,11 @@
                             <div class="form-group mb-4 locationSideBar">
                                 <h4 class="section-head-small mb-4">{{ $t('lang.individual_vacancies_page_leftside_location') }}</h4>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" :placeholder="$t('lang.individual_vacancies_page_leftside_search_location')">
+                                    <input type="text" class="form-control" v-model="filterItem.location" :placeholder="$t('lang.individual_vacancies_page_leftside_search_location')">
                                     <button class="btn" type="button"><i class="feather-map-pin"></i></button>
                                 </div>
                             </div>
-<!--
-                            <div class="twm-sidebar-ele-filter jobTypeSideBar">
-                                <h4 class="section-head-small mb-4">{{ $t('lang.individual_vacancies_page_leftside_type_of_work') }}</h4>
-                                <ul>
-                                    <li>
-                                        <div class=" form-check">
-                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                            <label class="form-check-label" for="exampleCheck1">თავისუფალი</label>
-                                        </div>
-                                        <span class="twm-job-type-count">09</span>
-                                    </li>
 
-                                    <li>
-                                        <div class=" form-check">
-                                            <input type="checkbox" class="form-check-input" id="exampleCheck2">
-                                            <label class="form-check-label" for="exampleCheck2">სრული განაკვეთი</label>
-                                        </div>
-                                        <span class="twm-job-type-count">07</span>
-                                    </li>
-
-                                    <li>
-                                        <div class=" form-check">
-                                            <input type="checkbox" class="form-check-input" id="exampleCheck3">
-                                            <label class="form-check-label" for="exampleCheck3">სტაჟირება</label>
-                                        </div>
-                                        <span class="twm-job-type-count">15</span>
-                                    </li>
-
-                                    <li>
-                                        <div class=" form-check">
-                                            <input type="checkbox" class="form-check-input" id="exampleCheck4">
-                                            <label class="form-check-label" for="exampleCheck4">ნახევარი განაკვეთი</label>
-                                        </div>
-                                        <span class="twm-job-type-count">20</span>
-                                    </li>
-
-                                    <li>
-                                        <div class=" form-check">
-                                            <input type="checkbox" class="form-check-input" id="exampleCheck5">
-                                            <label class="form-check-label" for="exampleCheck5">დროებითი</label>
-                                        </div>
-                                        <span class="twm-job-type-count">22</span>
-                                    </li>
-
-                                    <li>
-                                        <div class=" form-check">
-                                            <input type="checkbox" class="form-check-input" id="exampleCheck6">
-                                            <label class="form-check-label" for="exampleCheck6">მოხალისე</label>
-                                        </div>
-                                        <span class="twm-job-type-count">25</span>
-                                    </li>
-
-                                </ul>
-                            </div> -->
 
                             <div class="twm-sidebar-ele-filter publicationSideBar">
                                 <h4 class="section-head-small mb-4">{{ $t('lang.individual_vacancies_page_leftside_date_of_publication') }}</h4>
@@ -135,26 +84,26 @@
                                 <ul>
                                     <li>
                                         <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="Any1">
+                                            <input type="radio" value="0" v-model="filterItem.payment" class="form-check-input" id="Any1">
                                             <label class="form-check-label" for="Any1">{{ $t('lang.individual_vacancies_page_leftside_sallary_any') }}</label>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="Compensation1">
+                                            <input type="radio" value="1" v-model="filterItem.payment" class="form-check-input" id="Compensation1">
                                             <label class="form-check-label" for="Compensation1">{{ $t('lang.individual_vacancies_page_leftside_sallary_from_500') }}</label>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="Compensation2">
+                                            <input type="radio" value="2" v-model="filterItem.payment" class="form-check-input" id="Compensation2">
                                             <label class="form-check-label" for="Compensation2">{{ $t('lang.individual_vacancies_page_leftside_sallary_from_700') }}</label>
                                         </div>
                                     </li>
 
                                     <li>
                                         <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="Compensation3">
+                                            <input type="radio" value="3" v-model="filterItem.payment" class="form-check-input" id="Compensation3">
                                             <label class="form-check-label" for="Compensation3">{{ $t('lang.individual_vacancies_page_leftside_sallary_from_900') }}</label>
                                         </div>
                                     </li>
@@ -165,77 +114,43 @@
                                             <label class="form-check-label" for="Other1">{{ $t('lang.individual_vacancies_page_leftside_sallary_other') }}</label>
                                         </div>
                                     </li>
+                                </ul>
+                            </div>
 
-                                    <div class="twm-sidebar-ele-filter sheduldeSideBar">
-                                        <h4 class="section-head-small mb-4">{{ $t('lang.individual_vacancies_page_leftside_shedulde') }}</h4>
-                                        <ul>
-                                            <li>
-                                                <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" id="AnySchedule1">
-                                                    <label class="form-check-label" for="AnySchedule1">{{ $t('lang.individual_vacancies_page_leftside_shedulde_any') }}</label>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" id="DaySchedule1">
-                                                    <label class="form-check-label" for="DaySchedule1">{{ $t('lang.individual_vacancies_page_leftside_shedulde_day') }}</label>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" id="Compensation22">
-                                                    <label class="form-check-label" for="Compensation22">{{ $t('lang.individual_vacancies_page_leftside_shedulde_night') }}</label>
-                                                </div>
-                                            </li>
 
-                                            <li>
-                                                <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" id="Compensation33">
-                                                    <label class="form-check-label" for="Compensation33">{{ $t('lang.individual_vacancies_page_leftside_shedulde_daily') }}</label>
-                                                </div>
-                                            </li>
 
-                                            <li>
-                                                <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" id="Other11">
-                                                    <label class="form-check-label" for="Other11">{{ $t('lang.individual_vacancies_page_leftside_shedulde_other') }}</label>
-                                                </div>
-                                            </li>
 
-                                        </ul>
-                                    </div>
 
-                                    <div class="twm-sidebar-ele-filter">
-                                        <h4 class="section-head-small mb-4">{{ $t('lang.individual_vacancies_page_leftside_second_location') }}</h4>
-                                        <ul>
-                                            <li>
-                                                <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" id="AnyLocation1">
-                                                    <label class="form-check-label" for="AnyLocation1">{{ $t('lang.individual_vacancies_page_leftside_second_location_any') }}</label>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" id="FromLocation1">
-                                                    <label class="form-check-label" for="FromLocation1">{{ $t('lang.individual_vacancies_page_leftside_second_location_3km') }}</label>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" id="FromLocation2">
-                                                    <label class="form-check-label" for="FromLocation2">{{ $t('lang.individual_vacancies_page_leftside_second_location_5km') }}</label>
-                                                </div>
-                                            </li>
 
-                                            <li>
-                                                <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" id="FromLocation3">
-                                                    <label class="form-check-label" for="FromLocation3">{{ $t('lang.individual_vacancies_page_leftside_second_location_7km') }}</label>
-                                                </div>
-                                            </li>
 
-                                        </ul>
-                                    </div>
+                            <div class="twm-sidebar-ele-filter sallarySideBar">
+                                <h4 class="section-head-small mb-4">{{ $t('lang.individual_vacancies_page_leftside_second_location') }}</h4>
+                                <ul>
+                                    <li>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="AnyLocation1">
+                                            <label class="form-check-label" for="AnyLocation1">{{ $t('lang.individual_vacancies_page_leftside_second_location_any') }}</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="FromLocation1">
+                                            <label class="form-check-label" for="FromLocation1">{{ $t('lang.individual_vacancies_page_leftside_second_location_3km') }}</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="FromLocation2">
+                                            <label class="form-check-label" for="FromLocation2">{{ $t('lang.individual_vacancies_page_leftside_second_location_5km') }}</label>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="FromLocation3">
+                                            <label class="form-check-label" for="FromLocation3">{{ $t('lang.individual_vacancies_page_leftside_second_location_7km') }}</label>
+                                        </div>
+                                    </li>
 
                                 </ul>
                             </div>
@@ -358,6 +273,7 @@
 <script>
 import Paginate from 'vuejs-paginate-next';
 import axios from 'axios';
+import _ from 'lodash'
 export default {
     components:{
         paginate: Paginate,
@@ -376,10 +292,9 @@ export default {
                 last_page: 2,
             },
             filterItem:{
-                'category':[],
-                'word':null,
-                'time':null
+
             },
+            filterCount:0,
 
         }
     },
@@ -410,103 +325,64 @@ export default {
                     console.log(error);
                 });
         },
-        VacancyFilter(item){
-            console.log('item', this.filterItem);
-            let currentObj = this;
-            axios({
-                method: "post",
-                url: "/vacancy_filter",
-                data: this.m,
+        menageFilterItem(){
 
-            })
-            .then(function (response) {
-                // handle success
-                console.log(response.data);
-
-            })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
-            })
-        },
-        // categoryFilter(item){
-        //     if (Object.keys(item).length == 0 || item[0].id == 0) {
-        //         this.categoryFilterOn = false
-        //         this.vacancy = this.staticVacancy;
-        //         return;
-        //     }
-        //     this.categoryFilterOn = true
-        //     var filter = (this.categoryFilterOn)?this.staticVacancy:this.vacancy
-        //     var vacancy = [];
-        //     _.forEach(item, function(value) {
-        //         _.filter(filter, function(o) {
-        //             if(o.category_id == value.id) vacancy.push(o)
-        //             return vacancy;
-        //         })
-        //     });
-        //     this.vacancy = vacancy;
-        // }
+            if (this.filterItem.category && this.filterItem.category.length == 0 ) {
+                    delete this.filterItem['category']
+                }
+                if (this.filterItem.schedule && this.filterItem.schedule.length == 0 ) {
+                    delete this.filterItem['schedule']
+                }
+                if (this.filterItem.word == '') {
+                    delete this.filterItem['word']
+                }
+                if (this.filterItem.location == '') {
+                    delete this.filterItem['location']
+                }
+                if (this.filterItem.time == '' || this.filterItem.time === '0') {
+                    delete this.filterItem['time']
+                }
+                if (this.filterItem.payment == '' || this.filterItem.payment === '0') {
+                    delete this.filterItem['payment']
+                }
+                if (this.filterCount != 0 ) {
+                    this.getData()
+                }
+        }
     },
     watch:{
-        // 'category': function (newVal, oldVal) {
-        //     console.log('newVal',newVal);
-        //     this.categoryFilter(newVal)
-        // },
         filterItem: {
             handler(newValue, oldValue) {
-                console.log('this.filterItem',this.filterItem);
-                // axios.get('/vacancy_filter?page=' + this.pagination.current_page+'&filters='+newValue )
-                // .then((response)=> {
-                //     console.log('response', response.data);
-                //         this.pagination = {
-                //             'current_page':response.data.current_page,
-                //             'last_page': response.data.last_page
-                //         }
-                //         this.vacancy = response.data.data
-                //         this.staticVacancy = response.data.data
-
-
-                //     // this.isLoading = false;
-                // })
-                // .catch(function (error) {
-                //     console.log(error);
-                // });
-                console.log('newValue', newValue.category);
-                // if (newValue.category.length == 0) {
-                //     this.vacancy = this.staticVacancy
-                //     return
-                // }
+                this.menageFilterItem()
                 var newVal = this.filterItem
                 let currentObj = this;
-                axios({
-                    method: "post",
-                    url: "/vacancy_filter",
-                    data: newVal,
+                // axios({
+                //     method: "post",
+                //     url: "/vacancy_filter",
+                //     data: newVal,
 
-                })
+                // })
+                axios.get('/vacancy_filter?page=' + this.pagination.current_page+'&data'+newVal )
                 .then(function (response) {
-                    // handle success
-                    // console.log(response.data);
                     currentObj.pagination = {
-                            'current_page':response.data.current_page,
-                            'last_page': response.data.last_page
-                        }
-                        currentObj.vacancy = response.data.data
-                        // currentObj.staticVacancy = response.data.data
+                        'current_page':response.data.current_page,
+                        'last_page': response.data.last_page
+                    }
+                    currentObj.vacancy = response.data.data
 
                 })
                 .catch(function (error) {
                     // handle error
                     console.log(error);
                 })
+                this.filterCount ++
             },
             deep: true
         }
     },
     mounted() {
         console.log('this.data',this.data);
-        this.data
-        // console.log('axios', axios);
+
     },
 }
 </script>

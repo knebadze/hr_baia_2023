@@ -141,4 +141,4 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
 
 
     Route::get('vacancy_data', [IndividualController::class, 'data']);
-    Route::post('vacancy_filter', [IndividualController::class, 'filter']);
+    Route::get('vacancy_filter', [IndividualController::class, 'filter']);
