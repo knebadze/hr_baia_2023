@@ -182,9 +182,9 @@
             <div class="col-lg-8 col-md-12">
                 <!--Filter Short By-->
                 <div class="product-filter-wrap d-flex justify-content-between align-items-center m-b30">
-                    <span class="woocommerce-result-count-left">{{ $t('lang.individual_vacancies_page_middle_first_title') }} {{ vacancy.length }} </span>
+                    <span class="woocommerce-result-count-left">{{ $t('lang.individual_vacancies_page_middle_first_title') }} {{ count }} </span>
 
-                    <form class="woocommerce-ordering twm-filter-select" method="get">
+                    <!-- <form class="woocommerce-ordering twm-filter-select" method="get">
                         <span class="woocommerce-result-count">{{ $t('lang.individual_vacancies_page_middle_title_sort') }}</span>
                         <select class="wt-select-bar-2 selectpicker" data-live-search="true" data-bv-field="size">
                             <option>{{ $t('lang.individual_vacancies_page_middle_latest') }}</option>
@@ -202,7 +202,7 @@
                             <option>{{ $t('lang.individual_vacancies_page_middle_show_me_50') }}</option>
                             <option>{{ $t('lang.individual_vacancies_page_middle_show_me_60') }}</option>
                         </select>
-                    </form>
+                    </form> -->
 
                 </div>
 
@@ -285,6 +285,7 @@ export default {
         return {
             vacancy:{},
             staticVacancy:{},
+            count:0,
             category:[],
             categoryFilterOn: false,
             pagination:{
@@ -320,11 +321,12 @@ export default {
                 .then((response)=> {
                     console.log('response.data', response.data);
                         this.pagination = {
-                            'current_page':response.data.current_page,
-                            'last_page': response.data.last_page
+                            'current_page':response.data.vacancy.current_page,
+                            'last_page': response.data.vacancy.last_page
                         }
-                        this.vacancy = response.data.data
-                        this.staticVacancy = response.data.data
+                        this.vacancy = response.data.vacancy.data
+                        this.staticVacancy = response.data.vacancy.data
+                        this.count = response.data.count
 
 
                     // this.isLoading = false;
@@ -366,11 +368,13 @@ export default {
 
                 })
                 .then(function (response) {
+                    console.log('response.data',response.data);
                     currentObj.pagination = {
-                            'current_page':response.data.current_page,
-                            'last_page': response.data.last_page
+                            'current_page':response.data.vacancy.current_page,
+                            'last_page': response.data.vacancy.last_page
                         }
-                        currentObj.vacancy = response.data.data
+                        currentObj.vacancy = response.data.vacancy.data
+                        currentObj.count = response.data.count
 
                 })
                 .catch(function (error) {
