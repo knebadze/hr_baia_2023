@@ -213,7 +213,7 @@
                                 <!-- <div class="twm-media">
                                     <img src="/images/jobs-company/pic1.jpg" alt="#">
                                 </div> -->
-                                <div >
+                                <div class="twm-left-content col-md-8">
                                     <!-- class="twm-mid-content" -->
                                     <a href="job-detail.html" class="twm-job-title">
                                         <h4>{{ item[`title_${getLang}`] }}<span class="twm-job-post-duration"> /{{ item.timeAgo }}</span></h4>

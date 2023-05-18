@@ -8146,7 +8146,7 @@ ol.comment-list li.comment .comment-respond .comment-form p {
   padding: 20px;
   border-radius: 10px;
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
   width: 100%;
 }
@@ -8235,6 +8235,9 @@ ol.comment-list li.comment .comment-respond .comment-form p {
   border-radius: 5px;
   padding: 5px 12px;
   white-space: nowrap;
+}
+.twm-jobs-category {
+  
 }
 @media (max-width: 767px) {
   .twm-jobs-category span {
