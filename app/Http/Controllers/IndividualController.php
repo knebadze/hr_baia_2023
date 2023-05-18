@@ -2,18 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\Vacancy;
 use Illuminate\Http\Request;
-use App\Filters\Vacancy\VacancyFilter;
+use App\Services\VacancyService;
+use Illuminate\Support\Facades\Auth;
 use App\Filters\Vacancy\VacancyFilters;
 use App\Services\ClassificatoryService;
 
 class IndividualController extends Controller
 {
     private ClassificatoryService $classificatoryService;
-    public function __construct(ClassificatoryService $classificatoryService)
+    private VacancyService $vacancyService;
+    public function __construct(ClassificatoryService $classificatoryService, VacancyService $vacancyService)
     {
         $this->classificatoryService = $classificatoryService;
+        $this->vacancyService = $vacancyService;
     }
 
     public function index()
@@ -34,9 +38,11 @@ class IndividualController extends Controller
 
         $vacancy = Vacancy::orderby('updated_at', 'DESC')->with(['author','currency', 'category', 'workSchedule'])->paginate(20)->toArray();
         $countVacancy = Vacancy::orderby('updated_at', 'DESC')->count();
+        $auth = Auth::user();
         $data = [
             'vacancy' => $vacancy,
-            'count' => $countVacancy
+            'count' => $countVacancy,
+            'auth' => $auth
         ];
         return response($data);
     }
@@ -71,8 +77,20 @@ class IndividualController extends Controller
     }
     public function find(Request $request)
     {
-        $data = Vacancy::where('code', $request->code)->with(['author','currency', 'category', 'workSchedule', 'status'])->first();
-        return response($data);
+        $code = $request->code;
+
+        try {
+            $result = $this->vacancyService->find($code);
+        } catch (Exception $e) {
+            $result = [
+                'status' => 500,
+                'error' => $e->getMessage()
+            ];
+        }
+
+
+      
+        return response()->json($result);
     }
 
 

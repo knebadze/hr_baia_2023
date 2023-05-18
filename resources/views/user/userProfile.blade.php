@@ -44,13 +44,7 @@
 
                     </div>
                 </div>
-                @if (Auth::user()->role_id == 3 && Auth::user()->user_type_id == 1)
                     <candidate-profile :data='@json($data)'></candidate-profile>
-                @elseif (Auth::user()->role_id == 3 && Auth::user()->user_type_id == 2)
-                    <employer-profile :data='@json($data)'></employer-profile>
-                @elseif (Auth::user()->role_id == 3 && Auth::user()->user_type_id == 3)
-                    <company-profile :data='@json($data)'></company-profile>
-                @endif
 
 
             </div>

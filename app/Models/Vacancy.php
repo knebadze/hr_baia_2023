@@ -69,6 +69,11 @@ class Vacancy extends Model
     {
         return $this->belongsTo(Hr::class);
     }
+
+    public function vacancyInterest()
+    {
+        return $this->hasMany(VacancyInterest::class, 'vacancy_id', 'id');
+    }
     public function getHrInfoAttribute():array
     {
         $hr = Hr::where('id', $this->hr_id)->first()->toArray();

@@ -146,3 +146,5 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('vacancy_filter', [IndividualController::class, 'filter']);
 
     Route::post('/find_my_vacancy', [IndividualController::class, 'find']);
+
+    Route::post('/interest_vacancy', [VacancyController::class, 'interest']);

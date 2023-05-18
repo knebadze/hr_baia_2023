@@ -216,7 +216,7 @@
                                 <div class="twm-left-content col-md-8">
                                     <!-- class="twm-mid-content" -->
                                     <a href="job-detail.html" class="twm-job-title">
-                                        <h4>{{ item[`title_${getLang}`] }}<span class="twm-job-post-duration"> /{{ item.timeAgo }}</span></h4>
+                                        <h4> {{ item[`title_${getLang}`] }}<span class="twm-job-post-duration"> /{{ item.timeAgo }}</span></h4>
                                     </a>
                                     <p class="twm-job-address">{{ item.author[`address_${getLang}`].split(/\s+/).slice(0, 2).join(" ") }} {{ (item[`for_who_${getLang}`])?item[`for_who_${getLang}`]:'' }}.</p>
 
@@ -286,6 +286,7 @@ export default {
             vacancy:{},
             staticVacancy:{},
             count:0,
+            auth:null,
             category:[],
             categoryFilterOn: false,
             pagination:{
@@ -297,6 +298,7 @@ export default {
             },
             filterCount:0,
             getDataType:'first_data',
+
 
         }
     },
@@ -327,6 +329,7 @@ export default {
                         this.vacancy = response.data.vacancy.data
                         this.staticVacancy = response.data.vacancy.data
                         this.count = response.data.count
+                        this.auth = response.data.auth
 
 
                     // this.isLoading = false;
@@ -383,7 +386,62 @@ export default {
                 })
         },
         interest(id){
-            console.log(id);
+            console.log(this.auth);
+            if (this.auth != null ) {
+                if (this.auth.role_id != 3) {
+                    toast.error("თქვენ არ გაქვთ დაინტერესების უფლება", {
+                        theme: 'colored',
+                        autoClose: 1000,
+                    });
+                    return
+                }else if(this.auth.role_id == 3 && this.auth.status != 2){
+                    toast.error("თქვენ ჯერ არ გაქვთ დაინტერესების უფლება, გთხოვთ შეავსოთ ინფორმაცია", {
+                        theme: 'colored',
+                        autoClose: 1000,
+                    });
+                    return
+                }
+                console.log(id);
+                axios({
+                        method: "post",
+                        url: '/interest_vacancy',
+                        data: {'id': id},
+
+                    })
+                    .then(function (response) {
+                        console.log('response.data',response.data);
+                        toast.success(response.data, {
+                        theme: 'colored',
+                        autoClose: 1000,
+                    });
+
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+            }else{
+                this.$swal(
+                    {
+                        title: '<p>დაინტერესებამდე სავალდებულოა გაიაროთ ავტორიზაცია!!!</p>',
+                        icon: 'info',
+                        html:
+                            'თუ ჯერ არ ხართ რეგისტრირებული გთხოვთ დარეგისტრირდეთ',
+                        showCloseButton: true,
+                        showCancelButton: false,
+                        showDenyButton: true,
+                        focusConfirm: false,
+                        confirmButtonText: 'რეგისტრაცია',
+                        denyButtonText: 'შესვლა',
+                    }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        window.location.replace(`/${this.getLang}/user/work_information`)
+                    }else if (result.isDenied) {
+                        alert()
+                    }
+                })
+            }
         }
     },
     watch:{

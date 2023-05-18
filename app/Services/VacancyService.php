@@ -2,15 +2,18 @@
 
 namespace App\Services;
 
-use App\Repositories\Vacancy\VacancyRepository;
 use Stichoza\GoogleTranslate\GoogleTranslate;
+use App\Repositories\Vacancy\VacancyRepository;
+use App\Repositories\Vacancy\FindVacancyRepository;
 
 class VacancyService{
-    protected $vacancyRepository;
+    protected VacancyRepository $vacancyRepository;
+    protected FindVacancyRepository $findVacancyRepository;
 
-    public function __construct(VacancyRepository $vacancyRepository)
+    public function __construct()
     {
-        $this->vacancyRepository = $vacancyRepository;
+        $this->vacancyRepository = new VacancyRepository;
+        $this->findVacancyRepository = new FindVacancyRepository;
     }
 
     public function translate($lang, $data)
@@ -108,6 +111,12 @@ class VacancyService{
         $lang = $data['lang'];
         $trData = $this->translate($lang, $data);
         $result = $this->vacancyRepository->save($trData);
+        return $result;
+    }
+
+    public function Find($code)
+    {
+        $result = $this->findVacancyRepository->data($code);
         return $result;
     }
 }
