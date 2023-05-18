@@ -55,6 +55,8 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
         Route::get('/', [MainController::class, 'index'])->name('welcome');
 
             Route::get('/individual', [IndividualController::class, 'index'])->name('individual');
+            Route::get('/vacancy_detail', [IndividualController::class, 'show'])->name('vacancy.detail');
+
             // Route::get('/company', [CompanyController::class, 'index'])->name('company');
             Route::get('/onmap', [MapvacancieController::class, 'index'])->name('onmap');
 
@@ -142,3 +144,5 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
 
     Route::get('vacancy_data', [IndividualController::class, 'data']);
     Route::post('vacancy_filter', [IndividualController::class, 'filter']);
+
+    Route::post('/find_my_vacancy', [IndividualController::class, 'find']);

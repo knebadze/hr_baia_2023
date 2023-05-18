@@ -228,7 +228,7 @@
                                     <div class="twm-jobs-category green"><span class="twm-bg-green">{{ item.category[`name_${getLang}`] }}</span></div>
                                     <div class="twm-jobs-amount">{{ item.currency.icon }} {{ item.payment }}</div>
                                     <div class="twm-jobs-amount">{{ item.hrInfo.number }} <span>/ {{ item.hrInfo[`name_${getLang}`] }}</span></div>
-                                    <button type="button" class="btn btn-primary">დაინტერესება</button>
+                                    <button type="button" class="btn btn-primary" @click="interest(item.id)">დაინტერესება</button>
                                 </div>
                             </div>
                         </li>
@@ -381,6 +381,9 @@ export default {
                     // handle error
                     console.log(error);
                 })
+        },
+        interest(id){
+            console.log(id);
         }
     },
     watch:{

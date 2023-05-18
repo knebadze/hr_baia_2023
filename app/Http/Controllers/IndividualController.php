@@ -67,7 +67,12 @@ class IndividualController extends Controller
 
     public function show($id)
     {
-        //
+        return view ('vacancy_detail');
+    }
+    public function find(Request $request)
+    {
+        $data = Vacancy::where('code', $request->code)->with(['author','currency', 'category', 'workSchedule', 'status'])->first();
+        return response($data);
     }
 
 
