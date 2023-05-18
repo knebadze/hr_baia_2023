@@ -170,7 +170,6 @@ return [
 
     // -------------------------------------------------------------
     'individual_vacancies_page_middle_first_title' => 'Workplace',
-    // 'individual_vacancies_page_left_card_block' => 'Workplace',
 
     'individual_vacancies_page_middle_title_sort' => 'Sort',
 
