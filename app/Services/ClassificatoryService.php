@@ -7,6 +7,7 @@ use App\Models\YesNo;
 use App\Models\gender;
 use App\Models\Notice;
 use App\Models\Allergy;
+use App\Models\Benefit;
 use App\Models\Category;
 use App\Models\Currency;
 use App\Models\Language;
@@ -19,15 +20,19 @@ use App\Models\Profession;
 use App\Models\Citizenship;
 use App\Models\Nationality;
 use App\Models\NumberOwner;
+use Illuminate\Support\Arr;
 use App\Models\WorkSchedule;
 use App\Models\MaritalStatus;
 use App\Models\DrivingLicense;
+use App\Models\Duty;
+use App\Models\ForWhoNeed;
+use App\Models\InterviewPlace;
 use App\Models\Language_level;
 use App\Models\Work_experience;
+
 use App\Models\GeneralCharacteristic;
 use App\Models\RecommendationFromWhom;
-
-use Illuminate\Support\Arr;
+use App\Models\Term;
 
 class ClassificatoryService
 {
@@ -59,7 +64,12 @@ class ClassificatoryService
             'category' => Category::all()->toArray(),
             'currency' => Currency::all()->toArray(),
             'workSchedule' => WorkSchedule::all()->toArray(),
-            'skill' => Skill::all()->toArray()
+            'skill' => Skill::all()->toArray(),
+            'interviewPlace' => InterviewPlace::all()->toArray(),
+            'term' => Term::all()->toArray(),
+            'benefit' => Benefit::all()->toArray(),
+            'forWhoNeed' => ForWhoNeed::all()->toArray(),
+            'duty' => Duty::all()->toArray(),
         ];
 
         return $classificatory;

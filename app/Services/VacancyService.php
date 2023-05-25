@@ -27,17 +27,11 @@ class VacancyService{
 
             $data['vacancy']['title_en'] = GoogleTranslate::trans($data['vacancy']['title_ka'], 'en');
             $data['vacancy']['title_ru']  = GoogleTranslate::trans($data['vacancy']['title_ka'], 'ru');
-            if ($data['vacancy']['for_who_ka']) {
-                $data['vacancy']['for_who_en'] = GoogleTranslate::trans($data['vacancy']['for_who_ka'], 'en');
-                $data['vacancy']['for_who_ru']  = GoogleTranslate::trans($data['vacancy']['for_who_ka'], 'ru');
-            }
+
             $data['vacancy']['additional_schedule_en'] = GoogleTranslate::trans($data['vacancy']['additional_schedule_ka'], 'en');
             $data['vacancy']['additional_schedule_ru']  = GoogleTranslate::trans($data['vacancy']['additional_schedule_ka'], 'ru');
 
-            if ($data['vacancy']['additional_ka']) {
-                $data['vacancy']['additional_en'] = GoogleTranslate::trans($data['vacancy']['additional_ka'], 'en');
-                $data['vacancy']['additional_ru']  = GoogleTranslate::trans($data['vacancy']['additional_ka'], 'ru');
-            }
+
             if ($data['demand']['additional_duty_ka']) {
                 $data['demand']['additional_duty_en'] = GoogleTranslate::trans($data['demand']['additional_duty_ka'], 'en');
                 $data['demand']['additional_duty_ru']  = GoogleTranslate::trans($data['demand']['additional_duty_ka'], 'ru');
@@ -53,19 +47,12 @@ class VacancyService{
 
             $data['vacancy']['title_ka'] = GoogleTranslate::trans($data['vacancy']['title_en'], 'ka');
             $data['vacancy']['title_ru']  = GoogleTranslate::trans($data['vacancy']['title_en'], 'ru');
-            if ($data['vacancy']['for_who_en']) {
-                $data['vacancy']['for_who_ka'] = GoogleTranslate::trans($data['vacancy']['for_who_en'], 'ka');
-                $data['vacancy']['for_who_ru']  = GoogleTranslate::trans($data['vacancy']['for_who_en'], 'ru');
-            }
+
 
 
             $data['vacancy']['additional_schedule_ka'] = GoogleTranslate::trans($data['vacancy']['additional_schedule_en'], 'ka');
             $data['vacancy']['additional_schedule_ru']  = GoogleTranslate::trans($data['vacancy']['additional_schedule_en'], 'ru');
 
-            if ($data['vacancy']['additional_en']) {
-                $data['vacancy']['additional_ka'] = GoogleTranslate::trans($data['vacancy']['additional_en'], 'ka');
-                $data['vacancy']['additional_ru']  = GoogleTranslate::trans($data['vacancy']['additional_en'], 'ru');
-            }
 
             if ($data['demand']['additional_duty_en']) {
                 $data['demand']['additional_duty_ka'] = GoogleTranslate::trans($data['demand']['additional_duty_en'], 'ka');
@@ -83,18 +70,10 @@ class VacancyService{
             $data['vacancy']['title_ka'] = GoogleTranslate::trans($data['vacancy']['title_ru'], 'ka');
             $data['vacancy']['title_en']  = GoogleTranslate::trans($data['vacancy']['title_ru'], 'en');
 
-            if ($data['vacancy']['for_who_ru']) {
-                $data['vacancy']['for_who_ka'] = GoogleTranslate::trans($data['vacancy']['for_who_ru'], 'ka');
-                $data['vacancy']['for_who_en']  = GoogleTranslate::trans($data['vacancy']['for_who_ru'], 'en');
-            }
 
             $data['vacancy']['additional_schedule_ka'] = GoogleTranslate::trans($data['vacancy']['additional_schedule_ru'], 'ka');
             $data['vacancy']['additional_schedule_en']  = GoogleTranslate::trans($data['vacancy']['additional_schedule_ru'], 'en');
 
-            if ($data['vacancy']['additional_ru']) {
-                $data['vacancy']['additional_ka'] = GoogleTranslate::trans($data['vacancy']['additional_ru'], 'ka');
-                $data['vacancy']['additional_en']  = GoogleTranslate::trans($data['vacancy']['additional_ru'], 'en');
-            }
 
             if ($data['demand']['additional_duty_ru']) {
                 $data['demand']['additional_duty_ka'] = GoogleTranslate::trans($data['demand']['additional_duty_ru'], 'ka');

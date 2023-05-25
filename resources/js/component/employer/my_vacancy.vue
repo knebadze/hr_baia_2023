@@ -115,25 +115,43 @@
                                     <div class="twm-candidates-grid-style1 mb-5" style="background-color: #fdfff5;">
                                         <div class="twm-media" >
                                             <div class="twm-media-pic">
-                                            <img :src="'/images/user-avatar/'+item.user.avatar" alt="#">
+                                            <img :src="'/images/user-avatar/'+item.avatar" alt="#">
                                             </div>
                                         </div>
                                         <div class="twm-mid-content" >
                                             <a href="#" class="twm-job-title">
-                                                <h4>{{ item.user[`name_${getLang}`] }} </h4>
+                                                <h4>{{ item[`fullName_${getLang}`] }} </h4>
                                             </a>
-                                            <p><span v-for="(i, index) in item.work_information" :key="index">{{ i[`name_${getLang}`]+', ' }}</span></p>
-                                            <a href="javascript:;"  @click="gotoDetail(item.id)" class="twm-view-prifile site-text-primary">{{ $t('lang.company_vacancies_page_middle_leftside_read_more') }}</a>
+                                            <p><span>{{ item[`name_${getLang}`] }}</span></p>
+                                            <!-- <p><span v-for="(i, index) in item.work_information" :key="index">{{ i[`name_${getLang}`]+', ' }}</span></p> -->
+                                            <a href="javascript:;"  @click="gotoDetail(item.candidate_id)" class="twm-view-prifile site-text-primary">{{ $t('lang.company_vacancies_page_middle_leftside_read_more') }}</a>
 
                                             <div class="twm-fot-content">
                                                 <div class="twm-left-info">
-                                                <p class="twm-candidate-address"><i class="feather-map-pin"></i>{{ item[`address_${getLang}`].substring(0, item[`address_${getLang}`].lastIndexOf(" ")) }}</p>
+                                                <p class="twm-candidate-address"><i class="feather-map-pin"></i>{{ item[`address_${getLang}`] }}</p>
+                                                <!-- .substring(0, item[`address_${getLang}`].lastIndexOf(" ")) -->
                                                 <i class="fa fa-clock"> 11:23</i>
                                                 </div>
 
-                                                <div class="twm-left-info mt-3">
-                                                    <button type="button" class="btn btn-danger"> <i class="fa fa-thumbs-down"></i> არ მომწონს</button>
-                                                    <button type="button" class="btn btn-success"> <i class="fa fa-thumbs-up"></i> მომწონს</button>
+                                                <div class="twm-left-info mt-3" v-if="item.employer_answer == null">
+                                                    <!-- <div class="row">
+                                                        <div class="col-lg-6 col-md-12" >
+                                                            <button type="button" class="btn btn-danger" @click="doNotLike(item.user_id)"> <i class="fa fa-thumbs-down"></i> არ მომწონს</button>
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-12" >
+                                                            <button type="button" class="btn btn-success" @click="like()"> <i class="fa fa-thumbs-up"></i> მომწონს</button>
+                                                        </div>
+                                                    </div> -->
+                                                    <button type="button" class="btn btn-danger" @click="doNotLike(item.id)"> <i class="fa fa-thumbs-down"></i> არ მომწონს</button>
+                                                    <button type="button" class="btn btn-success" @click="like(item.id)"> <i class="fa fa-thumbs-up"></i> მომწონს</button>
+
+                                                </div>
+                                                <div class="twm-left-info mt-3" v-if="item.employer_answer == 0">
+                                                    <span><i class="text-danger fa fa-thumbs-down" style="font-size:25px"></i></span>
+                                                </div>
+                                                <div class="twm-left-info mt-3" v-if="item.employer_answer == 1">
+                                                    <span><i class="text-success fa fa-thumbs-up" style="font-size:25px"></i></span>
+                                                    <button type="button" class="btn btn-info" @click="like()"> <i class="fa fa-eye"></i> გასაუბრება</button>
                                                 </div>
 
                                             </div>
@@ -147,9 +165,14 @@
             </div>
         </div>
     </div>
+    <interview_modal :visible="showInterviewModal" :id="vacancyInterestId"></interview_modal>
 </template>
 <script>
+import interview_modal from './modal/interview_modal.vue'
 export default {
+    components:{
+        interview_modal,
+    },
     props:{
         // data: Object
     },
@@ -157,7 +180,9 @@ export default {
         return {
             search:null,
             vacancy:null,
-            interest:null
+            interest:null,
+            showInterviewModal: false,
+            vacancyInterestId:null
         }
     },
     created() {
@@ -195,6 +220,60 @@ export default {
         },
         gotoDetail(id){
             window.open(this.detailUrl+'/'+id);
+        },
+        doNotLike(id){
+            let currentObj = this
+            this.$swal({
+                title: 'დარწმუნებული ხართ რომ ეს კანდიდატი არ მოგწონთ?',
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: 'დიახ',
+                denyButtonText: `არა`,
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    axios({
+                        method: "post",
+                        url: '/do_not_like_candidate',
+                        data: {'id': id},
+
+                    })
+                    .then(function (response) {
+                        if (response.status == 200) {
+                            var index = currentObj.interest.findIndex(object => {
+                                return object.user_id === id;
+                            });
+                            currentObj.interest[index]['employer_answer'] = 0
+                        }
+
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+                } else if (result.isDenied) {
+
+                }
+            })
+
+        },
+        like(id){
+            this.vacancyInterestId = id
+            this.$swal({
+                title: 'დარწმუნებული ხართ რომ ეს კანდიდატი მოგწონთ და გსურთ მასთან გასაუბრების დანიშვნა?',
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: 'დიახ',
+                denyButtonText: `არა`,
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    this.showInterviewModal = !this.showInterviewModal
+
+                } else if (result.isDenied) {
+
+                }
+            })
         }
 
     },

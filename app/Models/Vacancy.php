@@ -37,9 +37,17 @@ class Vacancy extends Model
         'photo',
     ];
     protected $appends = ['hrInfo','timeAgo'];
-    public function vacancyDutySkill()
+    public function vacancyDuty()
     {
-        return $this->belongsToMany(Skill::class, 'vacancy_candidate_duties');
+        return $this->belongsToMany(Duty::class, 'vacancy_candidate_duties');
+    }
+    public function vacancyBenefit()
+    {
+        return $this->belongsToMany(Benefit::class, 'vacancy_benefits');
+    }
+    public function vacancyForWhoNeed()
+    {
+        return $this->belongsToMany(ForWhoNeed::class, 'for_who_vacancies');
     }
     public function characteristic()
     {

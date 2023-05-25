@@ -32,14 +32,21 @@
                     </p>
                 </a>
             </li>
+            <li class="nav-item">
+                <a @if(Route::currentRouteName() === 'admin.dashboard') class="nav-link active" @else class="nav-link" @endif href="{{ route('admin.dashboard', App()->getLocale()) }}">
+                    <i class="nav-icon fa fa-list"></i>
+                    <p>
+                        ჩემი ვაკანსიები
+                    </p>
+                </a>
+            </li>
 
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a href="#" @if(Route::currentRouteName() === 'admin.hr') class="nav-link active" @else class="nav-link" @endif>
               <i class="nav-icon fas fa-copy"></i>
               <p>
                 Users
                 <i class="fas fa-angle-left right"></i>
-                {{-- <span class="badge badge-info right">6</span> --}}
               </p>
             </a>
             <ul class="nav nav-treeview">
@@ -68,7 +75,7 @@
                     </a>
                 </li>
             </ul>
-          </li>
+          </li> --}}
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

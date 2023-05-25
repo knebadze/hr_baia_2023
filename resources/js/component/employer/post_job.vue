@@ -81,7 +81,7 @@
                                 <div class="form-group">
                                     <label><span class="text-danger">* </span>{{ $t('lang.employer_add_job_position') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <multiselect v-model="m.vacancy.category_id" :options="data.classificator.category" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                        <multiselect v-model="m.vacancy.category_id" :options="cla.category" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
                                             <template slot="singleLabel" slot-scope="{ option }"></template>
                                         </multiselect>
                                     </div>
@@ -90,13 +90,26 @@
 
 
 
-                            <div class="col-xl-4 col-lg-6 col-md-12" v-if="m.vacancy.category_id.id == 1 || m.vacancy.category_id.id == 2 || m.vacancy.category_id.id == 3 || m.vacancy.category_id.id == 5">
+                            <div class="col-xl-4 col-lg-6 col-md-12" >
                                 <div class="form-group">
                                     <label><span class="text-danger">* </span>{{ ('ვისთვის გესაჭიროებათ?') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <input class="form-control" v-model="m.vacancy[`for_who_${getLang}`]"  type="text" placeholder="მაგ: 3 წლის ვაჟისთვის" >
-                                        <i class="fs-input-icon fa fa-user"></i>
+                                        <multiselect v-model="m.from_who_need"  :options="cla.forWhoNeed" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" :placeholder="$t('lang.employer_add_job_select')" label="name_ka" track-by="name_ka" :preselect-first="false" >
+                                            <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                        </multiselect>
                                         <!-- <span v-if="v$.m.candidate.personal_number.required.$invalid && v$.m.candidate.personal_number.$dirty" style='color:red'>* {{ v$.m.candidate.personal_number.required.$message}}</span> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_work_schedule_title') }}</label>
+                                    <div class="ls-inputicon-box">
+                                        <multiselect v-model="m.vacancy.work_schedule_id" :options="cla.workSchedule" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false" >
+                                            <template slot="singleLabel" slot-scope="{ option }"></template>
+                                        </multiselect>
+                                        <!-- <span v-if="v$.workInformationSchedule.required.$invalid && v$.workInformationSchedule.$dirty" style='color:red'>* {{ v$.workInformationSchedule.required.$message}}</span> -->
+                                        <!-- <i class="fs-input-icon fa fa-smoking"></i> -->
                                     </div>
                                 </div>
                             </div>
@@ -116,26 +129,14 @@
                                 <div class="form-group">
                                     <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_work_currency_title') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <multiselect v-model="m.vacancy.currency_id" :options="data.classificator.currency" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false" >
+                                        <multiselect v-model="m.vacancy.currency_id" :options="cla.currency" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false" >
                                             <template slot="singleLabel" slot-scope="{ option }"></template>
                                         </multiselect>
                                         <!-- <span v-if="v$.m.getWorkInformation.currency_id.required.$invalid && v$.m.getWorkInformation.currency_id.$dirty" style='color:red'>* {{ v$.m.getWorkInformation.currency_id.required.$message}}</span> -->
                                     </div>
                                 </div>
                             </div>
-                            <!--Job Type-->
-                            <div class="col-xl-4 col-lg-6 col-md-12">
-                                <div class="form-group">
-                                    <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_work_schedule_title') }}</label>
-                                    <div class="ls-inputicon-box">
-                                        <multiselect v-model="m.vacancy.work_schedule_id" :options="data.classificator.workSchedule" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false" >
-                                            <template slot="singleLabel" slot-scope="{ option }"></template>
-                                        </multiselect>
-                                        <!-- <span v-if="v$.workInformationSchedule.required.$invalid && v$.workInformationSchedule.$dirty" style='color:red'>* {{ v$.workInformationSchedule.required.$message}}</span> -->
-                                        <!-- <i class="fs-input-icon fa fa-smoking"></i> -->
-                                    </div>
-                                </div>
-                            </div>
+
 
                             <div class="col-md-12">
                                 <div class="form-group">
@@ -175,7 +176,7 @@
                             <!--Start Date-->
                             <div class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                    <label>{{ $t('lang.employer_add_job_when_need') }}</label>
+                                    <label><span class="text-danger">* </span>{{ $t('lang.employer_add_job_when_need') }}</label>
                                     <div class="ls-inputicon-box">
                                         <input class="form-control" v-model="m.demand.start_date" type="date" placeholder="" >
                                     </div>
@@ -183,21 +184,26 @@
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                    <label>{{ $t('lang.employer_add_job_how_long') }}</label>
+                                    <label><span class="text-danger">* </span>{{ $t('lang.employer_add_job_how_long') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <input class="form-control" v-model="m.demand[`term_${getLang}`]" type="text" :placeholder="$t('lang.employer_add_job_how_long_placeholdser')" >
+                                        <multiselect v-model="m.demand.term_id" :options="cla.term" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false" >
+                                            <template slot="singleLabel" slot-scope="{ option }"></template>
+                                        </multiselect>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-xl-6 col-lg-6 col-md-12">
+                            <div class="col-xl-12 col-lg-12 col-md-12">
                                 <div class="form-group">
-                                    <label>{{ $t('lang.employer_add_job_additional_offers') }}</label>
-                                    <textarea class="form-control" v-model="m.vacancy[`additional_${getLang}`]" type="text" :placeholder="$t('lang.employer_add_job_additional_offers_placeholder')" rows="3"></textarea>
+                                    <label>{{ $t('ბენეფიტები') }}</label>
+                                    <div class="my-4">
+                                        <span class="text-primary" style="text-decoration: underline dotted red; cursor: pointer; padding-right:20px" v-for="(item, index) in cla.benefit" :key="index" @click="addBenefit(item)">{{ item[`name_${getLang}`]+', ' }}</span>
+                                    </div>
+                                    <textarea class="form-control" v-model="benefitText" type="text" :placeholder="$t('lang.employer_add_job_additional_offers_placeholder')" rows="3"></textarea>
                                 </div>
                             </div>
 
-                            <div class="col-xl-6 col-lg-6 col-md-12">
+                            <div class="col-xl-12 col-lg-12 col-md-12">
                                 <div class="form-group">
                                     <label>{{ $t('lang.employer_add_job_comment_for_agency') }}</label>
                                     <textarea class="form-control" v-model="m.vacancy.comment" type="text" :placeholder="$t('lang.employer_add_job_comment_for_agency_placeholder')" rows="3"></textarea>
@@ -230,7 +236,7 @@
                                 <div class="form-group">
                                     <label>{{ $t('lang.employer_add_job_minimal_edu') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <multiselect v-model="m.demand.education_id" :options="data.classificator.education" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" :placeholder="$t('lang.employer_add_job_select')"  :searchable="true" :allow-empty="false">
+                                        <multiselect v-model="m.demand.education_id" :options="cla.educations" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" :placeholder="$t('lang.employer_add_job_select')"  :searchable="true" :allow-empty="false">
                                             <template slot="singleLabel" slot-scope="{ option }"></template>
                                         </multiselect>
                                     </div>
@@ -241,7 +247,7 @@
                                 <div class="form-group">
                                     <label>{{ $t('lang.employer_add_job_preferred_foreign_language') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <multiselect v-model="m.demand.language_id" :options="data.classificator.languages" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" :placeholder="$t('lang.employer_add_job_select')"  :searchable="true" :allow-empty="false">
+                                        <multiselect v-model="m.demand.language_id" :options="cla.languages" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" :placeholder="$t('lang.employer_add_job_select')"  :searchable="true" :allow-empty="false">
                                             <template slot="singleLabel" slot-scope="{ option }"></template>
                                         </multiselect>
                                     </div>
@@ -252,7 +258,7 @@
                                 <div class="form-group">
                                     <label>{{ $t('lang.employer_add_job_foreign_language_level') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <multiselect v-model="m.demand.language_level_id" :options="data.classificator.languageLevels" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" :placeholder="$t('lang.employer_add_job_select')"  :searchable="true" :allow-empty="false">
+                                        <multiselect v-model="m.demand.language_level_id" :options="cla.languageLevels" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" :placeholder="$t('lang.employer_add_job_select')"  :searchable="true" :allow-empty="false">
                                             <template slot="singleLabel" slot-scope="{ option }"></template>
                                         </multiselect>
                                     </div>
@@ -263,7 +269,7 @@
                                 <div class="form-group">
                                     <label>{{ $t('lang.employer_add_job_general_character') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <multiselect v-model="m.characteristic"  :options="data.classificator.characteristic" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" :placeholder="$t('lang.employer_add_job_select')" label="name_ka" track-by="name_ka" :preselect-first="false">
+                                        <multiselect v-model="m.characteristic"  :options="cla.characteristic" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" :placeholder="$t('lang.employer_add_job_select')" label="name_ka" track-by="name_ka" :preselect-first="false">
                                             <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                                         </multiselect>
                                     </div>
@@ -274,7 +280,7 @@
                                 <div class="form-group">
                                     <label>{{ $t('lang.employer_add_job_duties') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <multiselect v-model="m.skill"  :options="data.classificator.skill" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" :placeholder="$t('lang.employer_add_job_select')" label="name_ka" track-by="name_ka" :preselect-first="false" >
+                                        <multiselect v-model="m.duty"  :options="cla.duty" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" :placeholder="$t('lang.employer_add_job_select')" label="name_ka" track-by="name_ka" :preselect-first="false" >
                                             <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                                         </multiselect>
                                         <!-- <span v-if="v$.m.familyWorkedSelected.required.$invalid && v$.m.familyWorkedSelected.$dirty" style='color:red'>* {{ v$.m.candidateFamilyWorkSkill.required.$message}}</span> -->
@@ -290,7 +296,35 @@
                                 </div>
                             </div>
 
-
+                            <div class="panel-heading wt-panel-heading p-a20 my-3">
+                                <h4 class="panel-tittle m-a0"><i class="fa fa-suitcase"></i> გასაუბრება</h4>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label>{{ $t('გასაუბრების თარიღი') }}</label>
+                                    <div class="ls-inputicon-box">
+                                        <input class="form-control" v-model="m.date"  type="date"  >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label>{{ $t('გასაუბრების დრო') }}</label>
+                                    <div class="ls-inputicon-box">
+                                        <input class="form-control" v-model="m.time"  type="time"  >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label>{{ $t('გასაუბრების ადგილი') }}</label>
+                                    <div class="ls-inputicon-box">
+                                        <multiselect v-model="m.vacancy.interview_place_id" :options="cla.interviewPlace" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" :placeholder="$t('lang.employer_add_job_select')"  :searchable="true" :allow-empty="false">
+                                            <template slot="singleLabel" slot-scope="{ option }"></template>
+                                        </multiselect>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="col-lg-12 col-md-12">
                                 <div class="text-left">
@@ -307,6 +341,7 @@
         </div>
 </template>
 <script>
+import _ from 'lodash';
 import { useVuelidate } from '@vuelidate/core'
 import { required, email, helpers, requiredIf, numeric, maxLength } from '@vuelidate/validators'
 export default {
@@ -323,10 +358,14 @@ export default {
                 'vacancy':null,
                 'demand':null,
                 'characteristic':[],
-                'skill':[]
+                'duty': [],
+                'from_who_need': [],
+                'benefit': [],
+                'interviewDate':'',
+                'interviewTime':'',
             },
             workInformationSchedule:null,
-
+            cla:null,
             loader: false,
             localText:{
                 schedule: {
@@ -338,7 +377,8 @@ export default {
 
                 }
             },
-            
+            benefitText:''
+
         }
     },
     validations () {
@@ -414,6 +454,7 @@ export default {
     },
     created(){
         this.createModel()
+        this.cla = { ...this.data.classificatory}
     },
     computed:{
         getLang(){
@@ -494,6 +535,10 @@ export default {
             })
 
         },
+        addBenefit(item){
+            this.m.benefit.push(item)
+            this.benefitText += item[`name_${this.getLang}`]+', '
+        }
 
 
     },
@@ -504,6 +549,10 @@ export default {
                 this.m.vacancy[`additional_schedule_${this.getLang}`] = this.localText.schedule[`${newValue.id}`][`${this.getLang}`]
                 console.log(this.localText.schedule[`${newValue.id}`][`${this.getLang}`]);
             }
+        },
+        'm.vacancy.category_id': function (newValue, oldValue) {
+            this.cla.forWhoNeed = _.filter(this.data.classificatory.forWhoNeed, function(o) { return o.category_id == newValue.id; });
+            this.cla.duty = _.filter(this.data.classificatory.duty, function(o) { return o.category_id == newValue.id; });
         }
     },
     mounted(){

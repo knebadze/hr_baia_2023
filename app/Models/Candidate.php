@@ -126,6 +126,10 @@ class Candidate extends Model
         return $this->belongsToMany(Category::class,'work_information')->withPivot('payment','currency_id');
     }
 
+    // public function vacancyInterest()
+    // {
+    //     return $this->hasMany(VacancyInterest::class, 'user_id', 'user_id');
+    // }
     // This is the scope we added
     public function scopeFilter($query, $filters)
     {

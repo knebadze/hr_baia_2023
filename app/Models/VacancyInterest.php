@@ -22,4 +22,9 @@ class VacancyInterest extends Model
     {
         return $this->belongsTo(Vacancy::class);
     }
+
+    // public function candidate()
+    // {
+    //     return $this->belongsTo(Vacancy::class );
+    // }
 }

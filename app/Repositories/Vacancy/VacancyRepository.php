@@ -33,13 +33,12 @@ class VacancyRepository{
         $vacancy->additional_schedule_ka = $data['vacancy']['additional_schedule_ka'];
         $vacancy->additional_schedule_en = $data['vacancy']['additional_schedule_en'];
         $vacancy->additional_schedule_ru = $data['vacancy']['additional_schedule_ru'];
-        $vacancy->for_who_ka = $data['vacancy']['for_who_ka'];
-        $vacancy->for_who_en = $data['vacancy']['for_who_en'];
-        $vacancy->for_who_ru = $data['vacancy']['for_who_ru'];
+
         $vacancy->comment = $data['vacancy']['comment'];
-        $vacancy->additional_ka = $data['vacancy']['additional_ka'];
-        $vacancy->additional_en = $data['vacancy']['additional_en'];
-        $vacancy->additional_ru = $data['vacancy']['additional_ru'];
+        $dateTime = $data['date'].' '.$data['time'];
+        $vacancy->interview_date = $dateTime;
+        $vacancy->interview_place_id = $data['vacancy']['interview_place_id']['id'];
+
         $vacancy->go_vacation = $data['vacancy']['go_vacation'];
         $vacancy->stay_night = $data['vacancy']['stay_night'];
         $vacancy->work_additional_hours = $data['vacancy']['work_additional_hours'];
@@ -48,7 +47,7 @@ class VacancyRepository{
         $demand = new VacancyDemand();
         $demand->vacancy_id = $vacancy->id;
         $demand->start_date = $data['demand']['start_date'];
-        $demand->term = $data['demand']['term'];
+        $demand->term_id = $data['demand']['term']['id'];
         $demand->min_age = $data['demand']['min_age'];
         $demand->max_age = $data['demand']['max_age'];
         $demand->education_id = $data['demand']['education_id']['id'];
@@ -59,12 +58,19 @@ class VacancyRepository{
         $demand->language_level_id = $data['demand']['language_level_id']['id'];
         $demand->save();
 
-        $selectSkillId = collect($data['skill'])->reduce(function ($carry, $item) {
+        $selectForWhoNeedId = collect($data['from_who_need'])->reduce(function ($carry, $item) {
             if($carry  == null) $carry = [];
             $carry[] = $item["id"];
             return $carry;
         }, []);
-        $vacancy->vacancyDutySkill()->sync($selectSkillId);
+        $vacancy->vacancyForWhoNeed()->sync($selectForWhoNeedId);
+
+        $selectBenefitId = collect($data['benefit'])->reduce(function ($carry, $item) {
+            if($carry  == null) $carry = [];
+            $carry[] = $item["id"];
+            return $carry;
+        }, []);
+        $vacancy->vacancyBenefit()->sync($selectBenefitId);
 
         $selectCharacteristic = collect($data['characteristic'])->reduce(function ($carry, $item) {
             if($carry  == null) $carry = [];
@@ -72,6 +78,14 @@ class VacancyRepository{
             return $carry;
         }, []);
         $vacancy->characteristic()->sync( $selectCharacteristic );
+
+        $selectDutyId = collect($data['duty'])->reduce(function ($carry, $item) {
+            if($carry  == null) $carry = [];
+            $carry[] = $item["id"];
+            return $carry;
+        }, []);
+        $vacancy->vacancyDuty()->sync($selectDutyId);
+
         return $vacancy->code;
 
     }

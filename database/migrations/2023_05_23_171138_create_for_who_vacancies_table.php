@@ -13,11 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('vacancy_candidate_duties', function (Blueprint $table) {
+        Schema::create('for_who_vacancies', function (Blueprint $table) {
             $table->id();
             $table->foreignId('vacancy_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('duty_id')->constrained()->onUpdate('cascade');
+            $table->unsignedBigInteger('for_who_need_id');
             $table->timestamps();
+            $table->foreign('for_who_need_id')
+            ->references('id')->on('for_who_needs')->onUpdate('cascade');
         });
     }
 
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vacancy_candidate_duties');
+        Schema::dropIfExists('for_who_vacancies');
     }
 };

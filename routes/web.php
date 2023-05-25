@@ -9,24 +9,22 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\TermsController;
-use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\VacancyController;
 use App\Http\Controllers\admin\HrController;
 use App\Http\Controllers\CandidateController;
+
 use App\Http\Controllers\MyprofileController;
 
-use App\Http\Controllers\IndividualController;
+
+use App\Http\Controllers\MyVacancyController;
 use App\Http\Controllers\Admin\AdminController;
-
-
 use App\Http\Controllers\Auth\SocialController;
 use App\Http\Controllers\MapvacancieController;
 use App\Http\Controllers\User\ResumeController;
-use App\Http\Controllers\User\PostJobController;
 use App\Http\Controllers\CandidateInfoController;
-use App\Http\Controllers\Employer\VacancyController;
+use App\Http\Controllers\User\PostVacancyController;
 use App\Http\Controllers\User\UserProfileController;
 use App\Http\Controllers\Auth\ChangePasswordController;
-use App\Http\Controllers\Company\CompanyInfoController;
 use App\Http\Controllers\Admin\AdminCandidateController;
 use App\Http\Controllers\Employer\EmployerInfoController;
 use App\Http\Controllers\Candidate\WorkInformationController;
@@ -54,8 +52,8 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
 
         Route::get('/', [MainController::class, 'index'])->name('welcome');
 
-            Route::get('/individual', [IndividualController::class, 'index'])->name('individual');
-            Route::get('/vacancy_detail', [IndividualController::class, 'show'])->name('vacancy.detail');
+            Route::get('/individual', [VacancyController::class, 'index'])->name('individual');
+            Route::get('/vacancy_detail', [MyVacancyController::class, 'index'])->name('vacancy.detail');
 
             // Route::get('/company', [CompanyController::class, 'index'])->name('company');
             Route::get('/onmap', [MapvacancieController::class, 'index'])->name('onmap');
@@ -78,10 +76,10 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
         Route::get('/user/myrezume', [ResumeController::class, 'index'])->name('myrezume');
 
         //Post Job
-        Route::get('/post_job', [PostJobController::class, 'index'])->name('post.job');
+        Route::get('/post_job', [PostVacancyController::class, 'index'])->name('post.job');
 
         //user vacancy
-        Route::get('/user/vacancy', [VacancyController::class, 'index'])->name('user.vacancy');
+        // Route::get('/user/vacancy', [VacancyController::class, 'index'])->name('user.vacancy');
 
         Route::get('/auth/passwords/change_password', [ChangePasswordController::class, 'index'])->name('auth.password.change_password');
 
@@ -129,7 +127,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
 
     Route::post('add_employer', [EmployerInfoController::class, 'store']);
 
-    Route::post('add_vacancy', [VacancyController::class, 'store']);
+
 
     Route::post('change_password', [ChangePasswordController::class, 'change'])->name('change_password');
 
@@ -141,10 +139,15 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('candidate_work_info_data', [AdminCandidateController::class, 'workInfoData']);
     Route::post('candidate_family_work_info_data', [AdminCandidateController::class, 'familyWorkInfoData']);
 
+    // ________________VACANCY REQUEST__________________________________
 
-    Route::get('vacancy_data', [IndividualController::class, 'data']);
-    Route::post('vacancy_filter', [IndividualController::class, 'filter']);
+    Route::post('add_vacancy', [PostVacancyController::class, 'store']);
+    Route::get('vacancy_data', [VacancyController::class, 'data']);
+    Route::post('vacancy_filter', [VacancyController::class, 'filter']);
 
-    Route::post('/find_my_vacancy', [IndividualController::class, 'find']);
+    Route::post('/find_my_vacancy', [MyVacancyController::class, 'find']);
 
-    Route::post('/interest_vacancy', [VacancyController::class, 'interest']);
+    Route::post('/interest_vacancy', [MyVacancyController::class, 'interest']);
+    Route::post('/do_not_like_candidate', [MyVacancyController::class, 'doNotLike']);
+    Route::post('/get_interview_classificatory', [MyVacancyController::class, 'getInterviewClassificatory']);
+    Route::post('/like_candidate', [MyVacancyController::class, 'like']);

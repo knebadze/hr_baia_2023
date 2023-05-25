@@ -36,6 +36,10 @@ class DatabaseSeeder extends Seeder
         $this->call(SkillSeeder::class);
         $this->call(CurenceSeeder::class);
         $this->call(LanguageLevelSeeder::class);
+        $this->call(DutySeeder::class);
+        $this->call(WhoNeedSeeder::class);
+        $this->call(BenefitSeeder::class);
+        $this->call(TermSeeder::class);
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([

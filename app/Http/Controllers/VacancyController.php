@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
 use App\Models\Vacancy;
 use Illuminate\Http\Request;
 use App\Services\VacancyService;
@@ -10,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Filters\Vacancy\VacancyFilters;
 use App\Services\ClassificatoryService;
 
-class IndividualController extends Controller
+class VacancyController extends Controller
 {
     private ClassificatoryService $classificatoryService;
     private VacancyService $vacancyService;
@@ -26,9 +25,6 @@ class IndividualController extends Controller
         $classificatoryArr = ['category', 'workSchedule'];
         $classificatory = $this->classificatoryService->get($classificatoryArr);
         $data = [
-            // 'model' => [
-            //     'vacancy' => $vacancy,
-            // ],
             'classificatory' => $classificatory
         ];
         return view ('individual', compact('data'));
@@ -59,55 +55,4 @@ class IndividualController extends Controller
     }
 
 
-    public function create()
-    {
-        //
-    }
-
-
-    public function store(Request $request)
-    {
-        //
-    }
-
-
-    public function show($id)
-    {
-        return view ('vacancy_detail');
-    }
-    public function find(Request $request)
-    {
-        $code = $request->code;
-
-        try {
-            $result = $this->vacancyService->find($code);
-        } catch (Exception $e) {
-            $result = [
-                'status' => 500,
-                'error' => $e->getMessage()
-            ];
-        }
-
-
-      
-        return response()->json($result);
-    }
-
-
-    public function edit($id)
-    {
-        //
-    }
-
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-
-    public function destroy($id)
-    {
-        //
-    }
 }

@@ -25,8 +25,8 @@
                 <li><a href="{{ route('myrezume' , App()->getLocale())  }}"><i class="fa fa-receipt"></i> {{ __('lang.user_page_candidate_left_side_bar_my_resume') }}</a></li>
             @endif
 
-      
-        @if (Auth::user()->user_type_id != 4)<li><a href="{{ route('user.vacancy' , App()->getLocale())  }}"><i class="fa fa-suitcase"></i> {{ __('lang.user_page_candidate_left_side_bar_applied_jobs') }}</a></li>@endif
+
+        {{-- @if (Auth::user()->user_type_id != 4)<li><a href="{{ route('user.vacancy' , App()->getLocale())  }}"><i class="fa fa-suitcase"></i> {{ __('lang.user_page_candidate_left_side_bar_applied_jobs') }}</a></li>@endif --}}
 
 
         <!-- <li><a href="candidate-cv-manager.html"><i class="fa fa-paperclip"></i> CV Manager</a></li> -->

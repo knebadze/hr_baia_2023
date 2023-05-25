@@ -30,17 +30,15 @@ return new class extends Migration
             $table->string('additional_schedule_ka', 300)->nullable();
             $table->string('additional_schedule_en', 300)->nullable();
             $table->string('additional_schedule_ru', 300)->nullable();
-            $table->string('for_who_ka')->nullable();
-            $table->string('for_who_en')->nullable();
-            $table->string('for_who_ru')->nullable();
+            $table->date('start_date');
+            $table->foreignId('term_id')->constrained();
             $table->string('comment')->nullable();
-            $table->string('additional_ka', 500)->nullable();
-            $table->string('additional_en', 500)->nullable();
-            $table->string('additional_ru', 500)->nullable();
             $table->string('photo')->nullable();
             $table->boolean('go_vacation')->default(0);
             $table->boolean('stay_night')->default(0);
             $table->boolean('work_additional_hours')->default(0);
+            $table->dateTime('interview_date');
+            $table->foreignId('interview_place_id')->constrained();
             $table->timestamps();
             $table->foreign('author_id')
             ->references('id')->on('employers')->onUpdate('cascade')->onDelete('cascade');

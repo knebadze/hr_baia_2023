@@ -16,8 +16,6 @@ return new class extends Migration
         Schema::create('vacancy_demands', function (Blueprint $table) {
             $table->id();
             $table->foreignId('vacancy_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->date('start_date')->nullable();
-            $table->string('term', 100)->nullable();
             $table->integer('min_age')->nullable();
             $table->integer('max_age')->nullable();
             $table->foreignId('education_id')->nullable()->constrained();
