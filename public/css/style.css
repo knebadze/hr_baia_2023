@@ -272,6 +272,10 @@ This files [Table of contents] are outlined below
   background-color: #f0f6fe;
 }
 
+.benefitsColor:hover {
+  color:black !important;
+}
+
 body {
   color: #3c3c3c;
   font-family: "Rubik", sans-serif;

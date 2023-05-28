@@ -197,7 +197,7 @@
                                 <div class="form-group">
                                     <label>{{ $t('ბენეფიტები') }}</label>
                                     <div class="my-4">
-                                        <span class="text-primary" style="text-decoration: underline dotted red; cursor: pointer; padding-right:20px" v-for="(item, index) in cla.benefit" :key="index" @click="addBenefit(item)">{{ item[`name_${getLang}`]+', ' }}</span>
+                                        <span class="text-primary benefitsColor" style="text-decoration:none; cursor: pointer; padding-right:20px" v-for="(item, index) in cla.benefit" :key="index" @click="addBenefit(item)">{{ item[`name_${getLang}`]+', ' }}</span>
                                     </div>
                                     <textarea class="form-control" v-model="benefitText" type="text" :placeholder="$t('lang.employer_add_job_additional_offers_placeholder')" rows="3"></textarea>
                                 </div>
