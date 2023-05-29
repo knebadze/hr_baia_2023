@@ -10,13 +10,16 @@
     </div>
     <!-- LOADING AREA  END ====== -->
     <div class="panel panel-default">
+        <div class="text-center">
+            <h3>დაამატე ახალი ვაკანსია ან გაიმეორე ძველი</h3>
+        </div>
         <div class="panel-heading wt-panel-heading p-a20">
             <h4 class="panel-tittle m-a0">{{ ('პირადი ინფორმაცია') }}</h4>
             <!-- <h4 class="panel-tittle m-a0">{{ $t('lang.employer_add_job_general_info') }}</h4> -->
             <small class="text-danger">* {{ $t('lang.employer_add_job_definitely_fields') }}</small>
         </div>
             <div class="panel-body wt-panel-body p-a20 m-b30 ">
-                <form>
+
                     <div class="row">
                         <!--Job title-->
                         <div class="col-xl-4 col-lg-6 col-md-12">
@@ -178,7 +181,7 @@
                                 <div class="form-group">
                                     <label><span class="text-danger">* </span>{{ $t('lang.employer_add_job_when_need') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <input class="form-control" v-model="m.demand.start_date" type="date" placeholder="" >
+                                        <input class="form-control" v-model="m.vacancy.start_date" type="date" placeholder="" >
                                     </div>
                                 </div>
                             </div>
@@ -186,7 +189,7 @@
                                 <div class="form-group">
                                     <label><span class="text-danger">* </span>{{ $t('lang.employer_add_job_how_long') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <multiselect v-model="m.demand.term_id" :options="cla.term" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false" >
+                                        <multiselect v-model="m.vacancy.term_id" :options="cla.term" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false" >
                                             <template slot="singleLabel" slot-scope="{ option }"></template>
                                         </multiselect>
                                     </div>
@@ -303,7 +306,7 @@
                                 <div class="form-group">
                                     <label>{{ $t('გასაუბრების თარიღი') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <input class="form-control" v-model="m.date"  type="date"  >
+                                        <input class="form-control" v-model="m.interviewDate"  type="date"  >
                                     </div>
                                 </div>
                             </div>
@@ -311,7 +314,7 @@
                                 <div class="form-group">
                                     <label>{{ $t('გასაუბრების დრო') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <input class="form-control" v-model="m.time"  type="time"  >
+                                        <input class="form-control" v-model="m.interviewTime"  type="time"  >
                                     </div>
                                 </div>
                             </div>
@@ -336,7 +339,40 @@
 
 
                     </div>
-                </form>
+            </div>
+            <hr>
+            <div class="row text-center border border-info py-4">
+                <div class="col-lg-12 col-md-12 mb-4">
+                    <div class="twm-error-content">
+                        <h4 class="twm-error-title2 site-text-primary">ძველი ვაკანისის გამეორება</h4>
+                        <p>გამოიყენეთ თქვენს მიერ ძველ ვაკანსიაში მითითებული ტელეფონის ნომერი.</p>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12">
+                    <div class="twm-error-image">
+                        <div class="twm-bnr-search-bar">
+                            <form>
+                                <div class="row">
+
+                                    <!--Location-->
+                                    <div class="form-group  col-md-9">
+                                        <label>{{ ('ტელეფონის ნომერი') }}</label>
+                                        <div class="twm-inputicon-box">
+                                            <input  type="text"  required class="form-control" :placeholder=" $t('lang.welcome_leftside_bar_search_job_location_job_search')">
+
+                                        </div>
+                                    </div>
+
+                                    <!--Find job btn-->
+                                    <div class="form-group col-xl-3 col-lg-6 col-md-6">
+                                        <button type="button" class="site-button" >{{ $t('lang.welcome_leftside_bar_search_job_location_job_search') }}</button>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 </template>
@@ -359,7 +395,7 @@ export default {
                 'demand':null,
                 'characteristic':[],
                 'duty': [],
-                'from_who_need': [],
+                'for_who_need': [],
                 'benefit': [],
                 'interviewDate':'',
                 'interviewTime':'',
@@ -472,7 +508,7 @@ export default {
             this.m['demand'] = {...this.data.model.demand};
             this.m.vacancy.payment = 800
             this.m['characteristic'] = []
-            this.m['skill'] = []
+            this.m['duty'] = []
             console.log('this.m', this.m);
         },
         addVacancy(){
@@ -505,10 +541,6 @@ export default {
                         if (response.data.status == 200) {
                             currentObj.loader = false
                             currentObj.createModel()
-                            // toast.success("ვაკანსია წარმატებით დაემატა", {
-                            //     theme: 'colored',
-                            //     autoClose: 1000,
-                            // });
 
                             currentObj.$swal({
                                 title: '<strong>ვაკანსია წარმატებით დაემატა</strong>',

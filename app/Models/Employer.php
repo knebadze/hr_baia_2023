@@ -4,11 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kirschbaum\PowerJoins\PowerJoins;
 
 class Employer extends Model
 {
 
+    // use PowerJoins;
     protected $fillable = [
+        'id',
         'name_ka',
         'name_en',
         'name_ru',
@@ -25,5 +28,10 @@ class Employer extends Model
         'map_link',
         'fb_link',
     ];
-    use HasFactory;
+    use HasFactory, PowerJoins;
+
+    public function vacancy()
+    {
+        return $this->hasMany(vacancy::class, 'author_id', 'id');
+    }
 }

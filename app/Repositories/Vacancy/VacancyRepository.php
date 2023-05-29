@@ -6,11 +6,13 @@ use App\Models\Vacancy;
 use App\Models\Employer;
 use App\Models\HrHasVacancy;
 use App\Models\VacancyDemand;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class VacancyRepository{
     public function save($data)
     {
+        // dd($data);
         $hr_id = $this->addHrId($data['employer']['name_ka'], $data['employer']['number']);
         $employer = $this->addEmployer($data['employer']);
 
@@ -35,19 +37,20 @@ class VacancyRepository{
         $vacancy->additional_schedule_ru = $data['vacancy']['additional_schedule_ru'];
 
         $vacancy->comment = $data['vacancy']['comment'];
-        $dateTime = $data['date'].' '.$data['time'];
+        $dateTime = Carbon::createFromTimestamp(strtotime($data['interviewDate'] . $data['interviewTime']));
         $vacancy->interview_date = $dateTime;
         $vacancy->interview_place_id = $data['vacancy']['interview_place_id']['id'];
 
         $vacancy->go_vacation = $data['vacancy']['go_vacation'];
         $vacancy->stay_night = $data['vacancy']['stay_night'];
         $vacancy->work_additional_hours = $data['vacancy']['work_additional_hours'];
+        $vacancy->start_date = $data['vacancy']['start_date'];
+        $vacancy->term_id = $data['vacancy']['term_id']['id'];
         $vacancy->save();
 
         $demand = new VacancyDemand();
         $demand->vacancy_id = $vacancy->id;
-        $demand->start_date = $data['demand']['start_date'];
-        $demand->term_id = $data['demand']['term']['id'];
+
         $demand->min_age = $data['demand']['min_age'];
         $demand->max_age = $data['demand']['max_age'];
         $demand->education_id = $data['demand']['education_id']['id'];
@@ -58,7 +61,7 @@ class VacancyRepository{
         $demand->language_level_id = $data['demand']['language_level_id']['id'];
         $demand->save();
 
-        $selectForWhoNeedId = collect($data['from_who_need'])->reduce(function ($carry, $item) {
+        $selectForWhoNeedId = collect($data['for_who_need'])->reduce(function ($carry, $item) {
             if($carry  == null) $carry = [];
             $carry[] = $item["id"];
             return $carry;

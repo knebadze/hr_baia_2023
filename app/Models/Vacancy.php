@@ -26,9 +26,7 @@ class Vacancy extends Model
         'additional_schedule_ka',
         'additional_schedule_en',
         'additional_schedule_ru',
-        'for_who_ka',
-        'for_who_en',
-        'for_who_ru',
+        'for_who_need_id',
         'comment',
         'additional_ka',
         'additional_en',
@@ -57,6 +55,10 @@ class Vacancy extends Model
     {
         return $this->belongsTo(Employer::class);
     }
+    public function employer()
+    {
+        return $this->belongsTo(vacancy::class, 'id', 'author_id');
+    }
     public function currency()
     {
         return $this->belongsTo(Currency::class);
@@ -82,6 +84,10 @@ class Vacancy extends Model
     {
         return $this->hasMany(VacancyInterest::class, 'vacancy_id', 'id');
     }
+    // public function forWhoNeed()
+    // {
+    //     return $this->belongsTo(ForWhoNeed::class, '');
+    // }
     public function getHrInfoAttribute():array
     {
         $hr = Hr::where('id', $this->hr_id)->first()->toArray();

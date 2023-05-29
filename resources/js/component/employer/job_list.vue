@@ -218,10 +218,10 @@
                                     <a href="job-detail.html" class="twm-job-title">
                                         <h4> {{ item[`title_${getLang}`] }}<span class="twm-job-post-duration"> /{{ item.timeAgo }}</span></h4>
                                     </a>
-                                    <p class="twm-job-address">{{ item.author[`address_${getLang}`].split(/\s+/).slice(0, 2).join(" ") }} {{ (item[`for_who_${getLang}`])?item[`for_who_${getLang}`]:'' }}.</p>
+                                    <p class="twm-job-address">{{ item.author[`address_${getLang}`].split(/\s+/).slice(0, 2).join(" ") }}. <span v-for="(i, ind) in item.vacancy_for_who_need" :key="ind">{{  i[`name_${getLang}`]}}</span>.</p>
 
                                     <p class="twm-job-address">გრაფიკი: {{ item.work_schedule[`name_${getLang}`]+', '+ item[`additional_schedule_${getLang}`] }}.</p>
-                                    <p class="twm-job-address text-danger" v-if="item[`additional_${getLang}`]">დამატებით: {{ item[`additional_${getLang}`] }}.</p>
+                                    <p class="twm-job-address text-danger" v-if="item.vacancy_benefit">დამატებით: <span v-for="i in item.vacancy_benefit">{{ i[`name_${getLang}`]+', ' }}</span>.</p>
                                     <!-- <a href="https://themeforest.net/user/thewebmax/portfolio" class="twm-job-websites site-text-primary">https://thewebmax.com</a> -->
                                 </div>
                                 <div class="twm-right-content">

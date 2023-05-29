@@ -32,7 +32,7 @@ class VacancyController extends Controller
     public function data(Request $request)
     {
 
-        $vacancy = Vacancy::orderby('updated_at', 'DESC')->with(['author','currency', 'category', 'workSchedule'])->paginate(20)->toArray();
+        $vacancy = Vacancy::orderby('updated_at', 'DESC')->with(['author','currency', 'category', 'workSchedule', 'vacancyForWhoNeed', 'vacancyBenefit'])->paginate(20)->toArray();
         $countVacancy = Vacancy::orderby('updated_at', 'DESC')->count();
         $auth = Auth::user();
         $data = [

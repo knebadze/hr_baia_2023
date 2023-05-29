@@ -4,7 +4,7 @@
             <div class="col-lg-12 col-md-12 mb-4">
                 <div class="twm-error-content">
                     <h4 class="twm-error-title2 site-text-primary">მიიღეთ ინფორმაციაა თქვენს ვაკანსიაზე</h4>
-                    <p>გამოიყენეთ ესემესის სახით გამოგზავნილი უნიკალური კოდი.</p>
+                    <p>გამოიყენეთ თქვენის მიერ ვაკანშიაში მითითებული ტელეფონის ნომერი.</p>
                 </div>
             </div>
             <div class="col-lg-12 col-md-12">
@@ -15,7 +15,7 @@
 
                                 <!--Location-->
                                 <div class="form-group  col-md-9">
-                                    <label>{{ ('უნიკალური კოდი') }}</label>
+                                    <label>{{ ('ტელეფონის ნომერი') }}</label>
                                     <div class="twm-inputicon-box">
                                         <input v-model="search" type="text"  required class="form-control" :placeholder=" $t('lang.welcome_leftside_bar_search_job_location_job_search')">
 
@@ -49,7 +49,6 @@
                                             <th>სათაური</th>
                                             <th>კატეგორია</th>
                                             <th>გრაფიკი</th>
-
                                             <th>დაინტერესდნენ</th>
                                             <th>სტატუსი</th>
                                             <th>Action</th>
@@ -57,13 +56,13 @@
                                     </thead>
                                     <tbody>
                                         <!--1-->
-                                        <tr>
+                                        <tr v-for="(item, index) in vacancy" :key="index">
                                             <td>
                                                 <div class="twm-bookmark-list">
 
                                                     <div class="twm-mid-content">
                                                         <a href="#" class="twm-job-title">
-                                                            <h4>{{ vacancy[`title_${getLang}`] }}</h4>
+                                                            <h4>{{ item[`title_${getLang}`] }}</h4>
                                                             <!-- <p class="twm-bookmark-address">
                                                                 <i class="feather-map-pin"></i>Sacramento, California
                                                             </p> -->
@@ -73,13 +72,13 @@
 
                                                 </div>
                                             </td>
-                                            <td>{{ vacancy.category[`name_${getLang}`] }}</td>
+                                            <td>{{ item.category[`name_${getLang}`] }}</td>
                                             <td>
-                                                <span class="text-clr-green2">{{ vacancy.work_schedule[`name_${getLang}`] }}</span>
+                                                <span class="text-clr-green2">{{ item.work_schedule[`name_${getLang}`] }}</span>
                                             </td>
-                                            <td><a href="javascript:;" class="site-text-primary">{{  vacancy.vacancy_interest.length }}</a></td>
+                                            <td><a href="javascript:;" class="site-text-primary">{{  item.vacancy_interest.length }}</a></td>
 
-                                            <td><div class="twm-jobs-category"><span class="twm-bg-green">{{ vacancy.status[`name_${getLang}`] }}</span></div></td>
+                                            <td><div class="twm-jobs-category"><span class="twm-bg-green">{{ item.status[`name_${getLang}`] }}</span></div></td>
 
                                             <td>
                                                 <div class="twm-table-controls">
@@ -209,8 +208,8 @@ export default {
                 })
                 .then(function (response) {
                     console.log('response.data',response.data);
-                    currentObj.vacancy = response.data.data
-                    currentObj.interest = response.data.interest
+                    currentObj.vacancy = response.data.data.vacancy
+                    // currentObj.interest = response.data.interest
 
                 })
                 .catch(function (error) {
