@@ -228,7 +228,10 @@
                                     <div class="twm-jobs-category green"><span class="twm-bg-green">{{ item.category[`name_${getLang}`] }}</span></div>
                                     <div class="twm-jobs-amount">{{ item.currency.icon }} {{ item.payment }}</div>
                                     <div class="twm-jobs-amount">{{ item.hrInfo.number }} <span>/ {{ item.hrInfo[`name_${getLang}`] }}</span></div>
-                                    <button type="button" class="btn btn-primary" @click="interest(item.id)">დაინტერესება</button>
+                                    <span v-if="auth && item.vacancy_interest.some( (o) => o.user_id == auth.id ) " style="font-size:20px;">
+                                        <i :class="(item.vacancy_interest.some( (o) => o.user_id == auth.id && o.employer_answer == null))?'fa fa-plus-circle text-warning':(item.vacancy_interest.some( (o) => o.user_id == auth.id && o.employer_answer == 0))?'fa fa-times-circle text-danger':(item.vacancy_interest.some( (o) => o.user_id == auth.id && o.employer_answer == 1))?'fa fa-check-circle text-success':''"></i></span>
+                                    <button v-else type="button" class="btn btn-primary" @click="interest(item.id)">დაინტერესება</button>
+
                                 </div>
                             </div>
                         </li>
@@ -386,7 +389,6 @@ export default {
                 })
         },
         interest(id){
-            console.log(this.auth);
             if (this.auth != null ) {
                 if (this.auth.role_id != 3) {
                     toast.error("თქვენ არ გაქვთ დაინტერესების უფლება", {
@@ -402,6 +404,7 @@ export default {
                     return
                 }
                 console.log(id);
+                let currentObj = this
                 axios({
                         method: "post",
                         url: '/interest_vacancy',
@@ -410,10 +413,12 @@ export default {
                     })
                     .then(function (response) {
                         console.log('response.data',response.data);
-                        toast.success(response.data, {
+                        toast.success('თქვენ გააგზავნეთ დაინტერესება ვაკანისაზე', {
                         theme: 'colored',
                         autoClose: 1000,
                     });
+                        var find = currentObj.vacancy.find(element => element.id == id);
+                        find.vacancy_interest.push(response.data)
 
                     })
                     .catch(function (error) {

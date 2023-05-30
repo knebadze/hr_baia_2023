@@ -18,8 +18,6 @@ return new class extends Migration
             $table->foreignId('vacancy_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onUpdate('cascade');
             $table->smallInteger('employer_answer')->nullable();
-            $table->dateTime('interview_date')->nullable();
-            $table->foreignId('interview_place_id')->constrained()->onUpdate('cascade')->nullable();
             $table->smallInteger('agree')->nullable();
             $table->timestamps();
         });
