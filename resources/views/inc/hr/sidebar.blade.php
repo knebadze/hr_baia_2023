@@ -33,7 +33,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a @if(Route::currentRouteName() === 'admin.dashboard') class="nav-link active" @else class="nav-link" @endif href="{{ route('admin.dashboard', App()->getLocale()) }}">
+                <a @if(Route::currentRouteName() === 'hr.vacancy') class="nav-link active" @else class="nav-link" @endif href="{{ route('hr.vacancy', App()->getLocale()) }}">
                     <i class="nav-icon fa fa-list"></i>
                     <p>
                         ჩემი ვაკანსიები

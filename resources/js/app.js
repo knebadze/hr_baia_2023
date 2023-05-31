@@ -28,6 +28,8 @@ import postJob from './component/employer/post_job.vue'
 import jobList from './component/employer/job_list.vue'
 import myVacancy from './component/employer/my_vacancy.vue'
 
+// HR
+import hrVacancy from './component/hr/page/hr_vacancy.vue'
 //modal
 import modalManager from './component/modal/modalManager.vue'
 //_______________________ADMIN COMPONENT_____________________
@@ -46,8 +48,9 @@ import Multiselect from 'vue-multiselect'
 
 import withUUID from "vue-uuid";
 
-//AG GRID
-
+//Vue3EasyDataTable
+import Vue3EasyDataTable from 'vue3-easy-data-table';
+import 'vue3-easy-data-table/dist/style.css';
 
 const app = createApp({})
 // console.log(app);
@@ -72,6 +75,8 @@ app.component('post-job', postJob)
 app.component('job-list', jobList)
 app.component('my-vacancy', myVacancy)
 
+// HR
+app.component('hr-vacancy', hrVacancy)
 //modal
 app.component('modal-manager', modalManager);
 
@@ -81,6 +86,8 @@ app.component('candidate-table', candidateTable)
 
 
 app.component('multiselect', Multiselect)
+
+app.component('EasyDataTable', Vue3EasyDataTable);
 
 app.use(i18nVue
     , {

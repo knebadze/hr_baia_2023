@@ -28,6 +28,7 @@ use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Admin\AdminCandidateController;
 use App\Http\Controllers\Employer\EmployerInfoController;
 use App\Http\Controllers\Candidate\WorkInformationController;
+use App\Http\Controllers\HR\HrVacancyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -100,6 +101,10 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
 
     Route::get('auth/{provider}/redirect', [SocialController::class, 'redirect'])->name('auth.social.redirect');
     Route::get('auth/{provider}/callback', [SocialController::class, 'callback'])->name('auth.social.callback');
+
+    // _______________________HR PAGE________________________________
+    Route::get('hr/hr_vacancy', [HrVacancyController::class, 'index'])->name('hr.vacancy');
+
     //_______________________USER REQUEST_____________________________
     Route::post('upload_avatar', [MyprofileController::class, 'store']);
     //AXIOS

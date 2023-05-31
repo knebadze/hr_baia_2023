@@ -183,7 +183,7 @@
                 <!--Filter Short By-->
                 <div class="product-filter-wrap d-flex justify-content-between align-items-center m-b30">
                     <span class="woocommerce-result-count-left">{{ $t('lang.individual_vacancies_page_middle_first_title') }} {{ count }} </span>
-
+                    <!-- <button class="btn btn-primary">ჩემი დაინტერესებული</button> -->
                     <!-- <form class="woocommerce-ordering twm-filter-select" method="get">
                         <span class="woocommerce-result-count">{{ $t('lang.individual_vacancies_page_middle_title_sort') }}</span>
                         <select class="wt-select-bar-2 selectpicker" data-live-search="true" data-bv-field="size">
