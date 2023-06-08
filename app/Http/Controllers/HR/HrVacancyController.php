@@ -2,13 +2,27 @@
 
 namespace App\Http\Controllers\HR;
 
-use App\Http\Controllers\Controller;
+use App\Models\Vacancy;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\Status;
+use Illuminate\Support\Facades\Auth;
 
 class HrVacancyController extends Controller
 {
     public function index()
     {
-        return view('hr.hr_vacancy');
+        $data = [];
+        $vacancy = Vacancy::orderBy('updated_at', 'DESC')->where('hr_id', Auth::user()->hr->id)->with([
+            'vacancyDuty', 'vacancyBenefit', 'vacancyForWhoNeed', 'characteristic', 'employer', 'currency','category', 'status',
+            'workSchedule', 'vacancyInterest', 'interviewPlace','term', 'demand', 'demand.language', 'demand.education', 'demand.languageLevel'
+
+            ])->get();
+        $classificatory = [
+            'status' => Status::all()->toArray(),
+        ];
+        $data = ['vacancy'=> $vacancy, 'classificatory' => $classificatory];
+        // dd($data);
+        return view('hr.hr_vacancy', compact('data'));
     }
 }

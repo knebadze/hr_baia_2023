@@ -52,6 +52,8 @@ import withUUID from "vue-uuid";
 import Vue3EasyDataTable from 'vue3-easy-data-table';
 import 'vue3-easy-data-table/dist/style.css';
 
+
+
 const app = createApp({})
 // console.log(app);
 

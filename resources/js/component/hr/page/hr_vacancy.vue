@@ -8,8 +8,24 @@
         :filter-options="filterOptions"
     >
     <template #item-operation="item">
-      <div class="operation-wrapper">
-        <button class="btn btn-info btn-sm">
+       <div class="operation-wrapper">
+        <!--<button class="btn btn-info btn-sm">
+            <i
+                class="fa fa-cog"
+                @click="deleteItem(item)"
+            ></i>
+        </button> -->
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-cog"></i>
+            </button>
+            <div class="dropdown-menu ropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#">რედაქტირება</a>
+                <a class="dropdown-item" href="#">სტატუსის შეცვლა</a>
+                <a class="dropdown-item" href="#">გამეორება</a>
+            </div>
+        </div>
+        <!-- <button class="btn btn-info btn-sm">
             <i
                 class="fa fa-pen"
                 @click="deleteItem(item)"
@@ -20,32 +36,116 @@
             class="fa fa-trash"
             @click="editItem(item)"
             ></i>
-        </button>
+        </button> -->
       </div>
     </template>
         <template #expand="item">
-            <div style="padding: 15px">
-                {{item.player}} won championships in
-            </div>
+            <!-- {{ item }} -->
+              <!-- /.card-header -->
+              <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <dl class="row">
+                                <dt class="col-sm-4">სათაური:</dt>
+                                <dd class="col-sm-8">{{ item.title }}</dd>
+                                <dt class="col-sm-4">სამუშაო დღეები:</dt>
+                                <dd class="col-sm-8">{{ item.workDay }}</dd>
+                                <div class="row col-12" v-if="item.benefit.length > 0">
+                                    <dt class="col-sm-4">ბენეფიტები:</dt>
+                                    <dd class="col-sm-8"><span v-for="(i, index) in item.benefit" :key="index">{{ i.name_ka+', ' }}</span> </dd>
+                                </div>
+                                <div class="row col-12" v-if="item.stay_night == 1 || item.go_vacation == 1 || item.work_additional_hours == 1">
+                                    <dt class="col-sm-4">უნდა შეეძლოს:</dt>
+                                    <dd class="col-sm-8">
+                                        <span v-if="item.stay_night == 1"> ღამე დარჩენა, </span>
+                                        <span v-if="item.go_vacatioნ == 1"> არდადეგებზე გაყოლა, </span>
+                                        <span v-if="item.work_additional_hours == 1"> დამატებითი საათები მუშაობა, </span>
+                                    </dd>
+                                </div>
+
+                                <div class="row col-12" v-if="item.duty.length > 0">
+                                    <dt class="col-sm-4">მოვალეობები:</dt>
+                                    <dd class="col-sm-8"><span v-for="(i, index) in item.duty" :key="index" class="badge badge-primary">{{ i.name_ka+', ' }}</span> </dd>
+                                </div>
+                                <div class="row col-12" v-if="item.demand.additional_name_ka">
+                                    <dt class="col-sm-4">დამატებითი მოვალეობები:</dt>
+                                    <dd class="col-sm-8">{{ item.demand.additional_name_ka }} </dd>
+                                </div>
+
+                            </dl>
+                        </div>
+                        <div class="col-md-6">
+                            <dl class="row">
+                                <dt class="col-sm-4">დამატების თარიღი:</dt>
+                                <dd class="col-sm-8">{{ item.created_at }}</dd>
+                                <dt class="col-sm-4">განახლების თარიღი:</dt>
+                                <dd class="col-sm-8">{{ item.updated_at }}</dd>
+                                <dt class="col-sm-4">გასაუბრების თარიღი:</dt>
+                                <dd class="col-sm-8">{{ item.interview_date }}</dd>
+                                <dt class="col-sm-4">გასაუბრების ადგილი:</dt>
+                                <dd class="col-sm-8">{{ item.interview_place }}</dd>
+                                <dt class="col-sm-4">ვადა:</dt>
+                                <dd class="col-sm-8">{{ item.term }}</dd>
+                                <div class="row col-12" v-if="item.demand.education">
+                                    <dt class="col-sm-4">განათლება:</dt>
+                                    <dd class="col-sm-8">{{ item.demand.education.name_ka }} </dd>
+                                </div>
+                                <div class="row col-12" v-if="item.demand.language">
+                                    <dt class="col-sm-4">უცხო ენა:</dt>
+                                    <dd class="col-sm-8">{{ item.demand.language.name_ka+' -' }} {{ (item.demand.language_level)?item.demand.language_level.name_ka:''}}</dd>
+                                </div>
+                                <div class="row col-12" v-if="item.demand.min_age || item.demand.max_age">
+                                    <dt class="col-sm-4">ასაკი:</dt>
+                                    <dd class="col-sm-8">{{ item.demand.min_age+' - '+ item.demand.max_age}}</dd>
+                                </div>
+                                <div class="row col-12" v-if="item.characteristic.length > 0">
+                                    <dt class="col-sm-4">მახასიათებლები:</dt>
+                                    <dd class="col-sm-8"><span v-for="(i, index) in item.characteristic" :key="index" >{{ i.name_ka+', ' }}</span> </dd>
+                                </div>
+                            </dl>
+                        </div>
+                    </div>
+
+              </div>
+              <!-- /.card-body -->
         </template>
-        <template #header-country="header">
+        <template #header-status="header">
             <div class="filter-column">
-                <i class="fa fa-filter text-secondary" @click.stop="showFavouriteSportFilter=!showFavouriteSportFilter"></i>
+                <i class="fa fa-filter text-secondary" style="font-size:10px;" @click.stop="showStatusFilter=!showStatusFilter"></i>
                 {{ header.text }}
-                <div class="filter-menu filter-sport-menu" v-if="showFavouriteSportFilter">
+                <div class="filter-menu filter-sport-menu" v-if="showStatusFilter">
                 <select
                     class="favouriteSport-selector"
-                    v-model="favouriteSportCriteria"
+                    v-model="choseStatus"
                     name="favouriteSport"
                 >
-                    <option value="all">
-                        all
+                    <option value="ყველა">
+                        ყველა
                     </option>
-                    <option value="USA">
-                        usa
+                    <option v-for="(item, index) in data.classificatory.status" :key="index" :value="item.name_ka">
+                        {{ item.name_ka }}
                     </option>
-                    <option value="Greece">
-                        Greece
+
+                </select>
+                </div>
+            </div>
+        </template>
+        <template #header-category="header">
+            <div class="filter-column">
+                <i class="fa fa-filter text-secondary" style="font-size:10px;" @click.stop="showStatusFilter=!showStatusFilter"></i>
+                {{ header.text }}
+                <div class="filter-menu filter-sport-menu" v-if="showStatusFilter">
+                <select
+                    class="favouriteSport-selector"
+                    v-model="choseStatus"
+                    name="favouriteSport"
+                >
+                    <option value="ყველა">
+                        ყველა
+                    </option>
+                    <option v-for="(item, index) in data.classificatory.status" :key="index" :value="item.name_ka">
+                        {{ item.name_ka }}
                     </option>
 
                 </select>
@@ -56,45 +156,79 @@
 </template>
 <script>
 import { ref, computed } from "vue";
+import moment from 'moment'
 // import { Header, Item, FilterOption } from "vue3-easy-data-table";
 export default {
+    props:{
+        data: Object
+    },
 
-    setup(){
+    setup(props){
+        console.log('data',props.data.vacancy);
         const headers = ref([
-            { text: "PLAYER", value: "player" },
-            { text: "TEAM", value: "team"},
-            { text: "NUMBER", value: "number"},
-            { text: "POSITION", value: "position"},
-            { text: "HEIGHT", value: "indicator.height"},
-            { text: "WEIGHT (lbs)", value: "indicator.weight", sortable: true},
-            { text: "LAST ATTENDED", value: "lastAttended", width: 200},
-            { text: "COUNTRY", value: "country"},
+            { text: "id", value: "id" },
+            { text: "კატეგორია", value: "category" },
+            { text: "გრაფიკი", value: "schedule"},
+            { text: "დამსაქმებელი", value: "employer"},
+            { text: "ნომერი", value: "number"},
+            { text: "სტატუსი", value: "status"},
+            { text: "ანაზღაურება", value: "payment", sortable: true},
+            { text: "საჭიროება", value: "startDate", sortable: true},
             { text: "Operation", value: "operation" },
         ]);
-        const items = ref([
-            { player: "Stephen Curry", team: "GSW", number: 30, position: 'G', indicator: {"height": '6-2', "weight": 185}, lastAttended: "Davidson", country: "USA"},
-            { player: "Lebron James", team: "LAL", number: 6, position: 'F', indicator: {"height": '6-9', "weight": 250}, lastAttended: "St. Vincent-St. Mary HS (OH)", country: "USA"},
-            { player: "Kevin Durant", team: "BKN", number: 7, position: 'F', indicator: {"height": '6-10', "weight": 240}, lastAttended: "Texas-Austin", country: "USA"},
-            { player: "Giannis Antetokounmpo", team: "MIL", number: 34, position: 'F', indicator: {"height": '6-11', "weight": 242}, lastAttended: "Filathlitikos", country: "Greece"},
-        ]);
-        const showFavouriteSportFilter = ref(false);
-        const favouriteSportCriteria = ref('all');
+
+        const items = ref(makeData(props.data.vacancy));
+        function makeData(params) {
+            var arr = []
+            params.forEach(element => {
+                var data = {
+                    'id': element.code,
+                    'category':element.category.name_ka,
+                    'schedule':element.work_schedule.name_ka,
+                    'employer':element.employer.name_ka,
+                    'number':element.employer.number,
+                    'status':element.status.name_ka,
+                    'payment':element.payment+' '+element.currency.icon,
+                    'startDate':element.start_date,
+                    'workDay':element.additional_schedule_ka,
+                    'title': element.title_ka,
+                    'created_at':moment(element.created_at).format("YYYY-MM-DD HH:mm"),
+                    'updated_at':moment(element.updated_at).format("YYYY-MM-DD HH:mm"),
+                    'comment':element.category,
+                    'go_vacation':element.go_vacation,
+                    'stay_night': element.stay_night,
+                    'work_additional_hours': element.work_additional_hours,
+                    'interview_date':element.interview_date,
+                    'interview_place':element.interview_place.name_ka,
+                    'term':element.term.name_ka,
+                    'benefit': element.vacancy_benefit,
+                    'duty': element.vacancy_duty,
+                    'demand':element.demand,
+                    'characteristic':element.characteristic
+                }
+                arr.push(data)
+            });
+            return arr
+        }
+        const showStatusFilter = ref(false);
+        const choseStatus = ref('ყველა');
         const filterOptions = computed(()=> {
-        const filterOptionsArray =  [];
-            if (favouriteSportCriteria.value !== 'all') {
+            const filterOptionsArray =  [];
+            if (choseStatus.value !== 'ყველა') {
                 filterOptionsArray.push({
-                    field: 'country',
+                    field: 'status',
                     comparison: '=',
-                    criteria: favouriteSportCriteria.value,
+                    criteria: choseStatus.value,
                 });
             }
             return filterOptionsArray;
         });
+
         return {
             headers,
             items,
-            showFavouriteSportFilter,
-            favouriteSportCriteria,
+            showStatusFilter,
+            choseStatus,
             filterOptions
         };
     }
@@ -105,7 +239,7 @@ export default {
         --easy-table-border: 1px solid #445269;
         /* --easy-table-row-border: 1px solid #445269; */
 
-        --easy-table-header-font-size: 20px;
+        --easy-table-header-font-size: 18px;
          --easy-table-header-height: 50px;
          --easy-table-body-row-font-size: 14px;
          --easy-table-body-row-height: 50px;

@@ -10,8 +10,6 @@ class VacancyDemand extends Model
     use HasFactory;
     protected $fillable = [
         'vacancy_id ',
-        'start_date',
-        'term ',
         'min_age ',
         'max_age',
         'education_id ',
@@ -19,4 +17,17 @@ class VacancyDemand extends Model
         'additional_duty_en',
         'additional_duty_ru',
     ];
+
+    public function language()
+    {
+        return $this->belongsTo(Language::class);
+    }
+    public function education()
+    {
+        return $this->belongsTo(Education::class, 'education_id');
+    }
+    public function languageLevel()
+    {
+        return $this->belongsTo(language_level::class);
+    }
 }

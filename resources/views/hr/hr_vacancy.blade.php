@@ -17,7 +17,7 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-            <hr-vacancy></hr-vacancy>
+            <hr-vacancy :data='@json($data)'></hr-vacancy>
         </div>
     </section>
 @endsection

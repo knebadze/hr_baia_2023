@@ -47,6 +47,11 @@ class Vacancy extends Model
     {
         return $this->belongsToMany(ForWhoNeed::class, 'for_who_vacancies');
     }
+    public function demand()
+    {
+        return $this->belongsTo(VacancyDemand::class, 'id', 'vacancy_id');
+    }
+
     public function characteristic()
     {
         return $this->belongsToMany(GeneralCharacteristic::class, 'vacancy_candidate_characteristics',  'vacancy_id', 'characteristic_id');
@@ -57,7 +62,7 @@ class Vacancy extends Model
     }
     public function employer()
     {
-        return $this->belongsTo(vacancy::class, 'id', 'author_id');
+        return $this->belongsTo(Employer::class, 'author_id', 'id');
     }
     public function currency()
     {
@@ -78,6 +83,14 @@ class Vacancy extends Model
     public function hr()
     {
         return $this->belongsTo(Hr::class);
+    }
+    public function interviewPlace()
+    {
+        return $this->belongsTo(InterviewPlace::class);
+    }
+    public function term()
+    {
+        return $this->belongsTo(Term::class);
     }
 
     public function vacancyInterest()

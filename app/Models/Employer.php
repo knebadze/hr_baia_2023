@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Kirschbaum\PowerJoins\PowerJoins;
+// use Kirschbaum\PowerJoins\PowerJoins;
 
 class Employer extends Model
 {
@@ -28,7 +28,7 @@ class Employer extends Model
         'map_link',
         'fb_link',
     ];
-    use HasFactory, PowerJoins;
+    use HasFactory;
 
     public function vacancy()
     {
