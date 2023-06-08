@@ -28,6 +28,7 @@ use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Admin\AdminCandidateController;
 use App\Http\Controllers\Employer\EmployerInfoController;
 use App\Http\Controllers\Candidate\WorkInformationController;
+use App\Http\Controllers\JobDetailController;
 use App\Http\Controllers\HR\HrVacancyController;
 
 /*
@@ -78,6 +79,9 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
 
         //Post Job
         Route::get('/post_job', [PostVacancyController::class, 'index'])->name('post.job');
+
+        //Job Detail
+        Route::get('/job_detail', [JobDetailController::class, 'index'])->name('job_detail');
 
         //user vacancy
         // Route::get('/user/vacancy', [VacancyController::class, 'index'])->name('user.vacancy');
