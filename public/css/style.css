@@ -10176,12 +10176,16 @@ ol.comment-list li.comment .comment-respond .comment-form p {
   background-color: #0579b6;
 }
 
-.whats-clr {
-  background-color: #2ca53b;
+.odno-clr {
+  background-color: #ed812b;
 }
 
-.pinte-clr {
+.insta-clr {
   background-color: #f03c41;
+}
+
+.vk-clr {
+  background-color: #4C75A3;
 }
 
 /*Employer detail*/

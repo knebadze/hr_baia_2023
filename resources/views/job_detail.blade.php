@@ -91,66 +91,67 @@
                                     <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi.</p>
                                       
                                     
-                                    <h4 class="twm-s-title">Requirments:</h4>
+                                    <h4 class="twm-s-title">მოთხოვნები:</h4>
                                     <ul class="description-list-2">
                                         <li>
                                             <i class="feather-check"></i>
-                                            Must be able to communicate with others to convey information effectively.
+                                            შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს
                                         </li>
                                         <li>
                                             <i class="feather-check"></i>
-                                            Personally passionate and up to date with current trends and technologies, committed to quality and comfortable working with adult media.
+                                            შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს
                                         </li>
                                         <li>
                                             <i class="feather-check"></i>
-                                            Rachelor or Master degree level educational background.
+                                            შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს
                                         </li>
                                         <li>
                                             <i class="feather-check"></i>
-                                            4 years relevant PHP dev experience.
+                                            შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს
                                         </li>
                                         <li>
                                             <i class="feather-check"></i>
-                                            Troubleshooting, testing and maintaining the core product software and databases.
+                                            შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს
                                         </li>
 
                                     </ul>
 
-                                    <h4 class="twm-s-title">Responsabilities:</h4>
+                                    <h4 class="twm-s-title">პასუხისმგებლობა:</h4>
                                     <ul class="description-list-2">
                                         <li>
                                             <i class="feather-check"></i>
-                                            Establish and promote design guidelines, best practices and standards.
+                                            შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს
                                         </li>
                                         <li>
                                             <i class="feather-check"></i>
-                                            Accurately estimate design tickets during planning sessions.
+                                            შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს
                                         </li>
                                         <li>
                                             <i class="feather-check"></i>
-                                            Partnering with product and engineering to translate business and user goals into elegant and practical designs. that can deliver on key business and user metrics.
+                                            შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს
                                         </li>
                                         <li>
                                             <i class="feather-check"></i>
-                                            Create wireframes, storyboards, user flows, process flows and site maps to communicate interaction and design.
+                                            შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს
                                         </li>
                                         <li>
                                             <i class="feather-check"></i>
-                                            Present and defend designs and key deliverables to peers and executive level stakeholders.
+                                            შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს
                                         </li>
                                         <li>
                                             <i class="feather-check"></i>
-                                            Execute all visual design stages from concept to final hand-off to engineering.
+                                            შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს
                                         </li>
 
                                     </ul>
                                   
-                                    <h4 class="twm-s-title">Share Profile</h4>
+                                    <h4 class="twm-s-title">გაზიარება</h4>
                                     <div class="twm-social-tags">
                                         <a href="#" class="fb-clr">Facebook</a>
                                         <a href="#" class="tw-clr">Twitter</a>                                          
-                                        <a href="#" class="whats-clr">Whatsapp</a>
-                                        <a href="#" class="pinte-clr">Instagram</a>
+                                        <a href="#" class="odno-clr">Ok</a>
+                                        <a href="#" class="insta-clr">Instagram</a>
+                                        <a href="#" class="vk-clr">Vk</a>
                                     </div>
 
                                     <h4 class="twm-s-title">მდებარეობა</h4>
@@ -164,7 +165,7 @@
                                         <div class="row">
 
                                             <div class="col-lg-6 col-md-12">
-                                                <h4 class="twm-s-title">კომპანიის ფოტოები</h4>
+                                                <h4 class="twm-s-title">ჩვენი სურათები</h4>
                                                 <div class="tw-sidebar-gallery">
                                                     <ul>
                                                         <li>
@@ -304,7 +305,7 @@
                                             <h4 class="section-head-small mb-4">სამუშაო ინფორმაცია</h4>
                                             <ul class="twm-job-hilites">
                                                 <li>
-                                                    <i class="fas fa-calendar-alt"></i>
+                                                    <i class="fas fa-language"></i>
                                                     <span class="twm-title">ენა</span>
                                                 </li>
                                                 <li>
@@ -322,42 +323,42 @@
                                                     <div class="twm-s-info-inner">
                                                         <i class="fas fa-calendar-alt"></i>
                                                         <span class="twm-title">გამოქვეყნების დრო</span>
-                                                        <div class="twm-s-info-discription">აპრილი 22, 2022</div>
+                                                        <div class="twm-s-info-discription">ბაზიდან</div>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="twm-s-info-inner">
                                                         <i class="fas fa-map-marker-alt"></i>
                                                         <span class="twm-title">ლოკაცია</span>
-                                                        <div class="twm-s-info-discription">თბილისი, საქართველო</div>
+                                                        <div class="twm-s-info-discription">ბაზიდან</div>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="twm-s-info-inner">
                                                         <i class="fas fa-user-tie"></i>
                                                         <span class="twm-title">სამუშაო დასახელება</span>
-                                                        <div class="twm-s-info-discription">ძიძა</div>
+                                                        <div class="twm-s-info-discription">ბაზიდან</div>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="twm-s-info-inner">
-                                                        <i class="fas fa-clock"></i>
+                                                        <i class="fas fa-tasks"></i>
                                                         <span class="twm-title">მოვალეობები</span>
-                                                        <div class="twm-s-info-discription">3 წელი</div>
+                                                        <div class="twm-s-info-discription">ბაზიდან</div>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="twm-s-info-inner">
                                                         <i class="fas fa-suitcase"></i>
                                                         <span class="twm-title">განათლება</span>
-                                                        <div class="twm-s-info-discription">ბაკალავრი </div>
+                                                        <div class="twm-s-info-discription">ბაზიდან</div>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="twm-s-info-inner">
                                                         <i class="fas fa-venus-mars"></i>
                                                         <span class="twm-title">სქესი</span>
-                                                        <div class="twm-s-info-discription">Both</div>
+                                                        <div class="twm-s-info-discription">ბაზიდან</div>
                                                     </div>
                                                 </li>
                                                 <li>
@@ -365,7 +366,7 @@
                                                         
                                                         <i class="fas fa-money-bill-wave"></i>
                                                         <span class="twm-title">ანაზღაურება</span>
-                                                        <div class="twm-s-info-discription">$2000-$2500 / თვეში</div>
+                                                        <div class="twm-s-info-discription">ბაზიდან</div>
                                                     </div>
                                                 </li>
     
@@ -378,13 +379,8 @@
                                         <h4 class="section-head-small mb-4">სამუშაო გამოცდილებები</h4>
                                         
                                         <div class="tagcloud">
-                                            <button style="margin-right: 1%; margin-bottom: 1%;" class="btn btn-secondary">ძიძა</button>
-                                            <button style="margin-right: 1%; margin-bottom: 1%;" class="btn btn-secondary">დამხმარე</button>
-                                            <button style="margin-right: 1%; margin-bottom: 1%;" class="btn btn-secondary">დამლაგებელი</button>                                            
-                                            <button style="margin-right: 1%; margin-bottom: 1%;" class="btn btn-secondary">მომვლელი</button>
-                                            <button style="margin-right: 1%; margin-bottom: 1%;" class="btn btn-secondary">მძღოლი</button>
-                                            <button style="margin-right: 1%; margin-bottom: 1%;" class="btn btn-secondary">მზარეული</button>
-                                            <button style="margin-right: 1%; margin-bottom: 1%;" class="btn btn-secondary">მრეცხავი</button>
+                                            <button style="margin-right: 1%; margin-bottom: 1%;" class="btn btn-secondary">მოლარე</button>
+                                            <button style="margin-right: 1%; margin-bottom: 1%;" class="btn btn-secondary">მენეჯერი</button>
                                         </div>
                                     </div>
 
