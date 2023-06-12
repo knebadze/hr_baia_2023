@@ -5,7 +5,9 @@ namespace App\Http\Controllers\HR;
 use App\Models\Vacancy;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Status;
+use App\Models\WorkSchedule;
 use Illuminate\Support\Facades\Auth;
 
 class HrVacancyController extends Controller
@@ -20,6 +22,8 @@ class HrVacancyController extends Controller
             ])->get();
         $classificatory = [
             'status' => Status::all()->toArray(),
+            'category' => Category::all()->toArray(),
+            'workSchedule' => WorkSchedule::all()->toArray(),
         ];
         $data = ['vacancy'=> $vacancy, 'classificatory' => $classificatory];
         // dd($data);

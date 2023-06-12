@@ -21,7 +21,7 @@
             </button>
             <div class="dropdown-menu ropdown-menu-right" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" href="#">რედაქტირება</a>
-                <a class="dropdown-item" href="#">სტატუსის შეცვლა</a>
+                <a class="dropdown-item" href="#" @click="statusChange(item)">სტატუსის შეცვლა</a>
                 <a class="dropdown-item" href="#">გამეორება</a>
             </div>
         </div>
@@ -112,7 +112,7 @@
         </template>
         <template #header-status="header">
             <div class="filter-column">
-                <i class="fa fa-filter text-secondary" style="font-size:10px;" @click.stop="showStatusFilter=!showStatusFilter"></i>
+                <i class="fa fa-filter text-secondary" style="font-size:15px;" @click.stop="showStatusFilter=!showStatusFilter"></i>
                 {{ header.text }}
                 <div class="filter-menu filter-sport-menu" v-if="showStatusFilter">
                 <select
@@ -133,18 +133,18 @@
         </template>
         <template #header-category="header">
             <div class="filter-column">
-                <i class="fa fa-filter text-secondary" style="font-size:10px;" @click.stop="showStatusFilter=!showStatusFilter"></i>
+                <i class="fa fa-filter text-secondary" style="font-size:15px;" @click.stop="showCategoryFilter=!showCategoryFilter"></i>
                 {{ header.text }}
-                <div class="filter-menu filter-sport-menu" v-if="showStatusFilter">
+                <div class="filter-menu filter-sport-menu" v-if="showCategoryFilter">
                 <select
                     class="favouriteSport-selector"
-                    v-model="choseStatus"
+                    v-model="choseCategory"
                     name="favouriteSport"
                 >
                     <option value="ყველა">
                         ყველა
                     </option>
-                    <option v-for="(item, index) in data.classificatory.status" :key="index" :value="item.name_ka">
+                    <option v-for="(item, index) in data.classificatory.category" :key="index" :value="item.name_ka">
                         {{ item.name_ka }}
                     </option>
 
@@ -152,13 +152,62 @@
                 </div>
             </div>
         </template>
+        <template #header-schedule="header">
+            <div class="filter-column">
+                <i class="fa fa-filter text-secondary" style="font-size:15px;" @click.stop="showScheduleFilter=!showScheduleFilter"></i>
+                {{ header.text }}
+                <div class="filter-menu filter-sport-menu" v-if="showScheduleFilter">
+                <select
+                    class="favouriteSport-selector"
+                    v-model="choseSchedule"
+                    name="favouriteSport"
+                >
+                    <option value="ყველა">
+                        ყველა
+                    </option>
+                    <option v-for="(item, index) in data.classificatory.workSchedule" :key="index" :value="item.name_ka">
+                        {{ item.name_ka }}
+                    </option>
+
+                </select>
+                </div>
+            </div>
+        </template>
+        <template #header-payment="header">
+            <div class="filter-column">
+                <i class="fa fa-filter text-secondary" style="font-size:15px;" @click.stop="showPaymentFilter=!showPaymentFilter"></i>
+                {{ header.text }}
+                <div class="filter-menu filter-sport-menu my-2" v-if="showPaymentFilter">
+                    <Slider v-model="chosePayment" :max=3000 class="slider"/>
+                </div>
+            </div>
+        </template>
+        <template #header-id="header">
+            <div class="filter-column">
+                <i class="fa fa-filter text-secondary" style="font-size:15px;" @click.stop="showIdFilter=!showIdFilter"></i>
+                {{ header.text }}
+                <div class="filter-menu filter-sport-menu my-2" v-if="showIdFilter">
+                    <input v-model="choseId"/>
+                </div>
+            </div>
+        </template>
     </EasyDataTable>
+    <!-- {{ statusChangeModal }} -->
+    <changeStatus :visible="statusChangeModal"></changeStatus>
 </template>
 <script>
 import { ref, computed } from "vue";
 import moment from 'moment'
+import Slider from '@vueform/slider'
+import "@vueform/slider/themes/default.css";
+
 // import { Header, Item, FilterOption } from "vue3-easy-data-table";
+import changeStatus from "../modal/changeStatus.vue";
 export default {
+    components: {
+      Slider,
+      changeStatus
+    },
     props:{
         data: Object
     },
@@ -188,7 +237,7 @@ export default {
                     'employer':element.employer.name_ka,
                     'number':element.employer.number,
                     'status':element.status.name_ka,
-                    'payment':element.payment+' '+element.currency.icon,
+                    'payment':element.payment,
                     'startDate':element.start_date,
                     'workDay':element.additional_schedule_ka,
                     'title': element.title_ka,
@@ -211,7 +260,15 @@ export default {
             return arr
         }
         const showStatusFilter = ref(false);
+        const showCategoryFilter = ref(false);
+        const showScheduleFilter = ref(false);
+        const showPaymentFilter = ref(false);
+        const showIdFilter = ref(false);
         const choseStatus = ref('ყველა');
+        const choseCategory = ref('ყველა');
+        const choseSchedule = ref('ყველა');
+        const chosePayment = ref([500, 1500]);
+        const choseId = ref('');
         const filterOptions = computed(()=> {
             const filterOptionsArray =  [];
             if (choseStatus.value !== 'ყველა') {
@@ -221,16 +278,71 @@ export default {
                     criteria: choseStatus.value,
                 });
             }
+            if (choseCategory.value !== 'ყველა') {
+                filterOptionsArray.push({
+                    field: 'category',
+                    comparison: '=',
+                    criteria: choseCategory.value,
+                });
+
+            }
+            if (choseSchedule.value !== 'ყველა') {
+                filterOptionsArray.push({
+                    field: 'schedule',
+                    comparison: '=',
+                    criteria: choseSchedule.value,
+                });
+
+            }
+            if (showPaymentFilter) {
+                filterOptionsArray.push({
+                    field: 'payment',
+                    comparison: 'between',
+                    criteria: chosePayment.value,
+                });
+            }
+            if (choseId.value !== '') {
+                filterOptionsArray.push({
+                    field: 'id',
+                    comparison: '=',
+                    criteria: choseId.value,
+                });
+
+            }
+
             return filterOptionsArray;
         });
 
+        var statusChangeModal = ref(false)
+        // function statusChange(item) {
+        //     statusChangeModal = !statusChangeModal
+        //     console.log('statusChangeModal', statusChangeModal);
+        //     console.log('item', item);
+        // }
         return {
             headers,
             items,
             showStatusFilter,
             choseStatus,
-            filterOptions
+            showCategoryFilter,
+            choseCategory,
+            showScheduleFilter,
+            choseSchedule,
+            showPaymentFilter,
+            chosePayment,
+            showIdFilter,
+            choseId,
+            filterOptions,
+            statusChangeModal,
+
+            // statusChange
         };
+    },
+    methods:{
+        statusChange(item) {
+            this.statusChangeModal = !this.statusChangeModal
+            console.log('item', item);
+        }
     }
 }
 </script>
