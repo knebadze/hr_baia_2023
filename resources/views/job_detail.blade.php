@@ -17,15 +17,15 @@
                                 <h2 class="wt-title">ძიძა</h2>
                             </div>
                         </div>
-                        <!-- BREADCRUMB ROW -->                            
-                        
+                        <!-- BREADCRUMB ROW -->
+
                             <div>
                                 <ul class="wt-breadcrumb breadcrumb-style-2">
                                     <li><a href="index.html">მთავარი/</a></li><li>აპლიკანტის სახელი / გვარი</li>
                                 </ul>
                             </div>
-                        
-                        <!-- BREADCRUMB ROW END -->                        
+
+                        <!-- BREADCRUMB ROW END -->
                     </div>
                 </div>
             </div>
@@ -36,11 +36,11 @@
             <!-- OUR BLOG START -->
             <div class="section-full  p-t120 p-b90 bg-white">
                 <div class="container">
-                
+
                     <!-- BLOG SECTION START -->
                     <div class="section-content">
                         <div class="row d-flex justify-content-center">
-                        
+
                             <div class="col-lg-8 col-md-12">
                                 <!-- Candidate detail START -->
                                 <div class="cabdidate-de-info">
@@ -51,20 +51,20 @@
                                                     <img src="/images/job-detail-bg.jpg" alt="#">
                                                     <div class="twm-jobs-category green"><span class="twm-bg-green">New</span></div>
                                                 </div>
-                                                
-                                                
+
+
                                                 <div class="twm-mid-content">
 
                                                     <div class="twm-media">
                                                         <img src="/images/jobs-company/pic1.jpg" alt="#">
                                                     </div>
 
-                                                    <h4 class="twm-job-title">ძიძა <span class="twm-job-post-duration">/ 1 დღის წინ</span></h4>
+                                                    <h4 class="twm-job-title">{{ $vacancy->category->{'name_'.App()->getLocale()} }} <span class="twm-job-post-duration">/ 1 დღის წინ</span></h4>
                                                     <p class="twm-job-address"><i class="feather-map-pin"></i>1363-1385 Sunset Blvd Los Angeles, CA 90026, USA</p>
                                                     <div class="twm-job-self-mid">
                                                         <div class="twm-job-self-mid-left">
-                                                            <a href="https://themeforest.net/user/thewebmax/portfolio" class="twm-job-websites site-text-primary">https://thewebmax.com</a>
-                                                            <div class="twm-jobs-amount">$2000 - $2500 <span>/ თვეში</span></div>
+                                                            {{-- <a href="https://themeforest.net/user/thewebmax/portfolio" class="twm-job-websites site-text-primary">https://thewebmax.com</a> --}}
+                                                            <div class="twm-jobs-amount">{{ $vacancy->payment.' '.$vacancy->currency->icon }} </div>
                                                         </div>
                                                         <div class="twm-job-apllication-area">განცხადებას ვადა გასდის:
                                                             <span class="twm-job-apllication-date">ოქტომბერი 1, 2025</span>
@@ -72,51 +72,48 @@
                                                     </div>
 
                                                     <div class="twm-job-self-bottom">
-                                                        <a class="site-button" data-bs-toggle="modal" href="#apply_job_popup" role="button">
-                                                            Apply Now
-                                                        </a>
+                                                        @auth()
+                                                            @if (count($vacancy->vacancyInterest) && $findQualifying)
+
+                                                            @else
+                                                                <form method="post" action="/add_interest_vacancy" enctype="multipart/form-data">
+                                                                    {{ csrf_field() }}
+                                                                    <input type="hidden" name="id" value="{{ $vacancy->id }}">
+                                                                    <button class="site-button" type="submit" >
+                                                                        დაინტერესება
+                                                                    </button>
+                                                                </form>
+                                                            @endif
+
+                                                        @endauth
+
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                         </div>
                                     </div>
 
                                     <h4 class="twm-s-title">ბენეფიტები:</h4>
 
-                                    <p>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae 
-                                        consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? 
-                                    </p>
+                                    @foreach ($vacancy->vacancyBenefit as $item)
+                                    <span class="badge bg-primary " style="margin-right: 5px; font-size:15px">{{ $item-> {'name_'.App()->getLocale()}.', '}}</span>
+                                    @endforeach
 
-                                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi.</p>
-                                      
-                                    
+
                                     <h4 class="twm-s-title">მოთხოვნები:</h4>
                                     <ul class="description-list-2">
-                                        <li>
-                                            <i class="feather-check"></i>
-                                            შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს
-                                        </li>
-                                        <li>
-                                            <i class="feather-check"></i>
-                                            შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს
-                                        </li>
-                                        <li>
-                                            <i class="feather-check"></i>
-                                            შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს
-                                        </li>
-                                        <li>
-                                            <i class="feather-check"></i>
-                                            შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს
-                                        </li>
-                                        <li>
-                                            <i class="feather-check"></i>
-                                            შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს
-                                        </li>
+                                        @foreach ($vacancy->vacancyDuty as $item)
+                                            <li>
+                                                <i class="feather-check"></i>
+                                                {{ $item-> {'name_'.App()->getLocale()}.', '}}
+                                            </li>
+                                        @endforeach
+
 
                                     </ul>
 
-                                    <h4 class="twm-s-title">პასუხისმგებლობა:</h4>
+                                    {{--<h4 class="twm-s-title">პასუხისმგებლობა:</h4>
                                     <ul class="description-list-2">
                                         <li>
                                             <i class="feather-check"></i>
@@ -143,12 +140,12 @@
                                             შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს
                                         </li>
 
-                                    </ul>
-                                  
+                                    </ul> --}}
+
                                     <h4 class="twm-s-title">გაზიარება</h4>
                                     <div class="twm-social-tags">
                                         <a href="#" class="fb-clr">Facebook</a>
-                                        <a href="#" class="tw-clr">Twitter</a>                                          
+                                        <a href="#" class="tw-clr">Twitter</a>
                                         <a href="#" class="odno-clr">Ok</a>
                                         <a href="#" class="insta-clr">Instagram</a>
                                         <a href="#" class="vk-clr">Vk</a>
@@ -172,52 +169,52 @@
                                                             <div class="tw-service-gallery-thumb">
                                                                 <a class="elem" href="/images/gallery/pic1.jpg" title="Title 1" data-lcl-author="" data-lcl-thumb="images/gallery/thumb/pic1.jpg">
                                                                     <img src="/images/gallery/thumb/pic1.jpg" alt="">
-                                                                    <i class="fa fa-file-image"></i>     
+                                                                    <i class="fa fa-file-image"></i>
                                                                 </a>
                                                             </div>
                                                         </li>
-                                                        
+
                                                         <li>
                                                             <div class="tw-service-gallery-thumb">
                                                                 <a class="elem" href="/images/gallery/pic2.jpg" title="Title 2" data-lcl-author="" data-lcl-thumb="images/gallery/thumb/pic2.jpg">
                                                                     <img src="/images/gallery/thumb/pic2.jpg" alt="">
-                                                                    <i class="fa fa-file-image"></i>     
+                                                                    <i class="fa fa-file-image"></i>
                                                                 </a>
                                                             </div>
                                                         </li>
-                                                        
+
                                                         <li>
                                                             <div class="tw-service-gallery-thumb ">
                                                                 <a class="elem" href="/images/gallery/pic3.jpg" title="Title 3"  data-lcl-author="" data-lcl-thumb="/images/gallery/thumb/pic3.jpg">
                                                                     <img src="/images/gallery/thumb/pic3.jpg" alt="">
-                                                                    <i class="fa fa-file-image"></i>     
+                                                                    <i class="fa fa-file-image"></i>
                                                                 </a>
                                                             </div>
                                                         </li>
-                                                        
+
                                                         <li>
                                                             <div class="tw-service-gallery-thumb">
                                                                 <a class="elem" href="/images/gallery/pic4.jpg" title="Title 4"  data-lcl-author="" data-lcl-thumb="/images/gallery/thumb/pic4.jpg">
                                                                     <img src="/images/gallery/thumb/pic4.jpg" alt="">
-                                                                    <i class="fa fa-file-image"></i>     
+                                                                    <i class="fa fa-file-image"></i>
                                                                 </a>
                                                             </div>
                                                         </li>
-                                                        
+
                                                         <li>
                                                             <div class="tw-service-gallery-thumb">
                                                                 <a class="elem" href="/images/gallery/pic5.jpg" title="Title 5"  data-lcl-author="" data-lcl-thumb="/images/gallery/thumb/pic5.jpg">
                                                                     <img src="/images/gallery/thumb/pic5.jpg" alt="">
-                                                                    <i class="fa fa-file-image"></i>     
+                                                                    <i class="fa fa-file-image"></i>
                                                                 </a>
                                                             </div>
                                                         </li>
-                                                        
+
                                                         <li>
                                                             <div class="tw-service-gallery-thumb">
                                                                 <a class="elem" href="/images/gallery/pic6.jpg" title="Title 6"  data-lcl-author="" data-lcl-thumb="/images/gallery/thumb/pic6.jpg">
                                                                     <img src="/images/gallery/thumb/pic6.jpg" alt="">
-                                                                    <i class="fa fa-file-image"></i>     
+                                                                    <i class="fa fa-file-image"></i>
                                                                 </a>
                                                             </div>
                                                         </li>
@@ -226,59 +223,59 @@
                                                             <div class="tw-service-gallery-thumb">
                                                                 <a class="elem" href="/images/gallery/pic7.jpg" title="Title 7" data-lcl-author="" data-lcl-thumb="/images/gallery/thumb/pic1.jpg">
                                                                     <img src="/images/gallery/thumb/pic7.jpg" alt="">
-                                                                    <i class="fa fa-file-image"></i>     
+                                                                    <i class="fa fa-file-image"></i>
                                                                 </a>
                                                             </div>
                                                         </li>
-                                                        
+
                                                         <li>
                                                             <div class="tw-service-gallery-thumb">
                                                                 <a class="elem" href="/images/gallery/pic8.jpg" title="Title 8" data-lcl-author="" data-lcl-thumb="/images/gallery/thumb/pic2.jpg">
                                                                     <img src="/images/gallery/thumb/pic8.jpg" alt="">
-                                                                    <i class="fa fa-file-image"></i>     
+                                                                    <i class="fa fa-file-image"></i>
                                                                 </a>
                                                             </div>
                                                         </li>
-                                                        
+
                                                         <li>
                                                             <div class="tw-service-gallery-thumb ">
                                                                 <a class="elem" href="images/gallery/pic9.jpg" title="Title 9"  data-lcl-author="" data-lcl-thumb="/images/gallery/thumb/pic3.jpg">
                                                                     <img src="/images/gallery/thumb/pic9.jpg" alt="">
-                                                                    <i class="fa fa-file-image"></i>     
+                                                                    <i class="fa fa-file-image"></i>
                                                                 </a>
                                                             </div>
                                                         </li>
-                                                        
+
                                                         <li>
                                                             <div class="tw-service-gallery-thumb">
                                                                 <a class="elem" href="/images/gallery/pic10.jpg" title="Title 10"  data-lcl-author="" data-lcl-thumb="/images/gallery/thumb/pic4.jpg">
                                                                     <img src="/images/gallery/thumb/pic10.jpg" alt="">
-                                                                    <i class="fa fa-file-image"></i>     
+                                                                    <i class="fa fa-file-image"></i>
                                                                 </a>
                                                             </div>
                                                         </li>
-                                                        
+
                                                         <li>
                                                             <div class="tw-service-gallery-thumb">
                                                                 <a class="elem" href="/images/gallery/pic11.jpg" title="Title 11"  data-lcl-author="" data-lcl-thumb="/images/gallery/thumb/pic5.jpg">
                                                                     <img src="/images/gallery/thumb/pic11.jpg" alt="">
-                                                                    <i class="fa fa-file-image"></i>     
+                                                                    <i class="fa fa-file-image"></i>
                                                                 </a>
                                                             </div>
                                                         </li>
-                                                        
+
                                                         <li>
                                                             <div class="tw-service-gallery-thumb">
                                                                 <a class="elem" href="/images/gallery/pic12.jpg" title="Title 12"  data-lcl-author="" data-lcl-thumb="/images/gallery/thumb/pic6.jpg">
                                                                     <img src="/images/gallery/thumb/pic12.jpg" alt="">
-                                                                    <i class="fa fa-file-image"></i>     
+                                                                    <i class="fa fa-file-image"></i>
                                                                 </a>
                                                             </div>
                                                         </li>
-                                                        
+
                                                     </ul>
-                
-                                                </div> 
+
+                                                </div>
                                             </div>
                                             <div class="col-lg-6 col-md-12">
                                                 <h4 class="twm-s-title">ვიდეო</h4>
@@ -287,16 +284,16 @@
                                                         <i class="icon feather-play"></i>
                                                         <span class="ripple"></span>
                                                     </a>
-                                                </div> 
+                                                </div>
                                             </div>
 
                                         </div>
                                     </div>
 
-                                    
+
                                 </div>
                             </div>
-                            
+
                             <div class="col-lg-4 col-md-12 rightSidebar">
 
                                 <div class="side-bar mb-4">
@@ -304,111 +301,125 @@
                                         <div class="twm-s-info2">
                                             <h4 class="section-head-small mb-4">სამუშაო ინფორმაცია</h4>
                                             <ul class="twm-job-hilites">
-                                                <li>
+                                                {{-- <li>
                                                     <i class="fas fa-language"></i>
                                                     <span class="twm-title">ენა</span>
-                                                </li>
+                                                </li> --}}
                                                 <li>
                                                     <i class="fas fa-eye"></i>
-                                                    <span class="twm-title">8160 ნახვა</span>
+                                                    <span class="twm-title">{{ $vacancy->view }} ნახვა</span>
                                                 </li>
                                                 <li>
                                                     <i class="fas fa-file-signature"></i>
-                                                    <span class="twm-title">6 აპლიკანტი</span>
+                                                    <span class="twm-title">{{ count($vacancy->vacancyInterest) }} აპლიკანტი</span>
                                                 </li>
                                             </ul>
                                             <ul class="twm-job-hilites2">
-    
+
                                                 <li>
                                                     <div class="twm-s-info-inner">
                                                         <i class="fas fa-calendar-alt"></i>
                                                         <span class="twm-title">გამოქვეყნების დრო</span>
-                                                        <div class="twm-s-info-discription">ბაზიდან</div>
+                                                        <div class="twm-s-info-discription">{{ $vacancy->created_at }}</div>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="twm-s-info-inner">
                                                         <i class="fas fa-map-marker-alt"></i>
                                                         <span class="twm-title">ლოკაცია</span>
-                                                        <div class="twm-s-info-discription">ბაზიდან</div>
+                                                        <div class="twm-s-info-discription">{{ $vacancy->author->{'address_'.App()->getLocale()} }}</div>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="twm-s-info-inner">
                                                         <i class="fas fa-user-tie"></i>
                                                         <span class="twm-title">სამუშაო დასახელება</span>
-                                                        <div class="twm-s-info-discription">ბაზიდან</div>
+                                                        <div class="twm-s-info-discription">{{ $vacancy->{'title_'.App()->getLocale()} }}</div>
                                                     </div>
                                                 </li>
-                                                <li>
+                                                {{-- <li>
                                                     <div class="twm-s-info-inner">
                                                         <i class="fas fa-tasks"></i>
                                                         <span class="twm-title">მოვალეობები</span>
                                                         <div class="twm-s-info-discription">ბაზიდან</div>
                                                     </div>
-                                                </li>
+                                                </li> --}}
                                                 <li>
                                                     <div class="twm-s-info-inner">
                                                         <i class="fas fa-suitcase"></i>
                                                         <span class="twm-title">განათლება</span>
-                                                        <div class="twm-s-info-discription">ბაზიდან</div>
+                                                        <div class="twm-s-info-discription">{{ ($vacancy->demand->education)?$vacancy->demand->education->{'name_'.App()->getLocale()}:'-' }}</div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="twm-s-info-inner">
+                                                        <i class="fas fa-tasks"></i>
+                                                        <span class="twm-title">სპეციალობა</span>
+                                                        <div class="twm-s-info-discription">{{ ($vacancy->demand->specialty)?$vacancy->demand->specialty->{'name_'.App()->getLocale()}:'-' }}</div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="twm-s-info-inner">
+                                                        <i class="fas fa-language"></i>
+                                                        <span class="twm-title">უცხო ენა</span>
+                                                        <div class="twm-s-info-discription">{{ ($vacancy->demand->language)?$vacancy->demand->language->{'name_'.App()->getLocale()}:'-' }}</div>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="twm-s-info-inner">
                                                         <i class="fas fa-venus-mars"></i>
-                                                        <span class="twm-title">სქესი</span>
-                                                        <div class="twm-s-info-discription">ბაზიდან</div>
+                                                        <span class="twm-title">ასაკი</span>
+                                                        <div class="twm-s-info-discription">{{ ($vacancy->demand->min_age)?$vacancy->demand->min_age:'18' }} - {{ ($vacancy->demand->max_age)?$vacancy->demand->max_age:'60' }}</div>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="twm-s-info-inner">
-                                                        
+
                                                         <i class="fas fa-money-bill-wave"></i>
                                                         <span class="twm-title">ანაზღაურება</span>
-                                                        <div class="twm-s-info-discription">ბაზიდან</div>
+                                                        <div class="twm-s-info-discription">{{ $vacancy->payment.' '.$vacancy->currency->icon }}</div>
                                                     </div>
                                                 </li>
-    
+
                                             </ul>
-                                            
+
                                         </div>
                                     </div>
-    
-                                    <div class="widget tw-sidebar-tags-wrap">
+
+                                    {{-- <div class="widget tw-sidebar-tags-wrap">
                                         <h4 class="section-head-small mb-4">სამუშაო გამოცდილებები</h4>
-                                        
+
                                         <div class="tagcloud">
                                             <button style="margin-right: 1%; margin-bottom: 1%;" class="btn btn-secondary">მოლარე</button>
                                             <button style="margin-right: 1%; margin-bottom: 1%;" class="btn btn-secondary">მენეჯერი</button>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                 </div>
 
-                                
+
 
                                 {{-- <div class="twm-advertisment" style="background-image:url(images/add-bg.jpg);">
                                     <div class="overlay"></div>
                                     <h4 class="twm-title">Recruiting?</h4>
                                     <p>Get Best Matched Jobs On your <br>
                                      Email. Add Resume NOW!</p>
-                                     <a href="javascript:;" class="site-button white">Read More</a> 
+                                     <a href="javascript:;" class="site-button white">Read More</a>
                                 </div> --}}
-    
-    
+
+
                             </div>
-                        
+
                         </div>
-                                                
+
                     </div>
-                    
+
                 </div>
-                
-            </div>   
-            <!-- OUR BLOG END -->          
-            
-     
+
+            </div>
+            <!-- OUR BLOG END -->
+
+
         </div>
         <!-- CONTENT END -->
 @endsection

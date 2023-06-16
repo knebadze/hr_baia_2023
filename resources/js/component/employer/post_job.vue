@@ -43,15 +43,28 @@
                             </div>
                         </div>
                         <!--Job title-->
-                        <div class="col-xl-4 col-lg-6 col-md-12">
+                        <!-- <div class="col-xl-4 col-lg-6 col-md-12">
                             <div class="form-group">
                                 <label><span class="text-danger">* </span>ტელეფონის ნომერი</label>
                                 <div class="ls-inputicon-box">
                                     <input class="form-control" v-model="m.employer.number" type="text" placeholder="555444333" onkeypress="return /[0-9]/i.test(event.key)">
-                                    <!-- <i class="fs-input-icon fa fa-address-card"></i> -->
+
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
+                        <div class="col-xl-4 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label>{{ ('ტელეფონის ნომერი') }}</label>
+                                    <div class="input-group mb-3">
+                                    <button style="border-style: none;" class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><span :class="`fi fi-${numberCode.iso.toLowerCase()}`"></span>+{{ numberCode.phonecode }}</button>
+                                    <ul class="dropdown-menu" style=" overflow: hidden; overflow-y: auto; max-height: calc(100vh - 550px);">
+                                        <li v-for="item in cla.numberCode" @click="chooseNumberCode(item)"><a class="dropdown-item"><span :class="`fi fi-${item.iso.toLowerCase()}`"></span>+{{ item.phonecode }}</a></li>
+                                    </ul>
+                                    <input type="text" class="form-control" aria-label="Text input with dropdown button" v-model="m.employer.number" placeholder="555666777" onkeypress="return /[0-9]/i.test(event.key)" >
+                                    <!-- <span v-if="v$.candidateNumberModel.number.numeric.$invalid && v$.candidateNumberModel.number.$dirty" style='color:red'>* {{ v$.candidateNumberModel.number.numeric.$message}}</span> -->
+                                    </div>
+                                </div>
+                            </div>
                         <div class="col-xl-4 col-lg-6 col-md-12">
                             <div class="form-group">
                                 <label><span class="text-danger">* </span>მისამართი</label>
@@ -97,7 +110,7 @@
                                 <div class="form-group">
                                     <label><span class="text-danger">* </span>{{ ('ვისთვის გესაჭიროებათ?') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <multiselect v-model="m.from_who_need"  :options="cla.forWhoNeed" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" :placeholder="$t('lang.employer_add_job_select')" label="name_ka" track-by="name_ka" :preselect-first="false" >
+                                        <multiselect v-model="m.for_who_need"  :options="cla.forWhoNeed" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" :placeholder="$t('lang.employer_add_job_select')" label="name_ka" track-by="name_ka" :preselect-first="false" >
                                             <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                                         </multiselect>
                                         <!-- <span v-if="v$.m.candidate.personal_number.required.$invalid && v$.m.candidate.personal_number.$dirty" style='color:red'>* {{ v$.m.candidate.personal_number.required.$message}}</span> -->
@@ -245,6 +258,16 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label>{{ ('სპეციალობა') }}</label>
+                                    <div class="ls-inputicon-box">
+                                        <multiselect v-model="m.demand.specialty_id" :options="cla.specialties" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" :placeholder="$t('lang.employer_add_job_select')"  :searchable="true" :allow-empty="false">
+                                            <template slot="singleLabel" slot-scope="{ option }"></template>
+                                        </multiselect>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="col-xl-4 col-lg-6 col-md-12">
                                 <div class="form-group">
@@ -363,6 +386,7 @@
                                         </div>
                                     </div>
 
+
                                     <!--Find job btn-->
                                     <div class="form-group col-xl-3 col-lg-6 col-md-6">
                                         <button type="button" class="site-button" >{{ $t('lang.welcome_leftside_bar_search_job_location_job_search') }}</button>
@@ -413,7 +437,12 @@ export default {
 
                 }
             },
-            benefitText:''
+            benefitText:'',
+            numberCode: {
+                'phonecode': 995,
+                'iso':'ge'
+            },
+
 
         }
     },
@@ -491,6 +520,7 @@ export default {
     created(){
         this.createModel()
         this.cla = { ...this.data.classificatory}
+        console.log('this.cla', this.cla);
     },
     computed:{
         getLang(){
@@ -501,6 +531,7 @@ export default {
 
         createModel(){
             this.m['employer'] = {...this.data.model.employer}
+            this.m.employer.number_code_id = 79
             this.m['vacancy'] = {...this.data.model.vacancy};
             this.m.vacancy['go_vacation'] = 0;
             this.m.vacancy['stay_night'] = 0;
@@ -570,6 +601,13 @@ export default {
         addBenefit(item){
             this.m.benefit.push(item)
             this.benefitText += item[`name_${this.getLang}`]+', '
+        },
+        chooseNumberCode(item){
+            this.m.employer.number_code_id = item.id
+            this.numberCode = {
+                'phonecode': item.phonecode,
+                'iso':item.iso
+            }
         }
 
 

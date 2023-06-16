@@ -216,7 +216,7 @@
                                 <div class="twm-left-content col-md-8">
                                     <!-- class="twm-mid-content" -->
                                     <a href="job-detail.html" class="twm-job-title">
-                                        <h4> {{ item[`title_${getLang}`] }}<span class="twm-job-post-duration"> /{{ item.timeAgo }}</span> /  <span> <a class="job_detail_read_more" href="job_detail" style="color:red">სრულად ნახვა</a> </span></h4>
+                                        <h4> {{ item[`title_${getLang}`] }}<span class="twm-job-post-duration"> /{{ item.timeAgo }}</span> /  <span> <a class="job_detail_read_more" :href="detailUrl+'/'+item.id+'/'+item.slug" style="color:red">სრულად ნახვა</a> </span></h4>
                                     </a>
                                     <p class="twm-job-address">{{ item.author[`address_${getLang}`].split(/\s+/).slice(0, 2).join(" ") }}. <span v-for="(i, ind) in item.vacancy_for_who_need" :key="ind">{{  i[`name_${getLang}`]}}</span>.</p>
 
@@ -231,7 +231,7 @@
                                     <span v-if="auth && item.vacancy_interest.some( (o) => o.user_id == auth.id ) " style="font-size:20px;">
                                         <i :class="(item.vacancy_interest.some( (o) => o.user_id == auth.id && o.employer_answer == null))?'fa fa-plus-circle text-warning':(item.vacancy_interest.some( (o) => o.user_id == auth.id && o.employer_answer == 0))?'fa fa-times-circle text-danger':(item.vacancy_interest.some( (o) => o.user_id == auth.id && o.employer_answer == 1))?'fa fa-check-circle text-success':''"></i></span>
                                     <button v-else type="button" class="btn btn-primary" @click="interest(item.id)">დაინტერესება</button>
-                                    
+
 
                                 </div>
                             </div>
@@ -313,6 +313,10 @@ export default {
         getLang(){
             return I18n.getSharedInstance().options.lang
         },
+        detailUrl(){
+            var url = new URL( location.href)
+            return url.origin+'/'+this.getLang+'/job_detail'
+        }
     },
     methods: {
         getData(){

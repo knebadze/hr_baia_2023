@@ -13,12 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('vacancy_interests', function (Blueprint $table) {
+        Schema::create('qualifying_types', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('vacancy_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('user_id')->constrained()->onUpdate('cascade');
-            $table->smallInteger('employer_answer')->nullable();
-            $table->smallInteger('agree')->nullable();
+            $table->char('name');
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vacancy_interests');
+        Schema::dropIfExists('qualifying_types');
     }
 };

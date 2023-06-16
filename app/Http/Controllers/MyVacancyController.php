@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\InterviewPlace;
-use App\Models\VacancyInterest;
+
+use App\Models\QualifyingCandidate;
 use Exception;
 use Illuminate\Http\Request;
 use App\Services\VacancyService;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 
 class MyVacancyController extends Controller
 {
     private VacancyService $vacancyService;
+
     public function __construct( VacancyService $vacancyService)
     {
-
         $this->vacancyService = $vacancyService;
+
     }
     public function index()
     {
@@ -42,24 +42,10 @@ class MyVacancyController extends Controller
     }
 
 
-    public function interest(Request $request)
-    {
-            DB::table('vacancy_interests')->insert([
-                'vacancy_id' => $request['id'],
-                'user_id' => Auth::id()
-            ]);
 
-        $interest = new VacancyInterest();
-        $interest->vacancy_id = $request['id'];
-        $interest->user_id = Auth::id();
-        $interest->save();
-        $data = VacancyInterest::where('id', $interest->id)->first();
-
-        return response()->json($data);
-    }
     public function getInterestData(Request $request)
     {
-        $result = VacancyInterest::where('vacancy_id', $request->id)
+        $result = QualifyingCandidate::where('vacancy_id', $request->id)->where('qualifying_type_id', 2)
         ->join('candidates', 'vacancy_interests.user_id', 'candidates.user_id')
                     ->join('users', 'vacancy_interests.user_id', 'users.id')
                     ->join('work_information', 'candidates.id', 'work_information.candidate_id')

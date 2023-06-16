@@ -81,7 +81,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
         Route::get('/post_job', [PostVacancyController::class, 'index'])->name('post.job');
 
         //Job Detail
-        Route::get('/job_detail', [JobDetailController::class, 'index'])->name('job_detail');
+        Route::get('/job_detail/{id?}/{slug?}', [VacancyController::class, 'show'])->name('job_detail');
 
         //user vacancy
         // Route::get('/user/vacancy', [VacancyController::class, 'index'])->name('user.vacancy');
@@ -153,10 +153,12 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('add_vacancy', [PostVacancyController::class, 'store']);
     Route::get('vacancy_data', [VacancyController::class, 'data']);
     Route::post('vacancy_filter', [VacancyController::class, 'filter']);
+    Route::post('/interest_vacancy', [VacancyController::class, 'interest']);
+    Route::post('/add_interest_vacancy', [VacancyController::class, 'addInterest']);
 
     Route::post('/find_my_vacancy', [MyVacancyController::class, 'find']);
 
-    Route::post('/interest_vacancy', [MyVacancyController::class, 'interest']);
+
     Route::post('/get_interest_data', [MyVacancyController::class, 'getInterestData']);
     Route::post('/do_not_like_candidate', [MyVacancyController::class, 'doNotLike']);
     Route::post('/like_candidate', [MyVacancyController::class, 'like']);

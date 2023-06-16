@@ -20,7 +20,7 @@
                 <i class="fa fa-cog"></i>
             </button>
             <div class="dropdown-menu ropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">რედაქტირება</a>
+                <a class="dropdown-item" href="#" @click="vacancyUpdateModal(item)">რედაქტირება</a>
                 <a class="dropdown-item" href="#" @click="statusChange(item)">სტატუსის შეცვლა</a>
                 <a class="dropdown-item" href="#">გამეორება</a>
             </div>
@@ -51,6 +51,10 @@
                                 <dd class="col-sm-8">{{ item.title }}</dd>
                                 <dt class="col-sm-4">სამუშაო დღეები:</dt>
                                 <dd class="col-sm-8">{{ item.workDay }}</dd>
+                                <div class="row col-12" v-if="item.vacancy_for_who_need.length > 0">
+                                    <dt class="col-sm-4">ვისთვის ესაჭიროება:</dt>
+                                    <dd class="col-sm-8"><span v-for="(i, index) in item.vacancy_for_who_need" :key="index">{{ i.name_ka+', ' }}</span> </dd>
+                                </div>
                                 <div class="row col-12" v-if="item.benefit.length > 0">
                                     <dt class="col-sm-4">ბენეფიტები:</dt>
                                     <dd class="col-sm-8"><span v-for="(i, index) in item.benefit" :key="index">{{ i.name_ka+', ' }}</span> </dd>
@@ -90,6 +94,10 @@
                                 <div class="row col-12" v-if="item.demand.education">
                                     <dt class="col-sm-4">განათლება:</dt>
                                     <dd class="col-sm-8">{{ item.demand.education.name_ka }} </dd>
+                                </div>
+                                <div class="row col-12" v-if="item.demand.specialty">
+                                    <dt class="col-sm-4">პროფესია:</dt>
+                                    <dd class="col-sm-8">{{ item.demand.specialty.name_ka }} </dd>
                                 </div>
                                 <div class="row col-12" v-if="item.demand.language">
                                     <dt class="col-sm-4">უცხო ენა:</dt>
@@ -194,6 +202,7 @@
     </EasyDataTable>
     <!-- {{ statusChangeModal }} -->
     <changeStatus :visible="statusChangeModal"></changeStatus>
+    <vacancyUpdate :visible="updateModal"></vacancyUpdate>
 </template>
 <script>
 import { ref, computed } from "vue";
@@ -203,10 +212,12 @@ import "@vueform/slider/themes/default.css";
 
 // import { Header, Item, FilterOption } from "vue3-easy-data-table";
 import changeStatus from "../modal/changeStatus.vue";
+import vacancyUpdate from "../modal/vacancyUpdate.vue"
 export default {
     components: {
       Slider,
-      changeStatus
+      changeStatus,
+      vacancyUpdate
     },
     props:{
         data: Object
@@ -240,6 +251,7 @@ export default {
                     'payment':element.payment,
                     'startDate':element.start_date,
                     'workDay':element.additional_schedule_ka,
+                    'vacancy_for_who_need':element.vacancy_for_who_need,
                     'title': element.title_ka,
                     'created_at':moment(element.created_at).format("YYYY-MM-DD HH:mm"),
                     'updated_at':moment(element.updated_at).format("YYYY-MM-DD HH:mm"),
@@ -253,7 +265,7 @@ export default {
                     'benefit': element.vacancy_benefit,
                     'duty': element.vacancy_duty,
                     'demand':element.demand,
-                    'characteristic':element.characteristic
+                    'characteristic':element.characteristic,
                 }
                 arr.push(data)
             });
@@ -314,6 +326,8 @@ export default {
         });
 
         var statusChangeModal = ref(false)
+        var updateModal = ref(false)
+        var item = ref()
         // function statusChange(item) {
         //     statusChangeModal = !statusChangeModal
         //     console.log('statusChangeModal', statusChangeModal);
@@ -334,6 +348,8 @@ export default {
             choseId,
             filterOptions,
             statusChangeModal,
+            updateModal,
+            item
 
             // statusChange
         };
@@ -341,6 +357,10 @@ export default {
     methods:{
         statusChange(item) {
             this.statusChangeModal = !this.statusChangeModal
+            console.log('item', item);
+        },
+        vacancyUpdateModal(item) {
+            this.updateModal = !this.updateModal
             console.log('item', item);
         }
     }

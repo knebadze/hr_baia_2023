@@ -6,6 +6,7 @@ use App\Models\Vacancy;
 use App\Models\Employer;
 use App\Models\HrHasVacancy;
 use App\Models\VacancyDemand;
+use App\Models\VacancyDeposit;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -40,6 +41,7 @@ class VacancyRepository{
         $dateTime = Carbon::createFromTimestamp(strtotime($data['interviewDate'] . $data['interviewTime']));
         $vacancy->interview_date = $dateTime;
         $vacancy->interview_place_id = $data['vacancy']['interview_place_id']['id'];
+        //
 
         $vacancy->go_vacation = $data['vacancy']['go_vacation'];
         $vacancy->stay_night = $data['vacancy']['stay_night'];
@@ -89,6 +91,12 @@ class VacancyRepository{
         }, []);
         $vacancy->vacancyDuty()->sync($selectDutyId);
 
+        $deposit = new VacancyDeposit();
+        $deposit->vacancy_id = $vacancy->id;
+        $deposit->must_be_enrolled_employer = (int)$vacancy->payment / 2;
+        $deposit->must_be_enrolled_candidate = ((int)$vacancy->payment * 10) / 100;
+        $deposit->save();
+
         return $vacancy->code;
 
     }
@@ -96,6 +104,7 @@ class VacancyRepository{
 
     public function addEmployer($data)
     {
+
         $employer = Employer::updateOrCreate(
             ['number' => $data['number']],
             [
@@ -105,7 +114,8 @@ class VacancyRepository{
                 'address_ka' => $data['address_ka'],
                 'address_en' => $data['address_en'],
                 'address_ru' => $data['address_ru'],
-                'email' => $data['email']
+                'email' => $data['email'],
+                'number_code_id' => $data['number_code_id']
 
             ]
         );
