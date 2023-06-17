@@ -10,7 +10,7 @@
     <div class="wt-bnr-inr overlay-wraper bg-center" style="background-image:url(/images/banner/1.jpg);">
         <div class="overlay-main site-bg-white opacity-01"></div>
         <div class="container">
-            <div class="wt-bnr-inr-entry aboutUsText">
+            <div class="wt-bnr-inr-entry">
                 <div class="banner-title-outer">
                     <div class="banner-title-name">
                         <h2 class="wt-title">{{ __('lang.about_us_page_title_one') }}</h2>
@@ -24,9 +24,7 @@
                             <li>{{ __('lang.about_us_page_title_one') }}</li>
                         </ul>
                     </div>
-                    <h4>
-                        {{ __('lang.about_us_page_description') }}
-                    </h4>
+
 
                 <!-- BREADCRUMB ROW END -->
             </div>
@@ -36,8 +34,10 @@
     <!-- HOW IT WORK SECTION START -->
     <div class="section-full p-t120 p-b90 site-bg-white twm-how-it-work-area">
 
-        <div class="container">
-
+        <div class="container aboutUsText">
+            <h4>
+                {{ __('lang.about_us_page_description') }}
+            </h4>
             <!-- TITLE START-->
             <div class="section-head center wt-small-separator-outer">
                 <div class="wt-small-separator site-text-primary">

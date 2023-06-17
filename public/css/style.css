@@ -15,11 +15,8 @@ body {
 }
 
 .job_detail_read_more {
-  color: red;
-}
-
-.job_detail_read_more:hover {
-  color: tomato !important;
+  margin-top: 5%;
+  color: #fff;
 }
 
 .employerPageBorder {
