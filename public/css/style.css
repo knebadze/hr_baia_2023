@@ -14,6 +14,19 @@ body {
     font-family: mtavruli !important;
 }
 
+.card_body hr {
+  margin-top: 15%;
+  margin-bottom: 15%;
+}
+
+.card_body a {
+  color: #fff;
+}
+
+.card_body a:hover {
+  color: #fffdd0;
+}
+
 .job_detail_read_more {
   margin-top: 5%;
   color: #fff;
@@ -2170,6 +2183,9 @@ ol li {
   .site-button {
     padding: 8px 8px;
     font-size: 14px;
+  }
+  .card_body img {
+    display: hide;
   }
 }
 .site-button.white {
@@ -5156,6 +5172,10 @@ ol li {
     font-size: 30px;
     margin-bottom: 20px;
   }
+
+  .middle_card {
+    display: none;
+  }
 }
 @media (max-width: 575px) {
   .section-head.left.wt-small-separator-outer h2 {
@@ -5708,6 +5728,10 @@ ol li {
 @media (max-width: 1024px) {
   .recent-posts-entry .wt-post-media {
     width: 60px;
+  }
+
+  .middle_card {
+    display: none;
   }
 }
 .recent-posts-entry .wt-post-info {
