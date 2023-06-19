@@ -162,6 +162,56 @@
     <!--Banner End-->
     {{-- <how-work></how-work> --}}
 
+            <!-- HOW IT WORK SECTION START -->
+            <div class="section-full p-t120 p-b90 site-bg-white twm-how-it-work-area">
+                        
+                <div class="container">
+
+                    <!-- TITLE START-->
+                    {{-- <div class="section-head center wt-small-separator-outer">
+                        <div class="wt-small-separator site-text-primary">
+                           <div>Working Process</div>                                
+                        </div>
+                        <h2 class="wt-title">How It Works</h2>
+                        
+                    </div>                   --}}
+                    <!-- TITLE END-->
+
+                    <div class="twm-how-it-work-section">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="twm-w-process-steps">
+                                    <div class="twm-w-pro-top bg-clr-sky">
+                                        <div class="twm-media">
+                                            <span><img src="images/work-process/icon1.png" alt="icon1"></span>
+                                        </div>
+                                        <h4 class="twm-title"><a href=""> პირველი </a></h4>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="twm-w-process-steps">
+                                    <div class="twm-w-pro-top bg-clr-green">
+                                        <div class="twm-media">
+                                            <span><img src="images/work-process/icon3.png" alt="icon1"></span>
+                                        </div>
+                                        <h4 class="twm-title"><a href=""> მეორე </a></h4>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>                  
+                </div>
+
+            </div>   
+            <!-- HOW IT WORK SECTION END -->
+
     <!-- JOBS CATEGORIES SECTION START -->
     <div class="section-full p-t120 p-b90 site-bg-gray twm-job-categories-area">
 
