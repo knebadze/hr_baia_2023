@@ -14,6 +14,61 @@ body {
     font-family: mtavruli !important;
 }
 
+/* rangeslider */
+.range input{
+    -webkit-appearance:none;
+    width:400px !important;
+    height:4px;
+    border-radius:5px;
+    outline:none;
+  }
+  .range input::-webkit-slider-thumb{
+    -webkit-appearance:none;
+    width:20px;
+    height:20px;
+    border-radius:50%;
+  }
+  .range span{
+    position:absolute;
+    margin-left:14px;
+    width:50px;
+    height:30px;
+    background-color:#222;
+    color:#fff;
+    border-radius:3px;
+    text-align:center;
+    line-height:30px;
+  }
+  .range span:before{
+    content:'';
+    position:absolute;
+    border-right:9px solid transparent;
+    border-left:9px solid transparent;
+    border-bottom:12px solid #222;
+    left:-10px;
+    top:50%;
+    transform:translateY(-50%) rotate(-90deg);
+  }
+/* end rangeslider */
+
+.card_body hr {
+  margin-top: 15%;
+  margin-bottom: 15%;
+}
+
+.card_body a {
+  color: #fff;
+}
+
+.card_body a:hover {
+  color: #fffdd0;
+}
+
+.job_detail_read_more {
+  margin-top: 5%;
+  color: #fff !important;
+}
+
 .employerPageBorder {
   border: 1px solid rgb(128, 128, 128, 0.2);
   border-radius: 10px;
@@ -2165,6 +2220,9 @@ ol li {
   .site-button {
     padding: 8px 8px;
     font-size: 14px;
+  }
+  .card_body img {
+    display: hide;
   }
 }
 .site-button.white {
@@ -5151,6 +5209,10 @@ ol li {
     font-size: 30px;
     margin-bottom: 20px;
   }
+
+  .middle_card {
+    display: none;
+  }
 }
 @media (max-width: 575px) {
   .section-head.left.wt-small-separator-outer h2 {
@@ -5703,6 +5765,10 @@ ol li {
 @media (max-width: 1024px) {
   .recent-posts-entry .wt-post-media {
     width: 60px;
+  }
+
+  .middle_card {
+    display: none;
   }
 }
 .recent-posts-entry .wt-post-info {
@@ -10168,12 +10234,16 @@ ol.comment-list li.comment .comment-respond .comment-form p {
   background-color: #0579b6;
 }
 
-.whats-clr {
-  background-color: #2ca53b;
+.odno-clr {
+  background-color: #ed812b;
 }
 
-.pinte-clr {
+.insta-clr {
   background-color: #f03c41;
+}
+
+.vk-clr {
+  background-color: #4C75A3;
 }
 
 /*Employer detail*/

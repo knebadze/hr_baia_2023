@@ -12,6 +12,7 @@ use App\Http\Controllers\TermsController;
 use App\Http\Controllers\VacancyController;
 use App\Http\Controllers\admin\HrController;
 use App\Http\Controllers\CandidateController;
+use App\Http\Controllers\ContactController;
 
 use App\Http\Controllers\MyprofileController;
 
@@ -28,6 +29,7 @@ use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Admin\AdminCandidateController;
 use App\Http\Controllers\Employer\EmployerInfoController;
 use App\Http\Controllers\Candidate\WorkInformationController;
+use App\Http\Controllers\JobDetailController;
 use App\Http\Controllers\HR\HrVacancyController;
 
 /*
@@ -66,6 +68,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
             Route::get('/candidate-detail/{id?}', [CandidateController::class, 'show'])->name('candidate-detail');
 
         Route::get('/blog', [BlogController::class, 'index'])->name('blog');
+        Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 
         // Account Pages
         Route::get('/user/userProfile', [UserProfileController::class, 'index'])->name('userProfile');
@@ -81,6 +84,9 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
 
         //user vacancy
         // Route::get('/user/vacancy', [VacancyController::class, 'index'])->name('user.vacancy');
+
+        //Job Detail
+        Route::get('/job_detail/{id?}/{slug?}', [VacancyController::class, 'show'])->name('job_detail');
 
         Route::get('/auth/passwords/change_password', [ChangePasswordController::class, 'index'])->name('auth.password.change_password');
 
