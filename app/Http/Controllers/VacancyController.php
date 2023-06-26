@@ -59,33 +59,8 @@ class VacancyController extends Controller
         return $data;
     }
 
-    public function interest(Request $request)
-    {
-        $interest = $this->qualifyingCandidateSave->TheyWereInterested($request);
-        $data = QualifyingCandidate::where('id', $interest->id)->first();
 
-        return response()->json($data);
-    }
-
-    public function addInterest(Request $request)
-    {
-        if (QualifyingCandidate::where('vacancy_id', $request['id'])->where('user_id', Auth::id())->exists()) {
-            return redirect()->back()->with('ReviewMessage', 'თქვენ უკვე დაინტერესდით');
-        }
-        $interest = $this->qualifyingCandidateSave->TheyWereInterested($request);
-        // $data = QualifyingCandidate::where('id', $interest->id)->first();
-
-        return redirect()->back()->with('ReviewMessage', 'წარმატებით აიტვირთა');
-    }
-
-    public function show($lang, $id = null, $slug = null) {
-        $vacancy = Vacancy::where('id', $id)->with([
-            'author','currency', 'category', 'workSchedule', 'vacancyForWhoNeed', 'vacancyBenefit', 'vacancyInterest',
-            'vacancyDuty','demand'
-        ])->first();
-        $findQualifying = $this->searchForId('1', json_decode(json_encode($vacancy->vacancyInterest)));$vacancy->increment('view', 1);
-        return view ('job_detail', compact('vacancy', 'findQualifying'));
-    }
+}
 
     public function searchForId($id, $array) {
 
