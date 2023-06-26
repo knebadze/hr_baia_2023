@@ -6,10 +6,10 @@
 
             <div class="container-fluid clearfix">
 
-                <div class="logo-header">
+                <div class="logo-header" style="max-width: 100px">
                     <div class="logo-header-inner logo-header-one">
                         <a href="{{ url ('/') }}">
-                        <img src="/images/head-logo.png" alt="">
+                        <img src="/images/logo-baia.png" alt="" style="width: 80px">
                         </a>
                     </div>
                 </div>
@@ -31,12 +31,13 @@
                             <ul class="sub-menu">
                                 <li><a href="{{ route('individual' , App()->getLocale())  }}">{{ __('lang.menu_individual_vacancies') }}</a></li>
                                 <li><a href="{{ route('onmap' , App()->getLocale())  }}">{{ __('lang.menu_vacancies_onmap') }}</a></li>
-                                <li><a href="{{ route('vacancy.detail' , App()->getLocale())  }}">{{ __('თქვენი ვაკანსია') }}</a></li>
+                                <li><a href="{{ route('vacancy.detail' , App()->getLocale())  }}">{{ __('lang.menu_your_vacancies') }}</a></li>
                             </ul>
                         </li>
                         <li @if(Route::currentRouteName() === 'about') class="activeClass" @else class="" @endif><a href="{{ route('about' , App()->getLocale())  }}">{{ __('lang.menu_about_us') }}</a></li>
                         <li @if(Route::currentRouteName() === 'candidate') class="activeClass" @else class="" @endif><a href="{{ route('candidate' , App()->getLocale())  }}">{{ __('lang.menu_candidate') }}</a></li>
                         <li @if(Route::currentRouteName() === 'blog') class="activeClass" @else class="" @endif><a href="{{ route('blog' , App()->getLocale())  }}">{{ __('lang.menu_blog') }}</a></li>
+                        <li @if(Route::currentRouteName() === 'contact') class="activeClass" @else class="" @endif><a href="{{ route('contact' , App()->getLocale())  }}">{{ __('lang.menu_contact') }}</a></li>
                         <li class="has-child"><a href="javascript:;"><img src="/images/language.png"> </a>
                             <ul class="sub-menu">
                                 <li><a href="{{ route(Route::currentRouteName(), 'ka') }}"><img src="/images/geo.png"> ქართული</a></li>

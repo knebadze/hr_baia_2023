@@ -164,8 +164,13 @@
 
 <div class="card_body">
 
+<<<<<<< HEAD
+    <!-- WELCOME CARDS -->
+    <div class="section-full p-t120 p-b90 twm-how-it-work-area" style="background-image: url(images/background/bg-1.jpg);">
+=======
     <!-- HOW IT WORK SECTION START -->
     <div class="section-full p-t120 p-b90 site-bg-white twm-how-it-work-area">
+>>>>>>> a84c9c5b20e54a93761a99c7d3a82c12e6f408f7
 
         <div class="container aboutUsText">
 
@@ -178,9 +183,15 @@
                                 <div class="twm-media">
                                     <span><img src="/images/work-process/icon1.png" alt="icon1"></span>
                                 </div>
+<<<<<<< HEAD
+                                <h4 class="twm-title"><a href="{{ route('post.job', App()->getLocale() ) }}"> {{ __('lang.welcome_middle_cards_left_1') }} <br>{{ __('lang.welcome_middle_cards_left_2') }} </a></h4>
+                            </div>
+                            <p>{{ __('lang.welcome_middle_cards_left_descr') }}</p>
+=======
                                 <h4 class="twm-title"><a href=""> პერსონალს <br>ვეძებ </a></h4>
                             </div>
                             <p>რა სახის პერსონალს ეძებთ?</p>
+>>>>>>> a84c9c5b20e54a93761a99c7d3a82c12e6f408f7
                         </div>
                     </div>
 
@@ -195,9 +206,15 @@
                                 <div class="twm-media">
                                     <span><img src="/images/work-process/icon3.png" alt="icon1"></span>
                                 </div>
+<<<<<<< HEAD
+                                <h4 class="twm-title"><a href="#sign_up_popup" data-bs-toggle="modal"> {{ __('lang.welcome_middle_cards_right_1') }} <br>{{ __('lang.welcome_middle_cards_right_2') }} </a></h4>
+                            </div>
+                            <p>{{ __('lang.welcome_middle_cards_right_descr') }}</p>
+=======
                                 <h4 class="twm-title"><a href=""> სამსახურს <br>ვეძებ </a></h4>
                             </div>
                             <p>იპოვეთ სამსახური სახლთან ახლოს</p>
+>>>>>>> a84c9c5b20e54a93761a99c7d3a82c12e6f408f7
                         </div>
                     </div>
 
@@ -206,11 +223,248 @@
         </div>
 
     </div>
+<<<<<<< HEAD
+    <!-- WELCOME CARDS END -->
+=======
     <!-- HOW IT WORK SECTION END -->
+>>>>>>> a84c9c5b20e54a93761a99c7d3a82c12e6f408f7
 
 </div>
 
 
+<<<<<<< HEAD
+
+
+    </div>
+    <!-- JOBS CATEGORIES SECTION END -->
+
+    <!-- EXPLORE NEW LIFE START -->
+    <!-- <div class="section-full p-t120 p-b120 twm-explore-area bg-cover " style="background-image: url(images/background/bg-1.jpg);">
+        <div class="container">
+
+            <div class="section-content">
+                <div class="row">
+
+                    <div class="col-lg-4 col-md-12">
+                        <div class="twm-explore-media-wrap">
+                            <div class="twm-media">
+                                <img src="images/gir-large.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-8 col-md-12">
+                        <div class="twm-explore-content-outer">
+                            <div class="twm-explore-content">
+
+                                <div class="twm-l-line-1"></div>
+                                <div class="twm-l-line-2"></div>
+
+                                <div class="twm-r-circle-1"></div>
+                                <div class="twm-r-circle-2"></div>
+
+                                <div class="twm-title-large">
+                                    <h2>{{ __('lang.welcome_middle_uploadresume_block') }} </h2>
+                                    {{-- <p>Lorem Ipsum არის უბრალოდ ბეჭდვისა და ბეჭდვის ინდუსტრიის მოჩვენებითი ტექსტი, 
+                                        სტანდარტული მოჩვენებითი ტექსტი მას შემდეგ, რაც პრინტერი აიღო.</p> --}}
+                                </div>
+                                <div class="twm-upload-file">
+                                    <button type="button" class="site-button">{{ __('lang.welcome_middle_uploadresume_button') }} <i class="feather-upload"></i></button>
+                                </div>
+
+
+                            </div>
+                            <div class="twm-bold-circle-right"></div>
+                            <div class="twm-bold-circle-left"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div> -->
+    <!-- EXPLORE NEW LIFE END -->
+
+    <!-- TOP COMPANIES START -->
+    {{-- <div class="section-full p-t120 site-bg-white twm-companies-wrap">
+
+            <div class="twm-company-approch-outer">
+                <div class="twm-company-approch">
+                    <div class="row">
+
+                        <!--block 1-->
+                        <div class="col-lg-4 col-md-12">
+                            <div class="counter-outer-two">
+                                <div class="icon-content">
+                                    <div class="tw-count-number text-clr-sky">
+                                        <span class="counter">5</span>M+</div>
+                                    <p class="icon-content-info">{{ __('lang.welcome_middle_count_user') }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--block 2-->
+                        <div class="col-lg-4 col-md-12">
+                            <div class="counter-outer-two">
+                                <div class="icon-content">
+                                    <div class="tw-count-number text-clr-pink">
+                                        <span class="counter">9</span>K+</div>
+                                    <p class="icon-content-info">{{ __('lang.welcome_middle_count_position') }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--block 3-->
+                        <div class="col-lg-4 col-md-12">
+                            <div class="counter-outer-two">
+                                <div class="icon-content">
+                                    <div class="tw-count-number text-clr-green">
+                                        <span class="counter">2</span>M+</div>
+                                    <p class="icon-content-info">{{ __('lang.welcome_middle_count_history') }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+    </div> --}}
+    <!-- TOP COMPANIES END -->
+
+    <!-- JOB POST START -->
+    <div class="section-full p-t120 p-b90 site-bg-light-purple twm-bg-ring-wrap">
+        <div class="twm-bg-ring-right"></div>
+        <div class="twm-bg-ring-left"></div>
+        <div class="container">
+
+            <!-- TITLE START-->
+            <div class="section-head center wt-small-separator-outer">
+                <div class="wt-small-separator site-text-primary">
+                   {{-- <div>{{ __('lang.welcome_middle_career_allpost') }}</div> --}}
+                </div>
+                <h2 class="wt-title">{{ __('lang.welcome_middle_career_search') }}</h2>
+            </div>
+            <!-- TITLE END-->
+
+
+            <div class="section-content">
+               <div class="twm-jobs-list-wrap">
+                   <ul>
+                        <li>
+                            <div class="twm-jobs-list-style1 mb-5">
+                                <div class="twm-media">
+                                    <img src="images/jobs-company/pic1.jpg" alt="#">
+                                </div>
+                                <div class="twm-mid-content">
+                                    <a href="job-detail.html" class="twm-job-title">
+                                        <h4>ძიძა  <span class="twm-job-post-duration">/ 1 დღის წინ</span></h4>
+                                    </a>
+                                    <p class="twm-job-address">აღმაშენებლის ქუჩა N7, თბილისი, საქართველო</p>
+                                    <a href="#" class="twm-job-websites site-text-primary">https://thewebmax.com</a>
+                                </div>
+                                <div class="twm-right-content">
+                                    <div class="twm-jobs-category green"><span class="twm-bg-green">ახალი</span></div>
+                                    <div class="twm-jobs-amount">₾500 <span>/ თვეში</span></div>
+                                    <a href="job-detail.html" class="twm-jobs-browse site-text-primary">{{ __('lang.welcome_middle_career_search_block_buttonreadmore') }}</a>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="twm-jobs-list-style1 mb-5">
+                                <div class="twm-media">
+                                    <img src="images/jobs-company/pic2.jpg" alt="#">
+                                </div>
+                                <div class="twm-mid-content">
+                                    <a href="job-detail.html" class="twm-job-title">
+                                        <h4>მცხობელი<span class="twm-job-post-duration">/ 15 დღის წინ</span></h4>
+                                    </a>
+                                    <p class="twm-job-address">საბუდარის ქუჩა N56, ქუთაისი, საქართველო</p>
+                                    <a href="#" class="twm-job-websites site-text-primary">https://thewebmax.com</a>
+                                </div>
+                                <div class="twm-right-content">
+                                    <div class="twm-jobs-category green"><span class="twm-bg-brown">სტაჟირება</span></div>
+                                    <div class="twm-jobs-amount">₾2000<span>/ თვეში</span></div>
+                                    <a href="job-detail.html" class="twm-jobs-browse site-text-primary">სრულად</a>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="twm-jobs-list-style1 mb-5">
+                                <div class="twm-media">
+                                    <img src="images/jobs-company/pic3.jpg" alt="#">
+                                </div>
+                                <div class="twm-mid-content">
+                                    <a href="job-detail.html" class="twm-job-title">
+                                        <h4 class="twm-job-title">იურისტები/ადვოკატები <span class="twm-job-post-duration">/ 6 თვის წინ</span></h4>
+                                    </a>
+                                    <p class="twm-job-address">ბარათაშვილის ქუჩა N23, ბათუმი, საქართველო</p>
+                                    <a href="#" class="twm-job-websites site-text-primary">https://thewebmax.com</a>
+                                </div>
+                                <div class="twm-right-content">
+                                    <div class="twm-jobs-category green"><span class="twm-bg-purple">სრული განაკვეთი</span></div>
+                                    <div class="twm-jobs-amount">₾4500 <span>/ თვეში</span></div>
+                                    <a href="job-detail.html" class="twm-jobs-browse site-text-primary">სრულად</a>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="twm-jobs-list-style1 mb-5">
+                                <div class="twm-media">
+                                    <img src="images/jobs-company/pic4.jpg" alt="#">
+                                </div>
+                                <div class="twm-mid-content">
+                                    <a href="job-detail.html" class="twm-job-title">
+                                        <h4 class="twm-job-title">მენეჯერი <span class="twm-job-post-duration">/ 2 დღის წინ</span></h4>
+                                    </a>
+                                    <p class="twm-job-address">რუსთაველის ქუჩა N54, ფოთი, საქართველო</p>
+                                    <a href="#" class="twm-job-websites site-text-primary">https://thewebmax.com</a>
+                                </div>
+                                <div class="twm-right-content">
+                                    <div class="twm-jobs-category green"><span class="twm-bg-sky">თავისუფალი</span></div>
+                                    <div class="twm-jobs-amount">₾1200<span>/ თვეში</span></div>
+                                    <a href="job-detail.html" class="twm-jobs-browse site-text-primary">სრულად</a>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="twm-jobs-list-style1 mb-5">
+                                <div class="twm-media">
+                                    <img src="images/jobs-company/pic5.jpg" alt="#">
+                                </div>
+                                <div class="twm-mid-content">
+                                    <a href="job-detail.html" class="twm-job-title">
+                                        <h4 class="twm-job-title">სასტუმროს მენეჯერი <span class="twm-job-post-duration">/ 1 დღის წინ</span></h4>
+                                    </a>
+                                    <p class="twm-job-address">ზანდუკელის ქუჩ 1, თბილისი, საქართველო</p>
+                                    <a href="#" class="twm-job-websites site-text-primary">https://thewebmax.com</a>
+                                </div>
+                                <div class="twm-right-content">
+                                    <div class="twm-jobs-category green"><span class="twm-bg-golden">დროებითი</span></div>
+                                    <div class="twm-jobs-amount">$1700 <span>/ Month</span></div>
+                                    <a href="job-detail.html" class="twm-jobs-browse site-text-primary">სრულად</a>
+                                </div>
+                            </div>
+                        </li>
+                   </ul>
+                   <div class="text-center m-b30">
+                        <a href="job-list.html" class=" site-button">{{ __('lang.welcome_middle_career_search_block_buttonallwork') }}</a>
+                   </div>
+               </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- JOB POST END -->
+
+=======
+>>>>>>> a84c9c5b20e54a93761a99c7d3a82c12e6f408f7
     <!-- JOBS CATEGORIES SECTION START -->
     <div class="section-full p-t120 p-b90 site-bg-gray twm-job-categories-area">
 
@@ -473,234 +727,6 @@
             </div>
 
         </div>
-
-    </div>
-    <!-- JOBS CATEGORIES SECTION END -->
-
-    <!-- EXPLORE NEW LIFE START -->
-    <div class="section-full p-t120 p-b120 twm-explore-area bg-cover " style="background-image: url(images/background/bg-1.jpg);">
-        <div class="container">
-
-            <div class="section-content">
-                <div class="row">
-
-                    <div class="col-lg-4 col-md-12">
-                        <div class="twm-explore-media-wrap">
-                            <div class="twm-media">
-                                <img src="images/gir-large.png" alt="">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-8 col-md-12">
-                        <div class="twm-explore-content-outer">
-                            <div class="twm-explore-content">
-
-                                <div class="twm-l-line-1"></div>
-                                <div class="twm-l-line-2"></div>
-
-                                <div class="twm-r-circle-1"></div>
-                                <div class="twm-r-circle-2"></div>
-
-                                <div class="twm-title-large">
-                                    <h2>{{ __('lang.welcome_middle_uploadresume_block') }} </h2>
-                                    {{-- <p>Lorem Ipsum არის უბრალოდ ბეჭდვისა და ბეჭდვის ინდუსტრიის მოჩვენებითი ტექსტი, 
-                                        სტანდარტული მოჩვენებითი ტექსტი მას შემდეგ, რაც პრინტერი აიღო.</p> --}}
-                                </div>
-                                <div class="twm-upload-file">
-                                    <button type="button" class="site-button">{{ __('lang.welcome_middle_uploadresume_button') }} <i class="feather-upload"></i></button>
-                                </div>
-
-
-                            </div>
-                            <div class="twm-bold-circle-right"></div>
-                            <div class="twm-bold-circle-left"></div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-        </div>
-    </div>
-    <!-- EXPLORE NEW LIFE END -->
-
-    <!-- TOP COMPANIES START -->
-    <div class="section-full p-t120 site-bg-white twm-companies-wrap">
-
-            <div class="twm-company-approch-outer">
-                <div class="twm-company-approch">
-                    <div class="row">
-
-                        <!--block 1-->
-                        <div class="col-lg-4 col-md-12">
-                            <div class="counter-outer-two">
-                                <div class="icon-content">
-                                    <div class="tw-count-number text-clr-sky">
-                                        <span class="counter">5</span>M+</div>
-                                    <p class="icon-content-info">{{ __('lang.welcome_middle_count_user') }}</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!--block 2-->
-                        <div class="col-lg-4 col-md-12">
-                            <div class="counter-outer-two">
-                                <div class="icon-content">
-                                    <div class="tw-count-number text-clr-pink">
-                                        <span class="counter">9</span>K+</div>
-                                    <p class="icon-content-info">{{ __('lang.welcome_middle_count_position') }}</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!--block 3-->
-                        <div class="col-lg-4 col-md-12">
-                            <div class="counter-outer-two">
-                                <div class="icon-content">
-                                    <div class="tw-count-number text-clr-green">
-                                        <span class="counter">2</span>M+</div>
-                                    <p class="icon-content-info">{{ __('lang.welcome_middle_count_history') }}</p>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-
-    </div>
-    <!-- TOP COMPANIES END -->
-
-    <!-- JOB POST START -->
-    <div class="section-full p-t120 p-b90 site-bg-light-purple twm-bg-ring-wrap">
-        <div class="twm-bg-ring-right"></div>
-        <div class="twm-bg-ring-left"></div>
-        <div class="container">
-
-            <!-- TITLE START-->
-            <div class="section-head center wt-small-separator-outer">
-                <div class="wt-small-separator site-text-primary">
-                   <div>{{ __('lang.welcome_middle_career_allpost') }}</div>
-                </div>
-                <h2 class="wt-title">{{ __('lang.welcome_middle_career_search') }}</h2>
-            </div>
-            <!-- TITLE END-->
-
-
-            <div class="section-content">
-               <div class="twm-jobs-list-wrap">
-                   <ul>
-                        <li>
-                            <div class="twm-jobs-list-style1 mb-5">
-                                <div class="twm-media">
-                                    <img src="images/jobs-company/pic1.jpg" alt="#">
-                                </div>
-                                <div class="twm-mid-content">
-                                    <a href="job-detail.html" class="twm-job-title">
-                                        <h4>ძიძა  <span class="twm-job-post-duration">/ 1 დღის წინ</span></h4>
-                                    </a>
-                                    <p class="twm-job-address">აღმაშენებლის ქუჩა N7, თბილისი, საქართველო</p>
-                                    <a href="#" class="twm-job-websites site-text-primary">https://thewebmax.com</a>
-                                </div>
-                                <div class="twm-right-content">
-                                    <div class="twm-jobs-category green"><span class="twm-bg-green">ახალი</span></div>
-                                    <div class="twm-jobs-amount">₾500 <span>/ თვეში</span></div>
-                                    <a href="job-detail.html" class="twm-jobs-browse site-text-primary">{{ __('lang.welcome_middle_career_search_block_buttonreadmore') }}</a>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li>
-                            <div class="twm-jobs-list-style1 mb-5">
-                                <div class="twm-media">
-                                    <img src="images/jobs-company/pic2.jpg" alt="#">
-                                </div>
-                                <div class="twm-mid-content">
-                                    <a href="job-detail.html" class="twm-job-title">
-                                        <h4>მცხობელი<span class="twm-job-post-duration">/ 15 დღის წინ</span></h4>
-                                    </a>
-                                    <p class="twm-job-address">საბუდარის ქუჩა N56, ქუთაისი, საქართველო</p>
-                                    <a href="#" class="twm-job-websites site-text-primary">https://thewebmax.com</a>
-                                </div>
-                                <div class="twm-right-content">
-                                    <div class="twm-jobs-category green"><span class="twm-bg-brown">სტაჟირება</span></div>
-                                    <div class="twm-jobs-amount">₾2000<span>/ თვეში</span></div>
-                                    <a href="job-detail.html" class="twm-jobs-browse site-text-primary">სრულად</a>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li>
-                            <div class="twm-jobs-list-style1 mb-5">
-                                <div class="twm-media">
-                                    <img src="images/jobs-company/pic3.jpg" alt="#">
-                                </div>
-                                <div class="twm-mid-content">
-                                    <a href="job-detail.html" class="twm-job-title">
-                                        <h4 class="twm-job-title">იურისტები/ადვოკატები <span class="twm-job-post-duration">/ 6 თვის წინ</span></h4>
-                                    </a>
-                                    <p class="twm-job-address">ბარათაშვილის ქუჩა N23, ბათუმი, საქართველო</p>
-                                    <a href="#" class="twm-job-websites site-text-primary">https://thewebmax.com</a>
-                                </div>
-                                <div class="twm-right-content">
-                                    <div class="twm-jobs-category green"><span class="twm-bg-purple">სრული განაკვეთი</span></div>
-                                    <div class="twm-jobs-amount">₾4500 <span>/ თვეში</span></div>
-                                    <a href="job-detail.html" class="twm-jobs-browse site-text-primary">სრულად</a>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li>
-                            <div class="twm-jobs-list-style1 mb-5">
-                                <div class="twm-media">
-                                    <img src="images/jobs-company/pic4.jpg" alt="#">
-                                </div>
-                                <div class="twm-mid-content">
-                                    <a href="job-detail.html" class="twm-job-title">
-                                        <h4 class="twm-job-title">მენეჯერი <span class="twm-job-post-duration">/ 2 დღის წინ</span></h4>
-                                    </a>
-                                    <p class="twm-job-address">რუსთაველის ქუჩა N54, ფოთი, საქართველო</p>
-                                    <a href="#" class="twm-job-websites site-text-primary">https://thewebmax.com</a>
-                                </div>
-                                <div class="twm-right-content">
-                                    <div class="twm-jobs-category green"><span class="twm-bg-sky">თავისუფალი</span></div>
-                                    <div class="twm-jobs-amount">₾1200<span>/ თვეში</span></div>
-                                    <a href="job-detail.html" class="twm-jobs-browse site-text-primary">სრულად</a>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li>
-                            <div class="twm-jobs-list-style1 mb-5">
-                                <div class="twm-media">
-                                    <img src="images/jobs-company/pic5.jpg" alt="#">
-                                </div>
-                                <div class="twm-mid-content">
-                                    <a href="job-detail.html" class="twm-job-title">
-                                        <h4 class="twm-job-title">სასტუმროს მენეჯერი <span class="twm-job-post-duration">/ 1 დღის წინ</span></h4>
-                                    </a>
-                                    <p class="twm-job-address">ზანდუკელის ქუჩ 1, თბილისი, საქართველო</p>
-                                    <a href="#" class="twm-job-websites site-text-primary">https://thewebmax.com</a>
-                                </div>
-                                <div class="twm-right-content">
-                                    <div class="twm-jobs-category green"><span class="twm-bg-golden">დროებითი</span></div>
-                                    <div class="twm-jobs-amount">$1700 <span>/ Month</span></div>
-                                    <a href="job-detail.html" class="twm-jobs-browse site-text-primary">სრულად</a>
-                                </div>
-                            </div>
-                        </li>
-                   </ul>
-                   <div class="text-center m-b30">
-                        <a href="job-list.html" class=" site-button">{{ __('lang.welcome_middle_career_search_block_buttonallwork') }}</a>
-                   </div>
-               </div>
-            </div>
-
-        </div>
-    </div>
-    <!-- JOB POST END -->
 
     <div class="section-full p-t120 p-b90 site-bg-gray twm-job-categories-area">
 
@@ -965,6 +991,149 @@
         </div>
 
     </div>    
+
+            <!-- TESTIMONIAL SECTION START -->
+            <div class="section-full p-t120 p-b90 site-bg-white twm-testimonial-1-area">
+                
+                <div class="container">
+
+                    <div class="wt-separator-two-part">
+                        <div class="row wt-separator-two-part-row">
+                            <div class="col-xl-5 col-lg-6 col-md-12 wt-separator-two-part-left">
+                                <!-- TITLE START-->
+                                <div class="section-head left wt-small-separator-outer">
+                                    <div class="wt-small-separator site-text-primary">                              
+                                    </div>
+                                    <h2 class="wt-title">{{ __('lang.welcome_middle_testimonial_block_head_text') }}</h2>
+                                </div>                  
+                                <!-- TITLE END-->
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                    <div class="section-content"> 
+                        
+                        <div class="owl-carousel twm-testimonial-1-carousel owl-btn-bottom-center ">
+                        
+                            <!-- COLUMNS 1 --> 
+                            <div class="item ">
+                                <div class="twm-testimonial-1">
+                                    <div class="twm-testimonial-1-content">
+                                        <div class="twm-testi-media">
+                                            <img src="images/testimonials/pic-1.png" alt="#">
+                                        </div>
+                                        <div class="twm-testi-content">
+                                            <div class="twm-quote">
+                                                <img src="images/quote-dark.png" alt="">
+                                            </div>
+                                            <div class="twm-testi-info">I just got a job that I applied for via careerfy! I used the site all the time during my job hunt.</div>
+                                            <div class="twm-testi-detail">
+                                                <div class="twm-testi-name">Nikola Tesla</div>
+                                                <div class="twm-testi-position">Accountant</div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- COLUMNS 2 --> 
+                            <div class="item ">
+                                <div class="twm-testimonial-1">
+                                    <div class="twm-testimonial-1-content">
+                                        <div class="twm-testi-media">
+                                            <img src="images/testimonials/pic-2.png" alt="#">
+                                        </div>
+                                        <div class="twm-testi-content">
+                                            <div class="twm-quote">
+                                                <img src="images/quote-dark.png" alt="">
+                                            </div>
+                                            <div class="twm-testi-info">I just got a job that I applied for via careerfy! I used the site all the time during my job hunt.</div>
+                                            <div class="twm-testi-detail">
+                                                <div class="twm-testi-name">Nikola Tesla</div>
+                                                <div class="twm-testi-position">Accountant</div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- COLUMNS 3 --> 
+                            <div class="item ">
+                                <div class="twm-testimonial-1">
+                                    <div class="twm-testimonial-1-content">
+                                        <div class="twm-testi-media">
+                                            <img src="images/testimonials/pic-3.png" alt="#">
+                                        </div>
+                                        <div class="twm-testi-content">
+                                            <div class="twm-quote">
+                                                <img src="images/quote-dark.png" alt="">
+                                            </div>
+                                            <div class="twm-testi-info">I just got a job that I applied for via careerfy! I used the site all the time during my job hunt.</div>
+                                            <div class="twm-testi-detail">
+                                                <div class="twm-testi-name">Nikola Tesla</div>
+                                                <div class="twm-testi-position">Accountant</div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- COLUMNS 4 --> 
+                            <div class="item ">
+                                <div class="twm-testimonial-1">
+                                    <div class="twm-testimonial-1-content">
+                                        <div class="twm-testi-media">
+                                            <img src="images/testimonials/pic-2.png" alt="#">
+                                        </div>
+                                        <div class="twm-testi-content">
+                                            <div class="twm-quote">
+                                                <img src="images/quote-dark.png" alt="">
+                                            </div>
+                                            <div class="twm-testi-info">I just got a job that I applied for via careerfy! I used the site all the time during my job hunt.</div>
+                                            <div class="twm-testi-detail">
+                                                <div class="twm-testi-name">Nikola Tesla</div>
+                                                <div class="twm-testi-position">Accountant</div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- COLUMNS 5 --> 
+                            <div class="item ">
+                                <div class="twm-testimonial-1">
+                                    <div class="twm-testimonial-1-content">
+                                        <div class="twm-testi-media">
+                                            <img src="images/testimonials/pic-1.png" alt="#">
+                                        </div>
+                                        <div class="twm-testi-content">
+                                            <div class="twm-quote">
+                                                <img src="images/quote-dark.png" alt="">
+                                            </div>
+                                            <div class="twm-testi-info">I just got a job that I applied for via careerfy! I used the site all the time during my job hunt.</div>
+                                            <div class="twm-testi-detail">
+                                                <div class="twm-testi-name">Nikola Tesla</div>
+                                                <div class="twm-testi-position">Accountant</div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+         
+                    
+                        </div>
+                        
+                    </div>                              
+                </div>
+                
+            </div>
+            <!-- TESTIMONIAL SECTION END -->
 
     <!-- OUR BLOG START -->
     <div class="section-full p-t120 p-b90 site-bg-gray">

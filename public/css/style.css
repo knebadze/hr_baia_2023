@@ -14,6 +14,46 @@ body {
     font-family: mtavruli !important;
 }
 
+<<<<<<< HEAD
+/* rangeslider */
+.range input{
+    -webkit-appearance:none;
+    width:400px !important;
+    height:4px;
+    border-radius:5px;
+    outline:none;
+  }
+  .range input::-webkit-slider-thumb{
+    -webkit-appearance:none;
+    width:20px;
+    height:20px;
+    border-radius:50%;
+  }
+  .range span{
+    position:absolute;
+    margin-left:14px;
+    width:50px;
+    height:30px;
+    background-color:#222;
+    color:#fff;
+    border-radius:3px;
+    text-align:center;
+    line-height:30px;
+  }
+  .range span:before{
+    content:'';
+    position:absolute;
+    border-right:9px solid transparent;
+    border-left:9px solid transparent;
+    border-bottom:12px solid #222;
+    left:-10px;
+    top:50%;
+    transform:translateY(-50%) rotate(-90deg);
+  }
+/* end rangeslider */
+
+=======
+>>>>>>> a84c9c5b20e54a93761a99c7d3a82c12e6f408f7
 .card_body hr {
   margin-top: 15%;
   margin-bottom: 15%;
@@ -29,7 +69,11 @@ body {
 
 .job_detail_read_more {
   margin-top: 5%;
+<<<<<<< HEAD
+  color: #fff !important;
+=======
   color: #fff;
+>>>>>>> a84c9c5b20e54a93761a99c7d3a82c12e6f408f7
 }
 
 .employerPageBorder {

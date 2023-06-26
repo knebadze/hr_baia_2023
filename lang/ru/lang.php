@@ -61,17 +61,19 @@ return [
     'page_title_about' => 'О нас',
     'page_title_candidate' => 'Кандидаты',
     'page_title_blog' => 'Блог',
+    'page_title_contact' => 'Контактная страница',
 
     // ----------------------------------------------------------------------------------------------------
     // Menu Lang Block
     'menu_home' => 'Главная',
     'menu_vacancies' => 'Вакансии',
         'menu_individual_vacancies' => 'Вакансии в семье',
-        'menu_company_vacancies' => 'Вакансии компании',
+        'menu_your_vacancies' => 'Ваша вакансия',
         'menu_vacancies_onmap' => 'Вакансии на карте',
     'menu_about_us' => 'О нас',
     'menu_candidate' => 'Кандидаты',
     'menu_blog' => 'Блог',
+    'menu_contact' => 'Контакты',
     'menu_registration' => 'Регистрация',
     'menu_add_vacancy' => 'Добавить вакансию',
     'menu_log_in' => 'Авторизоваться',
@@ -106,21 +108,31 @@ return [
     'welcome_middle_leftblock_big_text' => 'Выберите нужную категорию',
     'welcome_middle_submit' => 'Все категории',
 
-    'welcome_middle_uploadresume_block' => 'Все еще не можете найти подходящую работу? Загрузите свое резюме / CV.',
-    'welcome_middle_uploadresume_button' => 'Загрузите резюме',
+    // 'welcome_middle_uploadresume_block' => 'Все еще не можете найти подходящую работу? Загрузите свое резюме / CV.',
+    // 'welcome_middle_uploadresume_button' => 'Загрузите резюме',
 
     'welcome_middle_count_user' => 'Миллионы активных пользователей каждый день',
     'welcome_middle_count_position' => 'Открытые вакансии',
     'welcome_middle_count_history' => 'миллион общих историй',
 
-    'welcome_middle_career_allpost' => 'Все вакансии',
-    'welcome_middle_career_search' => 'Последние вакансии',
+    // 'welcome_middle_career_allpost' => 'Все вакансии',
+    'welcome_middle_career_search' => 'Активные вакансии',
     'welcome_middle_career_search_block_buttonreadmore' => 'Читать далее',
     'welcome_middle_career_search_block_buttonallwork' => 'Все работы',
 
     'welcome_middle_blog_smalltext' => 'Блог',
     'welcome_middle_blog_articletext' => 'Последняя статья',
     'welcome_middle_blog_article_button_read' => 'Читать далее',
+
+    'welcome_middle_cards_left_1' => 'Ищу',
+    'welcome_middle_cards_left_2' => 'сотрудников',
+    'welcome_middle_cards_left_descr' => 'Какой персонал вам нужен?',
+
+    'welcome_middle_cards_right_1' => 'Ищу',
+    'welcome_middle_cards_right_2' => 'работу',
+    'welcome_middle_cards_right_descr' => 'Найти работу рядом с домом',
+
+    'welcome_middle_testimonial_block_head_text' => 'Довольные клиенты',
 
     // ----------------------------------------------------------------------------------------------------
     // Individual Vacancies Lang Page
@@ -406,6 +418,18 @@ return [
     'blog_page_right_side_category' => 'Категория',
     'blog_page_right_side_last_article' => 'Последняя статья',
     'blog_page_right_side_tag' => 'Теги',
+
+    // ----------------------------------------------------------------------------------------------------
+    // Contact Lang Page
+    'contact_read_us' => 'Напишите нам',
+    'contact_read_us_input_name' => 'Имя',
+    'contact_read_us_input_mail' => 'Почта',
+    'contact_read_us_input_phone' => 'Телефон',
+    'contact_read_us_input_title' => 'Заголовок',
+    'contact_read_us_input_text' => 'Текст',
+    'contact_read_us_button_send' => 'Отправлять',
+    'contact_read_us_address' => 'Адрес',
+    'contact_read_us_address_descr' => 'Проспект Важа-Пшавела - 76Б II: улица Арчила Джорджадзе N5',
 
     // ----------------------------------------------------------------------------------------------------
     // Footer Lang Page
