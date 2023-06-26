@@ -95,7 +95,7 @@ class Vacancy extends Model
 
     public function vacancyInterest()
     {
-        return $this->hasMany(VacancyInterest::class, 'vacancy_id', 'id');
+        return $this->hasMany(QualifyingCandidate::class, 'vacancy_id', 'id')->where('qualifying_type_id', 2);
     }
     // public function forWhoNeed()
     // {

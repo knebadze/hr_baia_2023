@@ -16,6 +16,7 @@ class Employer extends Model
         'name_en',
         'name_ru',
         'email',
+        'number_code_id',
         'number',
         'address_ka',
         'address_en',

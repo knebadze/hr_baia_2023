@@ -61,19 +61,17 @@ return [
     'page_title_about' => 'About Us',
     'page_title_candidate' => 'Candidates',
     'page_title_blog' => 'Blog',
-    'page_title_contact' => 'Contact Page',
 
     // ----------------------------------------------------------------------------------------------------     
     // Menu Lang Block
     'menu_home' => 'Home',
     'menu_vacancies' => 'Vacancies',
         'menu_individual_vacancies' => 'Family Vacancies',
-        'menu_your_vacancies' => 'Your Vacancy',
+        'menu_company_vacancies' => 'Company Vacancies',
         'menu_vacancies_onmap' => 'Vacancies On Map',
     'menu_about_us' => 'About Us',
     'menu_candidate' => 'Candidates',
     'menu_blog' => 'Blog',
-    'menu_contact' => 'Contact',
     'menu_registration' => 'Registration',
     'menu_add_vacancy' => 'Add job',
     'menu_log_in' => 'Log In',
@@ -111,31 +109,20 @@ return [
     'welcome_middle_leftblock_big_text_candidate' => 'Choose the category you want',
     'welcome_middle_submit_candidate' => 'All Candidates',
 
-    // 'welcome_middle_uploadresume_block' => 'Still can\'t find the right job? Upload your Resume / CV.',
-    // 'welcome_middle_uploadresume_button' => 'Upload Resume',
+    'welcome_middle_uploadresume_block' => 'Still can\'t find the right job? Upload your Resume / CV.',
+    'welcome_middle_uploadresume_button' => 'Upload Resume',
 
     'welcome_middle_count_user' => 'Millions of active users every day',
     'welcome_middle_count_position' => 'Open job positions',
     'welcome_middle_count_history' => 'A million shared stories',
 
-    // 'welcome_middle_career_allpost' => 'All job postings',
-    'welcome_middle_career_search' => 'Active vacancies',
+    'welcome_middle_career_allpost' => 'All job postings',
+    'welcome_middle_career_search' => 'Latest vacancies',
     'welcome_middle_career_search_block_buttonreadmore' => 'Read More',
     'welcome_middle_career_search_block_buttonallwork' => 'All work',
     'welcome_middle_blog_smalltext' => 'Blog',
     'welcome_middle_blog_articletext' => 'Latest Article',
     'welcome_middle_blog_article_button_read' => 'Read More',
-
-    'welcome_middle_cards_left_1' => 'I am looking',
-    'welcome_middle_cards_left_2' => 'a staff',
-    'welcome_middle_cards_left_descr' => 'What kind of staff are you looking for?',
-
-    'welcome_middle_cards_right_1' => 'I am looking',
-    'welcome_middle_cards_right_2' => 'a job',
-    'welcome_middle_cards_right_descr' => 'Find a job close to home',
-
-    // Testimonial Block
-    'welcome_middle_testimonial_block_head_text' => 'Satisfied Customers',
 
     // ----------------------------------------------------------------------------------------------------
     // Family Vacancies Lang Page
@@ -418,18 +405,6 @@ return [
     'blog_page_right_side_category' => 'Category',
     'blog_page_right_side_last_article' => 'Last Article',
     'blog_page_right_side_tag' => 'Tags',
-
-    // ----------------------------------------------------------------------------------------------------
-    // Contact Lang Page
-    'contact_read_us' => 'Write to Us',
-    'contact_read_us_input_name' => 'Name',
-    'contact_read_us_input_mail' => 'Email',
-    'contact_read_us_input_phone' => 'Phone',
-    'contact_read_us_input_title' => 'Title',
-    'contact_read_us_input_text' => 'Message',
-    'contact_read_us_button_send' => 'Send',
-    'contact_read_us_address' => 'Address',
-    'contact_read_us_address_descr' => 'Vazha-Pshavela Avenue - 76B II: Archil Jorjadze Street N5',
 
     // ----------------------------------------------------------------------------------------------------
     // Footer Lang Page

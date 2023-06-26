@@ -67,11 +67,21 @@
   href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.6.6/css/flag-icons.min.css"> --}}
 
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    <!-- <link rel="{{asset('build/assets/app-67e4f9a3.css')}}"> -->
-    <!-- <script src="{{asset('build/assets/app-2bee19f0.js')}}"></script> -->
 
 </head>
 <body>
+    
+    <!-- LOADING AREA START ===== -->
+    <div class="loading-area">
+        <div class="loading-box"></div>
+        <div class="loading-pic">
+            <div class="wrapper">
+                <div class="cssload-loader"></div>
+            </div>
+        </div>
+    </div>
+    <!-- LOADING AREA  END ====== -->
+
     <script>
 
         window.default_locale = "{{ App::getLocale() }}";

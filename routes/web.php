@@ -12,7 +12,6 @@ use App\Http\Controllers\TermsController;
 use App\Http\Controllers\VacancyController;
 use App\Http\Controllers\admin\HrController;
 use App\Http\Controllers\CandidateController;
-use App\Http\Controllers\ContactController;
 
 use App\Http\Controllers\MyprofileController;
 
@@ -68,7 +67,6 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
             Route::get('/candidate-detail/{id?}', [CandidateController::class, 'show'])->name('candidate-detail');
 
         Route::get('/blog', [BlogController::class, 'index'])->name('blog');
-        Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 
         // Account Pages
         Route::get('/user/userProfile', [UserProfileController::class, 'index'])->name('userProfile');
@@ -82,11 +80,11 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
         //Post Job
         Route::get('/post_job', [PostVacancyController::class, 'index'])->name('post.job');
 
-        //user vacancy
-        // Route::get('/user/vacancy', [VacancyController::class, 'index'])->name('user.vacancy');
-
         //Job Detail
         Route::get('/job_detail/{id?}/{slug?}', [VacancyController::class, 'show'])->name('job_detail');
+
+        //user vacancy
+        // Route::get('/user/vacancy', [VacancyController::class, 'index'])->name('user.vacancy');
 
         Route::get('/auth/passwords/change_password', [ChangePasswordController::class, 'index'])->name('auth.password.change_password');
 
@@ -155,10 +153,12 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('add_vacancy', [PostVacancyController::class, 'store']);
     Route::get('vacancy_data', [VacancyController::class, 'data']);
     Route::post('vacancy_filter', [VacancyController::class, 'filter']);
+    Route::post('/interest_vacancy', [VacancyController::class, 'interest']);
+    Route::post('/add_interest_vacancy', [VacancyController::class, 'addInterest']);
 
     Route::post('/find_my_vacancy', [MyVacancyController::class, 'find']);
 
-    Route::post('/interest_vacancy', [MyVacancyController::class, 'interest']);
+
     Route::post('/get_interest_data', [MyVacancyController::class, 'getInterestData']);
     Route::post('/do_not_like_candidate', [MyVacancyController::class, 'doNotLike']);
     Route::post('/like_candidate', [MyVacancyController::class, 'like']);

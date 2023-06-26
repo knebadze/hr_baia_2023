@@ -39,6 +39,7 @@ return new class extends Migration
             $table->boolean('work_additional_hours')->default(0);
             $table->dateTime('interview_date');
             $table->foreignId('interview_place_id')->constrained();
+            $table->integer('view')->default(0);
             $table->timestamps();
             $table->foreign('author_id')
             ->references('id')->on('employers')->onUpdate('cascade')->onDelete('cascade');

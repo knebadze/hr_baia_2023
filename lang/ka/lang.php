@@ -61,19 +61,17 @@ return [
     'page_title_about' => 'ჩვენს შესახებ',
     'page_title_candidate' => 'კანდიდატები',
     'page_title_blog' => 'ბლოგი',
-    'page_title_contact' => 'კონტაქტი',
 
     // ----------------------------------------------------------------------------------------------------
     // Menu Lang Block
     'menu_home' => 'მთავარი',
     'menu_vacancies' => 'ვაკანსიები',
         'menu_individual_vacancies' => 'ვაკანსიები ოჯახში',
-        'menu_your_vacancies' => 'თქვენი ვაკანსია',
+        'menu_company_vacancies' => 'კომპანიის ვაკანსიები',
         'menu_vacancies_onmap' => 'ვაკანსიები რუქაზე',
     'menu_about_us' => 'ჩვენს შესახებ',
     'menu_candidate' => 'კანდიდატები',
     'menu_blog' => 'ბლოგი',
-    'menu_contact' => 'კონტაქტი',
     'menu_registration' => 'რეგისტრაცია',
     'menu_add_vacancy' => 'დაამატე ვაკანსია',
     'menu_log_in' => 'ავტორიაზაცია',
@@ -111,33 +109,21 @@ return [
     'welcome_middle_leftblock_big_text_candidate' => 'აირჩიეთ თქვენთვის სასურველი კანდიდატი',
     'welcome_middle_submit_candidate' => 'ყველა კანდიდატი',
 
-    // 'welcome_middle_uploadresume_block' => 'ჯერ კიდევ ვერ მოძებნეთ შესაბამისი სამსახური? ატვირთეთ თქვენი რეზიუმე / CV.',
-    // 'welcome_middle_uploadresume_button' => 'რეზიუმეს ატვირთვა',
+    'welcome_middle_uploadresume_block' => 'ჯერ კიდევ ვერ მოძებნეთ შესაბამისი სამსახური? ატვირთეთ თქვენი რეზიუმე / CV.',
+    'welcome_middle_uploadresume_button' => 'რეზიუმეს ატვირთვა',
 
     'welcome_middle_count_user' => 'ყოველდღიურად მილიონობით აქტიური მომხმარებელი',
     'welcome_middle_count_position' => 'ღია სამუშაო პოზიციები',
     'welcome_middle_count_history' => 'მილიონი გაზიარებული ისტორია',
 
-    // 'welcome_middle_career_allpost' => 'ყველა ვაკანსიის პოსტი',
-    'welcome_middle_career_search' => 'აქტიური ვაკანსიები',
+    'welcome_middle_career_allpost' => 'ყველა ვაკანსიის პოსტი',
+    'welcome_middle_career_search' => 'უახლესი ვაკანსიები',
     'welcome_middle_career_search_block_buttonreadmore' => 'სრულად',
     'welcome_middle_career_search_block_buttonallwork' => 'ყველა სამუშაო',
 
     'welcome_middle_blog_smalltext' => 'ბლოგი',
     'welcome_middle_blog_articletext' => 'უახლესი სტატია',
     'welcome_middle_blog_article_button_read' => 'სრულიად',
-
-    'welcome_middle_cards_left_1' => 'პერსონალს',
-    'welcome_middle_cards_left_2' => 'ვეძებ',
-    'welcome_middle_cards_left_descr' => 'რა სახის პერსონალს ეძებთ?',
-
-
-    'welcome_middle_cards_right_1' => 'სამსახურს',
-    'welcome_middle_cards_right_2' => 'ვეძებ',
-    'welcome_middle_cards_right_descr' => 'იპოვე სამუშაო სახლთან ახლოს',
-
-    // Testimonial Block
-    'welcome_middle_testimonial_block_head_text' => 'კმაყოფილი მომხმარებლები',
 
     // ----------------------------------------------------------------------------------------------------
     // Individual Vacancies Lang Page
@@ -418,18 +404,6 @@ return [
     'blog_page_right_side_category' => 'კტეგორია',
     'blog_page_right_side_last_article' => 'ბოლო სტატია',
     'blog_page_right_side_tag' => 'თაგები',
-
-    // ----------------------------------------------------------------------------------------------------
-    // Contact Lang Page
-    'contact_read_us' => 'მოგვწერეთ',
-    'contact_read_us_input_name' => 'სახელი',
-    'contact_read_us_input_mail' => 'მეილი',
-    'contact_read_us_input_phone' => 'ტელეფონი',
-    'contact_read_us_input_title' => 'სათაური',
-    'contact_read_us_input_text' => 'ტექსტი',
-    'contact_read_us_button_send' => 'გაგზავნა',
-    'contact_read_us_address' => 'მისამართი',
-    'contact_read_us_address_descr' => 'ვაჟა-ფშაველას გამზირი - 76B II: არჩილ ჯორჯაძის ქუჩა N5',
 
     // ----------------------------------------------------------------------------------------------------
     // Footer Lang Page

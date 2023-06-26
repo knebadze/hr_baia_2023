@@ -277,6 +277,7 @@
                                             <span><img src="/images/work-process/icon1.png" alt="icon1"></span>
                                         </div>
                                         <h4 class="twm-title">{{ __('lang.about_us_page_card_register_account') }}</h4>
+                                        {{-- <p>თქვენ უნდა შექმნათ ანგარიში, რომ იპოვოთ საუკეთესო და სასურველი სამუშაო.</p> --}}
                                     </div>
 
                                 </div>
@@ -290,6 +291,7 @@
                                             <span><img src="/images/work-process/icon4.png" alt="icon1"></span>
                                         </div>
                                         <h4 class="twm-title">{{ __('lang.about_us_page_card_search_vacancie') }}ა</h4>
+                                        {{-- <p>მოძებნეთ სასურველი ვაკანსია და დაგვეკონტაქტეთ</p> --}}
                                     </div>
 
                                 </div>
@@ -338,7 +340,51 @@
     </div>
     <!-- HOW IT WORK SECTION END -->
 
+    <!-- EXPLORE NEW LIFE START -->
+    <div class="section-full p-t120 p-b120 twm-explore-area bg-cover " style="background-image: url(/images/background/bg-1.jpg);">
+        <div class="container">
 
+            <div class="section-content">
+                <div class="row">
+
+                    <div class="col-lg-4 col-md-12">
+                        <div class="twm-explore-media-wrap">
+                            <div class="twm-media">
+                                <img src="/images/gir-large.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-8 col-md-12">
+                        <div class="twm-explore-content-outer">
+                            <div class="twm-explore-content">
+
+                                <div class="twm-l-line-1"></div>
+                                <div class="twm-l-line-2"></div>
+
+                                <div class="twm-r-circle-1"></div>
+                                <div class="twm-r-circle-2"></div>
+
+                                <div class="twm-title-large">
+                                    <h2>{{ __('lang.about_us_page_box_card_description') }}</h2>
+                                </div>
+                                <div class="twm-upload-file">
+                                    <button type="button" class="site-button">{{__('lang.about_us_page_box_card_upload_resume')}} <i class="feather-upload"></i></button>
+                                </div>
+
+
+                            </div>
+                            <div class="twm-bold-circle-right"></div>
+                            <div class="twm-bold-circle-left"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- EXPLORE NEW LIFE END -->
 
 </div>
 <!-- CONTENT END -->

@@ -1,6 +1,6 @@
 @extends('layouts.appPage')
 @section('title-block')
-    {{ __('lang.page_title_onmap') }}
+{{('Vacancies With Map')}}
 @endsection
 @section('content')
 <!-- CONTENT START -->
@@ -113,17 +113,10 @@
                                  <div class="form-group">
                                      <label>{{ __('lang.onmap_vacancies_page_leftside_vacancie_radius') }}</label>
                                      
-                                     {{-- <div class="twm-radius-range">
+                                     <div class="twm-radius-range">
                                          <b>3 km</b> 
                                          <input id="ex2" type="text" class="span2" value="" data-slider-min="10" data-slider-max="100" data-slider-step="5" data-slider-value="[20,80]"/> 
                                          <b>7 km</b>
-                                     </div> --}}
-
-                                     <div class="twm-radius-range">
-                                        <div class="range">
-                                            <input type="range" min='0' max='100' step='1' />
-                                            <span>50km</span>
-                                        </div>
                                      </div>
                                      
                                  </div>
@@ -437,17 +430,8 @@
     </div>
     <!-- SECTION CONTENT END  -->
      
+
  </div>
  <!-- CONTENT END -->
 </div>
-<script type="text/javascript">
-    $(function()
-    {
-        $('.range input').on('mousemove', function(){
-            var getValRange = $(this).val();
-            $('.range span').text(getValRange + 'km');
-        });
-
-    });
-</script>
 @endsection

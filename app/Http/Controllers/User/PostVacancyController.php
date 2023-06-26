@@ -30,13 +30,13 @@ class PostVacancyController extends Controller
         $demand = array_map(function ($item) { return ""; }, array_flip(Schema::getColumnListing('vacancy_demands')));
 
         $classificatoryArr = ['category', 'currency', 'workSchedule', 'educations', 'characteristic', 'duty',
-        'languages', 'languageLevels', 'interviewPlace', 'term', 'benefit','forWhoNeed'];
+        'languages', 'languageLevels', 'interviewPlace', 'term', 'benefit','forWhoNeed', 'numberCode', 'specialties'];
         $classificatory = $this->classificatoryService->get($classificatoryArr);
         $data = [
             'model' => [
                 'employer' => $employer,
                 'vacancy' => $vacancy,
-                'demand' => $demand
+                'demand' => $demand,
             ],
             'classificatory' => $classificatory
         ];

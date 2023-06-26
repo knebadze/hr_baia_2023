@@ -14,10 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js']) 
-    <!-- <link rel="{{asset('build/assets/app-67e4f9a3.css')}}"> -->
-    <!-- <script src="{{asset('build/assets/app-2bee19f0.js')}}"></script> -->
-    
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body>
     <div id="app">

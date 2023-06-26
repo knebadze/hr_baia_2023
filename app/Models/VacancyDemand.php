@@ -30,4 +30,8 @@ class VacancyDemand extends Model
     {
         return $this->belongsTo(language_level::class);
     }
+    public function specialty()
+    {
+        return $this->belongsTo(Specialty::class, 'specialty_id');
+    }
 }

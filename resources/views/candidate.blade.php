@@ -1,6 +1,6 @@
 @extends('layouts.appPage')
 @section('title-block')
-    {{ __('lang.page_title_candidate') }}
+{{('Candidates')}}
 @endsection
 @section('content')
 <!-- CONTENT START -->
