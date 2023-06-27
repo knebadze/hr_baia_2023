@@ -60,9 +60,6 @@ class VacancyController extends Controller
         return $data;
     }
 
-
-}
-
     public function searchForId($id, $array) {
 
         foreach (json_decode(json_encode($array), true) as $key => $val) {
@@ -72,8 +69,5 @@ class VacancyController extends Controller
         }
         return false;
      }
-<<<<<<< HEAD
-}
-=======
-}
->>>>>>> a84c9c5b20e54a93761a99c7d3a82c12e6f408f7
+
+}     

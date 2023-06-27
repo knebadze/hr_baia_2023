@@ -158,7 +158,6 @@
                             </form>
     
                         </div>
-<<<<<<< HEAD
     
                         <!-- <div class="widget tw-sidebar-tags-wrap">
                             <h4 class="section-head-small mb-4">{{ $t('lang.individual_vacancies_page_leftside_tags') }}</h4>
