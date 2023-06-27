@@ -23,6 +23,7 @@ class VacancyController extends Controller
         $this->qualifyingCandidateSave = $qualifyingCandidateSave;
     }
 
+    // index
     public function index()
     {
 
