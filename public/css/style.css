@@ -14,14 +14,6 @@ body {
     font-family: mtavruli !important;
 }
 
-.job_detail_read_more {
-  color: red;
-}
-
-.job_detail_read_more:hover {
-  color: tomato !important;
-}
-
 .employerPageBorder {
   border: 1px solid rgb(128, 128, 128, 0.2);
   border-radius: 10px;
@@ -2173,6 +2165,9 @@ ol li {
   .site-button {
     padding: 8px 8px;
     font-size: 14px;
+  }
+  .card_body img {
+    display: hide;
   }
 }
 .site-button.white {
@@ -5159,6 +5154,10 @@ ol li {
     font-size: 30px;
     margin-bottom: 20px;
   }
+
+  .middle_card {
+    display: none;
+  }
 }
 @media (max-width: 575px) {
   .section-head.left.wt-small-separator-outer h2 {
@@ -5711,6 +5710,10 @@ ol li {
 @media (max-width: 1024px) {
   .recent-posts-entry .wt-post-media {
     width: 60px;
+  }
+
+  .middle_card {
+    display: none;
   }
 }
 .recent-posts-entry .wt-post-info {

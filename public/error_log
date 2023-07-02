@@ -1,0 +1,6 @@
+[15-Jun-2023 16:24:24 UTC] PHP Warning:  require(/home/uiwozznt/public_html/public/vendor/autoload.php): Failed to open stream: No such file or directory in /home/uiwozznt/public_html/public/index.php on line 34
+[15-Jun-2023 16:24:24 UTC] PHP Warning:  require(/home/uiwozznt/public_html/public/vendor/autoload.php): Failed to open stream: No such file or directory in /home/uiwozznt/public_html/public/index.php on line 34
+[15-Jun-2023 16:24:24 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/uiwozznt/public_html/public/vendor/autoload.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home/uiwozznt/public_html/public/index.php:34
+Stack trace:
+#0 {main}
+  thrown in /home/uiwozznt/public_html/public/index.php on line 34

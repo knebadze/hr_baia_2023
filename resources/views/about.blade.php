@@ -10,7 +10,7 @@
     <div class="wt-bnr-inr overlay-wraper bg-center" style="background-image:url(/images/banner/1.jpg);">
         <div class="overlay-main site-bg-white opacity-01"></div>
         <div class="container">
-            <div class="wt-bnr-inr-entry aboutUsText">
+            <div class="wt-bnr-inr-entry">
                 <div class="banner-title-outer">
                     <div class="banner-title-name">
                         <h2 class="wt-title">{{ __('lang.about_us_page_title_one') }}</h2>
@@ -24,9 +24,7 @@
                             <li>{{ __('lang.about_us_page_title_one') }}</li>
                         </ul>
                     </div>
-                    <h4>
-                        {{ __('lang.about_us_page_description') }}
-                    </h4>
+
 
                 <!-- BREADCRUMB ROW END -->
             </div>
@@ -36,8 +34,10 @@
     <!-- HOW IT WORK SECTION START -->
     <div class="section-full p-t120 p-b90 site-bg-white twm-how-it-work-area">
 
-        <div class="container">
-
+        <div class="container aboutUsText">
+            <h4>
+                {{ __('lang.about_us_page_description') }}
+            </h4>
             <!-- TITLE START-->
             <div class="section-head center wt-small-separator-outer">
                 <div class="wt-small-separator site-text-primary">
@@ -277,7 +277,6 @@
                                             <span><img src="/images/work-process/icon1.png" alt="icon1"></span>
                                         </div>
                                         <h4 class="twm-title">{{ __('lang.about_us_page_card_register_account') }}</h4>
-                                        {{-- <p>თქვენ უნდა შექმნათ ანგარიში, რომ იპოვოთ საუკეთესო და სასურველი სამუშაო.</p> --}}
                                     </div>
 
                                 </div>
@@ -291,7 +290,6 @@
                                             <span><img src="/images/work-process/icon4.png" alt="icon1"></span>
                                         </div>
                                         <h4 class="twm-title">{{ __('lang.about_us_page_card_search_vacancie') }}ა</h4>
-                                        {{-- <p>მოძებნეთ სასურველი ვაკანსია და დაგვეკონტაქტეთ</p> --}}
                                     </div>
 
                                 </div>
@@ -340,51 +338,7 @@
     </div>
     <!-- HOW IT WORK SECTION END -->
 
-    <!-- EXPLORE NEW LIFE START -->
-    <div class="section-full p-t120 p-b120 twm-explore-area bg-cover " style="background-image: url(/images/background/bg-1.jpg);">
-        <div class="container">
 
-            <div class="section-content">
-                <div class="row">
-
-                    <div class="col-lg-4 col-md-12">
-                        <div class="twm-explore-media-wrap">
-                            <div class="twm-media">
-                                <img src="/images/gir-large.png" alt="">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-8 col-md-12">
-                        <div class="twm-explore-content-outer">
-                            <div class="twm-explore-content">
-
-                                <div class="twm-l-line-1"></div>
-                                <div class="twm-l-line-2"></div>
-
-                                <div class="twm-r-circle-1"></div>
-                                <div class="twm-r-circle-2"></div>
-
-                                <div class="twm-title-large">
-                                    <h2>{{ __('lang.about_us_page_box_card_description') }}</h2>
-                                </div>
-                                <div class="twm-upload-file">
-                                    <button type="button" class="site-button">{{__('lang.about_us_page_box_card_upload_resume')}} <i class="feather-upload"></i></button>
-                                </div>
-
-
-                            </div>
-                            <div class="twm-bold-circle-right"></div>
-                            <div class="twm-bold-circle-left"></div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-        </div>
-    </div>
-    <!-- EXPLORE NEW LIFE END -->
 
 </div>
 <!-- CONTENT END -->

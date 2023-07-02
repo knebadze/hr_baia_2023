@@ -1,177 +1,177 @@
 <template lang="">
-<!-- OUR BLOG START -->
-<div class="section-full p-t120  p-b90 site-bg-white">
-
-
-    <div class="container">
-        <div class="row">
-
-            <div class="col-lg-4 col-md-12 rightSidebar">
-
-                <div class="side-bar">
-
-                    <div class="sidebar-elements search-bx">
-
-                        <form>
-
-                            <div class="form-group mb-4 categorySideBar">
-                                <h4 class="section-head-small mb-4">{{ $t('lang.individual_vacancies_page_leftside_category') }}</h4>
-                                <multiselect v-model="filterItem.category" :options="data.classificatory.category" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" :label="`name_${getLang}`" :track-by="`name_${getLang}`" :preselect-first="false">
-                                    <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
-                                </multiselect>
-                            </div>
-                            <div class="form-group mb-4 categorySideBar">
-                                <h4 class="section-head-small mb-4">{{ $t('lang.individual_vacancies_page_leftside_shedulde') }}</h4>
-                                <multiselect v-model="filterItem.schedule" :options="data.classificatory.workSchedule" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" :label="`name_${getLang}`" :track-by="`name_${getLang}`" :preselect-first="false">
-                                    <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
-                                </multiselect>
-                            </div>
-
-                            <div class="form-group mb-4 keywordSideBar">
-                                <h4 class="section-head-small mb-4">{{ $t('lang.individual_vacancies_page_leftside_keyword') }}</h4>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" v-model="filterItem.word" :placeholder="$t('lang.individual_vacancies_page_leftside_name_or_keyword')">
-                                    <button class="btn" type="button"><i class="feather-search"></i></button>
+    <!-- OUR BLOG START -->
+    <div class="section-full p-t120  p-b90 site-bg-white">
+    
+    
+        <div class="container">
+            <div class="row">
+    
+                <div class="col-lg-4 col-md-12 rightSidebar">
+    
+                    <div class="side-bar">
+    
+                        <div class="sidebar-elements search-bx">
+    
+                            <form>
+    
+                                <div class="form-group mb-4 categorySideBar">
+                                    <h4 class="section-head-small mb-4">{{ $t('lang.individual_vacancies_page_leftside_category') }}</h4>
+                                    <multiselect v-model="filterItem.category" :options="data.classificatory.category" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" :label="`name_${getLang}`" :track-by="`name_${getLang}`" :preselect-first="false">
+                                        <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                    </multiselect>
                                 </div>
-                            </div>
-
-                            <div class="form-group mb-4 locationSideBar">
-                                <h4 class="section-head-small mb-4">{{ $t('lang.individual_vacancies_page_leftside_location') }}</h4>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" v-model="filterItem.location" :placeholder="$t('lang.individual_vacancies_page_leftside_search_location')">
-                                    <button class="btn" type="button"><i class="feather-map-pin"></i></button>
+                                <div class="form-group mb-4 categorySideBar">
+                                    <h4 class="section-head-small mb-4">{{ $t('lang.individual_vacancies_page_leftside_shedulde') }}</h4>
+                                    <multiselect v-model="filterItem.schedule" :options="data.classificatory.workSchedule" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" :label="`name_${getLang}`" :track-by="`name_${getLang}`" :preselect-first="false">
+                                        <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                    </multiselect>
                                 </div>
-                            </div>
-
-
-                            <div class="twm-sidebar-ele-filter publicationSideBar">
-                                <h4 class="section-head-small mb-4">{{ $t('lang.individual_vacancies_page_leftside_date_of_publication') }}</h4>
-                                <ul>
-
-                                    <li>
-                                        <div class="form-check">
-                                            <input type="radio" v-model="filterItem.time" value="0" class="form-check-input" id="examplecheckbox6">
-                                            <label class="form-check-label" for="examplecheckbox6">{{ $t('lang.individual_vacancies_page_leftside_any') }}</label>
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="form-check">
-                                            <input type="radio" v-model="filterItem.time" value="1" class="form-check-input" id="examplecheckbox2">
-                                            <label class="form-check-label" for="examplecheckbox2">{{ $t('lang.individual_vacancies_page_leftside_last_3') }}</label>
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="form-check">
-                                            <input type="radio" v-model="filterItem.time" value="2" class="form-check-input" id="examplecheckbox3">
-                                            <label class="form-check-label" for="examplecheckbox3">{{ $t('lang.individual_vacancies_page_leftside_last_7') }}</label>
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="form-check">
-                                            <input type="radio" v-model="filterItem.time" value="3" class="form-check-input" id="examplecheckbox1">
-                                            <label class="form-check-label" for="examplecheckbox1">{{ $t('lang.individual_vacancies_page_leftside_last_24') }}</label>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                            </div>
-
-                            <div class="twm-sidebar-ele-filter sallarySideBar">
-                                <h4 class="section-head-small mb-4">{{ $t('lang.individual_vacancies_page_leftside_sallary') }}</h4>
-                                <ul>
-                                    <li>
-                                        <div class="form-check">
-                                            <input type="radio" value="0" v-model="filterItem.payment" class="form-check-input" id="Any1">
-                                            <label class="form-check-label" for="Any1">{{ $t('lang.individual_vacancies_page_leftside_sallary_any') }}</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="form-check">
-                                            <input type="radio" value="1" v-model="filterItem.payment" class="form-check-input" id="Compensation1">
-                                            <label class="form-check-label" for="Compensation1">{{ $t('lang.individual_vacancies_page_leftside_sallary_from_500') }}</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="form-check">
-                                            <input type="radio" value="2" v-model="filterItem.payment" class="form-check-input" id="Compensation2">
-                                            <label class="form-check-label" for="Compensation2">{{ $t('lang.individual_vacancies_page_leftside_sallary_from_700') }}</label>
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="form-check">
-                                            <input type="radio" value="3" v-model="filterItem.payment" class="form-check-input" id="Compensation3">
-                                            <label class="form-check-label" for="Compensation3">{{ $t('lang.individual_vacancies_page_leftside_sallary_from_900') }}</label>
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="Other1">
-                                            <label class="form-check-label" for="Other1">{{ $t('lang.individual_vacancies_page_leftside_sallary_other') }}</label>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-
-
-
-
-
-
-
-                            <div class="twm-sidebar-ele-filter sallarySideBar">
-                                <h4 class="section-head-small mb-4">{{ $t('lang.individual_vacancies_page_leftside_second_location') }}</h4>
-                                <ul>
-                                    <li>
-                                        <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="AnyLocation1">
-                                            <label class="form-check-label" for="AnyLocation1">{{ $t('lang.individual_vacancies_page_leftside_second_location_any') }}</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="FromLocation1">
-                                            <label class="form-check-label" for="FromLocation1">{{ $t('lang.individual_vacancies_page_leftside_second_location_3km') }}</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="FromLocation2">
-                                            <label class="form-check-label" for="FromLocation2">{{ $t('lang.individual_vacancies_page_leftside_second_location_5km') }}</label>
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="FromLocation3">
-                                            <label class="form-check-label" for="FromLocation3">{{ $t('lang.individual_vacancies_page_leftside_second_location_7km') }}</label>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                            </div>
-
-                        </form>
-
-                    </div>
-
-                    <!-- <div class="widget tw-sidebar-tags-wrap">
-                        <h4 class="section-head-small mb-4">{{ $t('lang.individual_vacancies_page_leftside_tags') }}</h4>
-
-                        <div class="tagcloud">
-                            <a href="job-list.html">ვაკანსია </a>
-                            <a href="job-list.html">გადახდა</a>
-                            <a href="job-list.html">განაცხადი </a>
-                            <a href="job-list.html">სამუშაო</a>
-                            <a href="job-list.html">დაქირავება</a>
-                            <a href="job-list.html">დამსაქმებელი</a>
-                            <a href="job-list.html">შემოსავალი</a>
-                            <a href="job-list.html">რჩევები</a>
+    
+                                <div class="form-group mb-4 keywordSideBar">
+                                    <h4 class="section-head-small mb-4">{{ $t('lang.individual_vacancies_page_leftside_keyword') }}</h4>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" v-model="filterItem.word" :placeholder="$t('lang.individual_vacancies_page_leftside_name_or_keyword')">
+                                        <button class="btn" type="button"><i class="feather-search"></i></button>
+                                    </div>
+                                </div>
+    
+                                <div class="form-group mb-4 locationSideBar">
+                                    <h4 class="section-head-small mb-4">{{ $t('lang.individual_vacancies_page_leftside_location') }}</h4>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" v-model="filterItem.location" :placeholder="$t('lang.individual_vacancies_page_leftside_search_location')">
+                                        <button class="btn" type="button"><i class="feather-map-pin"></i></button>
+                                    </div>
+                                </div>
+    
+    
+                                <div class="twm-sidebar-ele-filter publicationSideBar">
+                                    <h4 class="section-head-small mb-4">{{ $t('lang.individual_vacancies_page_leftside_date_of_publication') }}</h4>
+                                    <ul>
+    
+                                        <li>
+                                            <div class="form-check">
+                                                <input type="radio" v-model="filterItem.time" value="0" class="form-check-input" id="examplecheckbox6">
+                                                <label class="form-check-label" for="examplecheckbox6">{{ $t('lang.individual_vacancies_page_leftside_any') }}</label>
+                                            </div>
+                                        </li>
+    
+                                        <li>
+                                            <div class="form-check">
+                                                <input type="radio" v-model="filterItem.time" value="1" class="form-check-input" id="examplecheckbox2">
+                                                <label class="form-check-label" for="examplecheckbox2">{{ $t('lang.individual_vacancies_page_leftside_last_3') }}</label>
+                                            </div>
+                                        </li>
+    
+                                        <li>
+                                            <div class="form-check">
+                                                <input type="radio" v-model="filterItem.time" value="2" class="form-check-input" id="examplecheckbox3">
+                                                <label class="form-check-label" for="examplecheckbox3">{{ $t('lang.individual_vacancies_page_leftside_last_7') }}</label>
+                                            </div>
+                                        </li>
+    
+                                        <li>
+                                            <div class="form-check">
+                                                <input type="radio" v-model="filterItem.time" value="3" class="form-check-input" id="examplecheckbox1">
+                                                <label class="form-check-label" for="examplecheckbox1">{{ $t('lang.individual_vacancies_page_leftside_last_24') }}</label>
+                                            </div>
+                                        </li>
+    
+                                    </ul>
+                                </div>
+    
+                                <div class="twm-sidebar-ele-filter sallarySideBar">
+                                    <h4 class="section-head-small mb-4">{{ $t('lang.individual_vacancies_page_leftside_sallary') }}</h4>
+                                    <ul>
+                                        <li>
+                                            <div class="form-check">
+                                                <input type="radio" value="0" v-model="filterItem.payment" class="form-check-input" id="Any1">
+                                                <label class="form-check-label" for="Any1">{{ $t('lang.individual_vacancies_page_leftside_sallary_any') }}</label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-check">
+                                                <input type="radio" value="1" v-model="filterItem.payment" class="form-check-input" id="Compensation1">
+                                                <label class="form-check-label" for="Compensation1">{{ $t('lang.individual_vacancies_page_leftside_sallary_from_500') }}</label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-check">
+                                                <input type="radio" value="2" v-model="filterItem.payment" class="form-check-input" id="Compensation2">
+                                                <label class="form-check-label" for="Compensation2">{{ $t('lang.individual_vacancies_page_leftside_sallary_from_700') }}</label>
+                                            </div>
+                                        </li>
+    
+                                        <li>
+                                            <div class="form-check">
+                                                <input type="radio" value="3" v-model="filterItem.payment" class="form-check-input" id="Compensation3">
+                                                <label class="form-check-label" for="Compensation3">{{ $t('lang.individual_vacancies_page_leftside_sallary_from_900') }}</label>
+                                            </div>
+                                        </li>
+    
+                                        <li>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" id="Other1">
+                                                <label class="form-check-label" for="Other1">{{ $t('lang.individual_vacancies_page_leftside_sallary_other') }}</label>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+    
+    
+    
+    
+    
+    
+    
+                                <div class="twm-sidebar-ele-filter sallarySideBar">
+                                    <h4 class="section-head-small mb-4">{{ $t('lang.individual_vacancies_page_leftside_second_location') }}</h4>
+                                    <ul>
+                                        <li>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" id="AnyLocation1">
+                                                <label class="form-check-label" for="AnyLocation1">{{ $t('lang.individual_vacancies_page_leftside_second_location_any') }}</label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" id="FromLocation1">
+                                                <label class="form-check-label" for="FromLocation1">{{ $t('lang.individual_vacancies_page_leftside_second_location_3km') }}</label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" id="FromLocation2">
+                                                <label class="form-check-label" for="FromLocation2">{{ $t('lang.individual_vacancies_page_leftside_second_location_5km') }}</label>
+                                            </div>
+                                        </li>
+    
+                                        <li>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" id="FromLocation3">
+                                                <label class="form-check-label" for="FromLocation3">{{ $t('lang.individual_vacancies_page_leftside_second_location_7km') }}</label>
+                                            </div>
+                                        </li>
+    
+                                    </ul>
+                                </div>
+    
+                            </form>
+    
                         </div>
+    
+                        <!-- <div class="widget tw-sidebar-tags-wrap">
+                            <h4 class="section-head-small mb-4">{{ $t('lang.individual_vacancies_page_leftside_tags') }}</h4>
+    
+                            <div class="tagcloud">
+                                <a href="job-list.html">ვაკანსია </a>
+                                <a href="job-list.html">გადახდა</a>
+                                <a href="job-list.html">განაცხადი </a>
+                                <a href="job-list.html">სამუშაო</a>
+                                <a href="job-list.html">დაქირავება</a>
+                                <a href="job-list.html">დამსაქმებელი</a>
+                                <a href="job-list.html">შემოსავალი</a>
+                                <a href="job-list.html">რჩევები</a>
+=======
                     </div> -->
 
 
@@ -215,9 +215,9 @@
                                 </div> -->
                                 <div class="twm-left-content col-md-8">
                                     <!-- class="twm-mid-content" -->
-                                    <a href="job-detail.html" class="twm-job-title">
-                                        <h4> {{ item[`title_${getLang}`] }}<span class="twm-job-post-duration"> /{{ item.timeAgo }}</span> /  <span> <a class="job_detail_read_more" :href="detailUrl+'/'+item.id+'/'+item.slug" style="color:red">სრულად ნახვა</a> </span></h4>
-                                    </a>
+                                    <!-- <a href="job-detail.html" class="twm-job-title"> -->
+                                        <h4> {{ item[`title_${getLang}`] }}<span class="twm-job-post-duration" style="color: green;"> /{{ item.timeAgo }}</span></h4>
+                                    <!-- </a> -->
                                     <p class="twm-job-address">{{ item.author[`address_${getLang}`].split(/\s+/).slice(0, 2).join(" ") }}. <span v-for="(i, ind) in item.vacancy_for_who_need" :key="ind">{{  i[`name_${getLang}`]}}</span>.</p>
 
                                     <p class="twm-job-address">გრაფიკი: {{ item.work_schedule[`name_${getLang}`]+', '+ item[`additional_schedule_${getLang}`] }}.</p>
@@ -231,8 +231,7 @@
                                     <span v-if="auth && item.vacancy_interest.some( (o) => o.user_id == auth.id ) " style="font-size:20px;">
                                         <i :class="(item.vacancy_interest.some( (o) => o.user_id == auth.id && o.employer_answer == null))?'fa fa-plus-circle text-warning':(item.vacancy_interest.some( (o) => o.user_id == auth.id && o.employer_answer == 0))?'fa fa-times-circle text-danger':(item.vacancy_interest.some( (o) => o.user_id == auth.id && o.employer_answer == 1))?'fa fa-check-circle text-success':''"></i></span>
                                     <button v-else type="button" class="btn btn-primary" @click="interest(item.id)">დაინტერესება</button>
-
-
+                                    <span> <a class="job_detail_read_more btn btn-info fa fa-arrow-right" :href="detailUrl+'/'+item.id+'/'+item.slug" ></a> </span>
                                 </div>
                             </div>
                         </li>
@@ -313,10 +312,6 @@ export default {
         getLang(){
             return I18n.getSharedInstance().options.lang
         },
-        detailUrl(){
-            var url = new URL( location.href)
-            return url.origin+'/'+this.getLang+'/job_detail'
-        }
     },
     methods: {
         getData(){

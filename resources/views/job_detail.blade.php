@@ -14,7 +14,7 @@
                     <div class="wt-bnr-inr-entry">
                         <div class="banner-title-outer">
                             <div class="banner-title-name">
-                                <h2 class="wt-title">ძიძა</h2>
+                                <h2 class="wt-title">{{ $vacancy->category->{'name_'.App()->getLocale()} }}</h2>
                             </div>
                         </div>
                         <!-- BREADCRUMB ROW -->
@@ -146,9 +146,9 @@
                                     <div class="twm-social-tags">
                                         <a href="#" class="fb-clr">Facebook</a>
                                         <a href="#" class="tw-clr">Twitter</a>
-                                        <a href="#" class="odno-clr">Ok</a>
+                                        {{-- <a href="#" class="odno-clr">Ok</a> --}}
                                         <a href="#" class="insta-clr">Instagram</a>
-                                        <a href="#" class="vk-clr">Vk</a>
+                                        {{-- <a href="#" class="vk-clr">Vk</a> --}}
                                     </div>
 
                                     <h4 class="twm-s-title">მდებარეობა</h4>
