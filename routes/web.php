@@ -162,3 +162,5 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('/get_interest_data', [MyVacancyController::class, 'getInterestData']);
     Route::post('/do_not_like_candidate', [MyVacancyController::class, 'doNotLike']);
     Route::post('/like_candidate', [MyVacancyController::class, 'like']);
+
+    Route::post('/get_classificatory', [HrVacancyController::class, 'getClassificatory']);

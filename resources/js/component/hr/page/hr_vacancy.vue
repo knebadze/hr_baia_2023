@@ -48,29 +48,29 @@
                         <div class="col-md-6">
                             <dl class="row">
                                 <dt class="col-sm-4">სათაური:</dt>
-                                <dd class="col-sm-8">{{ item.title }}</dd>
+                                <dd class="col-sm-8">{{ item.title_ka }}</dd>
                                 <dt class="col-sm-4">სამუშაო დღეები:</dt>
-                                <dd class="col-sm-8">{{ item.workDay }}</dd>
+                                <dd class="col-sm-8">{{ item.additional_schedule_ka }}</dd>
                                 <div class="row col-12" v-if="item.vacancy_for_who_need.length > 0">
                                     <dt class="col-sm-4">ვისთვის ესაჭიროება:</dt>
                                     <dd class="col-sm-8"><span v-for="(i, index) in item.vacancy_for_who_need" :key="index">{{ i.name_ka+', ' }}</span> </dd>
                                 </div>
-                                <div class="row col-12" v-if="item.benefit.length > 0">
+                                <div class="row col-12" v-if="item.vacancy_benefit.length > 0">
                                     <dt class="col-sm-4">ბენეფიტები:</dt>
-                                    <dd class="col-sm-8"><span v-for="(i, index) in item.benefit" :key="index">{{ i.name_ka+', ' }}</span> </dd>
+                                    <dd class="col-sm-8"><span v-for="(i, index) in item.vacancy_benefit" :key="index">{{ i.name_ka+', ' }}</span> </dd>
                                 </div>
                                 <div class="row col-12" v-if="item.stay_night == 1 || item.go_vacation == 1 || item.work_additional_hours == 1">
                                     <dt class="col-sm-4">უნდა შეეძლოს:</dt>
                                     <dd class="col-sm-8">
                                         <span v-if="item.stay_night == 1"> ღამე დარჩენა, </span>
-                                        <span v-if="item.go_vacatioნ == 1"> არდადეგებზე გაყოლა, </span>
+                                        <span v-if="item.go_vacation  == 1"> არდადეგებზე გაყოლა, </span>
                                         <span v-if="item.work_additional_hours == 1"> დამატებითი საათები მუშაობა, </span>
                                     </dd>
                                 </div>
 
-                                <div class="row col-12" v-if="item.duty.length > 0">
+                                <div class="row col-12" v-if="item.vacancy_duty.length > 0">
                                     <dt class="col-sm-4">მოვალეობები:</dt>
-                                    <dd class="col-sm-8"><span v-for="(i, index) in item.duty" :key="index" class="badge badge-primary">{{ i.name_ka+', ' }}</span> </dd>
+                                    <dd class="col-sm-8"><span v-for="(i, index) in item.vacancy_duty" :key="index" class="badge badge-primary">{{ i.name_ka+', ' }}</span> </dd>
                                 </div>
                                 <div class="row col-12" v-if="item.demand.additional_name_ka">
                                     <dt class="col-sm-4">დამატებითი მოვალეობები:</dt>
@@ -88,9 +88,9 @@
                                 <dt class="col-sm-4">გასაუბრების თარიღი:</dt>
                                 <dd class="col-sm-8">{{ item.interview_date }}</dd>
                                 <dt class="col-sm-4">გასაუბრების ადგილი:</dt>
-                                <dd class="col-sm-8">{{ item.interview_place }}</dd>
+                                <dd class="col-sm-8">{{ item.interview_place.name_ka }}</dd>
                                 <dt class="col-sm-4">ვადა:</dt>
-                                <dd class="col-sm-8">{{ item.term }}</dd>
+                                <dd class="col-sm-8">{{ item.term.name_ka }}</dd>
                                 <div class="row col-12" v-if="item.demand.education">
                                     <dt class="col-sm-4">განათლება:</dt>
                                     <dd class="col-sm-8">{{ item.demand.education.name_ka }} </dd>
@@ -118,7 +118,7 @@
               </div>
               <!-- /.card-body -->
         </template>
-        <template #header-status="header">
+        <template #header-status.name_ka="header">
             <div class="filter-column">
                 <i class="fa fa-filter text-secondary" style="font-size:15px;" @click.stop="showStatusFilter=!showStatusFilter"></i>
                 {{ header.text }}
@@ -139,7 +139,7 @@
                 </div>
             </div>
         </template>
-        <template #header-category="header">
+        <template #header-category.name_ka="header">
             <div class="filter-column">
                 <i class="fa fa-filter text-secondary" style="font-size:15px;" @click.stop="showCategoryFilter=!showCategoryFilter"></i>
                 {{ header.text }}
@@ -160,7 +160,7 @@
                 </div>
             </div>
         </template>
-        <template #header-schedule="header">
+        <template #header-work_schedule.name_ka="header">
             <div class="filter-column">
                 <i class="fa fa-filter text-secondary" style="font-size:15px;" @click.stop="showScheduleFilter=!showScheduleFilter"></i>
                 {{ header.text }}
@@ -202,7 +202,7 @@
     </EasyDataTable>
     <!-- {{ statusChangeModal }} -->
     <changeStatus :visible="statusChangeModal"></changeStatus>
-    <vacancyUpdate :visible="updateModal"></vacancyUpdate>
+    <vacancyUpdate :visible="updateModal" :item="item"></vacancyUpdate>
 </template>
 <script>
 import { ref, computed } from "vue";
@@ -226,20 +226,22 @@ export default {
     setup(props){
         console.log('data',props.data.vacancy);
         const headers = ref([
-            { text: "id", value: "id" },
-            { text: "კატეგორია", value: "category" },
-            { text: "გრაფიკი", value: "schedule"},
-            { text: "დამსაქმებელი", value: "employer"},
-            { text: "ნომერი", value: "number"},
-            { text: "სტატუსი", value: "status"},
+            { text: "id", value: "code" },
+            { text: "კატეგორია", value: "category.name_ka" },
+            { text: "გრაფიკი", value: "work_schedule.name_ka"},
+            { text: "დამსაქმებელი", value: "employer.name_ka"},
+            { text: "ნომერი", value: "employer.number"},
+            { text: "სტატუსი", value: "status.name_ka"},
             { text: "ანაზღაურება", value: "payment", sortable: true},
-            { text: "საჭიროება", value: "startDate", sortable: true},
+            { text: "საჭიროება", value: "start_date", sortable: true},
             { text: "Operation", value: "operation" },
         ]);
 
-        const items = ref(makeData(props.data.vacancy));
+        const items = ref(props.data.vacancy)
+        // ref(makeData(props.data.vacancy));
         function makeData(params) {
             var arr = []
+            console.log('params',params);
             params.forEach(element => {
                 var data = {
                     'id': element.code,
@@ -285,14 +287,14 @@ export default {
             const filterOptionsArray =  [];
             if (choseStatus.value !== 'ყველა') {
                 filterOptionsArray.push({
-                    field: 'status',
+                    field: 'status.name_ka',
                     comparison: '=',
                     criteria: choseStatus.value,
                 });
             }
             if (choseCategory.value !== 'ყველა') {
                 filterOptionsArray.push({
-                    field: 'category',
+                    field: 'category.name_ka',
                     comparison: '=',
                     criteria: choseCategory.value,
                 });
@@ -300,7 +302,7 @@ export default {
             }
             if (choseSchedule.value !== 'ყველა') {
                 filterOptionsArray.push({
-                    field: 'schedule',
+                    field: 'work_schedule.name_ka',
                     comparison: '=',
                     criteria: choseSchedule.value,
                 });
@@ -361,6 +363,7 @@ export default {
         },
         vacancyUpdateModal(item) {
             this.updateModal = !this.updateModal
+            this.item = item
             console.log('item', item);
         }
     }
