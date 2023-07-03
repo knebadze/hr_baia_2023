@@ -10,7 +10,10 @@ class Vacancy extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'author_id ',
+        'code ',
+        'uuid',
+        'author_id',
+        'hr_id',
         'title_ka',
         'title_en',
         'title_ru',
@@ -26,12 +29,15 @@ class Vacancy extends Model
         'additional_schedule_ka',
         'additional_schedule_en',
         'additional_schedule_ru',
-        'for_who_need_id',
+        'start_date',
+        'term_id',
         'comment',
-        'additional_ka',
-        'additional_en',
-        'additional_ru',
-        'provider_token',
+        'go_vacation',
+        'stay_night',
+        'work_additional_hours',
+        'interview_date',
+        'interview_place_id',
+        'view',
         'photo',
     ];
     protected $appends = ['hrInfo','timeAgo'];

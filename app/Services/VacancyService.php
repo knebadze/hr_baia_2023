@@ -98,4 +98,6 @@ class VacancyService{
         $result = $this->findVacancyRepository->data($code);
         return $result;
     }
+
+    
 }

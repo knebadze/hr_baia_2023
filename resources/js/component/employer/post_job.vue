@@ -404,6 +404,7 @@
 import _ from 'lodash';
 import { useVuelidate } from '@vuelidate/core'
 import { required, email, helpers, requiredIf, numeric, maxLength } from '@vuelidate/validators'
+import { uuid } from 'vue-uuid'
 export default {
     setup () {
         return { v$: useVuelidate() }
@@ -413,6 +414,7 @@ export default {
     },
     data() {
         return {
+            uuid: uuid.v1(),
             m: {
                 'employer':null,
                 'vacancy':null,
@@ -544,6 +546,8 @@ export default {
         },
         addVacancy(){
             this.m['lang'] = this.getLang
+            var uuid = this.$uuid.v4()
+            this.m.vacancy.uuid = uuid
             var html = `${this.m.employer[`address_${this.getLang}`]}_ზე ${(this.m.vacancy[`for_who_${this.getLang}`])?this.m.vacancy[`for_who_${this.getLang}`]:''} გვესაჭიროება ${this.m.vacancy.category_id[`name_${this.getLang}`]}. ${this.m.vacancy.work_schedule_id[`name_${this.getLang}`]} გრაფიკით, ${this.m.vacancy[`additional_schedule_${this.getLang}`]}. ანაზღაურება: ${this.m.vacancy.payment} ${this.m.vacancy.currency_id[`name_${this.getLang}`]}.  ${`დამატებით: `+this.m.vacancy[`additional_${this.getLang}`]} `
             this.$swal(
                 {

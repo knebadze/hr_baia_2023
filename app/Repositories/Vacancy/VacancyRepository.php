@@ -8,7 +8,6 @@ use App\Models\HrHasVacancy;
 use App\Models\VacancyDemand;
 use App\Models\VacancyDeposit;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Auth;
 
 class VacancyRepository{
     public function save($data)
@@ -19,6 +18,36 @@ class VacancyRepository{
 
 
 
+        //
+        // $dateTime = Carbon::createFromTimestamp(strtotime($data['interviewDate'] . $data['interviewTime']));
+        // $vacancy = Vacancy::updateOrCreate(
+        //     ['uuid' => $data['vacancy']['uuid']],
+        //     [
+        //         'code' => random_int(100000, 999999999),
+        //         'author_id' => $employer->id,
+        //         'hr_id' => $hr_id,
+        //         'title_ka' => $data['vacancy']['title_ka'],
+        //         'title_en' => $data['vacancy']['title_en'],
+        //         'title_ru' => $data['vacancy']['title_ru'],
+        //         'slug' => str()->slug($data['vacancy']['title_en']),
+        //         'category_id' => $data['vacancy']['category_id']['id'],
+        //         'status_id' => 1,
+        //         'payment' => $data['vacancy']['payment'],
+        //         'currency_id' => $data['vacancy']['currency_id']['id'],
+        //         'work_schedule_id' => $data['vacancy']['work_schedule_id']['id'],
+        //         'additional_schedule_ka' => $data['vacancy']['additional_schedule_ka'],
+        //         'additional_schedule_en' => $data['vacancy']['additional_schedule_en'],
+        //         'additional_schedule_ru' => $data['vacancy']['additional_schedule_ru'],
+        //         'comment' => $data['vacancy']['comment'],
+        //         'interview_date' => $dateTime,
+        //         'interview_place_id' => $data['vacancy']['interview_place_id']['id'],
+        //         'go_vacation' => $data['vacancy']['go_vacation'],
+        //         'stay_night' => $data['vacancy']['stay_night'],
+        //         'work_additional_hours' => $data['vacancy']['work_additional_hours'],
+        //         'start_date' => $data['vacancy']['start_date'],
+        //         'term_id' => $data['vacancy']['term_id']['id']
+        //     ]
+        // );
         $vacancy = new Vacancy();
         $vacancy->code = random_int(100000, 999999999);
         $vacancy->author_id = $employer->id;
@@ -41,7 +70,7 @@ class VacancyRepository{
         $dateTime = Carbon::createFromTimestamp(strtotime($data['interviewDate'] . $data['interviewTime']));
         $vacancy->interview_date = $dateTime;
         $vacancy->interview_place_id = $data['vacancy']['interview_place_id']['id'];
-        //
+
 
         $vacancy->go_vacation = $data['vacancy']['go_vacation'];
         $vacancy->stay_night = $data['vacancy']['stay_night'];

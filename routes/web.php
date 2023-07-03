@@ -156,6 +156,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     // ________________VACANCY REQUEST__________________________________
 
     Route::post('add_vacancy', [PostVacancyController::class, 'store']);
+    Route::post('update_vacancy', [PostVacancyController::class, 'update']);
     Route::get('vacancy_data', [VacancyController::class, 'data']);
     Route::post('vacancy_filter', [VacancyController::class, 'filter']);
     Route::post('/interest_vacancy', [VacancyController::class, 'interest']);
