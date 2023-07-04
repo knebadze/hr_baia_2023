@@ -24,6 +24,8 @@ return new class extends Migration
             $table->dateTime('enrolled_employer_date')->nullable();
             $table->integer('enrolled_candidate')->default(0);
             $table->dateTime('enrolled_candidate_date')->nullable();
+            $table->integer('employer_percent')->default(0);
+            $table->integer('candidate_percent')->default(0);
             $table->integer('hr_bonus')->nullable();
             $table->timestamps();
         });

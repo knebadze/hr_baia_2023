@@ -22,6 +22,7 @@
             <div class="dropdown-menu ropdown-menu-right" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" href="#" @click="vacancyUpdateModal(item)">რედაქტირება</a>
                 <a class="dropdown-item" href="#" @click="statusChange(item)">სტატუსის შეცვლა</a>
+                <a class="dropdown-item" href="#" @click="vacancyDepositModal(item)">დეპოზიტი</a>
                 <a class="dropdown-item" href="#">გამეორება</a>
             </div>
         </div>
@@ -203,6 +204,7 @@
     <!-- {{ statusChangeModal }} -->
     <changeStatus :visible="statusChangeModal"></changeStatus>
     <vacancyUpdate :visible="updateModal" :item="item"></vacancyUpdate>
+    <vacancyDeposit :visible="depositModal" :item="depositItem"></vacancyDeposit>
 </template>
 <script>
 import { ref, computed } from "vue";
@@ -213,11 +215,13 @@ import "@vueform/slider/themes/default.css";
 // import { Header, Item, FilterOption } from "vue3-easy-data-table";
 import changeStatus from "../modal/changeStatus.vue";
 import vacancyUpdate from "../modal/vacancyUpdate.vue"
+import vacancyDeposit from "../modal/vacancyDeposit.vue";
 export default {
     components: {
       Slider,
       changeStatus,
-      vacancyUpdate
+      vacancyUpdate,
+      vacancyDeposit
     },
     props:{
         data: Object
@@ -329,7 +333,9 @@ export default {
 
         var statusChangeModal = ref(false)
         var updateModal = ref(false)
+        var depositModal = ref(false)
         var item = ref()
+        var depositItem =ref()
         // function statusChange(item) {
         //     statusChangeModal = !statusChangeModal
         //     console.log('statusChangeModal', statusChangeModal);
@@ -351,7 +357,9 @@ export default {
             filterOptions,
             statusChangeModal,
             updateModal,
-            item
+            item,
+            depositModal,
+            depositItem
 
             // statusChange
         };
@@ -365,6 +373,10 @@ export default {
             this.updateModal = !this.updateModal
             this.item = item
             console.log('item', item);
+        },
+        vacancyDepositModal(item) {
+            this.depositModal = !this.depositModal
+            this.depositItem = item.deposit
         }
     }
 }

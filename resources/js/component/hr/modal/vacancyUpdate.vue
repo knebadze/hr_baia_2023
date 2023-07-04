@@ -295,6 +295,20 @@
                             </div>
                         </div>
                     </div>
+                    <div class=" p-a20 my-3">
+                        <h6 class=" m-a0"><i class="fa fa-credit-card"></i> დეპოზიტი </h6>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-6 col-md-12">
+                            <div class="form-group">
+                                <label>უნდა ჩაირიცხოს</label>
+                                <div class="ls-inputicon-box">
+                                    <input class="form-control" v-model="m.max_age" type="number" placeholder="45" >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" @click="hide()" ><i class=""></i>გაუქმება</button>
@@ -318,8 +332,8 @@
                 m: null,
                 cla:[],
                 numberCode: {
-                    'phonecode': 995,
-                    'iso':'ge'
+                    'phonecode': '',
+                    'iso':''
                 },
                 editedFields:[]
             }
@@ -360,6 +374,9 @@
 
             },
             makeModel(item){
+                this.numberCode.phonecode = item.employer.number_code.phonecode
+                item.number_code = item.employer.number_code
+                this.numberCode.iso = item.employer.number_code.iso
                 item.employer_id = item.employer.id
                 item.name_ka = item.employer.name_ka
                 item.name_en = item.employer.name_en
@@ -394,6 +411,15 @@
                 item.lang = this.getLang
                 return {...item}
             },
+            chooseNumberCode(item){
+
+                this.m.number_code = item
+                console.log('this.m', this.m);
+                this.numberCode = {
+                    'phonecode': item.phonecode,
+                    'iso':item.iso
+                }
+            },
             // save(){
             //     this.forItem(this.m)
             // },
@@ -409,6 +435,7 @@
             },
             save(){
                 var editedFields = this.forItem(this.m)
+                console.log('editedFields',editedFields);
                 let currentObj = this
                 this.$swal({
                     title: 'ნამდვილად გსურთ ვაკანსიის რედაქტირება?',

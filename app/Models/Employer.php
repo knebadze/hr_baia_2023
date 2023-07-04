@@ -35,4 +35,9 @@ class Employer extends Model
     {
         return $this->hasMany(vacancy::class, 'author_id', 'id');
     }
+
+    public function numberCode()
+    {
+        return $this->belongsTo(numberCode::class, 'number_code_id', 'id');
+    }
 }

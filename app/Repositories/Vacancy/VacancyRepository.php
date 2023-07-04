@@ -4,6 +4,7 @@ namespace App\Repositories\Vacancy;
 
 use App\Models\Vacancy;
 use App\Models\Employer;
+use App\Models\GlobalVariable;
 use App\Models\HrHasVacancy;
 use App\Models\VacancyDemand;
 use App\Models\VacancyDeposit;
@@ -122,8 +123,11 @@ class VacancyRepository{
 
         $deposit = new VacancyDeposit();
         $deposit->vacancy_id = $vacancy->id;
-        $deposit->must_be_enrolled_employer = (int)$vacancy->payment / 2;
-        $deposit->must_be_enrolled_candidate = ((int)$vacancy->payment * 10) / 100;
+        $deposit->must_be_enrolled_employer = ((int)$vacancy->payment * 10) / 100;
+        $deposit->must_be_enrolled_candidate = (int)$vacancy->payment / 2;
+        $global = GlobalVariable::all();
+        $deposit->candidate_percent = (int)$global->candidate_percent;
+        $deposit->employer_percent = (int)$global->employer_percent;
         $deposit->save();
 
         return $vacancy->code;

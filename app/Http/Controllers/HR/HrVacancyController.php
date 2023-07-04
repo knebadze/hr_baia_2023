@@ -36,7 +36,8 @@ class HrVacancyController extends Controller
         $data = [];
         $vacancy = Vacancy::orderBy('updated_at', 'DESC')->where('hr_id', Auth::user()->hr->id)->with([
             'vacancyDuty', 'vacancyBenefit', 'vacancyForWhoNeed', 'characteristic', 'employer', 'currency','category', 'status',
-            'workSchedule', 'vacancyInterest', 'interviewPlace','term', 'demand', 'demand.language', 'demand.education', 'demand.languageLevel','demand.specialty'
+            'workSchedule', 'vacancyInterest', 'interviewPlace','term', 'demand', 'demand.language', 'demand.education', 'demand.languageLevel','demand.specialty',
+            'employer.numberCode','deposit'
 
             ])->get();
         $classificatory = [

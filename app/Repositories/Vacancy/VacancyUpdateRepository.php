@@ -59,6 +59,7 @@ class VacancyUpdateRepository
         $employer->address_en = $data['address_en'];
         $employer->address_ru = $data['address_ru'];
         $employer->number = $data['number'];
+        $employer->number_code_id = $data['number_code']['id'];
         $employer->email = $data['email'];
         $employer->update();
 

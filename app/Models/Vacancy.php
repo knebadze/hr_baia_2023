@@ -103,6 +103,10 @@ class Vacancy extends Model
     {
         return $this->hasMany(QualifyingCandidate::class, 'vacancy_id', 'id')->where('qualifying_type_id', 2);
     }
+    public function deposit()
+    {
+        return $this->belongsTo(VacancyDeposit::class, 'id', 'vacancy_id');
+    }
     // public function forWhoNeed()
     // {
     //     return $this->belongsTo(ForWhoNeed::class, '');
