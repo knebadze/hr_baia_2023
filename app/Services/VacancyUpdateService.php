@@ -91,4 +91,17 @@ class VacancyUpdateService{
         $result = [$update, $history];
         return $result;
     }
+
+    public function updateDepositData($data) {
+        $update = $this->vacancyUpdateRepository->updateDeposit($data['model']);
+        $history = $this->vacancyRedactedRepository->save($data['model']['id'], $data['edit']);
+        $result = [$update, $history];
+        return $result;
+    }
+    public function updateStatusData($data) {
+        $update = $this->vacancyUpdateRepository->updateStatus($data['model']);
+        $history = $this->vacancyRedactedRepository->save($data['model']['id'], $data['edit']);
+        $result = [$update, $history];
+        return $result;
+    }
 }

@@ -22,7 +22,9 @@
             <div class="dropdown-menu ropdown-menu-right" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" href="#" @click="vacancyUpdateModal(item)">რედაქტირება</a>
                 <a class="dropdown-item" href="#" @click="statusChange(item)">სტატუსის შეცვლა</a>
+                <a v-if="item.status.id == 2" class="dropdown-item" href="#" @click="selectionPersonalModal(item)">კადრების შერჩევა</a>
                 <a class="dropdown-item" href="#" @click="vacancyDepositModal(item)">დეპოზიტი</a>
+
                 <a class="dropdown-item" href="#">გამეორება</a>
             </div>
         </div>
@@ -77,6 +79,22 @@
                                     <dt class="col-sm-4">დამატებითი მოვალეობები:</dt>
                                     <dd class="col-sm-8">{{ item.demand.additional_name_ka }} </dd>
                                 </div>
+                                <div class="row col-12 border-top">
+                                    <dt class="col-sm-4">კანდიდატისგან უნდა ჩაირიცხოს:</dt>
+                                    <dd class="col-sm-8"> {{ item.deposit.candidate_initial_amount }}</dd>
+                                </div>
+                                <div class="row col-12 border-top" v-if="item.deposit.must_be_enrolled_candidate_date">
+                                    <dt class="col-sm-4">კანდიდატისგან უნდა ჩაირიცხოს თარიღი:</dt>
+                                    <dd class="col-sm-8"> {{ item.deposit.must_be_enrolled_candidate_date }}</dd>
+                                </div>
+                                <div class="row col-12 border-top" v-if="item.deposit.enrolled_candidate">
+                                    <dt class="col-sm-4">კანდიდატისგან ჩაირიცხა:</dt>
+                                    <dd class="col-sm-8"> {{ item.deposit.enrolled_candidate }}</dd>
+                                </div>
+                                <div class="row col-12 border-top" v-if="item.deposit.enrolled_candidate_date">
+                                    <dt class="col-sm-4">კანდიდატისგან ჩაირიცხა თარიღი:</dt>
+                                    <dd class="col-sm-8"> {{ item.deposit.enrolled_candidate_date }}</dd>
+                                </div>
 
                             </dl>
                         </div>
@@ -112,6 +130,24 @@
                                     <dt class="col-sm-4">მახასიათებლები:</dt>
                                     <dd class="col-sm-8"><span v-for="(i, index) in item.characteristic" :key="index" >{{ i.name_ka+', ' }}</span> </dd>
                                 </div>
+
+                                <div class="row col-12 border-top">
+                                    <dt class="col-sm-4 ">დამსაქმებლისგან უნდა ჩაირიცხოს:</dt>
+                                    <dd class="col-sm-8"> {{ item.deposit.employer_initial_amount }}</dd>
+                                </div>
+                                <div class="row col-12 border-top" v-if="item.deposit.must_be_enrolled_employer_date">
+                                    <dt class="col-sm-4">დამსაქმებლისგან უნდა ჩაირიცხოს თარიღი:</dt>
+                                    <dd class="col-sm-8"> {{ item.deposit.must_be_enrolled_employer_date }}</dd>
+                                </div>
+                                <div class="row col-12 border-top" v-if="item.deposit.enrolled_employer">
+                                    <dt class="col-sm-4">დამსაქმებლისგან ჩაირიცხა:</dt>
+                                    <dd class="col-sm-8"> {{ item.deposit.enrolled_employer }}</dd>
+                                </div>
+                                <div class="row col-12 border-top" v-if="item.deposit.enrolled_employer_date">
+                                    <dt class="col-sm-4">დამსაქმებლისგან ჩაირიცხა თარიღი:</dt>
+                                    <dd class="col-sm-8"> {{ item.deposit.enrolled_employer_date }}</dd>
+                                </div>
+
                             </dl>
                         </div>
                     </div>
@@ -202,7 +238,7 @@
         </template>
     </EasyDataTable>
     <!-- {{ statusChangeModal }} -->
-    <changeStatus :visible="statusChangeModal"></changeStatus>
+    <changeStatus :visible="statusChangeModal" :item="statusItem"></changeStatus>
     <vacancyUpdate :visible="updateModal" :item="item"></vacancyUpdate>
     <vacancyDeposit :visible="depositModal" :item="depositItem"></vacancyDeposit>
 </template>
@@ -334,6 +370,8 @@ export default {
         var statusChangeModal = ref(false)
         var updateModal = ref(false)
         var depositModal = ref(false)
+        var selectionPersonalModalShow = ref(false)
+        var statusItem = ref()
         var item = ref()
         var depositItem =ref()
         // function statusChange(item) {
@@ -356,10 +394,12 @@ export default {
             choseId,
             filterOptions,
             statusChangeModal,
+            statusItem,
             updateModal,
             item,
             depositModal,
-            depositItem
+            depositItem,
+            selectionPersonalModalShow
 
             // statusChange
         };
@@ -367,16 +407,18 @@ export default {
     methods:{
         statusChange(item) {
             this.statusChangeModal = !this.statusChangeModal
-            console.log('item', item);
+            this.statusItem = item
         },
         vacancyUpdateModal(item) {
             this.updateModal = !this.updateModal
             this.item = item
-            console.log('item', item);
         },
         vacancyDepositModal(item) {
             this.depositModal = !this.depositModal
             this.depositItem = item.deposit
+        },
+        selectionPersonalModal(item){
+            this.selectionPersonalModalShow = !this.selectionPersonalModalShow
         }
     }
 }

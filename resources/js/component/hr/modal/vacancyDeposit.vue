@@ -48,7 +48,7 @@
                                     <div class="form-group">
                                         <label>დამსაქმებლისგან ჩარიცხვის თარიღი</label>
                                         <div class="ls-inputicon-box">
-                                            <input class="form-control" v-model="m.enrolled_employer_date" type="date" >
+                                            <input class="form-control" v-model="m.enrolled_employer_date" type="datetime-local" min="0">
                                         </div>
                                     </div>
                                 </div>
@@ -63,9 +63,9 @@
                             </div>
                         </div>
 
-                        <div class="col-md-12  d-flex justify-content-end">
+                        <!-- <div class="col-md-12  d-flex justify-content-end">
                             <button type="button" class="btn btn-success" @click.prevent="save()" ><i class=""></i>შენახვა</button>
-                        </div>
+                        </div> -->
 
 
                     </div>
@@ -90,7 +90,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12" v-if="m.must_be_enrolled_candidate_date">
+                        <div class="col-md-12" v-if="m.must_be_enrolled_candidate_date ">
                             <div class="row">
                                 <div class="col-xl-6 col-lg-6 col-md-12">
                                     <div class="form-group">
@@ -119,15 +119,18 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12 d-flex justify-content-end">
+                        <!-- <div class="col-md-12 d-flex justify-content-end">
                             <button type="button" class="btn btn-success" @click.prevent="save()" ><i class=""></i>შენახვა</button>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="modal-footer d-flex justify-content-between">
-                    <strong  class="text-danger">ავანსი სულ: {{ payment.candidate_payment + payment.employer_payment }}</strong>
-                    <button type="button" class="btn btn-secondary" @click="hide()" ><i class=""></i>გაუქმება</button>
-                    <!-- <button type="button" class="btn btn-success" @click.prevent="save()" ><i class=""></i>შენახვა</button> -->
+                    <strong  class="text-danger">ავანსი სულ: {{ (payment.candidate_payment + payment.employer_payment).toFixed(2) }} ლარი</strong>
+                    <div>
+                        <button type="button" class="btn btn-secondary mr-3" @click="hide()" ><i class=""></i>გაუქმება</button>
+                        <button type="button" class="btn btn-success" @click.prevent="save()" ><i class=""></i>შენახვა</button>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -154,6 +157,7 @@
                 payment:{
                     employer_payment:0,
                     candidate_payment:0,
+                    sum:0
                 }
 
             }
@@ -217,6 +221,7 @@
             save(){
                 var editedFields = this.forItem(this.m)
                 console.log('editedFields',editedFields);
+                this.m.hr_bonus = (this.payment.candidate_payment + this.payment.employer_payment).toFixed(2)
                 let currentObj = this
                 this.$swal({
                     title: 'ნამდვილად გსურთ ვაკანსიის რედაქტირება?',
@@ -227,7 +232,7 @@
                 }).then((result) => {
                 /* Read more about isConfirmed, isDenied below */
                     if (result.isConfirmed) {
-                        axios.post('/update_vacancy' ,{
+                        axios.post('/update_vacancy_deposit' ,{
                             data: {'model':this.m, 'edit': editedFields},
                         })
                         .then(function (response) {
@@ -267,13 +272,45 @@
             },
             'm.enrolled_candidate': function(newVal, oldVal){
                 console.log('newVal', newVal);
-                if (newVal != oldVal && newVal != '') {
-                    this.m.must_be_enrolled_candidate = this.m.must_be_enrolled_candidate - this.m.enrolled_candidate
+                if ( newVal > this.item.candidate_initial_amount  ) {
+                    toast.error("თქვენ მიერ ჩაწერილი თანხა აღემატება ჩასარიცხ თანხას", {
+                        theme: 'colored',
+                        autoClose: 1000,
+                    });
+                    this.m.enrolled_candidate = this.item.enrolled_candidate
+                    this.payment.candidate_payment = (this.item.enrolled_candidate * this.m.candidate_percent) / 100
+                }else if (newVal != oldVal ) {
+                    (this.m.must_be_enrolled_candidate != 0)?this.m.must_be_enrolled_candidate = this.item.must_be_enrolled_candidate - this.m.enrolled_candidate:0
+                    this.payment.candidate_payment = (newVal * this.m.candidate_percent) / 100
 
                 }else if(oldVal != 0 && newVal == 0){
                     this.m.must_be_enrolled_candidate = this.item.must_be_enrolled_candidate
                 }
-            }
+            },
+            'm.enrolled_employer': function(newVal, oldVal){
+                console.log(newVal > this.item.employer_initial_amount);
+                if ( newVal > this.item.employer_initial_amount) {
+
+                    toast.error("თქვენ მიერ ჩაწერილი თანხა აღემატება ჩასარიცხ თანხას", {
+                        theme: 'colored',
+                        autoClose: 1000,
+                    });
+
+                    this.m.enrolled_employer = this.item.enrolled_employer
+                    this.payment.employer_payment = (this.item.enrolled_employer * this.m.employer_percent) / 100
+
+                }else if (newVal != oldVal) {
+                    (this.m.must_be_enrolled_employer != 0)?this.m.must_be_enrolled_employer = this.item.must_be_enrolled_employer - this.m.enrolled_employer:0
+                    this.payment.employer_payment = (newVal * this.m.employer_percent) / 100
+
+                }else if(oldVal != 0 && newVal == 0){
+                    this.m.must_be_enrolled_employer = this.item.must_be_enrolled_employer
+
+                }
+            },
+            // 'payment': function(newVal, oldVal){
+
+            // }
         }
   }
   </script>

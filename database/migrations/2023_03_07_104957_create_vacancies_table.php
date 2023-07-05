@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('slug');
             $table->foreignId('category_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('status_id')->default(1)->constrained();
+            $table->string('status_change_reason')->nullable();
             $table->integer('payment');
             $table->foreignId('currency_id')->constrained();
             $table->foreignId('work_schedule_id')->constrained();
@@ -40,6 +41,7 @@ return new class extends Migration
             $table->dateTime('interview_date');
             $table->foreignId('interview_place_id')->constrained();
             $table->integer('view')->default(0);
+            $table->dateTime('repeat_date')->nullable();
             $table->timestamps();
             $table->foreign('author_id')
             ->references('id')->on('employers')->onUpdate('cascade')->onDelete('cascade');

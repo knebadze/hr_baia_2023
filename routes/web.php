@@ -157,6 +157,8 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
 
     Route::post('add_vacancy', [PostVacancyController::class, 'store']);
     Route::post('update_vacancy', [PostVacancyController::class, 'update']);
+    Route::post('update_vacancy_deposit', [PostVacancyController::class, 'updateDeposit']);
+    Route::post('update_vacancy_status', [PostVacancyController::class, 'updateStatus']);
     Route::get('vacancy_data', [VacancyController::class, 'data']);
     Route::post('vacancy_filter', [VacancyController::class, 'filter']);
     Route::post('/interest_vacancy', [VacancyController::class, 'interest']);
@@ -170,3 +172,4 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('/like_candidate', [MyVacancyController::class, 'like']);
 
     Route::post('/get_classificatory', [HrVacancyController::class, 'getClassificatory']);
+    Route::post('/get_status_change_info', [HrVacancyController::class, 'statusChangeInfo']);

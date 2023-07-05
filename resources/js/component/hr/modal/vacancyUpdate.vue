@@ -295,20 +295,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class=" p-a20 my-3">
-                        <h6 class=" m-a0"><i class="fa fa-credit-card"></i> დეპოზიტი </h6>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-xl-4 col-lg-6 col-md-12">
-                            <div class="form-group">
-                                <label>უნდა ჩაირიცხოს</label>
-                                <div class="ls-inputicon-box">
-                                    <input class="form-control" v-model="m.max_age" type="number" placeholder="45" >
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" @click="hide()" ><i class=""></i>გაუქმება</button>

@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\GeneralCharacteristic;
 use App\Models\InterviewPlace;
 use App\Models\Language_level;
+use App\Models\VacancyRedactedHistory;
 use App\Services\ClassificatoryService;
 
 class HrVacancyController extends Controller
@@ -69,9 +70,18 @@ class HrVacancyController extends Controller
             'languageLevels' => Language_level::all()->toArray(),
             'duty' => Duty::all()->toArray(),
             'interviewPlace' => InterviewPlace::all()->toArray(),
+            'status' => Status::all()->toArray(),
 
         ];
         // = $this->classificatoryService->get($classificatoryArr);
         return response()->json($classificatory);
+    }
+
+    public function statusChangeInfo(Request $request) {
+        // dd($request->data);
+
+        $history = VacancyRedactedHistory::where('vacancy_id', $request->data)->where('column_name', 'status')->get();
+        $data = ['history' => $history, 'status' => Status::all()->toArray()];
+        return response()->json($data);
     }
 }

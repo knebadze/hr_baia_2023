@@ -97,4 +97,28 @@ class VacancyUpdateRepository
         }, []);
         $vacancy->vacancyDuty()->sync($selectDutyId);
     }
+
+    function updateDeposit($data) {
+        $deposit = VacancyDeposit::findOrFail($data['id']);
+        $deposit->must_be_enrolled_employer = $data['must_be_enrolled_employer'];
+        $deposit->must_be_enrolled_employer_date = $data['must_be_enrolled_employer_date'];
+        $deposit->enrolled_employer_date = $data['enrolled_employer_date'];
+        $deposit->enrolled_employer = $data['enrolled_employer'];
+        $deposit->employer_percent = $data['employer_percent'];
+        $deposit->must_be_enrolled_candidate = $data['must_be_enrolled_candidate'];
+        $deposit->must_be_enrolled_candidate_date = $data['must_be_enrolled_candidate_date'];
+        $deposit->enrolled_candidate = $data['enrolled_candidate'];
+        $deposit->enrolled_candidate_date = $data['enrolled_candidate_date'];
+        $deposit->candidate_percent = $data['candidate_percent'];
+        $deposit->hr_bonus = $data['hr_bonus'];
+        $deposit->update();
+    }
+
+    function updateStatus($data) {
+        $id = $data['id'];
+        $vacancy = Vacancy::findOrFail($id);
+        $vacancy->status_id = $data['status']['id'];
+        $vacancy->status_change_reason = $data['status_change_reason'];
+        $vacancy->update();
+    }
 }

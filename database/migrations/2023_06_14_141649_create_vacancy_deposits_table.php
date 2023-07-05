@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('vacancy_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->integer('must_be_enrolled_employer')->default(0);
-            $table->dateTime('must_be_enrolled_employer_date')->nullable();
+            $table->date('must_be_enrolled_employer_date')->nullable();
             $table->integer('must_be_enrolled_candidate')->default(0);
-            $table->dateTime('must_be_enrolled_candidate_date')->nullable();
+            $table->date('must_be_enrolled_candidate_date')->nullable();
             $table->integer('enrolled_employer')->default(0);
             $table->dateTime('enrolled_employer_date')->nullable();
             $table->integer('enrolled_candidate')->default(0);
