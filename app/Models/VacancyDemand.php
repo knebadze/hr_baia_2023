@@ -13,6 +13,7 @@ class VacancyDemand extends Model
         'min_age ',
         'max_age',
         'education_id ',
+        'language_id',
         'additional_duty_ka',
         'additional_duty_en',
         'additional_duty_ru',

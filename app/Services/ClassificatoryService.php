@@ -36,9 +36,9 @@ use App\Models\Term;
 
 class ClassificatoryService
 {
-    public function list()
+    
+    public function get($arr)
     {
-        //კლასიფიკატორები
         $classificatory = [
             'gender' => gender::all()->toArray(),
             'nationality' => Nationality::all()->toArray(),
@@ -71,15 +71,7 @@ class ClassificatoryService
             'forWhoNeed' => ForWhoNeed::all()->toArray(),
             'duty' => Duty::all()->toArray(),
         ];
-
-        return $classificatory;
-    }
-    public function get($arr)
-    {
-        $classificatory = [];
-        foreach ($arr as $key => $value) {
-            $classificatory[$value] = Arr::get($this->list(), $value);
-        }
-        return $classificatory;
+        $result = array_intersect_key($classificatory, array_flip($arr));
+        return $result;
     }
 }

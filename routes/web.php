@@ -31,6 +31,7 @@ use App\Http\Controllers\Employer\EmployerInfoController;
 use App\Http\Controllers\Candidate\WorkInformationController;
 use App\Http\Controllers\JobDetailController;
 use App\Http\Controllers\HR\HrVacancyController;
+use App\Http\Controllers\Hr\SelectionPersonalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -83,13 +84,13 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
         Route::get('/post_job', [PostVacancyController::class, 'index'])->name('post.job');
 
         //Job Detail
-        Route::get('/job_detail/{id?}/{slug?}', [VacancyController::class, 'show'])->name('job_detail');
+        Route::get('/job_detail/{id?}/{slug?}', [VacancyController::class, 'show'])->name('job.detail');
 
         //user vacancy
         // Route::get('/user/vacancy', [VacancyController::class, 'index'])->name('user.vacancy');
 
         //Job Detail
-        Route::get('/job_detail/{id?}/{slug?}', [VacancyController::class, 'show'])->name('job_detail');
+        // Route::get('/job_detail/{id?}/{slug?}', [VacancyController::class, 'show'])->name('job_detail');
 
         Route::get('/auth/passwords/change_password', [ChangePasswordController::class, 'index'])->name('auth.password.change_password');
 
@@ -113,6 +114,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
 
     // _______________________HR PAGE________________________________
     Route::get('hr/hr_vacancy', [HrVacancyController::class, 'index'])->name('hr.vacancy');
+    Route::get('hr/selection_personal/{id?}', [SelectionPersonalController::class, 'index'])->name('selection.personal');
 
     //_______________________USER REQUEST_____________________________
     Route::post('upload_avatar', [MyprofileController::class, 'store']);
@@ -173,3 +175,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
 
     Route::post('/get_classificatory', [HrVacancyController::class, 'getClassificatory']);
     Route::post('/get_status_change_info', [HrVacancyController::class, 'statusChangeInfo']);
+
+
+    // __________________
+    Route::post('find_personal', [SelectionPersonalController::class, 'find']);

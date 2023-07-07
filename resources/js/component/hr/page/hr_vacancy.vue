@@ -22,7 +22,8 @@
             <div class="dropdown-menu ropdown-menu-right" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" href="#" @click="vacancyUpdateModal(item)">რედაქტირება</a>
                 <a class="dropdown-item" href="#" @click="statusChange(item)">სტატუსის შეცვლა</a>
-                <a v-if="item.status.id == 2" class="dropdown-item" href="#" @click="selectionPersonalModal(item)">კადრების შერჩევა</a>
+                <a v-if="item.status.id == 2" class="dropdown-item" :href="personalSelectionUrl+'/'+item.id" >კადრების შერჩევა</a>
+                <!-- @click="selectionPersonalModal(item)" -->
                 <a class="dropdown-item" href="#" @click="vacancyDepositModal(item)">დეპოზიტი</a>
 
                 <a class="dropdown-item" href="#">გამეორება</a>
@@ -367,6 +368,12 @@ export default {
             return filterOptionsArray;
         });
 
+
+        var url = new URL( location.href)
+
+        var personalSelectionUrl = ref(url.origin+'/hr/selection_personal')
+        console.log(personalSelectionUrl);
+
         var statusChangeModal = ref(false)
         var updateModal = ref(false)
         var depositModal = ref(false)
@@ -399,7 +406,8 @@ export default {
             item,
             depositModal,
             depositItem,
-            selectionPersonalModalShow
+            selectionPersonalModalShow,
+            personalSelectionUrl
 
             // statusChange
         };

@@ -23,4 +23,9 @@ class Language extends Model
     {
         return $this->hasMany(CandidateLanguage::class);
     }
+    // public function demand()
+    // {
+    //     return $this->hasMany(VacancyDemand::class);
+    // }
+
 }

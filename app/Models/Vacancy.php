@@ -150,7 +150,7 @@ class Vacancy extends Model
      // This is the scope we added
     public function scopeFilter($query, $filters)
     {
-    return $filters->apply($query);
+        return $filters->apply($query);
     }
 
 }

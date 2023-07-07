@@ -68,6 +68,11 @@ class VacancyController extends Controller
             }
         }
         return false;
-     }
+    }
+    public function show($lang, $id, $slug) {
+        $vacancy = Vacancy::where('id', $id)->with(['author','currency', 'category', 'workSchedule'])->first();
+        return view('job_detail', compact('vacancy'));
+    }
 
-}     
+
+}
