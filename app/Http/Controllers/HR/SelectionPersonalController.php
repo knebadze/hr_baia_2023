@@ -32,15 +32,20 @@ class SelectionPersonalController extends Controller
         'specialties', 'allergies', 'languages', 'languageLevels', 'workExperiences', 'notices', 'noExperienceReason', 'drivingLicense',
         'numberCode', 'characteristic', 'numberOwner', 'yesNo', 'maritalStatus', 'category', 'workSchedule'];
         $classificatory = $this->classificatoryService->get($candidateClassificatoryArr);
-      
+
         $data = ['vacancy'=> $vacancy, 'classificatory' => $classificatory];
         return view('hr.selection_personal', compact('data'));
     }
 
     public function find(CandidateFilters $filters)  {
         // dd($filters);
-        $candidate = Candidate::filter($filters)->get();
-        dd($candidate);
+        $candidate = Candidate::filter($filters)->with([
+            'user', 'user.gender', 'specialty', 'nationality', 'religion', 'education', 'maritalStatus', 'citizenship',
+            'professions', 'characteristic', 'getLanguage.language', 'getLanguage.level', 'allergy', 'drivingLicense', 'generalWorkExperience', 'notice',
+            'familyWorkSkill', 'familyWorkExperience', 'recommendation', 'getWorkInformation',
+            'getWorkInformation.category','getWorkInformation.currency', 'getWorkInformation.workSchedule',
+        ])->get();
+        // dd($candidate);
         return $candidate;
     }
 }

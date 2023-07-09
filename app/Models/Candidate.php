@@ -89,6 +89,10 @@ class Candidate extends Model
     {
         return $this->belongsToMany(Language::class, 'candidate_languages')->withPivot('language_level_id');
     }
+    public function getLanguage()
+    {
+        return $this->hasMany(CandidateLanguage::class, 'candidate_id', 'id');
+    }
     public function allergy()
     {
         return $this->belongsToMany(allergy::class, 'candidate_allergies');
@@ -124,6 +128,10 @@ class Candidate extends Model
     public function workInformation()
     {
         return $this->belongsToMany(Category::class,'work_information')->withPivot('payment','currency_id');
+    }
+    public function getWorkInformation()
+    {
+        return $this->hasMany(WorkInformation::class, 'candidate_id', 'id');
     }
 
     // public function vacancyInterest()

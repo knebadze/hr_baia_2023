@@ -11,7 +11,7 @@
                     <i class="fas fa-angle-down float-right"></i>
                   </h4>
                 </div>
-                <div id="collapseOne" class="collapse show" data-parent="#accordion" >
+                <div id="collapseOne" class="collapse" :class="colspan" data-parent="#accordion" >
                     <div class="card-body">
                     <!-- <h5 class="ml-2"><i class="fa fa-map" ></i> ინფორმაცია სარეგისტრატორო უბანზე:</h5> -->
                         <div class="row">
@@ -334,14 +334,17 @@
         </div>
     </div>
     <!-- /.container-fluid -->
+    <candidateTable v-if="candidate.length > 0" :data="candidate"></candidateTable>
   </section>
 </template>
 <script>
 import Slider from '@vueform/slider'
+import candidateTable from '../component/candidateTable.vue'
 
 export default {
     components: {
       Slider,
+      candidateTable
     },
     props:{
         data: Object
@@ -349,7 +352,9 @@ export default {
     data() {
         return {
             m:{},
-            cla:null
+            cla:null,
+            candidate:[],
+            colspan: 'show'
         }
     },
     computed:{
@@ -374,7 +379,8 @@ export default {
     },
     methods:{
         find(){
-
+            this.colspan = 'hide'
+            let currentObj = this;
             axios({
                     method: "post",
                     url: '/find_personal',
@@ -384,6 +390,7 @@ export default {
             .then(function (response) {
                 // handle success
                 console.log(response.data);
+                currentObj.candidate = response.data
                 // if (response.status == 200) {
                 //     toast.success("წარმატებით დაემატა", {
                 //         theme: 'colored',

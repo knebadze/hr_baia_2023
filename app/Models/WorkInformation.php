@@ -27,14 +27,14 @@ class WorkInformation extends Model
     //     return $this->hasMany(CandidateRecommendation::class, 'work_information_id', 'id');
     // }
 
-    // public function candidate()
-    // {
-    //     return $this->hasMany(WorkInformation::class, 'candidate_id', 'id');
-    // }
+    public function candidate()
+    {
+        return $this->belongsTo(WorkInformation::class, 'candidate_id', 'id');
+    }
     public function workSchedule()
     {
         return $this->belongsToMany(WorkSchedule::class, 'work_information_work_schedules');
     }
 
-  
+
 }
