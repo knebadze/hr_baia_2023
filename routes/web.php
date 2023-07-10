@@ -177,5 +177,11 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('/get_status_change_info', [HrVacancyController::class, 'statusChangeInfo']);
 
 
+
+
     // __________________
     Route::post('find_personal', [SelectionPersonalController::class, 'find']);
+
+    Route::post('/get_add_personal_info', [SelectionPersonalController::class, 'addPersonalInfo']);
+    Route::post('/add_vacancy_personal', [SelectionPersonalController::class, 'addPersonal']);
+    Route::post('/update_vacancy_personal', [SelectionPersonalController::class, 'updatePersonal']);

@@ -10,7 +10,7 @@
     <!-- :filter-options="filterOptions" -->
     <template #item-operation="item">
        <div class="operation-wrapper">
-        <button class="btn btn-info btn-sm" @click="deleteItem(item)">
+        <button class="btn btn-info btn-sm" @click="showModal(item)">
             <i class="fa fa-plus"></i> დამატება
         </button>
       </div>
@@ -246,27 +246,23 @@
             </div>
         </template> -->
     </EasyDataTable>
-    <!-- {{ statusChangeModal }} -->
-    <!-- <changeStatus :visible="statusChangeModal" :item="statusItem"></changeStatus>
-    <vacancyUpdate :visible="updateModal" :item="item"></vacancyUpdate>
-    <vacancyDeposit :visible="depositModal" :item="depositItem"></vacancyDeposit> -->
+
+
+     <addPersonalVacancy  :visible="statusChangeModal" :item="modalItem"></addPersonalVacancy>
 </template>
 <script>
 import { ref, computed } from "vue";
 import moment from 'moment'
 import Slider from '@vueform/slider'
 import "@vueform/slider/themes/default.css";
+import addPersonalVacancy from "../modal/addPersonalVacancy.vue";
 
 // import { Header, Item, FilterOption } from "vue3-easy-data-table";
-// import changeStatus from "../modal/changeStatus.vue";
-// import vacancyUpdate from "../modal/vacancyUpdate.vue"
-// import vacancyDeposit from "../modal/vacancyDeposit.vue";
+
 export default {
     components: {
       Slider,
-    //   changeStatus,
-    //   vacancyUpdate,
-    //   vacancyDeposit
+      addPersonalVacancy,
     },
     props:{
         data: Object
@@ -279,17 +275,14 @@ export default {
             { text: "სახელი გვარი", value: "user.name_ka"},
             { text: "ნომერი", value: "user.number"},
             { text: "პირადი ნომერი", value: "personal_number"},
-            // { text: "კატეგორია", value: "get_work_information.category.name_ka" },
-            // { text: "გრაფიკი", value: "get_work_information.work_schedule.name_ka"},
 
             // { text: "სტატუსი", value: "status.name_ka"},
-            // { text: "ანაზღაურება", value: "get_work_information.payment", sortable: true},
             { text: "დამატების თარიღი", value: "created_at", sortable: true},
             { text: "Operation", value: "operation" },
         ]);
 
         // console.log('data',props.data);
-        const items = ref(props.data);
+        const items = ref(props.data.candidate);
         // ref(props.data)
         // ref(makeData(props.data.vacancy));
         function makeData(params) {
@@ -369,18 +362,9 @@ export default {
         // var personalSelectionUrl = ref(url.origin+'/hr/selection_personal')
         // console.log(personalSelectionUrl);
 
-        // var statusChangeModal = ref(false)
-        // var updateModal = ref(false)
-        // var depositModal = ref(false)
-        // var selectionPersonalModalShow = ref(false)
-        // var statusItem = ref()
-        // var item = ref()
-        // var depositItem =ref()
-        // function statusChange(item) {
-        //     statusChangeModal = !statusChangeModal
-        //     console.log('statusChangeModal', statusChangeModal);
-        //     console.log('item', item);
-        // }
+        let showModal = ref(false)
+        let statusChangeModal = ref(false)
+        let modalItem = ref()
         return {
             headers,
             items,
@@ -395,34 +379,17 @@ export default {
             // showIdFilter,
             // choseId,
             // filterOptions,
-            // statusChangeModal,
-            // statusItem,
-            // updateModal,
-            // item,
-            // depositModal,
-            // depositItem,
-            // selectionPersonalModalShow,
-            // personalSelectionUrl
-
-            // statusChange
+            statusChangeModal,
+            showModal,
+            modalItem,
         };
     },
     methods:{
-        // statusChange(item) {
-        //     this.statusChangeModal = !this.statusChangeModal
-        //     this.statusItem = item
-        // },
-        // vacancyUpdateModal(item) {
-        //     this.updateModal = !this.updateModal
-        //     this.item = item
-        // },
-        // vacancyDepositModal(item) {
-        //     this.depositModal = !this.depositModal
-        //     this.depositItem = item.deposit
-        // },
-        // selectionPersonalModal(item){
-        //     this.selectionPersonalModalShow = !this.selectionPersonalModalShow
-        // }
+        showModal(item){
+            this.statusChangeModal = !this.statusChangeModal
+            this.modalItem = this.data.vacancy
+            this.modalItem['candidate_id'] = item.id
+        },
     }
 }
 </script>

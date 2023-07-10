@@ -2,21 +2,28 @@
 
 namespace App\Http\Controllers\Hr;
 
+use Exception;
 use App\Models\gender;
 use App\Models\Vacancy;
 use App\Models\Candidate;
 use App\Models\Education;
 use Illuminate\Http\Request;
+use App\Models\QualifyingType;
 use App\Http\Controllers\Controller;
 use App\Services\ClassificatoryService;
 use App\Filters\Candidate\CandidateFilters;
+use App\Models\InterviewPlace;
+use App\Models\QualifyingCandidate;
+use App\Services\AddVacancyPersonalService;
 
 class SelectionPersonalController extends Controller
 {
     private ClassificatoryService $classificatoryService;
-    public function __construct(ClassificatoryService $classificatoryService)
+    private AddVacancyPersonalService $addVacancyPersonalService;
+    public function __construct(ClassificatoryService $classificatoryService, AddVacancyPersonalService $addVacancyPersonalService)
     {
         $this->classificatoryService = $classificatoryService;
+        $this->addVacancyPersonalService = $addVacancyPersonalService;
     }
     public function index($id)  {
         // dd($id);
@@ -47,5 +54,47 @@ class SelectionPersonalController extends Controller
         ])->get();
         // dd($candidate);
         return $candidate;
+    }
+
+    function addPersonalInfo(Request $request) {
+
+        $findCandidate = QualifyingCandidate::where('candidate_id', $request->data['candidate_id'])->where('vacancy_id', $request->data['vacancy_id'])->with('qualifyingType')->first();
+        $classificatory = ['qualifyingType' => QualifyingType::all()->toArray(), 'interviewPlace' => InterviewPlace::all()->toArray()];
+        $data = ['findCandidate' => $findCandidate, 'classificatory' => $classificatory];
+        return response()->json($data);
+    }
+
+    function addPersonal(Request $request) {
+        $data = $request->data;
+        // dd($data);
+        $result = ['status' => 200];
+
+        try {
+            $result['data'] = $this->addVacancyPersonalService->addPersonal($data);
+        } catch (Exception $e) {
+            $result = [
+                'status' => 500,
+                'error' => $e->getMessage()
+            ];
+        }
+
+        return response()->json($result, $result['status']);
+    }
+
+    function updatePersonal(Request $request)  {
+        $data = $request->data;
+        // dd($data);
+        $result = ['status' => 200];
+
+        try {
+            $result['data'] = $this->addVacancyPersonalService->updatePersonal($data);
+        } catch (Exception $e) {
+            $result = [
+                'status' => 500,
+                'error' => $e->getMessage()
+            ];
+        }
+
+        return response()->json($result, $result['status']);
     }
 }

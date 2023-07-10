@@ -334,7 +334,7 @@
         </div>
     </div>
     <!-- /.container-fluid -->
-    <candidateTable v-if="candidate.length > 0" :data="candidate"></candidateTable>
+    <candidateTable v-if="candidate.length > 0" :data="modalData"></candidateTable>
   </section>
 </template>
 <script>
@@ -354,7 +354,9 @@ export default {
             m:{},
             cla:null,
             candidate:[],
-            colspan: 'show'
+            colspan: 'show',
+            modalData:{},
+            vacancy:null
         }
     },
     computed:{
@@ -376,6 +378,12 @@ export default {
         this.m.go_vacation = (this.data.vacancy.go_vacation == 1 )?true:''
         this.m.work_additional_hours = (this.data.vacancy.work_additional_hours == 1 )?true:''
         this.m.stay_night = (this.data.vacancy.stay_night == 1 )?true:''
+        this.vacancy = {
+            'vacancy_id': this.data.vacancy.id,
+            'interview_place': this.data.vacancy.interview_place,
+            'interview_date': this.data.vacancy.interview_date
+        }
+        this.modalData['vacancy'] = this.vacancy
     },
     methods:{
         find(){
@@ -391,6 +399,7 @@ export default {
                 // handle success
                 console.log(response.data);
                 currentObj.candidate = response.data
+                currentObj.modalData['candidate'] = response.data
                 // if (response.status == 200) {
                 //     toast.success("წარმატებით დაემატა", {
                 //         theme: 'colored',
