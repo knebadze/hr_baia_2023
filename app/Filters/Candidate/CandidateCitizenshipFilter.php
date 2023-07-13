@@ -6,10 +6,7 @@ class CandidateCitizenshipFilter
 {
     function __invoke($query, $request)
     {
-        $ids = [];
-        foreach ($request as $key => $value) {
-            $ids[] = $value['id'];
-        }
+        $ids = collect($request)->pluck('id')->toArray();
         $query->whereHas('citizenship', function ($query) use ( $ids ) {
             return $query->whereIn('citizenship_id', $ids );
         });

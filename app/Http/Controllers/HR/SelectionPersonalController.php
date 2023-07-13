@@ -8,12 +8,13 @@ use App\Models\Vacancy;
 use App\Models\Candidate;
 use App\Models\Education;
 use Illuminate\Http\Request;
+use App\Models\InterviewPlace;
 use App\Models\QualifyingType;
+use Illuminate\Support\Facades\DB;
+use App\Models\QualifyingCandidate;
 use App\Http\Controllers\Controller;
 use App\Services\ClassificatoryService;
 use App\Filters\Candidate\CandidateFilters;
-use App\Models\InterviewPlace;
-use App\Models\QualifyingCandidate;
 use App\Services\AddVacancyPersonalService;
 
 class SelectionPersonalController extends Controller
@@ -43,6 +44,14 @@ class SelectionPersonalController extends Controller
         $data = ['vacancy'=> $vacancy, 'classificatory' => $classificatory];
         return view('hr.selection_personal', compact('data'));
     }
+    function vacancyPersonal($id) {
+
+        $data = [];
+        $data['qualifying'] = QualifyingCandidate::where('vacancy_id', $id)->with(['qualifyingType', 'candidate', 'candidate.user'])->get()->toArray();
+        $data['vacancy'] = Vacancy::where('id',$id)->first();
+        // dd($data);
+        return view('hr.vacancy_personal', compact('data'));
+    }
 
     public function find(CandidateFilters $filters)  {
         // dd($filters);
@@ -50,7 +59,7 @@ class SelectionPersonalController extends Controller
             'user', 'user.gender', 'specialty', 'nationality', 'religion', 'education', 'maritalStatus', 'citizenship',
             'professions', 'characteristic', 'getLanguage.language', 'getLanguage.level', 'allergy', 'drivingLicense', 'generalWorkExperience', 'notice',
             'familyWorkSkill', 'familyWorkExperience', 'recommendation', 'getWorkInformation',
-            'getWorkInformation.category','getWorkInformation.currency', 'getWorkInformation.workSchedule',
+            'getWorkInformation.category','getWorkInformation.currency', 'getWorkInformation.workSchedule', 'qualifyingCandidate', 'qualifyingCandidate.vacancy'
         ])->get();
         // dd($candidate);
         return $candidate;
@@ -66,7 +75,6 @@ class SelectionPersonalController extends Controller
 
     function addPersonal(Request $request) {
         $data = $request->data;
-        // dd($data);
         $result = ['status' => 200];
 
         try {
@@ -96,5 +104,23 @@ class SelectionPersonalController extends Controller
         }
 
         return response()->json($result, $result['status']);
+    }
+
+    function deletePersonal(Request $request) {
+        $data = $request->data;
+        // dd($data);
+        $result = ['status' => 200];
+
+        try {
+            $result['data'] = $this->addVacancyPersonalService->deletePersonal($data);
+        } catch (Exception $e) {
+            $result = [
+                'status' => 500,
+                'error' => $e->getMessage()
+            ];
+        }
+
+        return response()->json($result, $result['status']);
+
     }
 }

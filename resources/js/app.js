@@ -31,6 +31,7 @@ import myVacancy from './component/employer/my_vacancy.vue'
 // HR
 import hrVacancy from './component/hr/page/hr_vacancy.vue'
 import selectionPersonal from './component/hr/page/selection_personal.vue'
+import vacancyPersonal from './component/hr/page/vacancy_personal.vue'
 //modal
 import modalManager from './component/modal/modalManager.vue'
 //_______________________ADMIN COMPONENT_____________________
@@ -81,6 +82,7 @@ app.component('my-vacancy', myVacancy)
 // HR
 app.component('hr-vacancy', hrVacancy)
 app.component('selection-personal', selectionPersonal)
+app.component('vacancy-personal', vacancyPersonal)
 //modal
 app.component('modal-manager', modalManager);
 

@@ -40,7 +40,7 @@ class Vacancy extends Model
         'view',
         'photo',
     ];
-    protected $appends = ['hrInfo','timeAgo'];
+    protected $appends = ['timeAgo'];
     public function vacancyDuty()
     {
         return $this->belongsToMany(Duty::class, 'vacancy_candidate_duties');
@@ -111,12 +111,12 @@ class Vacancy extends Model
     // {
     //     return $this->belongsTo(ForWhoNeed::class, '');
     // }
-    public function getHrInfoAttribute():array
-    {
-        $hr = Hr::where('id', $this->hr_id)->first()->toArray();
-        $user = User::where('id', $hr['user_id'])->where('role_id', 2)->first()->toArray();
-        return $user;
-    }
+    // public function getHrInfoAttribute():array
+    // {
+    //     $hr = Hr::where('id', $this->hr_id)->first()->toArray();
+    //     $user = User::where('id', $hr['user_id'])->where('role_id', 2)->first()->toArray();
+    //     return $user;
+    // }
 
 
     function getTimeAgoAttribute():string

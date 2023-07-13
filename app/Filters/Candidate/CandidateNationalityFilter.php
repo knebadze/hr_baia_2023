@@ -6,10 +6,7 @@ class CandidateNationalityFilter
 {
     function __invoke($query, $request)
     {
-        $ids = [];
-        foreach ($request as $key => $value) {
-            $ids[] = $value['id'];
-        }
+        $ids = collect($request)->pluck('id')->toArray();
         return $query->whereIn('nationality_id', $ids );
 
     }

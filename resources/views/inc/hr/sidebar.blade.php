@@ -36,7 +36,7 @@
                 <a @if(Route::currentRouteName() === 'hr.vacancy') class="nav-link active" @else class="nav-link" @endif href="{{ route('hr.vacancy', App()->getLocale()) }}">
                     <i class="nav-icon fa fa-list"></i>
                     <p>
-                        ჩემი ვაკანსიები
+                        ვაკანსიები
                     </p>
                 </a>
             </li>

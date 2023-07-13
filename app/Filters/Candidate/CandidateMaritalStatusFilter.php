@@ -6,10 +6,7 @@ class CandidateMaritalStatusFilter
 {
     function __invoke($query, $request)
     {
-        $ids = [];
-        foreach ($request as $key => $value) {
-            $ids[] = $value['id'];
-        }
+        $ids = collect($request)->pluck('id')->toArray();
         $query->whereHas('maritalStatus', function ($query) use ( $ids ) {
             return $query->whereIn('marital_status_id', $ids );
         });

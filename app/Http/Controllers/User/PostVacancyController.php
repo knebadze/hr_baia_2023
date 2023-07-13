@@ -64,54 +64,5 @@ class PostVacancyController extends Controller
         return response()->json($result, $result['status']);
     }
 
-    public function update(Request $request) {
-        $data = $request->data;
-        // dd($data);
-        $result = ['status' => 200];
-
-        try {
-            $result['data'] = $this->vacancyUpdateService->updateData($data);
-        } catch (Exception $e) {
-            $result = [
-                'status' => 500,
-                'error' => $e->getMessage()
-            ];
-        }
-
-        return response()->json($result, $result['status']);
-    }
-
-    public function updateDeposit(Request $request) {
-        $data = $request->data;
-        // dd($data);
-        $result = ['status' => 200];
-
-        try {
-            $result['data'] = $this->vacancyUpdateService->updateDepositData($data);
-        } catch (Exception $e) {
-            $result = [
-                'status' => 500,
-                'error' => $e->getMessage()
-            ];
-        }
-
-        return response()->json($result, $result['status']);
-    }
-
-    public function updateStatus(Request $request){
-        $data = $request->data;
-        // dd($data);
-        $result = ['status' => 200];
-
-        try {
-            $result['data'] = $this->vacancyUpdateService->updateStatusData($data);
-        } catch (Exception $e) {
-            $result = [
-                'status' => 500,
-                'error' => $e->getMessage()
-            ];
-        }
-
-        return response()->json($result, $result['status']);
-    }
+    
 }

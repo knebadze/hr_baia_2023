@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\HR;
 
+use App\Models\Duty;
 use App\Models\Term;
 use App\Models\Status;
 use App\Models\Benefit;
@@ -16,12 +17,13 @@ use App\Models\numberCode;
 use App\Models\NumberOwner;
 use App\Models\WorkSchedule;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Models\Duty;
-use Illuminate\Support\Facades\Auth;
-use App\Models\GeneralCharacteristic;
 use App\Models\InterviewPlace;
 use App\Models\Language_level;
+use Illuminate\Support\Carbon;
+use App\Models\VacancyReminder;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Models\GeneralCharacteristic;
 use App\Models\VacancyRedactedHistory;
 use App\Services\ClassificatoryService;
 
@@ -35,10 +37,11 @@ class HrVacancyController extends Controller
     public function index()
     {
         $data = [];
-        $vacancy = Vacancy::orderBy('updated_at', 'DESC')->where('hr_id', Auth::user()->hr->id)->with([
+        // ->where('hr_id', Auth::user()->hr->id)
+        $vacancy = Vacancy::orderBy('updated_at', 'DESC')->with([
             'vacancyDuty', 'vacancyBenefit', 'vacancyForWhoNeed', 'characteristic', 'employer', 'currency','category', 'status',
             'workSchedule', 'vacancyInterest', 'interviewPlace','term', 'demand', 'demand.language', 'demand.education', 'demand.languageLevel','demand.specialty',
-            'employer.numberCode','deposit'
+            'employer.numberCode','deposit','hr.user'
 
             ])->get();
         $classificatory = [
@@ -46,42 +49,12 @@ class HrVacancyController extends Controller
             'category' => Category::all()->toArray(),
             'workSchedule' => WorkSchedule::all()->toArray(),
         ];
-        $data = ['vacancy'=> $vacancy, 'classificatory' => $classificatory];
+        $hr_id = Auth::user()->hr->id;
+        $data = ['vacancy'=> $vacancy, 'classificatory' => $classificatory, 'hr_id' => $hr_id];
         // dd($data);
         return view('hr.hr_vacancy', compact('data'));
     }
 
-    public function getClassificatory(){
-        $classificatoryArr = ['category', 'currency', 'workSchedule', 'educations', 'characteristic', 'duty',
-        'languages', 'languageLevels', 'interviewPlace', 'term', 'benefit','forWhoNeed', 'numberCode', 'specialties'];
-        $classificatory = [
-            'numberOwner' => NumberOwner::all()->toArray(),
-            'currency' => Currency::all()->toArray(),
-            'workSchedule' => WorkSchedule::all()->toArray(),
-            'educations' => Education::all()->toArray(),
-            'characteristic' => GeneralCharacteristic::all()->toArray(),
-            'numberCode' => numberCode::all()->toArray(),
-            'category' => Category::all()->toArray(),
-            'forWhoNeed' => ForWhoNeed::all()->toArray(),
-            'term' => Term::all()->toArray(),
-            'benefit' => Benefit::all()->toArray(),
-            'specialties' => Specialty::all()->toArray(),
-            'languages' => Language::all()->toArray(),
-            'languageLevels' => Language_level::all()->toArray(),
-            'duty' => Duty::all()->toArray(),
-            'interviewPlace' => InterviewPlace::all()->toArray(),
-            'status' => Status::all()->toArray(),
 
-        ];
-        // = $this->classificatoryService->get($classificatoryArr);
-        return response()->json($classificatory);
-    }
 
-    public function statusChangeInfo(Request $request) {
-        // dd($request->data);
-
-        $history = VacancyRedactedHistory::where('vacancy_id', $request->data)->where('column_name', 'status')->get();
-        $data = ['history' => $history, 'status' => Status::all()->toArray()];
-        return response()->json($data);
-    }
 }

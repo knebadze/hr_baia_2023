@@ -45,7 +45,11 @@
                 </div>
               </div>
               <div class="modal-footer">
-                <button v-if="this.info" type="button" class="btn btn-success" @click.prevent="update()" ><i class=""></i>განახლება</button>
+                <div v-if="this.info">
+                    <button  type="button" class="btn btn-danger mr-2" @click.prevent="deletePersonal()" ><i class=""></i>წაშლა</button>
+                    <button  type="button" class="btn btn-success" @click.prevent="update()" ><i class=""></i>განახლება</button>
+                </div>
+
                 <button v-else type="button" class="btn btn-success" @click.prevent="save()" ><i class=""></i>შენახვა</button>
               </div>
               </div>
@@ -170,6 +174,48 @@
                     console.log(error);
                 })
             },
+            deletePersonal(){
+                this.$swal(
+                {
+                    title: 'ნამდვილად გსურთ ამ კანდიდატის ამოშლა ვაკანსიიდან?',
+                    showDenyButton: true,
+                    showCancelButton: false,
+                    confirmButtonText: 'კი',
+                    denyButtonText: `არა`,
+                }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        let currentObj = this
+                        axios.post('/delete_vacancy_personal' ,{
+                            data: {'candidate_id':this.item.candidate_id, 'vacancy_id':this.item.vacancy_id },
+                        })
+                        .then(function (response) {
+                            // handle success
+                            console.log(response.data);
+                            if (response.status == 200) {
+                                toast.success("წარმატებით წაიშალა", {
+                                    theme: 'colored',
+                                    autoClose: 1000,
+                                });
+                                currentObj.hide()
+                                // setTimeout(() => {
+                                //     document.location.reload();
+                                // }, 2000);
+                            }
+
+
+
+                        })
+                        .catch(function (error) {
+                            // handle error
+                            console.log(error);
+                        })
+                    }
+                    // else if (result.isDenied) {
+                    //     Swal.fire('Changes are not saved', '', 'info')
+                    // }
+                })
+            }
 
             // forItem(item){
             //     var editedFields = {}

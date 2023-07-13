@@ -32,13 +32,13 @@
                         <div class="col-md-5">
                             <div class="form-group">
                                 <label> შეხსენების დრო </label>
-                                <input class="form-control" v-model="m.status_change_reason" type="datetime-local" placeholder="" rows="3">
+                                <input class="form-control" v-model="reminder.date" type="datetime-local" placeholder="" rows="3">
                             </div>
                         </div>
                         <div class="col-md-7">
                             <div class="form-group">
                                 <label> შეხსენების მიზეზი </label>
-                                <textarea class="form-control" v-model="m.status_change_reason" type="text" placeholder="" rows="3"></textarea>
+                                <textarea class="form-control" v-model="reminder.reason" type="text" placeholder="" rows="3"></textarea>
                             </div>
                         </div>
 
@@ -117,6 +117,9 @@
                 return {...newItem}
             },
             save(){
+                if (this.m.status.id == 6) {
+                    this.m['reminder'] = this.reminder
+                }
                 var editedFields = this.forItem(this.m)
                 console.log('editedFields', editedFields);
                 axios.post('/update_vacancy_status' ,{

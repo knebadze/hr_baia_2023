@@ -1,9 +1,332 @@
 <template lang="">
+    <section class="content ">
+    <div class="container-fluid">
+        <div class="d-flex justify-content-end">
+            <div class="w-25">
+                <Switch  v-model:checked="myVacancy" @change.stop="myVacancySwitch" label="ჩემი ვაკანსიები" />
+            </div>
+
+        </div>
+        <div id="accordion" >
+            <div class="card card-primary" >
+                <div class="card-header">
+                  <h4 class="card-title w-100 d-flex justify-content-between">
+                    <a class="d-block w-100" data-toggle="collapse"  href="#collapseOne">
+                      ფილტრი
+                    </a>
+                    <i class="fas fa-angle-down float-right"></i>
+                  </h4>
+                </div>
+                <div id="collapseOne" class="collapse" :class="colspan" data-parent="#accordion" >
+                    <div class="card-body">
+                    <!-- <h5 class="ml-2"><i class="fa fa-map" ></i> ინფორმაცია სარეგისტრატორო უბანზე:</h5> -->
+                        <div class="row" v-if="cla">
+                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label>სახელი გვარი</label>
+                                    <div class="ls-inputicon-box">
+                                        <input class="form-control" v-model="m.name"  type="text" placeholder="Devid Smith">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label>ტელეფონის ნომერი</label>
+                                    <div class="ls-inputicon-box">
+                                        <input class="form-control" v-model="m.number"  type="text" placeholder="555444333" onkeypress="return event.which != 32">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label>პირადი ნომერი</label>
+                                    <div class="ls-inputicon-box">
+                                        <input class="form-control" v-model="m.personal_number"  type="text" placeholder="01234567890" onkeypress="return event.which != 32">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label>მისამართი</label>
+                                    <div class="ls-inputicon-box">
+                                        <input class="form-control" v-model="m.address"  type="text" placeholder="თბილის სამგორი კახეთის გზატკეცილი">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label class="ml-4"> ასაკი</label>
+                                    <div class="ls-inputicon-box mt-4">
+                                        <Slider v-model="m.age" :min=18 :step=10 class="slider"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label>სიმაღლე</label>
+                                    <div class="ls-inputicon-box mt-4">
+                                        <Slider v-model="m.height" :min=140  :max=220 :step=10 class="slider"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label>წონა</label>
+                                    <div class="ls-inputicon-box mt-4">
+                                        <Slider v-model="m.weight" :min=40  :max=120 :step=10 class="slider"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-xl-4 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label>სქესი</label>
+                                    <div class="ls-inputicon-box">
+                                        <multiselect v-model="m.gender" :options="cla.gender" deselect-label="Can't remove this value" track-by="name_ka" label="name_ka" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                            <template slot="singleLabel" slot-scope="{ option }"></template>
+                                        </multiselect>
+                                    </div>
+                                </div>
+                            </div> -->
+
+                            <!-- <div class="col-xl-4 col-lg-6 col-md-12" >
+                                <div class="form-group">
+                                    <label>ეროვნება</label>
+                                    <div class="ls-inputicon-box">
+                                        <multiselect v-model="m.nationality"  :options="cla.nationality" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true"  label="name_ka" track-by="name_ka" :preselect-first="false" >
+                                            <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                        </multiselect>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <!-- <div class="col-xl-4 col-lg-6 col-md-12" >
+                                <div class="form-group">
+                                    <label>მოქალაქეობა</label>
+                                    <div class="ls-inputicon-box">
+                                        <multiselect v-model="m.citizenship"  :options="cla.citizenship" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true"  label="name_ka" track-by="name_ka" :preselect-first="false" >
+                                            <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                        </multiselect>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <!-- <div class="col-xl-4 col-lg-6 col-md-12" >
+                                <div class="form-group">
+                                    <label>რელიგია</label>
+                                    <div class="ls-inputicon-box">
+                                        <multiselect v-model="m.religion"  :options="cla.religions" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true"  label="name_ka" track-by="name_ka" :preselect-first="false" >
+                                            <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                        </multiselect>
+                                    </div>
+                                </div>
+                            </div> -->
+
+                            <div class="col-xl-4 col-lg-6 col-md-12" >
+                                <div class="form-group">
+                                    <label>განათლება</label>
+                                    <div class="ls-inputicon-box">
+                                        <multiselect v-model="m.education"  :options="cla.educations" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true"  label="name_ka" track-by="name_ka" :preselect-first="false" >
+                                            <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                        </multiselect>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-xl-4 col-lg-6 col-md-12" >
+                                <div class="form-group">
+                                    <label>პროფესია</label>
+                                    <div class="ls-inputicon-box">
+                                        <multiselect v-model="m.profession"  :options="cla.professions" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true"  label="name_ka" track-by="name_ka" :preselect-first="false" >
+                                            <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                        </multiselect>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="col-xl-4 col-lg-6 col-md-12" >
+                                <div class="form-group">
+                                    <label>სპეციალობა</label>
+                                    <div class="ls-inputicon-box">
+                                        <multiselect v-model="m.specialty"  :options="cla.specialties" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true"  label="name_ka" track-by="name_ka" :preselect-first="false" >
+                                            <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                        </multiselect>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-12" >
+                                <div class="form-group">
+                                    <label>უცხო ენა</label>
+                                    <div class="ls-inputicon-box">
+                                        <multiselect v-model="m.language"  :options="cla.languages" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true"  label="name_ka" track-by="name_ka" :preselect-first="false" >
+                                            <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                        </multiselect>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-12" >
+                                <div class="form-group">
+                                    <label>ცოდნის დონე</label>
+                                    <div class="ls-inputicon-box">
+                                        <multiselect v-model="m.language_level"  :options="cla.languageLevels" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true"  label="name_ka" track-by="name_ka" :preselect-first="false" >
+                                            <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                        </multiselect>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-12" >
+                                <div class="form-group">
+                                    <label>მართვის მოწმობა</label>
+                                    <div class="ls-inputicon-box">
+                                        <multiselect v-model="m.drivingLicense"  :options="cla.drivingLicense" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true"  label="name" track-by="name" :preselect-first="false" >
+                                            <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                        </multiselect>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-xl-4 col-lg-6 col-md-12" >
+                                <div class="form-group">
+                                    <label>ალერგია</label>
+                                    <div class="ls-inputicon-box">
+                                        <multiselect v-model="m.allergy"  :options="cla.allergies" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true"  label="name_ka" track-by="name_ka" :preselect-first="false" >
+                                            <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                        </multiselect>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="col-xl-4 col-lg-6 col-md-12" >
+                                <div class="form-group">
+                                    <label>ზოგადი მახასიათებლები</label>
+                                    <div class="ls-inputicon-box">
+                                        <multiselect v-model="m.characteristic"  :options="cla.characteristic" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true"  label="name_ka" track-by="name_ka" :preselect-first="false" >
+                                            <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                        </multiselect>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-xl-4 col-lg-6 col-md-12" >
+                                <div class="form-group">
+                                    <label>ოჯახური მდგომარეობა</label>
+                                    <div class="ls-inputicon-box">
+                                        <multiselect v-model="m.maritalStatus"  :options="cla.maritalStatus" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true"  label="name_ka" track-by="name_ka" :preselect-first="false" >
+                                            <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                        </multiselect>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <!-- <div class="col-xl-4 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label>შვილების რაოდენობა</label>
+                                    <div class="ls-inputicon-box">
+                                        <input class="form-control" v-model="m.children"  type="text" placeholder="2">
+                                    </div>
+                                </div>
+                            </div> -->
+
+                            <div class="col-md-12 border "></div>
+                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label>კატეგორია</label>
+                                    <div class="ls-inputicon-box">
+                                        <multiselect v-model="m.category" :options="cla.category" deselect-label="Can't remove this value" track-by="name_ka" label="name_ka" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                            <template slot="singleLabel" slot-scope="{ option }"></template>
+                                        </multiselect>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label>გრაფიკი</label>
+                                    <div class="ls-inputicon-box">
+                                        <multiselect v-model="m.work_schedule" :options="cla.workSchedule" deselect-label="Can't remove this value" track-by="name_ka" label="name_ka" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                            <template slot="singleLabel" slot-scope="{ option }"></template>
+                                        </multiselect>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label>ანაზღაურება</label>
+                                    <div class="ls-inputicon-box mt-4">
+                                        <Slider v-model="m.payment" :min=50  :max=5000 :step=10 class="slider"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 border "></div>
+                            <div class="col-xl-4 col-lg-6 col-md-12 mt-3">
+                                <div class=" form-check">
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck1" value="1" v-model="m.go_vacation">
+                                    <label class="form-check-label" for="exampleCheck1">შეეძლოს არდადეგებზე გაყოლა</label>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-12 mt-3">
+                                <div class=" form-check">
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck2" value="1" v-model="m.stay_night">
+                                    <label class="form-check-label" for="exampleCheck1">შეეძლოს ღამე დარჩენა</label>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-12 mt-3">
+                                <div class=" form-check">
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck3" value="1" v-model="m.work_additional_hours">
+                                    <label class="form-check-label" for="exampleCheck1">შეეძლო დამატებით საათებში მუშაობა</label>
+                                </div>
+                            </div>
+                            <!-- <div class="col-xl-4 col-lg-6 col-md-12 mt-3">
+                                <div class=" form-check">
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck3" value="1" v-model="m.convection">
+                                    <label class="form-check-label" for="exampleCheck1">არა ნასამართლევი</label>
+                                </div>
+                            </div> -->
+                            <!-- <div class="col-xl-4 col-lg-6 col-md-12 mt-3">
+                                <div class=" form-check">
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck3" value="1" v-model="m.smoke">
+                                    <label class="form-check-label" for="exampleCheck1">არა მწეველი</label>
+                                </div>
+                            </div> -->
+                            <!-- <div class="col-xl-4 col-lg-6 col-md-12 mt-3">
+                                <div class=" form-check">
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck3" value="1" v-model="m.work_abroad">
+                                    <label class="form-check-label" for="exampleCheck1">შეეძლო საზღვარ გარეთ მუშაობა</label>
+                                </div>
+                            </div> -->
+                            <!-- <div class="col-xl-4 col-lg-6 col-md-12 mt-3">
+                                <div class=" form-check">
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck3" value="1" v-model="m.has_general_work_experience">
+                                    <label class="form-check-label" for="exampleCheck1">ზოგადი სამუშაო გამოცდილება</label>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-12 mt-3">
+                                <div class=" form-check">
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck3" value="1" v-model="m.has_family_work_experience">
+                                    <label class="form-check-label" for="exampleCheck1">ოჯახში მუშაობის გამოცდილება</label>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-12 mt-3">
+                                <div class=" form-check">
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck3" value="1" v-model="m.has_recommendation">
+                                    <label class="form-check-label" for="exampleCheck1">რეკომენდაცია</label>
+                                </div>
+                            </div> -->
+                        </div>
+
+                    </div>
+                    <div class="card-footer d-flex justify-content-end">
+                        <button type="button" class="btn btn-success" @click="find()"><i class="fa fa-search"></i> ძებნა</button>
+                    </div>
+                </div>
+              </div>
+
+
+
+
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+    <!-- <candidateTable v-if="candidate.length > 0" :data="modalData"></candidateTable> -->
+  </section>
     <EasyDataTable
+        v-model:items-selected="itemsSelected"
         buttons-pagination
         :headers="headers"
         :items="items"
         table-class-name="customize-table"
+        :body-row-class-name="bodyRowClassNameFunction"
         border-cell
         :filter-options="filterOptions"
     >
@@ -23,24 +346,13 @@
                 <a class="dropdown-item" href="#" @click="vacancyUpdateModal(item)">რედაქტირება</a>
                 <a class="dropdown-item" href="#" @click="statusChange(item)">სტატუსის შეცვლა</a>
                 <a v-if="item.status.id == 2" class="dropdown-item" :href="personalSelectionUrl+'/'+item.id" >კადრების შერჩევა</a>
-                <!-- @click="selectionPersonalModal(item)" -->
-                <a class="dropdown-item" href="#" @click="vacancyDepositModal(item)">დეპოზიტი</a>
+                <a v-if="item.status.id > 1" class="dropdown-item" :href="vacancyPersonalUrl+'/'+item.id" >შერჩეული კადრები</a>
+                <a v-if="item.hr_id == hr_id" class="dropdown-item" href="#" @click="vacancyReminderModal(item)">შეხსენება</a>
+                <a v-if="item.hr_id == hr_id" class="dropdown-item" href="#" @click="vacancyDepositModal(item)">დეპოზიტი</a>
 
                 <a class="dropdown-item" href="#">გამეორება</a>
             </div>
         </div>
-        <!-- <button class="btn btn-info btn-sm">
-            <i
-                class="fa fa-pen"
-                @click="deleteItem(item)"
-            ></i>
-        </button>
-        <button class="btn btn-info btn-sm">
-            <i
-            class="fa fa-trash"
-            @click="editItem(item)"
-            ></i>
-        </button> -->
       </div>
     </template>
         <template #expand="item">
@@ -51,6 +363,8 @@
                     <div class="row">
                         <div class="col-md-6">
                             <dl class="row">
+                                <dt class="col-sm-4">HR:</dt>
+                                <dd class="col-sm-8">{{ item.hr.user.name_ka }}</dd>
                                 <dt class="col-sm-4">სათაური:</dt>
                                 <dd class="col-sm-8">{{ item.title_ka }}</dd>
                                 <dt class="col-sm-4">სამუშაო დღეები:</dt>
@@ -80,21 +394,23 @@
                                     <dt class="col-sm-4">დამატებითი მოვალეობები:</dt>
                                     <dd class="col-sm-8">{{ item.demand.additional_name_ka }} </dd>
                                 </div>
-                                <div class="row col-12 border-top">
-                                    <dt class="col-sm-4">კანდიდატისგან უნდა ჩაირიცხოს:</dt>
-                                    <dd class="col-sm-8"> {{ item.deposit.candidate_initial_amount }}</dd>
-                                </div>
-                                <div class="row col-12 border-top" v-if="item.deposit.must_be_enrolled_candidate_date">
-                                    <dt class="col-sm-4">კანდიდატისგან უნდა ჩაირიცხოს თარიღი:</dt>
-                                    <dd class="col-sm-8"> {{ item.deposit.must_be_enrolled_candidate_date }}</dd>
-                                </div>
-                                <div class="row col-12 border-top" v-if="item.deposit.enrolled_candidate">
-                                    <dt class="col-sm-4">კანდიდატისგან ჩაირიცხა:</dt>
-                                    <dd class="col-sm-8"> {{ item.deposit.enrolled_candidate }}</dd>
-                                </div>
-                                <div class="row col-12 border-top" v-if="item.deposit.enrolled_candidate_date">
-                                    <dt class="col-sm-4">კანდიდატისგან ჩაირიცხა თარიღი:</dt>
-                                    <dd class="col-sm-8"> {{ item.deposit.enrolled_candidate_date }}</dd>
+                                <div class="row col-12" v-if="item.hr_id == hr_id">
+                                    <div class="row col-12 border-top">
+                                        <dt class="col-sm-4">კანდიდატისგან უნდა ჩაირიცხოს:</dt>
+                                        <dd class="col-sm-8"> {{ item.deposit.candidate_initial_amount }}</dd>
+                                    </div>
+                                    <div class="row col-12 border-top" v-if="item.deposit.must_be_enrolled_candidate_date">
+                                        <dt class="col-sm-4">კანდიდატისგან უნდა ჩაირიცხოს თარიღი:</dt>
+                                        <dd class="col-sm-8"> {{ item.deposit.must_be_enrolled_candidate_date }}</dd>
+                                    </div>
+                                    <div class="row col-12 border-top" v-if="item.deposit.enrolled_candidate">
+                                        <dt class="col-sm-4">კანდიდატისგან ჩაირიცხა:</dt>
+                                        <dd class="col-sm-8"> {{ item.deposit.enrolled_candidate }}</dd>
+                                    </div>
+                                    <div class="row col-12 border-top" v-if="item.deposit.enrolled_candidate_date">
+                                        <dt class="col-sm-4">კანდიდატისგან ჩაირიცხა თარიღი:</dt>
+                                        <dd class="col-sm-8"> {{ item.deposit.enrolled_candidate_date }}</dd>
+                                    </div>
                                 </div>
 
                             </dl>
@@ -131,23 +447,26 @@
                                     <dt class="col-sm-4">მახასიათებლები:</dt>
                                     <dd class="col-sm-8"><span v-for="(i, index) in item.characteristic" :key="index" >{{ i.name_ka+', ' }}</span> </dd>
                                 </div>
+                                <div class="row col-12" v-if="item.hr_id == hr_id">
+                                    <div class="row col-12 border-top">
+                                        <dt class="col-sm-4 ">დამსაქმებლისგან უნდა ჩაირიცხოს:</dt>
+                                        <dd class="col-sm-8"> {{ item.deposit.employer_initial_amount }}</dd>
+                                    </div>
+                                    <div class="row col-12 border-top" v-if="item.deposit.must_be_enrolled_employer_date">
+                                        <dt class="col-sm-4">დამსაქმებლისგან უნდა ჩაირიცხოს თარიღი:</dt>
+                                        <dd class="col-sm-8"> {{ item.deposit.must_be_enrolled_employer_date }}</dd>
+                                    </div>
+                                    <div class="row col-12 border-top" v-if="item.deposit.enrolled_employer">
+                                        <dt class="col-sm-4">დამსაქმებლისგან ჩაირიცხა:</dt>
+                                        <dd class="col-sm-8"> {{ item.deposit.enrolled_employer }}</dd>
+                                    </div>
+                                    <div class="row col-12 border-top" v-if="item.deposit.enrolled_employer_date">
+                                        <dt class="col-sm-4">დამსაქმებლისგან ჩაირიცხა თარიღი:</dt>
+                                        <dd class="col-sm-8"> {{ item.deposit.enrolled_employer_date }}</dd>
+                                    </div>
+                                </div>
 
-                                <div class="row col-12 border-top">
-                                    <dt class="col-sm-4 ">დამსაქმებლისგან უნდა ჩაირიცხოს:</dt>
-                                    <dd class="col-sm-8"> {{ item.deposit.employer_initial_amount }}</dd>
-                                </div>
-                                <div class="row col-12 border-top" v-if="item.deposit.must_be_enrolled_employer_date">
-                                    <dt class="col-sm-4">დამსაქმებლისგან უნდა ჩაირიცხოს თარიღი:</dt>
-                                    <dd class="col-sm-8"> {{ item.deposit.must_be_enrolled_employer_date }}</dd>
-                                </div>
-                                <div class="row col-12 border-top" v-if="item.deposit.enrolled_employer">
-                                    <dt class="col-sm-4">დამსაქმებლისგან ჩაირიცხა:</dt>
-                                    <dd class="col-sm-8"> {{ item.deposit.enrolled_employer }}</dd>
-                                </div>
-                                <div class="row col-12 border-top" v-if="item.deposit.enrolled_employer_date">
-                                    <dt class="col-sm-4">დამსაქმებლისგან ჩაირიცხა თარიღი:</dt>
-                                    <dd class="col-sm-8"> {{ item.deposit.enrolled_employer_date }}</dd>
-                                </div>
+
 
                             </dl>
                         </div>
@@ -242,29 +561,57 @@
     <changeStatus :visible="statusChangeModal" :item="statusItem"></changeStatus>
     <vacancyUpdate :visible="updateModal" :item="item"></vacancyUpdate>
     <vacancyDeposit :visible="depositModal" :item="depositItem"></vacancyDeposit>
+    <vacancyReminder :visible="reminderModelShow" :item="item"></vacancyReminder>
 </template>
 <script>
-import { ref, computed } from "vue";
+import { ref, computed, onBeforeCreate, onBeforeMount } from "vue";
 import moment from 'moment'
 import Slider from '@vueform/slider'
 import "@vueform/slider/themes/default.css";
+// import Switches from 'vue-switches';
+import Switch from '../../inc/Switch.vue';
+import _ from 'lodash'
 
 // import { Header, Item, FilterOption } from "vue3-easy-data-table";
 import changeStatus from "../modal/changeStatus.vue";
 import vacancyUpdate from "../modal/vacancyUpdate.vue"
 import vacancyDeposit from "../modal/vacancyDeposit.vue";
+import vacancyReminder from "../modal/vacancyReminder.vue"
 export default {
     components: {
       Slider,
       changeStatus,
       vacancyUpdate,
-      vacancyDeposit
+      vacancyDeposit,
+      vacancyReminder,
+    //   Switches
+        Switch
     },
     props:{
         data: Object
     },
 
     setup(props){
+        var url = new URL( location.href)
+        const itemsSelected = ref([]);
+        var personalSelectionUrl = ref(url.origin+'/hr/selection_personal')
+        var vacancyPersonalUrl = ref(url.origin+'/hr/vacancy_personal')
+
+        var statusChangeModal = ref(false)
+        var updateModal = ref(false)
+        var depositModal = ref(false)
+        var selectionPersonalModalShow = ref(false)
+        let reminderModelShow = ref(false)
+        var statusItem = ref()
+        var item = ref()
+        var depositItem =ref()
+        let m = ref({})
+        let colspan = ref('hide')
+        let hr_id = ref(props.data.hr_id)
+        let myVacancy = ref(false)
+        let cla = ref(null)
+
+
         console.log('data',props.data.vacancy);
         const headers = ref([
             { text: "id", value: "code" },
@@ -277,8 +624,8 @@ export default {
             { text: "საჭიროება", value: "start_date", sortable: true},
             { text: "Operation", value: "operation" },
         ]);
-
-        const items = ref(props.data.vacancy)
+        let data = ref(props.data.vacancy)
+        const items = ref(data)
         // ref(makeData(props.data.vacancy));
         function makeData(params) {
             var arr = []
@@ -314,6 +661,11 @@ export default {
             });
             return arr
         }
+
+        const bodyRowClassNameFunction = ( item, number) => {
+            if (item.hr_id == hr_id.value) return 'my-vacancy-row';
+            return '';
+        };
         const showStatusFilter = ref(false);
         const showCategoryFilter = ref(false);
         const showScheduleFilter = ref(false);
@@ -369,26 +721,27 @@ export default {
         });
 
 
-        var url = new URL( location.href)
 
-        var personalSelectionUrl = ref(url.origin+'/hr/selection_personal')
-        console.log(personalSelectionUrl);
 
-        var statusChangeModal = ref(false)
-        var updateModal = ref(false)
-        var depositModal = ref(false)
-        var selectionPersonalModalShow = ref(false)
-        var statusItem = ref()
-        var item = ref()
-        var depositItem =ref()
-        // function statusChange(item) {
-        //     statusChangeModal = !statusChangeModal
-        //     console.log('statusChangeModal', statusChangeModal);
-        //     console.log('item', item);
-        // }
+        function myVacancySwitch(){
+            if (!myVacancy.value) {
+               data.value =  _.sortBy(_.filter(props.data.vacancy, function(o) { return o.hr_id == hr_id.value; }), [function(o) { return o.start_date; }]);
+            }else{
+                data.value = props.data.vacancy
+            }
+        }
+        onBeforeMount(async () => {
+            try {
+                const response = await axios.post('/get_vacancy_filter_classificatory');
+                cla.value = response.data;
+            } catch (error) {
+                console.error(error);
+            }
+        });
         return {
             headers,
             items,
+            itemsSelected,
             showStatusFilter,
             choseStatus,
             showCategoryFilter,
@@ -407,7 +760,17 @@ export default {
             depositModal,
             depositItem,
             selectionPersonalModalShow,
-            personalSelectionUrl
+            reminderModelShow,
+            personalSelectionUrl,
+            vacancyPersonalUrl,
+
+            colspan,
+            hr_id,
+            myVacancy,
+            myVacancySwitch,
+            bodyRowClassNameFunction,
+            m,
+            cla
 
             // statusChange
         };
@@ -427,53 +790,27 @@ export default {
         },
         selectionPersonalModal(item){
             this.selectionPersonalModalShow = !this.selectionPersonalModalShow
-        }
+        },
+        vacancyReminderModal(item){
+            this.reminderModelShow = !this.reminderModelShow
+            this.item = item
+        },
+        // myVacancySwitch(){
+        //     console.log('this.myVacancy', this.myVacancy);
+        // }
     }
 }
 </script>
 <style >
+    .my-vacancy-row  {
+        --easy-table-body-row-background-color: #f8b1b1;
+        --easy-table-body-row-font-color: #070707;
+    }
     .customize-table {
         --easy-table-border: 1px solid #445269;
-        /* --easy-table-row-border: 1px solid #445269; */
-
         --easy-table-header-font-size: 18px;
-         --easy-table-header-height: 50px;
-         --easy-table-body-row-font-size: 14px;
-         --easy-table-body-row-height: 50px;
-        /*--easy-table-header-font-color: #c1cad4;
-        --easy-table-header-background-color: #2d3a4f; */
-
-        /* --easy-table-header-item-padding: 10px 15px;
-
-        --easy-table-body-even-row-font-color: #fff;
-        --easy-table-body-even-row-background-color: #4c5d7a;
-
-        --easy-table-body-row-font-color: #c0c7d2;
-        --easy-table-body-row-background-color: #2d3a4f;
-        --easy-table-body-row-height: 50px;
+        --easy-table-header-height: 50px;
         --easy-table-body-row-font-size: 14px;
-
-        --easy-table-body-row-hover-font-color: #2d3a4f;
-        --easy-table-body-row-hover-background-color: #eee;
-
-        --easy-table-body-item-padding: 10px 15px;
-
-        --easy-table-footer-background-color: #2d3a4f;
-        --easy-table-footer-font-color: #c0c7d2;
-        --easy-table-footer-font-size: 14px;
-        --easy-table-footer-padding: 0px 10px;
-        --easy-table-footer-height: 50px;
-
-        --easy-table-rows-per-page-selector-width: 70px;
-        --easy-table-rows-per-page-selector-option-padding: 10px;
-        --easy-table-rows-per-page-selector-z-index: 1;
-
-
-        --easy-table-scrollbar-track-color: #2d3a4f;
-        --easy-table-scrollbar-color: #2d3a4f;
-        --easy-table-scrollbar-thumb-color: #4c5d7a;;
-        --easy-table-scrollbar-corner-color: #2d3a4f;
-
-        --easy-table-loading-mask-background-color: #2d3a4f; */
+        --easy-table-body-row-height: 50px;
     }
 </style>

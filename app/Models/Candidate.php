@@ -106,6 +106,10 @@ class Candidate extends Model
     {
         return $this->belongsToMany(Work_experience::class, 'general_work_experiences')->withPivot('experience','position_ka','position_en','position_ru', 'object_ka', 'object_en', 'object_ru',);
     }
+    public function getGeneralWorkExperience()
+    {
+        return $this->hasMany(General_work_experience::class, 'candidate_id', 'id');
+    }
     public function notice()
     {
         return $this->belongsToMany(Notice::class, 'candidate_notices');
@@ -124,7 +128,10 @@ class Candidate extends Model
     {
         return $this->belongsToMany(RecommendationFromWhom::class, 'candidate_recommendations')->withPivot('name_ka','name_en','name_ru','position_ka','position_en','position_ru', 'number', 'file', 'recommendation');
     }
-
+    public function getRecommendation()
+    {
+        return $this->hasMany(CandidateRecommendation::class, 'candidate_id', 'id');
+    }
     public function workInformation()
     {
         return $this->belongsToMany(Category::class,'work_information')->withPivot('payment','currency_id');
@@ -133,7 +140,10 @@ class Candidate extends Model
     {
         return $this->hasMany(WorkInformation::class, 'candidate_id', 'id');
     }
-
+    public function qualifyingCandidate()
+    {
+        return $this->hasMany(QualifyingCandidate::class, 'candidate_id', 'id');
+    }
     // public function vacancyInterest()
     // {
     //     return $this->hasMany(VacancyInterest::class, 'user_id', 'user_id');

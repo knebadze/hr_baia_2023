@@ -7,27 +7,108 @@ use App\Models\QualifyingCandidate;
 class AddVacancyPersonalRepository
 {
     function add($data) {
-        // dd($data);
-        $interest = new QualifyingCandidate();
-        $interest->vacancy_id = $data['vacancy_id'];
-        $interest->qualifying_type_id = $data['type']['id'];
-        $interest->candidate_id = $data['candidate_id'];
+        $qualifying = new QualifyingCandidate();
+        $qualifying->vacancy_id = $data['vacancy_id'];
+        $qualifying->qualifying_type_id = $data['type']['id'];
+        $qualifying->candidate_id = $data['candidate_id'];
         if ($data['type']['id'] == 3) {
-            $interest->interview_date = $data['interview_date'];
-            $interest->interview_place = $data['interview_place']['id'];
+            $qualifying->interview_date = $data['interview_date'];
+            $qualifying->interview_place = $data['interview_place']['id'];
         }
-        $interest->save();
-        return $interest;
+        if ($data['type']['id'] == 5) {
+            $qualifying->start_date = $data['start_date'];
+            $qualifying->end_date = $data['end_date'];
+        }
+        $qualifying->save();
+        return $qualifying;
+    }
+
+    // function addOrUpdate($data) {
+    //     // dd($data);
+    //     if ($data['type']['id'] == 3) {
+    //         $qualifying = QualifyingCandidate::updateOrCreate(
+    //             ['vacancy_id' => $data['vacancy_id'], 'candidate_id' => $data['candidate_id']],
+    //             [
+    //                 'qualifying_type_id '=> $data['type']['id'],
+    //                 'interview_date' => $data['interview_date'],
+    //                 'interview_place' => $data['interview_place']['id']
+    //             ]
+    //         );
+    //     }
+
+    //     if ($data['type']['id'] == 5) {
+    //         $qualifying = QualifyingCandidate::updateOrCreate(
+    //             ['vacancy_id' => $data['vacancy_id'], 'candidate_id' => $data['candidate_id']],
+    //             [
+    //                 'qualifying_type_id '=> $data['type']['id'],
+    //                 'start_date' => $data['start_date'],
+    //                 'end_date' => $data['end_date'],
+    //             ]
+    //         );
+    //     }
+    //     // dd($data['type']['id']);
+    //     $qualifying = QualifyingCandidate::updateOrCreate(
+    //         ['vacancy_id' => $data['vacancy_id'], 'candidate_id' => $data['candidate_id']],
+    //         [
+    //             'qualifying_type_id '=> $data['type']['id']
+    //         ]
+    //     );
+    //     return $qualifying;
+    // }
+    function addArr($data) {
+        foreach ($data['candidate_id'] as $key => $value) {
+            $qualifying = new QualifyingCandidate();
+            $qualifying->vacancy_id = $data['vacancy_id'];
+            $qualifying->qualifying_type_id = $data['type']['id'];
+            $qualifying->candidate_id = $value;
+            if ($data['type']['id'] == 3) {
+                $qualifying->interview_date = $data['interview_date'];
+                $qualifying->interview_place = $data['interview_place']['id'];
+            }
+            $qualifying->save();
+
+        }
+        return $qualifying;
     }
 
     function update($data) {
-        $interest = QualifyingCandidate::where('candidate_id', $data['candidate_id'])->where('vacancy_id', $data['vacancy_id'])->first();
-        $interest->qualifying_type_id = $data['type']['id'];
+        $qualifying = QualifyingCandidate::where('candidate_id', $data['candidate_id'])->where('vacancy_id', $data['vacancy_id'])->first();
+        $qualifying->qualifying_type_id = $data['type']['id'];
         if ($data['type']['id'] == 3) {
-            $interest->interview_date = $data['interview_date'];
-            $interest->interview_place = $data['interview_place']['id'];
+            $qualifying->interview_date = $data['interview_date'];
+            $qualifying->interview_place = $data['interview_place']['id'];
         }
-        $interest->save();
-        return $interest;
+        if ($data['type']['id'] == 5) {
+            $qualifying->start_date = $data['start_date'];
+            $qualifying->end_date = $data['end_date'];
+        }
+        $qualifying->update();
+        return $qualifying;
     }
+    function updateArr($data) {
+        foreach ($data['candidate_id'] as $key => $value) {
+            $qualifying = QualifyingCandidate::where('candidate_id', $value)->where('vacancy_id', $data['vacancy_id'])->first();
+            $qualifying->qualifying_type_id = $data['type']['id'];
+            if ($data['type']['id'] == 3) {
+                $qualifying->interview_date = $data['interview_date'];
+                $qualifying->interview_place = $data['interview_place']['id'];
+            }
+            if ($data['type']['id'] == 5) {
+                $qualifying->start_date = $data['start_date'];
+                $qualifying->end_date = $data['end_date'];
+            }
+            $qualifying->update();
+        }
+
+        return $qualifying;
+    }
+    function delete($data) {
+        if (gettype($data['candidate_id']) == 'array') {
+            $qualifying = QualifyingCandidate::whereIn('candidate_id', $data['candidate_id'])->where('vacancy_id', $data['vacancy_id'])->delete();
+            return $qualifying;
+        }
+        $qualifying = QualifyingCandidate::where('candidate_id', $data['candidate_id'])->where('vacancy_id', $data['vacancy_id'])->delete();
+        return $qualifying;
+    }
+
 }

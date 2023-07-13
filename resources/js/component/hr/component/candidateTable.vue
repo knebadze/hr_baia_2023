@@ -1,18 +1,35 @@
 <template lang="">
+    <div v-if="itemsSelectedButton" class="d-flex justify-content-end mb-2">
+        <button class="btn btn-info btn-sm" @click="showModal(item)">
+            <i class="fa fa-plus"></i> დამატება
+        </button>
+    </div>
     <EasyDataTable
+        v-model:items-selected="itemsSelected"
         buttons-pagination
         :headers="headers"
         :items="items"
         table-class-name="customize-table"
+        :body-row-class-name="bodyRowClassNameFunction"
         border-cell
 
     >
     <!-- :filter-options="filterOptions" -->
     <template #item-operation="item">
-       <div class="operation-wrapper">
-        <button class="btn btn-info btn-sm" @click="showModal(item)">
-            <i class="fa fa-plus"></i> დამატება
-        </button>
+       <div class="operation-wrapper d-flex" >
+        <div>
+            <span class="badge badge-pill bg-indigo  p-2 mr-1" :class="badgeClass" title="კანდიდატი უკვე დამატებულია ვაკანსიაზე"> <i class="fa fa-check"></i></span>
+        </div>
+
+        <div v-if="!itemsSelectedButton">
+            <button class="btn btn-info btn-sm" @click="showModal(item)" >
+                <i class="fa fa-plus"></i> დამატება
+            </button>
+            <button class="btn btn-success btn-sm ml-1" @click="showModal(item)" >
+                <i class="fa fa-envelope"></i> sms
+            </button>
+        </div>
+
       </div>
     </template>
         <template #expand="item">
@@ -153,6 +170,24 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-12 ">
+                            <hr>
+                            <h6>რეკომენდაცია</h6>
+                            <hr>
+                            <div class='row'>
+                                <div v-for="(i, index) in item.recommendation" :key="index" class="col-md-6">
+                                    <dl class="row border">
+                                        <dt class="col-sm-4">სახელი გვარი :</dt>
+                                        <dd class="col-sm-8"> {{ i.pivot.name_ka }}</dd>
+                                        <dt class="col-sm-4">ნომერი:</dt>
+                                        <dd class="col-sm-8"> {{ i.pivot.number }}</dd>
+                                        <!-- <dt class="col-sm-4">სტაჟი:</dt>
+                                        <dd class="col-sm-8"> {{ i.name_ka }}</dd> -->
+
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
 
 
                     </div>
@@ -247,8 +282,7 @@
         </template> -->
     </EasyDataTable>
 
-
-     <addPersonalVacancy  :visible="statusChangeModal" :item="modalItem"></addPersonalVacancy>
+     <addPersonalVacancy  :visible="showAddPersonalModal" :item="modalItem"></addPersonalVacancy>
 </template>
 <script>
 import { ref, computed } from "vue";
@@ -256,7 +290,7 @@ import moment from 'moment'
 import Slider from '@vueform/slider'
 import "@vueform/slider/themes/default.css";
 import addPersonalVacancy from "../modal/addPersonalVacancy.vue";
-
+import _ from 'lodash'
 // import { Header, Item, FilterOption } from "vue3-easy-data-table";
 
 export default {
@@ -265,11 +299,20 @@ export default {
       addPersonalVacancy,
     },
     props:{
-        data: Object
+        data: Object,
+        vacancy: Object
     },
 
     setup(props){
-        console.log('data',props.data);
+        console.log('candidate data',props.data);
+        //variable
+        const itemsSelected = ref([]);
+        let itemsSelectedButton = ref(false)
+        let showAddPersonalModal = ref(false)
+        let badgeClass = ref('')
+        // let statusChangeModal = ref(false)
+        let modalItem = ref()
+
         const headers = ref([
             { text: "id", value: "id" },
             { text: "სახელი გვარი", value: "user.name_ka"},
@@ -281,27 +324,39 @@ export default {
             { text: "Operation", value: "operation" },
         ]);
 
-        // console.log('data',props.data);
-        const items = ref(props.data.candidate);
-        // ref(props.data)
-        // ref(makeData(props.data.vacancy));
+
+        const items = ref(makeData(('candidate' in props.data)?props.data.candidate:props.data));
+        // console.log(props.data);
         function makeData(params) {
-            var arr = []
-            console.log('params',params);
-            params.forEach(element => {
+            // console.log();
+            params.forEach((element, key) => {
                 console.log('element', element);
-                var data = {
-                    'id': element.id,
-                    'name': element.user.name_ka,
-                    'number':element.user.number,
-                    // 'status':element.status.name_ka,
-                    'personal_number':element.personal_number,
-                    'created_at':moment(element.created_at).format("YYYY-MM-DD HH:mm"),
-                }
-                arr.push(data)
+                params[key].created_at = moment(element.created_at).format("YYYY-MM-DD HH:mm")
             });
-            return arr
+            return params
         }
+
+        const bodyRowClassNameFunction = ( item, number) => {
+            let find = _.find(item.qualifying_candidate, function(o) { return o.vacancy_id == props.data.vacancy.vacancy_id  })
+            if (find) {
+                badgeClass = 'bg-indigo'
+                return 'my-vacancy-row'
+            }else if (!find && _.find(item.qualifying_candidate, function(o) { return o.qualifying_type_id == 6 && (o.vacancy.status == 3 || o.vacancy.status == 4)})) {
+                return 'was-employed'
+            }else if (!find && _.find(item.qualifying_candidate, function(o) { return o.qualifying_type_id == 5 && o.vacancy.status == 2})) {
+                return 'probationary-period'
+            }else if (!find && _.find(item.qualifying_candidate, function(o) { return o.qualifying_type_id == 4 && o.vacancy.status == 2})) {
+                return 'employer-approved'
+            }else if (!find && _.find(item.qualifying_candidate, function(o) { return o.qualifying_type_id == 3 && o.vacancy.status == 2})) {
+                return 'interviewer'
+            }
+        };
+        console.log(badgeClass.value);
+        // console.log('itemsSelected.value.length',itemsSelected.value.length);
+        // if (itemsSelected.value.length > 0) {
+        //     console.log('itemsSelected.value.length',itemsSelected.value.length);
+        // }
+
         // const showStatusFilter = ref(false);
         // const showCategoryFilter = ref(false);
         // const showScheduleFilter = ref(false);
@@ -362,9 +417,7 @@ export default {
         // var personalSelectionUrl = ref(url.origin+'/hr/selection_personal')
         // console.log(personalSelectionUrl);
 
-        let showModal = ref(false)
-        let statusChangeModal = ref(false)
-        let modalItem = ref()
+
         return {
             headers,
             items,
@@ -379,21 +432,60 @@ export default {
             // showIdFilter,
             // choseId,
             // filterOptions,
-            statusChangeModal,
-            showModal,
+            itemsSelected,
+            itemsSelectedButton,
+            // statusChangeModal,
+            showAddPersonalModal,
             modalItem,
+            badgeClass,
+            bodyRowClassNameFunction
         };
     },
     methods:{
         showModal(item){
-            this.statusChangeModal = !this.statusChangeModal
-            this.modalItem = this.data.vacancy
-            this.modalItem['candidate_id'] = item.id
+            this.showAddPersonalModal = !this.showAddPersonalModal
+            this.modalItem = (this.vacancy)?this.vacancy:this.data.vacancy
+            this.modalItem['candidate_id'] = (this.itemsSelected.length > 0)?this.itemsSelected.map(({ id }) => id):item.id
+        },
+    },
+    watch:{
+        itemsSelected: {
+            handler(newValue, oldValue) {
+
+                if (newValue.length > 0) {
+                    this.itemsSelectedButton = true
+                }else{
+                    this.itemsSelectedButton = false
+                }
+                console.log('newValue', newValue);
+
+            },
+            deep: true
         },
     }
 }
 </script>
 <style >
+    .my-vacancy-row  {
+        --easy-table-body-row-background-color: #befdc1;
+        --easy-table-body-row-font-color: #070707;
+    }
+    .was-employed{
+        --easy-table-body-row-background-color: #cc8b8e;
+        --easy-table-body-row-font-color: #070707;
+    }
+    .probationary-period{
+        --easy-table-body-row-background-color: #cfb0e6 ;
+        --easy-table-body-row-font-color: #070707;
+    }
+    .employer-approved{
+        --easy-table-body-row-background-color: #ffdab9 ;
+        --easy-table-body-row-font-color: #070707;
+    }
+    .interviewer{
+        --easy-table-body-row-background-color: #f5f5dc  ;
+        --easy-table-body-row-font-color: #070707;
+    }
     .customize-table {
         --easy-table-border: 1px solid #445269;
         /* --easy-table-row-border: 1px solid #445269; */

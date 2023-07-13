@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('vacancy_reminders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('vacancy_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('hr_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->dateTime('date');
             $table->string('reason', 500);
             $table->timestamps();

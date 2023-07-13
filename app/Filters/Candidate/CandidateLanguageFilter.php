@@ -2,15 +2,14 @@
 
 namespace App\Filters\Candidate;
 
+use App\Models\Candidate;
+
 class CandidateLanguageFilter
 {
     function __invoke($query, $request)
     {
-        $ids = [];
-        foreach ($request as $key => $value) {
-            $ids[] = $value['id'];
-        }
-        $query->whereHas('languages', function ($query) use ( $ids ) {
+        $ids = collect($request)->pluck('id')->toArray();
+        $query->whereHas('getLanguage', function ($query) use ( $ids ) {
             return $query->whereIn('language_id', $ids );
         });
 

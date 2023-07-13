@@ -4,9 +4,12 @@ namespace App\Repositories\Vacancy;
 
 use App\Models\Vacancy;
 use App\Models\Employer;
+use App\Models\Hr;
 use App\Models\VacancyDemand;
 use App\Models\VacancyDeposit;
+use App\Models\VacancyReminder;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class VacancyUpdateRepository
 {
@@ -115,10 +118,25 @@ class VacancyUpdateRepository
     }
 
     function updateStatus($data) {
+
         $id = $data['id'];
         $vacancy = Vacancy::findOrFail($id);
         $vacancy->status_id = $data['status']['id'];
         $vacancy->status_change_reason = $data['status_change_reason'];
         $vacancy->update();
+        if ($data['status']['id'] == 6) {
+            $data['reminder']['vacancy_id'] = $vacancy->id;
+            $this->addReminder($data['reminder']);
+        }
+    }
+    function addReminder( $data) {
+        $reminder = new VacancyReminder();
+        $reminder->vacancy_id = $data['vacancy_id'];
+        $auth = Auth::id();
+        $hr = Hr::where('user_id', $auth)->select('id')->first();
+        $reminder->hr_id  = $hr->id;
+        $reminder->date = $data['date'];
+        $reminder->reason = $data['reason'];
+        $reminder->save();
     }
 }

@@ -9,29 +9,31 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\TermsController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\VacancyController;
 use App\Http\Controllers\admin\HrController;
 use App\Http\Controllers\CandidateController;
-use App\Http\Controllers\ContactController;
+
+use App\Http\Controllers\JobDetailController;
+
 
 use App\Http\Controllers\MyprofileController;
-
-
 use App\Http\Controllers\MyVacancyController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Auth\SocialController;
 use App\Http\Controllers\MapvacancieController;
 use App\Http\Controllers\User\ResumeController;
+use App\Http\Controllers\HR\HrVacancyController;
 use App\Http\Controllers\CandidateInfoController;
+use App\Http\Controllers\VacancyActionController;
+use App\Http\Controllers\GetVacancyInfoController;
 use App\Http\Controllers\User\PostVacancyController;
 use App\Http\Controllers\User\UserProfileController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Admin\AdminCandidateController;
+use App\Http\Controllers\Hr\SelectionPersonalController;
 use App\Http\Controllers\Employer\EmployerInfoController;
 use App\Http\Controllers\Candidate\WorkInformationController;
-use App\Http\Controllers\JobDetailController;
-use App\Http\Controllers\HR\HrVacancyController;
-use App\Http\Controllers\Hr\SelectionPersonalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -115,6 +117,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     // _______________________HR PAGE________________________________
     Route::get('hr/hr_vacancy', [HrVacancyController::class, 'index'])->name('hr.vacancy');
     Route::get('hr/selection_personal/{id?}', [SelectionPersonalController::class, 'index'])->name('selection.personal');
+    Route::get('hr/vacancy_personal/{id?}', [SelectionPersonalController::class, 'vacancyPersonal'])->name('vacancy.personal');
 
     //_______________________USER REQUEST_____________________________
     Route::post('upload_avatar', [MyprofileController::class, 'store']);
@@ -158,9 +161,13 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     // ________________VACANCY REQUEST__________________________________
 
     Route::post('add_vacancy', [PostVacancyController::class, 'store']);
-    Route::post('update_vacancy', [PostVacancyController::class, 'update']);
-    Route::post('update_vacancy_deposit', [PostVacancyController::class, 'updateDeposit']);
-    Route::post('update_vacancy_status', [PostVacancyController::class, 'updateStatus']);
+
+    Route::post('update_vacancy', [VacancyActionController::class, 'update']);
+    Route::post('update_vacancy_deposit', [VacancyActionController::class, 'updateDeposit']);
+    Route::post('update_vacancy_status', [VacancyActionController::class, 'updateStatus']);
+    Route::post('/add_reminder_vacancy', [VacancyActionController::class, 'addReminder']);
+
+
     Route::get('vacancy_data', [VacancyController::class, 'data']);
     Route::post('vacancy_filter', [VacancyController::class, 'filter']);
     Route::post('/interest_vacancy', [VacancyController::class, 'interest']);
@@ -173,8 +180,12 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('/do_not_like_candidate', [MyVacancyController::class, 'doNotLike']);
     Route::post('/like_candidate', [MyVacancyController::class, 'like']);
 
-    Route::post('/get_classificatory', [HrVacancyController::class, 'getClassificatory']);
-    Route::post('/get_status_change_info', [HrVacancyController::class, 'statusChangeInfo']);
+    Route::post('/get_classificatory', [GetVacancyInfoController::class, 'getClassificatory']);
+    Route::post('/get_vacancy_filter_classificatory', [GetVacancyInfoController::class, 'getVacancyFilterClassificatory']);
+    Route::post('/get_status_change_info', [GetVacancyInfoController::class, 'statusChangeInfo']);
+    Route::post('/get_reminder_info', [GetVacancyInfoController::class, 'getReminderInfo']);
+
+
 
 
 
@@ -185,3 +196,4 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('/get_add_personal_info', [SelectionPersonalController::class, 'addPersonalInfo']);
     Route::post('/add_vacancy_personal', [SelectionPersonalController::class, 'addPersonal']);
     Route::post('/update_vacancy_personal', [SelectionPersonalController::class, 'updatePersonal']);
+    Route::post('/delete_vacancy_personal', [SelectionPersonalController::class, 'deletePersonal']);

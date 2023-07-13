@@ -9,7 +9,7 @@ class CandidateFilters
         'number' => CandidateNumberFilter::class,
         'personal_number' => CandidatePersonalNumberFilter::class,
         // 'address' => CandidateAddressFilter::class,
-        // 'age' => '',
+        'age' => CandidateAgeFilter::class,
         'height' => CandidateHeightFilter::class,
         'weight' => CandidateWeightFilter::class,
         'gender' => CandidateGenderFilter::class,
@@ -19,25 +19,25 @@ class CandidateFilters
         'education' => CandidateEducationFilter::class,
         'profession' => CandidateProfessionFilter::class,
         'specialty' => CandidateSpecialtyFilter::class,
-        // 'language' => CandidateLanguageFilter::class,
-        // 'language_level' => CandidateLanguageLevelFilter::class,
+        'language' => CandidateLanguageFilter::class,
+        'language_level' => CandidateLanguageLevelFilter::class,
         'drivingLicense' => CandidateDriverLicenseFilter::class,
         'allergy' => CandidateAllergyFilter::class,
-        // 'characteristic' => CandidateCharacteristicFilter::class,
-        // 'maritalStatus' => CandidateMaritalStatusFilter::class,
+        'characteristic' => CandidateCharacteristicFilter::class,
+        'maritalStatus' => CandidateMaritalStatusFilter::class,
         'children' => CandidateChildrenFilter::class,
-        // 'category' => CandidateCategoryFilter::class,
-        // 'work_schedule' => CandidateWorkScheduleFilter::class,
-        // 'payment' => CandidatePaymentFilter::class,
+        'category' => CandidateCategoryFilter::class,
+        'work_schedule' => CandidateWorkScheduleFilter::class,
+        'payment' => CandidatePaymentFilter::class,
         'go_vacation' => CandidateGoVacationFilter::class,
-        // 'stay_night' => CandidateStayNightFilter::class,
-        // 'work_additional_hours' => CandidateWorkAdditionalHoursFilter::class,
+        'stay_night' => CandidateStayNightFilter::class,
+        'work_additional_hours' => CandidateWorkAdditionalHoursFilter::class,
         'convection' => CandidateConvectionFilter::class,
         'smoke' => CandidateSmokeFilter::class,
         'work_abroad' => CandidateWorkAbroadFilter::class,
-        // 'has_general_work_experience' => '',
-        // 'has_family_work_experience' => '',
-        // 'has_recommendation' => '',
+        'has_general_work_experience' => CandidateHasGeneralWorkExperienceFilter::class,
+        'has_family_work_experience' => CandidateHasFamilyWorkExperienceFilter::class,
+        'has_recommendation' => CandidateHasRecommendationFilter::class,
 
     ];
 
@@ -46,7 +46,7 @@ class CandidateFilters
         foreach ($this->receivedFilters() as $name => $value) {
             if ($value) {
                 $filterInstance = new $this->filters[$name];
-                $query = $filterInstance($query, $value);
+                $filterInstance($query, $value);
             }
         }
         return $query;
