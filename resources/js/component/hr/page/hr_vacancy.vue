@@ -564,7 +564,7 @@
     <vacancyReminder :visible="reminderModelShow" :item="item"></vacancyReminder>
 </template>
 <script>
-import { ref, computed, onBeforeCreate, onBeforeMount } from "vue";
+import { ref, computed } from "vue";
 import moment from 'moment'
 import Slider from '@vueform/slider'
 import "@vueform/slider/themes/default.css";
@@ -730,14 +730,14 @@ export default {
                 data.value = props.data.vacancy
             }
         }
-        onBeforeMount(async () => {
-            try {
-                const response = await axios.post('/get_vacancy_filter_classificatory');
-                cla.value = response.data;
-            } catch (error) {
-                console.error(error);
-            }
-        });
+        // onBeforeMount(async () => {
+        //     try {
+        //         const response = await axios.post('/get_vacancy_filter_classificatory');
+        //         cla.value = response.data;
+        //     } catch (error) {
+        //         console.error(error);
+        //     }
+        // });
         return {
             headers,
             items,
