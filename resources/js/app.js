@@ -38,6 +38,9 @@ import modalManager from './component/modal/modalManager.vue'
 import hrTable from './component/admin/hr/hr_table.vue'
 import candidateTable from './component/admin/candidate/candidate_table.vue'
 
+// ___________________PAGE_____________________
+import busyCandidate from './component/page/busy_candidate.vue'
+
 //_______________________VUE ITEM____________________
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
@@ -53,6 +56,8 @@ import withUUID from "vue-uuid";
 //Vue3EasyDataTable
 import Vue3EasyDataTable from 'vue3-easy-data-table';
 import 'vue3-easy-data-table/dist/style.css';
+
+import Popper from "vue3-popper";
 
 
 
@@ -90,10 +95,15 @@ app.component('modal-manager', modalManager);
 app.component('hr-table', hrTable)
 app.component('candidate-table', candidateTable)
 
+// __________________PAGE_____________
+app.component('busy-candidate', busyCandidate)
+
 
 app.component('multiselect', Multiselect)
 
 app.component('EasyDataTable', Vue3EasyDataTable);
+
+app.component("Popper", Popper);
 
 app.use(i18nVue
     , {

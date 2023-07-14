@@ -40,6 +40,14 @@
                     </p>
                 </a>
             </li>
+            <li class="nav-item">
+                <a @if(Route::currentRouteName() === 'busy.candidate') class="nav-link active" @else class="nav-link" @endif href="{{ route('busy.candidate', App()->getLocale()) }}">
+                    <i class="nav-icon fa fa-users"></i>
+                    <p>
+                        ჩემი კანდიდადეტი
+                    </p>
+                </a>
+            </li>
 
           {{-- <li class="nav-item">
             <a href="#" @if(Route::currentRouteName() === 'admin.hr') class="nav-link active" @else class="nav-link" @endif>

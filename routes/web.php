@@ -31,6 +31,7 @@ use App\Http\Controllers\User\PostVacancyController;
 use App\Http\Controllers\User\UserProfileController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Admin\AdminCandidateController;
+use App\Http\Controllers\BusyCandidateController;
 use App\Http\Controllers\Hr\SelectionPersonalController;
 use App\Http\Controllers\Employer\EmployerInfoController;
 use App\Http\Controllers\Candidate\WorkInformationController;
@@ -118,6 +119,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::get('hr/hr_vacancy', [HrVacancyController::class, 'index'])->name('hr.vacancy');
     Route::get('hr/selection_personal/{id?}', [SelectionPersonalController::class, 'index'])->name('selection.personal');
     Route::get('hr/vacancy_personal/{id?}', [SelectionPersonalController::class, 'vacancyPersonal'])->name('vacancy.personal');
+    Route::get('hr/busy_candidate', [BusyCandidateController::class, 'index'])->name('busy.candidate');
 
     //_______________________USER REQUEST_____________________________
     Route::post('upload_avatar', [MyprofileController::class, 'store']);
