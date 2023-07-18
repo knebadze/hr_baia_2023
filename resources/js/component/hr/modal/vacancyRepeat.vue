@@ -4,16 +4,33 @@
         <div class="modal-dialog modal-dialog-centered modal-xl " role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title" id="exampleModalLongTitle">რედაქტირება</h6>
+                    <h6 class="modal-title" id="exampleModalLongTitle">გამეორება</h6>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="hide()">X</button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-6">
-                            <label for="exampleInputEmail1">სახელი გვარი</label>
-                            <input class="form-control" v-model="m[`name_${getLang}`]" type="text" :placeholder="$t('lang.employer_add_job_vacancy_name_placeholder')">
+                        <!-- <div class="col-6">
+                            <label for="exampleInputEmail1">გამეორების დრო</label>
+                            <input class="form-control" v-model="m.repeat_date" type="dateTime-local" disabled>
                         </div>
                         <div class="col-6">
+                            <label for="exampleInputEmail1">გამეორებული ვაკანსიის სტატუსი</label>
+                            <div class="ls-inputicon-box">
+                                <multiselect v-model="m.status" :options="cla.status" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" :placeholder="$t('lang.employer_add_job_select')"  :searchable="true" :allow-empty="false" disabled>
+                                    <template slot="singleLabel" slot-scope="{ option }"></template>
+                                </multiselect>
+                            </div>
+                        </div> -->
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label><span class="text-danger">* </span> გამეორების მიზეზი</label>
+                                <div class="ls-inputicon-box">
+                                    <textarea class="form-control" :class="(!m.repeat_reason)?'border border-danger':''" v-model="m.repeat_reason" type="text" placeholder="აუცილებლად შესავსები!!! ჩაწერეთ გამეორების მიზეზი" rows="3"></textarea>
+                                    <!-- <span v-if="v$.m.candidate.personal_number.required.$invalid && v$.m.candidate.personal_number.$dirty" style='color:red'>* {{ v$.m.candidate.personal_number.required.$message}}</span> -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="col-6">
                             <label>მაილი</label>
                             <input class="form-control" v-model="m.email" type="email" placeholder="employer@gmail.com">
                         </div>
@@ -28,14 +45,13 @@
                                         <li v-for="item in cla.numberCode" @click="chooseNumberCode(item)"><a class="dropdown-item"><span :class="`fi fi-${item.iso.toLowerCase()}`"></span>+{{ item.phonecode }}</a></li>
                                     </ul>
                                 </div>
-                            <!-- /btn-group -->
                             <input type="text" class="form-control" aria-label="Text input with dropdown button" v-model="m.number" placeholder="555666777" onkeypress="return /[0-9]/i.test(event.key)" >
                             </div>
                         </div>
                         <div class="col-6">
                             <label for="exampleInputEmail1">მისამართი</label>
                             <input class="form-control" v-model="m[`address_${getLang}`]" type="text" >
-                        </div>
+                        </div> -->
                     </div>
                     <div class=" p-a20 my-3">
                         <h6 class=" m-a0"><i class="fa fa-info"></i> ძირითადი ინფორმაცია</h6>
@@ -138,7 +154,7 @@
                             <div class="form-group">
                                 <label><span class="text-danger">* </span>{{ $t('lang.employer_add_job_when_need') }}</label>
                                 <div class="ls-inputicon-box">
-                                    <input class="form-control" v-model="m.start_date" type="date" placeholder="" >
+                                    <input class="form-control" :class="(!m.start_date)?'border border-danger':''" v-model="m.start_date" type="date" placeholder="" >
                                 </div>
                             </div>
                         </div>
@@ -270,20 +286,20 @@
                     <div class="row">
                         <div class="col-xl-4 col-lg-6 col-md-12">
                             <div class="form-group">
-                                <label>{{ $t('გასაუბრების თარიღი') }}</label>
+                                <label>{{ $t('გასაუბრების დრო') }}</label>
                                 <div class="ls-inputicon-box">
-                                    <input class="form-control" v-model="m.interviewDate"  type="date"  >
+                                    <input class="form-control" v-model="m.interview_date"  type="dateTime-local"  :class="(!m.interview_date)?'border border-danger':''">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-4 col-lg-6 col-md-12">
+                        <!-- <div class="col-xl-4 col-lg-6 col-md-12">
                             <div class="form-group">
                                 <label>{{ $t('გასაუბრების დრო') }}</label>
                                 <div class="ls-inputicon-box">
                                     <input class="form-control" v-model="m.interviewTime"  type="time"  >
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="col-xl-4 col-lg-6 col-md-12">
                             <div class="form-group">
                                 <label>{{ $t('გასაუბრების ადგილი') }}</label>
@@ -298,7 +314,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" @click="hide()" ><i class=""></i>გაუქმება</button>
-                    <button type="button" class="btn btn-success" @click.prevent="save()" ><i class=""></i>შენახვა</button>
+                    <button type="button" class="btn btn-success" @click.prevent="save()" ><i class=""></i>გამეორება</button>
                 </div>
             </div>
         </div>
@@ -308,6 +324,7 @@
   import { toast } from 'vue3-toastify';
   import 'vue3-toastify/dist/index.css';
   import _ from 'lodash'
+  import moment from 'moment'
   export default {
         props:{
             visible: Boolean,
@@ -338,7 +355,7 @@
             async show(){
                 try {
                     let result = await this.getClassificatory();
-                    // console.log('result', result);
+                    console.log('result', result);
                     this.classificatory = {...result.data}
                     this.cla = result.data
                     let item = this.item
@@ -366,6 +383,12 @@
 
             },
             makeModel(item){
+                let cla = this.classificatory
+                // item.status = _.find(cla.status, function(o) { return o.id == 1; });
+                // item.repeat_date = moment().format("YYYY-MM-DD HH:mm")
+                item.start_date = null
+                item.interview_date = null
+                item.repeat_reason = null
                 this.numberCode.phonecode = item.employer.number_code.phonecode
                 item.number_code = item.employer.number_code
                 this.numberCode.iso = item.employer.number_code.iso
@@ -397,9 +420,9 @@
                 item.additional_duty_ka = item.demand.additional_duty_ka
                 item.additional_duty_en = item.demand.additional_duty_en
                 item.additional_duty_ru = item.demand.additional_duty_ru
-                var splitData = item.interview_date.split(" ")
-                item.interviewDate = splitData[0]
-                item.interviewTime = splitData[1]
+                // var splitData = item.interview_date.split(" ")
+                // item.interviewDate = splitData[0]
+                // item.interviewTime = splitData[1]
                 item.lang = this.getLang
                 return {...item}
             },
@@ -415,29 +438,29 @@
             // save(){
             //     this.forItem(this.m)
             // },
-            forItem(item){
-                var editedFields = {}
-                for (const field in item) {
-                    if ( item[field] !== this.item[field] ) {
-                            editedFields[field] = this.item[field]
-                    }
-                }
-                // console.log('this.editedFields', this.editedFields);
-                return editedFields
-            },
+            // forItem(item){
+            //     var editedFields = {}
+            //     for (const field in item) {
+            //         if ( item[field] !== this.item[field] ) {
+            //                 editedFields[field] = this.item[field]
+            //         }
+            //     }
+            //     // console.log('this.editedFields', this.editedFields);
+            //     return editedFields
+            // },
             save(){
-                if (this.m.title_ka == null || this.m.vacancy_for_who_need == null) {
+                if (this.m.title_ka == null || this.m.vacancy_for_who_need == null ) {
                     toast.error("აუცილებელია გაწითლებული ველების შევსება", {
                         theme: 'colored',
                         autoClose: 1000,
                     });
                     return;
                 }
-                var editedFields = this.forItem(this.m)
-                console.log('editedFields',editedFields);
+                // var editedFields = this.forItem(this.m)
+                // console.log('editedFields',editedFields);
                 let currentObj = this
                 this.$swal({
-                    title: 'ნამდვილად გსურთ ვაკანსიის რედაქტირება?',
+                    title: 'ნამდვილად გსურთ ვაკანსიის გამეორება?',
                     //   showDenyButton: true,
                     cancelButtonText:'არა',
                     confirmButtonText: 'კი',
@@ -445,15 +468,15 @@
                 }).then((result) => {
                 /* Read more about isConfirmed, isDenied below */
                     if (result.isConfirmed) {
-                        axios.post('/update_vacancy' ,{
-                            data: {'model':this.m, 'edit': editedFields},
+                        axios.post('/repeat_vacancy' ,{
+                            data: this.m,
                         })
                         .then(function (response) {
                             // handle success
                             // console.log(response.data);
                             if (response.status == 200) {
                                 currentObj.hide()
-                                toast.success("წარმატებით დარედაქტირდა", {
+                                toast.success("წარმატებით დაემატა", {
                                     theme: 'colored',
                                     autoClose: 1000,
                                 });

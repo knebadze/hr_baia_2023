@@ -117,6 +117,18 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-xl-4 col-lg-6 col-md-12" v-if="m.vacancy.category_id.id == 7">
+                                <div class="form-group">
+                                    <label>მართვის მოწმობა </label>
+                                    <div class="ls-inputicon-box">
+                                        <multiselect v-model="m.demand.driving_license"  :options="cla.drivingLicense" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" :placeholder="$t('lang.employer_add_job_select')" label="name" track-by="name" :preselect-first="false" >
+                                            <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                        </multiselect>
+                                        <!-- <span v-if="v$.m.familyWorkedSelected.required.$invalid && v$.m.familyWorkedSelected.$dirty" style='color:red'>* {{ v$.m.candidateFamilyWorkSkill.required.$message}}</span> -->
+                                    </div>
+
+                                </div>
+                            </div>
                             <div class="col-xl-4 col-lg-6 col-md-12">
                                 <div class="form-group">
                                     <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_work_schedule_title') }}</label>
@@ -291,7 +303,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-xl-6 col-lg-6 col-md-12">
+                            <div class="col-xl-4 col-lg-6 col-md-12">
                                 <div class="form-group">
                                     <label>{{ $t('lang.employer_add_job_general_character') }}</label>
                                     <div class="ls-inputicon-box">
@@ -302,11 +314,23 @@
                                 </div>
                             </div>
 
-                            <div class="col-xl-6 col-lg-6 col-md-12">
+                            <div class="col-xl-4 col-lg-6 col-md-12">
                                 <div class="form-group">
                                     <label>{{ $t('lang.employer_add_job_duties') }}</label>
                                     <div class="ls-inputicon-box">
                                         <multiselect v-model="m.duty"  :options="cla.duty" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" :placeholder="$t('lang.employer_add_job_select')" label="name_ka" track-by="name_ka" :preselect-first="false" >
+                                            <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                        </multiselect>
+                                        <!-- <span v-if="v$.m.familyWorkedSelected.required.$invalid && v$.m.familyWorkedSelected.$dirty" style='color:red'>* {{ v$.m.candidateFamilyWorkSkill.required.$message}}</span> -->
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-12" v-if="m.vacancy.category_id.id != 7">
+                                <div class="form-group">
+                                    <label>მართვის მოწმობა </label>
+                                    <div class="ls-inputicon-box">
+                                        <multiselect v-model="m.demand.driving_license"  :options="cla.drivingLicense" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" :placeholder="$t('lang.employer_add_job_select')" label="name" track-by="name" :preselect-first="false" >
                                             <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                                         </multiselect>
                                         <!-- <span v-if="v$.m.familyWorkedSelected.required.$invalid && v$.m.familyWorkedSelected.$dirty" style='color:red'>* {{ v$.m.candidateFamilyWorkSkill.required.$message}}</span> -->
@@ -321,6 +345,18 @@
                                     <textarea class="form-control" v-model="m.demand[`additional_duty_${getLang}`]" type="text" placeholder="" rows="3"></textarea>
                                 </div>
                             </div>
+                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                    <div class=" form-check">
+                                        <input type="checkbox" class="form-check-input" id="exampleCheck1" value="1" v-model="m.demand.has_experience">
+                                        <label class="form-check-label" for="exampleCheck1">გამოცდილების ქონა სავალდებულოა</label>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-6 col-md-12">
+                                    <div class=" form-check">
+                                        <input type="checkbox" class="form-check-input" id="exampleCheck2" value="1" v-model="m.demand.has_recommendation">
+                                        <label class="form-check-label" for="exampleCheck1">რეკომენდაციის ქონა სავალდებულოა</label>
+                                    </div>
+                                </div>
 
                             <div class="panel-heading wt-panel-heading p-a20 my-3">
                                 <h4 class="panel-tittle m-a0"><i class="fa fa-suitcase"></i> გასაუბრება</h4>

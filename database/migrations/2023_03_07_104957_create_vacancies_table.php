@@ -38,10 +38,10 @@ return new class extends Migration
             $table->boolean('go_vacation')->default(0);
             $table->boolean('stay_night')->default(0);
             $table->boolean('work_additional_hours')->default(0);
-            $table->dateTime('interview_date');
-            $table->foreignId('interview_place_id')->constrained();
+            $table->dateTime('interview_date')->nullable();
+            $table->foreignId('interview_place_id')->nullable()->constrained();
             $table->integer('view')->default(0);
-            $table->dateTime('repeat_date')->nullable();
+            $table->dateTime('carry_in_head_date');
             $table->timestamps();
             $table->foreign('author_id')
             ->references('id')->on('employers')->onUpdate('cascade')->onDelete('cascade');

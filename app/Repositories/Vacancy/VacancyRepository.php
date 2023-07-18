@@ -70,7 +70,7 @@ class VacancyRepository{
         $vacancy->comment = $data['vacancy']['comment'];
         $dateTime = Carbon::createFromTimestamp(strtotime($data['interviewDate'] . $data['interviewTime']));
         $vacancy->interview_date = $dateTime;
-        $vacancy->interview_place_id = $data['vacancy']['interview_place_id']['id'];
+        $vacancy->interview_place_id = ($data['vacancy']['interview_place_id'])?$data['vacancy']['interview_place_id']['id']:null;
 
 
         $vacancy->go_vacation = $data['vacancy']['go_vacation'];
@@ -78,20 +78,26 @@ class VacancyRepository{
         $vacancy->work_additional_hours = $data['vacancy']['work_additional_hours'];
         $vacancy->start_date = $data['vacancy']['start_date'];
         $vacancy->term_id = $data['vacancy']['term_id']['id'];
+        $vacancy->carry_in_head_date = Carbon::now()->toDateTimeString();
         $vacancy->save();
-
-        $demand = new VacancyDemand();
-        $demand->vacancy_id = $vacancy->id;
-
-        $demand->min_age = $data['demand']['min_age'];
-        $demand->max_age = $data['demand']['max_age'];
-        $demand->education_id = $data['demand']['education_id']['id'];
-        $demand->additional_duty_ka = $data['demand']['additional_duty_ka'];
-        $demand->additional_duty_en = $data['demand']['additional_duty_en'];
-        $demand->additional_duty_ru = $data['demand']['additional_duty_ru'];
-        $demand->language_id = $data['demand']['language_id']['id'];
-        $demand->language_level_id = $data['demand']['language_level_id']['id'];
-        $demand->save();
+        
+        $filteredArray = array_filter($data['demand'], 'is_null');
+        if (count($filteredArray) !== count($data['demand'])) {
+            $demand = new VacancyDemand();
+            $demand->vacancy_id = $vacancy->id;
+            $demand->min_age = $data['demand']['min_age'];
+            $demand->max_age = $data['demand']['max_age'];
+            $demand->education_id = $data['demand']['education_id']['id'];
+            $demand->additional_duty_ka = $data['demand']['additional_duty_ka'];
+            $demand->additional_duty_en = $data['demand']['additional_duty_en'];
+            $demand->additional_duty_ru = $data['demand']['additional_duty_ru'];
+            $demand->language_id = ($data['demand']['language_id'])?$data['demand']['language_id']['id']:null;
+            $demand->language_level_id = ($data['demand']['language_level_id'])?$data['demand']['language_level_id']['id']:null;
+            $demand->driving_license = ($data['demand']['driving_license'])?json_encode($data['demand']['driving_license']):null;
+            $demand->has_experience = $data['demand']['has_experience'];
+            $demand->has_recommendation = $data['demand']['has_recommendation'];
+            $demand->save();
+        }
 
         $selectForWhoNeedId = collect($data['for_who_need'])->reduce(function ($carry, $item) {
             if($carry  == null) $carry = [];
@@ -124,10 +130,13 @@ class VacancyRepository{
         $deposit = new VacancyDeposit();
         $deposit->vacancy_id = $vacancy->id;
         $deposit->must_be_enrolled_employer = ((int)$vacancy->payment * 10) / 100;
+        $deposit->employer_initial_amount = ((int)$vacancy->payment * 10) / 100;
         $deposit->must_be_enrolled_candidate = (int)$vacancy->payment / 2;
-        $global = GlobalVariable::all();
-        $deposit->candidate_percent = (int)$global->candidate_percent;
-        $deposit->employer_percent = (int)$global->employer_percent;
+        $deposit->candidate_initial_amount =(int)$vacancy->payment / 2;
+        $candidate_percent = GlobalVariable::where('name', 'candidate_percent')->first();
+        $employer_percent = GlobalVariable::where('name', 'employer_percent')->first();
+        $deposit->candidate_percent = (int)$candidate_percent->meaning;
+        $deposit->employer_percent = (int)$employer_percent->meaning;
         $deposit->save();
 
         return $vacancy->code;

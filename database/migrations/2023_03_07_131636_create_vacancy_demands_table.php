@@ -25,6 +25,9 @@ return new class extends Migration
             $table->string('additional_duty_ru', 400)->nullable();
             $table->foreignId('language_id')->constrained()->nullable();
             $table->foreignId('language_level_id')->constrained()->nullable();
+            $table->json('driving_license')->nullable();
+            $table->smallInteger('has_experience')->default(0);
+            $table->smallInteger('has_recommendation')->default(0);
             $table->timestamps();
         });
     }

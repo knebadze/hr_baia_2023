@@ -38,17 +38,14 @@ class HrVacancyController extends Controller
     {
         $data = [];
         // ->where('hr_id', Auth::user()->hr->id)
-        $vacancy = Vacancy::orderBy('updated_at', 'DESC')->with([
+        $vacancy = Vacancy::orderBy('carry_in_head_date', 'DESC')->with([
             'vacancyDuty', 'vacancyBenefit', 'vacancyForWhoNeed', 'characteristic', 'employer', 'currency','category', 'status',
             'workSchedule', 'vacancyInterest', 'interviewPlace','term', 'demand', 'demand.language', 'demand.education', 'demand.languageLevel','demand.specialty',
             'employer.numberCode','deposit','hr.user'
-
             ])->get();
-        $classificatory = [
-            'status' => Status::all()->toArray(),
-            'category' => Category::all()->toArray(),
-            'workSchedule' => WorkSchedule::all()->toArray(),
-        ];
+        $classificatoryArr = ['currency', 'workSchedule', 'educations', 'characteristic', 'educations','specialties','drivingLicense',
+        'category', 'forWhoNeed', 'term', 'benefit','specialties', 'languages', 'languageLevels', 'duty', 'interviewPlace', 'status'];
+        $classificatory = $this->classificatoryService->get($classificatoryArr);
         $hr_id = Auth::user()->hr->id;
         $data = ['vacancy'=> $vacancy, 'classificatory' => $classificatory, 'hr_id' => $hr_id];
         // dd($data);

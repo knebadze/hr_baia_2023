@@ -99,5 +99,7 @@ class VacancyService{
         return $result;
     }
 
-    
+
+
+
 }

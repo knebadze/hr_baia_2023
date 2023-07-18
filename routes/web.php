@@ -168,6 +168,9 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('update_vacancy_deposit', [VacancyActionController::class, 'updateDeposit']);
     Route::post('update_vacancy_status', [VacancyActionController::class, 'updateStatus']);
     Route::post('/add_reminder_vacancy', [VacancyActionController::class, 'addReminder']);
+    Route::post('repeat_vacancy', [VacancyActionController::class, 'repeat']);
+    Route::post('carry_in_head_vacancy', [VacancyActionController::class, 'carryInHead']);
+    Route::post('admin_vacancy_filter', [VacancyActionController::class, 'filter']);
 
 
     Route::get('vacancy_data', [VacancyController::class, 'data']);

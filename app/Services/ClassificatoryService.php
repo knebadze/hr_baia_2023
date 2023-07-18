@@ -32,11 +32,12 @@ use App\Models\Work_experience;
 
 use App\Models\GeneralCharacteristic;
 use App\Models\RecommendationFromWhom;
+use App\Models\Status;
 use App\Models\Term;
 
 class ClassificatoryService
 {
-    
+
     public function get($arr)
     {
         $classificatory = [
@@ -70,6 +71,7 @@ class ClassificatoryService
             'benefit' => Benefit::all()->toArray(),
             'forWhoNeed' => ForWhoNeed::all()->toArray(),
             'duty' => Duty::all()->toArray(),
+            'status' => Status::all()->toArray(),
         ];
         $result = array_intersect_key($classificatory, array_flip($arr));
         return $result;

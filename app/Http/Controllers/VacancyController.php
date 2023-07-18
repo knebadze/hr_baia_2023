@@ -51,7 +51,7 @@ class VacancyController extends Controller
 
     public function filter(VacancyFilters $filters)
     {
-        $vacancy = Vacancy::filter($filters)->orderby('updated_at', 'DESC')->with(['author','currency', 'category', 'workSchedule'])->paginate(20);
+        $vacancy = Vacancy::filter($filters)->orderby('updated_at', 'DESC')->with(['author','currency', 'category', 'workSchedule'])->paginate(25);
         $countVacancy = Vacancy::filter($filters)->count();
         $data = [
             'vacancy' => $vacancy,

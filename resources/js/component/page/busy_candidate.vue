@@ -1,228 +1,219 @@
 <template lang="">
-   <div>
-    <div class="row">
-        <div class="col-md-2">
-            <div class="input-group input-group-sm mb-3">
-                <!-- <label> შეხსენების დრო </label> -->
-                <input class="form-control" v-model="c_id" type="text" placeholder="კანდიდატის ID" @input="cIdEvent(c_id)" >
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="input-group input-group-sm mb-3">
-                <!-- <label> შეხსენების დრო </label> -->
-                <input class="form-control" v-model="c_name"  type="text" placeholder="სახელი გვარი" @input="cNameEvent(c_name)">
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="input-group input-group-sm mb-3">
-                <!-- <label> შეხსენების დრო </label> -->
-                <input class="form-control" v-model="v_id"  type="text" placeholder="ვაცანსიის ID" @input="vIdEvent(v_id)">
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="input-group input-group-sm mb-3">
-                <!-- <label> შეხსენების დრო </label> -->
-                <select class="custom-select" id="inputGroupSelect01">
-                    <option selected>კატეგორია...</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="input-group input-group-sm mb-3">
-                <!-- <label> შეხსენების დრო </label> -->
-                <input class="form-control"  type="date" placeholder="თარიღი" >
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="input-group input-group-sm mb-3">
-                <select class="custom-select" id="inputGroupSelect01">
-                    <option selected>ტიპი...</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-            </div>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-header">
-        <h3 class="card-title">კანდიდატების სია ({{ count }})</h3>
+    <EasyDataTable
+        buttons-pagination
+        :headers="headers"
+        :items="items"
+        table-class-name="customize-table"
+        border-cell
+        :filter-options="filterOptions"
+    >
+    <template #item-operation="item">
+       <div class="operation-wrapper">
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-cog"></i>
+            </button>
+            <div class="dropdown-menu ropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                <!-- <a class="dropdown-item" href="#" @click="vacancyUpdateModal(item)">რედაქტირება</a>
+                <a class="dropdown-item" href="#" @click="statusChange(item)">სტატუსის შეცვლა</a>
+                <a v-if="item.status.id == 2" class="dropdown-item" :href="personalSelectionUrl+'/'+item.id" >კადრების შერჩევა</a>
+                <a v-if="item.status.id > 1" class="dropdown-item" :href="vacancyPersonalUrl+'/'+item.id" >შერჩეული კადრები</a>
+                <a v-if="item.hr_id == hr_id" class="dropdown-item" href="#" @click="vacancyReminderModal(item)">შეხსენება</a>
+                <a v-if="item.hr_id == hr_id" class="dropdown-item" href="#" @click="vacancyDepositModal(item)">დეპოზიტი</a> -->
 
-        <div class="card-tools">
-            <div class="input-group input-group-sm" style="width: 150px;">
-            <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-            <div class="input-group-append">
-                <button type="submit" class="btn btn-default">
-                <i class="fas fa-search"></i>
-                </button>
-            </div>
+                <!-- <a class="dropdown-item" href="#">გამეორება</a> -->
             </div>
         </div>
+      </div>
+    </template>
+    <template #header-id="header">
+        <div class="filter-column">
+            <i class="fa fa-filter text-secondary" style="font-size:15px;" @click.stop="showIdFilter=!showIdFilter"></i>
+            {{ header.text }}
+            <div class="filter-menu filter-sport-menu my-2" v-show="showIdFilter">
+                <input v-model="choseId"/>
+            </div>
         </div>
-        <!-- /.card-header -->
-        <div class="card-body table-responsive p-0" style="height: 600px;">
-        <table class="table table-head-fixed text-wrap">
-            <thead>
-            <tr>
-                <th>N</th>
-                <th>
-                    კანდიდატის ID
-                </th>
-                <th>სახელი გვარი</th>
-                <th>ვაკანსიის ID</th>
-                <th>კატეგორია</th>
-                <th>თარიღი <i class="fa fa-sort" style="cursor: pointer;"></i></th>
-                <th>ტიპი</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="(item, index) in arr" :key="index">
-                <td>{{ index + 1 }}</td>
-                <td>{{ item.candidate.id }}</td>
-                <td>{{ item.candidate.user.name_ka }}</td>
-                <td>{{ item.vacancy.code }}</td>
-                <td>{{ item.vacancy.category.name_ka }}</td>
-                <td>{{ item.created_at }}</td>
-                <td>{{ item.qualifying_type.name }} </td>
-            </tr>
-
-            </tbody>
-        </table>
+    </template>
+    <template #header-candidate_id="header">
+        <div class="filter-column">
+            <i class="fa fa-filter text-secondary" style="font-size:15px;" @click.stop="showCandidateIdFilter=!showCandidateIdFilter"></i>
+            {{ header.text }}
+            <div class="filter-menu filter-sport-menu my-2" v-show="showCandidateIdFilter">
+                <input v-model="choseCandidateId"/>
+            </div>
         </div>
-        <!-- /.card-body -->
-        <!-- <div class="card-footer clearfix">
-            <ul class="pagination pagination-sm m-0 float-right">
-                <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-            </ul>
-        </div> -->
-    </div>
-    <!-- /.card -->
+    </template>
+    <template #header-user_name="header">
+        <div class="filter-column">
+            <i class="fa fa-filter text-secondary" style="font-size:15px;" @click.stop="showUserNameFilter=!showUserNameFilter"></i>
+            {{ header.text }}
+            <div class="filter-menu filter-sport-menu my-2" v-show="showUserNameFilter">
+                <input v-model="choseUserName"/>
+            </div>
+        </div>
+    </template>
+    <template #header-category="header">
+        <div class="filter-column">
+            <i class="fa fa-filter text-secondary" style="font-size:15px;" @click.stop="showCategoryFilter=!showCategoryFilter"></i>
+            {{ header.text }}
+            <div class="filter-menu filter-sport-menu" v-show="showCategoryFilter">
+            <select
+                class="favouriteSport-selector"
+                v-model="choseCategory"
+                name="favouriteSport"
+            >
+                <option value="ყველა">
+                    ყველა
+                </option>
+                <option v-for="(item, index) in data.classificatory.category" :key="index" :value="item.name_ka">
+                    {{ item.name_ka }}
+                </option>
 
+            </select>
+            </div>
+        </div>
+    </template>
 
-  </div>
+    </EasyDataTable>
+    <!-- {{ statusChangeModal }} -->
+    <!-- <changeStatus :visible="statusChangeModal" :item="statusItem"></changeStatus> -->
 </template>
 <script>
+import { ref, computed } from "vue";
+import moment from 'moment'
+// import Slider from '@vueform/slider'
+import "@vueform/slider/themes/default.css";
+import _ from 'lodash'
+// import changeStatus from "../modal/changeStatus.vue";
 export default {
+    components: {
+    //   Slider,
+    },
     props:{
         data: Object
     },
-    data() {
-        return {
-            arr: null,
-            count:0,
-            c_id:'',
-            c_name:'',
-            v_id:''
+
+    setup(props){
+
+
+        console.log('data',props.data.qualifying);
+        const headers = ref([
+            { text: "id", value: "id" },
+            { text: "კანდიდატის ID", value: "candidate_id" },
+            { text: "სახელი გვარი", value: "user_name"},
+            { text: "ვაკანსიის ID", value: "vacancy_code"},
+            { text: "კატეგორია", value: "category"},
+            { text: "თარიღი", value: "created_at", sortable: true},
+            { text: "ტიპი", value: "type"},
+            { text: "Operation", value: "operation" },
+        ]);
+        let data = ref(props.data.qualifying)
+        const items = ref(makeData(props.data.qualifying));
+        function makeData(params) {
+            var arr = []
+            // console.log('params',params);
+            params.forEach(element => {
+                // console.log(element.candidate.id);
+                var data = {
+                    'id':element.id,
+                    'candidate_id': element.candidate.id,
+                    'user_name': element.candidate.user.name_ka,
+                    'vacancy_code':element.vacancy.code,
+                    'category': element.vacancy.category.name_ka,
+                    'created_at': moment(element.created_at).format("YYYY-MM-DD HH:mm"),
+                    'type': element.qualifying_type.name
+                }
+                arr.push(data)
+            });
+            return arr
         }
-    },
-    computed:{
 
-    },
+        const showCategoryFilter = ref(false);
+        const showCandidateIdFilter = ref(false);
+        const showUserNameFilter = ref(false);
 
-    created(){
-        this.arr = this.data
-        this.count = this.arr.length
+        const showIdFilter = ref(false);
+        const choseId = ref('');
 
+        const choseCategory = ref('ყველა');
+        const choseCandidateId = ref('');
+        const choseUserName = ref('')
+        const filterOptions = computed(()=> {
+            const filterOptionsArray =  [];
+            if (choseCategory.value !== 'ყველა') {
+                filterOptionsArray.push({
+                    field: 'category',
+                    comparison: '=',
+                    criteria: choseCategory.value,
+                });
+
+            }
+            if (choseCandidateId.value !== '') {
+                filterOptionsArray.push({
+                    field: 'candidate_id',
+                    comparison: '=',
+                    criteria: choseCandidateId.value,
+                });
+
+            }
+
+            if (choseUserName.value !== '') {
+                filterOptionsArray.push({
+                    field: 'user_name',
+                    comparison: '=',
+                    criteria: choseUserName.value,
+                });
+
+            }
+
+            if (choseId.value !== '') {
+                filterOptionsArray.push({
+                    field: 'id',
+                    comparison: '=',
+                    criteria: choseId.value,
+                });
+
+            }
+
+            return filterOptionsArray;
+        });
+
+
+
+        return {
+            headers,
+            items,
+            showCategoryFilter,
+            choseCategory,
+            showCandidateIdFilter,
+            choseCandidateId,
+            showUserNameFilter,
+            choseUserName,
+            filterOptions,
+            choseId,
+            showIdFilter
+        };
     },
     methods:{
-        cIdEvent(search) {
-            let last = []
-            if (this.arr.length != 0) {
-                last = this.arr
-            }
-
-            if (search.length > 0) {
-                this.arr = _.filter(this.arr, function(o) { return o.candidate_id == search });
-                // this.arr = this.arr.filter(obj => obj.candidate_id.includes(search));
-            }else{
-                if(this.arr.length == 0 && last.length == 0){
-                    this.arr = this.data
-                }else{
-                    this.arr = last
-                }
-            }
-            this.count = this.arr.length
-        },
-        cNameEvent(search) {
-            let last = []
-            if (this.arr.length != 0) {
-                last = this.arr
-            }
-
-            if (search.length > 0) {
-                this.arr = this.arr.filter(obj => obj.candidate.user.name_ka.includes(search));
-            }else{
-                if(this.arr.length == 0 && last.length == 0){
-                    this.arr = this.data
-                }else{
-                    this.arr = last
-                }
-            }
-            this.count = this.arr.length
-        },
-        vIdEvent(search){
-            let last = []
-            if (this.arr.length != 0) {
-
-                last = this.arr
-                console.log('last',last);
-            }
-
-            if (search.length > 0 && this.arr.length == 0) {
-                console.log('if last', last);
-                this.arr = last
-            }else if (search.length > 0) {
-                console.log('if else', this.arr);
-                // this.arr = _.filter(this.arr, function(o) { return o.vacancy.code == search });
-                this.arr = this.arr.filter(obj => obj.vacancy.code.toString().includes(search));
-                console.log('if else', this.arr);
-            }else{
-                if(this.arr.length == 0 && last.length == 0){
-                    console.log('else if');
-                    this.arr = this.data
-                }else{
-                    console.log('else else');
-                    this.arr = last
-                }
-            }
-            this.count = this.arr.length
-        },
-        hidePopover() {
-            this.isPopoverVisible = false;
-        }
-    },
-    mounted() {
-        console.log('this.data', this.data);
-    },
+        // statusChange(item) {
+        //     this.statusChangeModal = !this.statusChangeModal
+        //     this.statusItem = item
+        // },
+    }
 }
 </script>
-
-<style>
-.hoverable {
-  display: inline-block;
-  position: relative;
-}
-
-.popover {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  z-index: 999;
-  background-color: #fff;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  padding: 10px;
-  display: none;
-}
-
-.hoverable:hover .popover {
-  display: block;
-}
+<style >
+    .my-vacancy-row  {
+        --easy-table-body-row-background-color: #f8b1b1;
+        --easy-table-body-row-font-color: #070707;
+    }
+    .customize-table {
+        --easy-table-border: 1px solid #445269;
+        --easy-table-header-font-size: 18px;
+        --easy-table-header-height: 50px;
+        --easy-table-body-row-font-size: 14px;
+        --easy-table-body-row-height: 50px;
+    }
 </style>
+

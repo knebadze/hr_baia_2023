@@ -58,6 +58,10 @@ class Vacancy extends Model
         return $this->belongsTo(VacancyDemand::class, 'id', 'vacancy_id');
     }
 
+    public function getCharacteristic()
+    {
+        return $this->belongsTo(VacancyCandidateCharacteristic::class, 'id', 'vacancy_id');
+    }
     public function characteristic()
     {
         return $this->belongsToMany(GeneralCharacteristic::class, 'vacancy_candidate_characteristics',  'vacancy_id', 'characteristic_id');
