@@ -227,7 +227,7 @@
                                 <div class="twm-right-content">
                                     <div class="twm-jobs-category green"><span class="twm-bg-green">{{ item.category[`name_${getLang}`] }}</span></div>
                                     <div class="twm-jobs-amount">{{ item.currency.icon }} {{ item.payment }}</div>
-                                    <div class="twm-jobs-amount">{{ item.hrInfo.number }} <span>/ {{ item.hrInfo[`name_${getLang}`] }}</span></div>
+                                    <div class="twm-jobs-amount">{{ item.hr.user.number }} <span>/ {{ item.hr.user[`name_${getLang}`] }}</span></div>
                                     <span v-if="auth && item.vacancy_interest.some( (o) => o.user_id == auth.id ) " style="font-size:20px;">
                                         <i :class="(item.vacancy_interest.some( (o) => o.user_id == auth.id && o.employer_answer == null))?'fa fa-plus-circle text-warning':(item.vacancy_interest.some( (o) => o.user_id == auth.id && o.employer_answer == 0))?'fa fa-times-circle text-danger':(item.vacancy_interest.some( (o) => o.user_id == auth.id && o.employer_answer == 1))?'fa fa-check-circle text-success':''"></i></span>
                                     <button v-else type="button" class="btn btn-primary" @click="interest(item.id)">დაინტერესება</button>

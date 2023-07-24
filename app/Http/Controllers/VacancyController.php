@@ -37,7 +37,7 @@ class VacancyController extends Controller
     public function data(Request $request)
     {
 
-        $vacancy = Vacancy::orderby('updated_at', 'DESC')->with(['author','currency', 'category', 'workSchedule', 'vacancyForWhoNeed', 'vacancyBenefit', 'vacancyInterest'])->paginate(20)->toArray();
+        $vacancy = Vacancy::orderby('updated_at', 'DESC')->with(['author','currency', 'category', 'workSchedule', 'vacancyForWhoNeed', 'vacancyBenefit', 'vacancyInterest', 'hr.user'])->paginate(20)->toArray();
         // dd($vacancy);
         $countVacancy = Vacancy::orderby('updated_at', 'DESC')->count();
         $auth = Auth::user();
