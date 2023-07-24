@@ -80,7 +80,7 @@ class VacancyRepository{
         $vacancy->term_id = $data['vacancy']['term_id']['id'];
         $vacancy->carry_in_head_date = Carbon::now()->toDateTimeString();
         $vacancy->save();
-        
+
         $filteredArray = array_filter($data['demand'], 'is_null');
         if (count($filteredArray) !== count($data['demand'])) {
             $demand = new VacancyDemand();
@@ -93,7 +93,6 @@ class VacancyRepository{
             $demand->additional_duty_ru = $data['demand']['additional_duty_ru'];
             $demand->language_id = ($data['demand']['language_id'])?$data['demand']['language_id']['id']:null;
             $demand->language_level_id = ($data['demand']['language_level_id'])?$data['demand']['language_level_id']['id']:null;
-            $demand->driving_license = ($data['demand']['driving_license'])?json_encode($data['demand']['driving_license']):null;
             $demand->has_experience = $data['demand']['has_experience'];
             $demand->has_recommendation = $data['demand']['has_recommendation'];
             $demand->save();
@@ -112,6 +111,13 @@ class VacancyRepository{
             return $carry;
         }, []);
         $vacancy->vacancyBenefit()->sync($selectBenefitId);
+
+        $selectDrivingLicenseId = collect($data['driving_license'])->reduce(function ($carry, $item) {
+            if($carry  == null) $carry = [];
+            $carry[] = $item["id"];
+            return $carry;
+        }, []);
+        $vacancy->vacancyDrivingLicense()->sync($selectDrivingLicenseId);
 
         $selectCharacteristic = collect($data['characteristic'])->reduce(function ($carry, $item) {
             if($carry  == null) $carry = [];

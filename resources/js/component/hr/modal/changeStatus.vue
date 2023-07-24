@@ -7,7 +7,7 @@
                   <h6 class="modal-title" id="exampleModalLongTitle">სტატუსის შეცვლა</h6>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="hide()">X</button>
               </div>
-              <div class="modal-body">
+              <div class="modal-body ">
                 <div class="col-xl-12 col-lg-12 col-md-12">
                     <div class="form-group">
                         <label>{{ $t('სტატუსი') }}</label>
@@ -64,12 +64,17 @@
               </div>
           </div>
       </div>
+      <addPersonalWasEmployed :visible="showModal" :item="modalItem"></addPersonalWasEmployed>
   </template>
-  <script>
-  import { toast } from 'vue3-toastify';
-  import 'vue3-toastify/dist/index.css';
-  import moment from 'moment'
-  export default {
+    <script>
+    import { toast } from 'vue3-toastify';
+    import 'vue3-toastify/dist/index.css';
+    import moment from 'moment'
+    import addPersonalWasEmployed from './addPersonalWasEmployed.vue'
+    export default {
+        components:{
+            addPersonalWasEmployed
+        },
         props:{
             visible: Boolean,
             item: Object
@@ -80,6 +85,8 @@
                 data: {},
                 m: null,
                 reminder:{},
+                showModal: false,
+                modalItem: null
             }
         },
         created(){
@@ -121,21 +128,31 @@
                     this.m['reminder'] = this.reminder
                 }
                 var editedFields = this.forItem(this.m)
+                let currentObj = this
                 console.log('editedFields', editedFields);
                 axios.post('/update_vacancy_status' ,{
                     data: {'model':this.m, 'edit': editedFields},
                 })
                 .then(function (response) {
                     // handle success
-                    console.log(response.data);
-                    if (response.status == 200) {
-                        toast.success("წარმატებით დაემატა", {
+                    console.log('response.data',response.data.data);
+                    if (response.status == 200 && response.data.data[0].type == 's') {
+
+                        toast.success(response.data.data[0].message, {
                             theme: 'colored',
                             autoClose: 1000,
                         });
                         setTimeout(() => {
                             document.location.reload();
                         }, 2000);
+                    }else if(response.status == 200 && response.data.data[0].type == 'e'){
+                        toast.error(response.data.data[0].message, {
+                            theme: 'colored',
+                            autoClose: 1000,
+                        });
+                        console.log('hello');
+                        currentObj.openModal()
+
                     }
 
 
@@ -163,6 +180,11 @@
             },
             changeFormat(time){
                 return moment(time).format("YYYY-MM-DD HH:mm")
+            },
+            openModal(){
+                console.log('this.item modal', this.item);
+                this.showModal = !this.showModal
+                this.modalItem = this.item
             }
 
         },

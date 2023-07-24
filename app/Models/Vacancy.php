@@ -49,6 +49,14 @@ class Vacancy extends Model
     {
         return $this->belongsToMany(Benefit::class, 'vacancy_benefits');
     }
+    public function vacancyDrivingLicense()
+    {
+        return $this->belongsToMany(DrivingLicense::class, 'vacancy_driving_licenses');
+    }
+    public function getVacancyDrivingLicense()
+    {
+        return $this->belongsTo(VacancyDrivingLicense::class, 'id', 'vacancy_id');
+    }
     public function vacancyForWhoNeed()
     {
         return $this->belongsToMany(ForWhoNeed::class, 'for_who_vacancies');

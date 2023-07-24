@@ -41,7 +41,7 @@ class HrVacancyController extends Controller
         $vacancy = Vacancy::orderBy('carry_in_head_date', 'DESC')->with([
             'vacancyDuty', 'vacancyBenefit', 'vacancyForWhoNeed', 'characteristic', 'employer', 'currency','category', 'status',
             'workSchedule', 'vacancyInterest', 'interviewPlace','term', 'demand', 'demand.language', 'demand.education', 'demand.languageLevel','demand.specialty',
-            'employer.numberCode','deposit','hr.user'
+            'employer.numberCode','deposit','hr.user', 'vacancyDrivingLicense'
             ])->get();
         $classificatoryArr = ['currency', 'workSchedule', 'educations', 'characteristic', 'educations','specialties','drivingLicense',
         'category', 'forWhoNeed', 'term', 'benefit','specialties', 'languages', 'languageLevels', 'duty', 'interviewPlace', 'status'];

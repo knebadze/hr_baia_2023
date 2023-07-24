@@ -2,13 +2,14 @@
 
 namespace App\Repositories\Vacancy;
 
+use App\Models\Hr;
+use Carbon\Carbon;
 use App\Models\Vacancy;
 use App\Models\Employer;
-use App\Models\Hr;
+use App\Models\QualifyingCandidate;
 use App\Models\VacancyDemand;
 use App\Models\VacancyDeposit;
 use App\Models\VacancyReminder;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class VacancyUpdateRepository
@@ -119,7 +120,18 @@ class VacancyUpdateRepository
 
     function updateStatus($data) {
 
+
         $id = $data['id'];
+        $type = '';
+        $message = '';
+
+        if ($data['status']['id'] == 3) {
+            if (QualifyingCandidate::where('vacancy_id', $id)->exists() && QualifyingCandidate::where('qualifying_type_id', 6)->doesntExist()) {
+                return ['type' => 'e', 'message' => 'დამატეთ დასაქმებული კანდიდატი'];
+            }
+            $date = Carbon::now()->addDays(7)->toDateString();
+            $vacancy = VacancyDeposit::where('id', $id)->update(['must_be_enrolled_employer_date' => $date, 'must_be_enrolled_candidate_date' => $date]);
+        }
         $vacancy = Vacancy::findOrFail($id);
         $vacancy->status_id = $data['status']['id'];
         $vacancy->status_change_reason = $data['status_change_reason'];
@@ -128,6 +140,8 @@ class VacancyUpdateRepository
             $data['reminder']['vacancy_id'] = $vacancy->id;
             $this->addReminder($data['reminder']);
         }
+
+        return ['type' => 's', 'message' => 'სტატუსი წარმატებით შეიცვალა'];
     }
     function addReminder( $data) {
         $reminder = new VacancyReminder();

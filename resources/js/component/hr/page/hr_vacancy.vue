@@ -253,25 +253,25 @@
                             <div class="col-xl-4 col-lg-6 col-md-12 mt-3">
                                 <div class=" form-check">
                                     <input type="checkbox" class="form-check-input" id="exampleCheck2" value="1" v-model="m.stay_night">
-                                    <label class="form-check-label" for="exampleCheck1">შეეძლოს ღამე დარჩენა</label>
+                                    <label class="form-check-label" for="exampleCheck2">შეეძლოს ღამე დარჩენა</label>
                                 </div>
                             </div>
                             <div class="col-xl-4 col-lg-6 col-md-12 mt-3">
                                 <div class=" form-check">
                                     <input type="checkbox" class="form-check-input" id="exampleCheck3" value="1" v-model="m.work_additional_hours">
-                                    <label class="form-check-label" for="exampleCheck1">შეეძლო დამატებით საათებში მუშაობა</label>
+                                    <label class="form-check-label" for="exampleCheck3">შეეძლო დამატებით საათებში მუშაობა</label>
                                 </div>
                             </div>
                             <div class="col-xl-4 col-lg-6 col-md-12 mt-3">
                                 <div class=" form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck3" value="1" v-model="m.has_family_work_experience">
-                                    <label class="form-check-label" for="exampleCheck1">ოჯახში მუშაობის გამოცდილება</label>
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck4" value="1" v-model="m.has_family_work_experience">
+                                    <label class="form-check-label" for="exampleCheck4">ოჯახში მუშაობის გამოცდილება</label>
                                 </div>
                             </div>
                             <div class="col-xl-4 col-lg-6 col-md-12 mt-3">
                                 <div class=" form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck3" value="1" v-model="m.has_recommendation">
-                                    <label class="form-check-label" for="exampleCheck1">რეკომენდაცია</label>
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck5" value="1" v-model="m.has_recommendation">
+                                    <label class="form-check-label" for="exampleCheck5">რეკომენდაცია</label>
                                 </div>
                             </div>
                         </div>
@@ -359,6 +359,10 @@
                                 <div class="row col-12" v-if="item.demand && item.demand.additional_name_ka">
                                     <dt class="col-sm-4">დამატებითი მოვალეობები:</dt>
                                     <dd class="col-sm-8">{{ item.demand.additional_name_ka }} </dd>
+                                </div>
+                                <div class="row col-12" v-if="item.vacancy_driving_license.length > 0">
+                                    <dt class="col-sm-4">მართვის მოწმობა:</dt>
+                                    <dd class="col-sm-8"><span v-for="(i, index) in item.vacancy_driving_license" :key="index" class="badge badge-primary">{{ i.name+', '}}</span> </dd>
                                 </div>
                                 <div class="row col-12" v-if="item.hr_id == hr_id">
                                     <div class="row col-12 border-top">
@@ -612,37 +616,39 @@ export default {
         const items = ref(data)
         console.log('let data', items.value);
         // ref(makeData(props.data.vacancy));
+        console.log(makeData(props.data.vacancy));
         function makeData(params) {
             var arr = []
-            console.log('params',params);
+            // console.log('params',params);
             params.forEach(element => {
-                var data = {
-                    'id': element.code,
-                    'category':element.category.name_ka,
-                    'schedule':element.work_schedule.name_ka,
-                    'employer':element.employer.name_ka,
-                    'number':element.employer.number,
-                    'status':element.status.name_ka,
-                    'payment':element.payment,
-                    'startDate':element.start_date,
-                    'workDay':element.additional_schedule_ka,
-                    'vacancy_for_who_need':element.vacancy_for_who_need,
-                    'title': element.title_ka,
-                    'created_at':moment(element.created_at).format("YYYY-MM-DD HH:mm"),
-                    'updated_at':moment(element.updated_at).format("YYYY-MM-DD HH:mm"),
-                    'comment':element.category,
-                    'go_vacation':element.go_vacation,
-                    'stay_night': element.stay_night,
-                    'work_additional_hours': element.work_additional_hours,
-                    'interview_date':element.interview_date,
-                    'interview_place':element.interview_place.name_ka,
-                    'term':element.term.name_ka,
-                    'benefit': element.vacancy_benefit,
-                    'duty': element.vacancy_duty,
-                    'demand':element.demand,
-                    'characteristic':element.characteristic,
-                }
-                arr.push(data)
+                console.log('element.get_vacancy_driving_license.length',element.vacancy_driving_license.length);
+                // var data = {
+                //     'id': element.code,
+                //     'category':element.category.name_ka,
+                //     'schedule':element.work_schedule.name_ka,
+                //     'employer':element.employer.name_ka,
+                //     'number':element.employer.number,
+                //     'status':element.status.name_ka,
+                //     'payment':element.payment,
+                //     'startDate':element.start_date,
+                //     'workDay':element.additional_schedule_ka,
+                //     'vacancy_for_who_need':element.vacancy_for_who_need,
+                //     'title': element.title_ka,
+                //     'created_at':moment(element.created_at).format("YYYY-MM-DD HH:mm"),
+                //     'updated_at':moment(element.updated_at).format("YYYY-MM-DD HH:mm"),
+                //     'comment':element.category,
+                //     'go_vacation':element.go_vacation,
+                //     'stay_night': element.stay_night,
+                //     'work_additional_hours': element.work_additional_hours,
+                //     'interview_date':element.interview_date,
+                //     'interview_place':element.interview_place.name_ka,
+                //     'term':element.term.name_ka,
+                //     'benefit': element.vacancy_benefit,
+                //     'duty': element.vacancy_duty,
+                //     'demand':element.demand,
+                //     'characteristic':element.characteristic,
+                // }
+                // arr.push(data)
             });
             return arr
         }
@@ -717,9 +723,9 @@ export default {
         }
 
         function find(m){
-            m['created_at'] = [m.created_at_from, m.created_at_to]
-            m['start_date'] = [m.start_date_from, m.start_date_to]
-            m['interview_date'] = [m.interview_date_from, m.interview_date_to]
+            (m.created_at_from || m.created_at_to)?m['created_at'] = [m.created_at_from, m.created_at_to]:'';
+            (m.start_date_from || m.start_date_to)?m['start_date'] = [m.start_date_from, m.start_date_to]:'';
+            (m.interview_date_from || m.interview_date_to)?m['interview_date'] = [m.interview_date_from, m.interview_date_to]:''
 
             axios({
                 method: "post",
