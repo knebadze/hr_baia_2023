@@ -150,7 +150,6 @@
                             theme: 'colored',
                             autoClose: 1000,
                         });
-                        console.log('hello');
                         currentObj.openModal()
 
                     }

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Status;
-use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Models\Status;
+use App\Models\Vacancy;
+use Illuminate\Http\Request;
 use App\Models\VacancyReminder;
+use App\Models\QualifyingCandidate;
 use App\Models\VacancyRedactedHistory;
 use App\Services\ClassificatoryService;
 
@@ -41,6 +43,24 @@ class GetVacancyInfoController extends Controller
         $history = VacancyReminder::orderBy('id', 'DESC')->where('vacancy_id', $request->data)->where('date', '<', Carbon::now()->toDateTimeString())->get();
         $next = VacancyReminder::orderBy('id', 'DESC')->where('vacancy_id', $request->data)->where('date', '>', Carbon::now()->toDateTimeString())->get();
         $data = ['history' => $history, 'next' => $next];
+        return response()->json($data);
+    }
+    function getAddPersonalWasEmployedInfo(Request $request)  {
+        // dd($request->data);
+        $data = QualifyingCandidate::where('vacancy_id', $request->data)->with(['candidate.user', 'qualifyingType'])->get();
+        return response()->json($data);
+    }
+    function getVacancyFullInfo(Request $request)  {
+        $data = Vacancy::where('id', $request->data)->with([
+            'vacancyDuty', 'vacancyBenefit', 'vacancyForWhoNeed', 'characteristic', 'employer', 'currency','category', 'status',
+            'workSchedule', 'vacancyInterest', 'interviewPlace','term', 'demand', 'demand.language', 'demand.education', 'demand.languageLevel','demand.specialty',
+            'employer.numberCode','deposit','hr.user', 'vacancyDrivingLicense'
+            ])->first();
+        return response()->json($data);
+    }
+
+    function vacancyRedactedHistory(Request $request) {
+        $data = VacancyRedactedHistory::orderBy('created_at', 'DESC')->where('vacancy_id', $request->data)->with('hr.user')->get();
         return response()->json($data);
     }
 

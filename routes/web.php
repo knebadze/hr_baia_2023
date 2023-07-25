@@ -189,6 +189,9 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('/get_vacancy_filter_classificatory', [GetVacancyInfoController::class, 'getVacancyFilterClassificatory']);
     Route::post('/get_status_change_info', [GetVacancyInfoController::class, 'statusChangeInfo']);
     Route::post('/get_reminder_info', [GetVacancyInfoController::class, 'getReminderInfo']);
+    Route::post('/get_add_personal_was_employed_info', [GetVacancyInfoController::class, 'getAddPersonalWasEmployedInfo']);
+    Route::post('/get_vacancy_full_info', [GetVacancyInfoController::class, 'getVacancyFullInfo']);
+    Route::post('/get_vacancy_redacted_history_info', [GetVacancyInfoController::class, 'vacancyRedactedHistory']);
 
 
 
@@ -202,3 +205,5 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('/add_vacancy_personal', [SelectionPersonalController::class, 'addPersonal']);
     Route::post('/update_vacancy_personal', [SelectionPersonalController::class, 'updatePersonal']);
     Route::post('/delete_vacancy_personal', [SelectionPersonalController::class, 'deletePersonal']);
+
+    Route::post('/add_vacancy_personal_was_employed', [SelectionPersonalController::class, 'addPersonalWasEmployed']);

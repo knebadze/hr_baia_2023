@@ -111,4 +111,12 @@ class AddVacancyPersonalRepository
         return $qualifying;
     }
 
+    function wasEmployed($data){
+        // dd($data);
+        $qualifying = QualifyingCandidate::updateOrCreate(
+            ['candidate_id' => $data['candidate_id'], 'vacancy_id' => $data['vacancy_id']],
+            ['qualifying_type_id' => 6]
+        );
+        return $qualifying;
+    }
 }

@@ -126,7 +126,9 @@ class VacancyUpdateRepository
         $message = '';
 
         if ($data['status']['id'] == 3) {
-            if (QualifyingCandidate::where('vacancy_id', $id)->exists() && QualifyingCandidate::where('qualifying_type_id', 6)->doesntExist()) {
+            if (QualifyingCandidate::where('vacancy_id', $id)->doesntExist()) {
+                return ['type' => 'e', 'message' => 'დამატეთ დასაქმებული კანდიდატი'];
+            }elseif (QualifyingCandidate::where('vacancy_id', $id)->exists() && QualifyingCandidate::where('qualifying_type_id', 6)->doesntExist()) {
                 return ['type' => 'e', 'message' => 'დამატეთ დასაქმებული კანდიდატი'];
             }
             $date = Carbon::now()->addDays(7)->toDateString();

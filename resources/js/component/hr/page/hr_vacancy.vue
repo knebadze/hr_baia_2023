@@ -317,6 +317,7 @@
 
                 <a v-if="item.status.id == 5 || item.status.id == 4" class="dropdown-item" href="#"  @click="vacancyRepeat(item)">გამეორება</a>
                 <a v-if="item.status.id !== 3 && item.status.id !== 4 && item.status.id !== 5" class="dropdown-item" href="#" @click="carryInHead(item)">აპინვა </a>
+                <a class="dropdown-item" href="#" @click="vacancyHistoryModal(item.id)">ისტორია</a>
             </div>
         </div>
       </div>
@@ -545,7 +546,7 @@
     <vacancyDeposit :visible="depositModal" :item="depositItem"></vacancyDeposit>
     <vacancyReminder :visible="reminderModelShow" :item="item"></vacancyReminder>
     <vacancyRepeat :visible="repeatModelShow" :item="item"></vacancyRepeat>
-
+    <redactedHistory :visible="historyModelShow" :vacancyId="vacancyId"></redactedHistory>
 </template>
 <script>
 import { ref, computed } from "vue";
@@ -562,14 +563,16 @@ import vacancyUpdate from "../modal/vacancyUpdate.vue"
 import vacancyDeposit from "../modal/vacancyDeposit.vue";
 import vacancyReminder from "../modal/vacancyReminder.vue";
 import vacancyRepeat from "../modal/vacancyRepeat.vue";
+import redactedHistory from "../modal/redactedHistory.vue"
 export default {
     components: {
-      Slider,
-      changeStatus,
-      vacancyUpdate,
-      vacancyDeposit,
-      vacancyReminder,
-      vacancyRepeat,
+        Slider,
+        changeStatus,
+        vacancyUpdate,
+        vacancyDeposit,
+        vacancyReminder,
+        vacancyRepeat,
+        redactedHistory,
         Switch
     },
     props:{
@@ -588,6 +591,8 @@ export default {
         var selectionPersonalModalShow = ref(false)
         let reminderModelShow = ref(false)
         let repeatModelShow = ref(false)
+        let historyModelShow = ref(false)
+        let vacancyId = ref(null)
         var statusItem = ref()
         var item = ref()
         var depositItem =ref()
@@ -784,11 +789,13 @@ export default {
             statusItem,
             updateModal,
             item,
+            vacancyId,
             depositModal,
             depositItem,
             selectionPersonalModalShow,
             reminderModelShow,
             repeatModelShow,
+            historyModelShow,
             personalSelectionUrl,
             vacancyPersonalUrl,
 
@@ -827,6 +834,10 @@ export default {
         vacancyRepeat(item){
             this.repeatModelShow = !this.repeatModelShow
             this.item = item
+        },
+        vacancyHistoryModal(id){
+            this.historyModelShow = !this.historyModelShow
+            this.vacancyId = id
         },
         carryInHead(item){
             console.log('head', item);

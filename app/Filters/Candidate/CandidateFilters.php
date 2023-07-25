@@ -5,6 +5,7 @@ namespace App\Filters\Candidate;
 class CandidateFilters
 {
     protected $filters = [
+        'id'=> CandidateIdFilter::class,
         'name' => CandidateNameFilter::class,
         'number' => CandidateNumberFilter::class,
         'personal_number' => CandidatePersonalNumberFilter::class,

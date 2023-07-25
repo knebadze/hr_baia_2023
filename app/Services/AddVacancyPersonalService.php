@@ -35,4 +35,9 @@ class AddVacancyPersonalService
         $result = $this->addVacancyPersonalRepository->delete($data);
         return $result;
     }
+
+    function addPersonalWasEmployed($data){
+        $result = $this->addVacancyPersonalRepository->wasEmployed($data);
+        return $result;
+    }
 }

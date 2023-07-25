@@ -400,17 +400,6 @@ export default {
                 console.log(response.data);
                 currentObj.candidate = response.data
                 currentObj.modalData['candidate'] = response.data
-                // if (response.status == 200) {
-                //     toast.success("წარმატებით დაემატა", {
-                //         theme: 'colored',
-                //         autoClose: 1000,
-                //     });
-                //     setTimeout(() => {
-                //         document.location.reload();
-                //     }, 2000);
-                // }
-
-
 
             })
             .catch(function (error) {

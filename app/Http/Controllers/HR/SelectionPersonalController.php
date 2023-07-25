@@ -123,4 +123,21 @@ class SelectionPersonalController extends Controller
         return response()->json($result, $result['status']);
 
     }
+
+    function addPersonalWasEmployed(Request $request) {
+        $data = $request->data;
+        // dd($data);
+        $result = ['status' => 200];
+
+        try {
+            $result['data'] = $this->addVacancyPersonalService->addPersonalWasEmployed($data);
+        } catch (Exception $e) {
+            $result = [
+                'status' => 500,
+                'error' => $e->getMessage()
+            ];
+        }
+
+        return response()->json($result, $result['status']);
+    }
 }

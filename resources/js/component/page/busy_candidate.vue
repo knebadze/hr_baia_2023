@@ -14,33 +14,18 @@
                 <i class="fa fa-cog"></i>
             </button>
             <div class="dropdown-menu ropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                <!-- <a class="dropdown-item" href="#" @click="vacancyUpdateModal(item)">რედაქტირება</a>
-                <a class="dropdown-item" href="#" @click="statusChange(item)">სტატუსის შეცვლა</a>
-                <a v-if="item.status.id == 2" class="dropdown-item" :href="personalSelectionUrl+'/'+item.id" >კადრების შერჩევა</a>
-                <a v-if="item.status.id > 1" class="dropdown-item" :href="vacancyPersonalUrl+'/'+item.id" >შერჩეული კადრები</a>
-                <a v-if="item.hr_id == hr_id" class="dropdown-item" href="#" @click="vacancyReminderModal(item)">შეხსენება</a>
-                <a v-if="item.hr_id == hr_id" class="dropdown-item" href="#" @click="vacancyDepositModal(item)">დეპოზიტი</a> -->
-
-                <!-- <a class="dropdown-item" href="#">გამეორება</a> -->
+                <a class="dropdown-item" href="#" @click="candidateModal(item)">კანდიდატი</a>
+                <a class="dropdown-item" href="#" @click="vacancyModal(item.vacancy_id)">ვაკანსია</a>
             </div>
         </div>
       </div>
     </template>
-    <template #header-id="header">
+    <template #header-candidate="header">
         <div class="filter-column">
             <i class="fa fa-filter text-secondary" style="font-size:15px;" @click.stop="showIdFilter=!showIdFilter"></i>
             {{ header.text }}
-            <div class="filter-menu filter-sport-menu my-2" v-show="showIdFilter">
+            <div class="filter-menu filter-sport-menu my-2" v-if="showIdFilter">
                 <input v-model="choseId"/>
-            </div>
-        </div>
-    </template>
-    <template #header-candidate_id="header">
-        <div class="filter-column">
-            <i class="fa fa-filter text-secondary" style="font-size:15px;" @click.stop="showCandidateIdFilter=!showCandidateIdFilter"></i>
-            {{ header.text }}
-            <div class="filter-menu filter-sport-menu my-2" v-show="showCandidateIdFilter">
-                <input v-model="choseCandidateId"/>
             </div>
         </div>
     </template>
@@ -48,8 +33,17 @@
         <div class="filter-column">
             <i class="fa fa-filter text-secondary" style="font-size:15px;" @click.stop="showUserNameFilter=!showUserNameFilter"></i>
             {{ header.text }}
-            <div class="filter-menu filter-sport-menu my-2" v-show="showUserNameFilter">
+            <div class="filter-menu filter-sport-menu my-2" v-if="showUserNameFilter">
                 <input v-model="choseUserName"/>
+            </div>
+        </div>
+    </template>
+    <template #header-vacancy_code="header">
+        <div class="filter-column">
+            <i class="fa fa-filter text-secondary" style="font-size:15px;" @click.stop="showVacancyCodeFilter=!showVacancyCodeFilter"></i>
+            {{ header.text }}
+            <div class="filter-menu filter-sport-menu my-2" v-if="showVacancyCodeFilter">
+                <input v-model="choseVacancyCode"/>
             </div>
         </div>
     </template>
@@ -74,33 +68,52 @@
             </div>
         </div>
     </template>
+    <template #header-type="header">
+        <div class="filter-column">
+            <i class="fa fa-filter text-secondary" style="font-size:15px;" @click.stop="showTypeFilter=!showTypeFilter"></i>
+            {{ header.text }}
+            <div class="filter-menu filter-sport-menu" v-show="showTypeFilter">
+            <select
+                class="favouriteSport-selector"
+                v-model="choseType"
+                name="favouriteSport"
+            >
+                <option value="ყველა">
+                    ყველა
+                </option>
+                <option v-for="(item, index) in data.classificatory.qualifyingType" :key="index" :value="item.name">
+                    {{ item.name }}
+                </option>
+
+            </select>
+            </div>
+        </div>
+    </template>
 
     </EasyDataTable>
-    <!-- {{ statusChangeModal }} -->
-    <!-- <changeStatus :visible="statusChangeModal" :item="statusItem"></changeStatus> -->
+    <vacancyFullInfoModal :visible="showVacancyModal" :vacancyId="vacancy_id"></vacancyFullInfoModal>
 </template>
 <script>
 import { ref, computed } from "vue";
 import moment from 'moment'
-// import Slider from '@vueform/slider'
 import "@vueform/slider/themes/default.css";
 import _ from 'lodash'
-// import changeStatus from "../modal/changeStatus.vue";
+import vacancyFullInfoModal from '../modal/vacancyFullInfoModal.vue'
+import candidateFullInfoModal from '../modal/candidateFullInfoModal.vue'
 export default {
     components: {
     //   Slider,
+        vacancyFullInfoModal,
+        candidateFullInfoModal
     },
     props:{
-        data: Object
+        data: Object,
     },
 
     setup(props){
-
-
-        console.log('data',props.data.qualifying);
+        console.log('data', props.data);
         const headers = ref([
-            { text: "id", value: "id" },
-            { text: "კანდიდატის ID", value: "candidate_id" },
+            { text: "კანდიდატის ID", value: "candidate" },
             { text: "სახელი გვარი", value: "user_name"},
             { text: "ვაკანსიის ID", value: "vacancy_code"},
             { text: "კატეგორია", value: "category"},
@@ -109,17 +122,16 @@ export default {
             { text: "Operation", value: "operation" },
         ]);
         let data = ref(props.data.qualifying)
-        const items = ref(makeData(props.data.qualifying));
+        const items = ref(makeData(props.data.qualifying))
+        // ref(makeData(props.data.qualifying));
         function makeData(params) {
             var arr = []
-            // console.log('params',params);
             params.forEach(element => {
-                // console.log(element.candidate.id);
                 var data = {
-                    'id':element.id,
-                    'candidate_id': element.candidate.id,
+                    'candidate': element.candidate_id,
                     'user_name': element.candidate.user.name_ka,
-                    'vacancy_code':element.vacancy.code,
+                    'vacancy_id':element.vacancy.id,
+                    'vacancy_code':element.vacancy.code.toString(),
                     'category': element.vacancy.category.name_ka,
                     'created_at': moment(element.created_at).format("YYYY-MM-DD HH:mm"),
                     'type': element.qualifying_type.name
@@ -128,86 +140,98 @@ export default {
             });
             return arr
         }
-
-        const showCategoryFilter = ref(false);
-        const showCandidateIdFilter = ref(false);
         const showUserNameFilter = ref(false);
-
-        const showIdFilter = ref(false);
         const choseId = ref('');
-
+        const showIdFilter = ref(false);
+        const choseUserName = ref('');
+        const showVacancyCodeFilter = ref(false);
+        const choseVacancyCode = ref('');
+        const showCategoryFilter = ref(false);
         const choseCategory = ref('ყველა');
-        const choseCandidateId = ref('');
-        const choseUserName = ref('')
+        const showTypeFilter = ref(false);
+        const choseType = ref('ყველა');
         const filterOptions = computed(()=> {
             const filterOptionsArray =  [];
+
+            if (choseId.value !== '') {
+
+                filterOptionsArray.push({
+                    field: 'candidate',
+                    comparison: '=',
+                    criteria: Number(choseId.value),
+                });
+
+            }
+            if (choseUserName.value !== '') {
+                filterOptionsArray.push({
+                    field: 'user_name',
+                    criteria: choseUserName.value,
+                    comparison: (value, criteria) => (value != null && criteria != null &&
+                    typeof value === 'string' && value.includes(criteria)),
+
+                });
+
+            }
+            if (choseVacancyCode.value !== '') {
+                filterOptionsArray.push({
+                    field: 'vacancy_code',
+                    criteria: choseVacancyCode.value,
+                    comparison: (value, criteria) => (value != null && criteria != null &&
+                    typeof value === 'string' && value.includes(criteria)),
+                });
+
+            }
             if (choseCategory.value !== 'ყველა') {
                 filterOptionsArray.push({
                     field: 'category',
                     comparison: '=',
                     criteria: choseCategory.value,
                 });
-
             }
-            if (choseCandidateId.value !== '') {
+            if (choseType.value !== 'ყველა') {
                 filterOptionsArray.push({
-                    field: 'candidate_id',
+                    field: 'type',
                     comparison: '=',
-                    criteria: choseCandidateId.value,
+                    criteria: choseType.value,
                 });
-
-            }
-
-            if (choseUserName.value !== '') {
-                filterOptionsArray.push({
-                    field: 'user_name',
-                    comparison: '=',
-                    criteria: choseUserName.value,
-                });
-
-            }
-
-            if (choseId.value !== '') {
-                filterOptionsArray.push({
-                    field: 'id',
-                    comparison: '=',
-                    criteria: choseId.value,
-                });
-
             }
 
             return filterOptionsArray;
         });
 
+        const showVacancyModal = ref(false);
+        const vacancy_id = ref(null)
 
 
         return {
             headers,
             items,
-            showCategoryFilter,
-            choseCategory,
-            showCandidateIdFilter,
-            choseCandidateId,
+            filterOptions,
+            showIdFilter,
+            choseId,
             showUserNameFilter,
             choseUserName,
-            filterOptions,
-            choseId,
-            showIdFilter
+            showVacancyCodeFilter,
+            choseVacancyCode,
+            showCategoryFilter,
+            choseCategory,
+            showTypeFilter,
+            choseType,
+
+            showVacancyModal,
+            vacancy_id
         };
     },
     methods:{
-        // statusChange(item) {
-        //     this.statusChangeModal = !this.statusChangeModal
-        //     this.statusItem = item
-        // },
+        vacancyModal(id){
+            this.showVacancyModal = !this.showVacancyModal
+            this.vacancy_id = id
+            console.log('id',id);
+        }
     }
 }
 </script>
 <style >
-    .my-vacancy-row  {
-        --easy-table-body-row-background-color: #f8b1b1;
-        --easy-table-body-row-font-color: #070707;
-    }
     .customize-table {
         --easy-table-border: 1px solid #445269;
         --easy-table-header-font-size: 18px;
