@@ -70,21 +70,7 @@ class VacancyActionController extends Controller
         return response()->json($result, $result['status']);
     }
 
-    function addReminder(Request $request) {
-        $data = $request->data;
-        $result = ['status' => 200];
 
-        try {
-            $result['data'] = $this->vacancyUpdateService->addReminderData($data);
-        } catch (Exception $e) {
-            $result = [
-                'status' => 500,
-                'error' => $e->getMessage()
-            ];
-        }
-
-        return response()->json($result, $result['status']);
-    }
     function repeat(Request $request) {
         $data = $request->data;
         $result = ['status' => 200];
@@ -126,22 +112,6 @@ class VacancyActionController extends Controller
             'employer.numberCode','deposit','hr.user'
             ])->paginate(25);
             return response()->json($vacancy);
-        // $result = ['status' => 200];
-
-        // try {
-        //     $result['data'] = Vacancy::filter($filters)->orderby('carry_in_head_date', 'DESC')->with([
-        //         'vacancyDuty', 'vacancyBenefit', 'vacancyForWhoNeed', 'characteristic', 'employer', 'currency','category', 'status',
-        //         'workSchedule', 'vacancyInterest', 'interviewPlace','term', 'demand', 'demand.language', 'demand.education', 'demand.languageLevel','demand.specialty',
-        //         'employer.numberCode','deposit','hr.user'
-        //         ])->paginate(25);
-        // } catch (Exception $e) {
-        //     $result = [
-        //         'status' => 500,
-        //         'error' => $e->getMessage()
-        //     ];
-        // }
-
-        // return response()->json($result, $result['status']);
 
     }
 

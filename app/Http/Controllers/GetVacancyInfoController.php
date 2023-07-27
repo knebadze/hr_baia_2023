@@ -8,6 +8,7 @@ use App\Models\Vacancy;
 use Illuminate\Http\Request;
 use App\Models\VacancyReminder;
 use App\Models\QualifyingCandidate;
+use Illuminate\Support\Facades\Auth;
 use App\Models\VacancyRedactedHistory;
 use App\Services\ClassificatoryService;
 
@@ -18,6 +19,7 @@ class GetVacancyInfoController extends Controller
     {
         $this->classificatoryService = $classificatoryService;
     }
+    
     public function getClassificatory(){
         $classificatoryArr = ['numberOwner', 'currency', 'workSchedule', 'educations', 'characteristic', 'numberCode',
         'category', 'forWhoNeed', 'term', 'benefit','specialties', 'languages', 'languageLevels', 'duty', 'interviewPlace', 'status'];
@@ -51,16 +53,41 @@ class GetVacancyInfoController extends Controller
         return response()->json($data);
     }
     function getVacancyFullInfo(Request $request)  {
-        $data = Vacancy::where('id', $request->data)->with([
+        $vacancy = Vacancy::where('id', $request->data)->with([
             'vacancyDuty', 'vacancyBenefit', 'vacancyForWhoNeed', 'characteristic', 'employer', 'currency','category', 'status',
             'workSchedule', 'vacancyInterest', 'interviewPlace','term', 'demand', 'demand.language', 'demand.education', 'demand.languageLevel','demand.specialty',
             'employer.numberCode','deposit','hr.user', 'vacancyDrivingLicense'
             ])->first();
+        $hr_id = Auth::user()->hr->id;
+        $data = ['vacancy' => $vacancy, 'hr_id' => $hr_id];
         return response()->json($data);
     }
 
     function vacancyRedactedHistory(Request $request) {
-        $data = VacancyRedactedHistory::orderBy('created_at', 'DESC')->where('vacancy_id', $request->data)->with('hr.user')->get();
+        $data = VacancyRedactedHistory::orderBy('created_at', 'DESC')
+                ->where('vacancy_id', $request->data)->with('hr.user')
+                ->get();
+        return response()->json($data);
+    }
+
+    function hrReminderInfo()  {
+        $vacancyReminder = VacancyReminder::orderBy('date', 'ASC')
+                ->where('hr_id', Auth::user()->hr->id)
+                ->where('active', 0)
+                ->where('date', '>=', Carbon::now()->toDateTimeString())
+                ->with('vacancy')
+                ->get();
+        $data = [];
+        $currentDateTime = Carbon::now();
+        foreach ($vacancyReminder as $key => $value) {
+            $baseDateTime = Carbon::parse($value->date);
+            if ($currentDateTime->lt($baseDateTime) && $currentDateTime->diffInMinutes($baseDateTime) <= 30) {
+                $data[] = $value;
+            }
+        }
+        // Assuming the base time is in the 'date' property of the first item in $data
+
+        // dd($currentDateTime->diffInMinutes($baseDateTime));
         return response()->json($data);
     }
 

@@ -32,11 +32,18 @@ import myVacancy from './component/employer/my_vacancy.vue'
 import hrVacancy from './component/hr/page/hr_vacancy.vue'
 import selectionPersonal from './component/hr/page/selection_personal.vue'
 import vacancyPersonal from './component/hr/page/vacancy_personal.vue'
+import reminderManager from "./component/hr/component/reminderManager.vue";
 //modal
 import modalManager from './component/modal/modalManager.vue'
 //_______________________ADMIN COMPONENT_____________________
 import hrTable from './component/admin/hr/hr_table.vue'
 import candidateTable from './component/admin/candidate/candidate_table.vue'
+// dashboard
+import dailyReminder from './component/admin/dashboard/dailyReminder.vue'
+
+// page
+import candidatePage from "./component/admin/page/candidate_page.vue"
+import reminderPage from './component/admin/reminder/page/reminder_page.vue'
 
 // ___________________PAGE_____________________
 import busyCandidate from './component/page/busy_candidate.vue'
@@ -88,12 +95,18 @@ app.component('my-vacancy', myVacancy)
 app.component('hr-vacancy', hrVacancy)
 app.component('selection-personal', selectionPersonal)
 app.component('vacancy-personal', vacancyPersonal)
+app.component('reminder-manager', reminderManager)
 //modal
 app.component('modal-manager', modalManager);
 
 //____________________ADMIN COMPONENT_____________
 app.component('hr-table', hrTable)
 app.component('candidate-table', candidateTable)
+// dashboard
+app.component('daily-reminder',dailyReminder)
+// page
+app.component('candidate-page', candidatePage)
+app.component('reminder-page', reminderPage)
 
 // __________________PAGE_____________
 app.component('busy-candidate', busyCandidate)

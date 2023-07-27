@@ -14,10 +14,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js']) 
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <!-- <link rel="{{asset('build/assets/app-67e4f9a3.css')}}"> -->
     <!-- <script src="{{asset('build/assets/app-2bee19f0.js')}}"></script> -->
-    
+
 </head>
 <body>
     <div id="app">
@@ -131,6 +131,10 @@
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             @yield('content')
+            @if (Auth::user()->role_id == 2)
+                <reminder-manager></reminder-manager>
+            @endif
+
         </div>
         @include('inc.admin.footer')
     </div>

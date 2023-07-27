@@ -5,19 +5,23 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">კანდიდატები</h1>
+          <h1 class="m-0">ვაკანსიები</h1>
         </div><!-- /.col -->
-
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
+    <hr>
   </div>
+
   <!-- /.content-header -->
 
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-            <candidate-table :data='@json($data)'></candidate-table>
-            {{-- <candidate-page :data='@json($data)'></candidate-page> --}}
+            @if (Auth::user()->role_id == 1)
+
+            @else
+                <hr-vacancy :data='@json($data)'></hr-vacancy>
+            @endif
 
         </div>
     </section>

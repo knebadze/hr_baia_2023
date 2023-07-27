@@ -1,18 +1,13 @@
 <template lang="">
     <!-- Modal -->
     <div v-if="showConfirm" class="modal fade show" tabindex="-1"  role="dialog" aria-labelledby="exampleModalCenterTitle" id="modalMap"  aria-hidden="true" style="display:block">
-          <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+          <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
               <div class="modal-content">
               <div class="modal-header">
                   <h6 class="modal-title" id="exampleModalLongTitle"><i class="fa fa-hourglass-start"></i> შეხსენების დამატება</h6>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="hide()">X</button>
               </div>
               <div class="modal-body">
-
-                <!-- <div v-if="m.status.id == 6"> -->
-                    <!-- <hr> -->
-                    <!-- <h6><i class="fa fa-hourglass-start"></i> შეხსენება</h6>
-                    <hr> -->
                     <div class="row">
                         <div class="col-md-5">
                             <div class="form-group">
@@ -29,32 +24,7 @@
 
                     </div>
                 <!-- </div> -->
-                <div v-if="data.next.length > 0">
-                    <hr>
-                    <h6><i class="fa fa-list"></i> მომდევნო შეხსენება</h6>
-                    <hr>
-                    <div class="row">
-                        <div v-for="(item, index) in data.history" :key="index" class="col-md-5 ml-1 border border-success">
-                            <p class=''><strong>შეხსენების თარიღი: </strong><span>{{ item.date }}</span></p>
-                            <p  class=''><strong>შეხსენების მიზეზი: </strong><span>{{ item.reason }}</span></p>
-                            <p class=''><strong>დამატების თარიღი: </strong><span>{{ changeFormat(item.created_at) }}</span></p>
-                        </div>
-                    </div>
 
-                </div>
-                <div v-if="data.history.length > 0">
-                    <hr>
-                    <h6><i class="fa fa-list"></i> ისტორია</h6>
-                    <hr>
-                    <div class="row">
-                        <div v-for="(item, index) in data.history" :key="index" class="col-md-5 ml-1 border border-danger">
-                            <p class=''><strong>შეხსენების თარიღი: </strong><span>{{ item.date }}</span></p>
-                            <p  class=''><strong>შეხსენების მიზეზი: </strong><span>{{ item.reason }}</span></p>
-                            <p class=''><strong>დამატების თარიღი: </strong><span>{{ changeFormat(item.created_at) }}</span></p>
-                        </div>
-                    </div>
-
-                </div>
 
 
 
@@ -94,21 +64,12 @@
             },
         },
         methods:{
-            async show(){
-                try {
-                    let result = await this.getClassificatory();
-                    console.log('result', result.data);
-                    this.data = result.data
+            show(){
 
                     this.m = this.makeModel(this.item)
-                    console.log(this.m);
                     this.showConfirm = true
                     this.max = moment(moment().add(2, 'd').format('YYYY/MM/DD HH:mm')).toISOString().slice(0, -8)
-                    this.min = moment(new Date()).toISOString().slice(0, -8)
-;
-                } catch (error) {
-                    console.log(error);
-                }
+                    this.min = moment(new Date()).toISOString().slice(0, -8);
 
             },
             hide(){
@@ -118,9 +79,11 @@
                 console.log(item);
 
                 var newItem = {}
-                newItem.vacancy_id = item.id
+                newItem.vacancy_id = item.vacancy_id
                 newItem.date = null
                 newItem.reason = null
+                newItem.active = 1
+                newItem.id = item.id
 
                 return {...newItem}
             },
@@ -145,6 +108,9 @@
                             autoClose: 1000,
                         });
                         currentObj.hide();
+                        setTimeout(() => {
+                            document.location.reload();
+                        }, 1500);
                     }
 
 
@@ -155,15 +121,6 @@
                     console.log(error);
                 })
             },
-            getClassificatory(){
-                return axios.post('/get_reminder_info' ,{
-                      data: this.item.id,
-                  })
-
-            },
-            changeFormat(time){
-                return moment(time).format("YYYY-MM-DD HH:mm")
-            }
 
         },
         watch:{

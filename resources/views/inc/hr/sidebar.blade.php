@@ -28,12 +28,12 @@
                 <a @if(Route::currentRouteName() === 'admin.dashboard') class="nav-link active" @else class="nav-link" @endif href="{{ route('admin.dashboard', App()->getLocale()) }}">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
                     <p>
-                        Dashboard
+                        მთავარი
                     </p>
                 </a>
             </li>
             <li class="nav-item">
-                <a @if(Route::currentRouteName() === 'hr.vacancy') class="nav-link active" @else class="nav-link" @endif href="{{ route('hr.vacancy', App()->getLocale()) }}">
+                <a @if(Route::currentRouteName() === 'admin.vacancy') class="nav-link active" @else class="nav-link" @endif href="{{ route('admin.vacancy', App()->getLocale()) }}">
                     <i class="nav-icon fa fa-list"></i>
                     <p>
                         ვაკანსიები
@@ -41,10 +41,26 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a @if(Route::currentRouteName() === 'admin.reminder') class="nav-link active" @else class="nav-link" @endif href="{{ route('admin.reminder', App()->getLocale()) }}">
+                    <i class="nav-icon fa fa-hourglass-start"></i>
+                    <p>
+                        შეხსენებები
+                    </p>
+                </a>
+            </li>
+            {{-- <li class="nav-item">
                 <a @if(Route::currentRouteName() === 'busy.candidate') class="nav-link active" @else class="nav-link" @endif href="{{ route('busy.candidate', App()->getLocale()) }}">
                     <i class="nav-icon fa fa-users"></i>
                     <p>
                         ჩემი კანდიდადეტი
+                    </p>
+                </a>
+            </li> --}}
+            <li class="nav-item">
+                <a @if(Route::currentRouteName() === 'admin.candidate') class="nav-link active" @else class="nav-link" @endif href="{{ route('admin.candidate', App()->getLocale()) }}">
+                    <i class="nav-icon fa fa-users"></i>
+                    <p>
+                        კანდიდადეტი
                     </p>
                 </a>
             </li>

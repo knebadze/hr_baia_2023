@@ -2,18 +2,18 @@
 
 namespace App\Repositories\Vacancy;
 
-use App\Models\Hr;
 use Carbon\Carbon;
 use App\Models\Vacancy;
 use App\Models\Employer;
-use App\Models\QualifyingCandidate;
 use App\Models\VacancyDemand;
 use App\Models\VacancyDeposit;
 use App\Models\VacancyReminder;
+use App\Models\QualifyingCandidate;
 use Illuminate\Support\Facades\Auth;
 
 class VacancyUpdateRepository
 {
+
     public function update($data){
         $id = $data['id'];
         $vacancy = Vacancy::findOrFail($id);
@@ -122,8 +122,6 @@ class VacancyUpdateRepository
 
 
         $id = $data['id'];
-        $type = '';
-        $message = '';
 
         if ($data['status']['id'] == 3) {
             if (QualifyingCandidate::where('vacancy_id', $id)->doesntExist()) {
@@ -145,12 +143,18 @@ class VacancyUpdateRepository
 
         return ['type' => 's', 'message' => 'სტატუსი წარმატებით შეიცვალა'];
     }
-    function addReminder( $data) {
+
+    function addReminder($data) {
         $reminder = new VacancyReminder();
         $reminder->vacancy_id = $data['vacancy_id'];
-        $auth = Auth::id();
-        $hr = Hr::where('user_id', $auth)->select('id')->first();
-        $reminder->hr_id  = $hr->id;
+        $auth = Auth::user();
+        if ($auth->role_id == 2) {
+            $hr_id = Auth::user()->hr->id;
+        }else{
+            $vacancy = Vacancy::where('id', $data['vacancy_id'])->select('id')->first();
+            $hr_id = $vacancy->hr_id;
+        }
+        $reminder->hr_id = $hr_id;
         $reminder->date = $data['date'];
         $reminder->reason = $data['reason'];
         $reminder->save();

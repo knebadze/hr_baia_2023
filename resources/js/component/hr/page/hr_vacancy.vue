@@ -307,7 +307,7 @@
             <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fa fa-cog"></i>
             </button>
-            <div class="dropdown-menu ropdown-menu-right" aria-labelledby="dropdownMenuButton">
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" href="#" @click="vacancyUpdateModal(item)">რედაქტირება</a>
                 <a class="dropdown-item" href="#" @click="statusChange(item)">სტატუსის შეცვლა</a>
                 <a v-if="item.status.id == 2" class="dropdown-item" :href="personalSelectionUrl+'/'+item.id" >კადრების შერჩევა</a>

@@ -86,9 +86,11 @@
       </div>
       <!-- /.row -->
       <!-- Main row -->
-      <div class="row">
-     
-      </div>
+        <div class="row">
+            <section class="col-lg-12 connectedSortable">
+                <daily-reminder :data='@json($dailyReminder)'></daily-reminder>
+            </section>
+        </div>
       <!-- /.row (main row) -->
     </div><!-- /.container-fluid -->
   </section>

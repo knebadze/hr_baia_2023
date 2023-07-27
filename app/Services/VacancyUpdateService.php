@@ -109,8 +109,5 @@ class VacancyUpdateService{
         return $result;
     }
 
-    function addReminderData($data)  {
-        $result = $this->vacancyUpdateRepository->addReminder($data);
-        return $result;
-    }
+    
 }

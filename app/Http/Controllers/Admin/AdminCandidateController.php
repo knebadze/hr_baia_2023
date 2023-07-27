@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Models\Candidate;
 use Illuminate\Http\Request;
 use App\Models\WorkInformation;
-use App\Filters\CandidateFilters;
+use App\Filters\Candidate\CandidateFilters;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Services\ClassificatoryService;
@@ -26,7 +26,7 @@ class AdminCandidateController extends Controller
     {
             $candidate = Candidate::orderBy('id', 'DESC')->with(
                 [
-                    'user',
+                    'user.gender',
                     'workInformation',
                     'nationality',
                     'citizenship',
@@ -45,7 +45,7 @@ class AdminCandidateController extends Controller
                 ])->paginate(50)->toArray();
 
                 $candidateClassificatoryArr = ['gender', 'nationality', 'religions','educations', 'maritalStatus', 'citizenship', 'professions',
-                'specialties', 'allergies', 'languages', 'languageLevels', 'workExperiences',  'drivingLicense','characteristic',  'yesNo', 'category'];
+                'specialties', 'allergies', 'languages', 'languageLevels', 'workExperiences',  'drivingLicense','characteristic',  'yesNo', 'category', 'workSchedule'];
                 $classificatory = $this->classificatoryService->get($candidateClassificatoryArr);
                 $data = [
                     'candidate' => $candidate,
@@ -57,7 +57,25 @@ class AdminCandidateController extends Controller
 
     public function filter(CandidateFilters $filters)
     {
-        return Candidate::filter($filters)->get();
+        return Candidate::filter($filters)->orderBy('id', 'DESC')->with(
+            [
+                'user.gender',
+                'workInformation',
+                'nationality',
+                'citizenship',
+                'religion',
+                'education',
+                'languages',
+                'professions',
+                'specialty',
+                'recommendation',
+                'generalWorkExperience',
+                'familyWorkExperience',
+                'characteristic',
+                'allergy',
+                'maritalStatus',
+                'drivingLicense'
+            ])->paginate(50)->toArray();;
     }
 
     public function workInfoData(Request $request)

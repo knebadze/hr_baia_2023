@@ -60,4 +60,17 @@ class HrController extends Controller
 
         return response()->json($result);
     }
+
+    function getHr(Request $request) {
+        try {
+            $result = User::where('role_id', 2)->with('hr')->get();
+        } catch (Exception $e) {
+            $result = [
+                'status' => 500,
+                'error' => $e->getMessage()
+            ];
+        }
+
+        return response()->json($result);
+    }
 }

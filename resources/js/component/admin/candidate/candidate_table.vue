@@ -1,5 +1,5 @@
 <template lang="">
-    <div class="card card-primary">
+    <div class="card card-primary " :class="colspan">
             <div class="card-header">
               <h3 class="card-title">ფილტრი</h3>
 
@@ -11,30 +11,314 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-xl-4 col-lg-6 col-md-12">
                         <div class="form-group">
-                            <label for="inputName">კატეგორია</label>
-                            <multiselect v-model="category" :options="data.classificatory.category" :searchable="true" deselect-label="Can't remove this value" track-by="name_ka" label="name_ka" placeholder="Select one"  :allow-empty="false">
-                                <template slot="singleLabel" slot-scope="{ option }"></template>
-                            </multiselect>
+                            <label>სახელი გვარი</label>
+                            <div class="ls-inputicon-box">
+                                <input class="form-control" v-model="m.name"  type="text" placeholder="Devid Smith">
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-xl-4 col-lg-6 col-md-12">
                         <div class="form-group">
-                            <label for="inputName">ეროვნება</label>
-                            <multiselect v-model="category" :options="data.classificatory.nationality" :searchable="true" deselect-label="Can't remove this value" track-by="name_ka" label="name_ka" placeholder="Select one"  :allow-empty="false">
-                                <template slot="singleLabel" slot-scope="{ option }"></template>
-                            </multiselect>
+                            <label>ტელეფონის ნომერი</label>
+                            <div class="ls-inputicon-box">
+                                <input class="form-control" v-model="m.number"  type="text" placeholder="555444333" onkeypress="return event.which != 32">
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-xl-4 col-lg-6 col-md-12">
                         <div class="form-group">
-                            <label for="inputName">რელიგია</label>
-                            <multiselect v-model="category" :options="data.classificatory.religions" :searchable="true" deselect-label="Can't remove this value" track-by="name_ka" label="name_ka" placeholder="Select one"  :allow-empty="false">
-                                <template slot="singleLabel" slot-scope="{ option }"></template>
-                            </multiselect>
+                            <label>პირადი ნომერი</label>
+                            <div class="ls-inputicon-box">
+                                <input class="form-control" v-model="m.personal_number"  type="text" placeholder="01234567890" onkeypress="return event.which != 32">
+                            </div>
                         </div>
                     </div>
+                    <div class="col-xl-4 col-lg-6 col-md-12">
+                        <div class="form-group">
+                            <label>მისამართი</label>
+                            <div class="ls-inputicon-box">
+                                <input class="form-control" v-model="m.address"  type="text" placeholder="თბილის სამგორი კახეთის გზატკეცილი">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-6 col-md-12">
+                        <div class="form-group">
+                            <label class="ml-4"> ასაკი</label>
+                            <div class="ls-inputicon-box mt-4">
+                                <!-- <input class="form-control" v-model="m.min_age"  type="number" placeholder="25"> -->
+                                <Slider v-model="m.age" :min=18 :step=10 class="slider"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="col-xl-4 col-lg-6 col-md-12">
+                        <div class="form-group">
+                            <label>მაქსიმალური ასაკი</label>
+                            <div class="ls-inputicon-box">
+                                <input class="form-control" v-model="m.max_age"  type="number" placeholder="45">
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="col-xl-4 col-lg-6 col-md-12">
+                        <div class="form-group">
+                            <label>სიმაღლე</label>
+                            <div class="ls-inputicon-box mt-4">
+                                <!-- <input class="form-control" v-model="m.height"  type="number" placeholder="168"> -->
+                                <Slider v-model="m.height" :min=140  :max=220 :step=10 class="slider"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-6 col-md-12">
+                        <div class="form-group">
+                            <label>წონა</label>
+                            <div class="ls-inputicon-box mt-4">
+                                <!-- <input class="form-control" v-model="m.weight"  type="number" placeholder="75"> -->
+                                <Slider v-model="m.weight" :min=40  :max=120 :step=10 class="slider"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-6 col-md-12">
+                        <div class="form-group">
+                            <label>სქესი</label>
+                            <div class="ls-inputicon-box">
+                                <multiselect v-model="m.gender" :options="cla.gender" deselect-label="Can't remove this value" track-by="name_ka" label="name_ka" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                    <template slot="singleLabel" slot-scope="{ option }"></template>
+                                </multiselect>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-6 col-md-12" >
+                        <div class="form-group">
+                            <label>ეროვნება</label>
+                            <div class="ls-inputicon-box">
+                                <multiselect v-model="m.nationality"  :options="cla.nationality" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true"  label="name_ka" track-by="name_ka" :preselect-first="false" >
+                                    <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                </multiselect>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-6 col-md-12" >
+                        <div class="form-group">
+                            <label>მოქალაქეობა</label>
+                            <div class="ls-inputicon-box">
+                                <multiselect v-model="m.citizenship"  :options="cla.citizenship" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true"  label="name_ka" track-by="name_ka" :preselect-first="false" >
+                                    <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                </multiselect>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-6 col-md-12" >
+                        <div class="form-group">
+                            <label>რელიგია</label>
+                            <div class="ls-inputicon-box">
+                                <multiselect v-model="m.religion"  :options="cla.religions" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true"  label="name_ka" track-by="name_ka" :preselect-first="false" >
+                                    <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                </multiselect>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-6 col-md-12" >
+                        <div class="form-group">
+                            <label>განათლება</label>
+                            <div class="ls-inputicon-box">
+                                <multiselect v-model="m.education"  :options="cla.educations" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true"  label="name_ka" track-by="name_ka" :preselect-first="false" >
+                                    <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                </multiselect>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-6 col-md-12" >
+                        <div class="form-group">
+                            <label>პროფესია</label>
+                            <div class="ls-inputicon-box">
+                                <multiselect v-model="m.profession"  :options="cla.professions" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true"  label="name_ka" track-by="name_ka" :preselect-first="false" >
+                                    <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                </multiselect>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-6 col-md-12" >
+                        <div class="form-group">
+                            <label>სპეციალობა</label>
+                            <div class="ls-inputicon-box">
+                                <multiselect v-model="m.specialty"  :options="cla.specialties" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true"  label="name_ka" track-by="name_ka" :preselect-first="false" >
+                                    <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                </multiselect>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-6 col-md-12" >
+                        <div class="form-group">
+                            <label>უცხო ენა</label>
+                            <div class="ls-inputicon-box">
+                                <multiselect v-model="m.language"  :options="cla.languages" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true"  label="name_ka" track-by="name_ka" :preselect-first="false" >
+                                    <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                </multiselect>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-6 col-md-12" >
+                        <div class="form-group">
+                            <label>ცოდნის დონე</label>
+                            <div class="ls-inputicon-box">
+                                <multiselect v-model="m.language_level"  :options="cla.languageLevels" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true"  label="name_ka" track-by="name_ka" :preselect-first="false" >
+                                    <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                </multiselect>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-6 col-md-12" >
+                        <div class="form-group">
+                            <label>მართვის მოწმობა</label>
+                            <div class="ls-inputicon-box">
+                                <multiselect v-model="m.drivingLicense"  :options="cla.drivingLicense" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true"  label="name" track-by="name" :preselect-first="false" >
+                                    <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                </multiselect>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-6 col-md-12" >
+                        <div class="form-group">
+                            <label>ალერგია</label>
+                            <div class="ls-inputicon-box">
+                                <multiselect v-model="m.allergy"  :options="cla.allergies" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true"  label="name_ka" track-by="name_ka" :preselect-first="false" >
+                                    <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                </multiselect>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-6 col-md-12" >
+                        <div class="form-group">
+                            <label>ზოგადი მახასიათებლები</label>
+                            <div class="ls-inputicon-box">
+                                <multiselect v-model="m.characteristic"  :options="cla.characteristic" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true"  label="name_ka" track-by="name_ka" :preselect-first="false" >
+                                    <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                </multiselect>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-6 col-md-12" >
+                        <div class="form-group">
+                            <label>ოჯახური მდგომარეობა</label>
+                            <div class="ls-inputicon-box">
+                                <multiselect v-model="m.maritalStatus"  :options="cla.maritalStatus" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true"  label="name_ka" track-by="name_ka" :preselect-first="false" >
+                                    <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                </multiselect>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="col-xl-4 col-lg-6 col-md-12" >
+                        <div class="form-group">
+                            <label>ალერგია</label>
+                            <div class="ls-inputicon-box">
+                                <multiselect v-model="m.education"  :options="cla.allergies" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true"  label="name_ka" track-by="name_ka" :preselect-first="false" >
+                                    <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                </multiselect>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="col-xl-4 col-lg-6 col-md-12">
+                        <div class="form-group">
+                            <label>შვილების რაოდენობა</label>
+                            <div class="ls-inputicon-box">
+                                <input class="form-control" v-model="m.children"  type="text" placeholder="2">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 border "></div>
+                    <div class="col-xl-4 col-lg-6 col-md-12">
+                        <div class="form-group">
+                            <label>კატეგორია</label>
+                            <div class="ls-inputicon-box">
+                                <multiselect v-model="m.category" :options="cla.category" deselect-label="Can't remove this value" track-by="name_ka" label="name_ka" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                    <template slot="singleLabel" slot-scope="{ option }"></template>
+                                </multiselect>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-6 col-md-12">
+                        <div class="form-group">
+                            <label>გრაფიკი</label>
+                            <div class="ls-inputicon-box">
+                                <multiselect v-model="m.work_schedule" :options="cla.workSchedule" deselect-label="Can't remove this value" track-by="name_ka" label="name_ka" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                    <template slot="singleLabel" slot-scope="{ option }"></template>
+                                </multiselect>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-6 col-md-12">
+                        <div class="form-group">
+                            <label>ანაზღაურება</label>
+                            <div class="ls-inputicon-box mt-4">
+                                <!-- <input class="form-control" v-model="m.weight"  type="number" placeholder="75"> -->
+                                <Slider v-model="m.payment" :min=50  :max=5000 :step=10 class="slider"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 border "></div>
+                    <div class="col-xl-4 col-lg-6 col-md-12 mt-3">
+                        <div class=" form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1" value="1" v-model="m.go_vacation">
+                            <label class="form-check-label" for="exampleCheck1">შეეძლოს არდადეგებზე გაყოლა</label>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-6 col-md-12 mt-3">
+                        <div class=" form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck2" value="1" v-model="m.stay_night">
+                            <label class="form-check-label" for="exampleCheck1">შეეძლოს ღამე დარჩენა</label>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-6 col-md-12 mt-3">
+                        <div class=" form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck3" value="1" v-model="m.work_additional_hours">
+                            <label class="form-check-label" for="exampleCheck1">შეეძლო დამატებით საათებში მუშაობა</label>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-6 col-md-12 mt-3">
+                        <div class=" form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck3" value="1" v-model="m.convection">
+                            <label class="form-check-label" for="exampleCheck1">არა ნასამართლევი</label>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-6 col-md-12 mt-3">
+                        <div class=" form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck3" value="1" v-model="m.smoke">
+                            <label class="form-check-label" for="exampleCheck1">არა მწეველი</label>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-6 col-md-12 mt-3">
+                        <div class=" form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck3" value="1" v-model="m.work_abroad">
+                            <label class="form-check-label" for="exampleCheck1">შეეძლო საზღვარ გარეთ მუშაობა</label>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-6 col-md-12 mt-3">
+                        <div class=" form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck3" value="1" v-model="m.has_general_work_experience">
+                            <label class="form-check-label" for="exampleCheck1">ზოგადი სამუშაო გამოცდილება</label>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-6 col-md-12 mt-3">
+                        <div class=" form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck3" value="1" v-model="m.has_family_work_experience">
+                            <label class="form-check-label" for="exampleCheck1">ოჯახში მუშაობის გამოცდილება</label>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-6 col-md-12 mt-3">
+                        <div class=" form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck3" value="1" v-model="m.has_recommendation">
+                            <label class="form-check-label" for="exampleCheck1">რეკომენდაცია</label>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-3">
+                        <button type="button" class="btn btn-success float-right" @click="find()"><i class="fa fa-search"></i> ძებნა</button>
+                    </div>
+
                 </div>
             </div>
             <!-- /.card-body -->
@@ -75,8 +359,19 @@
                             @keypress="toggleChildren">
                         </i>
                     </button>
-                    <button class="btn btn-info btn-sm mr-1"><i class="fa fa-edit"></i></button>
-                    <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-cog"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#" @click="vacancyUpdateModal(item)">რედაქტირება</a>
+                            <a class="dropdown-item" href="#" @click="vacancyUpdateModal(item)">წაშლა</a>
+                            <a class="dropdown-item" href="#" @click="vacancyUpdateModal(item)">შავი სია</a>
+                            <a class="dropdown-item" href="#" @click="vacancyUpdateModal(item)">ვაკანსიაზე დამატება</a>
+                            <a class="dropdown-item" href="#" @click="vacancyUpdateModal(item)">ისტორია</a>
+
+                        </div>
+                    </div>
                 </td>
             </tr>
             <tr v-for="(item, index) in candidate" :key="index" class="collapse" id="collapseExample">
@@ -142,15 +437,16 @@
 import _ from 'lodash';
 import Paginate from 'vuejs-paginate-next';
 import info_modal from './modal/info_modal.vue'
+import Slider from '@vueform/slider'
 // import axios from 'axios';
 export default {
     components:{
         paginate: Paginate,
         info_modal,
+        Slider
     },
     props:{
-        data:Object
-
+        data:Object,
     },
     data() {
         return {
@@ -164,6 +460,9 @@ export default {
             show_info_modal: false,
             modalType:'',
             modalData:{},
+            m:{},
+            cla: {},
+            colspan:'collapsed-card'
         }
     },
     created(){
@@ -180,10 +479,15 @@ export default {
 
         getData(){
             this.candidate = {...this.data.candidate.data}
+            this.cla = this.data.classificatory
             this.pagination = {
-                    'current_page':this.data.candidate.current_page,
-                    'last_page': this.data.candidate.last_page
-                }
+                'current_page':this.data.candidate.current_page,
+                'last_page': this.data.candidate.last_page
+            }
+            this.m.age = [18, 80]
+            this.m.height = [140, 200]
+            this.m.weight = [40, 100]
+            this.m.payment = [50, 4000]
             // axios.get('/candidate_data?page=' + this.pagination.current_page )
             // .then((response)=> {
             //     console.log('response', response)
@@ -239,6 +543,31 @@ export default {
             this.modalType = item.type
             this.modalData = item.data
             this.show_info_modal = !this.show_info_modal
+        },
+        find(){
+            this.colspan = 'hide'
+            let currentObj = this;
+            axios({
+                    method: "post",
+                    url: '/candidate_filter',
+                    data: this.m,
+
+                })
+            .then(function (response) {
+                // handle success
+                console.log(response.data);
+                currentObj.candidate = response.data.data
+                currentObj.pagination = {
+                    'current_page':response.data.current_page,
+                    'last_page': response.data.last_page
+                }
+                // currentObj.modalData['candidate'] = response.data
+
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
         }
     },
     mounted(){

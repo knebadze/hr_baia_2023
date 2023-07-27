@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('hr_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->dateTime('date');
             $table->string('reason', 500);
+            $table->smallInteger('active')->default(0);
             $table->timestamps();
         });
     }

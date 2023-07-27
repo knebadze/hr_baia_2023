@@ -5,9 +5,15 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Services\Admin\DashboardService;
 
 class AdminController extends Controller
 {
+    private DashboardService $dashboardService;
+    public function __construct(DashboardService $dashboardService)
+    {
+        $this->dashboardService = $dashboardService;
+    }
    public function index()
    {
         return view('admin');
@@ -30,7 +36,11 @@ class AdminController extends Controller
    public function dashboard()
    {
        if(Auth::check()){
-           return view('admin.dashboard');
+
+            $dailyReminderData = $this->dashboardService->dailyReminder();
+            $dailyReminder = ['data' => $dailyReminderData, 'role_id' => Auth::user()->role_id];
+
+           return view('admin.dashboard', compact('dailyReminder'));
        }
 
        return redirect("admin")->withSuccess('are not allowed to access');

@@ -23,7 +23,6 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Auth\SocialController;
 use App\Http\Controllers\MapvacancieController;
 use App\Http\Controllers\User\ResumeController;
-use App\Http\Controllers\HR\HrVacancyController;
 use App\Http\Controllers\CandidateInfoController;
 use App\Http\Controllers\VacancyActionController;
 use App\Http\Controllers\GetVacancyInfoController;
@@ -31,6 +30,8 @@ use App\Http\Controllers\User\PostVacancyController;
 use App\Http\Controllers\User\UserProfileController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Admin\AdminCandidateController;
+use App\Http\Controllers\Admin\AdminVacancyController;
+use App\Http\Controllers\Admin\ReminderController;
 use App\Http\Controllers\BusyCandidateController;
 use App\Http\Controllers\Hr\SelectionPersonalController;
 use App\Http\Controllers\Employer\EmployerInfoController;
@@ -104,6 +105,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
         Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
         Route::get('/admin/hr', [HrController::class, 'index'])->name('admin.hr');
         Route::get('/admin/candidate', [AdminCandidateController::class, 'index'])->name('admin.candidate');
+        Route::get('/admin/reminder', [ReminderController::class, 'index'])->name('admin.reminder');
     });
 
     //admin Route
@@ -116,10 +118,11 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::get('auth/{provider}/callback', [SocialController::class, 'callback'])->name('auth.social.callback');
 
     // _______________________HR PAGE________________________________
-    Route::get('hr/hr_vacancy', [HrVacancyController::class, 'index'])->name('hr.vacancy');
+    Route::get('admin/vacancy', [AdminVacancyController::class, 'index'])->name('admin.vacancy');
     Route::get('hr/selection_personal/{id?}', [SelectionPersonalController::class, 'index'])->name('selection.personal');
     Route::get('hr/vacancy_personal/{id?}', [SelectionPersonalController::class, 'vacancyPersonal'])->name('vacancy.personal');
     Route::get('hr/busy_candidate', [BusyCandidateController::class, 'index'])->name('busy.candidate');
+    // Route::get('hr/candidate', [BusyCandidateController::class, 'index'])->name('busy.candidate');
 
     //_______________________USER REQUEST_____________________________
     Route::post('upload_avatar', [MyprofileController::class, 'store']);
@@ -157,8 +160,13 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('add_hr', [HrController::class, 'store']);
     Route::post('hr_is_active_update', [HrController::class, 'isActiveUpdate']);
     Route::post('update_hr', [HrController::class, 'update']);
+    Route::post('get_hr_cla', [HrController::class, 'getHr']);
     Route::post('candidate_work_info_data', [AdminCandidateController::class, 'workInfoData']);
     Route::post('candidate_family_work_info_data', [AdminCandidateController::class, 'familyWorkInfoData']);
+    Route::post('candidate_filter', [AdminCandidateController::class, 'filter']);
+    Route::post('add_reminder_vacancy', [ReminderController::class, 'addReminder']);
+    Route::post('vacancy_reminder_filter', [ReminderController::class, 'filter']);
+    Route::post('update_vacancy_reminder', [ReminderController::class, 'update']);
 
     // ________________VACANCY REQUEST__________________________________
 
@@ -167,7 +175,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('update_vacancy', [VacancyActionController::class, 'update']);
     Route::post('update_vacancy_deposit', [VacancyActionController::class, 'updateDeposit']);
     Route::post('update_vacancy_status', [VacancyActionController::class, 'updateStatus']);
-    Route::post('/add_reminder_vacancy', [VacancyActionController::class, 'addReminder']);
+
     Route::post('repeat_vacancy', [VacancyActionController::class, 'repeat']);
     Route::post('carry_in_head_vacancy', [VacancyActionController::class, 'carryInHead']);
     Route::post('admin_vacancy_filter', [VacancyActionController::class, 'filter']);
@@ -192,6 +200,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('/get_add_personal_was_employed_info', [GetVacancyInfoController::class, 'getAddPersonalWasEmployedInfo']);
     Route::post('/get_vacancy_full_info', [GetVacancyInfoController::class, 'getVacancyFullInfo']);
     Route::post('/get_vacancy_redacted_history_info', [GetVacancyInfoController::class, 'vacancyRedactedHistory']);
+    Route::post('/hr_reminder_info', [GetVacancyInfoController::class, 'hrReminderInfo']);
 
 
 
