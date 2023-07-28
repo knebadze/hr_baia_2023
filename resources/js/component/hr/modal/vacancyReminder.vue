@@ -132,6 +132,20 @@
                     });
                     return
                 }
+                //  ვამოწმებ შეხსენება ემატება თუ არა სამუშაო საათებში
+                if (this.m.date) {
+                    let arr = ['09', '10', '11', '12', '13', '14', '15', '16', '17', '18']
+                    const [datePart, timePart] = this.m.date.split('T');
+                    const [hour, minute] = timePart.split(':');
+                    if (!arr.includes(hour)) {
+                        toast.error("გთხოვთ შეხსენება დაამატოთ სამუშაო საათებში", {
+                            theme: 'colored',
+                            autoClose: 1000,
+                        });
+                        return
+                    }
+
+                }
                 let currentObj = this
                 axios.post('/add_reminder_vacancy' ,{
                     data: this.m,

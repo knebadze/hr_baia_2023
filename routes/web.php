@@ -171,6 +171,8 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     // ________________VACANCY REQUEST__________________________________
 
     Route::post('add_vacancy', [PostVacancyController::class, 'store']);
+    Route::get('admin_vacancy_data', [AdminVacancyController::class, 'getDate']);
+
 
     Route::post('update_vacancy', [VacancyActionController::class, 'update']);
     Route::post('update_vacancy_deposit', [VacancyActionController::class, 'updateDeposit']);

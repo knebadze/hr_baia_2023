@@ -122,7 +122,7 @@ class VacancyUpdateRepository
 
 
         $id = $data['id'];
-
+        // ვამოწმებ დაკავდა სტატუსში გადაყვანამდეე იძებნება თუ არაა ამ ვაკანსიაზე კადრი დაკავდაა სტატუსით
         if ($data['status']['id'] == 3) {
             if (QualifyingCandidate::where('vacancy_id', $id)->doesntExist()) {
                 return ['type' => 'e', 'message' => 'დამატეთ დასაქმებული კანდიდატი'];
@@ -132,15 +132,31 @@ class VacancyUpdateRepository
             $date = Carbon::now()->addDays(7)->toDateString();
             $vacancy = VacancyDeposit::where('id', $id)->update(['must_be_enrolled_employer_date' => $date, 'must_be_enrolled_candidate_date' => $date]);
         }
+        // დასრულდა სტატუსში თუ ვაკანსიას არ ყავსა კადრი დასაქმდა სტატუსში ვაბრუნებ ერორს და თუ ყავს კადრი და თანხა არ არის ჩარიცხული ვაბრუნებ ერორს
+        if ($data['status']['id'] == 4){
+            if (QualifyingCandidate::where('vacancy_id', $id)->where('qualifying_type_id', 6)->doesntExist()) {
+
+                return ['type' => 'e', 'message' => 'ამ სტატუსის მისანიჭებლად აუცილებელია ვაკანსიას ყავდეს "დასაქმებული" კანდიდატი'];
+            }else{
+                $deposit = VacancyDeposit::where('vacancy_id', $id)->first();
+                if ($deposit->must_be_enrolled_employer != 0 && $deposit->must_be_enrolled_candidate != 0) {
+                    return ['type' => 'e', 'message' => 'ამ სტატუსის მისანიჭებლად აუცილებელია ვაკანსიის თანხა იყოს ჩარიცხული სრულად'];
+                }
+            }
+        }
         $vacancy = Vacancy::findOrFail($id);
         $vacancy->status_id = $data['status']['id'];
         $vacancy->status_change_reason = $data['status_change_reason'];
         $vacancy->update();
+        // ვამოწმებ უნდა კადრის სტატუსი თუ არის ვამატებ შეხსენებას
         if ($data['status']['id'] == 6) {
             $data['reminder']['vacancy_id'] = $vacancy->id;
             $this->addReminder($data['reminder']);
         }
-
+        if ($data['status']['id'] == 4 || $data['status']['id'] == 5) {
+            // $data['reminder']['vacancy_id'] = $vacancy->id;
+            $this->deleteReminder($vacancy->id);
+        }
         return ['type' => 's', 'message' => 'სტატუსი წარმატებით შეიცვალა'];
     }
 
@@ -158,5 +174,11 @@ class VacancyUpdateRepository
         $reminder->date = $data['date'];
         $reminder->reason = $data['reason'];
         $reminder->save();
+    }
+
+    function deleteReminder($vacancyId)  {
+        if (VacancyReminder::where('vacancy_id', $vacancyId)->exists()) {
+                VacancyReminder::where('vacancy_id', $vacancyId)->whereDate('date', '>', Carbon::now()->toDateTimeString())->where('active', 0)->delete();
+        }
     }
 }

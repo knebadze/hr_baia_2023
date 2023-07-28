@@ -65,15 +65,18 @@
           </div>
       </div>
       <addPersonalWasEmployed :visible="showModal" :item="modalItem"></addPersonalWasEmployed>
+      <deleteReminder :visible="showDeleteReminderModal" :item="modalItem"> </deleteReminder>
   </template>
     <script>
     import { toast } from 'vue3-toastify';
     import 'vue3-toastify/dist/index.css';
     import moment from 'moment'
     import addPersonalWasEmployed from './addPersonalWasEmployed.vue'
+    import deleteReminder from './deleteReminder.vue'
     export default {
         components:{
-            addPersonalWasEmployed
+            addPersonalWasEmployed,
+            deleteReminder
         },
         props:{
             visible: Boolean,
@@ -86,7 +89,8 @@
                 m: null,
                 reminder:{},
                 showModal: false,
-                modalItem: null
+                modalItem: null,
+                showDeleteReminderModal: false
             }
         },
         created(){
@@ -124,9 +128,16 @@
                 return {...newItem}
             },
             save(){
+                // console.log('this.m', this.m);
+                // return
                 if (this.m.status.id == 6) {
                     this.m['reminder'] = this.reminder
                 }
+                //შეხსენების წაშლა იხსნება მოდალი სადაც ჩამონათვალია
+                // if (this.m.status.id == 4  || this.m.status.id == 5) {
+                //     this.reminderInfo(this.m.id)
+                // }
+                // return
                 var editedFields = this.forItem(this.m)
                 let currentObj = this
                 console.log('editedFields', editedFields);
@@ -150,7 +161,11 @@
                             theme: 'colored',
                             autoClose: 1000,
                         });
-                        currentObj.openModal()
+                        if(response.data.data[0].message !== "ამ სტატუსის მისანიჭებლად აუცილებელია ვაკანსიის თანხა იყოს ჩარიცხული სრულად")
+                        {
+                            currentObj.openModal()
+                        }
+
 
                     }
 
@@ -168,6 +183,41 @@
                   })
 
             },
+            reminderInfo(id){
+                let currentObj = this
+                axios.post('/get_reminder_info' ,{
+                    data: id,
+                })
+                .then(function (response) {
+                    // handle success
+                    console.log('response.data',response.data);
+                    if (response.data || response.data.next.length > 0) {
+                        currentObj.openDeleteReminderModal(response.data.next)
+                    }
+                    // if (response.status == 200 && response.data.data[0].type == 's') {
+
+                    //     toast.success(response.data.data[0].message, {
+                    //         theme: 'colored',
+                    //         autoClose: 1000,
+                    //     });
+                    //     setTimeout(() => {
+                    //         document.location.reload();
+                    //     }, 2000);
+                    // }else if(response.status == 200 && response.data.data[0].type == 'e'){
+                    //     toast.error(response.data.data[0].message, {
+                    //         theme: 'colored',
+                    //         autoClose: 1000,
+                    //     });
+                    //     currentObj.openModal()
+
+                    // }
+
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                })
+            },
             forItem(item){
                 var editedFields = {}
                 for (const field in item) {
@@ -184,6 +234,11 @@
                 console.log('this.item modal', this.item);
                 this.showModal = !this.showModal
                 this.modalItem = this.item
+            },
+            openDeleteReminderModal(item){
+                console.log('openDeleteReminderModal(item)' ,item);
+                this.showDeleteReminderModal = !this.showDeleteReminderModal
+                this.modalItem = item
             }
 
         },

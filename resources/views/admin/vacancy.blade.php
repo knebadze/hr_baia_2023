@@ -17,11 +17,11 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-            @if (Auth::user()->role_id == 1)
-
-            @else
+            {{-- @if (Auth::user()->role_id == 1) --}}
+                <vacancy-page :data='@json($data)'></vacancy-page>
+            {{-- @else
                 <hr-vacancy :data='@json($data)'></hr-vacancy>
-            @endif
+            @endif --}}
 
         </div>
     </section>

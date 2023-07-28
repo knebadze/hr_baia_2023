@@ -106,6 +106,7 @@ class VacancyActionController extends Controller
     }
 
     function filter(VacancyFullFilters $filters){
+
         $vacancy = Vacancy::filter($filters)->orderby('carry_in_head_date', 'DESC')->with([
             'vacancyDuty', 'vacancyBenefit', 'vacancyForWhoNeed', 'characteristic', 'employer', 'currency','category', 'status',
             'workSchedule', 'vacancyInterest', 'interviewPlace','term', 'demand', 'demand.language', 'demand.education', 'demand.languageLevel','demand.specialty',
