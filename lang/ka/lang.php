@@ -202,6 +202,7 @@ return [
     'individual_vacancies_page_middle_show_me_60' => 'მაჩვენე 60',
 
     'candidates_page_middle_leftside_read_more' => 'სრულად',
+    'individual_vacancies_page_middle_interest_button' => 'დაინტერესება',
 
     // ----------------------------------------------------------------------------------------------------
     // Company Vacancies Lang Page

@@ -230,8 +230,8 @@
                                     <div class="twm-jobs-amount">{{ item.hr.user.number }} <span>/ {{ item.hr.user[`name_${getLang}`] }}</span></div>
                                     <span v-if="auth && item.vacancy_interest.some( (o) => o.user_id == auth.id ) " style="font-size:20px;">
                                         <i :class="(item.vacancy_interest.some( (o) => o.user_id == auth.id && o.employer_answer == null))?'fa fa-plus-circle text-warning':(item.vacancy_interest.some( (o) => o.user_id == auth.id && o.employer_answer == 0))?'fa fa-times-circle text-danger':(item.vacancy_interest.some( (o) => o.user_id == auth.id && o.employer_answer == 1))?'fa fa-check-circle text-success':''"></i></span>
-                                    <button v-else type="button" class="btn btn-primary" @click="interest(item.id)">დაინტერესება</button>
-                                    <span> <a class="job_detail_read_more btn btn-info fa fa-arrow-right" :href="detailUrl+'/'+item.id+'/'+item.slug" ></a> </span>
+                                    <button v-else type="button" class="btn btn-primary" @click="interest(item.id)">{{ $t('lang.individual_vacancies_page_middle_interest_button') }}</button><br>
+                                    <span> <a class="job_detail_read_more btn btn-info fa fa-arrow-right" :href="detailUrl+'/'+item.id+'/'+item.slug" style="  margin-top: 5%; color: #fff;"></a> </span>
                                 </div>
                             </div>
                         </li>
@@ -257,8 +257,8 @@
                             :page-range="3"
                             :margin-pages="2"
                             :click-handler="getData"
-                            :prev-text="'უკან'"
-                            :next-text="'წინ'"
+                            :prev-text="'<<'"
+                            :next-text="'>>'"
                             :container-class="'pagination'"
                             :page-class="'page-item'"
                             >

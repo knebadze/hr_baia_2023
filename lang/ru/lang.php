@@ -196,6 +196,7 @@ return [
     'individual_vacancies_page_middle_show_me_60' => 'Покажи мне 60',
 
     'individual_vacancies_page_middle_leftside_read_more' => 'Читать далее',
+    'individual_vacancies_page_middle_interest_button' => 'Интерес',
 
     // ----------------------------------------------------------------------------------------------------
     // Company Vacancies Lang Page

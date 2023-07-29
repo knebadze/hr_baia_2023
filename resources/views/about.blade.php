@@ -289,7 +289,7 @@
                                         <div class="twm-media">
                                             <span><img src="/images/work-process/icon4.png" alt="icon1"></span>
                                         </div>
-                                        <h4 class="twm-title">{{ __('lang.about_us_page_card_search_vacancie') }}ა</h4>
+                                        <h4 class="twm-title">{{ __('lang.about_us_page_card_search_vacancie') }}</h4>
                                     </div>
 
                                 </div>

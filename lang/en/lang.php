@@ -199,6 +199,7 @@ return [
     'individual_vacancies_page_middle_show_me_40' => 'Show Me 40',
     'individual_vacancies_page_middle_show_me_50' => 'Show Me 50',
     'individual_vacancies_page_middle_show_me_60' => 'Show Me 60',
+    'individual_vacancies_page_middle_interest_button' => 'Interested',
 
     // ----------------------------------------------------------------------------------------------------
     // Company Vacancies Lang Page

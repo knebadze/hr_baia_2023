@@ -159,19 +159,19 @@
                              <div class="twm-media">
                                  <img src="/images/jobs-company/pic1.jpg" alt="#">
                              </div>
-                             <span class="twm-job-post-duration">1 days ago</span>
                              <div class="twm-jobs-category green"><span class="twm-bg-green">New</span></div>
                              <div class="twm-mid-content">
-                                 <a href="job-detail.html" class="twm-job-title">
+                                 <a href="#" class="twm-job-title">
+                                    <span class="twm-job-post-duration" style="margin-left: 0">1 days ago</span>
                                      <h4>Senior Web Designer , Developer</h4>
                                  </a>
                                  <p class="twm-job-address">1363-1385 Sunset Blvd Los Angeles, CA 90026, USA</p>
-                                 <a href="https://themeforest.net/user/thewebmax/portfolio" class="twm-job-websites site-text-primary">https://thewebmax.com</a>
+                                 <a href="#" class="twm-job-websites site-text-primary">https://thewebmax.com</a>
                              </div>
                              <div class="twm-right-content">
                                  
                                  <div class="twm-jobs-amount">$2500 <span>/ Month</span></div>
-                                 <a href="job-detail.html" class="twm-jobs-browse site-text-primary">{{ __('lang.onmap_vacancies_page_leftside_vacancie_job_boxes') }}</a>
+                                 <a href="#" class="twm-jobs-browse site-text-primary">{{ __('lang.onmap_vacancies_page_leftside_vacancie_job_boxes') }}</a>
                              </div>
                          </div>
 
@@ -184,25 +184,25 @@
                              <div class="twm-media">
                                  <img src="/images/jobs-company/pic2.jpg" alt="#">
                              </div>
-                             <span class="twm-job-post-duration">15 days ago</span>
                              <div class="twm-jobs-category green"><span class="twm-bg-brown">Intership</span></div>
                              <div class="twm-mid-content">
-                                 <a href="job-detail.html" class="twm-job-title">
+                                 <a href="#" class="twm-job-title">
+                                    <span class="twm-job-post-duration" style="margin-left: 0">15 days ago</span>
                                      <h4>Senior Rolling Stock Technician</h4>
                                  </a>
                                  <p class="twm-job-address">1363-1385 Sunset Blvd Los Angeles, CA 90026, USA</p>
-                                 <a href="https://themeforest.net/user/thewebmax/portfolio" class="twm-job-websites site-text-primary">https://thewebmax.com</a>
+                                 <a href="#" class="twm-job-websites site-text-primary">https://thewebmax.com</a>
                              </div>
                              <div class="twm-right-content">
                                  <div class="twm-jobs-amount">$7 <span>/ Hour</span></div>
-                                 <a href="job-detail.html" class="twm-jobs-browse site-text-primary">Browse Job</a>
+                                 <a href="#" class="twm-jobs-browse site-text-primary">Browse Job</a>
                              </div>
                          </div>
 
                      </div>
                      
                      <!--Block three-->
-                     <div class="col-lg-6 col-md-12 m-b30">
+                     {{-- <div class="col-lg-6 col-md-12 m-b30">
                          
                          <div class="twm-jobs-grid-style1">
                              <div class="twm-media">
@@ -224,10 +224,10 @@
                              </div>
                          </div> 
                           
-                     </div>
+                     </div> --}}
                      
                       <!--Block Four-->
-                     <div class="col-lg-6 col-md-12 m-b30">
+                     {{-- <div class="col-lg-6 col-md-12 m-b30">
 
                          <div class="twm-jobs-grid-style1">
                              <div class="twm-media">
@@ -249,10 +249,10 @@
                              </div>
                          </div>
 
-                     </div>
+                     </div> --}}
                      
                      <!--Block Five-->
-                     <div class="masonry-item col-lg-6 col-md-12 m-b30">
+                     {{-- <div class="masonry-item col-lg-6 col-md-12 m-b30">
                          
                          <div class="twm-jobs-grid-style1">
                              <div class="twm-media">
@@ -273,10 +273,10 @@
                              </div>
                          </div>
 
-                     </div>
+                     </div> --}}
                      
                      <!--Block Six-->
-                     <div class="masonry-item col-lg-6 col-md-12 m-b30">
+                     {{-- <div class="masonry-item col-lg-6 col-md-12 m-b30">
                          <div class="twm-jobs-grid-style1">
                              <div class="twm-media">
                                  <img src="/images/jobs-company/pic1.jpg" alt="#">
@@ -296,10 +296,10 @@
                                  <a href="job-detail.html" class="twm-jobs-browse site-text-primary">Browse Job</a>
                              </div>
                          </div>
-                     </div>
+                     </div> --}}
 
                      <!--Block Seven-->
-                     <div class="col-lg-6 col-md-12 m-b30">
+                     {{-- <div class="col-lg-6 col-md-12 m-b30">
 
                          <div class="twm-jobs-grid-style1">
                              <div class="twm-media">
@@ -321,10 +321,10 @@
                              </div>
                          </div>
 
-                     </div>
+                     </div> --}}
                      
                      <!--Block Eight-->
-                     <div class="col-lg-6 col-md-12 m-b30">
+                     {{-- <div class="col-lg-6 col-md-12 m-b30">
 
                          <div class="twm-jobs-grid-style1">
                              <div class="twm-media">
@@ -345,10 +345,10 @@
                              </div>
                          </div>
 
-                     </div>
+                     </div> --}}
                      
                      <!--Block Nine-->
-                     <div class="col-lg-6 col-md-12 m-b30">
+                     {{-- <div class="col-lg-6 col-md-12 m-b30">
                          
                          <div class="twm-jobs-grid-style1">
                              <div class="twm-media">
@@ -370,10 +370,10 @@
                              </div>
                          </div> 
                           
-                     </div>
+                     </div> --}}
                      
                       <!--Block ten-->
-                     <div class="col-lg-6 col-md-12 m-b30">
+                     {{-- <div class="col-lg-6 col-md-12 m-b30">
 
                          <div class="twm-jobs-grid-style1">
                              <div class="twm-media">
@@ -395,7 +395,7 @@
                              </div>
                          </div>
 
-                     </div>
+                     </div> --}}
                      
                  </div>
              </div>
