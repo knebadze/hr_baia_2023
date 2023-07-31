@@ -2,10 +2,14 @@
 
 namespace App\Services;
 
+use App\Models\Hr;
+use App\Models\Duty;
+use App\Models\Term;
 use App\Models\Skill;
 use App\Models\YesNo;
 use App\Models\gender;
 use App\Models\Notice;
+use App\Models\Status;
 use App\Models\Allergy;
 use App\Models\Benefit;
 use App\Models\Category;
@@ -15,6 +19,7 @@ use App\Models\NoReason;
 use App\Models\Religion;
 use App\Models\Education;
 use App\Models\Specialty;
+use App\Models\ForWhoNeed;
 use App\Models\numberCode;
 use App\Models\Profession;
 use App\Models\Citizenship;
@@ -24,16 +29,13 @@ use Illuminate\Support\Arr;
 use App\Models\WorkSchedule;
 use App\Models\MaritalStatus;
 use App\Models\DrivingLicense;
-use App\Models\Duty;
-use App\Models\ForWhoNeed;
+
 use App\Models\InterviewPlace;
 use App\Models\Language_level;
 use App\Models\Work_experience;
-
 use App\Models\GeneralCharacteristic;
 use App\Models\RecommendationFromWhom;
-use App\Models\Status;
-use App\Models\Term;
+use App\Models\User;
 
 class ClassificatoryService
 {
@@ -72,6 +74,7 @@ class ClassificatoryService
             'forWhoNeed' => ForWhoNeed::all()->toArray(),
             'duty' => Duty::all()->toArray(),
             'status' => Status::all()->toArray(),
+            'hr' => User::where('role_id', 2)->with('hr')->get()->toArray(),
         ];
         $result = array_intersect_key($classificatory, array_flip($arr));
         return $result;

@@ -16,7 +16,7 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-            <candidate-table :data='@json($data)'></candidate-table>
+            <candidate-page :data='@json($data)'></candidate-page>
             {{-- <candidate-page :data='@json($data)'></candidate-page> --}}
 
         </div>

@@ -4,7 +4,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
         <div class="modal-header">
-            <h6 class="modal-title" id="exampleModalLongTitle">ახალი HR - ის დამატება</h6>
+            <h6 class="modal-title" id="exampleModalLongTitle">ინფორმაცია</h6>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="hide()">X</button>
         </div>
         <div class="modal-body">
@@ -12,23 +12,23 @@
                 <div class="col-md-6">
                     <dl>
                         <dt>კატეგორია:</dt>
-                        <dd>{{ data.name_ka }}</dd>
+                        <dd>{{ items.category.name_ka }}</dd>
                         <dt>სამუშაო გრაფიკი:</dt>
-                        <dd><span v-for="(item, index) in workInfo.work_schedule" :key="index">{{ item.name_ka+', ' }}</span></dd>
+                        <dd>{{ items.get_work_schedule.map(i => i.work_schedule.name_ka).join(', ') }}</dd>
 
                         <dt>ანაზღაურება:</dt>
-                        <dd>{{ workInfo.payment+' '+workInfo.currency.name_ka }}</dd>
+                        <dd>{{ items.payment+' '+items.currency.name_ka }}</dd>
                     </dl>
                 </div>
                 <div class="col-md-6">
                     <dl>
-                        <dt v-if="workInfo.additional_name_ka">დამატებითი სამუშაო გრაფიკი:</dt>
-                        <dd>{{ workInfo.additional_name_ka }}</dd>
+                        <dt v-if="items.additional_name_ka">დამატებითი სამუშაო გრაფიკი:</dt>
+                        <dd>{{ items.additional_name_ka }}</dd>
                     </dl>
                 </div>
             </div>
             <div class="row" v-if="type == 'general_work'">
-                <div class="col-md-6" v-for="item in data">
+                <div class="col-md-6" v-for="item in items">
                     <dl>
                         <dt>პოზიცია:</dt>
                         <dd>{{ item.pivot.position_ka }}</dd>
@@ -44,9 +44,9 @@
                 <div class="col-md-6" >
                     <dl>
                         <dt>რამდენ ოჯახში გიმუშავია:</dt>
-                        <dd>{{ data.families_worked_count+' ოჯახში' }}</dd>
+                        <dd>{{ items.families_worked_count+' ოჯახში' }}</dd>
                         <dt>გამოცდილება (ჯამში):</dt>
-                        <dd>{{ data.work_experience.name_ka }}</dd>
+                        <dd>{{ items.work_experience.name_ka }}</dd>
 
                     </dl>
                 </div>
@@ -55,7 +55,7 @@
                         <dt>ოჯახში მუშაობდით:</dt>
                         <dd><span v-for="(item, index) in familyWorkSkill.category" :key="index">{{ item+', ' }}</span></dd>
                         <dt>აქედან ყველაზე ხანგრძლივად:</dt>
-                        <dd>{{ data.longest.name_ka }}</dd>
+                        <dd>{{ items.longest.name_ka }}</dd>
                     </dl>
                 </div>
 
@@ -71,7 +71,7 @@
             </div>
 
             <div class="row" v-if="type == 'recommendation'">
-                <div class="col-md-6" v-for="(item, index) in data" :key="index">
+                <div class="col-md-6" v-for="(item, index) in items" :key="index">
                     <dl>
                         <dt>საიდან:</dt>
                         <dd>{{ item.name_ka }}</dd>
@@ -102,7 +102,7 @@ export default {
 props:{
    visible: Boolean,
    type: String,
-   data: Object
+   items: Object
 },
 data() {
     return {
@@ -119,16 +119,16 @@ created(){
 methods:{
     show(){
        this.showConfirm = true
-        if(this.type == 'category'){
-            let id = this.data.pivot.candidate_id
-            let category_id = this.data.id
-            this.getWorkInfo(id, category_id)
-        }
+        // if(this.type == 'category'){
+        //     let id = this.items.pivot.candidate_id
+        //     let category_id = this.items.id
+        //     this.getWorkInfo(id, category_id)
+        // }
         if (this.type == 'family_work') {
-            let id = this.data.candidate_id
+            let id = this.items.candidate_id
             this.getFamilyWorkInfo(id)
         }
-       console.log('data', this.data);
+       console.log('data', this.items);
        console.log('type', this.type);
     },
     hide(){

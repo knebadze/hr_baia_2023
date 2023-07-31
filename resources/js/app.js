@@ -37,12 +37,12 @@ import reminderManager from "./component/hr/component/reminderManager.vue";
 import modalManager from './component/modal/modalManager.vue'
 //_______________________ADMIN COMPONENT_____________________
 import hrTable from './component/admin/hr/hr_table.vue'
-import candidateTable from './component/admin/candidate/candidate_table.vue'
+// import candidateTable from './component/admin/candidate/candidate_table.vue'
 // dashboard
 import dailyReminder from './component/admin/dashboard/dailyReminder.vue'
 
 // page
-import candidatePage from "./component/admin/page/candidate_page.vue"
+import candidatePage from "./component/admin/candidate/page/candidate_page.vue"
 import reminderPage from './component/admin/reminder/page/reminder_page.vue'
 import vacancyPage from './component/admin/vacancy/page/vacancy_page.vue'
 
@@ -102,7 +102,7 @@ app.component('modal-manager', modalManager);
 
 //____________________ADMIN COMPONENT_____________
 app.component('hr-table', hrTable)
-app.component('candidate-table', candidateTable)
+// app.component('candidate-table', candidateTable)
 // dashboard
 app.component('daily-reminder',dailyReminder)
 // page

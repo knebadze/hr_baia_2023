@@ -35,6 +35,10 @@ class WorkInformation extends Model
     {
         return $this->belongsToMany(WorkSchedule::class, 'work_information_work_schedules');
     }
+    public function getWorkSchedule()
+    {
+        return $this->hasMany(WorkInformationWorkSchedule::class, 'work_information_id', 'id');
+    }
 
 
 }

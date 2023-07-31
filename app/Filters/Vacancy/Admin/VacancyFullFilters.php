@@ -31,6 +31,8 @@ class VacancyFullFilters
         'work_additional_hours' => vacancyWorkAdditionalHoursFilter::class,
         'has_family_work_experience' => VacancyHasFamilyWorkExperienceFilter::class,
         'has_recommendation' => VacancyHasRecommendationFilter::class,
+        'hr' => VacancyHrFilter::class,
+        'hrs' => VacancyHrsFilter::class,
     ];
 
     public function apply($query)

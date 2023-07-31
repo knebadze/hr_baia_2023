@@ -181,6 +181,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('repeat_vacancy', [VacancyActionController::class, 'repeat']);
     Route::post('carry_in_head_vacancy', [VacancyActionController::class, 'carryInHead']);
     Route::post('admin_vacancy_filter', [VacancyActionController::class, 'filter']);
+    Route::post('delete_vacancy', [VacancyActionController::class, 'delete']);
 
 
     Route::get('vacancy_data', [VacancyController::class, 'data']);

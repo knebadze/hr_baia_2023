@@ -27,7 +27,7 @@ export default {
     created(){
         axios.post('/hr_reminder_info' )
         .then((response)=> {
-            console.log('response', response)
+            // console.log('response', response)
             this.data = response.data
             // Get the current time
             // const currentTime = moment();
@@ -54,7 +54,7 @@ export default {
         }
     },
     mounted() {
-        console.log('data', this.data);
+        // console.log('data', this.data);
     }
 
 }

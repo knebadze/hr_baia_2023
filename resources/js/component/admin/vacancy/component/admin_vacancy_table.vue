@@ -25,6 +25,7 @@
                 <a v-if="item.status.id == 5 || item.status.id == 4" class="dropdown-item" href="#"  @click="vacancyRepeat(item)">გამეორება</a>
                 <a v-if="item.status.id !== 3 && item.status.id !== 4 && item.status.id !== 5" class="dropdown-item" href="#" @click="carryInHead(item)">აპინვა </a>
                 <a class="dropdown-item" href="#" @click="vacancyHistoryModal(item.id)">ისტორია</a>
+                <a class="dropdown-item" href="#" @click="vacancyDelete(item.id)">წაშლა</a>
             </div>
         </div>
       </div>
@@ -424,48 +425,40 @@ export default {
             return filterOptionsArray;
         });
 
+        function vacancyDelete(id){
+            this.$swal({
+                title: 'ნამდვილად გსურთ ვაკანსიის წაშლა?',
+                //   showDenyButton: true,
+                cancelButtonText:'არა',
+                confirmButtonText: 'კი',
+                showCancelButton: true,
+            }).then((result) => {
+                axios({
+                    method: "post",
+                    url: '/delete_vacancy',
+                    data: id,
+
+                })
+                .then(function (response) {
+                    console.log('response',  response.data);
+                    items.value = response.data
+                    if (response.status == 200) {
+                        toast.success("წარმატებით წაიშალა", {
+                            theme: 'colored',
+                            autoClose: 1000,
+                        });
+                        setTimeout(() => {
+                            document.location.reload();
+                        }, 1500);
+                    }
 
 
 
-        // function myVacancySwitch(){
-        //     if (!myVacancy.value) {
-        //        data.value =  _.sortBy(_.filter(props.data.vacancy, function(o) { return o.hr_id == hr_id.value; }), [function(o) { return o.start_date; }]);
-        //     }else{
-        //         data.value = props.data.vacancy
-        //     }
-        // }
-
-        function find(m){
-            (m.created_at_from || m.created_at_to)?m['created_at'] = [m.created_at_from, m.created_at_to]:'';
-            (m.start_date_from || m.start_date_to)?m['start_date'] = [m.start_date_from, m.start_date_to]:'';
-            (m.interview_date_from || m.interview_date_to)?m['interview_date'] = [m.interview_date_from, m.interview_date_to]:''
-
-            axios({
-                method: "post",
-                url: '/admin_vacancy_filter',
-                data: m,
-
-            })
-            .then(function (response) {
-                console.log('response',  response.data);
-                items.value = response.data.data
-                if (response.status == 200) {
-                    // items.value = response.data.data
-                    // toast.success("წარმატებით შესრულდა", {
-                    //     theme: 'colored',
-                    //     autoClose: 1000,
-                    // });
-                    // setTimeout(() => {
-                    //     document.location.reload();
-                    // }, 2000);
-                }
-
-
-
-            })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                })
             })
         }
 
@@ -508,15 +501,10 @@ export default {
             vacancyPersonalUrl,
 
             colspan,
-            // hr_id,
             myVacancy,
-            // myVacancySwitch,
-            // bodyRowClassNameFunction,
             m,
             cla,
-            find
-
-            // statusChange
+            vacancyDelete,
         };
     },
     methods:{

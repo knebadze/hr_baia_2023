@@ -115,6 +115,22 @@ class VacancyActionController extends Controller
             return response()->json($vacancy);
 
     }
+    function delete(Request $request)  {
+        $data = $request->data;
+        $result = ['status' => 200];
+
+        try {
+            Vacancy::where('id', $data['id'])->delete();
+            $result['data'] = [];
+        } catch (Exception $e) {
+            $result = [
+                'status' => 500,
+                'error' => $e->getMessage()
+            ];
+        }
+
+        return response()->json($result, $result['status']);
+    }
 
 
 }

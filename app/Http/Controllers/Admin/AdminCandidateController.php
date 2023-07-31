@@ -27,12 +27,16 @@ class AdminCandidateController extends Controller
             $candidate = Candidate::orderBy('id', 'DESC')->with(
                 [
                     'user.gender',
-                    'workInformation',
+                    // 'workInformation',
+                    'getWorkInformation.category',
+                    'getWorkInformation.currency',
+                    'getWorkInformation.getWorkSchedule.workSchedule',
                     'nationality',
                     'citizenship',
                     'religion',
                     'education',
-                    'languages',
+                    'getLanguage.language',
+                    'getLanguage.level',
                     'professions',
                     'specialty',
                     'recommendation',

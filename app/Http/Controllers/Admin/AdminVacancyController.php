@@ -19,7 +19,7 @@ class AdminVacancyController extends Controller
     {
 
         $classificatoryArr = ['currency', 'workSchedule', 'educations', 'characteristic', 'educations','specialties','drivingLicense',
-        'category', 'forWhoNeed', 'term', 'benefit','specialties', 'languages', 'languageLevels', 'duty', 'interviewPlace', 'status'];
+        'category', 'forWhoNeed', 'term', 'benefit','specialties', 'languages', 'languageLevels', 'duty', 'interviewPlace', 'status', 'hr'];
         $classificatory = $this->classificatoryService->get($classificatoryArr);
         $role_id = Auth::user()->role_id;
         if (Auth::user()->role_id == 1) {
