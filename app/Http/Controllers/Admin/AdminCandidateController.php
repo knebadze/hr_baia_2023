@@ -2,25 +2,27 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Exception;
 use App\Models\User;
 use App\Models\Candidate;
 use Illuminate\Http\Request;
 use App\Models\WorkInformation;
-use App\Filters\Candidate\CandidateFilters;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Services\ClassificatoryService;
 use App\Models\CandidateFamilyWorkSkill;
+use App\Filters\Candidate\CandidateFilters;
+use App\Services\Admin\CandidateUpdateService;
 
 class AdminCandidateController extends Controller
 {
 
     private ClassificatoryService $classificatoryService;
-    // private ModelService $modelService;
-    public function __construct(ClassificatoryService $classificatoryService)
+    private CandidateUpdateService $candidateUpdateService;
+    public function __construct(ClassificatoryService $classificatoryService, CandidateUpdateService $candidateUpdateService)
     {
         $this->classificatoryService = $classificatoryService;
-        // $this->modelService = $modelService;
+        $this->candidateUpdateService = $candidateUpdateService;
     }
     public function index()
     {
@@ -96,5 +98,55 @@ class AdminCandidateController extends Controller
         ->select('b.name_ka as skill', 'c.name_ka as category')
         ->get();
         return response($data);
+    }
+
+    function edit($id) {
+        // dd($id);
+        $candidate = Candidate::where('id', $id)->with(
+            [
+                'user.gender',
+                'getWorkInformation.category',
+                'getWorkInformation.currency',
+                'getWorkInformation.getWorkSchedule.workSchedule',
+                'getWorkInformation.workSchedule',
+                'nationality',
+                'citizenship',
+                'religion',
+                'education',
+                'getLanguage.language',
+                'getLanguage.level',
+                'professions',
+                'specialty',
+                'recommendation',
+                'getGeneralWorkExperience.workExperience',
+                'getGeneralWorkExperience.hasExperience',
+                'familyWorkExperience',
+                'characteristic',
+                'allergy',
+                'maritalStatus',
+                'drivingLicense'
+            ])->first()->toArray();
+
+        $classificatoryArr = ['gender', 'nationality', 'religions','educations', 'maritalStatus', 'citizenship', 'professions',
+            'specialties', 'allergies', 'languages', 'languageLevels', 'workExperiences', 'notices', 'noExperienceReason', 'drivingLicense',
+            'numberCode', 'characteristic', 'numberOwner', 'yesNo', 'workSchedule', 'category', 'currency'];
+        $classificatory = $this->classificatoryService->get($classificatoryArr);
+        $data = ['candidate' => $candidate, 'classificatory' => $classificatory];
+        return view('admin.candidate_update', compact('data'));
+    }
+
+    function update(Request $request){
+        $result = ['status' => 200];
+
+        try {
+            $result = $this->candidateUpdateService->update($request->data);
+            $result['status'] = 200;
+        } catch (Exception $e) {
+            $result = [
+                'status' => 500,
+                'error' => $e->getMessage()
+            ];
+        }
+        return response()->json($result, $result['status']);
     }
 }

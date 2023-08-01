@@ -20,9 +20,11 @@ class GetVacancyInfoController extends Controller
         $this->classificatoryService = $classificatoryService;
     }
 
-    public function getClassificatory(){
+    public function getClassificatory(Request $request){
+
         $classificatoryArr = ['numberOwner', 'currency', 'workSchedule', 'educations', 'characteristic', 'numberCode',
         'category', 'forWhoNeed', 'term', 'benefit','specialties', 'languages', 'languageLevels', 'duty', 'interviewPlace', 'status'];
+
         $classificatory = $this->classificatoryService->get($classificatoryArr);
         return response()->json($classificatory);
     }

@@ -18,7 +18,7 @@
                 <i class="fa fa-cog"></i>
             </button>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#" @click="openUpdateModal(item)">რედაქტირება</a>
+                <a class="dropdown-item"  :href="updateUrl+'/'+item.id">რედაქტირება</a>
                 <!-- <a class="dropdown-item" href="#" @click="UpdateModal(item)">ვაკანსიაზე დამატება</a>
                 <a class="dropdown-item" href="#" @click="UpdateModal(item)">შავ სიაში დამატება</a>
                 <a class="dropdown-item" href="#" @click="UpdateModal(item)">წაშლა</a> -->
@@ -195,7 +195,6 @@
     </EasyDataTable>
     <!-- {{ statusChangeModal }} -->
     <infoModal :visible="showInfoModal" :type="modalType" :items="item"></infoModal>
-    <updateModal :visible="updateModal" :item="item"></updateModal>
 </template>
 <script>
 import { ref, computed } from "vue";
@@ -205,13 +204,11 @@ import "@vueform/slider/themes/default.css";
 // import Switch from '../../inc/Switch.vue';
 import _ from 'lodash'
 import infoModal from '../modal/info_modal.vue'
-import updateModal from "../modal/update_modal.vue";
 
 export default {
     components: {
         Slider,
         infoModal,
-        updateModal
     },
     props:{
         data: Object
@@ -220,7 +217,7 @@ export default {
     setup(props){
         var url = new URL( location.href)
         const itemsSelected = ref([]);
-        var personalSelectionUrl = ref(url.origin+'/hr/selection_personal')
+        let updateUrl = ref(url.origin+'/admin/candidate_update')
         var vacancyPersonalUrl = ref(url.origin+'/hr/vacancy_personal')
 
         var showInfoModal = ref(false)
@@ -343,7 +340,7 @@ export default {
             updateModal,
             item,
             modalType,
-            personalSelectionUrl,
+            updateUrl,
             vacancyPersonalUrl,
 
             cla,
@@ -358,10 +355,7 @@ export default {
             this.item = item
             this.showInfoModal = !this.showInfoModal
         },
-        openUpdateModal(item){
-            this.updateModal = !this.updateModal
-            this.item = item
-        }
+        
     }
 }
 </script>

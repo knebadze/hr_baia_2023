@@ -105,6 +105,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
         Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
         Route::get('/admin/hr', [HrController::class, 'index'])->name('admin.hr');
         Route::get('/admin/candidate', [AdminCandidateController::class, 'index'])->name('admin.candidate');
+
         Route::get('/admin/reminder', [ReminderController::class, 'index'])->name('admin.reminder');
     });
 
@@ -116,6 +117,9 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
 
     Route::get('auth/{provider}/redirect', [SocialController::class, 'redirect'])->name('auth.social.redirect');
     Route::get('auth/{provider}/callback', [SocialController::class, 'callback'])->name('auth.social.callback');
+
+    //________________________admin page without lang________________
+    Route::get('admin/candidate_update/{id?}', [AdminCandidateController::class, 'edit'])->name('admin.candidate.update');
 
     // _______________________HR PAGE________________________________
     Route::get('admin/vacancy', [AdminVacancyController::class, 'index'])->name('admin.vacancy');
@@ -164,6 +168,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('candidate_work_info_data', [AdminCandidateController::class, 'workInfoData']);
     Route::post('candidate_family_work_info_data', [AdminCandidateController::class, 'familyWorkInfoData']);
     Route::post('candidate_filter', [AdminCandidateController::class, 'filter']);
+    Route::post('update_candidate', [AdminCandidateController::class, 'update']);
     Route::post('add_reminder_vacancy', [ReminderController::class, 'addReminder']);
     Route::post('vacancy_reminder_filter', [ReminderController::class, 'filter']);
     Route::post('update_vacancy_reminder', [ReminderController::class, 'update']);
