@@ -28,6 +28,7 @@ class GetVacancyInfoController extends Controller
         $classificatory = $this->classificatoryService->get($classificatoryArr);
         return response()->json($classificatory);
     }
+    
     function getVacancyFilterClassificatory(){
         $classificatoryArr = ['currency', 'workSchedule', 'educations', 'characteristic',
         'category', 'forWhoNeed', 'term', 'benefit','specialties', 'languages', 'languageLevels', 'duty', 'interviewPlace', 'status'];

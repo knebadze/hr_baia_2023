@@ -14,8 +14,9 @@
                         <table class="table table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th>ენა</th>
-                                    <th>ცოდნის დონე</th>
+                                    <th>კოდი</th>
+                                    <th>ნომერი</th>
+                                    <th>მფლობელი</th>
                                     <th>მოქმედება</th>
                                 </tr>
 
@@ -25,7 +26,7 @@
                                     <td>
                                         <div class="form-group">
                                             <div class="ls-inputicon-box">
-                                                <multiselect  v-model="item.language" :options="cla.languages" deselect-label="Can't remove this value" track-by="name_ka" label="name_ka" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                                <multiselect  v-model="item.number_code" :options="cla.numberCode" deselect-label="Can't remove this value" track-by="phonecode" label="phonecode" placeholder="Select one"  :searchable="true" :allow-empty="false">
                                                     <template slot="singleLabel" slot-scope="{ option }"></template>
                                                 </multiselect>
                                             </div>
@@ -34,43 +35,57 @@
                                     <td>
                                         <div class="form-group">
                                             <div class="ls-inputicon-box">
-                                                <multiselect  v-model="item.level" :options="cla.languageLevels" deselect-label="Can't remove this value" track-by="name_ka" label="name_ka" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                                <input class="form-control" v-model="item.number" type="text"  >
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="ls-inputicon-box">
+                                                <multiselect  v-model="item.number_owner" :options="cla.numberOwner" deselect-label="Can't remove this value" track-by="name_ka" label="name_ka" placeholder="Select one"  :searchable="true" :allow-empty="false">
                                                     <template slot="singleLabel" slot-scope="{ option }"></template>
                                                 </multiselect>
                                             </div>
                                         </div>
                                     </td>
                                     <td>
-                                        <!-- <button type="button" class="btn btn-success" @click.prevent="save(item)" ><i class=""></i>შენახვა</button> -->
                                         <button type="button" class="btn btn-danger ml-2" @click.prevent="deletion(index, item)" ><i class=""></i>წაშლა</button>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
-                        <h5 class="pb-2">უცხო ენის დამატება</h5>
+                        <h5 class="pb-2">ნომრის დამატება</h5>
                         <div class="row border py-3">
-                            <div class="col-xl-6 col-lg-6 col-md-12">
+                            <div class="col-xl-4 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                    <label>უცხო ენა</label>
+                                    <label>კოდი</label>
                                     <div class="ls-inputicon-box">
-                                        <multiselect  v-model="newItem.language" :options="cla.languages" deselect-label="Can't remove this value" track-by="name_ka" label="name_ka" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                        <multiselect  v-model="newItem.number_code" :options="cla.numberCode" deselect-label="Can't remove this value" track-by="phonecode" label="phonecode" placeholder="Select one"  :searchable="true" :allow-empty="false">
                                             <template slot="singleLabel" slot-scope="{ option }"></template>
                                         </multiselect>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-6 col-lg-6 col-md-12">
+                            <div class="col-xl-4 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                    <label>ცოდნის დონე</label>
+                                    <label>ნომერი</label>
                                     <div class="ls-inputicon-box">
-                                        <multiselect  v-model="newItem.level" :options="cla.languageLevels" deselect-label="Can't remove this value" track-by="name_ka" label="name_ka" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                        <input class="form-control" v-model="newItem.number" type="text"  >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label>მფლობელი</label>
+                                    <div class="ls-inputicon-box">
+                                        <multiselect  v-model="newItem.number_owner" :options="cla.numberOwner" deselect-label="Can't remove this value" track-by="name_ka" label="name_ka" placeholder="Select one"  :searchable="true" :allow-empty="false">
                                             <template slot="singleLabel" slot-scope="{ option }"></template>
                                         </multiselect>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <button type="button" class="btn btn-success float-right" @click="addLanguage(newItem)" ><i class="fa fa-plus"></i> დამატება</button>
+                                <button type="button" class="btn btn-success float-right" @click="add(newItem)" ><i class="fa fa-plus"></i> დამატება</button>
                             </div>
                         </div>
                     </div>
@@ -119,6 +134,8 @@
                 console.log('this.m', this.m);
                 this.cla = this.items.cla
                 this.showConfirm = true
+                console.log(this.cla.numberCode.find(element => element.numbercode == 995));
+                this.newItem.number_code = this.cla.numberCode.find(element => element.phonecode == 995);
 
             },
             hide(){
@@ -136,7 +153,7 @@
                 /* Read more about isConfirmed, isDenied below */
                     if (result.isConfirmed) {
                         axios.post('/update_candidate' ,{
-                            data: {'model':this.m, 'type': 'language'},
+                            data: {'model':this.m, 'type': 'number'},
                         })
                         .then(function (response) {
                             if (response.status == 200) {
@@ -170,22 +187,22 @@
                 }
                 delete this.m[index];
             },
-            addLanguage(item){
-                if (!item.hasOwnProperty('language') || !item.hasOwnProperty('level')) {
-                    toast.error("ორივე პარამეტრის შევსება სავალდებულოა", {
-                        theme: 'colored',
-                        autoClose: 1000,
-                    });
-                    return
-                }
-                if (Object.values(this.m).some((el) => el.language.id === item.language.id)) {
+            add(item){
+                // if (!item.hasOwnProperty('language') || !item.hasOwnProperty('level')) {
+                //     toast.error("ორივე პარამეტრის შევსება სავალდებულოა", {
+                //         theme: 'colored',
+                //         autoClose: 1000,
+                //     });
+                //     return
+                // }
+                if (Object.values(this.m).some((el) => el.number_owner.id === item.number_owner.id)) {
                     toast.error("ეს უცხო ენა უკვე დამატებული გაქვთ", {
                         theme: 'colored',
                         autoClose: 1000,
                     });
                     return
                 }
-                item.candidate_id = this.m[0].candidate_id
+                item.candidate_id = this.items.candidate_id
                 this.m[Object.keys(this.m).length ] = item
             }
 

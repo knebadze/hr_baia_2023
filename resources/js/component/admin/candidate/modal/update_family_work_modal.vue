@@ -12,92 +12,57 @@
                         <div class="form-group">
                             <label>სამუშაო გამოცდილება</label>
                             <div class="ls-inputicon-box">
-                                <multiselect  v-model="experience" :options="cla.yesNo" deselect-label="Can't remove this value" track-by="name_ka" label="name_ka" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                <multiselect  v-model="m.has_experience" :options="cla.yesNo" deselect-label="Can't remove this value" track-by="name_ka" label="name_ka" placeholder="Select one"  :searchable="true" :allow-empty="false">
                                     <template slot="singleLabel" slot-scope="{ option }"></template>
                                 </multiselect>
                             </div>
                         </div>
                     </div>
-                    <div v-if="experience.id == 1">
-                        <div v-if="Object.keys(m).length">
-                            <h5 class="pb-2">ზოგადი სამუშაო გამოცდილების რედაქტირება</h5>
-                            <table class="table table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>ობიექტი</th>
-                                        <th>პოზიცია</th>
-                                        <th>გამოცდილება</th>
-                                        <th>მოქმედება</th>
-                                    </tr>
-
-                                </thead>
-                                <tbody>
-                                    <tr v-for="(item, index) in m" :key="index">
-                                        <td>
-                                            <div class="form-group">
-                                                <div class="ls-inputicon-box">
-                                                    <input class="form-control" type="text" v-model="item.object_ka">
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-group">
-                                                <div class="ls-inputicon-box">
-                                                    <input class="form-control" type="text" v-model="item.position_ka">
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-group">
-                                                <div class="ls-inputicon-box">
-                                                    <multiselect  v-model="item.work_experience" :options="cla.workExperiences" deselect-label="Can't remove this value" track-by="name_ka" label="name_ka" placeholder="Select one"  :searchable="true" :allow-empty="false">
-                                                        <template slot="singleLabel" slot-scope="{ option }"></template>
-                                                    </multiselect>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-danger ml-2" @click.prevent="deletion(index, item)" ><i class=""></i>წაშლა</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <h5 class="pb-2">გამოცდილები დამატება</h5>
-                        <div class="row border py-3">
+                    <div v-if="m.has_experience.id == 1">
+                        <div class="row border py-4">
                             <div class="col-xl-4 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                    <label>ობიექტი</label>
+                                    <label>რამდენ ოჯახში გიმუშავით</label>
                                     <div class="ls-inputicon-box">
-                                        <input class="form-control" type="text" v-model="newItem.object_ka">
+                                        <input class="form-control" type="number" v-model="m.families_worked_count">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-4 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                    <label>პოზიცია</label>
+                                    <label>სამუშაო გამოცდილება (სულ)</label>
                                     <div class="ls-inputicon-box">
-                                        <input class="form-control" type="text" v-model="newItem.position_ka">
+                                        <multiselect  v-model="m.work_experience" :options="cla.workExperiences" deselect-label="Can't remove this value" track-by="name_ka" label="name_ka" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                            <template slot="singleLabel" slot-scope="{ option }"></template>
+                                        </multiselect>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-4 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                    <label>სამუშაო გამოცდილება</label>
+                                    <label>ყველაზე ხანგრძლივად</label>
                                     <div class="ls-inputicon-box">
-                                        <multiselect  v-model="newItem.work_experience" :options="cla.workExperiences" deselect-label="Can't remove this value" track-by="name_ka" label="name_ka" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                        <multiselect  v-model="m.longest" :options="cla.workExperiences" deselect-label="Can't remove this value" track-by="name_ka" label="name_ka" placeholder="Select one"  :searchable="true" :allow-empty="false">
                                             <template slot="singleLabel" slot-scope="{ option }"></template>
                                         </multiselect>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <button type="button" class="btn btn-success float-right" @click="add(newItem)" ><i class="fa fa-plus"></i> დამატება</button>
+                                <div class="form-group">
+                                    <label>მუშაობის დროს გევალებოდათ</label>
+                                    <div class="ls-inputicon-box">
+                                        <multiselect v-model="m.family_work_duty"  :options="cla.duty" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true"  label="name_ka" track-by="name_ka" :preselect-first="false">
+                                            <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                        </multiselect>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row" v-if="experience.id == 2">
+
+
+                    <div class="row py-4" v-if="m.has_experience.id == 2">
                         <div class="col-xl-4 col-lg-6 col-md-12">
                             <div class="form-group">
                                 <label>არ ქონის მიზეზი</label>
@@ -159,9 +124,10 @@
         },
         methods:{
             show(){
-                console.log('this.m', this.items.item.length);
+                console.log('this.m', this.items.item);
                 this.m = {...this.items.item}
-                this.experience = (this.items.item.length != 0)?this.items.item[0].has_experience:''
+                // (this.m.hasOwnProperty('has_experience'))?
+                this.experience = (this.items.item.length != 0)?this.items.item.has_experience:''
                 console.log('this.m', this.m);
                 this.cla = this.items.cla
                 this.showConfirm = true
@@ -171,10 +137,12 @@
                 this.showConfirm = false
             },
             save(){
-                if (this.experience.id == 2) {
-                    this.m.has_experience = this.experience
+                console.log(this.m);
+                // return
+                if (this.m.has_experience.id == 2) {
+                    // this.m.has_experience = this.experience
                     this.m.candidate_id = this.items.candidate_id
-                    this.m = [this.m]
+                    this.m = this.m
                 }
                 console.log('save this.m',this.m);
                 let currentObj = this
@@ -188,7 +156,7 @@
                 /* Read more about isConfirmed, isDenied below */
                     if (result.isConfirmed) {
                         axios.post('/update_candidate' ,{
-                            data: {'model':this.m, 'type': 'general_work_experience'},
+                            data: {'model':this.m, 'type': 'family_work_experience'},
                         })
                         .then(function (response) {
                             if (response.status == 200) {
@@ -212,21 +180,6 @@
                 });
 
             },
-            deletion(index, item){
-                delete this.m[index];
-            },
-            add(item){
-                if (!item.hasOwnProperty('object_ka') || !item.hasOwnProperty('position_ka') || !item.hasOwnProperty('work_experience')) {
-                    toast.error("ყველა პარამეტრის შევსება სავალდებულოა", {
-                        theme: 'colored',
-                        autoClose: 1000,
-                    });
-                    return
-                }
-                item.candidate_id = this.items.candidate_id
-                item.has_experience = this.experience
-                this.m[Object.keys(this.m).length] = {...item}
-            }
 
         },
 

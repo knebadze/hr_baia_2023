@@ -9,17 +9,17 @@ class CandidateFamilyWorkSkill extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'candidate_id',
-        'skill_id',
+        'family_work_experience_id',
+        'duty_id',
     ];
     // protected $appends = ['skillDetail'];
-    public function candidate()
+    // public function candidate()
+    // {
+    //     return $this->belongsTo(Candidate::class);
+    // }
+    public function duty()
     {
-        return $this->belongsTo(Candidate::class);
-    }
-    public function skill()
-    {
-        return $this->belongsTo(Skill::class, 'skill_id');
+        return $this->belongsTo(duty::class);
     }
 
 

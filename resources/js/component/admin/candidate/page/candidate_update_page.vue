@@ -205,13 +205,17 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-4 col-lg-6 col-md-12">
+                <div class="col-xl-2 col-lg-6 col-md-12">
                     <label>სიმაღლე (სმ)</label>
                     <input class="form-control" v-model="m.height" type="number" >
                 </div>
-                <div class="col-xl-4 col-lg-6 col-md-12">
+                <div class="col-xl-2 col-lg-6 col-md-12">
                     <label>წონა (კგ)</label>
                     <input class="form-control" v-model="m.weight" type="number" >
+                </div>
+                <div class="col-xl-4 col-lg-6 col-md-12">
+                    <label>Facebook ლინკი</label>
+                    <input class="form-control" v-model="m.fb_link" type="text" >
                 </div>
                 <div class="col-xl-4 col-lg-6 col-md-12">
                     <label>იუთუბის ლინკი</label>
@@ -240,39 +244,45 @@
 
             </div>
             <hr>
-            <div class=" p-a20 my-3">
-                <h6 class=" m-a0"><i class="fa fa-wrench"></i> განახლება</h6>
-            </div>
-            <hr>
-            <div class="row mt-4 ">
-                <div class="col-md-12 d-flex justify-content-between">
-                    <button type="button" class="btn btn-primary " @click="openUpdateLanguageModal( m.get_language)" ><i class=""></i>უცხო ენა</button>
-                    <button type="button" class="btn btn-primary " @click="openUpdateGeneralWorkModal( m.get_general_work_experience )" ><i class=""></i>ზოგადი სამუშაო გამოცდილება</button>
-                    <button type="button" class="btn btn-primary " @click="save()" ><i class=""></i>ოჯახში მუშაობა</button>
-                    <button type="button" class="btn btn-primary " @click="openUpdateWorkInformationModal(m.get_work_information, m.family_work_experience)" ><i class=""></i>სამუშაო ინფორმაცია</button>
-                    <button type="button" class="btn btn-primary " @click="save()" ><i class=""></i>რეკომენდაცია</button>
-                    <button type="button" class="btn btn-primary " @click="save()" ><i class=""></i>ნომრები</button>
-                </div>
+            <div class=" col-md-12">
+                <button type="button" class="btn btn-success float-right" @click.prevent="save()" ><i class=""></i>შენახვა</button>
             </div>
 
         </div>
         <div class="card-footer">
-            <button type="button" class="btn btn-success float-right" @click.prevent="save()" ><i class=""></i>შენახვა</button>
+            <div class=" p-a20 my-3">
+                <h6 class=" m-a0"><i class="fa fa-wrench"></i> განახლება</h6>
+            </div>
+            <hr>
+            <div class="col-md-12 d-flex justify-content-between">
+                <button type="button" class="btn btn-primary " @click="openUpdateLanguageModal( m.get_language)" ><i class=""></i>უცხო ენა</button>
+                <button type="button" class="btn btn-primary " @click="openUpdateGeneralWorkModal( m.get_general_work_experience )" ><i class=""></i>ზოგადი სამუშაო გამოცდილება</button>
+                <button type="button" class="btn btn-primary " @click="openUpdateFamilyWorkModal(m.family_work_experience)" ><i class=""></i>ოჯახში მუშაობა</button>
+                <button type="button" class="btn btn-primary " @click="openUpdateWorkInformationModal(m.get_work_information)" ><i class=""></i>სამუშაო ინფორმაცია</button>
+                <button type="button" class="btn btn-primary " @click="save()" ><i class=""></i>რეკომენდაცია</button>
+                <button type="button" class="btn btn-primary " @click="openUpdateNumberModal(m.number)" ><i class=""></i>ნომრები</button>
+            </div>
         </div>
     </div>
     <update_language_modal :visible="updateLanguageModal" :items="item"></update_language_modal>
     <update_general_work_modal :visible="updateGeneralWorkModal" :items="item"></update_general_work_modal>
     <update_work_information_modal :visible="updateWorkInformationModal" :items="item"></update_work_information_modal>
+    <update_family_work_modal :visible="updateFamilyWorkModal" :items="item"></update_family_work_modal>
+    <update_number_modal :visible="updateNumberModal" :items="item"></update_number_modal>
 </template>
 <script>
 import update_language_modal from '../modal/update_language_modal.vue';
 import update_general_work_modal from '../modal/update_general_work_modal.vue';
 import update_work_information_modal from '../modal/update_work_information_modal.vue';
+import update_family_work_modal from '../modal/update_family_work_modal.vue';
+import update_number_modal from '../modal/update_number_modal.vue';
 export default {
     components:{
         update_language_modal,
         update_general_work_modal,
-        update_work_information_modal
+        update_work_information_modal,
+        update_family_work_modal,
+        update_number_modal
     },
     props:{
         data: Object
@@ -284,6 +294,8 @@ export default {
             updateLanguageModal: false,
             updateGeneralWorkModal: false,
             updateWorkInformationModal: false,
+            updateFamilyWorkModal:false,
+            updateNumberModal:false,
             item: null
         }
     },
@@ -296,22 +308,71 @@ export default {
         this.m = {...this.data.candidate}
     },
     methods:{
+        save(){
+            let currentObj = this
+            this.$swal({
+                title: 'ნამდვილად გსურთ რედაქტირება?',
+                //   showDenyButton: true,
+                cancelButtonText:'არა',
+                confirmButtonText: 'კი',
+                showCancelButton: true,
+            }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    axios.post('/update_candidate' ,{
+                        data: {'model':this.m, 'type': 'main'},
+                    })
+                    .then(function (response) {
+                        if (response.status == 200) {
+                            toast.success("წარმატებით დარედაქტირდა", {
+                                theme: 'colored',
+                                autoClose: 1000,
+                            });
+                            setTimeout(() => {
+                                document.location.reload();
+                            }, 2000);
+                        }
+
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+                    // this.hide()
+
+                } else if (result.isDenied) {
+                    return
+                }
+            });
+
+        },
         openUpdateLanguageModal(item){
             this.updateLanguageModal = !this.updateLanguageModal
-            this.item = {'item':item, 'cla':{'languages':this.cla.languages, 'languageLevels': this.cla.languageLevels}}
+            this.item = {'candidate_id': this.data.candidate.id,'item':item, 'cla':{'languages':this.cla.languages, 'languageLevels': this.cla.languageLevels}}
         },
         openUpdateGeneralWorkModal(item){
             this.updateGeneralWorkModal = !this.updateGeneralWorkModal
             this.item = {'candidate_id': this.data.candidate.id,'item':item, 'cla':{'workExperiences':this.cla.workExperiences, 'yesNo': this.cla.yesNo, 'noExperienceReason': this.cla.noExperienceReason}}
         },
-        openUpdateWorkInformationModal(work, family){
+        openUpdateFamilyWorkModal(item){
+            this.updateFamilyWorkModal = !this.updateFamilyWorkModal
+            this.item = {
+                'candidate_id': this.data.candidate.id,
+                'item':item,
+                'cla':
+                {
+                    'workExperiences':this.cla.workExperiences,
+                    'yesNo': this.cla.yesNo,
+                    'noExperienceReason': this.cla.noExperienceReason,
+                    'duty': this.cla.duty
+                }
+        }
+        },
+        openUpdateWorkInformationModal(item){
             this.updateWorkInformationModal = !this.updateWorkInformationModal
             this.item = {
                 'candidate_id': this.data.candidate.id,
-                'item':{
-                    'work_information': work,
-                    'family_experience': family
-                },
+                'item':item,
                 'cla':{
                     'workExperiences':this.cla.workExperiences,
                     'yesNo': this.cla.yesNo,
@@ -321,7 +382,11 @@ export default {
                     'workSchedule': this.cla.workSchedule
                 }
             }
-        }
+        },
+        openUpdateNumberModal(item){
+            this.updateNumberModal = !this.updateNumberModal
+            this.item = {'candidate_id': this.data.candidate.id,'item':item, 'cla':{'numberOwner':this.cla.numberOwner, 'numberCode': this.cla.numberCode}}
+        },
     }
 }
 </script>

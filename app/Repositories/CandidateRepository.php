@@ -164,8 +164,6 @@ class CandidateRepository
                 Additional_number::where('candidate_id', $candidate->id)->delete();
             }
             foreach ($data['candidateNumber'] as $key => $value) {
-                // print_r($value);
-                // exit;
                 $additionalNumber = new Additional_number();
                 $additionalNumber->candidate_id = $candidate->id;
                 $additionalNumber->number_code_id = $value['number_code_id'];

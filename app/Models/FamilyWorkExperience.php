@@ -49,5 +49,14 @@ class FamilyWorkExperience extends Model
     {
         return $this->workExperience()->where('id', $this->work_experience_id)->first();
     }
+    public function familyWorkDuty()
+    {
+        return $this->belongsToMany(Duty::class, 'candidate_family_work_skills');
+    }
+    public function getFamilyWorkDuty()
+    {
+        return $this->hasMany(CandidateFamilyWorkSkill::class, 'family_work_experience_id', 'id');
+    }
+
 
 }

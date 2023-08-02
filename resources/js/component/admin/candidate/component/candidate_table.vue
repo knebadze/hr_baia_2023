@@ -19,9 +19,9 @@
             </button>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item"  :href="updateUrl+'/'+item.id">რედაქტირება</a>
-                <!-- <a class="dropdown-item" href="#" @click="UpdateModal(item)">ვაკანსიაზე დამატება</a>
+                <a class="dropdown-item" href="#" @click="UpdateModal(item)">ვაკანსიაზე დამატება</a>
                 <a class="dropdown-item" href="#" @click="UpdateModal(item)">შავ სიაში დამატება</a>
-                <a class="dropdown-item" href="#" @click="UpdateModal(item)">წაშლა</a> -->
+                <a class="dropdown-item" href="#" @click="UpdateModal(item)">წაშლა</a>
             </div>
         </div>
       </div>
@@ -29,8 +29,11 @@
         <template #expand="item">
             <!-- {{ item }} -->
               <!-- /.card-header -->
-              <div class="card-body">
-
+            <div class="card-body">
+                <div class="row d-flex justify-content-center">
+                    <img :src="'/images/user-avatar/'+item.user.avatar" alt="#" style="height:100px">
+                </div>
+                    <hr>
                     <div class="row">
                         <div class="col-md-6">
                             <dl class="row">
@@ -355,7 +358,7 @@ export default {
             this.item = item
             this.showInfoModal = !this.showInfoModal
         },
-        
+
     }
 }
 </script>

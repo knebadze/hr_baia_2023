@@ -58,7 +58,7 @@ class SelectionPersonalController extends Controller
         $candidate = Candidate::filter($filters)->with([
             'user', 'user.gender', 'specialty', 'nationality', 'religion', 'education', 'maritalStatus', 'citizenship',
             'professions', 'characteristic', 'getLanguage.language', 'getLanguage.level', 'allergy', 'drivingLicense', 'generalWorkExperience', 'notice',
-            'familyWorkSkill', 'familyWorkExperience', 'recommendation', 'getWorkInformation',
+            'familyWorkExperience.noReason','familyWorkExperience.familyWorkDuty', 'recommendation', 'getWorkInformation',
             'getWorkInformation.category','getWorkInformation.currency', 'getWorkInformation.workSchedule', 'qualifyingCandidate', 'qualifyingCandidate.vacancy'
         ])->get();
         // dd($candidate);

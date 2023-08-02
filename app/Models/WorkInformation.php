@@ -9,6 +9,19 @@ class WorkInformation extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'candidate_id',
+        'category_id',
+        'payment',
+        'currency_id',
+        'additional_schedule_ka',
+        'additional_schedule_en',
+        'additional_schedule_ru',
+        'go_vacation',
+        'stay_night',
+        'work_additional_hours',
+    ];
+
     public function category()
     {
         return $this->belongsTo(Category::class);

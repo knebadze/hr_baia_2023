@@ -64,7 +64,7 @@
                     <dl>
                         <dt>გევალებოდათ:</dt>
                         <dd>
-                            <span class="badge badge-info mr-2" v-for="(item, index) in familyWorkSkill.skill" :key="index">{{ item+', ' }}</span>
+                            <span class="badge badge-info mr-2" v-for="(item, index) in items.family_work_duty" :key="index">{{ item.name_ka+', ' }}</span>
                         </dd>
                     </dl>
                 </div>
@@ -124,59 +124,59 @@ methods:{
         //     let category_id = this.items.id
         //     this.getWorkInfo(id, category_id)
         // }
-        if (this.type == 'family_work') {
-            let id = this.items.candidate_id
-            this.getFamilyWorkInfo(id)
-        }
+        // if (this.type == 'family_work') {
+        //     let id = this.items.candidate_id
+        //     this.getFamilyWorkInfo(id)
+        // }
        console.log('data', this.items);
        console.log('type', this.type);
     },
     hide(){
         this.showConfirm = false
     },
-    getWorkInfo(id, category_id){
-        let currentObj = this;
+    // getWorkInfo(id, category_id){
+    //     let currentObj = this;
 
-        console.log('id', id);
-        axios({
-            method: "post",
-            url: "/candidate_work_info_data",
-            data: {"id":id, 'category_id':category_id},
+    //     console.log('id', id);
+    //     axios({
+    //         method: "post",
+    //         url: "/candidate_work_info_data",
+    //         data: {"id":id, 'category_id':category_id},
 
-        })
-        .then(function (response) {
-            // handle success
-            console.log('response.data',response.data);
-            currentObj.workInfo = response.data
+    //     })
+    //     .then(function (response) {
+    //         // handle success
+    //         console.log('response.data',response.data);
+    //         currentObj.workInfo = response.data
 
-        })
-        .catch(function (error) {
-            // handle error
-            console.log(error);
-        })
-    },
-    getFamilyWorkInfo(id){
-        let currentObj = this;
+    //     })
+    //     .catch(function (error) {
+    //         // handle error
+    //         console.log(error);
+    //     })
+    // },
+    // getFamilyWorkInfo(id){
+    //     let currentObj = this;
 
-        console.log('id', id);
-        axios({
-            method: "post",
-            url: "/candidate_family_work_info_data",
-            data: {"id":id},
+    //     console.log('id', id);
+    //     axios({
+    //         method: "post",
+    //         url: "/candidate_family_work_info_data",
+    //         data: {"id":id},
 
-        })
-        .then(function (response) {
-            // handle success
-            console.log('response.data',response.data);
-            let category = [...new Set( _.map(response.data, 'category'))]
-            currentObj.familyWorkSkill = {'category': category, 'skill':_.map(response.data, 'skill')}
+    //     })
+    //     .then(function (response) {
+    //         // handle success
+    //         console.log('response.data',response.data);
+    //         let category = [...new Set( _.map(response.data, 'category'))]
+    //         currentObj.familyWorkSkill = {'category': category, 'skill':_.map(response.data, 'skill')}
 
-        })
-        .catch(function (error) {
-            // handle error
-            console.log(error);
-        })
-    }
+    //     })
+    //     .catch(function (error) {
+    //         // handle error
+    //         console.log(error);
+    //     })
+    // }
 
 },
 watch:{

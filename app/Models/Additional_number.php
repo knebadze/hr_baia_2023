@@ -12,7 +12,7 @@ class Additional_number extends Model
         'candidate_id',
         'number_code_id',
         'number_owner_id',
-        'owner',
+        'number',
     ];
     public function numberCode()
     {

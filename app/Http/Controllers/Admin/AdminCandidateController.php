@@ -43,7 +43,8 @@ class AdminCandidateController extends Controller
                     'specialty',
                     'recommendation',
                     'generalWorkExperience',
-                    'familyWorkExperience',
+                    'familyWorkExperience.noReason',
+                    'familyWorkExperience.familyWorkDuty',
                     'characteristic',
                     'allergy',
                     'maritalStatus',
@@ -120,16 +121,20 @@ class AdminCandidateController extends Controller
                 'recommendation',
                 'getGeneralWorkExperience.workExperience',
                 'getGeneralWorkExperience.hasExperience',
-                'familyWorkExperience',
+                'familyWorkExperience.hasExperience',
+                'familyWorkExperience.noReason',
+                'familyWorkExperience.familyWorkDuty',
                 'characteristic',
                 'allergy',
                 'maritalStatus',
-                'drivingLicense'
+                'drivingLicense',
+                'number.numberOwner',
+                'number.numberCode'
             ])->first()->toArray();
 
         $classificatoryArr = ['gender', 'nationality', 'religions','educations', 'maritalStatus', 'citizenship', 'professions',
             'specialties', 'allergies', 'languages', 'languageLevels', 'workExperiences', 'notices', 'noExperienceReason', 'drivingLicense',
-            'numberCode', 'characteristic', 'numberOwner', 'yesNo', 'workSchedule', 'category', 'currency'];
+            'numberCode', 'characteristic', 'numberOwner', 'yesNo', 'workSchedule', 'category', 'currency', 'duty'];
         $classificatory = $this->classificatoryService->get($classificatoryArr);
         $data = ['candidate' => $candidate, 'classificatory' => $classificatory];
         return view('admin.candidate_update', compact('data'));
