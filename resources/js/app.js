@@ -16,7 +16,7 @@ import test from './component/test.vue'
 import uploadAvatar from './component/user/upload_avatar.vue'
 import changePassword from './component/user/change_password.vue'
 //candidate
-import candidateProfile from './component/candidate/candidate_profile.vue'
+import candidateProfile from './component/candidate/page/candidate_profile.vue'
 import candidateWorkInformation from './component/candidate/candidate_work_information.vue'
 import resume from './component/candidate/resume.vue'
 import candidateList from './component/candidate/candidate_list.vue'

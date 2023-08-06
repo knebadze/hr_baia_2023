@@ -9,15 +9,18 @@ use Illuminate\Support\Facades\Log;
 use App\Repositories\CandidateRepository;
 use Illuminate\Support\Facades\Validator;
 use Stichoza\GoogleTranslate\GoogleTranslate;
+use App\Repositories\Candidate\RecommendationRepository;
 
 
 class CandidateService
 {
-    protected $candidateRepository;
+    protected CandidateRepository $candidateRepository;
+    protected RecommendationRepository $recommendationRepository;
 
-    public function __construct(CandidateRepository $candidateRepository)
+    public function __construct()
     {
-        $this->candidateRepository = $candidateRepository;
+        $this->candidateRepository = new  CandidateRepository;
+        $this->recommendationRepository = new RecommendationRepository;
     }
 
     public function translate($lang, $data)
@@ -135,9 +138,16 @@ class CandidateService
         $result = $this->candidateRepository->save($trData);
         return $result;
     }
+
+    function addCandidateRecommendation($data){
+        $result = $this->recommendationRepository->save($data);
+        return $result;
+    }
+    function updateCandidateRecommendation($data)  {
+        $result = $this->recommendationRepository->update($data);
+        return $result;
+    }
     public function candidateFile($data){
-        // print_r($data);
-        // exit;
         $result = $this->candidateRepository->saveFile($data);
         return $result;
     }

@@ -135,6 +135,9 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('unknown_profile_update', [MyprofileController::class, 'unknownUpdate']);
 
     Route::post('add_candidate', [CandidateInfoController::class, 'addCandidate']);
+    Route::post('add_candidate_recommendation', [CandidateInfoController::class, 'addCandidateRecommendation']);
+    Route::post('update_candidate_recommendation', [CandidateInfoController::class, 'updateCandidateRecommendation']);
+    Route::post('delete_candidate_recommendation', [CandidateInfoController::class, 'deleteCandidateRecommendation']);
     Route::post('add_candidate_file', [CandidateInfoController::class, 'addCandidateFile']);
     Route::post('remove_old_general_work_experience', [CandidateInfoController::class, 'removeOldWorkExperience']);
 

@@ -259,8 +259,9 @@
                 <button type="button" class="btn btn-primary " @click="openUpdateGeneralWorkModal( m.get_general_work_experience )" ><i class=""></i>ზოგადი სამუშაო გამოცდილება</button>
                 <button type="button" class="btn btn-primary " @click="openUpdateFamilyWorkModal(m.family_work_experience)" ><i class=""></i>ოჯახში მუშაობა</button>
                 <button type="button" class="btn btn-primary " @click="openUpdateWorkInformationModal(m.get_work_information)" ><i class=""></i>სამუშაო ინფორმაცია</button>
-                <button type="button" class="btn btn-primary " @click="save()" ><i class=""></i>რეკომენდაცია</button>
+                <button type="button" class="btn btn-primary " @click="openUpdateRecommendationModal(m.get_recommendation)" ><i class=""></i>რეკომენდაცია</button>
                 <button type="button" class="btn btn-primary " @click="openUpdateNumberModal(m.number)" ><i class=""></i>ნომრები</button>
+                <button type="button" class="btn btn-primary " @click="openUpdateNumberModal(m.number)" ><i class=""></i>საბუთები</button>
             </div>
         </div>
     </div>
@@ -269,6 +270,7 @@
     <update_work_information_modal :visible="updateWorkInformationModal" :items="item"></update_work_information_modal>
     <update_family_work_modal :visible="updateFamilyWorkModal" :items="item"></update_family_work_modal>
     <update_number_modal :visible="updateNumberModal" :items="item"></update_number_modal>
+    <update_recommendation_modal :visible="updateRecommendationModal" :items="item"></update_recommendation_modal>
 </template>
 <script>
 import update_language_modal from '../modal/update_language_modal.vue';
@@ -276,13 +278,15 @@ import update_general_work_modal from '../modal/update_general_work_modal.vue';
 import update_work_information_modal from '../modal/update_work_information_modal.vue';
 import update_family_work_modal from '../modal/update_family_work_modal.vue';
 import update_number_modal from '../modal/update_number_modal.vue';
+import update_recommendation_modal from '../modal/update_recommendation_modal.vue';
 export default {
     components:{
         update_language_modal,
         update_general_work_modal,
         update_work_information_modal,
         update_family_work_modal,
-        update_number_modal
+        update_number_modal,
+        update_recommendation_modal
     },
     props:{
         data: Object
@@ -296,6 +300,7 @@ export default {
             updateWorkInformationModal: false,
             updateFamilyWorkModal:false,
             updateNumberModal:false,
+            updateRecommendationModal: false,
             item: null
         }
     },
@@ -380,6 +385,19 @@ export default {
                     'category': this.cla.category,
                     'currency': this.cla.currency,
                     'workSchedule': this.cla.workSchedule
+                }
+            }
+        },
+        openUpdateRecommendationModal(item){
+            this.updateRecommendationModal = !this.updateRecommendationModal
+            this.item = {
+                'candidate_id': this.data.candidate.id,
+                'item':item,
+                'cla':{
+                    'recommendationFromWhom':this.cla.recommendationFromWhom,
+                    'yesNo': this.cla.yesNo,
+                    'noRecommendationReason': this.cla.noRecommendationReason,
+                    'numberCode': this.cla.numberCode
                 }
             }
         },

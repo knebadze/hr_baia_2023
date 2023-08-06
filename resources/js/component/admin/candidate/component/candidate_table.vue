@@ -19,7 +19,7 @@
             </button>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item"  :href="updateUrl+'/'+item.id">რედაქტირება</a>
-                <a class="dropdown-item" href="#" @click="UpdateModal(item)">ვაკანსიაზე დამატება</a>
+                <a class="dropdown-item" href="#" @click="UpdateModal(item)">ვაკანსიაში დამატება</a>
                 <a class="dropdown-item" href="#" @click="UpdateModal(item)">შავ სიაში დამატება</a>
                 <a class="dropdown-item" href="#" @click="UpdateModal(item)">წაშლა</a>
             </div>

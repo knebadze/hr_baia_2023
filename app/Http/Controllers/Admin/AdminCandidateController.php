@@ -118,7 +118,10 @@ class AdminCandidateController extends Controller
                 'getLanguage.level',
                 'professions',
                 'specialty',
-                'recommendation',
+                'getRecommendation.hasRecommendation',
+                'getRecommendation.recommendationWhom',
+                'getRecommendation.numberCode',
+                'getRecommendation.noReason',
                 'getGeneralWorkExperience.workExperience',
                 'getGeneralWorkExperience.hasExperience',
                 'familyWorkExperience.hasExperience',
@@ -134,7 +137,7 @@ class AdminCandidateController extends Controller
 
         $classificatoryArr = ['gender', 'nationality', 'religions','educations', 'maritalStatus', 'citizenship', 'professions',
             'specialties', 'allergies', 'languages', 'languageLevels', 'workExperiences', 'notices', 'noExperienceReason', 'drivingLicense',
-            'numberCode', 'characteristic', 'numberOwner', 'yesNo', 'workSchedule', 'category', 'currency', 'duty'];
+            'numberCode', 'characteristic', 'numberOwner', 'yesNo', 'workSchedule', 'category', 'currency', 'duty','recommendationFromWhom', 'noRecommendationReason'];
         $classificatory = $this->classificatoryService->get($classificatoryArr);
         $data = ['candidate' => $candidate, 'classificatory' => $classificatory];
         return view('admin.candidate_update', compact('data'));

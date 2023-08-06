@@ -5,226 +5,15 @@
             <!-- <form> -->
 
 
-                <mainInfo :data="m.user" :genderCLA="data.classificatory.gender"></mainInfo>
-
-            <!-- <form @submit.prevent="addCandidate()"> -->
-                 <!--personal information-->
-                <div class="panel panel-default">
-                    <div class="panel-heading wt-panel-heading p-a20">
-                        <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_input_basic_info') }}</h4>
-                        <!-- $t('lang.user_profile_page_personal_info') -->
-                    </div>
-                    <div class="panel-body wt-panel-body p-a20 m-b30 ">
-                        <!-- <form @submit.prevent="addPersonalInfo()"> -->
-                            <div class="row">
-                                <div class="col-xl-6 col-lg-6 col-md-12">
-                                    <div class="form-group">
-                                        <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_personal_number') }}</label>
-                                        <div class="ls-inputicon-box">
-                                            <input class="form-control" v-model="m.candidate.personal_number" type="text" placeholder=""  @blur="v$.m.candidate.personal_number.$touch">
-                                            <i class="fs-input-icon fa fa-user"></i>
-                                            <span v-if="v$.m.candidate.personal_number.required.$invalid && v$.m.candidate.personal_number.$dirty" style='color:red'>* {{ v$.m.candidate.personal_number.required.$message}}</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-xl-6 col-lg-6 col-md-12">
-                                    <div class="form-group">
-                                        <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_personal_nationality') }}</label>
-                                        <div class="ls-inputicon-box">
-                                            <multiselect v-model="m.candidate.nationality" :options="data.classificatory.nationality" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false" @blur="v$.m.candidate.nationality.$touch">
-                                                <template slot="singleLabel" slot-scope="{ option }"></template>
-                                            </multiselect>
-                                            <span v-if="v$.m.candidate.nationality.required.$invalid && v$.m.candidate.nationality.$dirty" style='color:red'>* {{ v$.m.candidate.nationality.required.$message}}</span>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-lg-6 col-md-12">
-                                    <div class="form-group">
-                                        <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_personal_citizenship') }}</label>
-                                        <div class="ls-inputicon-box">
-                                            <multiselect v-model="m.candidateCitizenships"  :options="data.classificatory.citizenship" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" :label="`name_${getLang}`" :track-by="`name_${getLang}`" :preselect-first="false" @blur="v$.m.candidateCitizenships.$touch">
-                                                <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
-                                            </multiselect>
-                                            <span v-if="v$.m.candidateCitizenships.required.$invalid && v$.m.candidateCitizenships.$dirty" style='color:red'>* {{ v$.m.candidateCitizenships.required.$message}}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-lg-6 col-md-12">
-                                    <div class="form-group">
-                                        <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_personal_religion') }}</label>
-                                        <div class="ls-inputicon-box">
-                                            <multiselect v-model="m.candidate.religion" :options="data.classificatory.religions" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false" @blur="v$.m.candidate.religion.$touch">
-                                                <template slot="singleLabel" slot-scope="{ option }"></template>
-                                            </multiselect>
-                                            <span v-if="v$.m.candidate.religion.required.$invalid && v$.m.candidate.religion.$dirty" style='color:red'>* {{ v$.m.candidate.religion.required.$message}}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-lg-6 col-md-12">
-                                    <div class="form-group">
-                                        <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_personal_education') }}</label>
-                                        <div class="ls-inputicon-box">
-                                            <multiselect v-model="m.candidate.education" :options="data.classificatory.educations" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false" @blur="v$.m.candidate.education.$touch">
-                                                <template slot="singleLabel" slot-scope="{ option }"></template>
-                                            </multiselect>
-                                            <span v-if="v$.m.candidate.education.required.$invalid && v$.m.candidate.education.$dirty" style='color:red'>* {{ v$.m.candidate.education.required.$message}}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-lg-6 col-md-12">
-                                    <div class="form-group">
-                                        <label>{{ $t('lang.user_profile_page_personal_profession') }}</label>
-                                        <div class="ls-inputicon-box">
-                                            <multiselect v-model="m.candidateProfessions"  :options="data.classificatory.professions" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" :label="`name_${getLang}`" :track-by="`name_${getLang}`" :preselect-first="false" >
-                                                <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
-                                            </multiselect>
-                                            <!-- <span v-if="v$.m.candidateProfessions.required.$invalid && v$.m.candidateProfessions.$dirty" style='color:red'>* {{ v$.m.candidateProfessions.required.$message}}</span> -->
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-lg-6 col-md-12">
-                                    <div class="form-group">
-                                        <label>{{ $t('lang.user_profile_page_personal_specialty') }}</label>
-                                        <div class="ls-inputicon-box">
-                                            <multiselect v-model="m.candidateSpecialties"  :options="data.classificatory.specialties" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" :label="`name_${getLang}`" :track-by="`name_${getLang}`" :preselect-first="false" >
-                                                <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
-                                            </multiselect>
-                                            <!-- <span v-if="v$.m.candidateProfessions.required.$invalid && v$.m.candidateProfessions.$dirty" style='color:red'>* {{ v$.m.candidateProfessions.required.$message}}</span> -->
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-lg-6 col-md-12">
-                                    <div class="form-group">
-                                        <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_personal_general_characters') }}</label>
-                                        <div class="ls-inputicon-box">
-                                            <multiselect v-model="m.candidateCharacteristic"  :options="data.classificatory.characteristic" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" :label="`name_${getLang}`" :track-by="`name_${getLang}`" :preselect-first="false" @blur="v$.m.candidateCharacteristic.$touch">
-                                                <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
-                                            </multiselect>
-                                            <span v-if="v$.m.candidateCharacteristic.required.$invalid && v$.m.candidateCharacteristic.$dirty" style='color:red'>* {{ v$.m.candidateCharacteristic.required.$message}}</span>
-                                        </div>
-                                    </div>
-                                </div>
+            <main_info :data="m.user" :genderCLA="data.classificatory.gender"></main_info>
 
 
-                                <div class="col-xl-6 col-lg-6 col-md-12">
-                                    <div class="form-group">
-                                        <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_personal_family') }}</label>
-                                        <div class="ls-inputicon-box">
-                                            <multiselect v-model="m.candidate.marital_status" :options="data.classificatory.maritalStatus" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false" @blur="v$.m.candidate.marital_status.$touch">
-                                                <template slot="singleLabel" slot-scope="{ option }"></template>
-                                            </multiselect>
-                                            <span v-if="v$.m.candidate.marital_status.required.$invalid && v$.m.candidate.marital_status.$dirty" style='color:red'>* {{ v$.m.candidate.marital_status.required.$message}}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div v-if="m.candidate.marital_status && m.candidate.marital_status.id != 1 " class="col-xl-6 col-lg-6 col-md-12">
-                                    <div class="form-group">
-                                        <label>{{ $t('lang.user_profile_page_personal_family_children') }}</label>
-                                        <div class="ls-inputicon-box">
-                                            <input class="form-control" v-model="m.candidate.children" type="number" placeholder="" @blur="v$.m.candidate.children.$touch">
-                                            <i class="fs-input-icon fa fa-user"></i>
-                                            <span v-if="v$.m.candidate.children.numeric.$invalid && v$.m.candidate.children.$dirty" style='color:red'>* {{ v$.m.candidate.children.numeric.$message}}</span>
-                                            <span v-if="v$.m.candidate.children.maxLength.$invalid && v$.m.candidate.children.$dirty" style='color:red'>* {{ v$.m.candidate.children.maxLength.$message}}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div v-if="m.candidate.marital_status && m.candidate.marital_status.id != 1 && m.candidate.children && m.candidate.children != 0" class="col-xl-6 col-lg-6 col-md-12">
-                                    <div class="form-group">
-                                        <label>{{ $t('lang.user_profile_page_personal_children_age') }}</label>
-                                        <div class="ls-inputicon-box">
-                                            <input class="form-control" v-model="m.candidate.children_age" type="text" placeholder="მაგ: 10,14" onkeypress="return /[0-9,]/i.test(event.key)">
-                                            <i class="fs-input-icon fa fa-user"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div v-if="m.candidate.marital_status && m.candidate.marital_status.id == 2 " class="col-md-12">
-                                    <div class="form-group">
-                                        <label>{{ $t('lang.user_profile_page_personal_family_spouse') }}</label>
-                                        <textarea class="form-control" v-model="m.candidate.spouse" rows="3" :placeholder="$t('lang.user_profile_page_personal_family_fill_info')" @blur="v$.m.candidate.spouse.$touch"></textarea>
-                                        <span v-if="v$.m.candidate.spouse.maxLength.$invalid && v$.m.candidate.spouse.$dirty" style='color:red'>* {{ v$.m.candidate.spouse.maxLength.$message}}</span>
-                                        <!-- " -->
-                                    </div>
-                                </div>
-                                         <!-- Driving License -->
-                                <div class="col-xl-6 col-lg-6 col-md-12">
-                                    <label>{{ $t('lang.user_profile_page_driving_license') }}</label>
-                                    <div class="driving_license">
-                                        <div v-for="category in data.classificatory.drivingLicense" class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" id="driving_license_a" :value="category.id" v-model="m.candidateDrivingLicense" >
-                                            <label class="form-check-label" for="driving_license_a">{{ category.name }}</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        <!-- </form> -->
-                    </div>
-                </div>
+            <!--personal information-->
+            <candidate_information></candidate_information>
 
 
 
-                <!--სამედიცინო ინფორმაცია-->
-                <div class="panel panel-default">
-                    <div class="panel-heading wt-panel-heading p-a20">
-                        <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_medical_info') }}</h4>
-                    </div>
-                    <div class="panel-body wt-panel-body p-a20 m-b30 ">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>{{ $t('lang.user_profile_page_medical_alergy') }}</label>
-                                        <div class="ls-inputicon-box">
-                                            <multiselect v-model="m.candidateAllergies"  :options="data.classificatory.allergies" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" :label="`name_${getLang}`" :track-by="`name_${getLang}`" :preselect-first="false">
-                                                <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
-                                            </multiselect>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>{{ $t('lang.user_profile_page_medical_operation') }}</label>
-                                        <textarea class="form-control" rows="3" v-model="m.candidate[`medical_info_${getLang}`]" :placeholder="$t('lang.user_profile_page_medical_please_info')"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                    </div>
-                </div>
 
-                <!-- address -->
-                <div class="panel panel-default">
-                    <div class="panel-heading wt-panel-heading p-a20">
-                        <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_address') }}</h4>
-                    </div>
-                    <div class="panel-body wt-panel-body p-a20 m-b30 ">
-                        <p>{{ $t('lang.user_profile_page_address_map') }}</p>
-                        <p>{{ $t('lang.user_profile_page_address_map_2') }}</p>
-                        <div class="row">
-                            <!-- <address_maplibre></address_maplibre> -->
-                            <!-- <addressMap :data="m.candidate.address" @messageFromChild="childMessage"></addressMap> -->
-                            <div class="col-xl-6 col-lg-6 col-md-12">
-                                <div class="form-group">
-                                    <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_address') }}</label>
-                                    <div class="ls-inputicon-box">
-                                        <input class="form-control" v-model="m.candidate[`address_${getLang}`]" type="text" placeholder=""  @blur="v$.m.candidate[`address_${getLang}`].$touch">
-                                        <i class="fs-input-icon fa fa-user"></i>
-                                        <span v-if="v$.m.candidate[`address_${getLang}`].required.$invalid && v$.m.candidate[`address_${getLang}`].$dirty" style='color:red'>* {{ v$.m.candidate[`address_${getLang}`].required.$message}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-12">
-                                <div class="form-group">
-                                    <label>{{ $t('lang.user_profile_page_street') }}</label>
-                                    <div class="ls-inputicon-box">
-                                        <input class="form-control" v-model="m.candidate[`street_${getLang}`]" type="text" placeholder=""  >
-                                        <i class="fs-input-icon fa fa-user"></i>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
                             <!--უცხო ენები-->
                  <div class="panel panel-default">
                     <div class="panel-heading wt-panel-heading p-a20">
@@ -441,74 +230,7 @@
                     </div>
                 </div>
 
-                <!--Additional information-->
-                <div class="panel panel-default">
-                    <div class="panel-heading wt-panel-heading p-a20">
-                        <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_additional_title') }}</h4>
-                    </div>
-                    <div class="panel-body wt-panel-body p-a20 m-b30 ">
 
-                        <div class="row">
-                            <div class="col-xl-6 col-lg-6 col-md-12">
-                                <div class="form-group city-outer-bx has-feedback">
-                                    <label>{{ $t('lang.user_profile_page_additional_height') }}</label>
-                                    <div class="ls-inputicon-box">
-                                        <input class="form-control" v-model="m.candidate.height" type="text" placeholder="65K" @blur="v$.m.candidate.height.$touch">
-                                        <i class="fs-input-icon fa fa-arrows-alt-v" aria-hidden="true"></i>
-                                        <span v-if="v$.m.candidate.height.numeric.$invalid && v$.m.candidate.height.$dirty" style='color:red'>* {{ v$.m.candidate.height.numeric.$message}}</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-xl-6 col-lg-6 col-md-12">
-                                <div class="form-group city-outer-bx has-feedback">
-                                    <label>{{ $t('lang.user_profile_page_additional_weight') }}</label>
-                                    <div class="ls-inputicon-box">
-                                        <input class="form-control" v-model="m.candidate.weight" type="text" placeholder="75K" @blur="v$.m.candidate.weight.$touch">
-                                        <i class="fs-input-icon fa fa-arrows-alt-h"></i>
-                                        <span v-if="v$.m.candidate.weight.numeric.$invalid && v$.m.candidate.weight.$dirty" style='color:red'>* {{ v$.m.candidate.weight.numeric.$message}}</span>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-6 col-md-12">
-                                <div class="form-group">
-
-                                    <div class="ls-inputicon-box">
-                                        <div class="form-check">
-                                          <input class="form-check-input" type="checkbox" value="1" v-model="m.candidate.convection" id="flexCheckDefault">
-                                          <label>{{ 'ნასამართლევი ხართ?' }}</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-6 col-md-12">
-                                <div class="form-group form-check">
-
-                                    <div class="ls-inputicon-box">
-
-                                        <div class="form-check">
-                                          <input class="form-check-input" type="checkbox" value="1" v-model="m.candidate.smoke" id="flexCheckDefault">
-                                          <label>{{ $t('lang.user_profile_page_additional_smoke') }}</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-6 col-md-12">
-                                <div class="form-group">
-
-                                    <div class="ls-inputicon-box">
-                                        <div class="form-check">
-                                          <input class="form-check-input" type="checkbox" value="1" v-model="m.candidate.work_abroad" id="flexCheckDefault">
-                                          <label>{{ $t('lang.user_profile_page_additional_work_abroad') }}</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
 
                  <!--დამატებითი ნომრები-->
                  <div class="panel panel-default">
@@ -591,47 +313,7 @@
 
 
 
-                <!--Social Network-->
-                <div class="panel panel-default">
-                    <div class="panel-heading wt-panel-heading p-a20">
-                        <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_social_title') }}</h4>
-                    </div>
-                    <div class="panel-body wt-panel-body p-a20 m-b30 ">
 
-                        <div class="row">
-
-                            <div class="col-xl-6 col-lg-6 col-md-12">
-                                <div class="form-group">
-                                    <label>{{ $t('lang.user_profile_page_social_facebook') }}</label>
-                                    <div class="ls-inputicon-box">
-                                        <input class="form-control wt-form-control" v-model="m.candidate.fb_link"  type="text" placeholder="https://www.facebook.com/">
-                                        <i class="fs-input-icon fab fa-facebook-f"></i>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-xl-6 col-lg-6 col-md-12">
-                                <div class="form-group">
-                                    <label>{{ $t('lang.user_profile_page_social_youtube') }}</label>
-                                    <div class="ls-inputicon-box">
-                                        <input class="form-control wt-form-control" v-model="m.candidate.youtube_link" type="text" placeholder="https://www.youtube.com/">
-                                        <i class="fs-input-icon fab fa-youtube"></i>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-12 col-md-12">
-                                <div class="text-left">
-                                    <button type="submit" @click.prevent="addCandidate()"  class="site-button">{{ $t('lang.user_profile_page_social_button_save') }}</button>
-                                </div>
-                            </div>
-
-
-                        </div>
-
-                    </div>
-                </div>
-            <!-- </form> -->
 
                 <!--ცნობები-->
                 <div class="panel panel-default">
@@ -711,15 +393,17 @@
 </template>
 
 <script>
-import mainInfo from './mainInfo.vue'
+import main_info from '../component/main_info.vue'
+import candidate_information from '../component/candidate_information.vue'
+// import mainInfo from '../component/mainInfo.vue'
 import { I18n } from 'laravel-vue-i18n'
-import miniTable from './miniTable.vue'
+// import miniTable from './miniTable.vue'
 import _ from 'lodash'
 import { useVuelidate } from '@vuelidate/core'
 import { required, email, helpers, requiredIf, numeric, maxLength } from '@vuelidate/validators'
-import addressMap from '../map/address_map.vue'
-import addressGoogleMap from '../map/address_google_map.vue'
-import address_maplibre from '../map/address_maplibre.vue'
+// import addressMap from '../map/address_map.vue'
+// import addressGoogleMap from '../map/address_google_map.vue'
+// import address_maplibre from '../map/address_maplibre.vue'
 import { uuid } from 'vue-uuid'
 
 export default {
@@ -727,11 +411,13 @@ export default {
         return { v$: useVuelidate() }
     },
     components:{
-        miniTable,
-        mainInfo,
-        addressMap,
-        addressGoogleMap,
-        address_maplibre
+        main_info,
+        candidate_information
+        // miniTable,
+        // mainInfo,
+        // addressMap,
+        // addressGoogleMap,
+        // address_maplibre
     },
     props:{
         data:Object
@@ -795,60 +481,60 @@ export default {
 
         }
     },
-    validations () {
-        const validations = {
-            m:{
-                auth:{
-                    number: {
-                        required: helpers.withMessage('შევსება სავალდებულოა', required ),
-                        numeric: helpers.withMessage('ნომერი უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric ),
-                        maxLength: helpers.withMessage('ნომერი უნდა შედგებოდეს 9 ციფრებისგან', maxLength(9) )
-                    },
-                    gender_id: {required: helpers.withMessage('სქესის არჩევა სავალდებულოა', required )},
-                    date_of_birth: {required: helpers.withMessage('დაბადების თარიღის შევსება სავალდებულოა', required )}
+    // validations () {
+    //     const validations = {
+    //         m:{
+    //             auth:{
+    //                 number: {
+    //                     required: helpers.withMessage('შევსება სავალდებულოა', required ),
+    //                     numeric: helpers.withMessage('ნომერი უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric ),
+    //                     maxLength: helpers.withMessage('ნომერი უნდა შედგებოდეს 9 ციფრებისგან', maxLength(9) )
+    //                 },
+    //                 gender_id: {required: helpers.withMessage('სქესის არჩევა სავალდებულოა', required )},
+    //                 date_of_birth: {required: helpers.withMessage('დაბადების თარიღის შევსება სავალდებულოა', required )}
 
-                },
-                candidate:{
-                    personal_number: { required: helpers.withMessage('შევსება სავალდებულოა', required)},
-                    nationality: { required: helpers.withMessage('არჩევა სავალდებულოა', required)},
-                    religion: { required: helpers.withMessage('არჩევა სავალდებულოა', required) },
-                    education: { required: helpers.withMessage('არჩევა სავალდებულოა', required) },
-                    marital_status: { required: helpers.withMessage('არჩევა სავალდებულოა', required) },
-                    children: {
-                        numeric: helpers.withMessage('უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric ),
-                        maxLength: helpers.withMessage('დასაშვებია 2 ციფრი', maxLength(2) )
-                    },
-                    spouse: { maxLength: helpers.withMessage('დასაშვებია 150 სიმბოლო', maxLength(150) ) },
-                    address_ka:{},
-                    address_en:{},
-                    address_ru:{},
-                    height: { numeric: helpers.withMessage('უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric ) },
-                    weight: { numeric: helpers.withMessage('უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric ) },
-                },
-                candidateCitizenships: { required: helpers.withMessage('არჩევა სავალდებულოა', required) },
-                candidateCharacteristic: { required: helpers.withMessage('არჩევა სავალდებულოა', required) }
-                // candidateProfessions: { required: helpers.withMessage('არჩევა სავალდებულოა', required) },
-            },
-            candidateNumberModel:{
-                number:{numeric: helpers.withMessage('უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric )},
-                number_owner:{}
-            }
-        }
+    //             },
+    //             candidate:{
+    //                 personal_number: { required: helpers.withMessage('შევსება სავალდებულოა', required)},
+    //                 nationality: { required: helpers.withMessage('არჩევა სავალდებულოა', required)},
+    //                 religion: { required: helpers.withMessage('არჩევა სავალდებულოა', required) },
+    //                 education: { required: helpers.withMessage('არჩევა სავალდებულოა', required) },
+    //                 marital_status: { required: helpers.withMessage('არჩევა სავალდებულოა', required) },
+    //                 children: {
+    //                     numeric: helpers.withMessage('უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric ),
+    //                     maxLength: helpers.withMessage('დასაშვებია 2 ციფრი', maxLength(2) )
+    //                 },
+    //                 spouse: { maxLength: helpers.withMessage('დასაშვებია 150 სიმბოლო', maxLength(150) ) },
+    //                 address_ka:{},
+    //                 address_en:{},
+    //                 address_ru:{},
+    //                 height: { numeric: helpers.withMessage('უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric ) },
+    //                 weight: { numeric: helpers.withMessage('უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric ) },
+    //             },
+    //             candidateCitizenships: { required: helpers.withMessage('არჩევა სავალდებულოა', required) },
+    //             candidateCharacteristic: { required: helpers.withMessage('არჩევა სავალდებულოა', required) }
+    //             // candidateProfessions: { required: helpers.withMessage('არჩევა სავალდებულოა', required) },
+    //         },
+    //         candidateNumberModel:{
+    //             number:{numeric: helpers.withMessage('უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric )},
+    //             number_owner:{}
+    //         }
+    //     }
 
-        if (this.getLang == 'ka') {
-            validations.m.candidate.address_ka = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
-        }else if(this.getLang == 'en'){
-            validations.m.candidate.address_en = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
-        }else if(this.getLang == 'ru'){
-            validations.m.candidate.address_ru = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
-        }
+    //     if (this.getLang == 'ka') {
+    //         validations.m.candidate.address_ka = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
+    //     }else if(this.getLang == 'en'){
+    //         validations.m.candidate.address_en = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
+    //     }else if(this.getLang == 'ru'){
+    //         validations.m.candidate.address_ru = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
+    //     }
 
 
-        if (this.candidateNumberModel.number != '') {
-            validations.candidateNumberModel.number_owner = { required: helpers.withMessage('არჩევა სავალდებულოა', required) }
-        }
-        return validations
-    },
+    //     if (this.candidateNumberModel.number != '') {
+    //         validations.candidateNumberModel.number_owner = { required: helpers.withMessage('არჩევა სავალდებულოა', required) }
+    //     }
+    //     return validations
+    // },
     created(){
         this.m = { ...this.data.model, ...this.data.basic };
         if (this.m.candidate.convction == 1) {
