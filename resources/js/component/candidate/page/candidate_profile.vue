@@ -9,7 +9,7 @@
 
 
             <!--personal information-->
-            <candidate_information></candidate_information>
+            <candidate_information :data="data"></candidate_information>
 
 
 
@@ -477,75 +477,77 @@ export default {
             },
             candidate_id: null,
             showNoWorkExperience: false,
-            showYesWorkExperience: false
+            showYesWorkExperience: false,
+            candidateInformationData:{},
 
         }
     },
-    // validations () {
-    //     const validations = {
-    //         m:{
-    //             auth:{
-    //                 number: {
-    //                     required: helpers.withMessage('შევსება სავალდებულოა', required ),
-    //                     numeric: helpers.withMessage('ნომერი უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric ),
-    //                     maxLength: helpers.withMessage('ნომერი უნდა შედგებოდეს 9 ციფრებისგან', maxLength(9) )
-    //                 },
-    //                 gender_id: {required: helpers.withMessage('სქესის არჩევა სავალდებულოა', required )},
-    //                 date_of_birth: {required: helpers.withMessage('დაბადების თარიღის შევსება სავალდებულოა', required )}
+    validations () {
+        const validations = {
+            m:{
+                auth:{
+                    number: {
+                        required: helpers.withMessage('შევსება სავალდებულოა', required ),
+                        numeric: helpers.withMessage('ნომერი უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric ),
+                        maxLength: helpers.withMessage('ნომერი უნდა შედგებოდეს 9 ციფრებისგან', maxLength(9) )
+                    },
+                    gender_id: {required: helpers.withMessage('სქესის არჩევა სავალდებულოა', required )},
+                    date_of_birth: {required: helpers.withMessage('დაბადების თარიღის შევსება სავალდებულოა', required )}
 
-    //             },
-    //             candidate:{
-    //                 personal_number: { required: helpers.withMessage('შევსება სავალდებულოა', required)},
-    //                 nationality: { required: helpers.withMessage('არჩევა სავალდებულოა', required)},
-    //                 religion: { required: helpers.withMessage('არჩევა სავალდებულოა', required) },
-    //                 education: { required: helpers.withMessage('არჩევა სავალდებულოა', required) },
-    //                 marital_status: { required: helpers.withMessage('არჩევა სავალდებულოა', required) },
-    //                 children: {
-    //                     numeric: helpers.withMessage('უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric ),
-    //                     maxLength: helpers.withMessage('დასაშვებია 2 ციფრი', maxLength(2) )
-    //                 },
-    //                 spouse: { maxLength: helpers.withMessage('დასაშვებია 150 სიმბოლო', maxLength(150) ) },
-    //                 address_ka:{},
-    //                 address_en:{},
-    //                 address_ru:{},
-    //                 height: { numeric: helpers.withMessage('უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric ) },
-    //                 weight: { numeric: helpers.withMessage('უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric ) },
-    //             },
-    //             candidateCitizenships: { required: helpers.withMessage('არჩევა სავალდებულოა', required) },
-    //             candidateCharacteristic: { required: helpers.withMessage('არჩევა სავალდებულოა', required) }
-    //             // candidateProfessions: { required: helpers.withMessage('არჩევა სავალდებულოა', required) },
-    //         },
-    //         candidateNumberModel:{
-    //             number:{numeric: helpers.withMessage('უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric )},
-    //             number_owner:{}
-    //         }
-    //     }
+                },
+                candidate:{
+                    personal_number: { required: helpers.withMessage('შევსება სავალდებულოა', required)},
+                    nationality: { required: helpers.withMessage('არჩევა სავალდებულოა', required)},
+                    religion: { required: helpers.withMessage('არჩევა სავალდებულოა', required) },
+                    education: { required: helpers.withMessage('არჩევა სავალდებულოა', required) },
+                    marital_status: { required: helpers.withMessage('არჩევა სავალდებულოა', required) },
+                    children: {
+                        numeric: helpers.withMessage('უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric ),
+                        maxLength: helpers.withMessage('დასაშვებია 2 ციფრი', maxLength(2) )
+                    },
+                    spouse: { maxLength: helpers.withMessage('დასაშვებია 150 სიმბოლო', maxLength(150) ) },
+                    address_ka:{},
+                    address_en:{},
+                    address_ru:{},
+                    height: { numeric: helpers.withMessage('უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric ) },
+                    weight: { numeric: helpers.withMessage('უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric ) },
+                },
+                candidateCitizenships: { required: helpers.withMessage('არჩევა სავალდებულოა', required) },
+                candidateCharacteristic: { required: helpers.withMessage('არჩევა სავალდებულოა', required) }
+                // candidateProfessions: { required: helpers.withMessage('არჩევა სავალდებულოა', required) },
+            },
+            candidateNumberModel:{
+                number:{numeric: helpers.withMessage('უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric )},
+                number_owner:{}
+            }
+        }
 
-    //     if (this.getLang == 'ka') {
-    //         validations.m.candidate.address_ka = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
-    //     }else if(this.getLang == 'en'){
-    //         validations.m.candidate.address_en = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
-    //     }else if(this.getLang == 'ru'){
-    //         validations.m.candidate.address_ru = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
-    //     }
+        if (this.getLang == 'ka') {
+            validations.m.candidate.address_ka = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
+        }else if(this.getLang == 'en'){
+            validations.m.candidate.address_en = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
+        }else if(this.getLang == 'ru'){
+            validations.m.candidate.address_ru = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
+        }
 
 
-    //     if (this.candidateNumberModel.number != '') {
-    //         validations.candidateNumberModel.number_owner = { required: helpers.withMessage('არჩევა სავალდებულოა', required) }
-    //     }
-    //     return validations
-    // },
+        if (this.candidateNumberModel.number != '') {
+            validations.candidateNumberModel.number_owner = { required: helpers.withMessage('არჩევა სავალდებულოა', required) }
+        }
+        return validations
+    },
     created(){
+        console.log('data', this.data);
         this.m = { ...this.data.model, ...this.data.basic };
-        if (this.m.candidate.convction == 1) {
-            this.m.candidate.convction = true
-        }
-        if (this.m.candidate.smoke == 1) {
-            this.m.candidate.smoke = true
-        }
-        if (this.m.candidate.work_abroad == 1) {
-            this.m.candidate.work_abroad = true
-        }
+        // if (this.m.candidate.convction == 1) {
+        //     this.m.candidate.convction = true
+        // }
+        // if (this.m.candidate.smoke == 1) {
+        //     this.m.candidate.smoke = true
+        // }
+        // if (this.m.candidate.work_abroad == 1) {
+        //     this.m.candidate.work_abroad = true
+        // }
         console.log('this.m.', this.data);
         console.log('m.candidateNotices',this.m.candidateNotices);
         // this.candidateWorkExperienceModel = this.initWorkExperience([...this.m.candidateWorkExperience]);
@@ -558,7 +560,14 @@ export default {
             });
             this.m.candidateDrivingLicense = arr
         }
-
+        this.candidateInformationData = {
+            'candidate': this.data.model.candidate,
+            'candidate': this.data.model.candidate,
+            'candidate': this.data.model.candidate,
+            'candidate': this.data.model.candidate,
+            'candidate': this.data.model.candidate,
+            
+        }
 
     },
     computed:{
@@ -575,36 +584,37 @@ export default {
                 return this.candidate_id
             }
         },
+
     },
     methods:{
 
-        initWorkExperience (arr) {
-            let k = arr.reduce(function (acc, obj, i) {
-                if(i == 0) {
+        // initWorkExperience (arr) {
+        //     let k = arr.reduce(function (acc, obj, i) {
+        //         if(i == 0) {
 
-                    let j = Object.keys(obj).reduce(function (previous, key) {
-                        previous[key] = "";
-                        return previous;
-                    }, {});
+        //             let j = Object.keys(obj).reduce(function (previous, key) {
+        //                 previous[key] = "";
+        //                 return previous;
+        //             }, {});
 
-                    acc[0] = j;
-                }
-                return acc;
-            }, []);
-            arr.splice(0, arr.length);
-            return k[0];
-        },
+        //             acc[0] = j;
+        //         }
+        //         return acc;
+        //     }, []);
+        //     arr.splice(0, arr.length);
+        //     return k[0];
+        // },
 
-        clearObject (obj) {
-            let clear =  Object.keys(obj).reduce(function (previous, key) {
-                previous[key] = "";
-                return previous;
-            }, {});
+        // clearObject (obj) {
+        //     let clear =  Object.keys(obj).reduce(function (previous, key) {
+        //         previous[key] = "";
+        //         return previous;
+        //     }, {});
 
-            Object.assign(obj, clear)
+        //     Object.assign(obj, clear)
 
-            return obj;
-        },
+        //     return obj;
+        // },
 
 
         async addCandidate(){

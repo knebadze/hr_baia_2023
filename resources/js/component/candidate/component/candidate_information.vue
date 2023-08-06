@@ -323,14 +323,105 @@
     </div>
 </template>
 <script>
+import { useVuelidate } from '@vuelidate/core'
+import { required, email, helpers, requiredIf, numeric, maxLength } from '@vuelidate/validators'
 export default {
+    setup () {
+        return { v$: useVuelidate() }
+    },
     props:{
-        data: Object
+        data: Object,
+        
     },
     data() {
         return {
-            m:{}
+            m:{
+                'personal_number':'',
+                'nationality':'',
+                'candidateCitizenships':'',
+                'religion':'',
+                'education':'',
+                'candidateProfessions':'',
+                'candidateSpecialties':'',
+                'candidateCharacteristic':'',
+                'marital_status':'',
+                'children':'',
+                'children_age':'',
+                'spouse':'',
+                'drivingLicense':'',
+                'candidateAllergies':'',
+                'medical_info_ka':'',
+                'medical_info_en':'',
+                'medical_info_ru':'',
+                'address_ka':'',
+                'address_en':'',
+                'address_ru':'',
+                'street_ka':'',
+                'street_en':'',
+                'street_ru':'',
+                'height':'',
+                'weight':'',
+                'convection':'',
+                'smoke':'',
+                'work_abroad':'',
+                'fb_link':'',
+                'youtube_link':'',
+            }
         }
+    },
+    validations () {
+        const validations = {
+            m:{
+                // auth:{
+                //     number: {
+                //         required: helpers.withMessage('შევსება სავალდებულოა', required ),
+                //         numeric: helpers.withMessage('ნომერი უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric ),
+                //         maxLength: helpers.withMessage('ნომერი უნდა შედგებოდეს 9 ციფრებისგან', maxLength(9) )
+                //     },
+                //     gender_id: {required: helpers.withMessage('სქესის არჩევა სავალდებულოა', required )},
+                //     date_of_birth: {required: helpers.withMessage('დაბადების თარიღის შევსება სავალდებულოა', required )}
+
+                // },
+                // candidate:{
+                    personal_number: { required: helpers.withMessage('შევსება სავალდებულოა', required)},
+                    nationality: { required: helpers.withMessage('არჩევა სავალდებულოა', required)},
+                    religion: { required: helpers.withMessage('არჩევა სავალდებულოა', required) },
+                    education: { required: helpers.withMessage('არჩევა სავალდებულოა', required) },
+                    marital_status: { required: helpers.withMessage('არჩევა სავალდებულოა', required) },
+                    children: {
+                        numeric: helpers.withMessage('უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric ),
+                        maxLength: helpers.withMessage('დასაშვებია 2 ციფრი', maxLength(2) )
+                    },
+                    spouse: { maxLength: helpers.withMessage('დასაშვებია 150 სიმბოლო', maxLength(150) ) },
+                    address_ka:{},
+                    address_en:{},
+                    address_ru:{},
+                    height: { numeric: helpers.withMessage('უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric ) },
+                    weight: { numeric: helpers.withMessage('უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric ) },
+                // },
+                candidateCitizenships: { required: helpers.withMessage('არჩევა სავალდებულოა', required) },
+                candidateCharacteristic: { required: helpers.withMessage('არჩევა სავალდებულოა', required) }
+                // candidateProfessions: { required: helpers.withMessage('არჩევა სავალდებულოა', required) },
+            },
+            // candidateNumberModel:{
+            //     number:{numeric: helpers.withMessage('უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric )},
+            //     number_owner:{}
+            // }
+        }
+
+        if (this.getLang == 'ka') {
+            validations.m.address_ka = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
+        }else if(this.getLang == 'en'){
+            validations.m.address_en = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
+        }else if(this.getLang == 'ru'){
+            validations.m.address_ru = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
+        }
+
+
+        // if (this.candidateNumberModel.number != '') {
+        //     validations.candidateNumberModel.number_owner = { required: helpers.withMessage('არჩევა სავალდებულოა', required) }
+        // }
+        return validations
     },
     computed:{
         getLang(){
