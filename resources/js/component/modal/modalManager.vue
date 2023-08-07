@@ -30,30 +30,31 @@ export default {
                 return;
             }
             this.showPersonInformation = true
-        }else if(this.auth && this.auth.status == 1){
-
-            var url = new URL( location.href)
-            if (url.pathname == `/${this.getLang}/user/work_information`) {
-                return;
-            }
-            this.$swal(
-                {
-                    title: '<p>გილოცავთ თქვენ დაასრულეთ თქვენი პირადი ინფორმაციის შევსება!!!</p>',
-                    icon: 'info',
-                    html:
-                        'შემდეგი ეტაპი არის სამუშაო ინფორმაციის ველების შევსება რათ ჩვენ ვიცოდეთ რა კატეგორიის, ანაზღაურების და სამუშაო გრაფიკის მქონე ვაკანსიები შემოგთავაზოთ თქვენ და ასევე ამ ინფორმაციის გათვალისწინებით მოხდება დამსაქმებლებისთის თქვენი კანდიდატურის შეთავაზება',
-                    showCloseButton: true,
-                    showCancelButton: false,
-                    focusConfirm: false,
-                    confirmButtonText: 'შესავსებად გადასვლა',
-                }).then((result) => {
-                /* Read more about isConfirmed, isDenied below */
-                if (result.isConfirmed) {
-                    window.location.replace(`/${this.getLang}/user/work_information`)
-                }
-            })
-
         }
+        // else if(this.auth && this.auth.status == 1){
+
+        //     var url = new URL( location.href)
+        //     if (url.pathname == `/${this.getLang}/user/work_information`) {
+        //         return;
+        //     }
+        //     this.$swal(
+        //         {
+        //             title: '<p>გილოცავთ თქვენ დაასრულეთ თქვენი პირადი ინფორმაციის შევსება!!!</p>',
+        //             icon: 'info',
+        //             html:
+        //                 'შემდეგი ეტაპი არის სამუშაო ინფორმაციის ველების შევსება რათ ჩვენ ვიცოდეთ რა კატეგორიის, ანაზღაურების და სამუშაო გრაფიკის მქონე ვაკანსიები შემოგთავაზოთ თქვენ და ასევე ამ ინფორმაციის გათვალისწინებით მოხდება დამსაქმებლებისთის თქვენი კანდიდატურის შეთავაზება',
+        //             showCloseButton: true,
+        //             showCancelButton: false,
+        //             focusConfirm: false,
+        //             confirmButtonText: 'შესავსებად გადასვლა',
+        //         }).then((result) => {
+        //         /* Read more about isConfirmed, isDenied below */
+        //         if (result.isConfirmed) {
+        //             window.location.replace(`/${this.getLang}/user/work_information`)
+        //         }
+        //     })
+
+        // }
     },
     computed:{
         getLang(){
