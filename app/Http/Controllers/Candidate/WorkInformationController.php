@@ -42,7 +42,7 @@ class WorkInformationController extends Controller
 
         // dd($workInformation);
         $data = [
-            'auth', $auth,
+            'auth'=> $auth,
             'model' => $model,
             'classificatory' => $classificatory,
 

@@ -2,170 +2,13 @@
     <div class="col-xl-9 col-lg-8 col-md-12 m-b30 employerPageBorder">
         <!--Filter Short By-->
         <div class="twm-right-section-panel site-bg-gray">
-            <!--personal information-->
-            <div class="panel panel-default">
-                <div class="panel-heading wt-panel-heading p-a20">
-                    <!-- <div class="d-flex justify-content-between"> -->
-                        <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_category_end_schedule') }}</h4>
-                        <!-- <button type="button" class="btn btn-success" @click="addWorkInfoModal()"><i class="fa fa-plus"></i> დამატება</button> -->
+            <!--work information-->
 
-                    <!-- </div> -->
-                </div>
-                <div class="panel-body wt-panel-body p-a20 m-b30 ">
-                    <p class="text-danger">{{ $t('lang.user_profile_page_category_end_schedule_title') }}</p>
-                    <small>{{ $t('lang.user_profile_page_category_end_schedule_title_2') }}</small>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_category_title') }}</label>
-                                <div class="ls-inputicon-box">
-                                    <multiselect v-model="m.getWorkInformation.category_id" :options="data.classificatory.category" :searchable="true" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :allow-empty="false" @blur="v$.m.getWorkInformation.category_id.$touch">
-                                        <template slot="singleLabel" slot-scope="{ option }"></template>
-                                    </multiselect>
-                                    <span v-if="v$.m.getWorkInformation.category_id.required.$invalid && v$.m.getWorkInformation.category_id.$dirty" style='color:red'>* {{ v$.m.getWorkInformation.category_id.required.$message}}</span>
-                                    <!-- <i class="fs-input-icon fa fa-smoking"></i> -->
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row" >
-                            <div class="col-xl-4 col-lg-6 col-md-12">
-                                <div class="form-group">
-                                    <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_work_schedule_title') }}</label>
-                                    <div class="ls-inputicon-box">
-                                        <multiselect v-model="workInformationSchedule"  :options="data.classificatory.workSchedule" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name_ka" track-by="name_ka" :preselect-first="false" @blur="v$.workInformationSchedule.$touch">
-                                            <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
-                                        </multiselect>
-                                        <span v-if="v$.workInformationSchedule.required.$invalid && v$.workInformationSchedule.$dirty" style='color:red'>* {{ v$.workInformationSchedule.required.$message}}</span>
-                                        <!-- <i class="fs-input-icon fa fa-smoking"></i> -->
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-8" v-if="showAdditionalSchedule">
-                                <div class="form-group">
-                                    <label><span class="text-danger">* </span>სასურველი სამუშაო გრაფიკი</label>
-                                    <textarea class="form-control" rows="3" v-model="m.getWorkInformation[`additional_schedule_${getLang}`]" placeholder="ჩაწერეთ სასურველი სამუშაო დღეები და საათები" @blur="v$.m.getWorkInformation[`additional_schedule_${getLang}`].$touch"></textarea>
-                                    <span v-if="v$.m.getWorkInformation[`additional_schedule_${getLang}`].required.$invalid && v$.m.getWorkInformation[`additional_schedule_${getLang}`].$dirty" style='color:red'>* {{ v$.m.getWorkInformation[`additional_schedule_${getLang}`].required.$message}}</span>
-                                </div>
-                            </div>
-
-                            <div class="col-xl-4 col-lg-6 col-md-12">
-                                <div class="form-group">
-                                    <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_work_salary_title') }}</label>
-                                    <div class="ls-inputicon-box">
-                                        <input class="form-control" type="number" step="50" v-model="m.getWorkInformation.payment" @blur="v$.m.getWorkInformation.payment.$touch" style='height:45px;'>
-                                        <!-- <i class="fs-input-icon fa fa-money"></i> -->
-                                        <span v-if="v$.m.getWorkInformation.payment.numeric.$invalid && v$.m.getWorkInformation.payment.$dirty" style='color:red'>* {{ v$.m.getWorkInformation.payment.numeric.$message}}</span>
-                                        <span v-if="v$.m.getWorkInformation.payment.required.$invalid && v$.m.getWorkInformation.payment.$dirty" style='color:red'>* {{ v$.m.getWorkInformation.payment.required.$message}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-6 col-md-12">
-                                <div class="form-group">
-                                    <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_work_currency_title') }}</label>
-                                    <div class="ls-inputicon-box">
-                                        <multiselect v-model="m.getWorkInformation.currency_id" :options="data.classificatory.currency" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false" @blur="v$.m.getWorkInformation.currency_id.$touch">
-                                            <template slot="singleLabel" slot-scope="{ option }"></template>
-                                        </multiselect>
-                                        <span v-if="v$.m.getWorkInformation.currency_id.required.$invalid && v$.m.getWorkInformation.currency_id.$dirty" style='color:red'>* {{ v$.m.getWorkInformation.currency_id.required.$message}}</span>
-                                        <!-- <i class="fs-input-icon fa fa-usd"></i> -->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- <div v-if="m.getWorkInformation.category_id"> -->
-                        <div class="row" v-if=" m.getWorkInformation.category_id.id == 1 || m.getWorkInformation.category_id.id == 2 || m.getWorkInformation.category_id.id == 4">
-                            <div class="col-xl-4 col-lg-6 col-md-12" v-if="m.getWorkInformation.category_id.id != 4">
-                                <div class="form-group">
-
-                                    <div class="ls-inputicon-box">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="1" v-model="m.getWorkInformation.go_vacation" id="flexCheckDefault">
-                                            <label>{{ ('შეძლებთ არდადეგებზე გაყოლას?') }}</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-6 col-md-12">
-                                <div class="form-group">
-
-                                    <div class="ls-inputicon-box">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="1" v-model="m.getWorkInformation.stay_night" id="flexCheckDefault">
-                                            <label>{{ $t('შეძლებთ ღამე დარჩენას?') }}</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-6 col-md-12">
-                                <div class="form-group">
-
-                                    <div class="ls-inputicon-box">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="1" v-model="m.getWorkInformation.work_additional_hours" id="flexCheckDefault">
-                                            <label>{{ $t('შეძლებთ დამატებით საათებში მუშაობას?') }}</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- </div> -->
-                        <div class="col-lg-12 col-md-12 mt-4" >
-                            <div class="text-left">
-                                <button type="submit" @click.prevent="addWorkInfo()"  class="site-button">{{ $t('lang.user_profile_page_work_button_save') }}</button>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
+            <work_information :data="workInformationData"></work_information>
 
 
 
 
-                <div class="panel panel-default" v-if="m.workInformation.length != 0" >
-                    <div class="panel-heading wt-panel-heading p-a20">
-                        <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_category_end_schedule_table') }}</h4>
-                    </div>
-                    <div class="panel-body wt-panel-body p-a20 m-b30 ">
-                        <div class="p-a20 table-responsive">
-                          <table class="table twm-table table-striped table-borderless">
-                            <thead>
-                              <tr>
-                                <th>N</th>
-                                <th>{{ $t('lang.user_profile_page_category_title') }}</th>
-                                <th>{{ $t('lang.user_profile_page_work_schedule_title') }}</th>
-                                <th>{{ $t('lang.user_profile_page_work_salary_title') }}</th>
-                                <th>{{ $t('lang.user_profile_page_work_currency_title') }}</th>
-                                <th>{{ $t('lang.user_profile_page_work_actions_title') }}</th>
-                              </tr>
-                            </thead>
-
-                            <tbody>
-                              <!--1-->
-                              <tr v-for="(item,index) in m.workInformation">
-                                <td>{{ index + 1 }}</td>
-                                <td><span style="margin-bottom: 5px; margin-right: 5px;" class="badge rounded-pill bg-success p-2">{{ item.category[`name_${getLang}`] }}</span></td>
-                                <td><span style="margin-bottom: 5px; margin-right: 5px;" v-for="i in item.work_schedule" class="badge rounded-pill bg-primary p-2">{{ i[`name_${getLang}`] }}</span></td>
-                                <td>{{ item.payment }}</td>
-                                <td>{{ item.currency[`name_${getLang}`] }}</td>
-                                <td>
-                                    <button type="button" :title="$t('lang.user_profile_page_category_end_schedule_table_action_tooltips_view')" data-bs-toggle="tooltip" data-bs-placement="top" @click="editWorkInformation(item)">
-                                        <i class="fa fa-eye"></i>
-                                    </button>
-                                    <!-- <a type="button" title="ნახვა" data-bs-toggle="tooltip" data-bs-placement="top" :href="`/${this.getLang}/user/work_information_detail/${item.id}`">
-                                        <i class="fa fa-eye"></i>
-                                    </a> -->
-                                    <button :title="$t('lang.user_profile_page_category_end_schedule_table_action_tooltips_del')" data-bs-toggle="tooltip" data-bs-placement="top" @click="deleteWorkInformation(index, item.id)">
-                                        <i class="fa fa-trash-alt"></i>
-                                    </button>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                    </div>
-                </div>
             <!--ოჯახში მუშაობის გამოცდიელბა  -->
             <div class="panel panel-default" v-if="m.getWorkInformation.category_id || m.workInformation.length > 0">
                 <div class="panel-heading wt-panel-heading p-a20">
@@ -473,12 +316,13 @@
                 </div>
         </div>
     </div>
-    <editWorkInformation :visible="showWorkInformation" :data="editWorkInformationData"></editWorkInformation>
-    <editRecommendation :visible="showRecommendationEditModal" :data="editRecommendationData"></editRecommendation>
+    <!-- <editWorkInformation :visible="showWorkInformation" :data="editWorkInformationData"></editWorkInformation> -->
+    <!-- <editRecommendation :visible="showRecommendationEditModal" :data="editRecommendationData"></editRecommendation> -->
 </template>
 <script>
-import editWorkInformation from '../modal/editWorkInformation.vue'
-import editRecommendation from '../modal/editRecommendation.vue'
+// import editWorkInformation from '../modal/editWorkInformation.vue'
+// import editRecommendation from '../modal/editRecommendation.vue'
+import work_information from '../component/work_information.vue'
 import { uuid } from 'vue-uuid'
 import _ from 'lodash'
 import { useVuelidate } from '@vuelidate/core'
@@ -488,8 +332,9 @@ export default {
         return { v$: useVuelidate() }
     },
     components:{
-        editWorkInformation,
-        editRecommendation
+        // editWorkInformation,
+        // editRecommendation
+        work_information
     },
     props:{
         data: Object
@@ -536,6 +381,7 @@ export default {
                 phonecode: 995,
                 iso:'ge'
             },
+            workInformationData:{},
         }
     },
     validations () {
@@ -674,6 +520,15 @@ export default {
 
         // }
         console.log(this.m);
+        this.workInformationData = {
+            'user_id': this.data.auth.id,
+            'model': this.data.model.getWorkInformation,
+            'cla': {
+                'category': this.data.classificatory.category,
+                'currency': this.data.classificatory.currency,
+                'workSchedule': this.data.classificatory.workSchedule,
+            }
+        }
     },
     computed:{
         getLang(){
@@ -982,24 +837,24 @@ export default {
         },
     },
     watch: {
-        'm.familyWorkedSelected': function(newVal, oldVal){
-            console.log('newVal',newVal);
-            var arr = [];
-            if (this.m.familyWorkedSelected.length == 0) {
-                this.setSkill = []
-            }else{
-                this.m.familyWorkedSelected.forEach(element => {
-                    arr.push(element.id)
-                });
+        // 'm.familyWorkedSelected': function(newVal, oldVal){
+        //     console.log('newVal',newVal);
+        //     var arr = [];
+        //     if (this.m.familyWorkedSelected.length == 0) {
+        //         this.setSkill = []
+        //     }else{
+        //         this.m.familyWorkedSelected.forEach(element => {
+        //             arr.push(element.id)
+        //         });
 
-                console.log(this.m.familyWorkedSelected);
-                console.log('arr',arr);
-                let filteredX = this.data.classificatory.skill.filter(item => arr.includes(item.category_id));
-                console.log('filteredX',filteredX);
-                this.setSkill = filteredX
+        //         console.log(this.m.familyWorkedSelected);
+        //         console.log('arr',arr);
+        //         let filteredX = this.data.classificatory.skill.filter(item => arr.includes(item.category_id));
+        //         console.log('filteredX',filteredX);
+        //         this.setSkill = filteredX
 
-            }
-        },
+        //     }
+        // },
         'candidateRecommendationModel.has_recommendation': function (newVal, oldVa) {
             if (newVal.id == 2) {
                 this.showNoReccomendation = true;

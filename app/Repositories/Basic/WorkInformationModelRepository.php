@@ -24,6 +24,8 @@ class WorkInformationModelRepository
             $workInformation = [];
             $getWorkInformation =  Schema::getColumnListing('work_information');
             $getWorkInformation = array_map(function ($item) { return ""; }, array_flip($getWorkInformation));
+            $getWorkInformation['category'] = '';
+            $getWorkInformation['currency'] = '';
         }
 
         if (WorkInformation::where('candidate_id', $user->candidate->id)->exists() && CandidateRecommendation::where('candidate_id', $user->candidate->id)->exists()) {
