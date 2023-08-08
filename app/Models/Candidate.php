@@ -114,6 +114,10 @@ class Candidate extends Model
     {
         return $this->belongsToMany(Notice::class, 'candidate_notices');
     }
+    public function getNotice()
+    {
+        return $this->hasMany(CandidateNotice::class, 'id', 'candidate_id');
+    }
     public function familyWorkSkill()
     {
         return $this->belongsToMany(Skill::class, 'candidate_family_work_skills');

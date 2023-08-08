@@ -126,12 +126,14 @@ class AdminCandidateController extends Controller
                 'familyWorkExperience.hasExperience',
                 'familyWorkExperience.noReason',
                 'familyWorkExperience.familyWorkDuty',
+                'familyWorkExperience.familyWorkCategory',
                 'characteristic',
                 'allergy',
                 'maritalStatus',
                 'drivingLicense',
                 'number.numberOwner',
-                'number.numberCode'
+                'number.numberCode',
+                'getNotice'
             ])->first()->toArray();
 
         $classificatoryArr = ['gender', 'nationality', 'religions','educations', 'maritalStatus', 'citizenship', 'professions',

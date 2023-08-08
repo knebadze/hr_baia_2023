@@ -261,7 +261,7 @@
                 <button type="button" class="btn btn-primary " @click="openUpdateWorkInformationModal(m.get_work_information)" ><i class=""></i>სამუშაო ინფორმაცია</button>
                 <button type="button" class="btn btn-primary " @click="openUpdateRecommendationModal(m.get_recommendation)" ><i class=""></i>რეკომენდაცია</button>
                 <button type="button" class="btn btn-primary " @click="openUpdateNumberModal(m.number)" ><i class=""></i>ნომრები</button>
-                <button type="button" class="btn btn-primary " @click="openUpdateNumberModal(m.number)" ><i class=""></i>საბუთები</button>
+                <button type="button" class="btn btn-primary " @click="openUpdateNoticeModal(m.get_notice)" ><i class=""></i>საბუთები</button>
             </div>
         </div>
     </div>
@@ -271,6 +271,7 @@
     <update_family_work_modal :visible="updateFamilyWorkModal" :items="item"></update_family_work_modal>
     <update_number_modal :visible="updateNumberModal" :items="item"></update_number_modal>
     <update_recommendation_modal :visible="updateRecommendationModal" :items="item"></update_recommendation_modal>
+    <update_notice_modal :visible="updateNoticeModal" :items="item"></update_notice_modal>
 </template>
 <script>
 import update_language_modal from '../modal/update_language_modal.vue';
@@ -279,6 +280,7 @@ import update_work_information_modal from '../modal/update_work_information_moda
 import update_family_work_modal from '../modal/update_family_work_modal.vue';
 import update_number_modal from '../modal/update_number_modal.vue';
 import update_recommendation_modal from '../modal/update_recommendation_modal.vue';
+import update_notice_modal from '../modal/update_notice_modal.vue';
 export default {
     components:{
         update_language_modal,
@@ -286,7 +288,8 @@ export default {
         update_work_information_modal,
         update_family_work_modal,
         update_number_modal,
-        update_recommendation_modal
+        update_recommendation_modal,
+        update_notice_modal
     },
     props:{
         data: Object
@@ -301,6 +304,7 @@ export default {
             updateFamilyWorkModal:false,
             updateNumberModal:false,
             updateRecommendationModal: false,
+            updateNoticeModal:false,
             item: null
         }
     },
@@ -366,6 +370,7 @@ export default {
                 'item':item,
                 'cla':
                 {
+                    'category': this.cla.category,
                     'workExperiences':this.cla.workExperiences,
                     'yesNo': this.cla.yesNo,
                     'noExperienceReason': this.cla.noExperienceReason,
@@ -404,6 +409,10 @@ export default {
         openUpdateNumberModal(item){
             this.updateNumberModal = !this.updateNumberModal
             this.item = {'candidate_id': this.data.candidate.id,'item':item, 'cla':{'numberOwner':this.cla.numberOwner, 'numberCode': this.cla.numberCode}}
+        },
+        openUpdateNoticeModal(item){
+            this.updateNoticeModal = !this.updateNoticeModal
+            this.item = {'candidate_id': this.data.candidate.id,'item':item, 'cla':{'notice':this.cla.notice}}
         },
     }
 }

@@ -50,6 +50,16 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
+                                    <label>ოჯახში მუშაობდით</label>
+                                    <div class="ls-inputicon-box">
+                                        <multiselect v-model="m.family_work_category"  :options="cla.category" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true"  label="name_ka" track-by="name_ka" :preselect-first="false">
+                                            <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                        </multiselect>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
                                     <label>მუშაობის დროს გევალებოდათ</label>
                                     <div class="ls-inputicon-box">
                                         <multiselect v-model="m.family_work_duty"  :options="cla.duty" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true"  label="name_ka" track-by="name_ka" :preselect-first="false">
@@ -129,7 +139,7 @@
                 // (this.m.hasOwnProperty('has_experience'))?
                 this.experience = (this.items.item.length != 0)?this.items.item.has_experience:''
                 console.log('this.m', this.m);
-                this.cla = this.items.cla
+                this.cla = _.cloneDeep(this.items.cla)
                 this.showConfirm = true
 
             },
@@ -187,6 +197,24 @@
             visible: function(){
                 this.show()
             },
+            'm.family_work_category': function(newVal, oldVal){
+                if (this.items.item.family_work_category !== newVal) {
+                    this.m.family_work_duty = []
+                }
+                let duty = _.cloneDeep(this.items.cla.duty)
+                if (newVal !== undefined && newVal != '') {
+                    let filteredDuty = [];
+                    newVal.forEach(element => {
+                        let filter = _.filter(duty, function(o) {
+                            return o.category_id === element.id;
+                        });
+                        filteredDuty = filteredDuty.concat(filter);
+                    });
+
+                    this.cla.duty = filteredDuty;
+                }
+
+            }
 
         }
   }

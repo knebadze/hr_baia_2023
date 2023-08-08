@@ -10,36 +10,36 @@
                 <div class="modal-body">
 
                     <div>
-                        <h5 class="pb-2">უცხო ენის რედაქტირება</h5>
+                        <h5 class="pb-2">დოკუმენტის რედაქტირება</h5>
                         <table class="table table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th>კოდი</th>
-                                    <th>ნომერი</th>
-                                    <th>მფლობელი</th>
+                                    <th>დოკუმენტის დასახელება</th>
+                                    <th>ფაილი</th>
                                     <th>მოქმედება</th>
                                 </tr>
 
                             </thead>
                             <tbody>
-                                <tr v-for="(item, index) in m" :key="index">
+                                 <tr v-for="(item, index) in m" :key="index">
                                     <td>
-                                        <div class="form-group">
+                                        <!-- <div class="form-group">
                                             <div class="ls-inputicon-box">
-                                                <multiselect  v-model="item.number_code" :options="cla.numberCode" deselect-label="Can't remove this value" track-by="phonecode" label="phonecode" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                                <multiselect  v-model="item.name_ka" :options="cla.notice" deselect-label="Can't remove this value" track-by="phonecode" label="phonecode" placeholder="Select one"  :searchable="true" :allow-empty="false">
                                                     <template slot="singleLabel" slot-scope="{ option }"></template>
                                                 </multiselect>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </td>
                                     <td>
-                                        <div class="form-group">
+                                        {{ item.file_path }}
+                                        <!-- <div class="form-group">
                                             <div class="ls-inputicon-box">
-                                                <input class="form-control" v-model="item.number" type="text"  >
+                                                <input class="form-control" v-model="item.file" type="text"  >
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </td>
-                                    <td>
+                                    <!-- <td>
                                         <div class="form-group">
                                             <div class="ls-inputicon-box">
                                                 <multiselect  v-model="item.number_owner" :options="cla.numberOwner" deselect-label="Can't remove this value" track-by="name_ka" label="name_ka" placeholder="Select one"  :searchable="true" :allow-empty="false">
@@ -47,7 +47,7 @@
                                                 </multiselect>
                                             </div>
                                         </div>
-                                    </td>
+                                    </td> -->
                                     <td>
                                         <button type="button" class="btn btn-danger ml-2" @click.prevent="deletion(index, item)" ><i class=""></i>წაშლა</button>
                                     </td>
@@ -55,7 +55,7 @@
                             </tbody>
                         </table>
                         <h5 class="pb-2">ნომრის დამატება</h5>
-                        <div class="row border py-3">
+                        <!-- <div class="row border py-3">
                             <div class="col-xl-4 col-lg-6 col-md-12">
                                 <div class="form-group">
                                     <label>კოდი</label>
@@ -87,7 +87,7 @@
                             <div class="col-md-12">
                                 <button type="button" class="btn btn-success float-right" @click="add(newItem)" ><i class="fa fa-plus"></i> დამატება</button>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
                 </div>
@@ -115,10 +115,6 @@
                 cla:[],
                 newItem:{},
                 classificatory:{},
-                numberCode: {
-                    'phonecode': '',
-                    'iso':''
-                },
             }
         },
         created(){
@@ -134,8 +130,6 @@
                 console.log('this.m', this.m);
                 this.cla = this.items.cla
                 this.showConfirm = true
-                console.log(this.cla.numberCode.find(element => element.numbercode == 995));
-                this.newItem.number_code = this.cla.numberCode.find(element => element.phonecode == 995);
 
             },
             hide(){
