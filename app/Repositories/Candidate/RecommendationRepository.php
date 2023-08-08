@@ -2,26 +2,50 @@
 
 namespace App\Repositories\Candidate;
 
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use App\Models\CandidateRecommendation;
 use Illuminate\Support\Facades\Storage;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class RecommendationRepository
 {
-    function translate($data)  {
-        if (isset($data['data']->name_ka)) {
-            $data['data']->name_en = GoogleTranslate::trans($data['data']->name_ka, 'en');
-            $data['data']->name_ru  = GoogleTranslate::trans($data['data']->name_ka, 'ru');
-        }
-        if (isset($data['data']->position_ka)) {
-            $data['data']->position_en = GoogleTranslate::trans($data['data']->position_ka, 'en');
-            $data['data']->position_ru  = GoogleTranslate::trans($data['data']->position_ka, 'ru');
+    function translate($lang, $data)  {
+        if ($lang == 'ka') {
+            if (isset($data['data']->name_ka)) {
+                $data['data']->name_en = GoogleTranslate::trans($data['data']->name_ka, 'en');
+                $data['data']->name_ru  = GoogleTranslate::trans($data['data']->name_ka, 'ru');
+            }
+            if (isset($data['data']->position_ka)) {
+                $data['data']->position_en = GoogleTranslate::trans($data['data']->position_ka, 'en');
+                $data['data']->position_ru  = GoogleTranslate::trans($data['data']->position_ka, 'ru');
+            }
+        }elseif ($lang == 'en') {
+            if ($data['data']->name_en) {
+                $data['data']->name_ka = GoogleTranslate::trans($data['data']->name_en, 'ka');
+                $data['data']->name_ru  = GoogleTranslate::trans($data['data']->name_en, 'ru');
+            }
+            if ($data['data']->position_en) {
+                $data['data']->position_ka = GoogleTranslate::trans($data['data']->position_en, 'ka');
+                $data['data']->position_ru  = GoogleTranslate::trans($data['data']->position_en, 'ru');
+            }
+
+        }elseif ($lang == 'ru') {
+            if ($data['data']->name_ru) {
+                $data['data']->name_ka = GoogleTranslate::trans($data['data']->name_ru, 'ka');
+                $data['data']->name_en  = GoogleTranslate::trans($data['data']->name_ru, 'en');
+            }
+            if ($data['data']->position_ru) {
+                $data['data']->position_ka = GoogleTranslate::trans($data['data']->position_ru, 'ka');
+                $data['data']->position_en  = GoogleTranslate::trans($data['data']->position_ru, 'en');
+            }
         }
         return $data;
     }
     function save($data) {
-
-        $data = $this->translate($data);
+        // dd($data);
+        $lang = (isset($data['data']->lang))?$data['data']->lang:'ka';
+        $data = $this->translate($lang, $data);
         $recommendation = new CandidateRecommendation();
         $recommendation->candidate_id = $data['data']->candidate_id;
         $recommendation->recommendation = $data['data']->has_recommendation->id;
@@ -44,7 +68,8 @@ class RecommendationRepository
                 $filePath = $data['file']->store('user_documentation', 'public');
             }
             if (isset($filePath)) {
-                $recommendation->file = $filePath;
+                $recommendation->file_path = $filePath;
+                $recommendation->file_name = $data['data']->file_name;
             }
         }else{
             if (CandidateRecommendation::where('candidate_id', $data['data']->candidate_id)->exists() && CandidateRecommendation::where('candidate_id', $data['data']->candidate_id)->where('recommendation', 1)->exists()) {
@@ -60,12 +85,15 @@ class RecommendationRepository
         }
 
         $recommendation->save();
-        return $recommendation;
+        if (Auth::user()->role_id == 3) {
+            $this->userStatusUpdate(Auth::id());
+        }
+        return CandidateRecommendation::where('id', $recommendation->id)->with(['recommendationWhom', 'numberCode', 'noReason', 'hasRecommendation'])->first();
     }
 
     function update($data)  {
         // dd($data);
-        $data = $this->translate($data);
+        $data = $this->translate('ka',$data);
         $recommendation = CandidateRecommendation::findOrFail($data['data']->id);
         if ($data['data']->has_recommendation->id == 1) {
             if (CandidateRecommendation::where('candidate_id', $data['data']->candidate_id)->exists() && CandidateRecommendation::where('candidate_id', $data['data']->candidate_id)->where('recommendation', 2)->exists()) {
@@ -87,7 +115,8 @@ class RecommendationRepository
                 $filePath = $data['file']->store('user_documentation', 'public');
             }
             if (isset($filePath)) {
-                $recommendation->file = $filePath;
+                $recommendation->file_path = $filePath;
+                $recommendation->file_name = $data['data']->file_name;
             }
         }else{
             if (CandidateRecommendation::where('candidate_id', $data['data']->candidate_id)->exists() && CandidateRecommendation::where('candidate_id', $data['data']->candidate_id)->where('recommendation', 1)->exists()) {
@@ -104,6 +133,17 @@ class RecommendationRepository
 
         $recommendation->update();
 
+    }
+
+    public function userStatusUpdate($user_id)
+    {
+        $user = User::find($user_id);
+        if ($user->status == 1) {
+            $user->update([
+                'status' => 2,
+                'updated_at' => now()
+            ]);
+        }
     }
 
 }

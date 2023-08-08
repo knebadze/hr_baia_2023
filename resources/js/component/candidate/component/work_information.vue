@@ -29,10 +29,10 @@
                         <div class="form-group">
                             <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_work_schedule_title') }}</label>
                             <div class="ls-inputicon-box">
-                                <multiselect v-model="workInformationSchedule"  :options="cla.workSchedule" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name_ka" track-by="name_ka" :preselect-first="false" @blur="v$.workInformationSchedule.$touch">
+                                <multiselect v-model="m.work_schedule"  :options="cla.workSchedule" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name_ka" track-by="name_ka" :preselect-first="false" @blur="v$.m.work_schedule.$touch">
                                     <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                                 </multiselect>
-                                <span v-if="v$.workInformationSchedule.required.$invalid && v$.workInformationSchedule.$dirty" style='color:red'>* {{ v$.workInformationSchedule.required.$message}}</span>
+                                <span v-if="v$.m.work_schedule.required.$invalid && v$.m.work_schedule.$dirty" style='color:red'>* {{ v$.m.work_schedule.required.$message}}</span>
                                 <!-- <i class="fs-input-icon fa fa-smoking"></i> -->
                             </div>
                         </div>
@@ -108,7 +108,7 @@
                 <!-- </div> -->
                 <div class="col-lg-12 col-md-12 mt-4" >
                     <div class="text-left">
-                        <button type="submit" @click.prevent="addWorkInfo()"  class="site-button">{{ $t('lang.user_profile_page_work_button_save') }}</button>
+                        <button type="submit" @click.prevent="add()"  class="site-button">{{ $t('lang.user_profile_page_work_button_save') }}</button>
                     </div>
                 </div>
 
@@ -117,13 +117,13 @@
     </div>
 
     <!-- table -->
-    <div class="panel panel-default" v-if="m.length != 0" >
+    <div class="panel panel-default" v-if="items.length != 0" >
         <div class="panel-heading wt-panel-heading p-a20">
             <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_category_end_schedule_table') }}</h4>
         </div>
         <div class="panel-body wt-panel-body p-a20 m-b30 ">
             <div class="p-a20 table-responsive">
-                <!-- <table class="table twm-table table-striped table-borderless">
+                <table class="table twm-table table-striped table-borderless">
                 <thead>
                     <tr>
                     <th>N</th>
@@ -136,23 +136,23 @@
                 </thead>
 
                 <tbody>
-                    <tr v-for="(item,index) in m">
+                    <tr v-for="(item, index) in items" :key="index">
                     <td>{{ index + 1 }}</td>
                     <td><span style="margin-bottom: 5px; margin-right: 5px;" class="badge rounded-pill bg-success p-2">{{ item.category[`name_${getLang}`] }}</span></td>
                     <td><span style="margin-bottom: 5px; margin-right: 5px;" v-for="i in item.work_schedule" class="badge rounded-pill bg-primary p-2">{{ i[`name_${getLang}`] }}</span></td>
                     <td>{{ item.payment }}</td>
                     <td>{{ item.currency[`name_${getLang}`] }}</td>
                     <td>
-                        <button type="button" :title="$t('lang.user_profile_page_category_end_schedule_table_action_tooltips_view')" data-bs-toggle="tooltip" data-bs-placement="top" @click="editWorkInformation(item)">
+                        <!-- <button type="button" :title="$t('lang.user_profile_page_category_end_schedule_table_action_tooltips_view')" data-bs-toggle="tooltip" data-bs-placement="top" @click="editWorkInformation(item)">
                             <i class="fa fa-eye"></i>
-                        </button>
-                        <button :title="$t('lang.user_profile_page_category_end_schedule_table_action_tooltips_del')" data-bs-toggle="tooltip" data-bs-placement="top" @click="deleteWorkInformation(index, item.id)">
+                        </button> -->
+                        <button :title="$t('lang.user_profile_page_category_end_schedule_table_action_tooltips_del')" data-bs-toggle="tooltip" data-bs-placement="top" @click="remove(index, item.id)">
                             <i class="fa fa-trash-alt"></i>
                         </button>
                     </td>
                     </tr>
                 </tbody>
-                </table> -->
+                </table>
             </div>
         </div>
     </div>
@@ -160,6 +160,7 @@
 <script>
 import { useVuelidate } from '@vuelidate/core'
 import { required, email, helpers, requiredIf, numeric, maxLength } from '@vuelidate/validators'
+import _ from 'lodash'
 export default {
     setup () {
         return { v$: useVuelidate() }
@@ -172,130 +173,41 @@ export default {
         return {
             m:null,
             cla: null,
-            workInformationSchedule: [],
+            items:[],
+            // m.work_schedule: [],
             showAdditionalSchedule:false,
         }
     },
     validations () {
         const validations = {
             m:{
-                // getWorkInformation:{
-                    category:{
-                        required:helpers.withMessage('არჩევა სავალდებულოა', required ),
-                    },
-                    payment:{
-                        required:helpers.withMessage('არჩევა სავალდებულოა', required ),
-                        numeric: helpers.withMessage('უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric ),
-                    },
-                    currency:{
-                        required:helpers.withMessage('არჩევა სავალდებულოა', required )
-                    },
-                    additional_schedule_ka:{},
-                    additional_schedule_ka:{},
-                    additional_schedule_ka:{},
-                // },
-                // familyWorkExperience:{
-                //     has_experience:{
-                //         required:helpers.withMessage('ოჯახში მუშაობის გამოცდილების შევსება სავალდებულოა', required ),
-                //     },
-                //     families_worked_count:{},
-                //     work_experience:{},
-                //     longest:{},
-                //     no_reason:{},
-                //     no_reason_info:{}
-                // },
-                // familyWorkedSelected:{},
-                // candidateFamilyWorkSkill:{},
-                // showNoWorkExperience:false
-
+                category:{
+                    required:helpers.withMessage('არჩევა სავალდებულოა', required ),
+                },
+                payment:{
+                    required:helpers.withMessage('არჩევა სავალდებულოა', required ),
+                    numeric: helpers.withMessage('უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric ),
+                },
+                currency:{
+                    required:helpers.withMessage('არჩევა სავალდებულოა', required )
+                },
+                additional_schedule_ka:{},
+                additional_schedule_en:{},
+                additional_schedule_ru:{},
+                work_schedule:{required:helpers.withMessage('სამუშაო გრაფიკის არჩევა სავალდებულოა', required )},
 
             },
 
-            workInformationSchedule:{required:helpers.withMessage('სამუშაო გრაფიკის არჩევა სავალდებულოა', required )},
-
-
-
-
-            // candidateRecommendationModel:{
-            //     has_recommendation:{
-            //         required:helpers.withMessage('რეკომენდაციის შევსება სავალდებულოა', required )
-            //     },
-            //     recommendation_whom:{},
-            //     name_ka:{},
-            //     name_en:{},
-            //     name_ru:{},
-            //     position_ka:{},
-            //     position_en:{},
-            //     position_ru:{},
-            //     number:{},
-            //     no_reason:{},
-            //     no_reason_info_ka:{},
-            //     no_reason_info_en:{},
-            //     no_reason_info_ru:{},
-            // }
         }
-
-        // if (this.m.familyWorkExperience.has_experience && this.m.familyWorkExperience.has_experience.id == 1) {
-        //     validations.m.familyWorkExperience.work_experience = {
-        //         required:helpers.withMessage('სტაჟის შევსება სავალდებულოა', required )
-        //     }
-        //     validations.m.familyWorkExperience.families_worked_count = {
-        //         required:helpers.withMessage('შევსება სავალდებულოა', required ),
-        //         numeric: helpers.withMessage('უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric ),
-        //     }
-        //     validations.m.familyWorkExperience.longest = {
-        //         required:helpers.withMessage('არჩევა სავალდებულოა', required ),
-        //     }
-        //     validations.m.familyWorkedSelected = {
-        //         required:helpers.withMessage('არჩევა სავალდებულოა', required ),
-        //     }
-        //     validations.m.candidateFamilyWorkSkill = {
-        //         required:helpers.withMessage('არჩევა სავალდებულოა', required ),
-        //     }
-        // }else{
-        //     validations.m.familyWorkExperience.no_reason = {
-        //         required:helpers.withMessage('არჩევა სავალდებულოა', required ),
-        //     }
-        //     validations.m.familyWorkExperience.no_reason_info = {
-        //         maxLength: helpers.withMessage('დაშვებულია 100 სიმბოლო', maxLength(100) )
-        //     }
-
-        // }
-
-        // if (this.candidateRecommendationModel.has_recommendation && this.candidateRecommendationModel.has_recommendation.id == 1) {
-        //     validations.candidateRecommendationModel.recommendation_whom = {
-        //         required:helpers.withMessage('არჩევა სავალდებულოა', required )
-        //     }
-        //     if (this.candidateRecommendationModel.recommendation_whom.id == 2) {
-        //         validations.candidateRecommendationModel[`position_${this.getLang}`] = {
-        //             required:helpers.withMessage('შევსება სავალდებულოა', required )
-        //         }
-        //     }
-        //     validations.candidateRecommendationModel[`name_${this.getLang}`] = {
-        //         required:helpers.withMessage('შევსება სავალდებულოა', required )
-        //     }
-        //     validations.candidateRecommendationModel.number = {
-        //         required:helpers.withMessage('შევსება სავალდებულოა', required ),
-        //         numeric: helpers.withMessage('ნომერი უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric ),
-        //     }
-        // } else {
-        //     validations.candidateRecommendationModel.no_reason = {
-        //         required:helpers.withMessage('არჩევა სავალდებულოა', required )
-        //     }
-        //     validations.candidateRecommendationModel[`no_reason_info_${this.getLang}`] = {
-        //         maxLength: helpers.withMessage('დაშვებულია 100 სიმბოლო', maxLength(100) )
-        //     }
-        // }
-
-        // if (this.workInformationSchedule.id == 9) {
-        //     if (this.getLang == 'ka') {
-        //         validations.m.getWorkInformation.additional_schedule_ka = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
-        //     }else if(this.getLang == 'en'){
-        //         validations.m.getWorkInformation.additional_schedule_en = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
-        //     }else if(this.getLang == 'ru'){
-        //         validations.m.getWorkInformation.additional_schedule_ru = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
-        //     }
-        // }
+        if (this.m.work_schedule != '' &&  this.m.work_schedule[0].id == 9) {
+            if (this.getLang == 'ka') {
+                validations.m.additional_schedule_ka = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
+            }else if(this.getLang == 'en'){
+                validations.m.additional_schedule_en = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
+            }else if(this.getLang == 'ru'){
+                validations.m.additional_schedule_ru = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
+            }
+        }
 
 
         return validations
@@ -306,44 +218,98 @@ export default {
         },
     },
     created(){
-        console.log('his.data.', this.data);
-        this.m = {...this.data.model}
+        this.m = {...this.data.model.workInformation}
+        this.m.stay_night = 0;
+        this.m.go_vacation = 0;
+        this.m.work_additional_hours = 0;
+        this.items = this.data.model.getWorkInformation
         this.cla = this.data.cla
         this.m.user_id = this.data.user_id
-        console.log('this.m,',this.data.model);
 //
     },
     methods: {
-        async addCandidate(){
-            const isFormCorrect = await this.v$.$validate()
+        async add(){
+            const isFormCorrect = await this.v$.m.$validate()
             if (!isFormCorrect) return;
-            this.m['lang'] = this.getLang
+            if (this.items.length > 0 && this.items.some((element) => element.category_id === this.m.category.id)) {
+                toast.error('არჩეულ კატეგორიაზე უკვე გაქვთ ინფორმაცია შევსებული', {
+                    theme: 'colored',
+                    autoClose: 1000,
+                });
+                return
+            }
+            this.m.lang = this.getLang
+            this.m.candidate_id = this.data.candidate_id
             let currentObj = this;
-            console.log('currentObj',currentObj);
             axios({
                 method: "post",
-                url: "/add_candidate",
-                data: {'model':this.m, 'type': 'information'},
+                url: "/add_work_information",
+                data: {'model':this.m, 'type': 'work_information'},
 
             })
             .then(function (response) {
-                console.log(response.data);
+
+                // handle success
                 if (response.data.status == 200) {
-                    currentObj.candidate_id = response.data.data;
-                    toast.success("ინფორმაცია წარმატებით შეინახა", {
+                    toast.success("წარმატებით დაემატა", {
                         theme: 'colored',
                         autoClose: 1000,
                     });
+                    currentObj.items.push(response.data.data)
+                    currentObj.m.category = '';
+                    currentObj.m.work_schedule = '';
+                    currentObj.m.payment = 800;
+                    currentObj.m.currency = '';
                 }
+
             })
             .catch(function (error) {
                 // handle error
                 console.log(error);
             })
         },
+        remove(index, id){
+            this.$swal({
+                title: 'ნამდვილად გსურთ წაშლა?',
+                //   showDenyButton: true,
+                cancelButtonText:'არა',
+                confirmButtonText: 'კი',
+                showCancelButton: true,
+            }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    const removed = this.m.splice(index, 1);
+                    axios({
+                        method: "post",
+                        url: "/delete_candidate_info",
+                        data: {'id':id, 'type': 'work_information'},
+
+                    })
+                    .then(function (response) {
+                        if (response.data.status == 200) {
+                            toast.success("წარმატებით წაიშალა", {
+                                theme: 'colored',
+                                autoClose: 1000,
+                            });
+                        }
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+
+                } else if (result.isDenied) {
+                    return
+                }
+            });
+
+
+        },
     },
     watch:{
-
+        'm.work_schedule': function (newVal, oldVa) {
+            this.showAdditionalSchedule = _.find(newVal, function(o) { if(o.id == 9) return true; });
+        },
     }
 }
 </script>

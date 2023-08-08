@@ -26,7 +26,8 @@ return new class extends Migration
             $table->string('position_ru')->nullable();
             $table->foreignId('number_code_id')->nullable()->constrained();
             $table->string('number', 20)->nullable();
-            $table->string('file')->nullable();
+            $table->string('file_name')->nullable();
+            $table->string('file_path', 355)->nullable();
             $table->foreignId('no_reason_id')->nullable()->constrained();
             $table->string('no_reason_info_ka', 400)->nullable();
             $table->string('no_reason_info_en', 400)->nullable();

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Services\ModelService;
 use App\Models\WorkInformation;
 use App\Http\Controllers\Controller;
+use App\Models\Candidate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use App\Models\CandidateRecommendation;
@@ -33,9 +34,9 @@ class WorkInformationController extends Controller
     public function index(){
         $data = [];
         $auth = Auth::user();
-
+        $candidate = Candidate::where('user_id', $auth->id)->first();
         //classificator
-        $classificatoryArr = ['category', 'workSchedule', 'workExperiences','currency', 'recommendationFromWhom', 'noRecommendationReason', 'skill',
+        $classificatoryArr = ['category', 'workSchedule', 'workExperiences','currency', 'recommendationFromWhom', 'noRecommendationReason', 'duty',
         'noExperienceReason', 'yesNo', 'numberCode'];
         $classificatory = $this->classificatoryService->get($classificatoryArr);
         $model = $this->modelService->getWorkInformationModel();
@@ -43,6 +44,7 @@ class WorkInformationController extends Controller
         // dd($workInformation);
         $data = [
             'auth'=> $auth,
+            'candidate' => $candidate,
             'model' => $model,
             'classificatory' => $classificatory,
 
@@ -66,22 +68,22 @@ class WorkInformationController extends Controller
         return response()->json($result, $result['status']);
     }
 
-    public function updateWorkInformation(Request $request)
-    {
-        $data = $request->all();
-        $result = ['status' => 200];
+    // public function updateWorkInformation(Request $request)
+    // {
+    //     $data = $request->all();
+    //     $result = ['status' => 200];
 
-        try {
-            $result['data'] = $this->workInformationService->updateData($data);
-        } catch (Exception $e) {
-            $result = [
-                'status' => 500,
-                'error' => $e->getMessage()
-            ];
-        }
+    //     try {
+    //         $result['data'] = $this->workInformationService->updateData($data);
+    //     } catch (Exception $e) {
+    //         $result = [
+    //             'status' => 500,
+    //             'error' => $e->getMessage()
+    //         ];
+    //     }
 
-        return response()->json($result, $result['status']);
-    }
+    //     return response()->json($result, $result['status']);
+    // }
 
     public function deleteWorkInformation(Request $request)
     {
@@ -106,114 +108,114 @@ class WorkInformationController extends Controller
         return response()->json($result, $result['status']);
     }
 
-    public function addRecommendation(Request $request)
-    {
-        $data = $request->all();
-        $result = ['status' => 200];
+    // public function addRecommendation(Request $request)
+    // {
+    //     $data = $request->all();
+    //     $result = ['status' => 200];
 
-        try {
-            $result['data'] = $this->workInformationService->saveRecommendation($data);
-        } catch (Exception $e) {
-            $result = [
-                'status' => 500,
-                'error' => $e->getMessage()
-            ];
-        }
+    //     try {
+    //         $result['data'] = $this->workInformationService->saveRecommendation($data);
+    //     } catch (Exception $e) {
+    //         $result = [
+    //             'status' => 500,
+    //             'error' => $e->getMessage()
+    //         ];
+    //     }
 
-        return response()->json($result, $result['status']);
-    }
+    //     return response()->json($result, $result['status']);
+    // }
 
-    public function addRecommendationFile(Request $request)
-    {
-        $data = $request->all();
-        $result = ['status' => 200];
+    // public function addRecommendationFile(Request $request)
+    // {
+    //     $data = $request->all();
+    //     $result = ['status' => 200];
 
-        try {
-            $result['data'] = $this->workInformationService->saveRecommendationFile($data);
-        } catch (Exception $e) {
-            $result = [
-                'status' => 500,
-                'error' => $e->getMessage()
-            ];
-        }
+    //     try {
+    //         $result['data'] = $this->workInformationService->saveRecommendationFile($data);
+    //     } catch (Exception $e) {
+    //         $result = [
+    //             'status' => 500,
+    //             'error' => $e->getMessage()
+    //         ];
+    //     }
 
-        return response()->json($result, $result['status']);
-    }
+    //     return response()->json($result, $result['status']);
+    // }
 
-    public function removeRecommendation(Request $request)
-    {
-        $recommendation = CandidateRecommendation::find($request->id);
-        if ($recommendation->file) {
-            File::delete(public_path('user-documentation/'.$recommendation->file));
-        }
-        $recommendation->delete();
-        return response()->json();
-    }
-    public function trashRecommendation(Request $request)
-    {
-        $data = $request->all();
-        $result = ['status' => 200];
+    // public function removeRecommendation(Request $request)
+    // {
+    //     $recommendation = CandidateRecommendation::find($request->id);
+    //     if ($recommendation->file) {
+    //         File::delete(public_path('user-documentation/'.$recommendation->file));
+    //     }
+    //     $recommendation->delete();
+    //     return response()->json();
+    // }
+    // public function trashRecommendation(Request $request)
+    // {
+    //     $data = $request->all();
+    //     $result = ['status' => 200];
 
-        try {
-            $result['data'] = $this->workInformationService->trashRecommendation($data);
-        } catch (Exception $e) {
-            $result = [
-                'status' => 500,
-                'error' => $e->getMessage()
-            ];
-        }
+    //     try {
+    //         $result['data'] = $this->workInformationService->trashRecommendation($data);
+    //     } catch (Exception $e) {
+    //         $result = [
+    //             'status' => 500,
+    //             'error' => $e->getMessage()
+    //         ];
+    //     }
 
-        return response()->json($result, $result['status']);
-    }
-    public function removeRecommendationFile(Request $request)
-    {
-        $data = $request->all();
-        $result = ['status' => 200];
+    //     return response()->json($result, $result['status']);
+    // }
+    // public function removeRecommendationFile(Request $request)
+    // {
+    //     $data = $request->all();
+    //     $result = ['status' => 200];
 
-        try {
-            $result['data'] = $this->workInformationService->removeRecommendationFile($data);
-        } catch (Exception $e) {
-            $result = [
-                'status' => 500,
-                'error' => $e->getMessage()
-            ];
-        }
+    //     try {
+    //         $result['data'] = $this->workInformationService->removeRecommendationFile($data);
+    //     } catch (Exception $e) {
+    //         $result = [
+    //             'status' => 500,
+    //             'error' => $e->getMessage()
+    //         ];
+    //     }
 
-        return response()->json($result, $result['status']);
+    //     return response()->json($result, $result['status']);
 
-    }
+    // }
 
-    public function updateRecommendation(Request $request)
-    {
+    // public function updateRecommendation(Request $request)
+    // {
 
-        $data = $request->all();
-        $result = ['status' => 200];
+    //     $data = $request->all();
+    //     $result = ['status' => 200];
 
-        try {
-            $result['data'] = $this->workInformationService->updateRecommendation($data);
-        } catch (Exception $e) {
-            $result = [
-                'status' => 500,
-                'error' => $e->getMessage()
-            ];
-        }
+    //     try {
+    //         $result['data'] = $this->workInformationService->updateRecommendation($data);
+    //     } catch (Exception $e) {
+    //         $result = [
+    //             'status' => 500,
+    //             'error' => $e->getMessage()
+    //         ];
+    //     }
 
-        return response()->json($result, $result['status']);
-    }
-    public function updateRecommendationFile(Request $request)
-    {
-        $data = $request->all();
-        $result = ['status' => 200];
+    //     return response()->json($result, $result['status']);
+    // }
+    // public function updateRecommendationFile(Request $request)
+    // {
+    //     $data = $request->all();
+    //     $result = ['status' => 200];
 
-        try {
-            $result['data'] = $this->workInformationService->updateRecommendationFile($data);
-        } catch (Exception $e) {
-            $result = [
-                'status' => 500,
-                'error' => $e->getMessage()
-            ];
-        }
+    //     try {
+    //         $result['data'] = $this->workInformationService->updateRecommendationFile($data);
+    //     } catch (Exception $e) {
+    //         $result = [
+    //             'status' => 500,
+    //             'error' => $e->getMessage()
+    //         ];
+    //     }
 
-        return response()->json($result, $result['status']);
-    }
+    //     return response()->json($result, $result['status']);
+    // }
 }

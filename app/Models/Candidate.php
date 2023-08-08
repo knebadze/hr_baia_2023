@@ -126,7 +126,7 @@ class Candidate extends Model
 
     public function recommendation()
     {
-        return $this->belongsToMany(RecommendationFromWhom::class, 'candidate_recommendations')->withPivot('name_ka','name_en','name_ru','position_ka','position_en','position_ru', 'number', 'file', 'recommendation');
+        return $this->belongsToMany(RecommendationFromWhom::class, 'candidate_recommendations')->withPivot('name_ka','name_en','name_ru','position_ka','position_en','position_ru', 'number', 'file_path', 'file_name','recommendation');
     }
     public function getRecommendation()
     {
@@ -160,7 +160,7 @@ class Candidate extends Model
 
     // public function familyWorkSkillCategory()
     // {
-    //     return $this->belongsTo(CandidateFamilyWorkSkill::class, 'id', 'candidate_id');
+    //     return $this->belongsTo(FamilyWorkDutyclass, 'id', 'candidate_id');
     // }
 
     // public function getHasRecommendationAttribute():array

@@ -8,7 +8,6 @@ use App\Models\Candidate;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use App\Models\CandidateFamilyWorkSkill;
 use App\Models\General_work_experience;
 use App\Models\Language_level;
 use App\Models\Skill;

@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('candidate_family_work_skills', function (Blueprint $table) {
+        Schema::create('family_work_duties', function (Blueprint $table) {
             $table->id();
             $table->foreignId('family_work_experience_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('duty_id')->constrained();
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('candidate_family_work_skills');
+        Schema::dropIfExists('family_work_duties');
     }
 };

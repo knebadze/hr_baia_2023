@@ -10,7 +10,6 @@ use App\Models\WorkInformation;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Services\ClassificatoryService;
-use App\Models\CandidateFamilyWorkSkill;
 use App\Filters\Candidate\CandidateFilters;
 use App\Services\Admin\CandidateUpdateService;
 

@@ -541,9 +541,9 @@ return [
 
     // Work Recommendation Block Lang
     'user_profile_page_recomendation_title' => 'რეკომენდაცია',
-    'user_profile_page_recomendation_from' => 'რეკომენდაციას წარმოადგენთ',
+    'user_profile_page_recomendation_from' => 'წარმოადგენთ',
     'user_profile_page_recomendation_where_from' => 'საიდან წარმოადგენთ',
-    'user_profile_page_recomendation_name' => 'რეკომენდატორის სახელი გვარი',
+    'user_profile_page_recomendation_name' => 'სახელი გვარი',
     'user_profile_page_recomendation_number' => 'ნომერი',
     'user_profile_page_recomendation_positon' => 'თანამდებობა',
     'user_profile_page_recomendation_file' => 'ფაილი',
@@ -561,7 +561,7 @@ return [
     'user_profile_page_work_salary_title' => 'ანაზღაურება',
     'user_profile_page_work_currency_title' => 'ვალუტა',
     'user_profile_page_work_button_save' => 'შენახვა',
-    'user_profile_page_work_actions_title' => 'მოქმედებები',
+    'user_profile_page_work_actions_title' => 'მოქმედება',
 
     'user_profile_page_family_work_experience_title' => 'ოჯახში მუშაობის გამოცდილება',
     'user_profile_page_family_work_experience_description' => 'რადგან გსურთ ოჯახში დასაქმება, კლიენტებისთვის მნიშვნელოვანია იცოდნენ თქვენი გამოცილების შესახებ',

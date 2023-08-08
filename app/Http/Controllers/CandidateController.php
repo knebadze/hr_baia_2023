@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use App\Models\Language_level;
 use App\Models\WorkInformation;
 use App\Services\ClassificatoryService;
-use App\Models\CandidateFamilyWorkSkill;
 
 class CandidateController extends Controller
 {
@@ -66,7 +65,7 @@ class CandidateController extends Controller
                 'characteristic',
             ])->first();
         $workInformation = WorkInformation::where('candidate_id', $candidate->id)->with(['category', 'currency', 'workSchedule'])->get()->toArray();
-        $skill = CandidateFamilyWorkSkill::where('candidate_id', $candidate->id)->with('skill')->get()->toArray();
+        $skill = FamilyWorkDutywhere('candidate_id', $candidate->id)->with('skill')->get()->toArray();
 
         $classificatoryArr = ['gender', 'languageLevels', 'yesNo'];
         $classificatory = $this->classificatoryService->get($classificatoryArr);

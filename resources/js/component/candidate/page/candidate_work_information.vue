@@ -6,314 +6,13 @@
 
             <work_information :data="workInformationData"></work_information>
 
-
-
-
             <!--ოჯახში მუშაობის გამოცდიელბა  -->
-            <div class="panel panel-default" v-if="m.getWorkInformation.category_id || m.workInformation.length > 0">
-                <div class="panel-heading wt-panel-heading p-a20">
-                    <!-- <div class="d-flex justify-content-between"> -->
-                        <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_family_work_experience_title') }}</h4>
-                        <!-- <button type="button" class="btn btn-success" @click="addWorkInfoModal()"><i class="fa fa-plus"></i> დამატება</button> -->
 
-                    <!-- </div> -->
-                </div>
-                <div class="panel-body wt-panel-body p-a20 m-b30 ">
-                    <p class="text-danger">{{ $t('lang.user_profile_page_family_work_experience_description') }}</p>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>{{ $t('lang.user_profile_page_family_work_experience_answer') }}</label>
-                                <div class="ls-inputicon-box">
+            <family_work_experience :data="familyWorkExperienceData"></family_work_experience>
 
-                                    <multiselect v-model="m.familyWorkExperience.has_experience" :options="data.classificatory.yesNo" :searchable="false" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :allow-empty="false" >
-                                        <template slot="singleLabel" slot-scope="{ option }"></template>
-                                    </multiselect>
-                                    <!-- <span v-if="v$.m.familyWorkExperience.has_experience.required.$invalid && v$.m.familyWorkExperience.has_experience.$dirty" style='color:red'>* {{ v$.m.familyWorkExperience.has_experience.required.$message}}</span> -->
-                                </div>
-                            </div>
-                        </div>
-                        <div v-if="m.familyWorkExperience.has_experience && m.familyWorkExperience.has_experience.id == 2" class=" col-md-12 mb-2">
-                            <strong>ჩვენი კლიენტები დასაქმების დროს ითვალისწინებელ სამუშაო გამოცდილებას ვინაიდან არ გაქვთ გამოცდილება გთხოვთ შეავსოთ გამოცდილების არ ქონის მიზეზი</strong>
-                        </div>
-                        <div v-if="m.familyWorkExperience.has_experience && m.familyWorkExperience.has_experience.id == 1" class=" col-md-12">
-                            <div class="row">
-                                <div class="col-xl-4 col-lg-6 col-md-12">
-                                    <div class="form-group">
-                                        <label>{{ $t('lang.user_profile_page_family_work_experience_answer_2') }}</label>
-                                        <div class="ls-inputicon-box">
-                                            <input class="form-control" type="number" v-model="m.familyWorkExperience.families_worked_count" @blur="v$.m.familyWorkExperience.families_worked_count.$touch" style="height: 40px;">
-                                            <!-- <i class="fs-input-icon fa fa-smoking"></i> -->
-                                            <span v-if="v$.m.familyWorkExperience.families_worked_count.required.$invalid && v$.m.familyWorkExperience.families_worked_count.$dirty" style='color:red'>* {{ v$.m.familyWorkExperience.families_worked_count.required.$message}}</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-xl-4 col-lg-6 col-md-12">
-                                    <div class="form-group">
-                                        <label>{{ $t('lang.user_profile_page_family_work_staji') }}</label>
-                                        <div class="ls-inputicon-box">
-                                            <multiselect v-model="m.familyWorkExperience.work_experience" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one" :options="data.classificatory.workExperiences" :searchable="false" :allow-empty="false" @blur="v$.m.familyWorkExperience.work_experience.$touch">
-                                                <template slot="singleLabel" slot-scope="{ option }"></template>
-                                            </multiselect>
-                                            <span v-if="v$.m.familyWorkExperience.work_experience.required.$invalid && v$.m.familyWorkExperience.work_experience.$dirty" style='color:red'>* {{ v$.m.familyWorkExperience.work_experience.required.$message}}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-6 col-md-12">
-                                    <div class="form-group">
-                                        <label>{{ $t('lang.user_profile_page_family_work_staji_time') }}</label>
-                                        <div class="ls-inputicon-box">
-                                            <multiselect v-model="m.familyWorkExperience.longest" :options="data.classificatory.workExperiences" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false" @blur="v$.m.familyWorkExperience.longest.$touch">
-                                                <template slot="singleLabel" slot-scope="{ option }"></template>
-                                            </multiselect>
-                                            <span v-if="v$.m.familyWorkExperience.longest.required.$invalid && v$.m.familyWorkExperience.longest.$dirty" style='color:red'>* {{ v$.m.familyWorkExperience.longest.required.$message}}</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div class="col-xl-6 col-lg-6 col-md-12">
-                                    <div class="form-group">
-                                        <label>{{ $t('lang.user_profile_page_family_work_in_family') }}</label>
-                                        <div class="ls-inputicon-box">
-                                            <multiselect v-model="m.familyWorkedSelected"  :options="data.classificatory.category" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name_ka" track-by="name_ka" :preselect-first="false" @blur="v$.m.familyWorkedSelected.$touch">
-                                                <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
-                                            </multiselect>
-                                            <span v-if="v$.m.familyWorkedSelected.required.$invalid && v$.m.familyWorkedSelected.$dirty" style='color:red'>* {{ v$.m.familyWorkedSelected.required.$message}}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-lg-6 col-md-12">
-                                    <div class="form-group">
-                                        <label>{{ $t('lang.user_profile_page_family_work_obligation') }}</label>
-                                        <div class="ls-inputicon-box">
-                                            <multiselect v-model="m.candidateFamilyWorkSkill"  :options="setSkill" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name_ka" track-by="name_ka" :preselect-first="false" @blur="v$.m.candidateFamilyWorkSkill.$touch">
-                                                <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
-                                            </multiselect>
-                                            <span v-if="v$.m.familyWorkedSelected.required.$invalid && v$.m.familyWorkedSelected.$dirty" style='color:red'>* {{ v$.m.candidateFamilyWorkSkill.required.$message}}</span>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div v-if="m.familyWorkExperience.has_experience && m.familyWorkExperience.has_experience.id == 2"  class=" col-md-12">
-                            <div  class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>სამუშაო გამოცდილების არ ქონის მიზეზი</label>
-                                        <div class="ls-inputicon-box">
-                                            <multiselect v-model="m.familyWorkExperience.no_reason" :options="data.classificatory.noExperienceReason" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false" @blur="v$.m.familyWorkExperience.no_reason.$touch">
-                                                <template slot="singleLabel" slot-scope="{ option }"></template>
-                                            </multiselect>
-                                            <span v-if="v$.m.familyWorkExperience.no_reason.required.$invalid && v$.m.familyWorkExperience.no_reason.$dirty" style='color:red'>* {{ v$.m.familyWorkExperience.no_reason.required.$message}}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div v-if="m.familyWorkExperience.no_reason" class="col-md-12">
-                                    <div class="form-group">
-                                        <label>დამატაბითი ინფორმაცია</label>
-                                        <textarea class="form-control" rows="3" v-model="m.familyWorkExperience[`no_reason_info_${getLang}`]" placeholder="ჩაწერეთ იმ შემთხვევაში თუ ასარჩევ ველში ვერ ნახეთ შესაფერისი მიზეზი ან გსურთ დამატებითი ინფორმაციის მოწოდება" @blur="v$.m.familyWorkExperience.no_reason_info.$touch"></textarea>
-                                        <span v-if="v$.m.familyWorkExperience.no_reason_info.maxLength.$invalid && v$.m.familyWorkExperience.no_reason_info.$dirty" style='color:red'>* {{ v$.m.familyWorkExperience.no_reason_info.maxLength.$message}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-12 col-md-12">
-                            <div class="text-left">
-                                <button type="submit" @click.prevent="addFamilyWorkExperience()"  class="site-button">{{ $t('lang.user_profile_page_work_button_save') }}</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <!--რეკომენდაცია-->
-            <div class="panel panel-default" v-if="m.familyWorkExperience.has_experience && m.familyWorkExperience.has_experience.id == 1">
-                    <div class="panel-heading wt-panel-heading p-a20">
-                        <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_recomendation_title') }}</h4>
-                    </div>
-                    <div class="panel-body wt-panel-body p-a20 m-b30 ">
+            <candidate_recommendation v-if="m.familyWorkExperience.has_experience && m.familyWorkExperience.has_experience.id == 1" :data="recommendationData"></candidate_recommendation>
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>{{ $t('lang.user_profile_page_recomendation_from') }}</label>
-                                    <div class="ls-inputicon-box">
-                                        <!-- <select class="wt-select-box selectpicker"  v-model="candidateRecommendationModel.recommendation"  data-live-search="false" title=""  data-bv-field="size">
-                                            <option :value="1">წარმოვადგენ</option>
-                                            <option :value="2">ვერ წარმოვადგენ</option>
-                                        </select> -->
-                                        <multiselect v-model="candidateRecommendationModel.has_recommendation" :options="data.classificatory.yesNo" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false" @blur="v$.candidateRecommendationModel.has_recommendation.$touch">
-                                            <template slot="singleLabel" slot-scope="{ option }"></template>
-                                        </multiselect>
-                                        <span v-if="v$.candidateRecommendationModel.has_recommendation.required.$invalid && v$.candidateRecommendationModel.has_recommendation.$dirty" style='color:red'>* {{ v$.candidateRecommendationModel.has_recommendation.required.$message}}</span>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row" v-if="candidateRecommendationModel.has_recommendation.id == 1">
-                                <div class="col-xl-6 col-lg-6 col-md-12 " >
-                                    <div class="form-group">
-                                        <label>{{ $t('lang.user_profile_page_recomendation_where_from') }}</label>
-                                        <div class="ls-inputicon-box">
-                                            <multiselect v-model="candidateRecommendationModel.recommendation_whom" :options="data.classificatory.recommendationFromWhom" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false" @blur="v$.candidateRecommendationModel.recommendation_whom.$touch">
-                                                <template slot="singleLabel" slot-scope="{ option }"></template>
-                                            </multiselect>
-                                            <span v-if="v$.candidateRecommendationModel.recommendation_whom.required.$invalid && v$.candidateRecommendationModel.recommendation_whom.$dirty" style='color:red'>* {{ v$.candidateRecommendationModel.recommendation_whom.required.$message}}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-lg-6 col-md-12">
-                                    <div class="form-group">
-                                        <label>{{ $t('lang.user_profile_page_recomendation_name') }}</label>
-                                        <div class="ls-inputicon-box">
-                                            <input class="form-control" v-model="candidateRecommendationModel[`name_${getLang}`]" type="text" placeholder="" @blur="v$.candidateRecommendationModel[`name_${getLang}`].$touch">
-                                            <i class="fs-input-icon fa fa-star"></i>
-                                            <span v-if="v$.candidateRecommendationModel[`name_${getLang}`].required.$invalid && v$.candidateRecommendationModel[`name_${getLang}`].$dirty" style='color:red'>* {{ v$.candidateRecommendationModel[`name_${getLang}`].required.$message}}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div v-if="candidateRecommendationModel.recommendation_whom.id == 2 " class="col-xl-6 col-lg-6 col-md-12">
-                                    <div class="form-group">
-                                        <label>თანამდებობა</label>
-                                        <div class="ls-inputicon-box">
-                                            <input class="form-control" v-model="candidateRecommendationModel[`position_${getLang}`]" type="text" placeholder="" @blur="v$.candidateRecommendationModel[`position_${getLang}`].$touch">
-                                            <span v-if="v$.candidateRecommendationModel[`position_${getLang}`].required.$invalid && v$.candidateRecommendationModel[`position_${getLang}`].$dirty" style='color:red'>* {{ v$.candidateRecommendationModel[`position_${getLang}`].required.$message}}</span>
-                                            <i class="fs-input-icon fa fa-user"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-lg-6 col-md-12">
-                                <div class="form-group">
-                                    <label>{{ $t('lang.user_profile_page_number') }}</label>
-                                    <div class="input-group mb-3">
-                                    <button style="border-style: none;" class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><span :class="`fi fi-${numberCode.iso.toLowerCase()}`"></span>+{{ numberCode.phonecode }}</button>
-                                    <ul class="dropdown-menu" style=" overflow: hidden; overflow-y: auto; max-height: calc(100vh - 550px);">
-                                        <li v-for="item in data.classificatory.numberCode" @click="chooseNumberCode(item.phonecode, item.iso.toLowerCase())"><a class="dropdown-item"><span :class="`fi fi-${item.iso.toLowerCase()}`"></span>+{{ item.phonecode }}</a></li>
-                                    </ul>
-                                    <input type="text" class="form-control" aria-label="Text input with dropdown button" v-model="candidateRecommendationModel.number" placeholder="555666777" @blur="v$.candidateRecommendationModel.number.$touch">
-                                        <span v-if="v$.candidateRecommendationModel.number.required.$invalid && v$.candidateRecommendationModel.number.$dirty" style='color:red'>* {{ v$.candidateRecommendationModel.number.required.$message}}</span>
-                                        <span v-if="v$.candidateRecommendationModel.number.numeric.$invalid && v$.candidateRecommendationModel.number.$dirty" style='color:red'>* {{ v$.candidateRecommendationModel.number.numeric.$message}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                                <div  class="col-lg-12 col-md-12">
-                                    <div class="form-group">
-                                        <label>ფაილი</label>
-                                        <div class="ls-inputicon-box">
-                                            <input class="form-control" ref="upload" type="file" @change="recommendationFileUpload" placeholder="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row" v-if="showNoReccomendation">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>რეცომდაციის არ ქონის მიზეზი</label>
-                                        <div class="ls-inputicon-box">
-                                            <multiselect v-model="candidateRecommendationModel.no_reason" :options="data.classificatory.noRecommendationReason" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false" @blur="v$.candidateRecommendationModel.no_reason.$touch">
-                                                <template slot="singleLabel" slot-scope="{ option }"></template>
-                                            </multiselect>
-                                            <span v-if="v$.candidateRecommendationModel.no_reason.required.$invalid && v$.candidateRecommendationModel.no_reason.$dirty" style='color:red'>* {{ v$.candidateRecommendationModel.no_reason.required.$message}}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>დამატაბითი ინფორმაცია</label>
-                                        <textarea class="form-control" rows="3" v-model="candidateRecommendationModel[`no_reason_info_${getLang}`]" placeholder="ჩაწერეთ იმ შემთხვევაში თუ ასარჩევ ველში ვერ ნახეთ შესაფერისი მიზეზი ან გსურთ დამატებითი ინფორმაციის მოწოდება"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <div v-if="candidateRecommendationModel.has_recommendation.id == 1" class="col-lg-12 col-md-12">
-                                <div class="text-right ">
-                                    <button class="btn btn-success"
-                                    @click="addCandidateRecommendation(candidateRecommendationModel)"
-                                    title="დამატება" data-bs-toggle="tooltip" data-bs-placement="top">დამატება
-                                        <span class="fa fa-plus"></span>
-                                    </button>
-                                </div>
-                            </div>
-                            <div v-if="m.candidateRecommendation.length > 0 && m.candidateRecommendation[0].has_recommendation.id == 1 " class="col-lg-12 col-md-12">
-                                <div class="panel-body wt-panel-body">
-                                    <div class="p-a20 table-responsive">
-                                        <table class="table twm-table table-striped table-borderless">
-                                            <thead>
-                                                <tr>
-                                                <th>N</th>
-                                                <th>{{ $t('lang.user_profile_page_recomendation_from') }}</th>
-                                                <th>{{$t('lang.user_profile_page_recomendation_name')}}</th>
-                                                <th>{{ $t('lang.user_profile_page_work_number_code') }}</th>
-                                                <th>{{$t('lang.user_profile_page_recomendation_number')}}</th>
-                                                <th>{{$t('პოზიცია')}}</th>
-                                                <th>{{$t('lang.user_profile_page_recomendation_file')}}</th>
-                                                <th>{{$t('lang.user_profile_page_work_actions_title')}}</th>
-                                                </tr>
-                                            </thead>
-
-                                            <tbody>
-                                                <tr v-for="(item, index) in m.candidateRecommendation">
-                                                <td>{{ index + 1 }}</td>
-                                                <td><span :class="( item.recommendation_whom.id == 1)?'badge bg-success p-2':'badge bg-info text-dark p-2'">{{ item.recommendation_whom[`name_${getLang}`] }}</span></td>
-                                                <td>{{ item[`name_${getLang}`] }}</td>
-                                                <td>+{{ item.number_code.phonecode}}</td>
-                                                <td>{{ item.number }}</td>
-                                                <td>{{ item[`position_${getLang}`] }}</td>
-                                                <td>{{ item.file }}</td>
-                                                <td>
-                                                    <button @click="removeRecommendation(index, item.id)" title="წაშლა" data-bs-toggle="tooltip" data-bs-placement="top">
-                                                        <i class="fa fa-trash-alt"></i>
-                                                    </button>
-                                                    <button @click="editRecommendation(item)" title="რედაქტირება" data-bs-toggle="tooltip" data-bs-placement="top">
-                                                        <i class="fa fa-pen"></i>
-                                                    </button>
-                                                </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <div v-if="m.candidateRecommendation.length > 0 && m.candidateRecommendation[0].has_recommendation.id == 2" class="col-lg-12 col-md-12">
-                                <div class="panel-body wt-panel-body">
-                                    <div class="p-a20 table-responsive">
-                                        <table class="table twm-table table-striped table-borderless">
-                                            <thead>
-                                                <tr>
-                                                <th>არ ქონის მიზეზი</th>
-                                                <th>დამატებითი ინფორმაცია</th>
-                                                <th>action</th>
-                                                </tr>
-                                            </thead>
-
-                                            <tbody>
-                                                <tr v-for="(item, index) in m.candidateRecommendation">
-                                                <td>{{ item.no_reason[`name_${getLang}`] }}</td>
-                                                <td>{{ item[`no_reason_info_${getLang}`].substr(0, 30)+ '...' }}</td>
-                                                <td>
-                                                    <button @click="removeRecommendation(index, item.id)" title="წაშლა" data-bs-toggle="tooltip" data-bs-placement="top">
-                                                        <i class="fa fa-trash-alt"></i>
-                                                    </button>
-                                                    <button @click="editRecommendation(item)" title="რედაქტირება" data-bs-toggle="tooltip" data-bs-placement="top">
-                                                        <i class="fa fa-pen"></i>
-                                                    </button>
-                                                </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-12 col-md-12 mt-4">
-                                <div class="text-left">
-                                    <button type="submit" @click.prevent="addRecomendation()"  class="site-button">{{$t('lang.user_profile_page_work_button_save')}}</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
         </div>
     </div>
     <!-- <editWorkInformation :visible="showWorkInformation" :data="editWorkInformationData"></editWorkInformation> -->
@@ -323,6 +22,8 @@
 // import editWorkInformation from '../modal/editWorkInformation.vue'
 // import editRecommendation from '../modal/editRecommendation.vue'
 import work_information from '../component/work_information.vue'
+import family_work_experience from '../component/family_work_experience.vue'
+import candidate_recommendation from '../component/candidate_recommendation.vue'
 import { uuid } from 'vue-uuid'
 import _ from 'lodash'
 import { useVuelidate } from '@vuelidate/core'
@@ -334,7 +35,9 @@ export default {
     components:{
         // editWorkInformation,
         // editRecommendation
-        work_information
+        work_information,
+        family_work_experience,
+        candidate_recommendation
     },
     props:{
         data: Object
@@ -342,191 +45,45 @@ export default {
     data() {
         return {
             uuid: uuid.v1(),
-            showWorkInformation: false,
-            editWorkInformationData:{},
             m: null,
-            candidateRecommendationModel: {
-                'id':'',
-                'recommendation': '',
-                'has_recommendation': '',
-                'recommendation_whom':'',
-                'name_ka':'',
-                'name_en':'',
-                'name_ru':'',
-                'position_ka':'',
-                'position_en':'',
-                'position_ru':'',
-                'number':'',
-                'file':'',
-                'no_reason':'',
-                'no_reason_info_ka':'',
-                'no_reason_info_en':'',
-                'no_reason_info_ru':'',
-            },
-            workInformationSchedule: [],
-            recommendationFile:null,
-            setSkill:[],
-            formData:new FormData(),
-            candidateRecommendationArr: [],
-
-            //modal
-            showRecommendationEditModal: false,
-            editRecommendationData: {},
-            showNoReccomendation:false,
-            showNoWorkExperience: false,
-            showYesWorkExperience:false,
-            showAdditionalSchedule:false,
-            noFamilyWorkInformation: [],
-            numberCode: {
-                phonecode: 995,
-                iso:'ge'
-            },
             workInformationData:{},
+            familyWorkExperienceData:{},
+            recommendationData:{},
         }
-    },
-    validations () {
-        const validations = {
-            m:{
-                getWorkInformation:{
-                    category_id:{
-                        required:helpers.withMessage('არჩევა სავალდებულოა', required ),
-                    },
-                    payment:{
-                        required:helpers.withMessage('არჩევა სავალდებულოა', required ),
-                        numeric: helpers.withMessage('უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric ),
-                    },
-                    currency_id:{
-                        required:helpers.withMessage('არჩევა სავალდებულოა', required )
-                    },
-                    additional_schedule_ka:{},
-                    additional_schedule_ka:{},
-                    additional_schedule_ka:{},
-                },
-                familyWorkExperience:{
-                    has_experience:{
-                        required:helpers.withMessage('ოჯახში მუშაობის გამოცდილების შევსება სავალდებულოა', required ),
-                    },
-                    families_worked_count:{},
-                    work_experience:{},
-                    longest:{},
-                    no_reason:{},
-                    no_reason_info:{}
-                },
-                familyWorkedSelected:{},
-                candidateFamilyWorkSkill:{},
-                showNoWorkExperience:false
-
-
-            },
-
-            workInformationSchedule:{required:helpers.withMessage('სამუშაო გრაფიკის არჩევა სავალდებულოა', required )},
-
-
-
-
-            candidateRecommendationModel:{
-                has_recommendation:{
-                    required:helpers.withMessage('რეკომენდაციის შევსება სავალდებულოა', required )
-                },
-                recommendation_whom:{},
-                name_ka:{},
-                name_en:{},
-                name_ru:{},
-                position_ka:{},
-                position_en:{},
-                position_ru:{},
-                number:{},
-                no_reason:{},
-                no_reason_info_ka:{},
-                no_reason_info_en:{},
-                no_reason_info_ru:{},
-            }
-        }
-
-        if (this.m.familyWorkExperience.has_experience && this.m.familyWorkExperience.has_experience.id == 1) {
-            validations.m.familyWorkExperience.work_experience = {
-                required:helpers.withMessage('სტაჟის შევსება სავალდებულოა', required )
-            }
-            validations.m.familyWorkExperience.families_worked_count = {
-                required:helpers.withMessage('შევსება სავალდებულოა', required ),
-                numeric: helpers.withMessage('უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric ),
-            }
-            validations.m.familyWorkExperience.longest = {
-                required:helpers.withMessage('არჩევა სავალდებულოა', required ),
-            }
-            validations.m.familyWorkedSelected = {
-                required:helpers.withMessage('არჩევა სავალდებულოა', required ),
-            }
-            validations.m.candidateFamilyWorkSkill = {
-                required:helpers.withMessage('არჩევა სავალდებულოა', required ),
-            }
-        }else{
-            validations.m.familyWorkExperience.no_reason = {
-                required:helpers.withMessage('არჩევა სავალდებულოა', required ),
-            }
-            validations.m.familyWorkExperience.no_reason_info = {
-                maxLength: helpers.withMessage('დაშვებულია 100 სიმბოლო', maxLength(100) )
-            }
-
-        }
-
-        if (this.candidateRecommendationModel.has_recommendation && this.candidateRecommendationModel.has_recommendation.id == 1) {
-            validations.candidateRecommendationModel.recommendation_whom = {
-                required:helpers.withMessage('არჩევა სავალდებულოა', required )
-            }
-            if (this.candidateRecommendationModel.recommendation_whom.id == 2) {
-                validations.candidateRecommendationModel[`position_${this.getLang}`] = {
-                    required:helpers.withMessage('შევსება სავალდებულოა', required )
-                }
-            }
-            validations.candidateRecommendationModel[`name_${this.getLang}`] = {
-                required:helpers.withMessage('შევსება სავალდებულოა', required )
-            }
-            validations.candidateRecommendationModel.number = {
-                required:helpers.withMessage('შევსება სავალდებულოა', required ),
-                numeric: helpers.withMessage('ნომერი უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric ),
-            }
-        } else {
-            validations.candidateRecommendationModel.no_reason = {
-                required:helpers.withMessage('არჩევა სავალდებულოა', required )
-            }
-            validations.candidateRecommendationModel[`no_reason_info_${this.getLang}`] = {
-                maxLength: helpers.withMessage('დაშვებულია 100 სიმბოლო', maxLength(100) )
-            }
-        }
-
-        if (this.workInformationSchedule.id == 9) {
-            if (this.getLang == 'ka') {
-                validations.m.getWorkInformation.additional_schedule_ka = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
-            }else if(this.getLang == 'en'){
-                validations.m.getWorkInformation.additional_schedule_en = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
-            }else if(this.getLang == 'ru'){
-                validations.m.getWorkInformation.additional_schedule_ru = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
-            }
-        }
-
-
-        return validations
     },
     created(){
-        this.data.model.getWorkInformation['payment'] = 800;
+        this.data.model.workInformation['payment'] = 800;
         console.log('data', this.data);
 
         this.m = { ...this.data.model };
-
-        // if (this.m.familyWorkExperience.experience != null) {
-        //     var That = this;
-        //     this.m.familyWorkExperience.experience = _.find(this.yesNo, function(o) { return o.id == That.m.familyWorkExperience.experience; });
-
-        // }
-        console.log(this.m);
         this.workInformationData = {
-            'user_id': this.data.auth.id,
-            'model': this.data.model.getWorkInformation,
+            'candidate_id': this.data.candidate.id,
+            'model': {'workInformation':this.data.model.workInformation, 'getWorkInformation': this.data.model.getWorkInformation},
             'cla': {
                 'category': this.data.classificatory.category,
                 'currency': this.data.classificatory.currency,
                 'workSchedule': this.data.classificatory.workSchedule,
+            }
+        },
+        this.familyWorkExperienceData = {
+            'candidate_id': this.data.candidate.id,
+            'model': this.data.model.familyWorkExperience,
+            'cla': {
+                'category': this.data.classificatory.category,
+                'workExperiences': this.data.classificatory.workExperiences,
+                'noExperienceReason': this.data.classificatory.noExperienceReason,
+                'duty': this.data.classificatory.duty,
+                'yesNo': this.data.classificatory.yesNo,
+            }
+        },
+        this.recommendationData = {
+            'candidate_id': this.data.candidate.id,
+            'model': {'candidateRecommendation':this.data.model.candidateRecommendation, 'recommendation': this.data.model.recommendation,},
+            'cla': {
+                'recommendationFromWhom': this.data.classificatory.recommendationFromWhom,
+                'noRecommendationReason': this.data.classificatory.noRecommendationReason,
+                'numberCode': this.data.classificatory.numberCode,
+                'yesNo': this.data.classificatory.yesNo,
             }
         }
     },
@@ -536,396 +93,58 @@ export default {
         },
     },
     methods:{
-        childMessageReceived(arg){
-            this.showWorkInformation = arg
-        },
-        swal(){
-            this.$swal({
-                title: '<p>გილოცავთ თქვენ დაასრულეთ ინფორმაციის შევსება</p>',
-                icon: 'info',
-                html:
-                    'თქვენი კანდიდატურა უკვე ჩანს დამსაქმებლებთან და ასევე ჩვენი ეიჩარები ვაკანსიების მიღებს შემთხვევაში გაითვალისწინებენ თქვენს კანდიდატურას',
-                showCloseButton: true,
-                showCancelButton: false,
-                focusConfirm: false,
-                // confirmButtonText: 'შესავსებად გადასვლა',
-            })
-        },
-        successToast(msg){
-            toast.success(msg, {
-                theme: 'colored',
-                autoClose: 1000,
-            });
-        },
-        errorToast(msg){
-            toast.error(msg, {
-                theme: 'colored',
-                autoClose: 1000,
-            });
-        },
-        //add table and model
-        addCandidateRecommendation(recommendation){
-            var uuid = this.$uuid.v4()
-            if (this.recommendationFile != null) {
-                recommendation['file'] = this.recommendationFile.name
-                this.formData.append(uuid, this.recommendationFile)
-            }
-            recommendation['uuid'] = uuid
-            console.log('recommendation', recommendation);
-            var code = this.numberCode.phonecode
-            var numberCode = _.find(this.data.classificatory.numberCode, function(o) { return o.phonecode == code; });
-            console.log('numberCode', numberCode);
-            // recommendation['number_code_id'] = numberCode.id
-            recommendation['number_code'] = numberCode
-            recommendation['lang'] = this.getLang
-            this.m.candidateRecommendation.push(JSON.parse(JSON.stringify(recommendation)))
-
-            this.candidateRecommendationModel['recommendation_whom'] = '';
-            this.candidateRecommendationModel[`name_${this.getLang}`] = '';
-            this.candidateRecommendationModel[`position_${this.getLang}`] = '';
-            this.candidateRecommendationModel['number'] = '';
-            this.candidateRecommendationModel['file'] = '';
-        },
-        recommendationFileUpload(event){
-            this.recommendationFile = event.target.files[0]
-        },
-        //axios
-        async addWorkInfo(){
-            const isFormCorrect = await this.v$.m.getWorkInformation.$validate()
-            if (!isFormCorrect) return;
-            let currentObj = this;
-            axios({
-                method: "post",
-                url: "/add_work_information",
-                data: {
-                    'getWorkInformation': this.m.getWorkInformation,
-                    'workInformationSchedule': this.workInformationSchedule,
-                    'lang':this.getLang
-                },
-
-            })
-            .then(function (response) {
-
-                // handle success
-                console.log('response.data',response.data);
-                if (response.data.status == 200) {
-                    if (response.data.data.message) {
-                        toast.error(response.data.data.message, {
-                            theme: 'colored',
-                            autoClose: 1000,
-                        });
-                        return
-                    }
-                    toast.success("წარმატებით დაემატა", {
-                        theme: 'colored',
-                        autoClose: 1000,
-                    });
-                    setTimeout(() => {
-                        document.location.reload();
-                    }, 1500);
-                    // currentObj.saveRecomendationFile()
-                }
-
-            })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
-            })
-        },
-        addFamilyWorkExperience(){
-            console.log('this.noticeFile',this.m.candidateFamilyWorkSkill);
-            let currentObj = this;
-            axios({
-                method: "post",
-                url: "/add_family_work_experience",
-                data: this.m,
-
-            })
-            .then(function (response) {
-                console.log('response.data',response.data);
-                if (response.data.status == 200) {
-                    if (response.data.data == 2) {
-                        currentObj.swal()
-                    }else{
-                        currentObj.successToast('წარმატებით შეინახა')
-                    }
-                }
-
-            })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
-            })
-        },
-        addRecomendationRule(){
-            console.log('typeof', typeof this.candidateRecommendationModel);
-            if (this.m.candidateRecommendation.length != 0 && this.m.candidateRecommendation[0].recommendation != this.candidateRecommendationModel.has_recommendation.id ) {
-                this.$swal({
-                    title: 'თქვენ უკვე შეავსეთ რეკომენდაციის ინფორმაცია თუ ამ ცვლილებას შეინახავთ წაიშლება წინა შევსებული ინფორმაცია. <br><p>გსურთ გაგრძელება?</p>',
-                    showDenyButton: true,
-                    confirmButtonText: 'კი',
-                    denyButtonText: `არა`,
-                }).then((result) => {
-                /* Read more about isConfirmed, isDenied below */
-                    if (result.isConfirmed) {
-                        this.addRecomendation()
-                    } else if (result.isDenied) {
-                    }
-                })
-            }
-            if (this.m.candidateRecommendation.length == 0) {
-                this.errorToast('რეკომენდაციის შესანახად აუცილებელია გამოიყენოთ დამატების ღილაკი')
-                return;
-            }
-        },
-        addRecomendation(){
-
-            if (this.candidateRecommendationModel.has_recommendation.id == 2) {
-                this.m.candidateRecommendation.push(this.candidateRecommendationModel)
-            }
-            // this.m.candidateRecommendation['lang'] = this.getLang
-            console.log('this.m.candidateRecommendation',this.m.candidateRecommendation);
-            let currentObj = this
-            axios({
-                method: "post",
-                url: "/add_recommendation",
-                data: this.m.candidateRecommendation,
-
-            })
-            .then(function (response) {
-                console.log('response.data',response.data);
-                if (response.data.status == 200) {
-                    if (response.data.data == true) {
-                        currentObj.saveRecommendationFile()
-                    }else{
-                        currentObj.swal()
-                    }
-
-                }
-
-            })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
-            })
-
-        },
-        saveRecommendationFile(){
-            let currentObj = this;
-            const config = {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            }
-            axios.post('/add_recommendation_file', this.formData, config)
-            .then(function (response) {
-                console.log('response',response);
-                if (response.data.status == 200) {
-                    //  toast.success("ინფორმაცია წარმატებით დაემატა", {
-                    //     theme: 'colored',
-                    //     autoClose: 1000,
-                    // });
-                    // setTimeout(() => {
-                    //     document.location.reload();
-                    // }, 1500);
-                    currentObj.swal()
-                }
-            })
-            .catch(function (error) {
-                console.log('error',error);
-            // currentObj.output = error;
-            });
-        },
-
-        //workInformation
-        deleteWorkInformation(index, id){
-            this.$swal({
-                    title: 'ნამდვილად გსურთ წაშლა',
-                    showDenyButton: true,
-                    // showCancelButton: true,
-                    confirmButtonText: 'კი',
-                    denyButtonText: `არა`,
-                }).then((result) => {
-                /* Read more about isConfirmed, isDenied below */
-                if (result.isConfirmed) {
-                    const removed = this.m.workInformation.splice(index, 1);
-                    axios.post('/delete_work_information' ,{
-                        id:id
-                    })
-                    .then((response)=> {
-                        console.log(response.data);
-                        if (response.status == 200) {
-                            toast.success("წარმატებით წაიშალა", {
-                                theme: 'colored',
-                                autoClose: 1000,
-                            });
-                        }
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
-
-                } else if (result.isDenied) {
-                }
-            })
-        },
-        editWorkInformation(item){
-            this.editWorkInformationData = {
-                'item':item,
-                'classificatory': this.data.classificatory
-            }
-            this.showWorkInformation = !this.showWorkInformation
-        },
-        //recommendation Action
-        removeRecommendation(index, id){
-            this.$swal({
-                title: 'ნამდვილად გსურთ წაშლა',
-                showDenyButton: true,
-                // showCancelButton: true,
-                confirmButtonText: 'კი',
-                denyButtonText: `არა`,
-                }).then((result) => {
-                /* Read more about isConfirmed, isDenied below */
-                    if (result.isConfirmed) {
-                        const removed = this.m.candidateRecommendation.splice(index, 1);
-                        axios.post('/remove_recommendation' ,{
-                            id: id
-                        })
-                        .then((response)=> {
-                            console.log(response.data);
-                            if (response.status == 200) {
-                                toast.success("წარმატებით წაიშალა", {
-                                    theme: 'colored',
-                                    autoClose: 1000,
-                                });
-                            }
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
-
-                    } else if (result.isDenied) {
-                    }
-                })
-
-        },
-        editRecommendation(item){
-            this.showRecommendationEditModal = !this.showRecommendationEditModal;
-            this.editRecommendationData = {
-                'item': item,
-                'classificatory': this.data.classificatory
-            };
-        },
-
-        // addCandidateWorkExperience(workExperience){
-        //     // var workExperienceFind = _.find(this.data.classificatory.workExperiences, function(o) { return o.id == workExperience.work_experience_id; });
-        //     // this.m.getWorkInformation['no_family_has_work_information'] = []
-        //     this.m.getWorkInformation.no_family_has_work_information.push(JSON.parse(JSON.stringify(workExperience)))
-
-        //     this.noFamilyWorkExperienceModel['object_ka'] = ''
-        //     this.noFamilyWorkExperienceModel['object_en'] = ''
-        //     this.noFamilyWorkExperienceModel['object_ru'] = ''
-        //     this.noFamilyWorkExperienceModel['work_experience'] = ''
-        // },
-        removeNWFE( index){
-            const removed = this.m.getWorkInformation.no_family_has_work_information.splice(index, 1);
-
-        },
-        chooseNumberCode(code, iso){
-            this.numberCode['phonecode'] = code;
-            this.numberCode['iso'] = iso
-        },
     },
     watch: {
-        // 'm.familyWorkedSelected': function(newVal, oldVal){
-        //     console.log('newVal',newVal);
-        //     var arr = [];
-        //     if (this.m.familyWorkedSelected.length == 0) {
-        //         this.setSkill = []
-        //     }else{
-        //         this.m.familyWorkedSelected.forEach(element => {
-        //             arr.push(element.id)
-        //         });
-
-        //         console.log(this.m.familyWorkedSelected);
-        //         console.log('arr',arr);
-        //         let filteredX = this.data.classificatory.skill.filter(item => arr.includes(item.category_id));
-        //         console.log('filteredX',filteredX);
-        //         this.setSkill = filteredX
-
+        // 'candidateRecommendationModel.has_recommendation': function (newVal, oldVa) {
+        //     if (newVal.id == 2) {
+        //         this.showNoReccomendation = true;
         //     }
-        // },
-        'candidateRecommendationModel.has_recommendation': function (newVal, oldVa) {
-            if (newVal.id == 2) {
-                this.showNoReccomendation = true;
-            }
 
-            if (this.m.candidateRecommendation.length != 0 && this.m.candidateRecommendation[0].recommendation != newVal.id ) {
-                this.$swal({
-                    title: 'თქვენ უკვე შეავსეთ რეკომენდაციის ინფორმაცია თუ ამ ცვლილებას დაეთანხმებით ავტომატურად წაიშლება წინა შევსებული ინფორმაცია. <br><p>გსურთ გაგრძელება?</p>',
-                    showDenyButton: true,
-                    confirmButtonText: 'კი',
-                    denyButtonText: `არა`,
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        console.log('this.m', this.m.candidateRecommendation);
-                        var idArr = [];
-                        this.m.candidateRecommendation.forEach(element => {
-                            idArr.push(element.id)
-                            console.log('idArr',idArr);
-                        });
-                        axios.post('/trash_recommendation' ,{
-                            id: idArr
-                        })
-                        .then((response)=> {
-                            console.log('response.data', response.data);
-                            if (response.status == 200) {
-                                this.m.candidateRecommendation = [];
-                            }
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
-                    } else if (result.isDenied) {
-                    }
-                })
-            }
-            if(this.m.candidateRecommendation.length != 0 && this.m.candidateRecommendation[0].recommendation == 2 && newVal.id == 2){
-                this.showNoReccomendation = false
-                this.$swal({
-                    title: '<p>თქვენ უკვე შეავსეთ რეკომენდაციის ინფორმაცია</p>',
-                    icon: 'info',
-                    html:
-                        'ცვლილების შესატანად გამოიყენეთ რედაქტირების ღილაკი',
-                    showCloseButton: true,
-                    showCancelButton: false,
-                    focusConfirm: false,
-                    // confirmButtonText: 'შესავსებად გადასვლა',
-                })
-            }
-            console.log('new', newVal.id);
-        },
-        'workInformationSchedule': function (newVal, oldVa) {
-            console.log('newVal', newVal);
-            this.showAdditionalSchedule = _.find(newVal, function(o) { if(o.id == 9) return true; });
-        },
-
-        // 'm.familyWorkExperience.experience': function(newVal, oldVa){
-        //     console.log('newVal', newVal);
-        //     if (newVal.id == 2 ) {
-        //         this.$swal(
-        //         {
-        //             title: '<p>შეგახსენებთ!!!</p>',
+        //     if (this.m.candidateRecommendation.length != 0 && this.m.candidateRecommendation[0].recommendation != newVal.id ) {
+        //         this.$swal({
+        //             title: 'თქვენ უკვე შეავსეთ რეკომენდაციის ინფორმაცია თუ ამ ცვლილებას დაეთანხმებით ავტომატურად წაიშლება წინა შევსებული ინფორმაცია. <br><p>გსურთ გაგრძელება?</p>',
+        //             showDenyButton: true,
+        //             confirmButtonText: 'კი',
+        //             denyButtonText: `არა`,
+        //         }).then((result) => {
+        //             if (result.isConfirmed) {
+        //                 console.log('this.m', this.m.candidateRecommendation);
+        //                 var idArr = [];
+        //                 this.m.candidateRecommendation.forEach(element => {
+        //                     idArr.push(element.id)
+        //                     console.log('idArr',idArr);
+        //                 });
+        //                 axios.post('/trash_recommendation' ,{
+        //                     id: idArr
+        //                 })
+        //                 .then((response)=> {
+        //                     console.log('response.data', response.data);
+        //                     if (response.status == 200) {
+        //                         this.m.candidateRecommendation = [];
+        //                     }
+        //                 })
+        //                 .catch(function (error) {
+        //                     console.log(error);
+        //                 });
+        //             } else if (result.isDenied) {
+        //             }
+        //         })
+        //     }
+        //     if(this.m.candidateRecommendation.length != 0 && this.m.candidateRecommendation[0].recommendation == 2 && newVal.id == 2){
+        //         this.showNoReccomendation = false
+        //         this.$swal({
+        //             title: '<p>თქვენ უკვე შეავსეთ რეკომენდაციის ინფორმაცია</p>',
         //             icon: 'info',
         //             html:
-        //                 'ჩვენი კლიენტები დასაქმების დროს ითვალისწინებელ სამუშაო გამოცდილებას ვინაიდან არ გაქვთ გამოცდილება გთხოვთ შეავსოთ გამოცდილების არ ქონის მიზეზი ',
+        //                 'ცვლილების შესატანად გამოიყენეთ რედაქტირების ღილაკი',
         //             showCloseButton: true,
         //             showCancelButton: false,
         //             focusConfirm: false,
         //             // confirmButtonText: 'შესავსებად გადასვლა',
         //         })
         //     }
-        // }
+        //     console.log('new', newVal.id);
+        // },
     },
 
     mounted() {

@@ -6,18 +6,34 @@ use App\Models\Candidate;
 use App\Models\WorkInformation;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 
-class WorkInformationUpdateRepository
+class WorkInformationRepository
 {
-    function translate($data)  {
-        if ($data['additional_schedule_ka']) {
-            $data['additional_schedule_en'] = GoogleTranslate::trans($data['additional_schedule_ka'], 'en');
-            $data['additional_schedule_ru']  = GoogleTranslate::trans($data['additional_schedule_ka'], 'ru');
+    function translate($lang, $data)  {
+        if ($lang == 'ka') {
+            if ($data['additional_schedule_ka']) {
+                $data['additional_schedule_en'] = GoogleTranslate::trans($data['additional_schedule_ka'], 'en');
+                $data['additional_schedule_ru']  = GoogleTranslate::trans($data['additional_schedule_ka'], 'ru');
+            }
+        }elseif ($lang == 'en') {
+            if ($data['additional_schedule_en']) {
+                $data['additional_schedule_ka'] = GoogleTranslate::trans($data['additional_schedule_en'], 'ka');
+                $data['additional_schedule_ru']  = GoogleTranslate::trans($data['additional_schedule_en'], 'ru');
+            }
+
+        }elseif ($lang == 'ru') {
+            if ($data['additional_schedule_ru']) {
+                $data['additional_schedule_ka'] = GoogleTranslate::trans($data['additional_schedule_ru'], 'ka');
+                $data['additional_schedule_en']  = GoogleTranslate::trans($data['additional_schedule_ru'], 'en');
+            }
         }
+
         return $data;
     }
     function updateOrCreate($data){
+
         if (isset($data['additional_schedule_ka'])) {
-            $data = $this->translate($data);
+            $lang = (isset($data['lang']))?$data['lang']:'ka';
+            $data = $this->translate($lang, $data);
         }
         $workInformation = WorkInformation::updateOrCreate(
             [
@@ -40,7 +56,7 @@ class WorkInformationUpdateRepository
         }, []);
         $workInformation->workSchedule()->sync( $selectSchedule );
 
-        return $workInformation;
+        return WorkInformation::where('id', $workInformation->id)->with(['category', 'workSchedule', 'current'])->first();
     }
 
     function delete($id)  {

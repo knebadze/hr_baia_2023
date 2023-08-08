@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Services\CandidateService;
 use App\Models\CandidateRecommendation;
 use App\Models\General_work_experience;
+use App\Models\WorkInformation;
 use Illuminate\Support\Facades\Storage;
 
 class CandidateInfoController extends Controller
@@ -52,6 +53,8 @@ class CandidateInfoController extends Controller
                 $notice = CandidateNotice::where('id', $request->id)->first();
                 Storage::disk('public')->delete($notice->file_path);
                 $notice->delete();
+            }elseif($request->type == 'work_information'){
+                WorkInformation::where('id', $request->id)->delete();
             }
 
             $result['data'] = [];
@@ -102,11 +105,11 @@ class CandidateInfoController extends Controller
         return response()->json($result, $result['status']);
     }
     function deleteCandidateRecommendation(Request $request) {
-        $data = $request->data;
+        $id = $request->data;
+        // dd(CandidateRecommendation::where('id',$id)->first());
         $result = ['status' => 200];
-        // dd($request->data);
         try {
-            $recommendation = CandidateRecommendation::findOrFile($data['id']);
+            $recommendation = CandidateRecommendation::where('id',$id)->first();
 
             if ($recommendation->file) {
                 Storage::disk('public')->delete($recommendation->file);
@@ -122,6 +125,7 @@ class CandidateInfoController extends Controller
 
         return response()->json($result, $result['status']);
     }
+
     public function addCandidateFile(Request $request){
 
         $data['data'] = json_decode($request->input('data'));

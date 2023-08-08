@@ -156,26 +156,41 @@ export default {
             })
         },
         remove(index, id){
-            const removed = this.m.splice(index, 1);
-            axios({
-                method: "post",
-                url: "/delete_candidate_info",
-                data: {'id':id, 'type': 'notice'},
+            this.$swal({
+                title: 'ნამდვილად გსურთ წაშლა?',
+                //   showDenyButton: true,
+                cancelButtonText:'არა',
+                confirmButtonText: 'კი',
+                showCancelButton: true,
+            }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    const removed = this.m.splice(index, 1);
+                    axios({
+                        method: "post",
+                        url: "/delete_candidate_info",
+                        data: {'id':id, 'type': 'notice'},
 
-            })
-            .then(function (response) {
-                // console.log(response.data);
-                if (response.data.status == 200) {
-                    toast.success("წარმატებით წაიშალა", {
-                        theme: 'colored',
-                        autoClose: 1000,
-                    });
+                    })
+                    .then(function (response) {
+                        // console.log(response.data);
+                        if (response.data.status == 200) {
+                            toast.success("წარმატებით წაიშალა", {
+                                theme: 'colored',
+                                autoClose: 1000,
+                            });
+                        }
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+
+                } else if (result.isDenied) {
+                    return
                 }
-            })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
-            })
+            });
+
 
         },
         openPDF(item) {

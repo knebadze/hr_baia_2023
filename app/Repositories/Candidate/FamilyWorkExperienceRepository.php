@@ -5,16 +5,30 @@ namespace App\Repositories\Candidate;
 use App\Models\FamilyWorkExperience;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 
-class FamilyWorkExperienceUpdateRepository
+class FamilyWorkExperienceRepository
 {
-    function translate($data) {
-        if (isset($data['no_reason_info_ka'])) {
-            $data['no_reason_info_en'] = GoogleTranslate::trans($data['no_reason_info_ka'], 'en');
-            $data['no_reason_info_ru']  = GoogleTranslate::trans($data['no_reason_info_ka'], 'ru');
+    function translate($lang, $data) {
+        if ($lang == 'ka') {
+            if (isset($data['no_reason_info_ka'])) {
+                $data['no_reason_info_en'] = GoogleTranslate::trans($data['no_reason_info_ka'], 'en');
+                $data['no_reason_info_ru']  = GoogleTranslate::trans($data['no_reason_info_ka'], 'ru');
+            }
+        }elseif ($lang == 'en') {
+            if ($data['no_reason_info_en']) {
+                $data['no_reason_info_ka'] = GoogleTranslate::trans($data['no_reason_info_en'], 'ka');
+                $data['no_reason_info_ru']  = GoogleTranslate::trans($data['no_reason_info_en'], 'ru');
+            }
+
+        }elseif ($lang == 'ru') {
+            if ($data['no_reason_info_ru']) {
+                $data['no_reason_info_ka'] = GoogleTranslate::trans($data['no_reason_info_ru'], 'ka');
+                $data['no_reason_info_en']  = GoogleTranslate::trans($data['no_reason_info_ru'], 'en');
+            }
         }
         return $data;
     }
-    function update($data){
+    function updateOrCreate($data){
+        // dd($data);
         $candidate_id = $data['candidate_id'];
 
         if ($data["has_experience"]['id'] == 1) {
@@ -38,12 +52,20 @@ class FamilyWorkExperienceUpdateRepository
                 return $carry;
             }, []);
             $familyWork->familyWorkDuty()->sync($selectDutyId);
+
+            $selectCategoryId = collect($data['family_work_category'])->reduce(function ($carry, $item) {
+                if($carry  == null) $carry = [];
+                $carry[] = $item["id"];
+                return $carry;
+            }, []);
+            $familyWork->familyWorkCategory()->sync($selectCategoryId);
         }else{
             if (FamilyWorkExperience::where('candidate_id', $candidate_id)->exists() && FamilyWorkExperience::where('candidate_id', $candidate_id)->where('experience', 1)->exists()) {
                 FamilyWorkExperience::where('candidate_id', $candidate_id)->delete();
             }
             if (isset($data['no_reason_info_ka'])) {
-                $data = $this->translate($data);
+                $lang = (isset($data['lang']))?$data['lang']:'ka';
+                $data = $this->translate($lang, $data);
             }
             FamilyWorkExperience::updateOrCreate(
                 ['candidate_id' => $candidate_id],

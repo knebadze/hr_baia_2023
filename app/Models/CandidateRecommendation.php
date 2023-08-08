@@ -15,7 +15,8 @@ class CandidateRecommendation extends Model
         'name',
         'position',
         'number',
-        'file',
+        'file_name',
+        'file_path',
         'no_reason_id',
         'no_reason_info',
     ];

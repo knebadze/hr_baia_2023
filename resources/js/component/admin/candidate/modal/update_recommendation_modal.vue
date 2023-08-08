@@ -57,12 +57,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6" v-if="item.file">
-                                    <p><u class="text-primary" @click="openPDF(item.file)">ფაილის ნახვა</u></p>
+                                <div class="col-md-6" v-if="item.file_path">
+                                    <p><u class="text-primary" @click="openPDF(item.file_path)">ფაილის ნახვა</u></p>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label> {{(item.file)?'ფაილის განახლება':'ფაილის დამატება'  }} </label>
+                                        <label> {{(item.file_path)?'ფაილის განახლება':'ფაილის დამატება'  }} </label>
                                         <div class="ls-inputicon-box">
                                             <input type="file" ref="fileInput" @change="handleFileChange" />
                                         </div>
@@ -292,6 +292,7 @@
                 let currentObj = this
                 // let item = this.item
                 item.candidate_id = this.items.candidate_id
+                item.file_name = (this.file)?this.file.name:null
                 const formData = new FormData();
                 formData.append('data', JSON.stringify(item))
                 if (this.file) {
@@ -331,10 +332,6 @@
             },
             deletion(item){
                 let currentObj = this
-                let data = {
-                    'id': item.id,
-                    'file': item.file
-                }
                 this.$swal({
                     title: 'ნამდვილად გსურთ წაშლა?',
                     //   showDenyButton: true,
@@ -345,7 +342,7 @@
                 /* Read more about isConfirmed, isDenied below */
                     if (result.isConfirmed) {
                         axios.post('/delete_candidate_recommendation' ,{
-                            data: data,
+                            data: item.id,
                         })
                         .then(function (response) {
                             if (response.status == 200) {
@@ -382,6 +379,7 @@
                 }
                 let item = this.newItem
                 item.candidate_id = this.items.candidate_id
+                item.file_name = (this.file)?this.file.name:null
                 const formData = new FormData();
                 formData.append('data', JSON.stringify(item))
                 if (this.file) {

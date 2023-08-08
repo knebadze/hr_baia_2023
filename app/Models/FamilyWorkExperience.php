@@ -51,11 +51,20 @@ class FamilyWorkExperience extends Model
     }
     public function familyWorkDuty()
     {
-        return $this->belongsToMany(Duty::class, 'candidate_family_work_skills');
+        return $this->belongsToMany(Duty::class, 'family_work_duties');
     }
     public function getFamilyWorkDuty()
     {
-        return $this->hasMany(CandidateFamilyWorkSkill::class, 'family_work_experience_id', 'id');
+        return $this->hasMany(FamilyWorkDuty::class, 'family_work_experience_id', 'id');
+    }
+
+    public function familyWorkCategory()
+    {
+        return $this->belongsToMany(Category::class, 'family_work_categories');
+    }
+    public function getFamilyWorkCategory()
+    {
+        return $this->hasMany(FamilyWorkDuty::class, 'family_work_experience_id', 'id');
     }
 
 

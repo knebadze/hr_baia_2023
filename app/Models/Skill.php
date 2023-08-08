@@ -12,7 +12,7 @@ class Skill extends Model
 
     public function candidateSkill()
     {
-        return $this->hasOne(CandidateFamilyWorkSkill::class, 'skill_id');
+        return $this->hasOne(FamilyWorkDutyclass, 'skill_id');
     }
     public function category()
     {
