@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Candidate;
 use App\Models\WorkInformation;
 use App\Models\FamilyWorkExperience;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 use App\Models\CandidateRecommendation;
 
@@ -15,7 +16,7 @@ class WorkInformationModelRepository
     public function model($auth_id)
     {
         $user = User::where('id', $auth_id)->first();
-        if (WorkInformation::where('candidate_id', $user->candidate->id)->exists()) {
+        if (Auth::user()->role_id == 3 && WorkInformation::where('candidate_id', $user->candidate->id)->exists()) {
             $getWorkInformation = WorkInformation::where('candidate_id', $user->candidate->id)->with(['category', 'workSchedule','currency'])->get()->toArray();
             $workInformation =  Schema::getColumnListing('work_information');
             $workInformation = array_map(function ($item) { return ""; }, array_flip($workInformation));
@@ -31,7 +32,7 @@ class WorkInformationModelRepository
             $workInformation['work_schedule'] = '';
         }
 
-        if (WorkInformation::where('candidate_id', $user->candidate->id)->exists() && CandidateRecommendation::where('candidate_id', $user->candidate->id)->exists()) {
+        if (Auth::user()->role_id == 3 && WorkInformation::where('candidate_id', $user->candidate->id)->exists() && CandidateRecommendation::where('candidate_id', $user->candidate->id)->exists()) {
             $candidateRecommendation = CandidateRecommendation::where('candidate_id', $user->candidate->id)->with(['recommendationWhom', 'numberCode', 'noReason', 'hasRecommendation'])->get();
             $recommendation = Schema::getColumnListing('candidate_recommendations');
             $recommendation = array_map(function ($item) {  return ""; }, array_flip($recommendation));
@@ -50,7 +51,7 @@ class WorkInformationModelRepository
         }
 
 
-        if (Candidate::where('user_id', $auth_id)->exists() && FamilyWorkExperience::where('candidate_id', $user->candidate->id)->exists()) {
+        if (Auth::user()->role_id == 3 && Candidate::where('user_id', $auth_id)->exists() && FamilyWorkExperience::where('candidate_id', $user->candidate->id)->exists()) {
             $familyWorkExperience = FamilyWorkExperience::where('candidate_id', $user->candidate->id)->with(['workExperience', 'longest', 'noReason', 'hasExperience', 'familyWorkDuty', 'familyWorkCategory'])->first()->toArray();
         }else{
             $familyWorkExperience = Schema::getColumnListing('family_work_experiences');

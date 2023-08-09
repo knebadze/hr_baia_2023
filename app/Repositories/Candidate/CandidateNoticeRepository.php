@@ -21,7 +21,7 @@ class CandidateNoticeRepository
             $notice->file = $data['data']->file;
         }
         $notice->save();
-        $candidate = Candidate::where('user_id', $data['data']->user_id)->with('notice')->first();
-        return $candidate->notice;
+        $candidate = Candidate::where('user_id', $data['data']->user_id)->with('getNotice.notice')->first();
+        return $candidate->getNotice;
     }
 }

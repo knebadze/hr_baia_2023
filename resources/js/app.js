@@ -44,8 +44,10 @@ import dailyReminder from './component/admin/dashboard/dailyReminder.vue'
 // page
 import candidatePage from "./component/admin/candidate/page/candidate_page.vue"
 import candidateUpdate from './component/admin/candidate/page/candidate_update_page.vue'
+import addCandidate from './component/admin/candidate/page/add_candidate.vue'
 import reminderPage from './component/admin/reminder/page/reminder_page.vue'
 import vacancyPage from './component/admin/vacancy/page/vacancy_page.vue'
+
 
 
 // ___________________PAGE_____________________
@@ -110,6 +112,7 @@ app.component('daily-reminder',dailyReminder)
 // page
 app.component('candidate-page', candidatePage)
 app.component('candidate-update', candidateUpdate)
+app.component('add-candidate', addCandidate)
 app.component('reminder-page', reminderPage)
 app.component('vacancy-page', vacancyPage)
 

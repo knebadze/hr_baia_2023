@@ -10,24 +10,21 @@ use App\Models\WorkInformation;
 use App\Http\Controllers\Controller;
 use App\Models\Candidate;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File;
-use App\Models\CandidateRecommendation;
 use App\Services\ClassificatoryService;
 use App\Services\WorkInformationService;
-use App\Services\FAmilyWorkExperienceService;
 
 class WorkInformationController extends Controller
 {
     private WorkInformationService $workInformationService;
-    private FamilyWorkExperienceService $familyWorkExperience;
+    // private FamilyWorkExperienceService $familyWorkExperience;
     private ClassificatoryService $classificatoryService;
     private ModelService $modelService;
     public function __construct(WorkInformationService $workInformationService,
-    FamilyWorkExperienceService $familyWorkExperience, ClassificatoryService $classificatoryService,
+     ClassificatoryService $classificatoryService,
     ModelService $modelService)
     {
         $this->workInformationService = $workInformationService;
-        $this->familyWorkExperience = $familyWorkExperience;
+        // $this->familyWorkExperience = $familyWorkExperience;
         $this->classificatoryService = $classificatoryService;
         $this->modelService = $modelService;
     }
@@ -91,22 +88,22 @@ class WorkInformationController extends Controller
         return response()->json('');
     }
 
-    public function familyStore(Request $request)
-    {
-        $data = $request->all();
-        $result = ['status' => 200];
+    // public function familyStore(Request $request)
+    // {
+    //     $data = $request->all();
+    //     $result = ['status' => 200];
 
-        try {
-            $result['data'] = $this->familyWorkExperience->saveData($data);
-        } catch (Exception $e) {
-            $result = [
-                'status' => 500,
-                'error' => $e->getMessage()
-            ];
-        }
+    //     try {
+    //         $result['data'] = $this->familyWorkExperience->saveData($data);
+    //     } catch (Exception $e) {
+    //         $result = [
+    //             'status' => 500,
+    //             'error' => $e->getMessage()
+    //         ];
+    //     }
 
-        return response()->json($result, $result['status']);
-    }
+    //     return response()->json($result, $result['status']);
+    // }
 
     // public function addRecommendation(Request $request)
     // {

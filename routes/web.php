@@ -120,6 +120,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
 
     //________________________admin page without lang________________
     Route::get('admin/candidate_update/{id?}', [AdminCandidateController::class, 'edit'])->name('admin.candidate.update');
+    Route::get('admin/add_candidate', [AdminCandidateController::class, 'addCandidate'])->name('admin.add.candidate');
 
     // _______________________HR PAGE________________________________
     Route::get('admin/vacancy', [AdminVacancyController::class, 'index'])->name('admin.vacancy');
@@ -134,6 +135,8 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('profile_update', [MyprofileController::class, 'update']);
     Route::post('unknown_profile_update', [MyprofileController::class, 'unknownUpdate']);
 
+
+    Route::post('add_user', [CandidateInfoController::class, 'addUser']);
     Route::post('add_candidate', [CandidateInfoController::class, 'addCandidate']);
     Route::post('delete_candidate_info', [CandidateInfoController::class, 'deleteCandidateInfo']);
     Route::post('add_candidate_recommendation', [CandidateInfoController::class, 'addCandidateRecommendation']);
@@ -143,9 +146,9 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     // Route::post('remove_old_general_work_experience', [CandidateInfoController::class, 'removeOldWorkExperience']);
 
     Route::post('add_work_information', [WorkInformationController::class, 'store']);
-    Route::post('update_work_information', [WorkInformationController::class, 'updateWorkInformation']);
-    Route::post('delete_work_information', [WorkInformationController::class, 'deleteWorkInformation']);
-    Route::post('add_family_work_experience', [WorkInformationController::class, 'familyStore']);
+    // Route::post('update_work_information', [WorkInformationController::class, 'updateWorkInformation']);
+    // Route::post('delete_work_information', [WorkInformationController::class, 'deleteWorkInformation']);
+    // Route::post('add_family_work_experience', [WorkInformationController::class, 'familyStore']);
 
     // Route::post('add_recommendation', [WorkInformationController::class, 'addRecommendation']);
     // Route::post('add_recommendation_file', [WorkInformationController::class, 'addRecommendationFile']);

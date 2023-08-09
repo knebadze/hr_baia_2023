@@ -28,7 +28,7 @@ return [
     'modal_registration_number' => 'ტელ. ნომერი*',
     'modal_registration_password' => 'პაროლი*',
     'modal_registration_password_repeat' => 'გაიმეორეთ პაროლი*',
-    'modal_registration_birth_date' => 'გაიმეორე პაროლი',
+    'modal_registration_birth_date' => 'დაბადების თარიღი',
     'modal_registration_gender' => 'სქესი',
         'modal_registration_gender_male' => 'კაცი',
         'modal_registration_gender_female' => 'ქალი',

@@ -4,8 +4,14 @@
         <div class="twm-right-section-panel site-bg-gray">
             <!-- <form> -->
 
-
-            <main_info :data="data.basic.user" :genderCLA="data.classificatory.gender"></main_info>
+            <div class="panel panel-default">
+                <div class="panel-heading wt-panel-heading p-a20">
+                    <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_input_basic_info') }}</h4>
+                </div>
+                <div class="panel-body wt-panel-body p-a20 m-b30 ">
+                    <main_info :data="data.basic.user" :genderCLA="data.classificatory.gender"></main_info>
+                </div>
+            </div>
 
 
             <!--personal information-->

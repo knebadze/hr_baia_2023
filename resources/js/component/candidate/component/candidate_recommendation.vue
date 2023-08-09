@@ -10,10 +10,6 @@
                     <div class="form-group">
                         <label>{{ $t('lang.user_profile_page_recomendation_from') }}</label>
                         <div class="ls-inputicon-box">
-                            <!-- <select class="wt-select-box selectpicker"  v-model="m.recommendation"  data-live-search="false" title=""  data-bv-field="size">
-                                <option :value="1">წარმოვადგენ</option>
-                                <option :value="2">ვერ წარმოვადგენ</option>
-                            </select> -->
                             <multiselect v-model="m.has_recommendation" :options="cla.yesNo" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false" @blur="v$.m.has_recommendation.$touch">
                                 <template slot="singleLabel" slot-scope="{ option }"></template>
                             </multiselect>
@@ -77,7 +73,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row" v-if="showNoRecommendation">
+                <div class="row" v-if="m.has_recommendation && m.has_recommendation.id == 2">
                     <div class="col-md-12">
                         <div class="form-group">
                             <label>რეცომდაციის არ ქონის მიზეზი</label>
@@ -96,7 +92,7 @@
                         </div>
                     </div>
                 </div>
-                <div v-if="m.has_recommendation && m.has_recommendation.id == 1" class="col-lg-12 col-md-12">
+                <div  class="col-lg-12 col-md-12">
                     <div class="text-right ">
                         <button class="btn btn-success"
                         @click="add()"
@@ -142,7 +138,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div v-if="m.candidateRecommendation.length > 0 && m.candidateRecommendation[0].has_recommendation.id == 2" class="col-lg-12 col-md-12">
+                <div v-if="items.length > 0 && items[0].has_recommendation.id == 2" class="col-lg-12 col-md-12">
                     <div class="panel-body wt-panel-body">
                         <div class="p-a20 table-responsive">
                             <table class="table twm-table table-striped table-borderless">
@@ -155,15 +151,12 @@
                                 </thead>
 
                                 <tbody>
-                                    <tr v-for="(item, index) in m.candidateRecommendation">
+                                    <tr v-for="(item, index) in items">
                                     <td>{{ item.no_reason[`name_${getLang}`] }}</td>
-                                    <td>{{ item[`no_reason_info_${getLang}`].substr(0, 30)+ '...' }}</td>
+                                    <td>{{ (item[`no_reason_info_${getLang}`])?item[`no_reason_info_${getLang}`].substr(0, 30)+ '...':'' }}</td>
                                     <td>
-                                        <button @click="removeRecommendation(index, item.id)" title="წაშლა" data-bs-toggle="tooltip" data-bs-placement="top">
+                                        <button @click="remove(index, item.id)" title="წაშლა" data-bs-toggle="tooltip" data-bs-placement="top">
                                             <i class="fa fa-trash-alt"></i>
-                                        </button>
-                                        <button @click="editRecommendation(item)" title="რედაქტირება" data-bs-toggle="tooltip" data-bs-placement="top">
-                                            <i class="fa fa-pen"></i>
                                         </button>
                                     </td>
                                     </tr>
@@ -171,12 +164,7 @@
                             </table>
                         </div>
                     </div>
-                </div> -->
-                <!-- <div class="col-lg-12 col-md-12 mt-4">
-                    <div class="text-left">
-                        <button type="submit" @click.prevent="add()"  class="site-button">{{$t('lang.user_profile_page_work_button_save')}}</button>
-                    </div>
-                </div> -->
+                </div>
             </div>
         </div>
     </div>

@@ -412,7 +412,7 @@ export default {
         },
         openUpdateNoticeModal(item){
             this.updateNoticeModal = !this.updateNoticeModal
-            this.item = {'candidate_id': this.data.candidate.id,'item':item, 'cla':{'notice':this.cla.notice}}
+            this.item = {'candidate_id': this.data.candidate.id,'item':item, 'cla':{'notice':this.cla.notices}, 'user_id': this.data.candidate.user_id}
         },
     }
 }

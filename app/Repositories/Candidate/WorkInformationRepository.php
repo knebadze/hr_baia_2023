@@ -30,7 +30,7 @@ class WorkInformationRepository
         return $data;
     }
     function updateOrCreate($data){
-
+        // dd($data);
         if (isset($data['additional_schedule_ka'])) {
             $lang = (isset($data['lang']))?$data['lang']:'ka';
             $data = $this->translate($lang, $data);
@@ -56,7 +56,7 @@ class WorkInformationRepository
         }, []);
         $workInformation->workSchedule()->sync( $selectSchedule );
 
-        return WorkInformation::where('id', $workInformation->id)->with(['category', 'workSchedule', 'current'])->first();
+        return WorkInformation::where('id', $workInformation->id)->with(['category', 'workSchedule', 'currency'])->first();
     }
 
     function delete($id)  {

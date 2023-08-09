@@ -72,7 +72,7 @@
 
 </head>
 <body>
-    
+
     <!-- LOADING AREA START ===== -->
     <div class="loading-area">
         <div class="loading-box"></div>
@@ -138,169 +138,140 @@
 
                                 <form method="POST" action="{{ route('register' ,app()->getLocale()) }}">
                                     @csrf
-                                <div class="twm-tabs-style-2">
-                                    {{-- <ul class="nav nav-tabs" id="myTab" role="tablist">
-
-                                        <!--Signup Candidate-->
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link"  id="candidateEvent"  type="button"><i class="fas fa-user-tie"></i>{{ __('lang.modal_registration_candidate') }}</button>
-                                        </li>
-                                        <!--Signup Employer-->
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link" id="employerEvent"   type="button"><i class="fas fa-building"></i>{{ __('lang.modal_registration_employer') }}</button>
-                                        </li>
-
-                                    </ul>
-                                    <ul class="nav nav-tabs visually-hidden" id="employerTypeChoice" role="tablist">
-
-                                        <!--Signup Candidate-->
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link"  id="personalEmployer"  type="button"><i class="fas fa-user-tie"></i>{{ __('lang.modal_registration_physical_person') }}</button>
-                                        </li>
-                                        <!--Signup Employer-->
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link" id="companyEmployer"   type="button"><i class="fas fa-building"></i>{{ __('lang.modal_registration_company') }}</button>
-                                        </li>
-                                    </ul> --}}
-                                    {{-- <input type="text" name="user_type_id" value="{{ old('user_type_id') }}" class="form-control @error('user_type_id') is-invalid @enderror" id="user_type_id" hidden>
-                                    @error('user_type_id')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror --}}
-                                    <div class="tab-content" id="myTabContent">
-                                    <!--Signup Candidate Content-->
-                                    <div class="tab-pane fade show active" id="sign-up">
-                                        <div class="row">
+                                    <div class="twm-tabs-style-2">
+                                        <div class="tab-content" id="myTabContent">
+                                        <!--Signup Candidate Content-->
+                                        <div class="tab-pane fade show active" id="sign-up">
+                                            <div class="row">
 
 
-                                                <div class="col-lg-12">
-                                                    @if (app()->getLocale() == 'ka')
+                                                    <div class="col-lg-12">
+                                                        @if (app()->getLocale() == 'ka')
+                                                            <div class="form-group mb-3">
+                                                                <input id="name_ka" type="text" class="form-control @error('name_ka') is-invalid @enderror" name="name_ka" value="{{ old('name_ka') }}"  autocomplete="name_ka" autofocus placeholder="{{ __('lang.modal_registration_name_surname') }}">
+
+                                                                @error('name_ka')
+                                                                    <span class="invalid-feedback" role="alert">
+                                                                        <strong>{{ $message }}</strong>
+                                                                    </span>
+                                                                @enderror
+                                                            </div>
+                                                        @elseif (app()->getLocale() == 'en')
+                                                            <div class="form-group mb-3">
+                                                                <input id="name_en" type="text" class="form-control @error('name_en') is-invalid @enderror" name="name_en" value="{{ old('name_en') }}"  autocomplete="name_en" autofocus placeholder="{{ __('lang.modal_registration_name_surname') }}">
+
+                                                                @error('name_en')
+                                                                    <span class="invalid-feedback" role="alert">
+                                                                        <strong>{{ $message }}</strong>
+                                                                    </span>
+                                                                @enderror
+                                                            </div>
+                                                        @else
+                                                            <div class="form-group mb-3">
+                                                                <input id="name_ru" type="text" class="form-control @error('name_ru') is-invalid @enderror" name="name_ru" value="{{ old('name_ru') }}"  autocomplete="name_ru" autofocus placeholder="{{ __('lang.modal_registration_name_surname') }}">
+
+                                                                @error('name_ru')
+                                                                    <span class="invalid-feedback" role="alert">
+                                                                        <strong>{{ $message }}</strong>
+                                                                    </span>
+                                                                @enderror
+                                                            </div>
+                                                        @endif
+
+                                                    </div>
+
+                                                    <div class="col-lg-12">
                                                         <div class="form-group mb-3">
-                                                            <input id="name_ka" type="text" class="form-control @error('name_ka') is-invalid @enderror" name="name_ka" value="{{ old('name_ka') }}"  autocomplete="name_ka" autofocus placeholder="{{ __('lang.modal_registration_name_surname') }}">
+                                                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="{{ __('lang.modal_registration_mail') }}">
 
-                                                            @error('name_ka')
+                                                            @error('email')
                                                                 <span class="invalid-feedback" role="alert">
                                                                     <strong>{{ $message }}</strong>
                                                                 </span>
                                                             @enderror
                                                         </div>
-                                                    @elseif (app()->getLocale() == 'en')
-                                                        <div class="form-group mb-3">
-                                                            <input id="name_en" type="text" class="form-control @error('name_en') is-invalid @enderror" name="name_en" value="{{ old('name_en') }}"  autocomplete="name_en" autofocus placeholder="{{ __('lang.modal_registration_name_surname') }}">
+                                                    </div>
 
-                                                            @error('name_en')
+                                                    <div class="col-lg-12">
+                                                        <div class="input-group  mb-3">
+                                                            <span class="input-group-text border border-0">+995</span>
+                                                            <input name="number" id="number" type="text" class="form-control @error('number') is-invalid @enderror" value="{{ old('number') }}"  placeholder="{{ __('lang.modal_registration_number') }}" onkeypress="return event.charCode != 32">
+                                                            @error('number')
                                                                 <span class="invalid-feedback" role="alert">
                                                                     <strong>{{ $message }}</strong>
                                                                 </span>
                                                             @enderror
                                                         </div>
-                                                    @else
-                                                        <div class="form-group mb-3">
-                                                            <input id="name_ru" type="text" class="form-control @error('name_ru') is-invalid @enderror" name="name_ru" value="{{ old('name_ru') }}"  autocomplete="name_ru" autofocus placeholder="{{ __('lang.modal_registration_name_surname') }}">
+                                                    </div>
 
-                                                            @error('name_ru')
+                                                    <div class="col-lg-12">
+                                                        <div class="form-group mb-3">
+                                                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="{{ __('lang.modal_registration_password') }}">
+
+                                                            @error('password')
                                                                 <span class="invalid-feedback" role="alert">
                                                                     <strong>{{ $message }}</strong>
                                                                 </span>
                                                             @enderror
                                                         </div>
-                                                    @endif
-
-                                                </div>
-
-                                                <div class="col-lg-12">
-                                                    <div class="form-group mb-3">
-                                                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="{{ __('lang.modal_registration_mail') }}">
-
-                                                        @error('email')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $message }}</strong>
-                                                            </span>
-                                                        @enderror
                                                     </div>
-                                                </div>
+                                                    {{-- <div class="col-lg-6">
+                                                        <div class="form-group mb-3">
+                                                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="{{ __('lang.modal_registration_repeat') }}">
+                                                        </div>
+                                                    </div> --}}
 
-                                                <div class="col-lg-12">
-                                                    <div class="input-group  mb-3">
-                                                        <span class="input-group-text border border-0">+995</span>
-                                                        <input name="number" id="number" type="text" class="form-control @error('number') is-invalid @enderror" value="{{ old('number') }}"  placeholder="{{ __('lang.modal_registration_number') }}" onkeypress="return event.charCode != 32">
-                                                        @error('number')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $message }}</strong>
-                                                            </span>
-                                                        @enderror
+                                                    <div class="d-flex justify-content-between" id="date_gender">
+                                                        <div class="col-lg-6">
+                                                            <div class="form-group">
+                                                                <label>{{ __('lang.modal_registration_birth_date') }}</label>
+                                                                <div class="ls-inputicon-box">
+                                                                    <input class="form-control " id="date_of_birth"  name="date_of_birth" type="date" placeholder="mm/dd/yyyy">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    <div class="col-lg-5" >
+                                                        <p>{{ __('lang.modal_registration_gender') }}</p>
+                                                            <div class="form-check form-check-inline">
+                                                                <input type="radio" name="gender_id" value="1" class="form-check-input" id="exampleradio1">
+                                                                <label class="form-check-label" for="exampleradio1">{{ __('lang.modal_registration_gender_male') }}</label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input type="radio" name="gender_id" value="2" class="form-check-input" id="exampleradio2">
+                                                                <label class="form-check-label" for="exampleradio2">{{ __('lang.modal_registration_gender_female') }}</label>
+                                                            </div>
+
                                                     </div>
-                                                </div>
 
-                                                <div class="col-lg-12">
-                                                    <div class="form-group mb-3">
-                                                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="{{ __('lang.modal_registration_password') }}">
-
-                                                        @error('password')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $message }}</strong>
-                                                            </span>
-                                                        @enderror
                                                     </div>
-                                                </div>
-                                                {{-- <div class="col-lg-6">
-                                                    <div class="form-group mb-3">
-                                                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="{{ __('lang.modal_registration_repeat') }}">
-                                                    </div>
-                                                </div> --}}
+                                                    <div class="col-lg-12">
+                                                        <div class="form-group mb-3">
+                                                            <div class=" form-check">
+                                                                <input type="checkbox" class="form-check-input  @error('agree') is-invalid @enderror" id="agree" name="agree">
 
-                                                <div class="d-flex justify-content-between" id="date_gender">
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group">
-                                                            <label>{{ __('lang.modal_registration_birth_date') }}</label>
-                                                            <div class="ls-inputicon-box">
-                                                                <input class="form-control " id="date_of_birth"  name="date_of_birth" type="date" placeholder="mm/dd/yyyy">
+                                                                <label class="form-check-label" for="agree1">{{ __('lang.modal_registration_agree_1') }} <a href="#">{{ __('lang.modal_registration_agree_2') }}</a></label>
+                                                                @error('agree')
+                                                                    <span class="invalid-feedback" role="alert">
+                                                                        <strong>{{ $message }}</strong>
+                                                                    </span>
+                                                                @enderror
+                                                                <p>{{ __('lang.modal_registration_already_registered?') }}
+                                                                    <button class="twm-backto-login" data-bs-target="#sign_up_popup2" data-bs-toggle="modal" data-bs-dismiss="modal">{{ __('lang.modal_registration_log_in_here') }}</button>
+                                                                </p>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                <div class="col-lg-5" >
-                                                    <p>{{ __('lang.modal_registration_gender') }}</p>
-                                                        <div class="form-check form-check-inline">
-                                                            <input type="radio" name="gender_id" value="1" class="form-check-input" id="exampleradio1">
-                                                            <label class="form-check-label" for="exampleradio1">{{ __('lang.modal_registration_gender_male') }}</label>
-                                                        </div>
-                                                        <div class="form-check form-check-inline">
-                                                            <input type="radio" name="gender_id" value="2" class="form-check-input" id="exampleradio2">
-                                                            <label class="form-check-label" for="exampleradio2">{{ __('lang.modal_registration_gender_female') }}</label>
-                                                        </div>
-
-                                                </div>
-
-                                                </div>
-                                                <div class="col-lg-12">
-                                                    <div class="form-group mb-3">
-                                                        <div class=" form-check">
-                                                            <input type="checkbox" class="form-check-input  @error('agree') is-invalid @enderror" id="agree" name="agree">
-
-                                                            <label class="form-check-label" for="agree1">{{ __('lang.modal_registration_agree_1') }} <a href="#">{{ __('lang.modal_registration_agree_2') }}</a></label>
-                                                            @error('agree')
-                                                                <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $message }}</strong>
-                                                                </span>
-                                                            @enderror
-                                                            <p>{{ __('lang.modal_registration_already_registered?') }}
-                                                                <button class="twm-backto-login" data-bs-target="#sign_up_popup2" data-bs-toggle="modal" data-bs-dismiss="modal">{{ __('lang.modal_registration_log_in_here') }}</button>
-                                                            </p>
-                                                        </div>
+                                                    <div class="col-md-12">
+                                                        <button type="submit" class="site-button">{{ __('lang.modal_registration_button') }}</button>
                                                     </div>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <button type="submit" class="site-button">{{ __('lang.modal_registration_button') }}</button>
-                                                </div>
+
+                                            </div>
+                                        </div>
+
 
                                         </div>
                                     </div>
-
-
-                                    </div>
-                                </div>
-                            </form>
+                                </form>
                             </div>
 
                             <div class="modal-footer">

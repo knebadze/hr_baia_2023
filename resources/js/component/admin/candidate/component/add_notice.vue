@@ -1,70 +1,62 @@
 <template lang="">
-    <div class="panel panel-default">
-        <div class="panel-heading wt-panel-heading p-a20">
-            <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_references_title') }}</h4>
-        </div>
-        <div class="panel-body wt-panel-body p-a20 m-b30 ">
-
-            <div class="row">
-                <div class="col-xl-6 col-lg-6 col-md-12">
-                    <div class="form-group">
-                        <label>{{ $t('lang.user_profile_page_references_name_notice') }}</label>
-                        <div class="ls-inputicon-box">
-                            <multiselect v-model="candidateNoticeModel.notice" :options="cla.notices" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
-                                <template slot="singleLabel" slot-scope="{ option }"></template>
-                            </multiselect>
-                        </div>
-                    </div>
+    <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-12">
+            <div class="form-group">
+                <label>{{ $t('lang.user_profile_page_references_name_notice') }}</label>
+                <div class="ls-inputicon-box">
+                    <multiselect v-model="candidateNoticeModel.notice" :options="cla.notices" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                        <template slot="singleLabel" slot-scope="{ option }"></template>
+                    </multiselect>
                 </div>
-                <div class="col-xl-6 col-lg-6 col-md-12">
-                    <div class="form-group">
-                        <label>{{ $t('lang.user_profile_page_references_file') }} (PDF ფორმატში)</label>
-                        <div class="ls-inputicon-box">
-                            <input type="file" class="form-control" ref="fileInput" @change="handleFileChange" :placeholder="$t('lang.user_profile_page_medical_please_info')"/>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-12 col-md-12">
-                    <div class="text-right ">
-                        <button class="btn btn-success"
-                        @click="addNotice(candidateNoticeModel)"
-                        title="დამატება" data-bs-toggle="tooltip" data-bs-placement="top">{{ $t('lang.user_profile_page_references_button_add_info') }}
-                            <span class="fa fa-plus"></span>
-                        </button>
-                    </div>
-                </div>
-                <div v-if="m.length != 0" class="col-lg-12 col-md-12">
-                    <div class="panel-body wt-panel-body">
-                        <div class="p-a20 table-responsive">
-                            <table class="table twm-table table-striped table-borderless">
-                                <thead>
-                                    <tr>
-                                    <th>N</th>
-                                    <th>{{ $t('lang.user_profile_page_references_reference') }}</th>
-                                    <th>{{ $t('lang.user_profile_page_references_file') }}</th>
-                                    <th>{{ $t('lang.user_profile_page_references_action') }}</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-                                    <tr v-for="(item, index) in m">
-                                    <td>{{ index + 1 }}</td>
-                                    <td>{{ item.notice[`name_${getLang}`] }}</td>
-                                    <td> <a v-on:click="openPDF(item.file_path)" ><u class="text-primary">{{ item.file }}</u></a> </td>
-                                    <td>
-                                        <button @click="remove(index, item.id)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
-                                            <i class="fa fa-trash-alt"></i>
-                                        </button>
-                                    </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
+        <div class="col-xl-6 col-lg-6 col-md-12">
+            <div class="form-group">
+                <label>{{ $t('lang.user_profile_page_references_file') }} (PDF ფორმატში)</label>
+                <div class="ls-inputicon-box">
+                    <input type="file" class="form-control" ref="fileInput" @change="handleFileChange" :placeholder="$t('lang.user_profile_page_medical_please_info')"/>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12">
+            <div class="text-right ">
+                <button class="btn btn-success"
+                @click="addNotice(candidateNoticeModel)"
+                title="დამატება" data-bs-toggle="tooltip" data-bs-placement="top">{{ $t('lang.user_profile_page_references_button_add_info') }}
+                    <span class="fa fa-plus"></span>
+                </button>
+            </div>
+        </div>
+        <div v-if="m.length != 0" class="col-lg-12 col-md-12">
+            <div class="panel-body wt-panel-body">
+                <div class="p-a20 table-responsive">
+                    <table class="table twm-table table-striped table-borderless">
+                        <thead>
+                            <tr>
+                            <th>N</th>
+                            <th>{{ $t('lang.user_profile_page_references_reference') }}</th>
+                            <th>{{ $t('lang.user_profile_page_references_file') }}</th>
+                            <th>{{ $t('lang.user_profile_page_references_action') }}</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr v-for="(item, index) in m">
+                            <td>{{ index + 1 }}</td>
+                            <td>{{ item.notice[`name_${getLang}`] }}</td>
+                            <td> <a v-on:click="openPDF(item.file_path)" ><u class="text-primary">{{ item.file }}</u></a> </td>
+                            <td>
+                                <button @click="remove(index, item.id)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
+                                    <i class="fa fa-trash-alt"></i>
+                                </button>
+                            </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
     </div>
 </template>
 <script>

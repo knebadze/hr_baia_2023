@@ -6,9 +6,11 @@ use Exception;
 use App\Models\User;
 use App\Models\Candidate;
 use Illuminate\Http\Request;
+use App\Services\ModelService;
 use App\Models\WorkInformation;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Services\ClassificatoryService;
 use App\Filters\Candidate\CandidateFilters;
 use App\Services\Admin\CandidateUpdateService;
@@ -18,10 +20,12 @@ class AdminCandidateController extends Controller
 
     private ClassificatoryService $classificatoryService;
     private CandidateUpdateService $candidateUpdateService;
-    public function __construct(ClassificatoryService $classificatoryService, CandidateUpdateService $candidateUpdateService)
+    private ModelService $modelService;
+    public function __construct(ClassificatoryService $classificatoryService, CandidateUpdateService $candidateUpdateService, ModelService $modelService)
     {
         $this->classificatoryService = $classificatoryService;
         $this->candidateUpdateService = $candidateUpdateService;
+        $this->modelService = $modelService;
     }
     public function index()
     {
@@ -133,7 +137,7 @@ class AdminCandidateController extends Controller
                 'drivingLicense',
                 'number.numberOwner',
                 'number.numberCode',
-                'getNotice'
+                'getNotice.notice'
             ])->first()->toArray();
 
         $classificatoryArr = ['gender', 'nationality', 'religions','educations', 'maritalStatus', 'citizenship', 'professions',
@@ -157,5 +161,27 @@ class AdminCandidateController extends Controller
             ];
         }
         return response()->json($result, $result['status']);
+    }
+
+    function addCandidate() {
+        $data = [];
+
+        $auth = Auth::user();
+        $user = User::where('id', $auth->id)->with('gender')->first();
+
+        //კლასიფიკატორები
+
+        $candidateClassificatoryArr = ['gender', 'nationality', 'religions','educations', 'maritalStatus', 'citizenship', 'professions',
+        'specialties', 'allergies', 'languages', 'languageLevels', 'workExperiences', 'notices', 'noExperienceReason', 'drivingLicense',
+        'numberCode', 'characteristic', 'numberOwner', 'yesNo', 'category', 'workSchedule', 'currency', 'recommendationFromWhom',
+        'noRecommendationReason', 'duty'];
+        $classificatory = $this->classificatoryService->get($candidateClassificatoryArr);
+        $model = ['candidate_information' => $this->modelService->getUserModel(), 'work_information' => $this->modelService->getWorkInformationModel()];
+
+        $data = [
+            'model' => $model,
+            'classificatory' => $classificatory
+        ];
+        return view('admin.add_candidate', compact('data'));
     }
 }

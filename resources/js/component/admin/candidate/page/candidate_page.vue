@@ -1,6 +1,8 @@
 <template lang="">
-    <section class="content ">
-        <div class="container-fluid">
+
+    <!-- <section class="content ">
+        <div class="container-fluid"> -->
+
             <div id="accordion" >
                 <div class="card card-primary" >
                     <div class="card-header">
@@ -306,6 +308,11 @@
                     </div>
                 </div>
             </div>
+        <!-- </div>
+    </section> -->
+
+        <div class="mb-2 d-flex justify-content-end">
+            <a type="button" class="btn btn-success" :href="addCandidateUrl" title="კანდიდატის დამატება"><i class="fa fa-plus"></i> დაამატე კანდიდატი</a>
         </div>
         <candidateTable :data="candidate" :key="candidate.length"></candidateTable>
         <div class="mt-2">
@@ -325,7 +332,7 @@
             <!-- <info_modal :visible="show_info_modal" :type="modalType" :data="modalData"></info_modal> -->
 
 
-    </section>
+
 </template>
 <script>
 import _ from 'lodash';
@@ -358,7 +365,8 @@ export default {
             modalData:{},
             m:{},
             cla: {},
-            colspan:'collapsed-card'
+            colspan:'collapsed-card',
+
         }
     },
     created(){
@@ -366,7 +374,11 @@ export default {
         this.getData()
     },
     computed:{
+        addCandidateUrl(){
+            let url = new URL( location.href)
+            return url.origin+'/admin/add_candidate'
 
+        }
     },
     methods: {
         getData(){

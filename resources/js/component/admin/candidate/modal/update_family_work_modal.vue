@@ -18,7 +18,7 @@
                             </div>
                         </div>
                     </div>
-                    <div v-if="m.has_experience.id == 1">
+                    <div v-if="m.has_experience && m.has_experience.id == 1">
                         <div class="row border py-4">
                             <div class="col-xl-4 col-lg-6 col-md-12">
                                 <div class="form-group">
@@ -72,7 +72,7 @@
                     </div>
 
 
-                    <div class="row py-4" v-if="m.has_experience.id == 2">
+                    <div class="row py-4" v-if="m.has_experience && m.has_experience.id == 2">
                         <div class="col-xl-4 col-lg-6 col-md-12">
                             <div class="form-group">
                                 <label>არ ქონის მიზეზი</label>
@@ -137,7 +137,7 @@
                 console.log('this.m', this.items.item);
                 this.m = {...this.items.item}
                 // (this.m.hasOwnProperty('has_experience'))?
-                this.experience = (this.items.item.length != 0)?this.items.item.has_experience:''
+                this.experience = (this.items.item && this.items.item.length != 0)?this.items.item.has_experience:''
                 console.log('this.m', this.m);
                 this.cla = _.cloneDeep(this.items.cla)
                 this.showConfirm = true
@@ -198,7 +198,7 @@
                 this.show()
             },
             'm.family_work_category': function(newVal, oldVal){
-                if (this.items.item.family_work_category !== newVal) {
+                if (this.items.item && this.items.item.family_work_category !== newVal) {
                     this.m.family_work_duty = []
                 }
                 let duty = _.cloneDeep(this.items.cla.duty)

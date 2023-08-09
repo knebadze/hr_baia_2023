@@ -1,12 +1,16 @@
 <?php
 
 namespace App\Repositories\Basic;
+use App\Models\role;
 use App\Models\Candidate;
 use App\Models\CandidateNotice;
 use App\Models\Additional_number;
 use App\Models\CandidateLanguage;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 use App\Models\General_work_experience;
+use App\Models\User;
+use App\Models\userRegisterLog;
 
 class UserModelRepository
 {
@@ -47,6 +51,31 @@ class UserModelRepository
             $candidate['get_language']['level'] = '';
         }
 
+        if (Auth::user()->role_id != 3) {
+
+            if (userRegisterLog::where('creator_id', Auth::id())->exists()) {
+                $last = userRegisterLog::orderBy('id', 'DESC')->where('creator_id', Auth::id())->first();
+
+                if (Candidate::where('user_id', $last->user_id)->exists()) {
+                    $user = Schema::getColumnListing('users');
+                    $user = array_map(function ($item) { return ""; }, array_flip($user));
+                    $user['gender'] = '';
+                }else{
+                    $user = User::where('id', $last->user_id)->with('gender')->first()->toArray();
+                    // dd($last);
+                }
+
+            } else {
+                $user = Schema::getColumnListing('users');
+                $user = array_map(function ($item) { return ""; }, array_flip($user));
+                $user['gender'] = '';
+            }
+
+        }else{
+            $user = Schema::getColumnListing('users');
+            $user = array_map(function ($item) { return ""; }, array_flip($user));
+            $user['gender'] = '';
+        }
         // if (Candidate::where('user_id', $auth_id)->exists() && CandidateLanguage::where('candidate_id', $candidate->id)->exists()) {
         //     $candidateLanguages = CandidateLanguage::where('candidate_id', $candidate->id)->with(['language','level'])->get();
         // }else{
@@ -74,7 +103,7 @@ class UserModelRepository
 
         $data = [
             'candidate' => $candidate,
-            // 'candidateLanguages' => $candidateLanguages,
+            'user' => $user,
             'candidateNotices' => $candidateNotices,
             'candidateWorkExperience' => $candidateWorkExperience,
             'candidateNumber' => $candidateNumber,

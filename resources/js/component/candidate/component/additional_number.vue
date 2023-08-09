@@ -78,7 +78,6 @@
 </template>
 <script>
 import _ from 'lodash';
-import { vModelRadio } from 'vue';
 export default {
     props:{
         data: Object,

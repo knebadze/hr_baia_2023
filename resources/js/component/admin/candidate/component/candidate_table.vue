@@ -1,5 +1,5 @@
 <template lang="">
-
+<div>
     <EasyDataTable
         v-model:items-selected="itemsSelected"
         :headers="headers"
@@ -198,6 +198,7 @@
     </EasyDataTable>
     <!-- {{ statusChangeModal }} -->
     <infoModal :visible="showInfoModal" :type="modalType" :items="item"></infoModal>
+</div>
 </template>
 <script>
 import { ref, computed } from "vue";
@@ -218,7 +219,7 @@ export default {
     },
 
     setup(props){
-        var url = new URL( location.href)
+        let url = new URL( location.href)
         const itemsSelected = ref([]);
         let updateUrl = ref(url.origin+'/admin/candidate_update')
         var vacancyPersonalUrl = ref(url.origin+'/hr/vacancy_personal')

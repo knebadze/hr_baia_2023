@@ -15,7 +15,6 @@
                             <thead>
                                 <tr>
                                     <th>დოკუმენტის დასახელება</th>
-                                    <th>ფაილი</th>
                                     <th>მოქმედება</th>
                                 </tr>
 
@@ -23,77 +22,45 @@
                             <tbody>
                                  <tr v-for="(item, index) in m" :key="index">
                                     <td>
-                                        <!-- <div class="form-group">
-                                            <div class="ls-inputicon-box">
-                                                <multiselect  v-model="item.name_ka" :options="cla.notice" deselect-label="Can't remove this value" track-by="phonecode" label="phonecode" placeholder="Select one"  :searchable="true" :allow-empty="false">
-                                                    <template slot="singleLabel" slot-scope="{ option }"></template>
-                                                </multiselect>
-                                            </div>
-                                        </div> -->
+                                        {{ item.notice.name_ka }}
                                     </td>
                                     <td>
-                                        {{ item.file_path }}
-                                        <!-- <div class="form-group">
-                                            <div class="ls-inputicon-box">
-                                                <input class="form-control" v-model="item.file" type="text"  >
-                                            </div>
-                                        </div> -->
-                                    </td>
-                                    <!-- <td>
-                                        <div class="form-group">
-                                            <div class="ls-inputicon-box">
-                                                <multiselect  v-model="item.number_owner" :options="cla.numberOwner" deselect-label="Can't remove this value" track-by="name_ka" label="name_ka" placeholder="Select one"  :searchable="true" :allow-empty="false">
-                                                    <template slot="singleLabel" slot-scope="{ option }"></template>
-                                                </multiselect>
-                                            </div>
-                                        </div>
-                                    </td> -->
-                                    <td>
-                                        <button type="button" class="btn btn-danger ml-2" @click.prevent="deletion(index, item)" ><i class=""></i>წაშლა</button>
+                                        <button type="button" class="btn btn-info ml-2" @click.prevent="openPDF(item.file_path)" title="ნახვა"><i class="fa fa-eye"></i></button>
+                                        <button type="button" class="btn btn-danger ml-2" @click.prevent="remove(index, item)" title="წაშლა"><i class="fa fa-trash"></i></button>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
-                        <h5 class="pb-2">ნომრის დამატება</h5>
-                        <!-- <div class="row border py-3">
-                            <div class="col-xl-4 col-lg-6 col-md-12">
+                        <h5 class="pb-2">დოკუმენტის დამატება</h5>
+                        <div class="row border py-3">
+                            <div class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                    <label>კოდი</label>
+                                    <label>დასახელება</label>
                                     <div class="ls-inputicon-box">
-                                        <multiselect  v-model="newItem.number_code" :options="cla.numberCode" deselect-label="Can't remove this value" track-by="phonecode" label="phonecode" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                        <multiselect  v-model="newItem.notice" :options="cla.notice" deselect-label="Can't remove this value" track-by="name_ka" label="name_ka" placeholder="Select one"  :searchable="true" :allow-empty="false">
                                             <template slot="singleLabel" slot-scope="{ option }"></template>
                                         </multiselect>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-4 col-lg-6 col-md-12">
+                            <div class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                    <label>ნომერი</label>
+                                    <label>{{ $t('lang.user_profile_page_references_file') }} (PDF ფორმატში)</label>
                                     <div class="ls-inputicon-box">
-                                        <input class="form-control" v-model="newItem.number" type="text"  >
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-6 col-md-12">
-                                <div class="form-group">
-                                    <label>მფლობელი</label>
-                                    <div class="ls-inputicon-box">
-                                        <multiselect  v-model="newItem.number_owner" :options="cla.numberOwner" deselect-label="Can't remove this value" track-by="name_ka" label="name_ka" placeholder="Select one"  :searchable="true" :allow-empty="false">
-                                            <template slot="singleLabel" slot-scope="{ option }"></template>
-                                        </multiselect>
+                                        <input type="file" class="form-control" ref="fileInput" @change="handleFileChange" :placeholder="$t('lang.user_profile_page_medical_please_info')"/>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <button type="button" class="btn btn-success float-right" @click="add(newItem)" ><i class="fa fa-plus"></i> დამატება</button>
                             </div>
-                        </div> -->
+                        </div>
                     </div>
 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" @click="hide()" ><i class=""></i>გაუქმება</button>
-                    <button type="button" class="btn btn-success" @click.prevent="save()" ><i class=""></i>შენახვა</button>
+                    <!-- <button type="button" class="btn btn-success" @click.prevent="save()" ><i class=""></i>შენახვა</button> -->
                 </div>
             </div>
         </div>
@@ -115,6 +82,7 @@
                 cla:[],
                 newItem:{},
                 classificatory:{},
+                file:null
             }
         },
         created(){
@@ -126,8 +94,8 @@
         },
         methods:{
             show(){
-                this.m = {...this.items.item}
-                console.log('this.m', this.m);
+                this.m = this.items.item
+                console.log('this.m', this.items);
                 this.cla = this.items.cla
                 this.showConfirm = true
 
@@ -135,10 +103,61 @@
             hide(){
                 this.showConfirm = false
             },
-            save(){
-                let currentObj = this
+            handleFileChange(event) {
+                this.file = event.target.files[0];
+            },
+            add(item){
+                item['file'] = (this.file)?this.file.name:null
+                if (this.m.length > 0 &&  item.notice.id != 6 && this.m.some((element) => element.notice.id === item.notice.id)) {
+                    toast.warning("ცნობა უკვე ატვირთულია შესაცვლელად წაშალეთ ძველი ცნობა", {
+                        theme: 'colored',
+                        autoClose: 1000,
+                    });
+                    return
+                }
+                if (this.file != null && this.file.type !== 'application/pdf') {
+                    toast.error("გთხოვთ ფაილი ატვირთეთ pdf ფორმატში", {
+                        theme: 'colored',
+                        autoClose: 1000,
+                    });
+                    return
+                }
+
+                if (this.file == null || item.notice == '') {
+                    toast.error("ყველა ველის შევსება სავალდებულოა", {
+                        theme: 'colored',
+                        autoClose: 1000,
+                    });
+                    return
+                }
+                item.user_id = this.items.user_id
+
+                const formData = new FormData();
+                formData.append('data', JSON.stringify(item))
+                if (this.file) {
+                    formData.append('file', this.file);
+                }
+                console.log('item',item);
+                let currentObj = this;
+                axios.post('/add_candidate_file', formData)
+                .then(function (response) {
+                    console.log(response.data);
+                    if (response.data.status == 200) {
+                        currentObj.m = response.data.data;
+                        toast.success("ინფორმაცია წარმატებით შეინახა", {
+                            theme: 'colored',
+                            autoClose: 1000,
+                        });
+                    }
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                })
+            },
+            remove(index, id){
                 this.$swal({
-                    title: 'ნამდვილად გსურთ რედაქტირება?',
+                    title: 'ნამდვილად გსურთ წაშლა?',
                     //   showDenyButton: true,
                     cancelButtonText:'არა',
                     confirmButtonText: 'კი',
@@ -146,52 +165,40 @@
                 }).then((result) => {
                 /* Read more about isConfirmed, isDenied below */
                     if (result.isConfirmed) {
-                        axios.post('/update_candidate' ,{
-                            data: {'model':this.m, 'type': 'number'},
+                        // console.log(index);
+                        // return
+                        const removed = this.m.splice(index, 1);
+                        axios({
+                            method: "post",
+                            url: "/delete_candidate_info",
+                            data: {'id':id, 'type': 'notice'},
+
                         })
                         .then(function (response) {
-                            if (response.status == 200) {
-                                currentObj.hide()
-                                toast.success("წარმატებით დარედაქტირდა", {
+                            // console.log(response.data);
+                            if (response.data.status == 200) {
+                                toast.success("წარმატებით წაიშალა", {
                                     theme: 'colored',
                                     autoClose: 1000,
                                 });
                             }
-
                         })
                         .catch(function (error) {
                             // handle error
                             console.log(error);
                         })
-                        // this.hide()
 
                     } else if (result.isDenied) {
                         return
                     }
                 });
 
+
             },
-            deletion(index, item){
-                if (item.language_level_id == 1) {
-                    toast.error("მშობლიური ენის წაშლა არ შეიძლება გთხოვთ დაარედაქტიროთ", {
-                        theme: 'colored',
-                        autoClose: 1000,
-                    });
-                    return
-                }
-                delete this.m[index];
+            openPDF(item) {
+                const pdfUrl = `/storage/${item}`;
+                window.open(pdfUrl, '_blank');
             },
-            add(item){
-                if (Object.values(this.m).some((el) => el.number_owner.id === item.number_owner.id)) {
-                    toast.error("ეს უცხო ენა უკვე დამატებული გაქვთ", {
-                        theme: 'colored',
-                        autoClose: 1000,
-                    });
-                    return
-                }
-                item.candidate_id = this.items.candidate_id
-                this.m[Object.keys(this.m).length ] = item
-            }
 
         },
 

@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
-
+use App\Models\userRegisterLog;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
@@ -105,7 +106,7 @@ class RegisterController extends Controller
 
         // dd();
         // GoogleTranslate::trans($data['name_ka'])
-        return User::create([
+        $user = User::create([
             'name_ka' => $name_ka,
             'name_en' => $name_en,
             'name_ru' => $name_ru,
@@ -117,5 +118,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'lang' => $lang,
         ]);
+        
+        return $user;
     }
 }

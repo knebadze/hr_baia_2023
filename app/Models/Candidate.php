@@ -116,7 +116,7 @@ class Candidate extends Model
     }
     public function getNotice()
     {
-        return $this->hasMany(CandidateNotice::class, 'id', 'candidate_id');
+        return $this->hasMany(CandidateNotice::class, 'candidate_id', 'id');
     }
     public function familyWorkSkill()
     {
