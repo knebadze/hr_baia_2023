@@ -120,7 +120,7 @@
                             <td>{{ item[`position_${getLang}`] }}</td>
                             <td><u class="text-primary" @click="openPDF(item.file_path)">{{ item.file_name }}</u></td>
                             <td>
-                                <button @click="remove(index, item.id)" title="წაშლა" data-bs-toggle="tooltip" data-bs-placement="top">
+                                <button class="btn btn-danger" @click="remove(index, item.id)" title="წაშლა" data-bs-toggle="tooltip" data-bs-placement="top">
                                     <i class="fa fa-trash-alt"></i>
                                 </button>
                             </td>
@@ -147,7 +147,7 @@
                             <td>{{ item.no_reason[`name_${getLang}`] }}</td>
                             <td>{{ (item[`no_reason_info_${getLang}`])?item[`no_reason_info_${getLang}`].substr(0, 30)+ '...':'' }}</td>
                             <td>
-                                <button @click="remove(index, item.id)" title="წაშლა" data-bs-toggle="tooltip" data-bs-placement="top">
+                                <button class="btn btn-danger" @click="remove(index, item.id)" title="წაშლა" data-bs-toggle="tooltip" data-bs-placement="top">
                                     <i class="fa fa-trash-alt"></i>
                                 </button>
                             </td>

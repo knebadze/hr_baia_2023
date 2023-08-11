@@ -8,16 +8,40 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="hide()">X</button>
               </div>
               <div class="modal-body">
-                <div v-if="this.info" class="col-12">
+                <div v-if="info && info.hasOwnProperty('this_vacancy') && info.this_vacancy" class="col-12">
                     <div  class="alert alert-dismissible alert-info" >
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <!-- <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> -->
                         <h5><i class="icon fas fa-info"></i> შეტყობინება!</h5>
-                        <span>ეს კანდიდატი უკვე გყავთ დამატებული ვაკანსიაზე <strong>{{ ` "${m.type.name}" ` }}</strong>  ველში</span>
+                        <span>ეს კანდიდატი უკვე გყავთ დამატებული ამ ვაკანსიაზე <strong>{{ ` "${m.type.name}" ` }}</strong>  ველში</span>
                     </div>
                 </div>
-                 <div class=" col-md-12">
+
+                <div v-if="info && info.hasOwnProperty('another_vacancy')" class="col-12">
+                    <div  class="alert alert-dismissible alert-danger" >
+                        <!-- <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> -->
+                        <h5><i class="icon fas fa-info"></i> შეტყობინება!</h5>
+                        <span>ეს კანდიდატი უკვე გყავთ დამატებული <u>სხვა</u> ვაკანსიაზე</span>
+                        <ul class="border py-2">
+                            <li v-for="(item, index) in info.another_vacancy" :key="index"><u class="text-primary" @click="openModal(item.vacancy.id)">{{ item.vacancy.code }}</u> -- {{ item.qualifying_type.name }}</li>
+                        </ul>
+                        <span>დარწმუნებული ხართ რომ მაინც გსურთ დაამატოთ ამ ვაკანსიაზეც?</span>
+                    </div>
+                </div>
+                <div v-if="busy">
+                    <p class="text-danger">ეს კანდიდატი უკვე ყავს ქვემოთ ჩამოთვლილ HR_ს (ებს) თავის აქტიურ ვაკანსიებში ჩასმული.
+                    </p>
+                        <h6>ინსტრუქცია</h6>
+                    <p>მიმართეთ hr უთხარით
+                        <i class="fa fa-arrow-right" aria-hidden="true"></i>  კანდიდატის ID: {{ item.candidate_id }}
+                        <i class="fa fa-arrow-right" aria-hidden="true"></i> ვაკანსისი ID: {{ item.vacancy_code }}
+                        <i class="fa fa-arrow-right" aria-hidden="true"></i> სასურველი კატეგორია</p>
+                    <ul>
+                        <li v-for="(item, index) in busy" :key="index">{{ item.vacancy.hr.user.name_ka }} N: {{ item.vacancy.hr.user.number }}</li>
+                    </ul>
+                </div>
+                <div v-else class=" col-md-12">
                     <div class="form-group">
-                        <label>შესარჩევი ტიპი</label>
+                        <label>შესარჩევი კატეგორია</label>
                         <div class="ls-inputicon-box">
                             <multiselect v-model="m.type" :options="cla.qualifyingType" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="აირჩიე ტიპი"  :searchable="true" :allow-empty="false">
                                 <template slot="singleLabel" slot-scope="{ option }"></template>
@@ -45,31 +69,44 @@
                 </div>
               </div>
               <div class="modal-footer">
-                <div v-if="this.info">
-                    <button  type="button" class="btn btn-danger mr-2" @click.prevent="deletePersonal()" ><i class=""></i>წაშლა</button>
-                    <button  type="button" class="btn btn-success" @click.prevent="update()" ><i class=""></i>განახლება</button>
+                <button v-if="busy" type="button" class="btn btn-secondary" @click.prevent="hide()" ><i class=""></i>გაუქმება</button>
+                <div v-else>
+                    <div v-if="info && info.hasOwnProperty('this_vacancy') && info.this_vacancy">
+                        <button  type="button" class="btn btn-danger mr-2" @click.prevent="deletePersonal()" ><i class=""></i>წაშლა</button>
+                        <button  type="button" class="btn btn-success" @click.prevent="update()" ><i class=""></i>განახლება</button>
+                    </div>
+
+                    <button v-else type="button" class="btn btn-success" @click.prevent="save()" ><i class=""></i>შენახვა</button>
                 </div>
 
-                <button v-else type="button" class="btn btn-success" @click.prevent="save()" ><i class=""></i>შენახვა</button>
               </div>
               </div>
           </div>
+          <vacancyFullInfoModal :visible="modalShow" :vacancyId="vacancy_id"></vacancyFullInfoModal>
       </div>
   </template>
   <script>
   import { toast } from 'vue3-toastify';
   import 'vue3-toastify/dist/index.css';
+  import vacancyFullInfoModal from '../../modal/vacancyFullInfoModal.vue';
   export default {
+        components:{
+            vacancyFullInfoModal
+        },
         props:{
             visible: Boolean,
-            item: Object
+            item: Object,
+            onMessageFromChildren: Function,
         },
         data() {
             return {
                 showConfirm: false,
                 cla:{},
                 m: null,
-                info: {}
+                info: {},
+                busy: null,
+                modalShow:false,
+                vacancy_id:null
             }
         },
         created(){
@@ -84,14 +121,15 @@
         methods:{
             async show(){
                 try {
-                    console.log('item', this.item);
+                    console.log('item,,,', this.item);
 
                     let result = await this.getClassificatory();
                     console.log('result', result.data);
                     this.cla = result.data.classificatory
                     this.info  = result.data.findCandidate
+                    this.busy = (result.data.busy != null)?{...result.data.busy}:null
                     this.m = {...this.item}
-                    this.m['type'] = (result.data.findCandidate)?result.data.findCandidate.qualifying_type:null
+                    this.m['type'] = (result.data.findCandidate && result.data.findCandidate.this_vacancy )?result.data.findCandidate.this_vacancy.qualifying_type:null
                     this.showConfirm = true
 
                 } catch (error) {
@@ -102,14 +140,6 @@
             hide(){
                 this.showConfirm = false
             },
-            // makeModel(item){
-            //     var newItem = {}
-            //     newItem.id = item.id
-            //     newItem.status = item.status
-            //     newItem.status_change_reason = item.status_change_reason
-
-            //     return {...newItem}
-            // },
             getClassificatory(){
                 return axios.post('/get_add_personal_info' ,{
                     data: {'candidate_id':this.item.candidate_id, 'vacancy_id':this.item.vacancy_id },
@@ -131,6 +161,7 @@
                             theme: 'colored',
                             autoClose: 1000,
                         });
+                        currentObj.emitMessage(true)
                         currentObj.hide()
                         // setTimeout(() => {
                         //     document.location.reload();
@@ -160,6 +191,7 @@
                             theme: 'colored',
                             autoClose: 1000,
                         });
+                        currentObj.emitMessage(true)
                         currentObj.hide()
                         // setTimeout(() => {
                         //     document.location.reload();
@@ -197,6 +229,7 @@
                                     theme: 'colored',
                                     autoClose: 1000,
                                 });
+                                currentObj.emitMessage(false)
                                 currentObj.hide()
                                 // setTimeout(() => {
                                 //     document.location.reload();
@@ -215,20 +248,14 @@
                     //     Swal.fire('Changes are not saved', '', 'info')
                     // }
                 })
+            },
+            emitMessage(bool) {
+                this.onMessageFromChildren(this.item.candidate_id, bool);
+            },
+            openModal(id){
+                this.modalShow = !this.modalShow
+                this.vacancy_id = id
             }
-
-            // forItem(item){
-            //     var editedFields = {}
-            //     for (const field in item) {
-            //         if ( item[field] !== this.item[field] ) {
-            //                 editedFields[field] = this.item[field]
-            //         }
-            //     }
-            //     return editedFields
-            // },
-            // changeFormat(time){
-            //     return moment(time).format("YYYY-MM-DD HH:mm")
-            // }
 
         },
         watch:{

@@ -30,7 +30,7 @@ class WorkInformationRepository
         return $data;
     }
     function updateOrCreate($data){
-        // dd($data);
+        // dd($dataqar);
         if (isset($data['additional_schedule_ka'])) {
             $lang = (isset($data['lang']))?$data['lang']:'ka';
             $data = $this->translate($lang, $data);

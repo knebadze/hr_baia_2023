@@ -4,14 +4,14 @@
             <h5>{{ index }}</h5>
             <hr>
         </div>
-        <candidateTable :data="item" :vacancy="vacancy"></candidateTable>
+        <select_personal_table :data="item" :vacancy="vacancy"></select_personal_table>
     </div>
 </template>
 <script>
-import candidateTable from '../component/candidateTable.vue';
+import select_personal_table from '../component/select_personal_table.vue';
 export default {
     components:{
-        candidateTable
+        select_personal_table
     },
     props:{
         data: Object

@@ -28,7 +28,7 @@ class GetVacancyInfoController extends Controller
         $classificatory = $this->classificatoryService->get($classificatoryArr);
         return response()->json($classificatory);
     }
-    
+
     function getVacancyFilterClassificatory(){
         $classificatoryArr = ['currency', 'workSchedule', 'educations', 'characteristic',
         'category', 'forWhoNeed', 'term', 'benefit','specialties', 'languages', 'languageLevels', 'duty', 'interviewPlace', 'status'];
@@ -91,6 +91,12 @@ class GetVacancyInfoController extends Controller
         // Assuming the base time is in the 'date' property of the first item in $data
 
         // dd($currentDateTime->diffInMinutes($baseDateTime));
+        return response()->json($data);
+    }
+
+    function findVacancy(Request $request) {
+        $data = Vacancy::where('code', 'LIKE', $request->data.'%')->where('status_id', 2)->with(['employer', 'category', 'status', 'hr.user', 'interviewPlace'])->get()->toArray();
+        // dd($request->data);
         return response()->json($data);
     }
 

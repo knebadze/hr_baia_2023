@@ -46,7 +46,7 @@
                             <td>{{ item.notice[`name_${getLang}`] }}</td>
                             <td> <a v-on:click="openPDF(item.file_path)" ><u class="text-primary">{{ item.file }}</u></a> </td>
                             <td>
-                                <button @click="remove(index, item.id)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
+                                <button class="btn btn-danger" @click="remove(index, item.id)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
                                     <i class="fa fa-trash-alt"></i>
                                 </button>
                             </td>

@@ -25,6 +25,7 @@ class AddVacancyPersonalService
 
     function updatePersonal($data) {
         if (gettype($data['candidate_id']) == 'array') {
+
             $result = $this->addVacancyPersonalRepository->updateArr($data);
             return $result;
         }

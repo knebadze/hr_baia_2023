@@ -13,7 +13,7 @@ class AddVacancyPersonalRepository
         $qualifying->candidate_id = $data['candidate_id'];
         if ($data['type']['id'] == 3) {
             $qualifying->interview_date = $data['interview_date'];
-            $qualifying->interview_place = $data['interview_place']['id'];
+            $qualifying->interview_place_id = $data['interview_place']['id'];
         }
         if ($data['type']['id'] == 5) {
             $qualifying->start_date = $data['start_date'];
@@ -63,7 +63,7 @@ class AddVacancyPersonalRepository
             $qualifying->candidate_id = $value;
             if ($data['type']['id'] == 3) {
                 $qualifying->interview_date = $data['interview_date'];
-                $qualifying->interview_place = $data['interview_place']['id'];
+                $qualifying->interview_place_id = $data['interview_place']['id'];
             }
             $qualifying->save();
 
@@ -76,7 +76,7 @@ class AddVacancyPersonalRepository
         $qualifying->qualifying_type_id = $data['type']['id'];
         if ($data['type']['id'] == 3) {
             $qualifying->interview_date = $data['interview_date'];
-            $qualifying->interview_place = $data['interview_place']['id'];
+            $qualifying->interview_place_id = $data['interview_place']['id'];
         }
         if ($data['type']['id'] == 5) {
             $qualifying->start_date = $data['start_date'];
@@ -91,7 +91,7 @@ class AddVacancyPersonalRepository
             $qualifying->qualifying_type_id = $data['type']['id'];
             if ($data['type']['id'] == 3) {
                 $qualifying->interview_date = $data['interview_date'];
-                $qualifying->interview_place = $data['interview_place']['id'];
+                $qualifying->interview_place_id = $data['interview_place']['id'];
             }
             if ($data['type']['id'] == 5) {
                 $qualifying->start_date = $data['start_date'];

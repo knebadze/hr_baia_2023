@@ -13,6 +13,7 @@ use App\Models\QualifyingType;
 use Illuminate\Support\Facades\DB;
 use App\Models\QualifyingCandidate;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Services\ClassificatoryService;
 use App\Filters\Candidate\CandidateFilters;
 use App\Services\AddVacancyPersonalService;
@@ -66,10 +67,63 @@ class SelectionPersonalController extends Controller
     }
 
     function addPersonalInfo(Request $request) {
+        $findCandidate['this_vacancy'] = QualifyingCandidate::where('candidate_id', $request->data['candidate_id'])->where('vacancy_id', $request->data['vacancy_id'])->with('qualifyingType')->first();
+        $busy = QualifyingCandidate::where('candidate_id', $request->data['candidate_id'])->whereIn('qualifying_type_id', [3, 4, 5, 6])->with(['qualifyingType', 'vacancy.hr.user'])->get()->toArray();
+        // ვპოულობ კანდიდატი თუ არის 'გასაუბრებაზე ცხადდებიან', 'დამსაქმებლის მოწონებული', 'გამოსაცდელი ვადით', 'დასაქმდა' კატეგორიაში
+        if (count($busy) == 0) {
+            // თუ არ მოიძებნა ვაბრუნებ NULL
+            $busy = null;
+        }else{
+            $vacancyIdToCheck = $request->data['vacancy_id'];
+            // თუ მოიძებნა ვამოწმებ იძებნება თუ არა აუტორიზებული hr ვაკანსიებში თუ იძებნება NULL ვაბრუნებ თუ არ იძებნება ვამოწმებ მოთხოვნილ
+            // ვაკანსიაზე უკვე ხომ არ არის დამტებული თუ არის NULL ვაბრუნებ თუ არა ვაბრუნებ ARRAY
 
-        $findCandidate = QualifyingCandidate::where('candidate_id', $request->data['candidate_id'])->where('vacancy_id', $request->data['vacancy_id'])->with('qualifyingType')->first();
+            $collection = collect($busy);
+
+            // ასევე ვამოწმებ ვაკანსიის სტატუს
+            $filteredCollection = $collection->filter(function ($item, $key) {
+                $statusId = $item['vacancy']['status_id'];
+                return !in_array($statusId, [5, 6, 7]);
+            });
+
+            $filteredArray = $filteredCollection->all();
+
+
+            $coll = collect($filteredArray);
+
+            $containsHrId = $coll->contains(function ($item, $key) {
+                return  $item['vacancy']['hr_id'] === Auth::user()->hr->id;
+            });
+
+            if ($containsHrId) {
+                $busy = null;
+                // ვფილტრავ ვაკანსიებს არჩეულის გარდა სადაც ეს კანდიდატები ავტორიზებულ ჰრ ყავს 'qualifying_type_id', [3, 4, 5, 6] ამ ტიპში დამატებული
+                $findVacancy = $coll->filter(function ($item, $key) use ($vacancyIdToCheck) {
+                    return $item['vacancy']['id'] != $vacancyIdToCheck && $item['vacancy']['hr_id'] === Auth::user()->hr->id;
+                });
+                $findArray = $findVacancy->all();
+                $findCandidate['another_vacancy'] = $findArray;
+                // dd($findArray);
+            }else{
+
+                // Check if any element has an 'id' value equal to 2
+                $containsVacancyId = $coll->contains(function ($item, $key) use ($vacancyIdToCheck) {
+                    return  $item['vacancy_id'] === $vacancyIdToCheck;
+                });
+
+                if ($containsVacancyId) {
+                    $busy = null;
+                }else{
+                    $busy = $filteredArray;
+                }
+
+            }
+
+
+        }
+
         $classificatory = ['qualifyingType' => QualifyingType::all()->toArray(), 'interviewPlace' => InterviewPlace::all()->toArray()];
-        $data = ['findCandidate' => $findCandidate, 'classificatory' => $classificatory];
+        $data = ['findCandidate' => $findCandidate, 'classificatory' => $classificatory, 'busy' => $busy];
         return response()->json($data);
     }
 
@@ -91,7 +145,6 @@ class SelectionPersonalController extends Controller
 
     function updatePersonal(Request $request)  {
         $data = $request->data;
-        // dd($data);
         $result = ['status' => 200];
 
         try {

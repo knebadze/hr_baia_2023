@@ -31,7 +31,10 @@ use App\Http\Controllers\User\UserProfileController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Admin\AdminCandidateController;
 use App\Http\Controllers\Admin\AdminVacancyController;
+use App\Http\Controllers\Admin\PdfController;
+use App\Http\Controllers\Admin\RelevantVacancyController;
 use App\Http\Controllers\Admin\ReminderController;
+use App\Http\Controllers\Admin\VacancyAttachedController;
 use App\Http\Controllers\BusyCandidateController;
 use App\Http\Controllers\Hr\SelectionPersonalController;
 use App\Http\Controllers\Employer\EmployerInfoController;
@@ -121,9 +124,12 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     //________________________admin page without lang________________
     Route::get('admin/candidate_update/{id?}', [AdminCandidateController::class, 'edit'])->name('admin.candidate.update');
     Route::get('admin/add_candidate', [AdminCandidateController::class, 'addCandidate'])->name('admin.add.candidate');
+    Route::get('admin/vacancy_attached/{id?}', [VacancyAttachedController::class, 'index'])->name('admin.vacancy.attached');
+    Route::get('admin/relevant_vacancy/{id?}', [RelevantVacancyController::class, 'index'])->name('admin.relevant.vacancy');
+    Route::get('admin/vacancy', [AdminVacancyController::class, 'index'])->name('admin.vacancy');
 
     // _______________________HR PAGE________________________________
-    Route::get('admin/vacancy', [AdminVacancyController::class, 'index'])->name('admin.vacancy');
+
     Route::get('hr/selection_personal/{id?}', [SelectionPersonalController::class, 'index'])->name('selection.personal');
     Route::get('hr/vacancy_personal/{id?}', [SelectionPersonalController::class, 'vacancyPersonal'])->name('vacancy.personal');
     Route::get('hr/busy_candidate', [BusyCandidateController::class, 'index'])->name('busy.candidate');
@@ -185,6 +191,8 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('add_vacancy', [PostVacancyController::class, 'store']);
     Route::get('admin_vacancy_data', [AdminVacancyController::class, 'getDate']);
 
+    Route::post('admin_relevant_vacancy_data', [RelevantVacancyController::class, 'adminData']);
+
 
     Route::post('update_vacancy', [VacancyActionController::class, 'update']);
     Route::post('update_vacancy_deposit', [VacancyActionController::class, 'updateDeposit']);
@@ -216,6 +224,8 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('/get_vacancy_full_info', [GetVacancyInfoController::class, 'getVacancyFullInfo']);
     Route::post('/get_vacancy_redacted_history_info', [GetVacancyInfoController::class, 'vacancyRedactedHistory']);
     Route::post('/hr_reminder_info', [GetVacancyInfoController::class, 'hrReminderInfo']);
+    Route::post('/find_vacancy', [GetVacancyInfoController::class, 'findVacancy']);
+
 
 
 
@@ -231,3 +241,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('/delete_vacancy_personal', [SelectionPersonalController::class, 'deletePersonal']);
 
     Route::post('/add_vacancy_personal_was_employed', [SelectionPersonalController::class, 'addPersonalWasEmployed']);
+
+    // PDF
+    Route::get('/candidate_pdf', [PdfController::class, 'candidate']);
+

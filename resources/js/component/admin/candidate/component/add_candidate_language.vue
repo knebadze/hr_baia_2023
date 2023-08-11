@@ -32,7 +32,8 @@
                     </button>
                 </div>
             </div>
-            <div v-if="typeof this.m == 'array' && m.length != 0" >
+            <div class="col-lg-12 col-md-12" v-if=" Object.keys(m).length != 0" >
+
                 <div class="panel-body wt-panel-body">
                     <div class="p-a20 table-responsive">
                         <table class="table twm-table table-striped table-borderless">
@@ -51,7 +52,7 @@
                                 <td>{{ item.language[`name_${getLang}`] }}</td>
                                 <td>{{ item.level[`name_${getLang}`] }}</td>
                                 <td>
-                                    <button @click="remove(index, item.id)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
+                                    <button class="btn btn-danger" @click="remove(index, item.id)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
                                         <i class="fa fa-trash-alt"></i>
                                     </button>
                                 </td>
@@ -66,6 +67,7 @@
     </section>
 </template>
 <script>
+import _ from 'lodash'
 export default {
     props:{
         data: Object,
@@ -87,7 +89,7 @@ export default {
         },
     },
     created(){
-        this.m = this.data.model
+        this.m = _.cloneDeep(this.data.model)
 
         this.cla = this.data.cla
         // this.m.user_id = this.data.user_id

@@ -314,7 +314,7 @@
         <div class="mb-2 d-flex justify-content-end">
             <a type="button" class="btn btn-success" :href="addCandidateUrl" title="კანდიდატის დამატება"><i class="fa fa-plus"></i> დაამატე კანდიდატი</a>
         </div>
-        <candidateTable :data="candidate" :key="candidate.length"></candidateTable>
+        <candidate_table :data="candidate" :key="candidate.length"></candidate_table>
         <div class="mt-2">
             <paginate
                 v-model="pagination.current_page"
@@ -340,13 +340,13 @@ import Paginate from 'vuejs-paginate-next';
 // import info_modal from '../modal/info_modal.vue'
 import Slider from '@vueform/slider'
 // import axios from 'axios';
-import candidateTable from '../component/candidate_table.vue';
+import candidate_table from '../component/candidate_table.vue';
 export default {
     components:{
         paginate: Paginate,
         // info_modal,
         Slider,
-        candidateTable
+        candidate_table
     },
     props:{
         data:Object,

@@ -401,6 +401,12 @@ export default {
                         autoClose: 1000,
                     });
                 }
+                if (response.status == 500) {
+                    toast.error("ინფორმაციის შენახვა ვერ მოხერხდა", {
+                        theme: 'colored',
+                        autoClose: 1000,
+                    });
+                }
             })
             .catch(function (error) {
                 // handle error

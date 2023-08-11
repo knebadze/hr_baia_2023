@@ -61,7 +61,7 @@
 
                                 <div class="row col-12 border-top" v-if="item.vacancy_duty.length > 0">
                                     <dt class="col-sm-4">მოვალეობები:</dt>
-                                    <dd class="col-sm-8"><span v-for="(i, index) in item.vacancy_duty" :key="index" class="badge badge-primary">{{ i.name_ka+', ' }}</span> </dd>
+                                    <dd class="col-sm-8"><span v-for="(i, index) in item.vacancy_duty" :key="index" >{{ i.name_ka+', ' }}</span> </dd>
                                 </div>
                                 <div class="row col-12 border-top" v-if="item.demand && item.demand.additional_name_ka">
                                     <dt class="col-sm-4">დამატებითი მოვალეობები:</dt>

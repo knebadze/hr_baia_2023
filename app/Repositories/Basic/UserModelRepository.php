@@ -47,8 +47,8 @@ class UserModelRepository
             $candidate['characteristic'] = '';
             $candidate['driving_license'] = '';
             $candidate['get_language'] = array();
-            $candidate['get_language']['language'] = '';
-            $candidate['get_language']['level'] = '';
+            // $candidate['get_language']['language'] = '';
+            // $candidate['get_language']['level'] = '';
         }
 
         if (Auth::user()->role_id != 3) {

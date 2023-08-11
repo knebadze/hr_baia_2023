@@ -92,7 +92,7 @@
                             <td>{{ item[`position_${getLang}`] }}</td>
                             <td>{{ item[`object_${getLang}`] }}</td>
                             <td>
-                                <button @click="remove(index, item.id)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
+                                <button class="btn btn-danger" @click="remove(index, item.id)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
                                     <i class="fa fa-trash-alt"></i>
                                 </button>
                             </td>

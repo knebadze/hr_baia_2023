@@ -99,6 +99,46 @@
         </div>
 
     </div>
+    <!-- table -->
+    <div class="panel panel-default" v-if="items.length != 0" >
+        <div class="panel-heading wt-panel-heading p-a20">
+            <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_category_end_schedule_table') }}</h4>
+        </div>
+        <div class="panel-body wt-panel-body p-a20 m-b30 ">
+            <div class="p-a20 table-responsive">
+                <table class="table twm-table table-striped table-borderless">
+                <thead>
+                    <tr>
+                    <th>N</th>
+                    <th>{{ $t('lang.user_profile_page_category_title') }}</th>
+                    <th>{{ $t('lang.user_profile_page_work_schedule_title') }}</th>
+                    <th>{{ $t('lang.user_profile_page_work_salary_title') }}</th>
+                    <th>{{ $t('lang.user_profile_page_work_currency_title') }}</th>
+                    <th>{{ $t('lang.user_profile_page_work_actions_title') }}</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr v-for="(item, index) in items" :key="index">
+                    <td>{{ index + 1 }}</td>
+                    <td><span style="margin-bottom: 5px; margin-right: 5px;" class="badge rounded-pill bg-success p-2">{{ item.category[`name_${getLang}`] }}</span></td>
+                    <td><span style="margin-bottom: 5px; margin-right: 5px;" v-for="i in item.work_schedule" class="badge rounded-pill bg-primary p-2">{{ i[`name_${getLang}`] }}</span></td>
+                    <td>{{ item.payment }}</td>
+                    <td>{{ item.currency[`name_${getLang}`] }}</td>
+                    <td>
+                        <!-- <button type="button" :title="$t('lang.user_profile_page_category_end_schedule_table_action_tooltips_view')" data-bs-toggle="tooltip" data-bs-placement="top" @click="editWorkInformation(item)">
+                            <i class="fa fa-eye"></i>
+                        </button> -->
+                        <button class="btn btn-danger" :title="$t('lang.user_profile_page_category_end_schedule_table_action_tooltips_del')" data-bs-toggle="tooltip" data-bs-placement="top" @click="remove(index, item.id)">
+                            <i class="fa fa-trash-alt"></i>
+                        </button>
+                    </td>
+                    </tr>
+                </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </template>
 <script>
 import { useVuelidate } from '@vuelidate/core'

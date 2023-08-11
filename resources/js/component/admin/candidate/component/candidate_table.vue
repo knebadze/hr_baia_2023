@@ -19,7 +19,11 @@
             </button>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item"  :href="updateUrl+'/'+item.id">რედაქტირება</a>
-                <a class="dropdown-item" href="#" @click="UpdateModal(item)">ვაკანსიაში დამატება</a>
+                <a class="dropdown-item" href="#" @click="addInVacancy(item)">ვაკანსიაში დამატება</a>
+                <a class="dropdown-item" :href="attachedUrl+'/'+item.id">მიბმული ვაკანსიები</a>
+                <a class="dropdown-item" :href="relevantUrl+'/'+item.id">შესაბამისი ვაკანსიები</a>
+                <a class="dropdown-item" :href="`/candidate_pdf?data=${item}`">ჩამოტვირთვა</a>
+                <a class="dropdown-item" href="#" @click="UpdateModal(item)">სმს</a>
                 <a class="dropdown-item" href="#" @click="UpdateModal(item)">შავ სიაში დამატება</a>
                 <a class="dropdown-item" href="#" @click="UpdateModal(item)">წაშლა</a>
             </div>
@@ -198,6 +202,7 @@
     </EasyDataTable>
     <!-- {{ statusChangeModal }} -->
     <infoModal :visible="showInfoModal" :type="modalType" :items="item"></infoModal>
+    <add_in_vacancy :visible="showAddInVacancyModal" :item="item"></add_in_vacancy>
 </div>
 </template>
 <script>
@@ -208,11 +213,13 @@ import "@vueform/slider/themes/default.css";
 // import Switch from '../../inc/Switch.vue';
 import _ from 'lodash'
 import infoModal from '../modal/info_modal.vue'
+import add_in_vacancy from "../modal/add_in_vacancy.vue";
 
 export default {
     components: {
         Slider,
         infoModal,
+        add_in_vacancy
     },
     props:{
         data: Object
@@ -222,9 +229,11 @@ export default {
         let url = new URL( location.href)
         const itemsSelected = ref([]);
         let updateUrl = ref(url.origin+'/admin/candidate_update')
-        var vacancyPersonalUrl = ref(url.origin+'/hr/vacancy_personal')
+        let attachedUrl = ref(url.origin+'/admin/vacancy_attached')
+        let relevantUrl = ref(url.origin+'/admin/relevant_vacancy')
 
         var showInfoModal = ref(false)
+        var showAddInVacancyModal = ref(false)
         var updateModal = ref(false)
         var item = ref()
         let modalType = ref('')
@@ -341,11 +350,13 @@ export default {
             filterOptions,
 
             showInfoModal,
+            showAddInVacancyModal,
             updateModal,
             item,
             modalType,
             updateUrl,
-            vacancyPersonalUrl,
+            attachedUrl,
+            relevantUrl,
 
             cla,
             find
@@ -359,6 +370,25 @@ export default {
             this.item = item
             this.showInfoModal = !this.showInfoModal
         },
+        addInVacancy(item){
+            this.showAddInVacancyModal = !this.showAddInVacancyModal
+            this.item = {'id':item.id}
+        },
+        // pdf(item){
+        //     axios.post('/candidate_pdf' ,{
+        //         data: item,
+        //     })
+        //     .then(function (response) {
+        //         // handle success
+        //         console.log(response.data);
+        //         currentObj.items = response.data
+
+        //     })
+        //     .catch(function (error) {
+        //         // handle error
+        //         console.log(error);
+        //     })
+        // }
 
     }
 }

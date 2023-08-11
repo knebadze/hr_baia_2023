@@ -47,6 +47,8 @@ import candidateUpdate from './component/admin/candidate/page/candidate_update_p
 import addCandidate from './component/admin/candidate/page/add_candidate.vue'
 import reminderPage from './component/admin/reminder/page/reminder_page.vue'
 import vacancyPage from './component/admin/vacancy/page/vacancy_page.vue'
+import vacancyAttached from './component/admin/candidate/page/vacancy_attached.vue'
+import relevantVacancy from './component/admin/candidate/page/relevant_vacancy.vue'
 
 
 
@@ -115,6 +117,8 @@ app.component('candidate-update', candidateUpdate)
 app.component('add-candidate', addCandidate)
 app.component('reminder-page', reminderPage)
 app.component('vacancy-page', vacancyPage)
+app.component('vacancy-attached', vacancyAttached)
+app.component('relevant-vacancy', relevantVacancy)
 
 // __________________PAGE_____________
 app.component('busy-candidate', busyCandidate)

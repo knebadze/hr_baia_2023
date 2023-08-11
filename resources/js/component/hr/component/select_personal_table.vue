@@ -18,7 +18,7 @@
     <template #item-operation="item">
        <div class="operation-wrapper d-flex" >
         <div>
-            <span class="badge badge-pill bg-indigo  p-2 mr-1" :class="badgeClass" title="კანდიდატი უკვე დამატებულია ვაკანსიაზე"> <i class="fa fa-check"></i></span>
+            <span v-if="item.badgeClass" class="badge badge-pill bg-indigo  p-2 mr-1" title="კანდიდატი უკვე დამატებულია ვაკანსიაზე"> <i class="fa fa-check"></i></span>
         </div>
 
         <div v-if="!itemsSelectedButton">
@@ -282,7 +282,7 @@
         </template> -->
     </EasyDataTable>
 
-     <addPersonalVacancy  :visible="showAddPersonalModal" :item="modalItem"></addPersonalVacancy>
+     <addPersonalVacancy  :visible="showAddPersonalModal" :item="modalItem" :onMessageFromChildren="handleMessageFromChildren"></addPersonalVacancy>
 </template>
 <script>
 import { ref, computed } from "vue";
@@ -309,7 +309,7 @@ export default {
         const itemsSelected = ref([]);
         let itemsSelectedButton = ref(false)
         let showAddPersonalModal = ref(false)
-        let badgeClass = ref('')
+        let badgeClass = ref(false)
         // let statusChangeModal = ref(false)
         let modalItem = ref()
 
@@ -337,9 +337,11 @@ export default {
         }
 
         const bodyRowClassNameFunction = ( item, number) => {
-            let find = _.find(item.qualifying_candidate, function(o) { return o.vacancy_id == props.data.vacancy.vacancy_id  })
+
+            let find = _.some(item.qualifying_candidate, function(o) { return o.vacancy_id == props.data.vacancy.vacancy_id  })
             if (find) {
-                badgeClass = 'bg-indigo'
+                badgeClass.value = true
+                item.badgeClass = badgeClass
                 return 'my-vacancy-row'
             }else if (!find && _.find(item.qualifying_candidate, function(o) { return o.qualifying_type_id == 6 && (o.vacancy.status == 3 || o.vacancy.status == 4)})) {
                 return 'was-employed'
@@ -351,7 +353,11 @@ export default {
                 return 'interviewer'
             }
         };
-        console.log(badgeClass.value);
+
+        function handleMessageFromChildren(id, message) {
+            badgeClass.value = message
+            items.value[_.findIndex(items.value, function(o) { return o.id == id })].badgeClass = badgeClass.value
+        }
         // console.log('itemsSelected.value.length',itemsSelected.value.length);
         // if (itemsSelected.value.length > 0) {
         //     console.log('itemsSelected.value.length',itemsSelected.value.length);
@@ -438,7 +444,8 @@ export default {
             showAddPersonalModal,
             modalItem,
             badgeClass,
-            bodyRowClassNameFunction
+            bodyRowClassNameFunction,
+            handleMessageFromChildren
         };
     },
     methods:{
@@ -447,6 +454,10 @@ export default {
             this.modalItem = (this.vacancy)?this.vacancy:this.data.vacancy
             this.modalItem['candidate_id'] = (this.itemsSelected.length > 0)?this.itemsSelected.map(({ id }) => id):item.id
         },
+        // handleMessageFromChildren(id, message) {
+        //     this.badgeClass = message
+        //     _.find(item.qualifying_candidate, function(o) { return o.qualifying_type_id == 5 && o.vacancy.status == 2})
+        // },
     },
     watch:{
         itemsSelected: {

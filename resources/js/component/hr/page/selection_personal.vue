@@ -334,17 +334,17 @@
         </div>
     </div>
     <!-- /.container-fluid -->
-    <candidateTable v-if="candidate.length > 0" :data="modalData"></candidateTable>
+    <select_personal_table v-if="candidate.length > 0" :data="modalData"></select_personal_table>
   </section>
 </template>
 <script>
 import Slider from '@vueform/slider'
-import candidateTable from '../component/candidateTable.vue'
+import select_personal_table from '../component/select_personal_table.vue'
 
 export default {
     components: {
       Slider,
-      candidateTable
+      select_personal_table
     },
     props:{
         data: Object
@@ -380,6 +380,7 @@ export default {
         this.m.stay_night = (this.data.vacancy.stay_night == 1 )?true:''
         this.vacancy = {
             'vacancy_id': this.data.vacancy.id,
+            'vacancy_code': this.data.vacancy.code,
             'interview_place': this.data.vacancy.interview_place,
             'interview_date': this.data.vacancy.interview_date
         }
