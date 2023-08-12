@@ -94,24 +94,25 @@ class CandidateRepository
                 'work_abroad' =>  ($data['work_abroad'] == null)?0:$data['work_abroad'],
                 'latitude' => $data['latitude'],
                 'longitude' => $data['longitude'],
+                'status_id' => 8
             ]
         );
 
         $this->addCollect($candidate, $data);
-        $this->userStatusUpdate($data['user_id']);
+        // $this->userStatusUpdate($data['user_id']);
 
         return $candidate->id;
     }
-    public function userStatusUpdate($user_id)
-    {
-        $user = User::find($user_id);
-        if ($user->status == 0) {
-            $user->update([
-                'status' => 1,
-                'updated_at' => now()
-            ]);
-        }
-    }
+    // public function userStatusUpdate($user_id)
+    // {
+    //     $user = User::find($user_id);
+    //     if ($user->status == 0) {
+    //         $user->update([
+    //             'status' => 1,
+    //             'updated_at' => now()
+    //         ]);
+    //     }
+    // }
 
     function update($data){
         $lang = (array_key_exists('lang', $data))?$data['lang']:'ka';

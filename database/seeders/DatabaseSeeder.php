@@ -40,6 +40,8 @@ class DatabaseSeeder extends Seeder
         $this->call(WhoNeedSeeder::class);
         $this->call(BenefitSeeder::class);
         $this->call(TermSeeder::class);
+        $this->call(StatusTypeSeeder::class);
+        $this->call(StatusSeeder::class);
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([

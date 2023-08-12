@@ -39,7 +39,7 @@ class GetVacancyInfoController extends Controller
     public function statusChangeInfo(Request $request) {
 
         $history = VacancyRedactedHistory::where('vacancy_id', $request->data)->where('column_name', 'status')->get();
-        $data = ['history' => $history, 'status' => Status::all()->toArray()];
+        $data = ['history' => $history, 'status' => Status::where('status_type_id', 1)->get()->toArray()];
         return response()->json($data);
     }
 

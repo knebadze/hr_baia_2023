@@ -152,6 +152,10 @@ class Candidate extends Model
     {
         return $this->hasMany(Additional_number::class, 'candidate_id', 'id');
     }
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
+    }
     // public function vacancyInterest()
     // {
     //     return $this->hasMany(VacancyInterest::class, 'user_id', 'user_id');

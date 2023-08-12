@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('statuses', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('status_type_id')->constrained();
             $table->string('name_ka', 75);
             $table->string('name_en', 75);
             $table->string('name_ru', 75);

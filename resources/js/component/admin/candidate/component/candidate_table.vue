@@ -11,6 +11,10 @@
     <template #item-category="item">
         <span class="text-primary" v-for="(i, index) in item.get_work_information" :key="index" ><u style="cursor: pointer;" @click="openInfoModal('category', item.get_work_information[index])">{{ i.category.name_ka+', ' }}</u></span>
     </template>
+    <template #item-status="item">
+
+        <span :class="(item.status.id == 8)?'badge badge-warning':(item.status.id == 9)?'badge badge-primary':(item.status.id == 10)?'badge badge-success':''(item.status.id == 11)?'badge badge-danger':''" >{{ item.status.name_ka }}</span>
+    </template>
     <template #item-operation="item">
        <div class="operation-wrapper">
         <div class="dropdown">
@@ -248,7 +252,7 @@ export default {
             { text: "ნომერი", value: "user.number"},
             { text: "ასაკი", value: "age", sortable: true},
             { text: "კატეგორია", value: "category" },
-            { text: "სტატუსი", value: ""},
+            { text: "სტატუსი", value: "status"},
             { text: "დამატების თარიღი", value: "created_at", sortable: true},
             { text: "Operation", value: "operation" },
         ]);
@@ -266,6 +270,7 @@ export default {
                 let map = element.get_work_information.map(item => item.category.name_ka)
                 element.category = map.toString()
                 element.age = age(element.user.date_of_birth)
+
                 arr.push(element)
             });
             return arr

@@ -85,9 +85,9 @@ class RecommendationRepository
         }
 
         $recommendation->save();
-        if (Auth::user()->role_id == 3) {
-            $this->userStatusUpdate(Auth::id());
-        }
+        // if (Auth::user()->role_id == 3) {
+        //     $this->userStatusUpdate(Auth::id());
+        // }
         return CandidateRecommendation::where('id', $recommendation->id)->with(['recommendationWhom', 'numberCode', 'noReason', 'hasRecommendation'])->first();
     }
 
@@ -135,15 +135,15 @@ class RecommendationRepository
 
     }
 
-    public function userStatusUpdate($user_id)
-    {
-        $user = User::find($user_id);
-        if ($user->status == 1) {
-            $user->update([
-                'status' => 2,
-                'updated_at' => now()
-            ]);
-        }
-    }
+    // public function userStatusUpdate($user_id)
+    // {
+    //     $user = User::find($user_id);
+    //     if ($user->status == 1) {
+    //         $user->update([
+    //             'status' => 2,
+    //             'updated_at' => now()
+    //         ]);
+    //     }
+    // }
 
 }

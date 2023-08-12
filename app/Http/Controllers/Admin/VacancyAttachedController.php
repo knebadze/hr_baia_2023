@@ -18,7 +18,7 @@ class VacancyAttachedController extends Controller
         ])->paginate(25);
         $classificatory = [
             'category' => Category::all()->toArray(),
-            'status' => Status::all()->toArray(),
+            'status' => Status::where('status_type_id', 1)->get()->toArray(),
             'qualifyingType' => QualifyingType::all()->toArray(),
         ];
         return view('admin.vacancy_attached', compact('data', 'classificatory'));

@@ -4,6 +4,7 @@ namespace App\Repositories\Candidate;
 
 use App\Models\Candidate;
 use App\Models\WorkInformation;
+use Illuminate\Support\Facades\Auth;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class WorkInformationRepository
@@ -56,12 +57,27 @@ class WorkInformationRepository
         }, []);
         $workInformation->workSchedule()->sync( $selectSchedule );
 
+        if (Auth::user()->role_id == 3) {
+            $this->candidateStatusUpdate($data['candidate_id']);
+        }
+
         return WorkInformation::where('id', $workInformation->id)->with(['category', 'workSchedule', 'currency'])->first();
     }
 
     function delete($id)  {
         WorkInformation::findOrFail($id)->delete();
         return [];
+    }
+
+    public function candidateStatusUpdate($id)
+    {
+        $candidate = Candidate::find($id);
+        if ($candidate->status_id == 1) {
+            $candidate->update([
+                'status_id' => 9,
+                'updated_at' => now()
+            ]);
+        }
     }
 }
 

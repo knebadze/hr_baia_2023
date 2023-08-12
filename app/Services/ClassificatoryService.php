@@ -73,7 +73,8 @@ class ClassificatoryService
             'benefit' => Benefit::all()->toArray(),
             'forWhoNeed' => ForWhoNeed::all()->toArray(),
             'duty' => Duty::all()->toArray(),
-            'status' => Status::all()->toArray(),
+            'status' => Status::where('status_type_id', 1)->get()->toArray(),
+            'candidateStatus' => Status::where('status_type_id', 2)->get()->toArray(),
             'hr' => User::where('role_id', 2)->with('hr')->get()->toArray(),
         ];
         $result = array_intersect_key($classificatory, array_flip($arr));
