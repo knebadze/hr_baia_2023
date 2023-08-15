@@ -13,7 +13,7 @@
     </template>
     <template #item-status="item">
 
-        <span :class="(item.status.id == 8)?'badge badge-warning':(item.status.id == 9)?'badge badge-primary':(item.status.id == 10)?'badge badge-success':''(item.status.id == 11)?'badge badge-danger':''" >{{ item.status.name_ka }}</span>
+        <span :class="(item.status.id == 8)?'badge badge-warning':(item.status.id == 9)?'badge badge-primary':(item.status.id == 10)?'badge badge-success':(item.status.id == 11)?'badge badge-info':(item.status.id == 12)?'badge badge-secondary':''" >{{ item.status.name_ka }}</span>
     </template>
     <template #item-operation="item">
        <div class="operation-wrapper">
@@ -23,7 +23,8 @@
             </button>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item"  :href="updateUrl+'/'+item.id">რედაქტირება</a>
-                <a class="dropdown-item" href="#" @click="addInVacancy(item)">ვაკანსიაში დამატება</a>
+                <a v-if="item.status_id == 10 || item.status_id == 11" class="dropdown-item" href="#" @click="freedom(item.id)">თავისუალი სტატუსი</a>
+                <a v-if="item.status_id != 10" class="dropdown-item" href="#" @click="addInVacancy(item)">ვაკანსიაში დამატება</a>
                 <a class="dropdown-item" :href="attachedUrl+'/'+item.id">მიბმული ვაკანსიები</a>
                 <a class="dropdown-item" :href="relevantUrl+'/'+item.id">შესაბამისი ვაკანსიები</a>
                 <a class="dropdown-item" :href="`/candidate_pdf?data=${item}`">ჩამოტვირთვა</a>
@@ -379,6 +380,43 @@ export default {
             this.showAddInVacancyModal = !this.showAddInVacancyModal
             this.item = {'id':item.id}
         },
+        freedom(id){
+            this.$swal({
+                title: 'ნამდვილად სტატუსის შეცვლა?',
+                html:'ცვლილება ავტომატურად წაშლის კანდიდატს დასაქმებულის პოზიციიდან',
+                //   showDenyButton: true,
+                cancelButtonText:'არა',
+                confirmButtonText: 'კი',
+                showCancelButton: true,
+            }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            // return
+                if (result.isConfirmed) {
+                    axios({
+                        method: "post",
+                        url: "/candidate_status_update",
+                        data:{'id':id},
+
+                    })
+                    .then(function (response) {
+                        // console.log(response.data);
+                        if (response.data.status == 200) {
+                            toast.success("წარმატებით წაიშალა", {
+                                theme: 'colored',
+                                autoClose: 1000,
+                            });
+                        }
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+
+                } else if (result.isDenied) {
+                    return
+                }
+            });
+        }
         // pdf(item){
         //     axios.post('/candidate_pdf' ,{
         //         data: item,

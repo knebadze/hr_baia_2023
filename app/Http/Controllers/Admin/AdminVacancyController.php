@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
 use App\Models\Vacancy;
 use Illuminate\Http\Request;
+use App\Models\QualifyingCandidate;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Services\ClassificatoryService;
@@ -17,27 +19,25 @@ class AdminVacancyController extends Controller
     }
     public function index()
     {
+        
+        $vacancy = Vacancy::orderBy('carry_in_head_date', 'DESC')->with([
+            'vacancyDuty', 'vacancyBenefit', 'vacancyForWhoNeed', 'characteristic', 'employer', 'currency','category', 'status',
+            'workSchedule', 'vacancyInterest', 'interviewPlace','term', 'demand', 'demand.language', 'demand.education', 'demand.languageLevel','demand.specialty',
+            'employer.numberCode','deposit','hr.user', 'vacancyDrivingLicense'
+            ])->paginate(25);
 
         $classificatoryArr = ['currency', 'workSchedule', 'educations', 'characteristic', 'educations','specialties','drivingLicense',
         'category', 'forWhoNeed', 'term', 'benefit','specialties', 'languages', 'languageLevels', 'duty', 'interviewPlace', 'status', 'hr'];
         $classificatory = $this->classificatoryService->get($classificatoryArr);
         $role_id = Auth::user()->role_id;
         if (Auth::user()->role_id == 1) {
-            $data = ['classificatory' => $classificatory, 'roleId' => $role_id];
+            $data = ['classificatory' => $classificatory, 'roleId' => $role_id, 'vacancy' => $vacancy];
         }else{
             $hr_id = Auth::user()->hr->id;
-            $data = ['classificatory' => $classificatory, 'roleId' => $role_id, 'hrId' => $hr_id];
+            $data = ['classificatory' => $classificatory, 'roleId' => $role_id, 'hrId' => $hr_id, 'vacancy' => $vacancy];
         }
 
         return view('admin.vacancy', compact('data'));
     }
 
-    function getDate(){
-        $vacancy = Vacancy::orderBy('carry_in_head_date', 'DESC')->with([
-            'vacancyDuty', 'vacancyBenefit', 'vacancyForWhoNeed', 'characteristic', 'employer', 'currency','category', 'status',
-            'workSchedule', 'vacancyInterest', 'interviewPlace','term', 'demand', 'demand.language', 'demand.education', 'demand.languageLevel','demand.specialty',
-            'employer.numberCode','deposit','hr.user', 'vacancyDrivingLicense'
-            ])->paginate(25);
-        return response()->json($vacancy);
-    }
 }

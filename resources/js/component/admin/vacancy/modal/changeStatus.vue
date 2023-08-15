@@ -12,7 +12,7 @@
                     <div class="form-group">
                         <label>{{ $t('სტატუსი') }}</label>
                         <div class="ls-inputicon-box">
-                            <multiselect v-model="m.status" :options="data.status" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" :placeholder="$t('lang.employer_add_job_select')"  :searchable="true" :allow-empty="false">
+                            <multiselect v-model="m.status" :options="cla" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" :placeholder="$t('lang.employer_add_job_select')"  :searchable="true" :allow-empty="false">
                                 <template slot="singleLabel" slot-scope="{ option }"></template>
                             </multiselect>
                         </div>
@@ -87,6 +87,7 @@
                 showConfirm: false,
                 data: {},
                 m: null,
+                cla:null,
                 reminder:{},
                 showModal: false,
                 modalItem: null,
@@ -109,7 +110,8 @@
                     this.data = result.data
 
                     this.m = this.makeModel(this.item)
-                    console.log(this.m);
+                    this.cla = this.makeCla(this.item.status.id)
+                    console.log('this.item', this.item);
                     this.showConfirm = true
                 } catch (error) {
                     console.log(error);
@@ -119,6 +121,7 @@
             hide(){
                 this.showConfirm = false
             },
+
             makeModel(item){
                 var newItem = {}
                 newItem.id = item.id
@@ -126,6 +129,20 @@
                 newItem.status_change_reason = item.status_change_reason
 
                 return {...newItem}
+            },
+            makeCla(id){
+                let status = []
+                if (id !== 3) {
+                    status = this.data.status.filter(item => item.id !== 4);
+                }
+                if (this.data.role_id == 2) {
+                    if(id == 3 ){
+                        status = this.data.status.filter(item => item.id == 4);
+                    }
+                }
+
+
+                return status
             },
             save(){
                 // console.log('this.m', this.m);

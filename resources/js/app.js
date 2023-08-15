@@ -29,7 +29,7 @@ import jobList from './component/employer/job_list.vue'
 import myVacancy from './component/employer/my_vacancy.vue'
 
 // HR
-import hrVacancy from './component/hr/page/hr_vacancy.vue'
+
 import selectionPersonal from './component/hr/page/selection_personal.vue'
 import vacancyPersonal from './component/hr/page/vacancy_personal.vue'
 import reminderManager from "./component/hr/component/reminderManager.vue";
@@ -99,7 +99,7 @@ app.component('job-list', jobList)
 app.component('my-vacancy', myVacancy)
 
 // HR
-app.component('hr-vacancy', hrVacancy)
+
 app.component('selection-personal', selectionPersonal)
 app.component('vacancy-personal', vacancyPersonal)
 app.component('reminder-manager', reminderManager)

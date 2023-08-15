@@ -9,12 +9,17 @@ use App\Models\CandidateNotice;
 use App\Models\userRegisterLog;
 use App\Models\WorkInformation;
 use App\Models\Additional_number;
+use App\Models\Candidate;
 use App\Models\CandidateLanguage;
 use App\Services\CandidateService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\CandidateRecommendation;
 use App\Models\General_work_experience;
+use App\Models\QualifyingCandidate;
+use App\Models\QualifyingType;
+use App\Models\WorkDay;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 
@@ -191,6 +196,18 @@ class CandidateInfoController extends Controller
         }
 
         return response()->json($result, $result['status']);
+    }
+    function StatusUpdate(Request $request)  {
+        dd($request->id);
+        Candidate::where('id', $request->id)->update(['status_id', 9]);
+        if (QualifyingCandidate::where('candidate_id', $request->id)->whereDate('end_date', '>', Carbon::today()->where('qualifying_type_id', 7))->exists()) {
+            $qualifying = QualifyingCandidate::where('candidate_id', $request->id)->whereDate('end_date', '>', Carbon::today()->where('qualifying_type_id', 7))->get();
+            $ids = collect($qualifying)->pluck('id')->toArray();
+            WorkDay::whereIn('qualifying_candidate_id', $ids)->delete();
+        }
+        $currentDate = Carbon::now();
+        QualifyingCandidate::where('candidate_id', $request->id)->whereDate('end_date', '>', Carbon::today())->update(['end_date', $currentDate->copy()->subDay()->toDateString()]);
+        return response()->json();
     }
     // public function removeOldWorkExperience(Request $request)
     // {

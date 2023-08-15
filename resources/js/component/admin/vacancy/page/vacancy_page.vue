@@ -369,6 +369,7 @@ export default {
         }
     },
     created() {
+        console.log('this.data', this.data);
         this.cla = this.data.classificatory
         this.roleId = this.data.roleId
         this.hrId = (this.data.hasOwnProperty('hrId'))?this.data.hrId:null
@@ -384,21 +385,12 @@ export default {
 
         },
         firstData(){
-            let currentObj = this
-            axios.get('/admin_vacancy_data?page=' + this.pagination.current_page )
-            .then((response)=> {
-                // console.log('response.data',response.data.data);
-                this.pagination = {
-                    'current_page':response.data.current_page,
-                    'last_page': response.data.last_page
-                }
-                this.items = response.data.data
-                // console.log('this.items', this.items);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
 
+            this.pagination = {
+                    'current_page':this.data.vacancy.current_page,
+                    'last_page': this.data.vacancy.last_page
+                }
+            this.items = this.data.vacancy.data
         },
         filterMeth(type,m){
             this.getDataType = type

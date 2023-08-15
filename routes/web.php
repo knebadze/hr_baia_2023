@@ -149,6 +149,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('update_candidate_recommendation', [CandidateInfoController::class, 'updateCandidateRecommendation']);
     Route::post('delete_candidate_recommendation', [CandidateInfoController::class, 'deleteCandidateRecommendation']);
     Route::post('add_candidate_file', [CandidateInfoController::class, 'addCandidateFile']);
+    Route::post('candidate_status_update', [CandidateInfoController::class, 'StatusUpdate']);
     // Route::post('remove_old_general_work_experience', [CandidateInfoController::class, 'removeOldWorkExperience']);
 
     Route::post('add_work_information', [WorkInformationController::class, 'store']);
@@ -189,7 +190,6 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     // ________________VACANCY REQUEST__________________________________
 
     Route::post('add_vacancy', [PostVacancyController::class, 'store']);
-    Route::get('admin_vacancy_data', [AdminVacancyController::class, 'getDate']);
 
     Route::post('admin_relevant_vacancy_data', [RelevantVacancyController::class, 'adminData']);
 

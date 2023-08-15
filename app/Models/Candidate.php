@@ -40,6 +40,7 @@ class Candidate extends Model
         'fb_link',
         'youtube_link',
         'map_link',
+        'status_id',
     ];
     protected $attributes = [
         'convection' => 0,

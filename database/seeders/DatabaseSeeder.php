@@ -42,6 +42,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TermSeeder::class);
         $this->call(StatusTypeSeeder::class);
         $this->call(StatusSeeder::class);
+        $this->call(QualifingTypeSeeder::class);
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([

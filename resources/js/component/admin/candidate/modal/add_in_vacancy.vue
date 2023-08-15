@@ -11,7 +11,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label> ჩაწერეთ ვაკანსიის ID </label>
-                            <input class="form-control" v-model="searchId" type="text" placeholder="ID:" @input="searchEvent(searchId)" :maxlength="8" onkeypress="return /[0-9]/i.test(event.key)">
+                            <input class="form-control" v-model="searchId" type="text" placeholder="ID:" @input="searchEvent(searchId)"  onkeypress="return /[0-9]/i.test(event.key)">
                         </div>
                     </div>
                     <div v-if="items.length > 0">

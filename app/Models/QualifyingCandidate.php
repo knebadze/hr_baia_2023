@@ -32,4 +32,9 @@ class QualifyingCandidate extends Model
     {
         return $this->belongsTo(Vacancy::class);
     }
+
+    public function workDay()
+    {
+        return $this->belongsTo(WorkDay::class, 'id', 'qualifying_candidate_id');
+    }
 }

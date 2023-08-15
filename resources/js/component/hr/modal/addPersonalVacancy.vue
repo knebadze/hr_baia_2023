@@ -43,7 +43,7 @@
                     <div class="form-group">
                         <label>შესარჩევი კატეგორია</label>
                         <div class="ls-inputicon-box">
-                            <multiselect v-model="m.type" :options="cla.qualifyingType" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="აირჩიე ტიპი"  :searchable="true" :allow-empty="false">
+                            <multiselect v-model="m.type" :options="qualifyingType" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="აირჩიე ტიპი"  :searchable="true" :allow-empty="false">
                                 <template slot="singleLabel" slot-scope="{ option }"></template>
                             </multiselect>
                         </div>
@@ -106,7 +106,8 @@
                 info: {},
                 busy: null,
                 modalShow:false,
-                vacancy_id:null
+                vacancy_id:null,
+                qualifyingType: []
             }
         },
         created(){
@@ -126,6 +127,7 @@
                     let result = await this.getClassificatory();
                     console.log('result', result.data);
                     this.cla = result.data.classificatory
+                    this.qualifyingType = this.cla.qualifyingType.filter(item => item.id !== 6 && item.id !== 7);
                     this.info  = result.data.findCandidate
                     this.busy = (result.data.busy != null)?{...result.data.busy}:null
                     this.m = {...this.item}
@@ -146,6 +148,7 @@
                 })
 
             },
+
             save(){
 
                 console.log('this.m', this.m);

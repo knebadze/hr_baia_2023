@@ -77,6 +77,7 @@
                     <th>სტატუსი</th>
                     <th>ტიპი</th>
                     <th>დამატების თარიღი</th>
+                    <th v-if="items[0].qualifying_type_id == 7">შეწყვეტა</th>
                     </tr>
                 </thead>
 
@@ -88,6 +89,11 @@
                     <td>{{ item.vacancy.status.name_ka }}</td>
                     <td>{{ item.qualifying_type.name }}</td>
                     <td>{{ item.created_at }}</td>
+                    <td v-if="item.qualifying_type_id == 7">
+                        <button class="btn btn-danger" @click="endWork(item.id)" title="მუშაობის დასრულება" >
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </td>
                     <!-- <td>
                         <button class="btn btn-info" @click="showModal(item)" title="დამატება" >
                             <i class="fa fa-plus"></i>
@@ -173,6 +179,43 @@ export default {
         openModal(id){
             this.modalShow = !this.modalShow
             this.vacancy_id = id
+        },
+        endWork(id){
+            this.$swal({
+                title: 'ნამდვილად გსურთ სამუშაოს დასრულება?',
+                html:'ცვლილება ავტომატურად მოხსნის კანდიდატს ვაკანის დასაქმებული სტატუსიდან',
+                //   showDenyButton: true,
+                cancelButtonText:'არა',
+                confirmButtonText: 'კი',
+                showCancelButton: true,
+            }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            // return
+                if (result.isConfirmed) {
+                    axios({
+                        method: "post",
+                        url: "/candidate_status_update",
+                        data:{'id':id},
+
+                    })
+                    .then(function (response) {
+                        // console.log(response.data);
+                        if (response.data.status == 200) {
+                            toast.success("წარმატებით წაიშალა", {
+                                theme: 'colored',
+                                autoClose: 1000,
+                            });
+                        }
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+
+                } else if (result.isDenied) {
+                    return
+                }
+            });
         }
 
         // filterMeth(type,m){

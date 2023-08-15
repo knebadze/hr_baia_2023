@@ -169,6 +169,8 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label><span class="text-danger">* </span>{{ $t('lang.employer_add_job_jobs_day') }}</label>
+                                    <p><small v-if="m.vacancy.work_schedule_id" class='text-danger'>* სავალდებულოო სამუშაო დღეების მითითება!!! </small></p>
+
                                     <div class="ls-inputicon-box">
                                         <textarea class="form-control" v-model="m.vacancy[`additional_schedule_${getLang}`]" type="text" placeholder="" rows="3"></textarea>
                                         <!-- <span v-if="v$.m.candidate.personal_number.required.$invalid && v$.m.candidate.personal_number.$dirty" style='color:red'>* {{ v$.m.candidate.personal_number.required.$message}}</span> -->
@@ -471,7 +473,47 @@ export default {
                         ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
                         en:'',
                         ru:'',
-                    }
+                    },
+                    '2':{
+                        ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
+                        en:'',
+                        ru:'',
+                    },
+                    '3':{
+                        ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
+                        en:'',
+                        ru:'',
+                    },
+                    '4':{
+                        ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
+                        en:'',
+                        ru:'',
+                    },
+                    '5':{
+                        ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
+                        en:'',
+                        ru:'',
+                    },
+                    '6':{
+                        ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
+                        en:'',
+                        ru:'',
+                    },
+                    '7':{
+                        ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
+                        en:'',
+                        ru:'',
+                    },
+                    '8':{
+                        ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
+                        en:'',
+                        ru:'',
+                    },
+                    '9':{
+                        ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
+                        en:'',
+                        ru:'',
+                    },
 
                 }
             },
@@ -558,7 +600,7 @@ export default {
     created(){
         this.createModel()
         this.cla = { ...this.data.classificatory}
-        console.log('this.cla', this.cla);
+        this.cla.workSchedule = this.data.classificatory.workSchedule.filter(item => item.id !== 10 && item.id !== 11);
     },
     computed:{
         getLang(){

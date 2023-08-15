@@ -14,6 +14,10 @@
         border-cell
 
     >
+    <template #item-status="item">
+
+        <span :class="(item.status.id == 8)?'badge badge-warning':(item.status.id == 9)?'badge badge-primary':(item.status.id == 10)?'badge badge-success':(item.status.id == 11)?'badge badge-info':(item.status.id == 12)?'badge badge-secondary':''" >{{ item.status.name_ka }}</span>
+    </template>
     <!-- :filter-options="filterOptions" -->
     <template #item-operation="item">
        <div class="operation-wrapper d-flex" >
@@ -22,7 +26,7 @@
         </div>
 
         <div v-if="!itemsSelectedButton">
-            <button class="btn btn-info btn-sm" @click="showModal(item)" >
+            <button class="btn btn-info btn-sm" @click="showModal(item)" :disabled="(item.status_id == 10)?true:false">
                 <i class="fa fa-plus"></i> დამატება
             </button>
             <button class="btn btn-success btn-sm ml-1" @click="showModal(item)" >
@@ -319,7 +323,7 @@ export default {
             { text: "ნომერი", value: "user.number"},
             { text: "პირადი ნომერი", value: "personal_number"},
 
-            // { text: "სტატუსი", value: "status.name_ka"},
+            { text: "სტატუსი", value: "status"},
             { text: "დამატების თარიღი", value: "created_at", sortable: true},
             { text: "Operation", value: "operation" },
         ]);

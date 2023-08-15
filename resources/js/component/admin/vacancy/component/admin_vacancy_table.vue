@@ -266,10 +266,10 @@ import "@vueform/slider/themes/default.css";
 import _ from 'lodash'
 
 // import { Header, Item, FilterOption } from "vue3-easy-data-table";
-import changeStatus from "../../../hr/modal/changeStatus.vue";
-import vacancyUpdate from "../../../hr/modal/vacancyUpdate.vue"
+import changeStatus from "../modal/changeStatus.vue";
+import vacancyUpdate from "../modal/vacancyUpdate.vue"
 import vacancyDeposit from "../../../hr/modal/vacancyDeposit.vue";
-import vacancyReminder from "../../../hr/modal/vacancyReminder.vue";
+import vacancyReminder from "../modal/vacancyReminder.vue";
 import vacancyRepeat from "../../../hr/modal/vacancyRepeat.vue";
 import redactedHistory from "../../../hr/modal/redactedHistory.vue"
 export default {

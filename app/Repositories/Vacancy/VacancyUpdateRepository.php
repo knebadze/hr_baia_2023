@@ -124,17 +124,21 @@ class VacancyUpdateRepository
         $id = $data['id'];
         // ვამოწმებ დაკავდა სტატუსში გადაყვანამდეე იძებნება თუ არაა ამ ვაკანსიაზე კადრი დაკავდაა სტატუსით
         if ($data['status']['id'] == 3) {
-            if (QualifyingCandidate::where('vacancy_id', $id)->doesntExist()) {
+
+            if (!QualifyingCandidate::where('vacancy_id', $id)->exists()) {
                 return ['type' => 'e', 'message' => 'დამატეთ დასაქმებული კანდიდატი'];
-            }elseif (QualifyingCandidate::where('vacancy_id', $id)->exists() && QualifyingCandidate::where('qualifying_type_id', 6)->doesntExist()) {
-                return ['type' => 'e', 'message' => 'დამატეთ დასაქმებული კანდიდატი'];
+            }else{
+                if (!QualifyingCandidate::where('vacancy_id', $id)->whereIn('qualifying_type_id', [6, 7])->exists()) {
+                    return ['type' => 'e', 'message' => 'დამატეთ დასაქმებული კანდიდატი'];
+                }
             }
+
             $date = Carbon::now()->addDays(7)->toDateString();
             $vacancy = VacancyDeposit::where('id', $id)->update(['must_be_enrolled_employer_date' => $date, 'must_be_enrolled_candidate_date' => $date]);
         }
         // დასრულდა სტატუსში თუ ვაკანსიას არ ყავსა კადრი დასაქმდა სტატუსში ვაბრუნებ ერორს და თუ ყავს კადრი და თანხა არ არის ჩარიცხული ვაბრუნებ ერორს
         if ($data['status']['id'] == 4){
-            if (QualifyingCandidate::where('vacancy_id', $id)->where('qualifying_type_id', 6)->doesntExist()) {
+            if (QualifyingCandidate::where('vacancy_id', $id)->whereIn('qualifying_type_id', [6, 7])->doesntExist()) {
 
                 return ['type' => 'e', 'message' => 'ამ სტატუსის მისანიჭებლად აუცილებელია ვაკანსიას ყავდეს "დასაქმებული" კანდიდატი'];
             }else{
@@ -144,7 +148,12 @@ class VacancyUpdateRepository
                 }
             }
         }
+
         $vacancy = Vacancy::findOrFail($id);
+        // ვამოწმებ ვაკანსიის ძველ სტატუს თუ იყო გაუქმებული მაშინ უწერია გაუქმების მიზეზი და ვააბდეითებ მიზეზს null
+        if ($vacancy->status_id == 5 || $vacancy->status_id == 7) {
+            $vacancy->update(['status_change_reason' => NULL]);
+        }
         $vacancy->status_id = $data['status']['id'];
         $vacancy->status_change_reason = $data['status_change_reason'];
         $vacancy->update();

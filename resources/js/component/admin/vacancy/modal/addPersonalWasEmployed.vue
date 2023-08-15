@@ -8,14 +8,35 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="hide()">X</button>
               </div>
               <div class="modal-body ">
-                <div class=" col-md-12">
-                    <div class="form-group">
-                        <label>აირჩიე კანდიდატი</label>
+                <div class='row'>
+                    <div class=" col-md-6">
+                        <div class="form-group">
+                            <label>აირჩიე კანდიდატი</label>
+                            <div class="ls-inputicon-box">
+                                <select class="form-control" id="exampleFormControlSelect1" v-model="m.candidate_id">
+                                    <option value="">აირჩიე</option>
+                                    <option v-for="(item, index) in info.candidates" :key="index" :value="item">{{ `${item.candidate.user.name_ka} - (ID: ${item.candidate_id}) - ${item.qualifying_type.name}`}} </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" col-md-6">
+                        <div class="form-group">
+                            <label>აირჩიე დასაქმების ტიპი</label>
+                            <div class="ls-inputicon-box">
+                                <select class="form-control" id="exampleFormControlSelect1" v-model="m.employ_type">
+                                    <option value="">აირჩიე</option>
+                                    <option v-for="(item, index) in info.employ_type" :key="index" :value="item">{{ item.name}} </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12" v-if="item.work_schedule_id == 7 || item.work_schedule_id == 9">
+                        <label>აირჩიე სამუშაო დღეები</label>
                         <div class="ls-inputicon-box">
-                            <select class="form-control" id="exampleFormControlSelect1" v-model="selected">
-                                <option value="">აირჩიე</option>
-                                <option v-for="(item, index) in info" :key="index" :value="item">{{ `${item.candidate.user.name_ka} - (ID: ${item.candidate_id}) - ${item.qualifying_type.name}`}} </option>
-                            </select>
+                            <multiselect v-model="m.week_day"  :options="day" :multiple="true" :close-on-select="false" :clear-on-select="false"  label="name" track-by="name" :preselect-first="false">
+                                <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                            </multiselect>
                         </div>
                     </div>
                 </div>
@@ -107,13 +128,42 @@
                 showConfirm: false,
                 cla:{},
                 m: {
-                    'candidate_id': null,
-                    'vacancy_id': null
+
                 },
                 info: {},
                 search:{},
                 selected: null,
                 candidate:[],
+                day:[
+                    {
+                        'name': 'ორშაბათი',
+                        'name_en': 'MONDAY'
+                    },
+                    {
+                        'name': 'სამშაბათი',
+                        'name_en': 'TUSDAY'
+                    },
+                    {
+                        'name': 'ოთხშაბთი',
+                        'name_en': 'WEDNESDAY'
+                    },
+                    {
+                        'name': 'ხუთშაბათი',
+                        'name_en': 'THURSDAY'
+                    },
+                    {
+                        'name': 'პარასკევი',
+                        'name_en': 'FRIDAY'
+                    },
+                    {
+                        'name': 'შაბათი',
+                        'name_en': 'SATURDAY'
+                    },
+                    {
+                        'name': 'კვირა',
+                        'name_en': 'SUNDAY'
+                    },
+                ]
             }
         },
         created(){
@@ -131,6 +181,14 @@
 
                     let result = await this.getClassificatory();
                     this.info  = result.data
+                    this.employType()
+                    this.m.vacancy = {
+                        'id':this.item.id,
+                        'work_schedule_id': this.item.work_schedule_id,
+                        'start_date': this.item.start_date,
+                        'term':this.item.term
+                    }
+                    console.log('info', this.item);
                     this.showConfirm = true
 
                 } catch (error) {
@@ -147,14 +205,23 @@
                 })
 
             },
+            employType(){
+                let period = [6, 7, 8, 9]
+                let work_schedule_id = this.item.work_schedule_id
+                if( _.includes(period, work_schedule_id) ){
+                    let cla = this.info.employ_type
+                    this.m.employ_type = _.find(cla, function(o) { return o.id == 7; })
+                }
+            },
             save(){
-                if (!this.m.candidate_id && !this.m.vacancy_id) {
+                if (!this.m.candidate_id ) {
                     toast.error("შესანახად აირჩიეთ კანდიდატი", {
                         theme: 'colored',
                         autoClose: 1000,
                     });
                     return
                 }
+                this.m.candidate_id = this.m.candidate_id.candidate.id
                 console.log('this.m', this.m);
                 let currentObj = this
                 axios.post('/add_vacancy_personal_was_employed' ,{
@@ -169,6 +236,9 @@
                             autoClose: 1000,
                         });
                         currentObj.hide()
+                        // setTimeout(() => {
+                        //     document.location.reload();
+                        // }, 1500);
                     }
 
 
@@ -219,10 +289,10 @@
             visible: function(){
                 this.show()
             },
-            'selected':function (newValue, oldValue) {
-                this.m.candidate_id = newValue.candidate_id
-                this.m.vacancy_id = newValue.vacancy_id
-            }
+            // 'selected':function (newValue, oldValue) {
+            //     this.m.candidate_id = newValue.candidate_id
+            //     this.m.vacancy_id = newValue.vacancy_id
+            // }
         }
   }
   </script>

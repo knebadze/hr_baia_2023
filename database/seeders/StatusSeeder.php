@@ -25,8 +25,9 @@ class StatusSeeder extends Seeder
             array("status_type_id"=>"1", "name_ka"=>"უნდა კადრი","name_en"=>"","name_ru"=>""),
             array("status_type_id"=>"1", "name_ka"=>"შეჩერებული","name_en"=>"","name_ru"=>""),
             array("status_type_id"=>"2", "name_ka"=>"შევსების პროცესში","name_en"=>" ","name_ru"=>"  "),
-            array("status_type_id"=>"2", "name_ka"=>"დასასაქმებელი","name_en"=>"","name_ru"=>""),
-            array("status_type_id"=>"2", "name_ka"=>"დასაქმებელი","name_en"=>"","name_ru"=>""),
+            array("status_type_id"=>"2", "name_ka"=>"თავისუფალი","name_en"=>"","name_ru"=>""),
+            array("status_type_id"=>"2", "name_ka"=>"მუდმივიად დასაქმებელი","name_en"=>"","name_ru"=>""),
+            array("status_type_id"=>"2", "name_ka"=>"პერიოდულად დასაქმებელი","name_en"=>"","name_ru"=>""),
             array("status_type_id"=>"2", "name_ka"=>"შავ სიაში","name_en"=>"","name_ru"=>""),
         );
         DB::table('statuses')->insert($data);

@@ -25,6 +25,7 @@ class WorkScheduleSeeder extends Seeder
             array("name_ka"=>"მხოლოდ შაბათ-კვირას","name_en"=>"Only on weekends","name_ru"=>"Только по выходным"),
             array("name_ka"=>"ცვლებში","name_en"=>"in shifts","name_ru"=>"Посменно"),
             array("name_ka"=>"ერთჯერადად","name_en"=>"one time","name_ru"=>"Одноразово"),
+            array("name_ka"=>"კვირაში რამოდენიმე დღე","name_en"=>"one several days a week","name_ru"=>"несколько дней в неделю"),
             array("name_ka"=>"სხვა...","name_en"=>"Other …","name_ru"=>"Другой …"),
             array("name_ka"=>"ნებისმიერი","name_en"=>"any ","name_ru"=>"Любой"),
         );

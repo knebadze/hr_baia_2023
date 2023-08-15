@@ -24,7 +24,7 @@
                 <a v-if="item.hr_id == hr_id" class="dropdown-item" href="#" @click="vacancyReminderModal(item)">შეხსენება</a>
                 <a v-if="item.hr_id == hr_id" class="dropdown-item" href="#" @click="vacancyDepositModal(item)">დეპოზიტი</a>
 
-                <a v-if="item.status.id == 5 || item.status.id == 4" class="dropdown-item" href="#"  @click="vacancyRepeat(item)">გამეორება</a>
+                <a v-if="item.status.id == 4 || item.status.id == 5" class="dropdown-item" href="#"  @click="vacancyRepeat(item)">გამეორება</a>
                 <a v-if="item.status.id !== 3 && item.status.id !== 4 && item.status.id !== 5" class="dropdown-item" href="#" @click="carryInHead(item)">აპინვა </a>
                 <a class="dropdown-item" href="#" @click="vacancyHistoryModal(item.id)">ისტორია</a>
             </div>
@@ -267,10 +267,10 @@ import Switch from '../../../inc/Switch.vue';
 import _ from 'lodash'
 
 // import { Header, Item, FilterOption } from "vue3-easy-data-table";
-import changeStatus from "../../../hr/modal/changeStatus.vue";
-import vacancyUpdate from "../../../hr/modal/vacancyUpdate.vue"
+import changeStatus from "../modal/changeStatus.vue";
+import vacancyUpdate from "../modal/vacancyUpdate.vue"
 import vacancyDeposit from "../../../hr/modal/vacancyDeposit.vue";
-import vacancyReminder from "../../../hr/modal/vacancyReminder.vue";
+import vacancyReminder from "../modal/vacancyReminder.vue";
 import vacancyRepeat from "../../../hr/modal/vacancyRepeat.vue";
 import redactedHistory from "../../../hr/modal/redactedHistory.vue"
 export default {

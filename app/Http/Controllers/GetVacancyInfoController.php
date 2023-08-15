@@ -8,6 +8,7 @@ use App\Models\Vacancy;
 use Illuminate\Http\Request;
 use App\Models\VacancyReminder;
 use App\Models\QualifyingCandidate;
+use App\Models\QualifyingType;
 use Illuminate\Support\Facades\Auth;
 use App\Models\VacancyRedactedHistory;
 use App\Services\ClassificatoryService;
@@ -39,7 +40,7 @@ class GetVacancyInfoController extends Controller
     public function statusChangeInfo(Request $request) {
 
         $history = VacancyRedactedHistory::where('vacancy_id', $request->data)->where('column_name', 'status')->get();
-        $data = ['history' => $history, 'status' => Status::where('status_type_id', 1)->get()->toArray()];
+        $data = ['history' => $history, 'status' => Status::where('status_type_id', 1)->get()->toArray(), 'role_id' => Auth::user()->role_id];
         return response()->json($data);
     }
 
@@ -52,7 +53,8 @@ class GetVacancyInfoController extends Controller
     }
     function getAddPersonalWasEmployedInfo(Request $request)  {
         // dd($request->data);
-        $data = QualifyingCandidate::where('vacancy_id', $request->data)->with(['candidate.user', 'qualifyingType'])->get();
+        $data['candidates'] = QualifyingCandidate::where('vacancy_id', $request->data)->with(['candidate.user', 'qualifyingType'])->get();
+        $data['employ_type'] = QualifyingType::whereIN('id', [6, 7])->get()->toArray();
         return response()->json($data);
     }
     function getVacancyFullInfo(Request $request)  {
