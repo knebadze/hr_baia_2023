@@ -15,6 +15,10 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "@fullcalendar/core": "^6.1.8",
+        "@fullcalendar/daygrid": "^6.1.8",
+        "@fullcalendar/multimonth": "^6.1.8",
+        "@fullcalendar/vue3": "^6.1.8",
         "@googlemaps/js-api-loader": "^1.15.1",
         "@vitejs/plugin-vue": "^4.0.0",
         "@vueform/slider": "^2.1.7",

@@ -31,7 +31,7 @@ import myVacancy from './component/employer/my_vacancy.vue'
 // HR
 
 import selectionPersonal from './component/hr/page/selection_personal.vue'
-import vacancyPersonal from './component/hr/page/vacancy_personal.vue'
+import vacancyPersonal from './component/admin/vacancy/page/vacancy_personal.vue'
 import reminderManager from "./component/hr/component/reminderManager.vue";
 //modal
 import modalManager from './component/modal/modalManager.vue'

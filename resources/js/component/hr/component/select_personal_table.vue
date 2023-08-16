@@ -15,7 +15,7 @@
 
     >
     <template #item-status="item">
-
+        <!-- {{ item.status }} -->
         <span :class="(item.status.id == 8)?'badge badge-warning':(item.status.id == 9)?'badge badge-primary':(item.status.id == 10)?'badge badge-success':(item.status.id == 11)?'badge badge-info':(item.status.id == 12)?'badge badge-secondary':''" >{{ item.status.name_ka }}</span>
     </template>
     <!-- :filter-options="filterOptions" -->

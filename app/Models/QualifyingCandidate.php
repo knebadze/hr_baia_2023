@@ -16,7 +16,7 @@ class QualifyingCandidate extends Model
         'employer_answer',
         'interview_date',
         'interview_place_id',
-        'agree',
+        'success',
         'start_date',
         'end_date'
     ];

@@ -149,7 +149,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('update_candidate_recommendation', [CandidateInfoController::class, 'updateCandidateRecommendation']);
     Route::post('delete_candidate_recommendation', [CandidateInfoController::class, 'deleteCandidateRecommendation']);
     Route::post('add_candidate_file', [CandidateInfoController::class, 'addCandidateFile']);
-    Route::post('candidate_status_update', [CandidateInfoController::class, 'StatusUpdate']);
+    // Route::post('candidate_status_update', [CandidateInfoController::class, 'StatusUpdate']);
     // Route::post('remove_old_general_work_experience', [CandidateInfoController::class, 'removeOldWorkExperience']);
 
     Route::post('add_work_information', [WorkInformationController::class, 'store']);
@@ -238,9 +238,12 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('/get_add_personal_info', [SelectionPersonalController::class, 'addPersonalInfo']);
     Route::post('/add_vacancy_personal', [SelectionPersonalController::class, 'addPersonal']);
     Route::post('/update_vacancy_personal', [SelectionPersonalController::class, 'updatePersonal']);
+    Route::post('/update_end_date', [SelectionPersonalController::class, 'updateEndDate']);
     Route::post('/delete_vacancy_personal', [SelectionPersonalController::class, 'deletePersonal']);
-
+    Route::post('/get_end_work_info', [SelectionPersonalController::class, 'getEndWorkInfo']);
+    Route::post('/end_work', [VacancyAttachedController::class, 'endWork']);
     Route::post('/add_vacancy_personal_was_employed', [SelectionPersonalController::class, 'addPersonalWasEmployed']);
+    Route::post('/get_schedule_info', [SelectionPersonalController::class, 'getScheduleInfo']);
 
     // PDF
     Route::get('/candidate_pdf', [PdfController::class, 'candidate']);

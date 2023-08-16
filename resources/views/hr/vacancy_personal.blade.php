@@ -18,7 +18,7 @@
     <section class="content">
         <div class="container-fluid">
 
-            <vacancy-personal :data='@json($data)'></vacancy-personal>
+            <vacancy-personal :data='@json($data)' :cla='@json($classificatory)'></vacancy-personal>
         </div>
     </section>
 @endsection

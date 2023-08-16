@@ -29,6 +29,7 @@ class StatusSeeder extends Seeder
             array("status_type_id"=>"2", "name_ka"=>"მუდმივიად დასაქმებელი","name_en"=>"","name_ru"=>""),
             array("status_type_id"=>"2", "name_ka"=>"პერიოდულად დასაქმებელი","name_en"=>"","name_ru"=>""),
             array("status_type_id"=>"2", "name_ka"=>"შავ სიაში","name_en"=>"","name_ru"=>""),
+            array("status_type_id"=>"1", "name_ka"=>"ვადა ამოიწურა","name_en"=>"","name_ru"=>""),
         );
         DB::table('statuses')->insert($data);
     }

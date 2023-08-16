@@ -3,8 +3,13 @@
 namespace App\Http\Controllers\Hr;
 
 use Exception;
+use Carbon\Carbon;
+use App\Models\User;
 use App\Models\gender;
+use App\Models\Status;
 use App\Models\Vacancy;
+use App\Models\Category;
+use App\Models\NoReason;
 use App\Models\Candidate;
 use App\Models\Education;
 use Illuminate\Http\Request;
@@ -14,6 +19,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\QualifyingCandidate;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Services\Admin\EndWorkService;
 use App\Services\ClassificatoryService;
 use App\Filters\Candidate\CandidateFilters;
 use App\Services\AddVacancyPersonalService;
@@ -22,10 +28,12 @@ class SelectionPersonalController extends Controller
 {
     private ClassificatoryService $classificatoryService;
     private AddVacancyPersonalService $addVacancyPersonalService;
-    public function __construct(ClassificatoryService $classificatoryService, AddVacancyPersonalService $addVacancyPersonalService)
+    private EndWorkService $endWorkService;
+    public function __construct(ClassificatoryService $classificatoryService, AddVacancyPersonalService $addVacancyPersonalService, EndWorkService $endWorkService)
     {
         $this->classificatoryService = $classificatoryService;
         $this->addVacancyPersonalService = $addVacancyPersonalService;
+        $this->endWorkService = $endWorkService;
     }
     public function index($id)  {
         // dd($id);
@@ -47,11 +55,17 @@ class SelectionPersonalController extends Controller
     }
     function vacancyPersonal($id) {
 
-        $data = [];
-        $data['qualifying'] = QualifyingCandidate::where('vacancy_id', $id)->with(['qualifyingType', 'candidate', 'candidate.user'])->get()->toArray();
-        $data['vacancy'] = Vacancy::where('id',$id)->first();
+        $data = QualifyingCandidate::orderBy('qualifying_type_id', 'DESC')->where('vacancy_id', $id)->with([
+            'candidate.getWorkInformation.category','candidate.status', 'candidate.user', 'qualifyingType','vacancy'
+        ])->paginate(25);
+        $classificatory = [
+            'category' => Category::all()->toArray(),
+            'status' => Status::where('status_type_id', 1)->get()->toArray(),
+            'qualifyingType' => QualifyingType::all()->toArray(),
+            'auth' => (Auth::user()->role_id == 1)?Auth::user():User::where('id', Auth::id())->with('hr')->first()
+        ];
         // dd($data);
-        return view('hr.vacancy_personal', compact('data'));
+        return view('hr.vacancy_personal', compact('data', 'classificatory'));
     }
 
     public function find(CandidateFilters $filters)  {
@@ -159,6 +173,21 @@ class SelectionPersonalController extends Controller
         return response()->json($result, $result['status']);
     }
 
+    function updateEndDate(Request $request) {
+        $data = $request->model;
+        $result = ['status' => 200];
+
+        try {
+            $result['data'] = QualifyingCandidate::where('id', $data['id'])->update(['end_date' => $data['end_date']]);
+        } catch (Exception $e) {
+            $result = [
+                'status' => 500,
+                'error' => $e->getMessage()
+            ];
+        }
+
+        return response()->json($result, $result['status']);
+    }
     function deletePersonal(Request $request) {
         $data = $request->data;
         // dd($data);
@@ -193,4 +222,22 @@ class SelectionPersonalController extends Controller
 
         return response()->json($result, $result['status']);
     }
+
+    function getEndWorkInfo()  {
+        $data = NoReason::where('category', 4)->whereNot('id', 16)->get()->toArray();
+        return response()->json($data);
+    }
+
+    function getScheduleInfo(Request $request)  {
+        // dd($request->data);
+        $data = [];
+        $find = QualifyingCandidate::where('id', $request->data)->first();
+        $vacancy = Vacancy::where('id', $find->vacancy_id)->with('workSchedule')->select('additional_schedule_ka', 'work_schedule_id', 'code')->first()->toArray();
+        $data['vacancy'] = $vacancy;
+        $data['schedule'] = $find->workDay;
+        // dd($find->workDay);
+        return response()->json($data);
+    }
+
+
 }

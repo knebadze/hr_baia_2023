@@ -21,7 +21,7 @@ return new class extends Migration
             $table->smallInteger('employer_answer')->nullable();
             $table->dateTime('interview_date')->nullable();
             $table->foreignId('interview_place_id')->nullable()->constrained();
-            $table->smallInteger('agree')->nullable();
+            $table->smallInteger('success')->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->timestamps();

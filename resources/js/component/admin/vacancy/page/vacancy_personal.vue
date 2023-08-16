@@ -72,9 +72,9 @@
                 <thead>
                     <tr>
                     <th>ID</th>
-                    <th>შემკვეთი</th>
-                    <th>კატეგორია</th>
-                    <th>სტატუსი</th>
+                    <th>სახელი გვარი</th>
+                    <!-- <th>კატეგორია</th> -->
+                    <!-- <th>სტატუსი</th> -->
                     <th>ტიპი</th>
                     <th>დამატების თარიღი</th>
                     <th>დაწყების თარიღი</th>
@@ -85,33 +85,29 @@
 
                 <tbody>
                     <tr v-for="(item, index) in items" :key="index">
-                    <td><u class="text-primary" @click="openModal(item.vacancy.id)">{{ item.vacancy.code }}</u></td>
-                    <td>{{ item.vacancy.employer.name_ka }}</td>
-                    <td>{{ item.vacancy.category.name_ka }}</td>
-                    <td>{{ item.vacancy.status.name_ka }}</td>
+                    <td><u class="text-primary" @click="openModal(item.vacancy.id)">{{ item.candidate.id }}</u></td>
+                    <td>{{ item.candidate.user.name_ka }}</td>
                     <td>{{ item.qualifying_type.name }}</td>
                     <td>{{ item.created_at }}</td>
                     <td>{{ item.start_date }}</td>
                     <td>{{ item.end_date }}</td>
-                    <td >
-                        <div class="dropdown">
+                    <td>
+                        <button v-if="showUpdateButton && item.vacancy.status_id == 2" class="btn btn-info btn-sm" @click="showModal(item)">
+                            განახლება
+                        </button>
+                        <div v-else class="dropdown">
                             <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" :disabled="(item.qualifying_type.id == 5 || item.qualifying_type.id == 6 || item.qualifying_type.id == 7)?false:true">
                                 <i class="fa fa-cog"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                                <div v-if="(item.vacancy.status.id == 3 || item.vacancy.status.id == 4)">
+                                 <div v-if="(item.vacancy.status_id == 3 || item.vacancy.status_id == 4)">
                                     <a v-if="cla.auth.role_id == 1 || (cla.auth.role_id == 2 && cla.auth.hr.id == item.vacancy.hr_id)" class="dropdown-item" href="#" @click="endWorkModal(item.id)">შეწყვეტა</a>
                                 </div>
-                                <a v-if="item.qualifying_type.id == 5 || item.qualifying_type.id == 6 || item.qualifying_type.id == 7" class="dropdown-item" href="#" @click="moveModal(item)">დასრულების თარიღის გადაწევა</a>
-                                <a v-if="item.qualifying_type.id == 7" class="dropdown-item" href="#" @click="scheduleModal(item.id)">გრაფიკი</a>
+                                <a v-if="item.qualifying_type_id == 5 || item.qualifying_type_id == 6 || item.qualifying_type_id == 7" class="dropdown-item" href="#" @click="moveModal(item)">დასრულების თარიღის გადაწევა</a>
+                                <a v-if="item.qualifying_type_id == 7" class="dropdown-item" href="#" @click="scheduleModal(item.id)">გრაფიკი</a>
                             </div>
                         </div>
                     </td>
-                    <!-- <td>
-                        <button class="btn btn-info" @click="showModal(item)" title="დამატება" >
-                            <i class="fa fa-plus"></i>
-                        </button>
-                    </td> -->
                     </tr>
                 </tbody>
             </table>
@@ -131,25 +127,24 @@
                 >
             </paginate>
         </div>
-        <vacancyFullInfoModal :visible="modalShow" :vacancyId="vacancy_id"></vacancyFullInfoModal>
+        <!-- <vacancyFullInfoModal :visible="modalShow" :vacancyId="vacancy_id"></vacancyFullInfoModal> -->
         <end_work_modal :visible="endWorkModalShow" :item="item"></end_work_modal>
         <move_end_date :visible="moveModalShow" :item="moveModalData"></move_end_date>
         <schedule_calendar_modal :visible="scheduleModalShow" :item="item"></schedule_calendar_modal>
-
     </div>
 </template>
 <script>
 import moment from 'moment'
 import _ from 'lodash';
 import Paginate from 'vuejs-paginate-next';
-import vacancyFullInfoModal from '../../../modal/vacancyFullInfoModal.vue';
-import end_work_modal from '../modal/end_work_modal.vue';
-import move_end_date from '../modal/move_end_date.vue';
-import schedule_calendar_modal from '../modal/schedule_calendar_modal.vue';
+// import vacancyFullInfoModal from '../../../modal/vacancyFullInfoModal.vue';
+import end_work_modal from '../../candidate/modal/end_work_modal.vue';
+import move_end_date from '../../candidate/modal/move_end_date.vue';
+import schedule_calendar_modal from '../../candidate/modal/schedule_calendar_modal.vue';
 export default {
     components:{
         Paginate,
-        vacancyFullInfoModal,
+        // vacancyFullInfoModal,
         end_work_modal,
         move_end_date,
         schedule_calendar_modal
@@ -174,10 +169,13 @@ export default {
             moveModalShow:false,
             moveModalData:{},
             scheduleModalShow:false
+
         }
     },
     computed:{
-
+        showUpdateButton(){
+            return !this.items.some((o) => o.qualifying_type_id === 6 || o.qualifying_type_id === 7);
+        }
     },
     created() {
         console.log('data', this.data);
@@ -223,32 +221,6 @@ export default {
             this.scheduleModalShow = !this.scheduleModalShow
         }
 
-        // filterMeth(type,m){
-        //     this.getDataType = type
-        //     if (this.getDataType == 'filter') {
-        //         this.filter(m)
-        //     }
-        // },
-        // filter(m){
-        //     axios({
-        //         method: "post",
-        //         url: '/vacancy_attached_filter?page=' + this.pagination.current_page,
-        //         data: m,
-        //     })
-        //     .then(function (response) {
-        //         console.log('response.data', response.data);
-        //         currentObj.pagination = {
-        //             'current_page':response.data.current_page,
-        //             'last_page': response.data.last_page
-        //         }
-        //         currentObj.items = response.data.data
-
-        //     })
-        //     .catch(function (error) {
-        //         // handle error
-        //         console.log(error);
-        //     })
-        // }
     },
 }
 </script>

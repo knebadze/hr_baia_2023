@@ -102,6 +102,7 @@ class VacancyUpdateService{
         $history = [];
         $update = $this->vacancyUpdateRepository->updateStatus($data['model']);
         if ($update['type'] == 's') {
+
             $history = $this->vacancyRedactedRepository->save($data['model']['id'], $data['edit']);
         }
 
@@ -109,5 +110,5 @@ class VacancyUpdateService{
         return $result;
     }
 
-    
+
 }

@@ -29,6 +29,10 @@ class NoReasonSeeder extends Seeder
             array("name_ka"=>"წინა რეკომენდატორი გადავიდა საზღვარგარეთ","name_ru"=>"Предыдущий рекомендатель переехал за границу","name_en"=>"The previous recommender moved abroad","category"=>"2"),
             array("name_ka"=>"წინა რეკომენდატორმა შეიცვალა საცხოვრებელი ადგილი","name_ru"=>"Предыдущий рекомендатель сменил место жительства","name_en"=>"The previous recommender changed his place of residence","category"=>"2"),
             array("name_ka"=>"სხვა...","name_ru"=>"Другой...","name_en"=>"other...","category"=>"3"),
+            array("name_ka"=>"კანდიდატს აღარ სურს მუშაობა","name_ru"=>"","name_en"=>"","category"=>"4"),
+            array("name_ka"=>"შემკვეთს სურს კანდიდატის შეცვლა","name_ru"=>"","name_en"=>"","category"=>"4"),
+            array("name_ka"=>"შემკვეთს სურს ვაკანსიის შეწყვეტა","name_ru"=>"","name_en"=>"","category"=>"4"),
+            array("name_ka"=>"ვაკანსიის ვადა ამოიწურა","name_ru"=>"","name_en"=>"","category"=>"4"),
         );
         DB::table('no_reasons')->insert($data);
     }
