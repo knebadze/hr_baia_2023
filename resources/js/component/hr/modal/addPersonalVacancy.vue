@@ -27,7 +27,7 @@
                         <span>დარწმუნებული ხართ რომ მაინც გსურთ დაამატოთ ამ ვაკანსიაზეც?</span>
                     </div>
                 </div>
-                <div v-if="busy">
+                <div v-if="busy && !m.interview_place">
                     <p class="text-danger">ეს კანდიდატი უკვე ყავს ქვემოთ ჩამოთვლილ HR_ს (ებს) თავის აქტიურ ვაკანსიებში ჩასმული.
                     </p>
                         <h6>ინსტრუქცია</h6>
@@ -66,6 +66,20 @@
                                 <input class="form-control" v-model="m.interview_date" type="datetime-local" >
                             </div>
                         </div>
+                </div>
+                <div class="row" v-if="m.type && m.type.id == 5">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label> დაწყების თარიღი</label>
+                            <input class="form-control" v-model="m.start_date" type="date" >
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label> დასრულების თარიღი </label>
+                            <input class="form-control" v-model="m.end_date" type="date" >
+                        </div>
+                    </div>
                 </div>
               </div>
               <div class="modal-footer">

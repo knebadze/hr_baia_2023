@@ -31,6 +31,7 @@ use App\Http\Controllers\User\UserProfileController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Admin\AdminCandidateController;
 use App\Http\Controllers\Admin\AdminVacancyController;
+use App\Http\Controllers\Admin\BlackListController;
 use App\Http\Controllers\Admin\PdfController;
 use App\Http\Controllers\Admin\RelevantVacancyController;
 use App\Http\Controllers\Admin\ReminderController;
@@ -238,12 +239,17 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('/get_add_personal_info', [SelectionPersonalController::class, 'addPersonalInfo']);
     Route::post('/add_vacancy_personal', [SelectionPersonalController::class, 'addPersonal']);
     Route::post('/update_vacancy_personal', [SelectionPersonalController::class, 'updatePersonal']);
-    Route::post('/update_end_date', [SelectionPersonalController::class, 'updateEndDate']);
+    Route::post('/move_end_date', [SelectionPersonalController::class, 'updateEndDate']);
     Route::post('/delete_vacancy_personal', [SelectionPersonalController::class, 'deletePersonal']);
     Route::post('/get_end_work_info', [SelectionPersonalController::class, 'getEndWorkInfo']);
     Route::post('/end_work', [VacancyAttachedController::class, 'endWork']);
     Route::post('/add_vacancy_personal_was_employed', [SelectionPersonalController::class, 'addPersonalWasEmployed']);
     Route::post('/get_schedule_info', [SelectionPersonalController::class, 'getScheduleInfo']);
+    Route::post('/get_work_day_info', [SelectionPersonalController::class, 'getWorkDayInfo']);
+
+    // blacklist
+    Route::post('/get_add_black_list_info', [BlackListController::class, 'getInfo']);
+    Route::post('/add_black_list', [BlackListController::class, 'addBlackList']);
 
     // PDF
     Route::get('/candidate_pdf', [PdfController::class, 'candidate']);

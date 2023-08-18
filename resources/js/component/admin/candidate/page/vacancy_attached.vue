@@ -74,7 +74,7 @@
                     <th>ID</th>
                     <th>შემკვეთი</th>
                     <th>კატეგორია</th>
-                    <th>სტატუსი</th>
+                    <th>ვაკანსისი სტატუსი</th>
                     <th>ტიპი</th>
                     <th>დამატების თარიღი</th>
                     <th>დაწყების თარიღი</th>
@@ -95,7 +95,7 @@
                     <td>{{ item.end_date }}</td>
                     <td >
                         <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" :disabled="(item.qualifying_type.id == 5 || item.qualifying_type.id == 6 || item.qualifying_type.id == 7)?false:true">
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" :disabled="((item.qualifying_type.id == 5 || item.qualifying_type.id == 6 || item.qualifying_type.id == 7) && item.success != 1  )?false:true">
                                 <i class="fa fa-cog"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
@@ -206,6 +206,17 @@ export default {
             }
 
         },
+        // checkDate(end_date){
+        //     const today = moment().startOf('day');
+        //     let date = moment(end_date)
+        //     if (moment(date).isAfter(today)) {
+        //         return true
+        //         console.log('The date is after today');
+        //     } else if (moment(date).isBefore(today)) {
+        //         return false
+        //         console.log('The date is before today');
+        //     }
+        // },
         openModal(id){
             this.modalShow = !this.modalShow
             this.vacancy_id = id

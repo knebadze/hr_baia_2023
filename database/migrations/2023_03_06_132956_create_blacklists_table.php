@@ -15,11 +15,14 @@ return new class extends Migration
     {
         Schema::create('blacklists', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('employer_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('ground_id');
+            $table->unsignedBigInteger('author_id');
             $table->timestamps();
 
             $table->foreign('ground_id')->references('id')->on('blacklist_grounds');
+            $table->foreign('author_id')->references('id')->on('users');
         });
     }
 

@@ -97,6 +97,7 @@ class GetVacancyInfoController extends Controller
     }
 
     function findVacancy(Request $request) {
+        // dd($request->data);
         $data = Vacancy::where('code', 'LIKE', $request->data.'%')->where('status_id', 2)->with(['employer', 'category', 'status', 'hr.user', 'interviewPlace'])->get()->toArray();
         // dd($request->data);
         return response()->json($data);

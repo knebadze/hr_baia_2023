@@ -191,15 +191,15 @@ export default {
     },
     methods:{
         find(m){
-            if (m.date_to && !m.date_from) {
-                toast.error("თარიღი (დან) შევსვება სავალდებულოა", {
+            if (m.date_from && !m.date_to) {
+                toast.error("თარიღი (მდე) შევსვება სავალდებულოა", {
                     theme: 'colored',
                     autoClose: 1000,
                 });
                 return
             }
             // this.colspan = 'hide'
-            m.date = (m.date_from)?[m.date_from, m.date_to]:null
+            m.date = (m.date_from || m.date_to)?[m.date_from, m.date_to]:null
             let currentObj = this
             axios({
                 method: "post",

@@ -131,6 +131,8 @@
         <end_work_modal :visible="endWorkModalShow" :item="item"></end_work_modal>
         <move_end_date :visible="moveModalShow" :item="moveModalData"></move_end_date>
         <schedule_calendar_modal :visible="scheduleModalShow" :item="item"></schedule_calendar_modal>
+        <addPersonalVacancy :visible="showAddPersonalModal" :item="modalItem"></addPersonalVacancy>
+
     </div>
 </template>
 <script>
@@ -141,13 +143,15 @@ import Paginate from 'vuejs-paginate-next';
 import end_work_modal from '../../candidate/modal/end_work_modal.vue';
 import move_end_date from '../../candidate/modal/move_end_date.vue';
 import schedule_calendar_modal from '../../candidate/modal/schedule_calendar_modal.vue';
+import addPersonalVacancy from '../../../hr/modal/addPersonalVacancy.vue';
 export default {
     components:{
         Paginate,
         // vacancyFullInfoModal,
         end_work_modal,
         move_end_date,
-        schedule_calendar_modal
+        schedule_calendar_modal,
+        addPersonalVacancy
     },
     props:{
         data:Object,
@@ -168,7 +172,10 @@ export default {
             item: null,
             moveModalShow:false,
             moveModalData:{},
-            scheduleModalShow:false
+            scheduleModalShow:false,
+            showAddPersonalModal:false,
+            modalItem:{}
+            // vacancy: {},
 
         }
     },
@@ -202,7 +209,15 @@ export default {
                 'current_page':this.data.current_page,
                 'last_page': this.data.last_page
             }
+            // this.vacancy.interview_date =
 
+        },
+        showModal(item){
+            this.showAddPersonalModal = !this.showAddPersonalModal
+            this.modalItem.interview_date = item.vacancy.interview_date
+            this.modalItem.interview_place = item.vacancy.interview_place
+            this.modalItem.vacancy_id = item.vacancy_id
+            this.modalItem.candidate_id = item.candidate_id
         },
         openModal(id){
             this.modalShow = !this.modalShow

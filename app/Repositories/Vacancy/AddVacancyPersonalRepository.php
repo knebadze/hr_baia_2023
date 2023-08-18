@@ -5,12 +5,15 @@ namespace App\Repositories\Vacancy;
 use Carbon\Carbon;
 use App\Models\Candidate;
 use App\Models\QualifyingCandidate;
+use App\Models\Vacancy;
+use App\Models\VacancyReminder;
 use App\Models\WorkDay;
 use Illuminate\Queue\Worker;
 
 class AddVacancyPersonalRepository
 {
     function add($data) {
+        // dd($data);
         $qualifying = new QualifyingCandidate();
         $qualifying->vacancy_id = $data['vacancy_id'];
         $qualifying->qualifying_type_id = $data['type']['id'];
@@ -22,46 +25,14 @@ class AddVacancyPersonalRepository
         if ($data['type']['id'] == 5) {
             $qualifying->start_date = $data['start_date'];
             $qualifying->end_date = $data['end_date'];
+            $this->addReminder($data['vacancy_id'], $data['start_date'], 'კანდიდატი შევიდა გამოსაცდელი ვადით, უნდა გადავამოწმო იმყოფება თუ არაა სამუშაო ადგილზე');
+            $this->changeCandidateStatus($data['candidate_id'], $data['type']['id']);
         }
-        // if ($data['type']['id'] == 6) {
-        //     $this->changeCandidateStatus($data['candidate_id']);
-        // }
         $qualifying->save();
         return $qualifying;
     }
 
-    // function addOrUpdate($data) {
-    //     // dd($data);
-    //     if ($data['type']['id'] == 3) {
-    //         $qualifying = QualifyingCandidate::updateOrCreate(
-    //             ['vacancy_id' => $data['vacancy_id'], 'candidate_id' => $data['candidate_id']],
-    //             [
-    //                 'qualifying_type_id '=> $data['type']['id'],
-    //                 'interview_date' => $data['interview_date'],
-    //                 'interview_place' => $data['interview_place']['id']
-    //             ]
-    //         );
-    //     }
 
-    //     if ($data['type']['id'] == 5) {
-    //         $qualifying = QualifyingCandidate::updateOrCreate(
-    //             ['vacancy_id' => $data['vacancy_id'], 'candidate_id' => $data['candidate_id']],
-    //             [
-    //                 'qualifying_type_id '=> $data['type']['id'],
-    //                 'start_date' => $data['start_date'],
-    //                 'end_date' => $data['end_date'],
-    //             ]
-    //         );
-    //     }
-    //     // dd($data['type']['id']);
-    //     $qualifying = QualifyingCandidate::updateOrCreate(
-    //         ['vacancy_id' => $data['vacancy_id'], 'candidate_id' => $data['candidate_id']],
-    //         [
-    //             'qualifying_type_id '=> $data['type']['id']
-    //         ]
-    //     );
-    //     return $qualifying;
-    // }
     function addArr($data) {
         foreach ($data['candidate_id'] as $key => $value) {
             $qualifying = new QualifyingCandidate();
@@ -88,13 +59,14 @@ class AddVacancyPersonalRepository
         if ($data['type']['id'] == 5) {
             $qualifying->start_date = $data['start_date'];
             $qualifying->end_date = $data['end_date'];
+            $this->addReminder($data['vacancy_id'], $data['start_date'], 'კანდიდატი შევიდა გამოსაცდელი ვადით, უნდა გადავამოწმო იმყოფება თუ არაა სამუშაო ადგილზე');
+            $this->changeCandidateStatus($data['candidate_id'], $data['type']['id']);
         }
-        // if ($data['type']['id'] == 6) {
-        //     $this->changeCandidateStatus($data['candidate_id'], $employ_type_id == null);
-        // }
         $qualifying->update();
         return $qualifying;
     }
+
+
     function updateArr($data) {
         foreach ($data['candidate_id'] as $key => $value) {
             $qualifying = QualifyingCandidate::where('candidate_id', $value)->where('vacancy_id', $data['vacancy_id'])->first();
@@ -103,10 +75,10 @@ class AddVacancyPersonalRepository
                 $qualifying->interview_date = $data['interview_date'];
                 $qualifying->interview_place_id = $data['interview_place']['id'];
             }
-            if ($data['type']['id'] == 5) {
-                $qualifying->start_date = $data['start_date'];
-                $qualifying->end_date = $data['end_date'];
-            }
+            // if ($data['type']['id'] == 5) {
+            //     $qualifying->start_date = $data['start_date'];
+            //     $qualifying->end_date = $data['end_date'];
+            // }
             $qualifying->update();
         }
 
@@ -126,35 +98,41 @@ class AddVacancyPersonalRepository
 
     function wasEmployed($data){
         // dd($data);
+        $end_date = $this->endDay($data['vacancy']['term'], $data['vacancy']['start_date']);
         $qualifying = QualifyingCandidate::updateOrCreate(
             ['candidate_id' => $data['candidate_id'], 'vacancy_id' => $data['vacancy']['id']],
             [
                 'qualifying_type_id' => $data['employ_type']['id'],
                 'start_date' => $data['vacancy']['start_date'],
-                'end_date' => $this->endDay($data['vacancy']['term'], $data['vacancy']['start_date'])
+                'end_date' => $end_date
             ]
         );
-        // dd($data);
         $this->changeCandidateStatus($data['candidate_id'], $data['employ_type']['id']);
         if ($data['employ_type']['id'] == 7) {
             $this->workDay($qualifying->id, $data['vacancy']['work_schedule_id'], $data['vacancy']['start_date'], $data['vacancy']['term'], $data['week_day']);
         }
-
+        if ($data['employ_type']['id'] == 7 || $data['employ_type']['id'] == 6) {
+            $endDate = Carbon::parse($end_date);
+            $endDate = $endDate->subDay(2)->toDateString();
+            $this->addReminder($data['vacancy']['id'], $endDate, 'ვაკნსიას ეწურება ვადა!!! უნდა დავურეკო დამკვეთს');
+        }
         return $qualifying;
     }
 
     function changeCandidateStatus($candidate_id, $employ_type_id)  {
         if ($employ_type_id == 7) {
             Candidate::where( 'id', $candidate_id )->update(['status_id'=> 11]);
-        }else{
+        }else if($employ_type_id == 6){
             Candidate::where( 'id', $candidate_id )->update(['status_id'=> 10]);
+        }else if($employ_type_id == 5){
+            Candidate::where( 'id', $candidate_id )->update(['status_id'=> 14]);
         }
 
     }
 
     function workDay($id, $work_schedule_id, $start_date, $term, $week_day) {
-
-        $startDate = Carbon::parse($start_date); // Get today's date
+        // dd($week_day);
+        $startDate = Carbon::parse($start_date); // Get start_date's date
         switch ($term['type']) {
             case 'Y':
                 // Code for 'Y' type
@@ -177,6 +155,7 @@ class AddVacancyPersonalRepository
                 break;
         }
         $weekendDates = [];
+
         if ($work_schedule_id == 6) {
             // Loop through the dates between today and six months later
             while ($startDate->lt($later)) {
@@ -187,30 +166,30 @@ class AddVacancyPersonalRepository
             }
         }elseif ($work_schedule_id == 7 || $work_schedule_id == 9) {
             $arr = collect($week_day)->pluck('name_en')->toArray();
-
-            while ($startDate->year <= $later->year) {
+            while ($startDate <= $later) {
                 $dayName = strtoupper($startDate->format('l'));
-
+                $test[] = $dayName;
                 if (in_array($dayName, $arr)) {
                     $weekendDates[] = $startDate->toDateString();
                 }
 
                 $startDate->addDay();
             }
+
         }elseif ($work_schedule_id == 8) {
             $weekendDates[] = $start_date;
         }
-
         $workDay = new WorkDay();
         $workDay->qualifying_candidate_id = $id;
         $workDay->work_day = json_encode($weekendDates);
+        $workDay->week_day = json_encode($week_day);
         $workDay->save();
     }
 
     function endDay($term, $start_date) {
         $end_date = '';
-        $startDateTime = Carbon::parse($start_date);
-        $startDate = $startDateTime->addDays(1);
+        $startDate = Carbon::parse($start_date);
+        $startDate = $startDate->subDay(1);
         switch ($term['type']) {
             case 'Y':
                 // Code for 'Y' type
@@ -232,6 +211,17 @@ class AddVacancyPersonalRepository
                 // Default code if none of the cases match
                 break;
         }
+
         return $end_date;
+    }
+
+    function addReminder($vacancy_id, $start_date, $text) {
+        $find = Vacancy::where('id',$vacancy_id)->first();
+        $reminder = new VacancyReminder();
+        $reminder->vacancy_id = $vacancy_id;
+        $reminder->hr_id = $find->hr_id;
+        $reminder->date = $start_date.' 10:00:00';
+        $reminder->reason = $text;
+        $reminder->save();
     }
 }

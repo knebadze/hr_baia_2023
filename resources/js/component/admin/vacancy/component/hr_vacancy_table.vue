@@ -11,25 +11,34 @@
         :filter-options="filterOptions"
     >
     <template #item-operation="item">
-       <div class="operation-wrapper">
-        <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fa fa-cog"></i>
-            </button>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#" @click="vacancyUpdateModal(item)">რედაქტირება</a>
-                <a class="dropdown-item" href="#" @click="statusChange(item)">სტატუსის შეცვლა</a>
-                <a v-if="item.status.id == 2" class="dropdown-item" :href="personalSelectionUrl+'/'+item.id" >კადრების შერჩევა</a>
-                <a v-if="item.status.id > 1" class="dropdown-item" :href="vacancyPersonalUrl+'/'+item.id" >შერჩეული კადრები</a>
-                <a v-if="item.hr_id == hr_id" class="dropdown-item" href="#" @click="vacancyReminderModal(item)">შეხსენება</a>
-                <a v-if="item.hr_id == hr_id" class="dropdown-item" href="#" @click="vacancyDepositModal(item)">დეპოზიტი</a>
+        <div class="operation-wrapper">
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-cog"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#" @click="vacancyUpdateModal(item)">რედაქტირება</a>
+                    <a class="dropdown-item" href="#" @click="statusChange(item)">სტატუსის შეცვლა</a>
+                    <a v-if="item.status.id == 2" class="dropdown-item" :href="personalSelectionUrl+'/'+item.id" >კადრების შერჩევა</a>
+                    <a v-if="item.status.id > 1" class="dropdown-item" :href="vacancyPersonalUrl+'/'+item.id" >შერჩეული კადრები</a>
+                    <a v-if="item.hr_id == hr_id" class="dropdown-item" href="#" @click="vacancyReminderModal(item)">შეხსენება</a>
+                    <a v-if="item.hr_id == hr_id" class="dropdown-item" href="#" @click="vacancyDepositModal(item)">დეპოზიტი</a>
 
-                <a v-if="item.status.id == 4 || item.status.id == 5" class="dropdown-item" href="#"  @click="vacancyRepeat(item)">გამეორება</a>
-                <a v-if="item.status.id !== 3 && item.status.id !== 4 && item.status.id !== 5" class="dropdown-item" href="#" @click="carryInHead(item)">აპინვა </a>
-                <a class="dropdown-item" href="#" @click="vacancyHistoryModal(item.id)">ისტორია</a>
+                    <a v-if="item.status.id == 4 || item.status.id == 5" class="dropdown-item" href="#"  @click="vacancyRepeat(item)">გამეორება</a>
+                    <a v-if="item.status.id !== 3 && item.status.id !== 4 && item.status.id !== 5" class="dropdown-item" href="#" @click="carryInHead(item)">აპინვა </a>
+                    <a class="dropdown-item" href="#" @click="vacancyHistoryModal(item.id)">ისტორია</a>
+                </div>
             </div>
         </div>
-      </div>
+
+    </template>
+    <template #item-category="item">
+
+        <span :class="`badge bg-${item.category.color} p-1`" >{{ item.category.name_ka }}</span>
+    </template>
+    <template #item-status="item">
+
+        <span :class="`badge bg-${item.status.color} p-1`" >{{ item.status.name_ka }}</span>
     </template>
         <template #expand="item">
             <!-- {{ item }} -->
@@ -316,11 +325,11 @@ export default {
         console.log('data',props.data);
         const headers = ref([
             { text: "id", value: "code" },
-            { text: "კატეგორია", value: "category.name_ka" },
+            { text: "კატეგორია", value: "category" },
             { text: "გრაფიკი", value: "work_schedule.name_ka"},
             { text: "დამსაქმებელი", value: "employer.name_ka"},
             { text: "ნომერი", value: "employer.number"},
-            { text: "სტატუსი", value: "status.name_ka"},
+            { text: "სტატუსი", value: "status"},
             { text: "ანაზღაურება", value: "payment", sortable: true},
             { text: "საჭიროება", value: "start_date", sortable: true},
             { text: "Operation", value: "operation" },

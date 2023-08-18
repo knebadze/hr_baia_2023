@@ -28,7 +28,7 @@
                             </thead>
 
                             <tbody>
-                                <tr v-for="(item, index) in items" :key="index">
+                                <tr v-if="items.length > 0" v-for="(item, index) in items" :key="index">
                                 <td>{{ item.code }}</td>
                                 <td>{{ item.employer.name_ka }}</td>
                                 <td>{{ item.category.name_ka }}</td>
@@ -40,9 +40,14 @@
                                     </button>
                                 </td>
                                 </tr>
+
                             </tbody>
                         </table>
+
                     </div>
+                    <p v-else class="text-center text-danger">
+                        საძიებო კოდით ვერ მოიძებნა ვერცერთი ვაკანსია რომელიც ამ ეტაპზე წარმოებაშია!!!
+                    </p>
               </div>
               <div class="modal-footer">
 
@@ -93,16 +98,18 @@
                 this.showConfirm = false
             },
             searchEvent(newVal){
-                if (newVal.length != 3) {
+
+                if (!newVal.length > 3) {
                     return
                 }
+                // alert()
                 let currentObj = this
                 axios.post('/find_vacancy' ,{
                     data: newVal,
                 })
                 .then(function (response) {
                     // handle success
-                    console.log(response.data);
+                    console.log('response',response.data);
                     currentObj.items = response.data
 
                 })

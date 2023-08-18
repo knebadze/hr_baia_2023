@@ -124,6 +124,10 @@
                                         theme: 'colored',
                                         autoClose: 1000,
                                     });
+                                    currentObj.hide()
+                                    setTimeout(() => {
+                                        document.location.reload();
+                                    }, 1500)
                                 }
 
                             }

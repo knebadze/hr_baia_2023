@@ -23,7 +23,7 @@ class VacancyAttachedController extends Controller
         $this->endWorkService = $endWorkService;
     }
     function index($id) {
-        $data = QualifyingCandidate::where('candidate_id', $id)->with([
+        $data = QualifyingCandidate::orderBy('qualifying_type_id' , 'DESC')->where('candidate_id', $id)->with([
             'vacancy.category','vacancy.employer', 'vacancy.status', 'qualifyingType'
         ])->paginate(25);
         $classificatory = [

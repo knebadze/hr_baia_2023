@@ -364,16 +364,21 @@ export default {
     },
     created(){
         this.cla = this.data.classificatory
-        this.m.age = (this.data.vacancy.demand.min_age && this.data.vacancy.demand.max_age)?[this.data.vacancy.demand.min_age, this.data.vacancy.demand.max_age]:[18, 80]
         this.m.height = [150, 200]
         this.m.weight = [60, 90]
         this.m.payment = (this.data.vacancy.payment)?[this.data.vacancy.payment-200, this.data.vacancy.payment+200]:[500, 2000]
         this.m.category = this.data.vacancy.category
         this.m.work_schedule = this.data.vacancy.work_schedule
-        this.m.education = (this.data.vacancy.demand.education)?[this.data.vacancy.demand.education]:''
-        this.m.specialty = (this.data.vacancy.demand.specialty)?[this.data.vacancy.demand.specialty]:''
-        this.m.language = (this.data.vacancy.demand.language)?[this.data.vacancy.demand.language]:''
-        this.m.language_level = (this.data.vacancy.demand.language_level)?[this.data.vacancy.demand.language_level]:''
+        if (this.data.vacancy.demand) {
+            this.m.age = ( this.data.vacancy.demand.min_age && this.data.vacancy.demand.max_age)?[this.data.vacancy.demand.min_age, this.data.vacancy.demand.max_age]:[18, 80]
+            this.m.education = (this.data.vacancy.demand.education)?[this.data.vacancy.demand.education]:''
+            this.m.specialty = (this.data.vacancy.demand.specialty)?[this.data.vacancy.demand.specialty]:''
+            this.m.language = (this.data.vacancy.demand.language)?[this.data.vacancy.demand.language]:''
+            this.m.language_level = (this.data.vacancy.demand.language_level)?[this.data.vacancy.demand.language_level]:''
+        }else{
+            this.m.age = [18, 80]
+        }
+
         this.m.characteristic = (this.data.vacancy.characteristic)?this.data.vacancy.characteristic:''
         this.m.go_vacation = (this.data.vacancy.go_vacation == 1 )?true:''
         this.m.work_additional_hours = (this.data.vacancy.work_additional_hours == 1 )?true:''

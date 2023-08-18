@@ -5,14 +5,17 @@ namespace App\Services;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 use App\Repositories\Vacancy\VacancyUpdateRepository;
 use App\Repositories\Vacancy\VacancyRedactedRepository;
+use App\Repositories\Vacancy\VacancyStatusUpdateRepository;
 
 class VacancyUpdateService{
     protected VacancyUpdateRepository $vacancyUpdateRepository;
     protected VacancyRedactedRepository $vacancyRedactedRepository;
+    protected VacancyStatusUpdateRepository $vacancyStatusUpdateRepository;
     public function __construct()
     {
         $this->vacancyUpdateRepository = new VacancyUpdateRepository;
         $this->vacancyRedactedRepository = new VacancyRedactedRepository;
+        $this->vacancyStatusUpdateRepository = new VacancyStatusUpdateRepository;
     }
 
     public function translate($lang, $data)
@@ -100,7 +103,7 @@ class VacancyUpdateService{
     }
     public function updateStatusData($data) {
         $history = [];
-        $update = $this->vacancyUpdateRepository->updateStatus($data['model']);
+        $update = $this->vacancyStatusUpdateRepository->updateStatus($data['model']);
         if ($update['type'] == 's') {
 
             $history = $this->vacancyRedactedRepository->save($data['model']['id'], $data['edit']);

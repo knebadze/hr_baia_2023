@@ -22,18 +22,22 @@ use Illuminate\Support\Facades\Auth;
 use App\Services\Admin\EndWorkService;
 use App\Services\ClassificatoryService;
 use App\Filters\Candidate\CandidateFilters;
+use App\Models\WorkDay;
 use App\Services\AddVacancyPersonalService;
+use App\Services\Admin\MoveEndDateService;
 
 class SelectionPersonalController extends Controller
 {
     private ClassificatoryService $classificatoryService;
     private AddVacancyPersonalService $addVacancyPersonalService;
     private EndWorkService $endWorkService;
-    public function __construct(ClassificatoryService $classificatoryService, AddVacancyPersonalService $addVacancyPersonalService, EndWorkService $endWorkService)
+    private MoveEndDateService $moveEndDateService;
+    public function __construct(ClassificatoryService $classificatoryService, AddVacancyPersonalService $addVacancyPersonalService, EndWorkService $endWorkService, MoveEndDateService $moveEndDateService)
     {
         $this->classificatoryService = $classificatoryService;
         $this->addVacancyPersonalService = $addVacancyPersonalService;
         $this->endWorkService = $endWorkService;
+        $this->moveEndDateService = $moveEndDateService;
     }
     public function index($id)  {
         // dd($id);
@@ -56,7 +60,7 @@ class SelectionPersonalController extends Controller
     function vacancyPersonal($id) {
 
         $data = QualifyingCandidate::orderBy('qualifying_type_id', 'DESC')->where('vacancy_id', $id)->with([
-            'candidate.getWorkInformation.category','candidate.status', 'candidate.user', 'qualifyingType','vacancy'
+            'candidate.getWorkInformation.category','candidate.status', 'candidate.user', 'qualifyingType','vacancy.interviewPlace'
         ])->paginate(25);
         $classificatory = [
             'category' => Category::all()->toArray(),
@@ -101,7 +105,7 @@ class SelectionPersonalController extends Controller
             });
 
             $filteredArray = $filteredCollection->all();
-
+            // dd($collection);
 
             $coll = collect($filteredArray);
 
@@ -128,7 +132,7 @@ class SelectionPersonalController extends Controller
                 if ($containsVacancyId) {
                     $busy = null;
                 }else{
-                    $busy = $filteredArray;
+                    $busy = (count($filteredArray) > 0)?$filteredArray:null;
                 }
 
             }
@@ -178,7 +182,7 @@ class SelectionPersonalController extends Controller
         $result = ['status' => 200];
 
         try {
-            $result['data'] = QualifyingCandidate::where('id', $data['id'])->update(['end_date' => $data['end_date']]);
+            $result['data'] = $this->moveEndDateService->move($data);
         } catch (Exception $e) {
             $result = [
                 'status' => 500,
@@ -188,6 +192,7 @@ class SelectionPersonalController extends Controller
 
         return response()->json($result, $result['status']);
     }
+
     function deletePersonal(Request $request) {
         $data = $request->data;
         // dd($data);
@@ -232,11 +237,41 @@ class SelectionPersonalController extends Controller
         // dd($request->data);
         $data = [];
         $find = QualifyingCandidate::where('id', $request->data)->first();
-        $vacancy = Vacancy::where('id', $find->vacancy_id)->with('workSchedule')->select('additional_schedule_ka', 'work_schedule_id', 'code')->first()->toArray();
+        $vacancy = Vacancy::where('id', $find->vacancy_id)
+            ->with('workSchedule')
+            ->select('additional_schedule_ka', 'work_schedule_id', 'code')
+            ->first()
+            ->toArray();
         $data['vacancy'] = $vacancy;
         $data['schedule'] = $find->workDay;
         // dd($find->workDay);
         return response()->json($data);
+    }
+
+    function getWorkDayInfo(Request $request)  {
+        // ვამოწმებ კანდიდატი თუ არის უკვე დროებით დასაქმებული ვაბრუნებ TRUE,
+        // ვამოწმებ დასაქმების დღეებს
+        // ჯეისონიდან ამოღებული პირველი 6 თარიღით ვიგებ დღეების სახელებს
+        // ვაბრუნებ მასივად
+        $find = QualifyingCandidate::where('candidate_id', $request->candidate_id )
+            ->where('qualifying_type_id', 7)
+            ->where('end_date', '>', Carbon::today())
+            ->with('workDay')
+            ->get()->toArray();
+        $dayArr = [];
+        if (count($find)) {
+
+            foreach ($find as $key => $value) {
+                $decode = json_decode($value['work_day']['work_day']);
+                $newArray = array_splice($decode, 0, 6);
+                $dayArr = array_unique(array_merge($dayArr, collect($newArray)->map(fn($o) => Carbon::parse($o)->format('l'))->toArray()));
+                // dd($dayArr);
+            }
+
+        }
+        // dd($find);
+        // $data = [];
+        return response()->json($dayArr);
     }
 
 

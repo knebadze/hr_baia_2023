@@ -13,8 +13,8 @@
                         <div class="form-group">
                             <label>აირჩიე კანდიდატი</label>
                             <div class="ls-inputicon-box">
-                                <select class="form-control" id="exampleFormControlSelect1" v-model="m.candidate_id">
-                                    <option value="">აირჩიე</option>
+                                <select class="form-control" id="exampleFormControlSelect1" v-model="m.candidate_id" >
+                                    <option value="">არცერთი</option>
                                     <option v-for="(item, index) in info.candidates" :key="index" :value="item">{{ `${item.candidate.user.name_ka} - (ID: ${item.candidate_id}) - ${item.qualifying_type.name}`}} </option>
                                 </select>
                             </div>
@@ -24,21 +24,30 @@
                         <div class="form-group">
                             <label>აირჩიე დასაქმების ტიპი</label>
                             <div class="ls-inputicon-box">
-                                <select class="form-control" id="exampleFormControlSelect1" v-model="m.employ_type">
-                                    <option value="">აირჩიე</option>
+                                <select class="form-control" id="exampleFormControlSelect1" v-model="m.employ_type" :disabled="disabled">
+                                    <option value="0">არცერთი</option>
                                     <option v-for="(item, index) in info.employ_type" :key="index" :value="item">{{ item.name}} </option>
                                 </select>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12" v-if="item.work_schedule_id == 7 || item.work_schedule_id == 9">
-                        <label>აირჩიე სამუშაო დღეები</label>
-                        <div class="ls-inputicon-box">
-                            <multiselect v-model="m.week_day"  :options="day" :multiple="true" :close-on-select="false" :clear-on-select="false"  label="name" track-by="name" :preselect-first="false">
-                                <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
-                            </multiselect>
+                    <div class="row col-md-12" v-if="item.work_schedule_id == 7 || item.work_schedule_id == 9">
+                        <div class="col-md-6" >
+                            <label>აირჩიე სამუშაო დღეები</label>
+                            <div class="ls-inputicon-box">
+                                <multiselect v-model="m.week_day"  :options="day" :multiple="true" :close-on-select="false" :clear-on-select="false"  label="name" track-by="name" :preselect-first="false">
+                                    <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                </multiselect>
+                            </div>
+                        </div>
+                        <div class="col-md-6" >
+                            <label>დაწყების თარიღი</label>
+                            <div class="ls-inputicon-box">
+                                <input class="form-control" type="date" v-model="m.vacancy.start_date">
+                            </div>
                         </div>
                     </div>
+
                 </div>
                 <div class=" col-md-12 border mb-3"></div>
                 <h6><i class="fa fa-search"></i>ან მოძებნე</h6>
@@ -137,33 +146,41 @@
                 day:[
                     {
                         'name': 'ორშაბათი',
-                        'name_en': 'MONDAY'
+                        'name_en': 'MONDAY',
+                        'filter_name': 'Monday'
                     },
                     {
                         'name': 'სამშაბათი',
-                        'name_en': 'TUSDAY'
+                        'name_en': 'TUESDAY',
+                        'filter_name': 'Tuesday'
                     },
                     {
                         'name': 'ოთხშაბთი',
-                        'name_en': 'WEDNESDAY'
+                        'name_en': 'WEDNESDAY',
+                        'filter_name': 'Wednesday'
                     },
                     {
                         'name': 'ხუთშაბათი',
-                        'name_en': 'THURSDAY'
+                        'name_en': 'THURSDAY',
+                        'filter_name': 'Thursday'
                     },
                     {
                         'name': 'პარასკევი',
-                        'name_en': 'FRIDAY'
+                        'name_en': 'FRIDAY',
+                        'filter_name': 'Friday'
                     },
                     {
                         'name': 'შაბათი',
-                        'name_en': 'SATURDAY'
+                        'name_en': 'SATURDAY',
+                        'filter_name': 'Saturday'
                     },
                     {
                         'name': 'კვირა',
-                        'name_en': 'SUNDAY'
+                        'name_en': 'SUNDAY',
+                        'filter_name': 'Sunday'
                     },
-                ]
+                ],
+                disabled: false
             }
         },
         created(){
@@ -188,7 +205,10 @@
                         'start_date': this.item.start_date,
                         'term':this.item.term
                     }
-                    console.log('info', this.item);
+                    console.log('info', this.info);
+                    if ( this.item.work_schedule_id == 8 ) {
+                        this.m.week_day = null
+                    }
                     this.showConfirm = true
 
                 } catch (error) {
@@ -214,13 +234,25 @@
                 }
             },
             save(){
+
                 if (!this.m.candidate_id ) {
                     toast.error("შესანახად აირჩიეთ კანდიდატი", {
                         theme: 'colored',
                         autoClose: 1000,
                     });
                     return
+
                 }
+                // this.item.work_schedule_id == 8 ||
+                if ((this.item.work_schedule_id == 7 ||  this.item.work_schedule_id == 9) &&  !this.m.week_day ) {
+                    toast.error("შესანახად აირჩიეთ სამუშაო დღეები", {
+                        theme: 'colored',
+                        autoClose: 1000,
+                    });
+                    return
+                }
+                // return
+
                 this.m.candidate_id = this.m.candidate_id.candidate.id
                 console.log('this.m', this.m);
                 let currentObj = this
@@ -293,6 +325,41 @@
             //     this.m.candidate_id = newValue.candidate_id
             //     this.m.vacancy_id = newValue.vacancy_id
             // }
+            'm.candidate_id': function (newValue, oldValue){
+                console.log('newValue', typeof newValue);
+                console.log('this.m', this.m);
+                let currentObj = this
+                if(typeof newValue == 'object'){
+
+                    axios({
+                        method: "post",
+                        url: '/get_work_day_info',
+                        data: {'candidate_id':newValue.candidate_id},
+
+                    })
+                .then(function (response) {
+                    // handle success
+                    console.log('candidate',response.data);
+                    if (response.data.length > 0) {
+                        currentObj.day = currentObj.day.filter(item => !response.data.includes(item.filter_name));
+                        currentObj.disabled = true
+                    }else{
+                        currentObj.disabled = false
+                    }
+                    toast.info("გადამოწმდა არჩეული კანდიდატის ინფორმაცია", {
+                        theme: 'colored',
+                        autoClose: 1000,
+                    });
+
+                    // currentObj.candidate = response.data
+
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                })
+                }
+            }
         }
   }
   </script>

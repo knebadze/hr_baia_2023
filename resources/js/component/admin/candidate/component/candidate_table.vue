@@ -13,7 +13,7 @@
     </template>
     <template #item-status="item">
 
-        <span :class="(item.status.id == 8)?'badge badge-warning':(item.status.id == 9)?'badge badge-primary':(item.status.id == 10)?'badge badge-success':(item.status.id == 11)?'badge badge-info':(item.status.id == 12)?'badge badge-secondary':''" >{{ item.status.name_ka }}</span>
+        <span :class="`badge bg-${item.status.color} p-1`" >{{ item.status.name_ka }}</span>
     </template>
     <template #item-operation="item">
        <div class="operation-wrapper">
@@ -24,13 +24,14 @@
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item"  :href="updateUrl+'/'+item.id">რედაქტირება</a>
                 <!-- <a v-if="item.status_id == 10 || item.status_id == 11" class="dropdown-item" href="#" @click="freedom(item.id)">თავისუალი სტატუსი</a> -->
-                <a v-if="item.status_id != 10" class="dropdown-item" href="#" @click="addInVacancy(item)">ვაკანსიაში დამატება</a>
+                <a v-if="item.status_id != 10 || item.status_id != 12" class="dropdown-item" href="#" @click="addInVacancy(item)">ვაკანსიაში დამატება</a>
                 <a class="dropdown-item" :href="attachedUrl+'/'+item.id">მიბმული ვაკანსიები</a>
                 <a class="dropdown-item" :href="relevantUrl+'/'+item.id">შესაბამისი ვაკანსიები</a>
+                <a v-if="item.status_id == 11 || item.status_id == 14" class="dropdown-item" href="#" @click="scheduleModal(item.id)">გრაფიკი</a>
                 <a class="dropdown-item" :href="`/candidate_pdf?data=${item}`">ჩამოტვირთვა</a>
                 <a class="dropdown-item" href="#" @click="UpdateModal(item)">სმს</a>
-                <a class="dropdown-item" href="#" @click="UpdateModal(item)">შავ სიაში დამატება</a>
-                <a class="dropdown-item" href="#" @click="UpdateModal(item)">წაშლა</a>
+                <a v-if="item.status_id == 9" class="dropdown-item" href="#" @click="blackListModal(item.id)">შავ სიაში დამატება</a>
+                <a  class="dropdown-item" href="#" @click="UpdateModal(item)">წაშლა</a>
             </div>
         </div>
       </div>
@@ -208,6 +209,7 @@
     <!-- {{ statusChangeModal }} -->
     <infoModal :visible="showInfoModal" :type="modalType" :items="item"></infoModal>
     <add_in_vacancy :visible="showAddInVacancyModal" :item="item"></add_in_vacancy>
+    <add_black_list :visible="showBlackListModal" :item="item"></add_black_list>
 </div>
 </template>
 <script>
@@ -219,12 +221,14 @@ import "@vueform/slider/themes/default.css";
 import _ from 'lodash'
 import infoModal from '../modal/info_modal.vue'
 import add_in_vacancy from "../modal/add_in_vacancy.vue";
+import add_black_list from '../modal/add_black_list.vue'
 
 export default {
     components: {
         Slider,
         infoModal,
-        add_in_vacancy
+        add_in_vacancy,
+        add_black_list
     },
     props:{
         data: Object
@@ -239,6 +243,7 @@ export default {
 
         var showInfoModal = ref(false)
         var showAddInVacancyModal = ref(false)
+        let showBlackListModal = ref(false);
         var updateModal = ref(false)
         var item = ref()
         let modalType = ref('')
@@ -357,6 +362,7 @@ export default {
 
             showInfoModal,
             showAddInVacancyModal,
+            showBlackListModal,
             updateModal,
             item,
             modalType,
@@ -380,6 +386,13 @@ export default {
             this.showAddInVacancyModal = !this.showAddInVacancyModal
             this.item = {'id':item.id}
         },
+        blackListModal(id){
+            this.showBlackListModal = !this.showBlackListModal
+            this.item = {
+                'id': id,
+                'type': 'candidate'
+            }
+        }
         // freedom(id){
         //     this.$swal({
         //         title: 'ნამდვილად სტატუსის შეცვლა?',

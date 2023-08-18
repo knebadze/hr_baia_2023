@@ -8,10 +8,10 @@ class ReminderDateFilter
 {
     function __invoke($query, $request)
     {
-        if ($request[1] == null) {
-            $request[1] = Carbon::now()->toDateString();
+        if ($request[0] == null) {
+            $request[0] = Carbon::now()->toDateString();
         }
-        return $query->where('date', '>=', Carbon::parse($request[0])->startOfDay()->toDateTimeString())->where('date', '<=', Carbon::parse($request[1])->endOfDay()->toDateTimeString());
+        return $query->whereDate('date', '>=', Carbon::parse($request[0])->startOfDay()->toDateTimeString())->whereDate('date', '<=', Carbon::parse($request[1])->endOfDay()->toDateTimeString());
 
     }
 }

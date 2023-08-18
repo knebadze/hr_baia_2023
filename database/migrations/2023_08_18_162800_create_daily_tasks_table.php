@@ -13,12 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('work_days', function (Blueprint $table) {
+        Schema::create('daily_tasks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('qualifying_candidate_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->json('work_day');
-            $table->json('week_day');
-            $table->timestamps();
+            $table->date('date');
         });
     }
 
@@ -29,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('work_days');
+        Schema::dropIfExists('daily_tasks');
     }
 };
