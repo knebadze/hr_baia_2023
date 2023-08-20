@@ -24,12 +24,12 @@
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item"  :href="updateUrl+'/'+item.id">რედაქტირება</a>
                 <!-- <a v-if="item.status_id == 10 || item.status_id == 11" class="dropdown-item" href="#" @click="freedom(item.id)">თავისუალი სტატუსი</a> -->
-                <a v-if="item.status_id != 10 || item.status_id != 12" class="dropdown-item" href="#" @click="addInVacancy(item)">ვაკანსიაში დამატება</a>
+                <a v-if="item.status_id != 10 && item.status_id != 12" class="dropdown-item" href="#" @click="addInVacancy(item)">ვაკანსიაში დამატება</a>
                 <a class="dropdown-item" :href="attachedUrl+'/'+item.id">მიბმული ვაკანსიები</a>
                 <a class="dropdown-item" :href="relevantUrl+'/'+item.id">შესაბამისი ვაკანსიები</a>
                 <a v-if="item.status_id == 11 || item.status_id == 14" class="dropdown-item" href="#" @click="scheduleModal(item.id)">გრაფიკი</a>
-                <a class="dropdown-item" :href="`/candidate_pdf?data=${item}`">ჩამოტვირთვა</a>
-                <a class="dropdown-item" href="#" @click="UpdateModal(item)">სმს</a>
+                <a class="dropdown-item" href="#"  @click="pdf(item)">ჩამოტვირთვა</a>
+                <a class="dropdown-item" href="#" @click="openSendMessageModal(item)">სმს</a>
                 <a v-if="item.status_id == 9" class="dropdown-item" href="#" @click="blackListModal(item.id)">შავ სიაში დამატება</a>
                 <a  class="dropdown-item" href="#" @click="UpdateModal(item)">წაშლა</a>
             </div>
@@ -210,8 +210,9 @@
     <infoModal :visible="showInfoModal" :type="modalType" :items="item"></infoModal>
     <add_in_vacancy :visible="showAddInVacancyModal" :item="item"></add_in_vacancy>
     <add_black_list :visible="showBlackListModal" :item="item"></add_black_list>
+    <send_message_modal :visible="showSendMessageModal" :item="item"></send_message_modal>
 </div>
-</template>
+</template>showSendMessageModal
 <script>
 import { ref, computed } from "vue";
 import moment from 'moment'
@@ -222,13 +223,15 @@ import _ from 'lodash'
 import infoModal from '../modal/info_modal.vue'
 import add_in_vacancy from "../modal/add_in_vacancy.vue";
 import add_black_list from '../modal/add_black_list.vue'
+import send_message_modal from '../modal/Send_message_modal.vue'
 
 export default {
     components: {
         Slider,
         infoModal,
         add_in_vacancy,
-        add_black_list
+        add_black_list,
+        send_message_modal
     },
     props:{
         data: Object
@@ -244,10 +247,11 @@ export default {
         var showInfoModal = ref(false)
         var showAddInVacancyModal = ref(false)
         let showBlackListModal = ref(false);
+        let showSendMessageModal = ref(false)
         var updateModal = ref(false)
         var item = ref()
         let modalType = ref('')
-        let cla = ref(null)
+        let cla = ref(null);
 
 
 
@@ -363,6 +367,7 @@ export default {
             showInfoModal,
             showAddInVacancyModal,
             showBlackListModal,
+            showSendMessageModal,
             updateModal,
             item,
             modalType,
@@ -392,6 +397,29 @@ export default {
                 'id': id,
                 'type': 'candidate'
             }
+        },
+        pdf(item){
+            event.preventDefault();
+            this.$swal({
+                title: 'აირჩიე სრული თუ არასრული ვერსია?',
+                cancelButtonText:'არასრული',
+                confirmButtonText: 'სრული',
+                showCancelButton: true,
+            }).then((result) => {
+                console.log('result', result);
+                if (result.isConfirmed) {
+
+                    window.location.href = `/candidate_full_pdf?data=${item}`
+                } else if (result.isDismissed) {
+                    window.location.href = `/candidate_partial_pdf?data=${item}`
+                }
+            })
+        },
+        openSendMessageModal(item){
+            console.log('item', item);
+            // return
+            this.showSendMessageModal = !this.showSendMessageModal
+            this.item = {'id': item.id, 'number': item.user.number}
         }
         // freedom(id){
         //     this.$swal({

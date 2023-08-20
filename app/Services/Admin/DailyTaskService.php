@@ -17,7 +17,10 @@ class DailyTaskService
         // ვამოწმებ ვადაგასულ ჩანაწერებს სადაც success 1 არ უდრის
         // ვააბდეითებ success, vacancy->status_id, candidate->status_id
         // ვაკანსიაა ვადაგასულია, სამუშაო გრაფიკი წაშლილია, კანდიდატი თავისუფალი თუ სხვა აქტიურ ვაკანსიაზე არაა დასაქმებული
-        $quality = QualifyingCandidate::whereIn('qualifying_type_id', [5, 6, 7])->where('success', null)->whereDate('end_date', '<', Carbon::today())->get();
+        $quality = QualifyingCandidate::whereIn('qualifying_type_id', [5, 6, 7])
+            ->where('success', null)
+            ->whereDate('end_date', '<', Carbon::today())
+            ->get();
 
         if (count($quality)) {
 
@@ -32,9 +35,7 @@ class DailyTaskService
             Vacancy::whereIn('id', $vacancy_ids)->update(['status_id' => 13]);
             VacancyReminder::whereIn('vacancy_id', $vacancy_ids)->where('date', '>', Carbon::today())->delete();
 
-            Candidate::whereIn('id', $candidate_ids)->whereHas('qualifyingCandidate', function ($query) {
-                return $query->whereIn('qualifying_type_id', [5, 6, 7])->where('success', null)->exists();
-            })->update(['status_id' => 9]);
+            Candidate::whereIn('id', $candidate_ids)->update(['status_id' => 9]);
 
 
         }
@@ -52,7 +53,7 @@ class DailyTaskService
             ->whereDate('end_date', '>', Carbon::today())
             ->get();
         if (count($find)) {
-            dd($find);
+            // dd($find);
             $today = Carbon::today()->toDateString();
             $schedule = [];
             foreach ($find as $key => $value) {

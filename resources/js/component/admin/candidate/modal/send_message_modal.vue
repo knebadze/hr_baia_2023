@@ -4,18 +4,20 @@
           <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
               <div class="modal-content">
               <div class="modal-header">
-                  <h6 class="modal-title" id="exampleModalLongTitle">შავ სიაში დამატება</h6>
+                  <h6 class="modal-title" id="exampleModalLongTitle">შეტყობინების გაგზავნა</h6>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="hide()">X</button>
               </div>
               <div class="modal-body">
-                <div class="col-xl-12 col-lg-12 col-md-12">
+                <div class="col-md-12">
                     <div class="form-group">
-                        <label>შავ სიაში დამატების მიზეზი</label>
-                        <div class="ls-inputicon-box">
-                            <multiselect v-model="m.reason" :options="cla" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" :placeholder="$t('lang.employer_add_job_select')"  :searchable="true" :allow-empty="false">
-                                <template slot="singleLabel" slot-scope="{ option }"></template>
-                            </multiselect>
-                        </div>
+                        <label> ნომერი</label>
+                        <input class="form-control" v-model="m.number" type="text">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label> ტექსტი</label>
+                        <textarea class="form-control" v-model="m.text" rows="3" placeholder=""></textarea>
                     </div>
                 </div>
 
@@ -43,7 +45,7 @@
                 m: {},
                 reminder:{},
                 cla: null,
-                check: null
+                min:null
             }
         },
         created(){
@@ -59,30 +61,27 @@
                 try {
                     let result = await this.getClassificatory();
                     console.log('result', result.data);
-                    this.cla = result.data.cla
-                    this.check = result.data.check
+                    this.cla = result.data
                     this.m = this.item
                     // console.log(this.m);
                     this.showConfirm = true
                 } catch (error) {
-                    console.log(error);
                 }
 
             },
             hide(){
                 this.showConfirm = false
             },
+            getClassificatory(){
+                return axios.post('/get_candidate_additional_number' ,{
+                      data: this.item.id,
+                  })
+
+            },
             save(){
-                if (!this.m.hasOwnProperty('reason')) {
-                    toast.error('შევსება სავალდებულოა', {
-                        theme: 'colored',
-                        autoClose: 2000,
-                    });
-                    return
-                }
                 let currentObj = this
                 this.$swal({
-                    title: 'ნამდვილად გსურთ შავ სიაში დამატება?',
+                    title: 'ნამდვილად გსურთ დასრულების თარიღის გადაწევა?',
                     // html:'ცვლილება ავტომატურად მოხსნის კანდიდატს ვაკანის დასაქმებული სტატუსიდან',
                     //   showDenyButton: true,
                     cancelButtonText:'არა',
@@ -94,20 +93,19 @@
                     if (result.isConfirmed) {
                         axios({
                             method: "post",
-                            url: "/add_black_list",
+                            url: "/move_end_date",
                             data: {'model': this.m},
 
                         })
                         .then(function (response) {
                             // console.log(response.data);
-                            if (response.status == 200) {
-                                toast.success('წარმატებით შესრულდა', {
+                            if (response.data.status == 200) {
+
+                                toast.success('წარმატებით განახლდა', {
                                     theme: 'colored',
                                     autoClose: 1000,
                                 });
-                                setTimeout(() => {
-                                    document.location.reload();
-                                }, 1500);
+
                             }
                         })
                         .catch(function (error) {
@@ -119,12 +117,6 @@
                         return
                     }
                 });
-            },
-            getClassificatory(){
-                return axios.post('/get_add_black_list_info' ,{
-                      data: {'id':this.item.id, 'type': this.item.type},
-                  })
-
             },
 
         },

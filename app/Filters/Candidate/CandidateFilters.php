@@ -39,7 +39,7 @@ class CandidateFilters
         'has_general_work_experience' => CandidateHasGeneralWorkExperienceFilter::class,
         'has_family_work_experience' => CandidateHasFamilyWorkExperienceFilter::class,
         'has_recommendation' => CandidateHasRecommendationFilter::class,
-
+        'status' => CandidateStatusFilter::class,
     ];
 
     public function apply($query)

@@ -36,10 +36,10 @@ class BlackListController extends Controller
         if ($data['type'] == 'candidate') {
             $candidate = Candidate::where('id', $data['id'])->first();
             $blackList->user_id = $candidate->user->id;
-
+            $candidate->update(['status_id' => 12]);
         }
         $blackList->ground_id = $data['reason']['id'];
-        $blackList->author = Auth::id();
+        $blackList->author_id = Auth::id();
         $blackList->save();
         return response()->json($blackList);
     }

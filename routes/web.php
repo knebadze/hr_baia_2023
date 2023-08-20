@@ -182,6 +182,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('get_hr_cla', [HrController::class, 'getHr']);
     Route::post('candidate_work_info_data', [AdminCandidateController::class, 'workInfoData']);
     Route::post('candidate_family_work_info_data', [AdminCandidateController::class, 'familyWorkInfoData']);
+    Route::post('get_candidate_additional_number', [AdminCandidateController::class, 'additionalNumberInfo']);
     Route::post('candidate_filter', [AdminCandidateController::class, 'filter']);
     Route::post('update_candidate', [AdminCandidateController::class, 'update']);
     Route::post('add_reminder_vacancy', [ReminderController::class, 'addReminder']);
@@ -252,5 +253,6 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('/add_black_list', [BlackListController::class, 'addBlackList']);
 
     // PDF
-    Route::get('/candidate_pdf', [PdfController::class, 'candidate']);
+    Route::get('/candidate_full_pdf', [PdfController::class, 'candidateFull']);
+    Route::get('/candidate_partial_pdf', [PdfController::class, 'candidatePartial']);
 

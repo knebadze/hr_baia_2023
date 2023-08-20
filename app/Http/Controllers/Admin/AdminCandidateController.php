@@ -13,6 +13,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Services\ClassificatoryService;
 use App\Filters\Candidate\CandidateFilters;
+use App\Models\Additional_number;
 use App\Services\Admin\CandidateUpdateService;
 
 class AdminCandidateController extends Controller
@@ -58,7 +59,7 @@ class AdminCandidateController extends Controller
                 $candidateClassificatoryArr = [
                     'gender', 'nationality', 'religions','educations', 'maritalStatus', 'citizenship', 'professions',
                     'specialties', 'allergies', 'languages', 'languageLevels', 'workExperiences',  'drivingLicense','characteristic',
-                    'yesNo', 'category', 'workSchedule', 'candidateStatus'
+                    'yesNo', 'category', 'workSchedule', 'candidateStatus', 'candidateStatus'
                 ];
                 $classificatory = $this->classificatoryService->get($candidateClassificatoryArr);
                 $data = [
@@ -193,5 +194,11 @@ class AdminCandidateController extends Controller
             'classificatory' => $classificatory
         ];
         return view('admin.add_candidate', compact('data'));
+    }
+
+    function additionalNumberInfo(Request $request)  {
+
+        $data = Additional_number::where('candidate_id', $request->data)->with(['numberOwner', 'numberCode'])->get()->toArray();
+        return response()->json($data);
     }
 }

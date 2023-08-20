@@ -236,6 +236,16 @@
                                 </div>
                                 <div class="col-xl-4 col-lg-6 col-md-12">
                                     <div class="form-group">
+                                        <label>სტატუსი</label>
+                                        <div class="ls-inputicon-box">
+                                            <multiselect v-model="m.status"  :options="cla.candidateStatus" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true"  label="name_ka" track-by="name_ka" :preselect-first="false" >
+                                                <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                            </multiselect>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-6 col-md-12">
+                                    <div class="form-group">
                                         <label>ანაზღაურება</label>
                                         <div class="ls-inputicon-box mt-4">
                                             <Slider v-model="m.payment" :min=50  :max=5000 :step=10 class="slider"/>
