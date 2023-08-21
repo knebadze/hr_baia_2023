@@ -40,6 +40,7 @@ class PostVacancyController extends Controller
                 'employer' => $employer,
                 'vacancy' => $vacancy,
                 'demand' => $demand,
+                'role_id' => (Auth::check())?Auth::User()->role_id:3,
             ],
             'classificatory' => $classificatory
         ];

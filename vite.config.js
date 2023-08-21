@@ -9,10 +9,13 @@ export default defineConfig({
     plugins: [
         vue(),
         i18n(),
-        laravel([
-            'resources/sass/app.scss',
-            'resources/css/app.css',
-            'resources/js/app.js',
-        ]),
+        laravel({
+            input: [
+                'resources/sass/app.scss',
+                'resources/css/app.css',
+                'resources/js/app.js',
+            ],
+            refresh: true,
+        }),
     ],
 });

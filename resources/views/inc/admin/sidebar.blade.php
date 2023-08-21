@@ -34,7 +34,7 @@
             </li>
 
             <li class="nav-item">
-                <a href="#" @if(Route::currentRouteName() === 'admin.hr') class="nav-link active" @else class="nav-link" @endif>
+                <a href="#" @if(Route::currentRouteName() === 'admin.hr' || Route::currentRouteName() === 'admin.employer' || Route::currentRouteName() === 'admin.candidate') class="nav-link active" @else class="nav-link" @endif>
                     <i class="nav-icon fas fa-copy"></i>
                     <p>
                         Users
@@ -60,7 +60,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a @if(Route::currentRouteName() === 'admin.hr') class="nav-link active" @else class="nav-link" @endif href="{{ route('admin.hr', App()->getLocale()) }}">
+                        <a @if(Route::currentRouteName() === 'admin.employer') class="nav-link active" @else class="nav-link" @endif href="{{ route('admin.employer', App()->getLocale()) }}">
                             <i class="nav-icon fas fa-user"></i>
                             <p>
                                 დამსაქმებლები

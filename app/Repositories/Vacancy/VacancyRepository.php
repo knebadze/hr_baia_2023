@@ -15,6 +15,7 @@ class VacancyRepository{
     {
         // dd($data);
         $hr_id = $this->addHrId($data['employer']['name_ka'], $data['employer']['number']);
+    // dd($hr_id);
         $employer = $this->addEmployer($data['employer']);
 
 
@@ -95,7 +96,8 @@ class VacancyRepository{
             $demand->additional_duty_ru = $data['demand']['additional_duty_ru'];
             $demand->language_id = ($data['demand']['language_id'])?$data['demand']['language_id']['id']:null;
             $demand->language_level_id = ($data['demand']['language_level_id'])?$data['demand']['language_level_id']['id']:null;
-            $demand->has_experience = $data['demand']['has_experience'];
+            $demand->has_experience = ($data['demand']['has_experience'] == 1 )?$data['demand']['has_experience']:0;
+            $demand->has_recommendation = ($data['demand']['has_recommendation'])?$data['demand']['has_recommendation']:0;
             $demand->save();
         }
 
@@ -177,58 +179,62 @@ class VacancyRepository{
     public function addHrId($name, $number)
     {
 
+
         //თუ დამსაქმებელს აქვს უკვე გამოგზავნილი ვაკანსია ვპოულობ hr და ისევ მას ვაწერ ამ ვაკანისას
         //rewrite ვუცვლი რადგან ერთი წრე გამოტოვოს
-        $findEmployer =  Employer::where('name_ka', 'LIKE', $name.'%')->where('number', $number)->first();
+        $findEmployer =  Employer::where('name_ka', 'LIKE', $name.'%')
+            ->where('number', $number)
+            ->first();
         if ($findEmployer) {
 
             $findAuthor = Vacancy::where('author_id', $findEmployer->id)->first();
             if ($findAuthor) {
-                HrHasVacancy::where('hr_id', $findAuthor->hr_id)->update(['rewrite'=> 1]);
+                $find = HrHasVacancy::where('hr_id', $findAuthor->hr_id)->first();
+                $find->update(['has_vacancy' => ($find->has_vacancy + 1)]);
                 return $findAuthor->hr_id;
             }
 
         }
-        $hrHasVacancy = HrHasVacancy::where('has_vacancy', 0)->get();
 
-        if (count($hrHasVacancy)) {
-            $id = null;
-            foreach ($hrHasVacancy as $key => $value) {
-                if ($value->is_active == 1) {
-                    $id = $value->hr_id;
+        $hr_id = null;
+        $findNext = HrHasVacancy::orderBy('id', 'ASC')
+            ->where('has_vacancy', 0)
+            ->where('is_active', 1)
+            ->first();
 
-                    break;
-                }
-
-            }
-
-            //თუ დაწერა ვაკანსია return
-            //თუ არ დაეწერა არააქტიურობის გამო ვიწყებ ვაკანსიებიდან ჰრ ის ძებნას
-            if ($id) {
-                HrHasVacancy::where('hr_id', $id)->update(['has_vacancy'=> 1]);
-                return $id;
-            }else{
-                return $this->addHrFromVacancy();
-            }
+        $lastHrId = HrHasVacancy::orderBy('hr_id', 'DESC')
+            ->where('is_active', 1)
+            ->where('has_vacancy', 0)
+            ->first();
+            
+        if ($findNext) {
+            $hr_id = $findNext->hr_id;
+            $findNext->update(['has_vacancy'=> 1]);
+        }else{
+            $this->hrHasVacancyUpdate();
+            $findNext = HrHasVacancy::orderBy('id', 'ASC')
+            ->where('has_vacancy', 0)
+            ->where('is_active', 1)
+            ->first();
+            $hr_id = $findNext->hr_id;
         }
 
-        //თუ არ არის ჰრ რომელსაც არ აქვს ვაკანსია მაშინ პირდაპირ ვიწყებ ვაკანიებიდან ბოლოს დაწერილი ჰრ ის ძებნას
-        return $this->addHrFromVacancy();
+
+
+        if ($lastHrId->hr_id == $findNext->hr_id) {
+            $this->hrHasVacancyUpdate();
+        }
+        return $hr_id;
+
+
     }
 
-    public function addHrFromVacancy()
+    public function hrHasVacancyUpdate()
     {
-        $vacancy = Vacancy::orderBy('id', 'DESC')->first();
-        $lastHrId = HrHasVacancy::orderBy('hr_id', 'DESC')->where('is_active', 1)->first();
-
-        //ყველა hr გარდა ბოლოს დაწერილი hr_ისა
-        $hr = HrHasVacancy::orderBy('id', 'ASC')->whereNot('hr_id', $vacancy->hr_id)->where('is_active', 1)->where('rewrite', 0)->first();
-        $id = $hr->hr_id;
-        //თუ ბოლო ჰრ ია მაშინ იმ HR ებს რომელსაც ქონდა გადაწერილი ვაკანსია ვუცვლი სტატუს რადგან ახალ წრეზე მოხდეს მათვის ვაკანსიების დაწერა
-        if ($id == $lastHrId->hr_id) {
-            HrHasVacancy::where('rewrite', 1)->update(['rewrite'=> 0]);
+        $all = HrHasVacancy::all();
+        foreach ($all as $key => $value) {
+            HrHasVacancy::where('id', $value->id)->update(['has_vacancy'=> ($value->has_vacancy - 1)]);
         }
-        return $id;
 
     }
 }

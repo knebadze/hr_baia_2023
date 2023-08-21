@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\Employer;
+use App\Models\Vacancy;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 use App\Repositories\Vacancy\VacancyRepository;
 use App\Repositories\Vacancy\FindVacancyRepository;
@@ -87,12 +89,24 @@ class VacancyService{
 
     public function saveData($data)
     {
+        $result = $this->rule($data);
+        if (isset($result['type'])) {
+            return $result;
+        }
         $lang = $data['lang'];
         $trData = $this->translate($lang, $data);
         $result = $this->vacancyRepository->save($trData);
         return $result;
     }
+    function rule($data){
+        if (Employer::where('number', $data['employer']['number'])->exists()) {
 
+            $employer = Employer::where('number', $data['employer']['number'])->first();
+            if (Vacancy::where('author_id', $employer->id)->whereNotIn('status_id', [5, 13])->exists() && Vacancy::where('author_id', $employer->id)->whereNotIn('status_id', [5, 13])->where('category_id', $data['vacancy']['category_id']['id'])->exists()) {
+                return ['type'=> 'e', 'message' => 'თქვენ არ გაქვთ ამ კატეგორიის ვაკანსიის დამატების უფლება!!!'];
+            }
+        }
+    }
     public function Find($code)
     {
         $result = $this->findVacancyRepository->data($code);

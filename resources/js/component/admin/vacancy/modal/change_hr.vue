@@ -4,32 +4,21 @@
           <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
               <div class="modal-content">
               <div class="modal-header">
-                  <h6 class="modal-title" id="exampleModalLongTitle">შეტყობინების გაგზავნა</h6>
+                  <h6 class="modal-title" id="exampleModalLongTitle">ვაკანსისი გადაწერა</h6>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="hide()">X</button>
               </div>
               <div class="modal-body">
+                <p class="text-center text-info">ამჟამად ვაკანსია ეკუთვნის HR: {{ item.hr.user.name_ka }}</p>
+                <h5 class="text-center">ნამდვილად გსურთ ვაკანსის გადაწერა?</h5>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-xl-12 col-lg-12 col-md-12">
                         <div class="form-group">
-                            <label> ნომერი</label>
-                            <input class="form-control" v-model="m.number" type="text">
-                        </div>
-                    </div>
-                    <div class="col-xl-6 col-lg-6 col-md-12">
-                        <div class="form-group">
-                            <label>შეწყვეტის მიზეზი</label>
+                            <label>აირჩიე hr</label>
                             <div class="ls-inputicon-box">
-                                <select class="form-control" id="exampleFormControlSelect1" v-model="m.additional_number" @input="choseEvent()">
-                                    <option value="">არცერთი</option>
-                                    <option v-for="(item, index) in cla" :key="index" :value="item">{{ `${item.number_code.phonecode}-${item.number} - ( ${item.number_owner.name_ka})`}} </option>
-                                </select>
+                                <multiselect  v-model="m.new_hr" :options="cla" deselect-label="Can't remove this value" track-by="name_ka" label="name_ka" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                    <template slot="singleLabel" slot-scope="{ option }"></template>
+                                </multiselect>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label> ტექსტი</label>
-                            <textarea class="form-control" v-model="m.text" rows="3" placeholder=""></textarea>
                         </div>
                     </div>
                 </div>
@@ -46,6 +35,7 @@
   import { toast } from 'vue3-toastify';
   import 'vue3-toastify/dist/index.css';
   import moment from 'moment'
+  import _ from 'lodash'
   export default {
         props:{
             visible: Boolean,
@@ -58,7 +48,8 @@
                 m: {},
                 reminder:{},
                 cla: null,
-                min:null
+                edit:{},
+
             }
         },
         created(){
@@ -74,8 +65,12 @@
                 try {
                     let result = await this.getClassificatory();
                     console.log('result', result.data);
-                    this.cla = result.data
+                    let item = this.item
+                    this.cla = _.filter(result.data, function(o) { return o.hr.id != item.hr.id; });
                     this.m = this.item
+                    this.edit = {
+                        'hr':this.item.hr
+                    }
                     // console.log(this.m);
                     this.showConfirm = true
                 } catch (error) {
@@ -86,18 +81,15 @@
                 this.showConfirm = false
             },
             getClassificatory(){
-                return axios.post('/get_candidate_additional_number' ,{
+                return axios.post('/get_hr_cla' ,{
                       data: this.item.id,
                   })
 
             },
-            choseEvent(){
-                console.log('item', this.m.additional_number);
-            },
             save(){
                 let currentObj = this
                 this.$swal({
-                    title: 'ნამდვილად გსურთ დასრულების თარიღის გადაწევა?',
+                    title: 'ნამდვილად გსურთ ვაკანსისის სხვა hr_ზე გადაწერა?',
                     // html:'ცვლილება ავტომატურად მოხსნის კანდიდატს ვაკანის დასაქმებული სტატუსიდან',
                     //   showDenyButton: true,
                     cancelButtonText:'არა',
@@ -109,8 +101,8 @@
                     if (result.isConfirmed) {
                         axios({
                             method: "post",
-                            url: "/move_end_date",
-                            data: {'model': this.m},
+                            url: "/change_hr_in_vacancy",
+                            data: {'model': this.m, 'edit': this.edit},
 
                         })
                         .then(function (response) {
@@ -121,6 +113,7 @@
                                     theme: 'colored',
                                     autoClose: 1000,
                                 });
+                                currentObj.hide()
 
                             }
                         })
@@ -140,11 +133,6 @@
             visible: function(){
                 this.show()
             },
-            'm.additional_number': function(newVal, oldVal){
-                console.log("newVal", newVal);
-                this.m.number = newVal.number
-
-            }
         }
   }
   </script>

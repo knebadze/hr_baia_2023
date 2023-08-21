@@ -287,8 +287,9 @@
                             </div>
 
                         </div>
-                        <div class="card-footer d-flex justify-content-end">
-                            <button type="button" class="btn btn-success" @click="filterMeth( 'filter', m )"><i class="fa fa-search"></i> ძებნა</button>
+                        <div class="card-footer ">
+                            <button type="button" class="btn btn-primary" @click="endFilter()"><i class="fa fa-times"></i> ფილტრის გამორთვა</button>
+                            <button type="button" class="btn btn-success float-right" @click="filterMeth( 'filter', m )"><i class="fa fa-search"></i> ძებნა</button>
                         </div>
                     </div>
                 </div>
@@ -298,10 +299,13 @@
 
             </div>
         </div>
+        <div class="my-2 d-flex justify-content-end">
+            <button type="button" class="btn btn-success" @click="addVacancy()"><i class="fa fa-plus"></i> ვაკანსისი დამატება</button>
+        </div>
     <!-- /.container-fluid -->
     <!-- {{ (Object.keys(items).length > 0)?items[0].id:'' }} -->
     <div v-if="roleId == 1">
-        <adminVacancyTable v-if="Object.keys(items).length > 0"  :data="items" :key="items[0].id" ></adminVacancyTable>
+        <adminVacancyTable v-if="Object.keys(items).length > 0"  :data="items" :key="items.length" ></adminVacancyTable>
     </div>
     <div v-else>
         <hrVacancyTable v-if="Object.keys(items).length > 0"  :data="items" :hrId="hrId"  :key="items[0].id"></hrVacancyTable>
@@ -432,6 +436,15 @@ export default {
                 // handle error
                 console.log(error);
             })
+        },
+        addVacancy(){
+            let url = new URL( location.href)
+            window.location.replace(`${url.origin}/ka/post_job`);
+        },
+        endFilter(){
+            this.m = {'payment': [50, 4000], 'age':[18, 65]}
+            this.items = this.data.vacancy.data
+
         }
 
     },

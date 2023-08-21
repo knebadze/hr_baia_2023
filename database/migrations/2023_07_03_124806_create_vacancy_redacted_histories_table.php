@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('vacancy_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->string('column_name');
             $table->json('old_value');
-            $table->foreignId('hr_id')->nullable()->constrained();
+            $table->foreignId('user_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

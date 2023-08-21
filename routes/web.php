@@ -32,6 +32,7 @@ use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Admin\AdminCandidateController;
 use App\Http\Controllers\Admin\AdminVacancyController;
 use App\Http\Controllers\Admin\BlackListController;
+use App\Http\Controllers\Admin\EmployerController;
 use App\Http\Controllers\Admin\PdfController;
 use App\Http\Controllers\Admin\RelevantVacancyController;
 use App\Http\Controllers\Admin\ReminderController;
@@ -109,6 +110,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
         Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
         Route::get('/admin/hr', [HrController::class, 'index'])->name('admin.hr');
         Route::get('/admin/candidate', [AdminCandidateController::class, 'index'])->name('admin.candidate');
+        Route::get('/admin/employer', [EmployerController::class, 'index'])->name('admin.employer');
 
         Route::get('/admin/reminder', [ReminderController::class, 'index'])->name('admin.reminder');
     });
@@ -185,6 +187,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('get_candidate_additional_number', [AdminCandidateController::class, 'additionalNumberInfo']);
     Route::post('candidate_filter', [AdminCandidateController::class, 'filter']);
     Route::post('update_candidate', [AdminCandidateController::class, 'update']);
+    Route::post('delete_candidate', [AdminCandidateController::class, 'delete']);
     Route::post('add_reminder_vacancy', [ReminderController::class, 'addReminder']);
     Route::post('vacancy_reminder_filter', [ReminderController::class, 'filter']);
     Route::post('update_vacancy_reminder', [ReminderController::class, 'update']);
@@ -204,6 +207,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('carry_in_head_vacancy', [VacancyActionController::class, 'carryInHead']);
     Route::post('admin_vacancy_filter', [VacancyActionController::class, 'filter']);
     Route::post('delete_vacancy', [VacancyActionController::class, 'delete']);
+    Route::post('change_hr_in_vacancy', [VacancyActionController::class, 'changeHr']);
 
 
     Route::get('vacancy_data', [VacancyController::class, 'data']);

@@ -22,6 +22,7 @@
                 <i class="fa fa-cog"></i>
             </button>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                
                 <a class="dropdown-item"  :href="updateUrl+'/'+item.id">რედაქტირება</a>
                 <!-- <a v-if="item.status_id == 10 || item.status_id == 11" class="dropdown-item" href="#" @click="freedom(item.id)">თავისუალი სტატუსი</a> -->
                 <a v-if="item.status_id != 10 && item.status_id != 12" class="dropdown-item" href="#" @click="addInVacancy(item)">ვაკანსიაში დამატება</a>
@@ -31,7 +32,8 @@
                 <a class="dropdown-item" href="#"  @click="pdf(item)">ჩამოტვირთვა</a>
                 <a class="dropdown-item" href="#" @click="openSendMessageModal(item)">სმს</a>
                 <a v-if="item.status_id == 9" class="dropdown-item" href="#" @click="blackListModal(item.id)">შავ სიაში დამატება</a>
-                <a  class="dropdown-item" href="#" @click="UpdateModal(item)">წაშლა</a>
+                <a v-if="role_id == 1" class="dropdown-item" href="#" @click="candidateDelete(item.id)"> წაშლა</a>
+
             </div>
         </div>
       </div>
@@ -234,7 +236,8 @@ export default {
         send_message_modal
     },
     props:{
-        data: Object
+        data: Object,
+        role_id: Number
     },
 
     setup(props){
@@ -420,6 +423,49 @@ export default {
             // return
             this.showSendMessageModal = !this.showSendMessageModal
             this.item = {'id': item.id, 'number': item.user.number}
+        },
+        candidateDelete(id){
+            let currentObj = this
+            this.$swal({
+                title: 'ნამდვილად გსურთ წაშლა?',
+                // html:'ცვლილება ავტომატურად მოხსნის კანდიდატს ვაკანის დასაქმებული სტატუსიდან',
+                //   showDenyButton: true,
+                cancelButtonText:'არა',
+                confirmButtonText: 'კი',
+                showCancelButton: true,
+            }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            // return
+                if (result.isConfirmed) {
+                    axios({
+                        method: "post",
+                        url: "/delete_candidate",
+                        data: {'id': id},
+
+                    })
+                    .then(function (response) {
+                        // console.log(response.data);
+                        if (response.data.status == 200) {
+
+                            toast.success('წარმატებით წაიშალა', {
+                                theme: 'colored',
+                                autoClose: 1000,
+                            });
+                            setTimeout(() => {
+                                document.location.reload();
+                            }, 1500);
+
+                        }
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+
+                } else if (result.isDenied) {
+                    return
+                }
+            });
         }
         // freedom(id){
         //     this.$swal({

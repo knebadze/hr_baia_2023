@@ -65,6 +65,7 @@ class AdminCandidateController extends Controller
                 $data = [
                     'candidate' => $candidate,
                     'classificatory' => $classificatory,
+                    'role_id' => Auth::user()->role_id,
                 ];
         return view('admin.candidate', compact('data'));
     }
@@ -174,6 +175,20 @@ class AdminCandidateController extends Controller
         return response()->json($result, $result['status']);
     }
 
+    function delete(Request $request)  {
+        $result = ['status' => 200];
+
+        try {
+            $result = Candidate::where('id', $request->id)->delete();
+            $result['status'] = 200;
+        } catch (Exception $e) {
+            $result = [
+                'status' => 500,
+                'error' => $e->getMessage()
+            ];
+        }
+        return response()->json($result, $result['status']);
+    }
     function addCandidate() {
         $data = [];
 

@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class VacancyRedactedHistory extends Model
 {
     use HasFactory;
-    public function hr()
+    public function user()
     {
-        return $this->belongsTo(Hr::class);
+        return $this->belongsTo(User::class);
     }
 }

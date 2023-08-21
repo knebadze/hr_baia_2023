@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('qualifying_candidates', function (Blueprint $table) {
             $table->id();
             $table->foreignId('vacancy_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('qualifying_type_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('candidate_id')->constrained()->onUpdate('cascade');
+            $table->foreignId('qualifying_type_id')->constrained()->onUpdate('cascade');
+            $table->foreignId('candidate_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->smallInteger('employer_answer')->nullable();
             $table->dateTime('interview_date')->nullable();
             $table->foreignId('interview_place_id')->nullable()->constrained();

@@ -15,6 +15,7 @@
                 <i class="fa fa-cog"></i>
             </button>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                <a v-if="item.status.id == 1 || item.status.id == 2|| item.status.id == 6" class="dropdown-item" href="#" @click="changeHr(item)"> გადაწერა</a>
                 <a class="dropdown-item" href="#" @click="vacancyUpdateModal(item)">რედაქტირება</a>
                 <a class="dropdown-item" href="#" @click="statusChange(item)">სტატუსის შეცვლა</a>
                 <a v-if="item.status.id == 2" class="dropdown-item" :href="personalSelectionUrl+'/'+item.id" >კადრების შერჩევა</a>
@@ -255,6 +256,7 @@
     <vacancyReminder :visible="reminderModelShow" :item="item"></vacancyReminder>
     <vacancyRepeat :visible="repeatModelShow" :item="item"></vacancyRepeat>
     <redactedHistory :visible="historyModelShow" :vacancyId="vacancyId"></redactedHistory>
+    <change_hr :visible="hrModelShow" :item="item"></change_hr>
 </template>
 <script>
 import { ref, computed } from "vue";
@@ -272,6 +274,7 @@ import vacancyDeposit from "../../../hr/modal/vacancyDeposit.vue";
 import vacancyReminder from "../modal/vacancyReminder.vue";
 import vacancyRepeat from "../../../hr/modal/vacancyRepeat.vue";
 import redactedHistory from "../../../hr/modal/redactedHistory.vue"
+import change_hr from "../modal/change_hr.vue";
 export default {
     components: {
         Slider,
@@ -281,6 +284,7 @@ export default {
         vacancyReminder,
         vacancyRepeat,
         redactedHistory,
+        change_hr
         // Switch
     },
     props:{
@@ -300,6 +304,7 @@ export default {
         let reminderModelShow = ref(false)
         let repeatModelShow = ref(false)
         let historyModelShow = ref(false)
+        let hrModelShow = ref(false)
         let vacancyId = ref(null)
         var statusItem = ref()
         var item = ref()
@@ -497,6 +502,7 @@ export default {
             reminderModelShow,
             repeatModelShow,
             historyModelShow,
+            hrModelShow,
             personalSelectionUrl,
             vacancyPersonalUrl,
 
@@ -534,6 +540,13 @@ export default {
         vacancyHistoryModal(id){
             this.historyModelShow = !this.historyModelShow
             this.vacancyId = id
+        },
+        changeHr(item){
+            this.hrModelShow = !this.hrModelShow
+            this.item = {
+                'id':item.id,
+                'hr':item.hr
+            }
         },
         carryInHead(item){
             console.log('head', item);

@@ -83,9 +83,16 @@
                         @endif --}}
 
                         <div class="twm-nav-btn-right">
-                            <a href="{{ route('home', App()->getLocale() ) }}" class="twm-nav-post-a-job">
-                                <i class="feather-user"></i> {{ __('lang.user_page_my_cabinet') }}
-                            </a>
+                            @if (Auth::user()->role_id == 3)
+                                <a href="{{ route('home', App()->getLocale() ) }}" class="twm-nav-post-a-job">
+                                    <i class="feather-user"></i> {{ __('lang.user_page_my_cabinet') }}
+                                </a>
+                            @else
+                                <a href="{{ route('admin.dashboard', App()->getLocale() ) }}" class="twm-nav-post-a-job">
+                                    <i class="feather-user"></i> {{ __('lang.user_page_my_cabinet') }}
+                                </a>
+                            @endif
+
                         </div>
                         <div class="twm-nav-btn-left">
                             <a class="twm-nav-sign-up" data-bs-toggle="modal" href="{{ route('logout') }}" role="button"

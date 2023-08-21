@@ -132,5 +132,22 @@ class VacancyActionController extends Controller
         return response()->json($result, $result['status']);
     }
 
+    function changeHr(Request $request) {
+        // dd($request->all());
+        $data = $request->all();
+        $result = ['status' => 200];
+
+        try {
+            $result['data'] = $this->vacancyUpdateService->updateHr($data);
+        } catch (Exception $e) {
+            $result = [
+                'status' => 500,
+                'error' => $e->getMessage()
+            ];
+        }
+
+        return response()->json($result, $result['status']);
+    }
+
 
 }

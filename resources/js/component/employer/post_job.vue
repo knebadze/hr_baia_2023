@@ -192,13 +192,13 @@
                                 <div class="col-xl-4 col-lg-6 col-md-12">
                                     <div class=" form-check">
                                         <input type="checkbox" class="form-check-input" id="exampleCheck2" value="1" v-model="m.vacancy.stay_night">
-                                        <label class="form-check-label" for="exampleCheck1">შეეძლოს ღამე დარჩენა</label>
+                                        <label class="form-check-label" for="exampleCheck2">შეეძლოს ღამე დარჩენა</label>
                                     </div>
                                 </div>
                                 <div class="col-xl-4 col-lg-6 col-md-12">
                                     <div class=" form-check">
                                         <input type="checkbox" class="form-check-input" id="exampleCheck3" value="1" v-model="m.vacancy.work_additional_hours">
-                                        <label class="form-check-label" for="exampleCheck1">შეეძლო დამატებით საათებში მუშაობა</label>
+                                        <label class="form-check-label" for="exampleCheck3">შეეძლო დამატებით საათებში მუშაობა</label>
                                     </div>
                                 </div>
                             </div>
@@ -349,14 +349,14 @@
                             </div>
                             <div class="col-xl-4 col-lg-6 col-md-12">
                                     <div class=" form-check">
-                                        <input type="checkbox" class="form-check-input" id="exampleCheck1" value="1" v-model="m.demand.has_experience">
-                                        <label class="form-check-label" for="exampleCheck1">გამოცდილების ქონა სავალდებულოა</label>
+                                        <input type="checkbox" class="form-check-input" id="exampleCheck4" value="1" v-model="m.demand.has_experience">
+                                        <label class="form-check-label" for="exampleCheck4">გამოცდილების ქონა სავალდებულოა</label>
                                     </div>
                                 </div>
                                 <div class="col-xl-4 col-lg-6 col-md-12">
                                     <div class=" form-check">
-                                        <input type="checkbox" class="form-check-input" id="exampleCheck2" value="1" v-model="m.demand.has_recommendation">
-                                        <label class="form-check-label" for="exampleCheck1">რეკომენდაციის ქონა სავალდებულოა</label>
+                                        <input type="checkbox" class="form-check-input" id="exampleCheck5" value="1" v-model="m.demand.has_recommendation">
+                                        <label class="form-check-label" for="exampleCheck5">რეკომენდაციის ქონა სავალდებულოა</label>
                                     </div>
                                 </div>
 
@@ -601,6 +601,8 @@ export default {
         this.createModel()
         this.cla = { ...this.data.classificatory}
         this.cla.workSchedule = this.data.classificatory.workSchedule.filter(item => item.id !== 10 && item.id !== 11);
+        let url = new URL( location.href)
+        console.log('url', url);
     },
     computed:{
         getLang(){
@@ -652,6 +654,13 @@ export default {
                     .then(function (response) {
                         console.log('response.data', response.data);
                         if (response.data.status == 200) {
+                            if (response.data.data.type == "e") {
+                                toast.error(response.data.data.message, {
+                                    theme: 'colored',
+                                    autoClose: 1000,
+                                });
+                                return
+                            }
                             currentObj.loader = false
                             currentObj.createModel()
 
@@ -663,8 +672,19 @@ export default {
                                     <a href="//sweetalert2.github.io"><u>ლინკს</u></a>
                                     სადაც შეგიძლიათ მიიღოთ ინფორმაცია თქვენი ვაკანსიის შესახებ`,
                                 showCloseButton: true,
-                                showCancelButton: true,
+                                showCancelButton: false,
                                 focusConfirm: false,
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    let url = new URL( location.href)
+                                    if (currentObj.data.model.role_id == 3) {
+                                        window.location.replace(`${url.origin}/ka`);
+                                    }else{
+                                        window.location.replace( `${url.origin}/admin/vacancy?ka`);
+                                    }
+
+                                }
+
                             })
 
                         }

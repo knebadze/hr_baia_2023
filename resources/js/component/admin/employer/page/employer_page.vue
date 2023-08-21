@@ -3,7 +3,7 @@
     <!-- <section class="content ">
         <div class="container-fluid"> -->
 
-            <div id="accordion" >
+            <!-- <div id="accordion" >
                 <div class="card card-primary" >
                     <div class="card-header">
                     <h4 class="card-title w-100 d-flex justify-content-between">
@@ -314,17 +314,17 @@
 
                             </div>
                         </div>
-            <!-- /.card-body -->
+
                     </div>
                 </div>
-            </div>
+            </div> -->
         <!-- </div>
     </section> -->
 
-        <div class="mb-2 d-flex justify-content-end">
+        <!-- <div class="mb-2 d-flex justify-content-end">
             <a type="button" class="btn btn-success" :href="addCandidateUrl" title="კანდიდატის დამატება"><i class="fa fa-plus"></i> დაამატე კანდიდატი</a>
-        </div>
-        <candidate_table :data="candidate" :role_id="data.role_id" :key="candidate.length"></candidate_table>
+        </div> -->
+        <!-- <candidate_table :data="candidate" :role_id="data.role_id" :key="candidate.length"></candidate_table> -->
         <div class="mt-2">
             <paginate
                 v-model="pagination.current_page"
@@ -348,22 +348,22 @@
 import _ from 'lodash';
 import Paginate from 'vuejs-paginate-next';
 // import info_modal from '../modal/info_modal.vue'
-import Slider from '@vueform/slider'
+// import Slider from '@vueform/slider'
 // import axios from 'axios';
-import candidate_table from '../component/candidate_table.vue';
+// import candidate_table from '../component/candidate_table.vue';
 export default {
     components:{
         paginate: Paginate,
         // info_modal,
-        Slider,
-        candidate_table
+        // Slider,
+        // candidate_table
     },
     props:{
         data:Object,
     },
     data() {
         return {
-            candidate:[],
+            employer:[],
             pagination:{
                 current_page: 1,
                 last_page: 2,
@@ -384,11 +384,11 @@ export default {
         this.getData()
     },
     computed:{
-        addCandidateUrl(){
-            let url = new URL( location.href)
-            return url.origin+'/admin/add_candidate'
+        // addCandidateUrl(){
+        //     let url = new URL( location.href)
+        //     return url.origin+'/admin/add_candidate'
 
-        }
+        // }
     },
     methods: {
         getData(){
@@ -400,16 +400,13 @@ export default {
 
         },
         firstData(){
-            this.candidate = this.data.candidate.data
-            this.cla = this.data.classificatory
+            this.employer = this.data
+            // this.cla = this.data.classificatory
             this.pagination = {
-                'current_page':this.data.candidate.current_page,
-                'last_page': this.data.candidate.last_page
+                'current_page':this.data.current_page,
+                'last_page': this.data.last_page
             }
-            this.m.age = [18, 80]
-            this.m.height = [140, 200]
-            this.m.weight = [40, 100]
-            this.m.payment = [50, 4000]
+
         },
         filterMeth(type,m){
             this.getDataType = type

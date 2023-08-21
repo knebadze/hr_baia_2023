@@ -49,6 +49,7 @@ import reminderPage from './component/admin/reminder/page/reminder_page.vue'
 import vacancyPage from './component/admin/vacancy/page/vacancy_page.vue'
 import vacancyAttached from './component/admin/candidate/page/vacancy_attached.vue'
 import relevantVacancy from './component/admin/candidate/page/relevant_vacancy.vue'
+import employerPage from './component/admin/employer/page/employer_page.vue'
 
 
 
@@ -119,6 +120,7 @@ app.component('reminder-page', reminderPage)
 app.component('vacancy-page', vacancyPage)
 app.component('vacancy-attached', vacancyAttached)
 app.component('relevant-vacancy', relevantVacancy)
+app.component('employer-page', employerPage)
 
 // __________________PAGE_____________
 app.component('busy-candidate', busyCandidate)
