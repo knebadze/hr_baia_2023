@@ -73,10 +73,9 @@
 
                                                     <div class="twm-job-self-bottom">
                                                         @auth()
-                                                            @if (count($vacancy->vacancyInterest) && $findQualifying)
-
+                                                            @if (count($vacancy->vacancyInterest) && $statusThisVacancy)
                                                             @else
-                                                                <form method="post" action="/add_interest_vacancy" enctype="multipart/form-data">
+                                                                <form method="post" action="/interest_vacancy" enctype="multipart/form-data">
                                                                     {{ csrf_field() }}
                                                                     <input type="hidden" name="id" value="{{ $vacancy->id }}">
                                                                     <button class="site-button" type="submit" >

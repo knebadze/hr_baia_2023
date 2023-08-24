@@ -31,7 +31,7 @@
         </div>
         <!-- INNER PAGE BANNER END -->
 
-        <job-list :data='@json($data)'></job-list>
+        <vacancy-list :data='@json($data)'></vacancy-list>
 
     </div>
 

@@ -22,7 +22,7 @@
                 <i class="fa fa-cog"></i>
             </button>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                
+
                 <a class="dropdown-item"  :href="updateUrl+'/'+item.id">რედაქტირება</a>
                 <!-- <a v-if="item.status_id == 10 || item.status_id == 11" class="dropdown-item" href="#" @click="freedom(item.id)">თავისუალი სტატუსი</a> -->
                 <a v-if="item.status_id != 10 && item.status_id != 12" class="dropdown-item" href="#" @click="addInVacancy(item)">ვაკანსიაში დამატება</a>
@@ -467,58 +467,6 @@ export default {
                 }
             });
         }
-        // freedom(id){
-        //     this.$swal({
-        //         title: 'ნამდვილად სტატუსის შეცვლა?',
-        //         html:'ცვლილება ავტომატურად წაშლის კანდიდატს დასაქმებულის პოზიციიდან',
-        //         //   showDenyButton: true,
-        //         cancelButtonText:'არა',
-        //         confirmButtonText: 'კი',
-        //         showCancelButton: true,
-        //     }).then((result) => {
-        //     /* Read more about isConfirmed, isDenied below */
-        //     // return
-        //         if (result.isConfirmed) {
-        //             axios({
-        //                 method: "post",
-        //                 url: "/candidate_status_update",
-        //                 data:{'id':id},
-
-        //             })
-        //             .then(function (response) {
-        //                 // console.log(response.data);
-        //                 if (response.data.status == 200) {
-        //                     toast.success("წარმატებით წაიშალა", {
-        //                         theme: 'colored',
-        //                         autoClose: 1000,
-        //                     });
-        //                 }
-        //             })
-        //             .catch(function (error) {
-        //                 // handle error
-        //                 console.log(error);
-        //             })
-
-        //         } else if (result.isDenied) {
-        //             return
-        //         }
-        //     });
-        // }
-        // pdf(item){
-        //     axios.post('/candidate_pdf' ,{
-        //         data: item,
-        //     })
-        //     .then(function (response) {
-        //         // handle success
-        //         console.log(response.data);
-        //         currentObj.items = response.data
-
-        //     })
-        //     .catch(function (error) {
-        //         // handle error
-        //         console.log(error);
-        //     })
-        // }
 
     }
 }

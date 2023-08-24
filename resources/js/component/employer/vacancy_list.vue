@@ -228,9 +228,9 @@
                                     <div class="twm-jobs-category green"><span class="twm-bg-green">{{ item.category[`name_${getLang}`] }}</span></div>
                                     <div class="twm-jobs-amount">{{ item.currency.icon }} {{ item.payment }}</div>
                                     <div class="twm-jobs-amount">{{ item.hr.user.number }} <span>/ {{ item.hr.user[`name_${getLang}`] }}</span></div>
-                                    <span v-if="auth && item.vacancy_interest.some( (o) => o.user_id == auth.id ) " style="font-size:20px;">
-                                        <i :class="(item.vacancy_interest.some( (o) => o.user_id == auth.id && o.employer_answer == null))?'fa fa-plus-circle text-warning':(item.vacancy_interest.some( (o) => o.user_id == auth.id && o.employer_answer == 0))?'fa fa-times-circle text-danger':(item.vacancy_interest.some( (o) => o.user_id == auth.id && o.employer_answer == 1))?'fa fa-check-circle text-success':''"></i></span>
-                                    <button v-else type="button" class="btn btn-primary" @click="interest(item.id)">{{ $t('lang.individual_vacancies_page_middle_interest_button') }}</button><br>
+                                    <span v-if="auth && item.vacancy_interest.some( (o) => o.candidate_id == auth.candidate.id ) " style="font-size:20px;">
+                                        <i :class="(item.vacancy_interest.some( (o) => o.candidate_id == auth.candidate.id && o.employer_answer == null))?'fa fa-plus-circle text-warning':(item.vacancy_interest.some( (o) => o.user_id == auth.id && o.employer_answer == 0))?'fa fa-times-circle text-danger':(item.vacancy_interest.some( (o) => o.user_id == auth.id && o.employer_answer == 1))?'fa fa-check-circle text-success':''"></i></span>
+                                    <button v-else type="button" class="btn btn-primary" @click="interest(item)">{{ $t('lang.individual_vacancies_page_middle_interest_button') }}</button><br>
                                     <span> <a class="job_detail_read_more btn btn-info fa fa-arrow-right" :href="detailUrl+'/'+item.id+'/'+item.slug" style="  margin-top: 5%; color: #fff;"></a> </span>
                                 </div>
                             </div>
@@ -301,6 +301,7 @@ export default {
             },
             filterCount:0,
             getDataType:'first_data',
+            checkInterest:false
 
 
         }
@@ -325,25 +326,26 @@ export default {
                 this.filter(this.filterItem)
             }
         },
-        firstData(){
-            axios.get('/vacancy_data?page=' + this.pagination.current_page )
-                .then((response)=> {
-                    console.log('response.data', response.data);
-                        this.pagination = {
-                            'current_page':response.data.vacancy.current_page,
-                            'last_page': response.data.vacancy.last_page
-                        }
-                        this.vacancy = response.data.vacancy.data
-                        this.staticVacancy = response.data.vacancy.data
-                        this.count = response.data.count
-                        this.auth = response.data.auth
+        async firstData(){
+            try {
+                const response = await axios.get('/vacancy_data?page=' + this.pagination.current_page);
 
+                console.log('response.data', response.data);
 
-                    // this.isLoading = false;
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+                this.pagination = {
+                    'current_page': response.data.vacancy.current_page,
+                    'last_page': response.data.vacancy.last_page
+                };
+
+                this.vacancy = response.data.vacancy.data;
+                this.staticVacancy = response.data.vacancy.data;
+                this.count = response.data.count;
+                this.auth = response.data.auth;
+
+                // this.isLoading = false;
+            } catch (error) {
+                console.error(error);
+            }
         },
         menageFilterItem(){
 
@@ -392,7 +394,7 @@ export default {
                     console.log(error);
                 })
         },
-        interest(id){
+        interest(item){
             if (this.auth != null ) {
                 if (this.auth.role_id != 3) {
                     toast.error("თქვენ არ გაქვთ დაინტერესების უფლება", {
@@ -400,35 +402,31 @@ export default {
                         autoClose: 1000,
                     });
                     return
-                }else if(this.auth.role_id == 3 && this.auth.status != 2){
-                    toast.error("თქვენ ჯერ არ გაქვთ დაინტერესების უფლება, გთხოვთ შეავსოთ ინფორმაცია", {
-                        theme: 'colored',
-                        autoClose: 1000,
-                    });
-                    return
+                }else if(this.auth.role_id == 3  ){
+                    if (this.auth.candidate.status_id == 8) {
+                        toast.error("თქვენ ჯერ არ გაქვთ დაინტერესების უფლება, გთხოვთ შეავსოთ ინფორმაცია", {
+                            theme: 'colored',
+                            autoClose: 1000,
+                        });
+                        return
+                    } else if(this.auth.candidate.status_id == 10) {
+                        toast.error("არ გაქვთ დაინტერესების უფლება, თქვენ უკვე დასაქმებული ხართ", {
+                            theme: 'colored',
+                            autoClose: 1000,
+                        });
+                        return
+                    }
+
+                }else if(this.auth.role_id == 3){
+
                 }
-                console.log(id);
-                let currentObj = this
-                axios({
-                        method: "post",
-                        url: '/interest_vacancy',
-                        data: {'id': id},
+                console.log(item);
+                this.sendInterestAxios(item)
+                // let m = {
+                //     'vacancy_id': id,
+                // }
+                // return
 
-                    })
-                    .then(function (response) {
-                        console.log('response.data',response.data);
-                        toast.success('თქვენ გააგზავნეთ დაინტერესება ვაკანისაზე', {
-                        theme: 'colored',
-                        autoClose: 1000,
-                    });
-                        var find = currentObj.vacancy.find(element => element.id == id);
-                        find.vacancy_interest.push(response.data)
-
-                    })
-                    .catch(function (error) {
-                        // handle error
-                        console.log(error);
-                    })
             }else{
                 this.$swal(
                     {
@@ -451,6 +449,57 @@ export default {
                     }
                 })
             }
+        },
+        sendInterestAxios(item){
+            let currentObj = this
+
+            axios({
+                method: "post",
+                url: '/interest_vacancy',
+                data: {'id': item.id, 'check': this.checkInterest},
+
+            })
+            .then(function (response) {
+                console.log('response.data',response.data);
+                if (response.data.status == 200) {
+                    let text;
+                    if(response.data.data.type == 'w'){
+                        currentObj.$swal({
+                            title: '<p>თქვენი სამუშაო კატეგორია არ შეესაბამება ვაკანსიის კატეგორიას!!!</p>',
+                            icon: 'info',
+                            html:
+                                'დარწმუნებული ხართ რომ გსურთ ამ ვაკანსიით დაინტერესება?',
+                            showCloseButton: true,
+                            showCancelButton: true,
+                            showDenyButton: true,
+                            focusConfirm: false,
+                            confirmButtonText: 'კი',
+                            denyButtonText: 'კატეგორიის დამატება',
+                            cancelButtonText:'გაუქმება'
+                        }).then((result) => {
+                            /* Read more about isConfirmed, isDenied below */
+                            if (result.isConfirmed) {
+                                currentObj.checkInterest = true
+                                currentObj.sendInterestAxios(item)
+                            }else if (result.isDenied) {
+                                window.location.replace(`/${currentObj.getLang}/user/work_information`)
+                            }
+                        })
+                    }else if(response.data.data.type == 's'){
+                        toast.success('თქვენ გააგზავნეთ დაინტერესება ვაკანისაზე', {
+                            theme: 'colored',
+                            autoClose: 1000,
+                        });
+                        var find = currentObj.vacancy.find(element => element.id == item.id);
+                        find.vacancy_interest.push(response.data.data.qualifying)
+                    }
+                }
+
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
         }
     },
     watch:{

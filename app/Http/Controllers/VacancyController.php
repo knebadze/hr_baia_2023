@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
+use App\Models\User;
 use App\Models\Vacancy;
 use Illuminate\Http\Request;
 use App\Services\VacancyService;
@@ -9,18 +11,18 @@ use App\Models\QualifyingCandidate;
 use Illuminate\Support\Facades\Auth;
 use App\Filters\Vacancy\VacancyFilters;
 use App\Services\ClassificatoryService;
-use App\Services\QualifyingCandidateSave;
+use App\Services\InterestCandidateService;
 
 class VacancyController extends Controller
 {
     private ClassificatoryService $classificatoryService;
     private VacancyService $vacancyService;
-    private QualifyingCandidateSave $qualifyingCandidateSave;
-    public function __construct(ClassificatoryService $classificatoryService, VacancyService $vacancyService, QualifyingCandidateSave $qualifyingCandidateSave)
+    private InterestCandidateService $interestCandidateService;
+    public function __construct(ClassificatoryService $classificatoryService, VacancyService $vacancyService, InterestCandidateService $interestCandidateService)
     {
         $this->classificatoryService = $classificatoryService;
         $this->vacancyService = $vacancyService;
-        $this->qualifyingCandidateSave = $qualifyingCandidateSave;
+        $this->interestCandidateService = $interestCandidateService;
     }
 
     // index
@@ -40,7 +42,7 @@ class VacancyController extends Controller
         $vacancy = Vacancy::orderby('updated_at', 'DESC')->whereIn('status_id', [2, 6])->with(['author','currency', 'category', 'workSchedule', 'vacancyForWhoNeed', 'vacancyBenefit', 'vacancyInterest', 'hr.user'])->paginate(20)->toArray();
         // dd($vacancy);
         $countVacancy = Vacancy::whereIn('status_id', [2, 6])->count();
-        $auth = Auth::user();
+        $auth = User::where('id', Auth::id())->with('candidate')->first();;
         $data = [
             'vacancy' => $vacancy,
             'count' => $countVacancy,
@@ -71,8 +73,42 @@ class VacancyController extends Controller
     }
     public function show($lang, $id, $slug) {
         $vacancy = Vacancy::where('id', $id)->with(['author','currency', 'category', 'workSchedule'])->first();
-        return view('job_detail', compact('vacancy'));
+        $findCandidate = QualifyingCandidate::where('vacancy_id', $vacancy->id)->where('candidate_id', Auth::user()->candidate->id)->first();
+        $statusThisVacancy = $findCandidate->qualifyingType;
+        $vacancy->increment('view', 1);
+        return view('job_detail', compact('vacancy', 'statusThisVacancy'));
     }
+
+    function interest(Request $request){
+
+        $data = $request->all();
+        $result = ['status' => 200];
+
+        try {
+            $result['data'] = $this->interestCandidateService->service($data);
+        } catch (Exception $e) {
+            $result = [
+                'status' => 500,
+                'error' => $e->getMessage()
+            ];
+        }
+
+        return response()->json($result, $result['status']);
+        // $qualifying = new QualifyingCandidate();
+        // $qualifying->vacancy_id = $request->id;
+        // $qualifying->qualifying_type_id = 2;
+        // $qualifying->candidate_id = Auth::user()->candidate->id;
+        // $qualifying->save();
+        // if (isset($request->_token)) {
+        //     return back();
+        // }
+        // return response()->json($qualifying);
+    }
+
+    // function addInterest(Request $request){
+    //     dd($request->_token);
+
+    // }
 
 
 }

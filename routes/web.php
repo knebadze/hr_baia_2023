@@ -213,7 +213,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::get('vacancy_data', [VacancyController::class, 'data']);
     Route::post('vacancy_filter', [VacancyController::class, 'filter']);
     Route::post('/interest_vacancy', [VacancyController::class, 'interest']);
-    Route::post('/add_interest_vacancy', [VacancyController::class, 'addInterest']);
+    // Route::post('/add_interest_vacancy', [VacancyController::class, 'addInterest']);
 
     Route::post('/find_my_vacancy', [MyVacancyController::class, 'find']);
 

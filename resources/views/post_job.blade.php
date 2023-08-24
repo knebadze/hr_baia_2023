@@ -12,7 +12,7 @@
 
         <div style="height:100px"></div>
         <!--Basic Information-->
-        <post-job :data='@json($data)'></post-job>
+        <post-vacancy :data='@json($data)'></post-vacancy>
 
     </div>
 
