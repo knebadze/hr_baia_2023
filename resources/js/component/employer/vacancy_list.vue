@@ -420,12 +420,7 @@ export default {
                 }else if(this.auth.role_id == 3){
 
                 }
-                console.log(item);
                 this.sendInterestAxios(item)
-                // let m = {
-                //     'vacancy_id': id,
-                // }
-                // return
 
             }else{
                 this.$swal(

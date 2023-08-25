@@ -42,7 +42,7 @@ class VacancyController extends Controller
         $vacancy = Vacancy::orderby('updated_at', 'DESC')->whereIn('status_id', [2, 6])->with(['author','currency', 'category', 'workSchedule', 'vacancyForWhoNeed', 'vacancyBenefit', 'vacancyInterest', 'hr.user'])->paginate(20)->toArray();
         // dd($vacancy);
         $countVacancy = Vacancy::whereIn('status_id', [2, 6])->count();
-        $auth = User::where('id', Auth::id())->with('candidate')->first();;
+        $auth = User::where('id', Auth::id())->with('candidate')->first();
         $data = [
             'vacancy' => $vacancy,
             'count' => $countVacancy,
@@ -53,7 +53,7 @@ class VacancyController extends Controller
 
     public function filter(VacancyFilters $filters)
     {
-        $vacancy = Vacancy::filter($filters)->orderby('updated_at', 'DESC')->with(['author','currency', 'category', 'workSchedule'])->paginate(25);
+        $vacancy = Vacancy::filter($filters)->orderby('updated_at', 'DESC')->with(['author','currency', 'category', 'workSchedule'])->paginate(25)->toArray();;
         $countVacancy = Vacancy::filter($filters)->count();
         $data = [
             'vacancy' => $vacancy,
@@ -72,11 +72,27 @@ class VacancyController extends Controller
         return false;
     }
     public function show($lang, $id, $slug) {
-        $vacancy = Vacancy::where('id', $id)->with(['author','currency', 'category', 'workSchedule'])->first();
-        $findCandidate = QualifyingCandidate::where('vacancy_id', $vacancy->id)->where('candidate_id', Auth::user()->candidate->id)->first();
-        $statusThisVacancy = $findCandidate->qualifyingType;
+        $vacancy = Vacancy::where('id', $id)
+            ->with([
+                'author',
+                'currency',
+                'category',
+                'vacancyForWhoNeed',
+                'hr.user',
+                'workSchedule',
+                'demand.education',
+                'demand.specialty',
+                'demand.language',
+                'vacancyBenefit',
+                'vacancyDuty'
+                ])
+            ->first();
+        $findCandidate = (Auth::check())?QualifyingCandidate::where('vacancy_id', $vacancy->id)->where('candidate_id', Auth::user()->candidate->id)->first():null;
+        $statusThisVacancy = ($findCandidate)?$findCandidate->qualifyingType:null;
+        $auth = User::where('id', Auth::id())->with('candidate')->first();
+        $data = ['vacancy' => $vacancy, 'statusThisVacancy' => $statusThisVacancy, 'applicants' => count($vacancy->vacancyInterest), 'auth' => $auth];
         $vacancy->increment('view', 1);
-        return view('job_detail', compact('vacancy', 'statusThisVacancy'));
+        return view('job_detail', compact('data'));
     }
 
     function interest(Request $request){
