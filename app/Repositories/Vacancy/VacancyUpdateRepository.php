@@ -66,8 +66,10 @@ class VacancyUpdateRepository
 
         $findDeposit = VacancyDeposit::where('vacancy_id', $data['id'])->first();
         $deposit = VacancyDeposit::findOrFail($findDeposit->id);
-        $deposit->must_be_enrolled_employer = (int)$data['payment'] / 2;
-        $deposit->must_be_enrolled_candidate = ((int)$data['payment'] * 10) / 100;
+        $deposit->candidate_initial_amount = (int)$data['payment'] / 2;
+        $deposit->employer_initial_amount = ((int)$data['payment'] * 10) / 100;
+        $deposit->must_be_enrolled_candidate = (int)$data['payment'] / 2;
+        $deposit->must_be_enrolled_employer = ((int)$data['payment'] * 10) / 100;
         $deposit->update();
 
         $selectForWhoNeedId = collect($data['vacancy_for_who_need'])->reduce(function ($carry, $item) {
@@ -101,17 +103,31 @@ class VacancyUpdateRepository
 
     function updateDeposit($data) {
         $deposit = VacancyDeposit::findOrFail($data['id']);
-        $deposit->must_be_enrolled_employer = $data['must_be_enrolled_employer'];
+        if ($deposit->employer_initial_amount != $data['employer_initial_amount']) {
+            if ($deposit->employer_initial_amount > $data['employer_initial_amount']) {
+                $mustEmployer = $deposit->must_be_enrolled_employer - ($deposit->employer_initial_amount - $data['employer_initial_amount']);
+            }else{
+                $mustEmployer = $deposit->must_be_enrolled_employer + ($data['employer_initial_amount'] - $deposit->employer_initial_amount);
+            }
+        }else{
+            $mustEmployer = $data['must_be_enrolled_employer'];
+        }
+
+        if ($deposit->candidate_initial_amount != $data['candidate_initial_amount']) {
+            if ($deposit->candidate_initial_amount > $data['candidate_initial_amount']) {
+                $mustCandidate = $deposit->must_be_enrolled_candidate - ($deposit->candidate_initial_amount - $data['candidate_initial_amount']);
+            }else{
+                $mustCandidate = $deposit->must_be_enrolled_candidate + ($data['candidate_initial_amount'] - $deposit->candidate_initial_amount);
+            }
+        }else{
+            $mustCandidate = $data['must_be_enrolled_employer'];
+        }
+        $deposit->employer_initial_amount = $data['employer_initial_amount'];
+        $deposit->must_be_enrolled_employer = $mustEmployer;
         $deposit->must_be_enrolled_employer_date = $data['must_be_enrolled_employer_date'];
-        $deposit->enrolled_employer_date = $data['enrolled_employer_date'];
-        $deposit->enrolled_employer = $data['enrolled_employer'];
-        $deposit->employer_percent = $data['employer_percent'];
-        $deposit->must_be_enrolled_candidate = $data['must_be_enrolled_candidate'];
+        $deposit->candidate_initial_amount = $data['candidate_initial_amount'];
+        $deposit->must_be_enrolled_candidate = $mustCandidate;
         $deposit->must_be_enrolled_candidate_date = $data['must_be_enrolled_candidate_date'];
-        $deposit->enrolled_candidate = $data['enrolled_candidate'];
-        $deposit->enrolled_candidate_date = $data['enrolled_candidate_date'];
-        $deposit->candidate_percent = $data['candidate_percent'];
-        $deposit->hr_bonus = $data['hr_bonus'];
         $deposit->update();
     }
 

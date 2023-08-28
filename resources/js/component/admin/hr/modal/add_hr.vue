@@ -91,6 +91,18 @@
                             <input type="text" class="form-control" id="exampleInputEmail6" v-model="model.inside_number" placeholder="შიდა ნომერი">
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">ბონუსის პროცენტი</label>
+                            <input type="number" class="form-control" id="exampleInputEmail6" v-model="model.bonus_percent" placeholder="ვაკანსისი ბონუსის პროცენტი" step="0.5">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">ფიქსირებული ხელფასი</label>
+                            <input type="number" class="form-control" id="exampleInputEmail6" v-model="model.fixed_salary" placeholder="ფიქსირებული ხელფასი">
+                        </div>
+                    </div>
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Facebook ლინკი</label>

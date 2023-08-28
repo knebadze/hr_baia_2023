@@ -38,21 +38,7 @@ class VacancyActionController extends Controller
         return response()->json($result, $result['status']);
     }
 
-    public function updateDeposit(Request $request) {
-        $data = $request->data;
-        $result = ['status' => 200];
-
-        try {
-            $result['data'] = $this->vacancyUpdateService->updateDepositData($data);
-        } catch (Exception $e) {
-            $result = [
-                'status' => 500,
-                'error' => $e->getMessage()
-            ];
-        }
-
-        return response()->json($result, $result['status']);
-    }
+    
 
     public function updateStatus(Request $request){
         $data = $request->data;

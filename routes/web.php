@@ -36,6 +36,7 @@ use App\Http\Controllers\Admin\EmployerController;
 use App\Http\Controllers\Admin\PdfController;
 use App\Http\Controllers\Admin\RelevantVacancyController;
 use App\Http\Controllers\Admin\ReminderController;
+use App\Http\Controllers\Admin\Vacancy\VacancyDepositController;
 use App\Http\Controllers\Admin\VacancyAttachedController;
 use App\Http\Controllers\BusyCandidateController;
 use App\Http\Controllers\Hr\SelectionPersonalController;
@@ -130,6 +131,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::get('admin/vacancy_attached/{id?}', [VacancyAttachedController::class, 'index'])->name('admin.vacancy.attached');
     Route::get('admin/relevant_vacancy/{id?}', [RelevantVacancyController::class, 'index'])->name('admin.relevant.vacancy');
     Route::get('admin/vacancy', [AdminVacancyController::class, 'index'])->name('admin.vacancy');
+    Route::get('admin/vacancy_deposit/{id?}', [VacancyDepositController::class, 'index'])->name('admin.vacancy.deposit');
 
     // _______________________HR PAGE________________________________
 
@@ -200,7 +202,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
 
 
     Route::post('update_vacancy', [VacancyActionController::class, 'update']);
-    Route::post('update_vacancy_deposit', [VacancyActionController::class, 'updateDeposit']);
+    Route::post('update_vacancy_deposit', [VacancyDepositController::class, 'updateDeposit']);
     Route::post('update_vacancy_status', [VacancyActionController::class, 'updateStatus']);
 
     Route::post('repeat_vacancy', [VacancyActionController::class, 'repeat']);

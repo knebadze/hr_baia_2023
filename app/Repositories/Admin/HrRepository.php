@@ -46,6 +46,8 @@ class HrRepository
         $hr->person_number = $data['person_number'];
         $hr->mobile = $data['mobile'];
         $hr->inside_number = $data['inside_number'];
+        $hr->mobile = $data['bonus_percent'];
+        $hr->mobile = $data['fixed_salary'];
         $hr->fb_link = $data['fb_link'];
         $hr->save();
 
@@ -86,6 +88,8 @@ class HrRepository
         $hr->person_number = $data['person_number'];
         $hr->mobile = $data['mobile'];
         $hr->inside_number = $data['inside_number'];
+        $hr->mobile = $data['bonus_percent'];
+        $hr->mobile = $data['fixed_salary'];
         $hr->fb_link = $data['fb_link'];
         $hr->update();
 

@@ -62,6 +62,7 @@ const importComponents = async () => {
       addCandidate,
       reminderPage,
       vacancyPage,
+      vacancyDeposit,
       vacancyAttached,
       relevantVacancy,
       employerPage,
@@ -99,6 +100,7 @@ const importComponents = async () => {
       import('./component/admin/candidate/page/add_candidate.vue'),
       import('./component/admin/reminder/page/reminder_page.vue'),
       import('./component/admin/vacancy/page/vacancy_page.vue'),
+      import('./component/admin/vacancy/page/vacancy_deposit.vue'),
       import('./component/admin/candidate/page/vacancy_attached.vue'),
       import('./component/admin/candidate/page/relevant_vacancy.vue'),
       import('./component/admin/employer/page/employer_page.vue'),
@@ -146,9 +148,12 @@ const importComponents = async () => {
     app.component('add-candidate', addCandidate.default)
     app.component('reminder-page', reminderPage.default)
     app.component('vacancy-page', vacancyPage.default)
+    app.component('vacancy-deposit', vacancyDeposit.default)
     app.component('vacancy-attached', vacancyAttached.default)
     app.component('relevant-vacancy', relevantVacancy.default)
+
     app.component('employer-page', employerPage.default)
+
 
     // __________________PAGE_____________
     app.component('busy-candidate', busyCandidate.default)

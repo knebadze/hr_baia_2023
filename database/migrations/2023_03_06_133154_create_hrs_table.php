@@ -19,6 +19,8 @@ return new class extends Migration
             $table->char('person_number', 20);
             $table->char('mobile', 10);
             $table->char('inside_number', 20);
+            $table->float('bonus_percent');
+            $table->integer('fixed_salary');
             $table->string('fb_link')->nullable();
             $table->timestamps();
         });
