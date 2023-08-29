@@ -716,10 +716,23 @@ export default {
     },
     watch:{
         'm.vacancy.work_schedule_id': function (newValue, oldValue) {
-            // console.log('new', newValue);
             if (newValue != '') {
                 this.m.vacancy[`additional_schedule_${this.getLang}`] = this.localText.schedule[`${newValue.id}`][`${this.getLang}`]
-                console.log(this.localText.schedule[`${newValue.id}`][`${this.getLang}`]);
+                const priceMap = {
+                    1: 1100,
+                    2: 1300,
+                    3: 500,
+                    4: 500,
+                    5: 900,
+                    6: 500,
+                    7: 700,
+                    8: 50,
+                    9: 600,
+                    // Add more cases as needed
+                };
+
+                let price = priceMap[newValue.id] || 0;
+                this.m.vacancy.payment = price;
             }
         },
         'm.vacancy.category_id': function (newValue, oldValue) {

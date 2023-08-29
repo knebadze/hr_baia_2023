@@ -40,6 +40,11 @@ class CandidateFilters
         'has_family_work_experience' => CandidateHasFamilyWorkExperienceFilter::class,
         'has_recommendation' => CandidateHasRecommendationFilter::class,
         'status' => CandidateStatusFilter::class,
+        'my_registration' => CandidateMyRegistrationFilter::class,
+        'paid_registration' => CandidatePaidRegistrationFilter::class,
+        'free_registration' => CandidateFreeRegistrationFilter::class,
+        'paid' => CandidatePaidFilter::class,
+        'has_to_pay' => CandidateHasToPayFilter::class,
     ];
 
     public function apply($query)

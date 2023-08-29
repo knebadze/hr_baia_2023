@@ -44,6 +44,7 @@ class DatabaseSeeder extends Seeder
         $this->call(StatusSeeder::class);
         $this->call(QualifingTypeSeeder::class);
         $this->call(FilledInformationTypeSeeder::class);
+        $this->call(BlackListSeeder::class);
 
 
         // \App\Models\User::factory(10)->create();

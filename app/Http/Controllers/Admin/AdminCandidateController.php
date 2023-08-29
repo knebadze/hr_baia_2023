@@ -78,6 +78,7 @@ class AdminCandidateController extends Controller
         return Candidate::filter($filters)->orderBy('id', 'DESC')->with(
             [
                 'user.gender',
+                'user.registerLog',
                 // 'workInformation',
                 'getWorkInformation.category',
                 'getWorkInformation.currency',
