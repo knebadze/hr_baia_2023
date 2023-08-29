@@ -33,6 +33,7 @@ use App\Http\Controllers\Admin\AdminCandidateController;
 use App\Http\Controllers\Admin\AdminVacancyController;
 use App\Http\Controllers\Admin\BlackListController;
 use App\Http\Controllers\Admin\EmployerController;
+use App\Http\Controllers\Admin\EnrollmentController;
 use App\Http\Controllers\Admin\PdfController;
 use App\Http\Controllers\Admin\RelevantVacancyController;
 use App\Http\Controllers\Admin\ReminderController;
@@ -132,6 +133,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::get('admin/relevant_vacancy/{id?}', [RelevantVacancyController::class, 'index'])->name('admin.relevant.vacancy');
     Route::get('admin/vacancy', [AdminVacancyController::class, 'index'])->name('admin.vacancy');
     Route::get('admin/vacancy_deposit/{id?}', [VacancyDepositController::class, 'index'])->name('admin.vacancy.deposit');
+    Route::get('admin/enrollment', [EnrollmentController::class, 'index'])->name('admin.enrollment');
 
     // _______________________HR PAGE________________________________
 
@@ -193,6 +195,9 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('add_reminder_vacancy', [ReminderController::class, 'addReminder']);
     Route::post('vacancy_reminder_filter', [ReminderController::class, 'filter']);
     Route::post('update_vacancy_reminder', [ReminderController::class, 'update']);
+    Route::post('vacancy_enrollment', [VacancyDepositController::class, 'enrollment']);
+    Route::post('enrollment_update', [EnrollmentController::class, 'update']);
+    Route::post('enrollment_agree', [EnrollmentController::class, 'agree']);
 
     // ________________VACANCY REQUEST__________________________________
 
@@ -203,7 +208,8 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
 
     Route::post('update_vacancy', [VacancyActionController::class, 'update']);
     Route::post('update_vacancy_deposit', [VacancyDepositController::class, 'updateDeposit']);
-    Route::post('update_vacancy_status', [VacancyActionController::class, 'updateStatus']);
+    Route::post('update_vacancy_deposit', [VacancyDepositController::class, 'updateDeposit']);
+    Route::post('deposit_date_update', [VacancyDepositController::class, 'updateDate']);
 
     Route::post('repeat_vacancy', [VacancyActionController::class, 'repeat']);
     Route::post('carry_in_head_vacancy', [VacancyActionController::class, 'carryInHead']);

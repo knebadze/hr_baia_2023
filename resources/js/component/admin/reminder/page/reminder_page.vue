@@ -15,44 +15,44 @@
                 <div class="tab-content">
                   <div class="tab-pane active" id="tab_1">
                     <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th style="width: 10px">#</th>
-                                <th>ვაკანსისი ID</th>
-                                <th v-if="data.role_id == 1">HR</th>
-                                <th>შეხსენების მიზეზი</th>
-                                <th>თარიღი</th>
-                                <th>სტატუსი</th>
-                                <th>მოქმედება</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="(item, index) in daily" :key="index">
-                                <td>{{ index + 1 }}.</td>
-                                <td><u class="text-primary" @click="vacancyModal(item.vacancy_id)">{{ item.vacancy.code }}</u> </td>
-                                <td v-if="data.role_id == 1">{{ item.hr.user.name_ka }}</td>
-                                <td>{{ item.reason }}</td>
-                                <td>{{ item.date }}</td>
-                                <td>
-                                    <span v-if="item.status == 0" class="badge badge-danger">გადაცილებული</span>
-                                    <span v-if="item.status == 1" class="badge badge-warning">მიმდინარე</span>
-                                    <span v-if="item.status == 2" class="badge badge-success">შესრულებული</span>
-                                </td>
-                                <td>
-                                    <div v-if="data.role_id == 2 ">
-                                        <button type="button" class="btn btn-info" @click="remainderShow(item)" title="" v-if="item.status == 1"><i class="fa fa-check-square"></i> შევასრულე</button>
-                                    </div>
-                                    <div v-else>
-                                        <button type="button" class="btn btn-info mr-1" @click="remainderShow(item)" title="შევასრულე" v-if="item.status == 1"><i class="fa fa-check-square"></i> </button>
-                                        <button type="button" class="btn btn-success" @click="editModal(item)" title="რედაქტირება" ><i class="fa fa-pen"></i> </button>
-                                    </div>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th style="width: 10px">#</th>
+                                    <th>ვაკანსისი ID</th>
+                                    <th v-if="data.role_id == 1">HR</th>
+                                    <th>შეხსენების მიზეზი</th>
+                                    <th>თარიღი</th>
+                                    <th>სტატუსი</th>
+                                    <th>მოქმედება</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(item, index) in daily" :key="index">
+                                    <td>{{ index + 1 }}.</td>
+                                    <td><u class="text-primary" @click="vacancyModal(item.vacancy_id)">{{ item.vacancy.code }}</u> </td>
+                                    <td v-if="data.role_id == 1">{{ item.hr.user.name_ka }}</td>
+                                    <td>{{ item.reason }}</td>
+                                    <td>{{ item.date }}</td>
+                                    <td>
+                                        <span v-if="item.status == 0" class="badge badge-danger">გადაცილებული</span>
+                                        <span v-if="item.status == 1" class="badge badge-warning">მიმდინარე</span>
+                                        <span v-if="item.status == 2" class="badge badge-success">შესრულებული</span>
+                                    </td>
+                                    <td>
+                                        <div v-if="data.role_id == 2 ">
+                                            <button type="button" class="btn btn-info" @click="remainderShow(item)" title="" v-if="item.status == 1"><i class="fa fa-check-square"></i> შევასრულე</button>
+                                        </div>
+                                        <div v-else>
+                                            <button type="button" class="btn btn-info mr-1" @click="remainderShow(item)" title="შევასრულე" v-if="item.status == 1"><i class="fa fa-check-square"></i> </button>
+                                            <button type="button" class="btn btn-success" @click="editModal(item)" title="რედაქტირება" ><i class="fa fa-pen"></i> </button>
+                                        </div>
 
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                   </div>
                   <!-- /.tab-pane -->
                   <div class="tab-pane" id="tab_2">

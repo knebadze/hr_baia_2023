@@ -3,6 +3,32 @@
         <div class="col-sm-4">
             <!-- text input -->
             <div class="form-group">
+            <label>რეგისტრაციის ტიპი</label>
+                <multiselect v-model="m.type" :options="registerType" deselect-label="Can't remove this value" track-by="name" label="name" placeholder="Select one" :searchable="true" :allow-empty="false" @blur="v$.m.type.$touch">
+                    <template slot="singleLabel" slot-scope="{ option }"></template>
+                </multiselect>
+            </div>
+        </div>
+        <div class="row col-sm-8" v-if="m.type && m.type.id == 1">
+            <div class="col-sm-6">
+                <!-- text input -->
+                <div class="form-group">
+                <label>ჩასარიცხი თანხა</label>
+                    <input type="number" class="form-control" v-model="m.money" placeholder="მაგ: 30">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <!-- text input -->
+                <div class="form-group">
+                <label>ჩარიცხვის თარიღი</label>
+                    <input type="date" class="form-control" v-model="m.enroll_date" >
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <!-- text input -->
+            <div class="form-group">
             <label>სახელი გვარი</label>
                 <input type="text" class="form-control" v-model="m.name_ka" placeholder="სახელი გვარი">
             </div>
@@ -63,12 +89,17 @@ export default {
     data() {
         return {
             m:null,
-            cla:{}
+            cla:{},
+            registerType: [
+                {'id': 1, 'name':'ფასიანი რეგისტრაცია'},
+                {'id': 2, 'name':'უფასო რეგისტრაცია'},
+            ]
         }
     },
     validations () {
         const validations = {
                 m:{
+                    type: {required: helpers.withMessage('არჩევა სავალდებულოა', required )},
                     number: {
                         required: helpers.withMessage('ნომრის შევსება სავალდებულოა', required ),
                         numeric: helpers.withMessage('ნომრი უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric ),

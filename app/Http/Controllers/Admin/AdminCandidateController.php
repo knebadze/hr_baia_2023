@@ -33,6 +33,7 @@ class AdminCandidateController extends Controller
             $candidate = Candidate::orderBy('id', 'DESC')->with(
                 [
                     'user.gender',
+                    'user.registerLog',
                     // 'workInformation',
                     'getWorkInformation.category',
                     'getWorkInformation.currency',
@@ -66,6 +67,7 @@ class AdminCandidateController extends Controller
                     'candidate' => $candidate,
                     'classificatory' => $classificatory,
                     'role_id' => Auth::user()->role_id,
+                    'hr_id' => Auth::id(),
                 ];
         return view('admin.candidate', compact('data'));
     }

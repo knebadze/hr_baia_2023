@@ -17,6 +17,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('creator_id');
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->integer('type');
+            $table->integer('money')->nullable();
+            $table->date('enroll_date')->nullable();
 
             $table->timestamps();
             $table->foreign('creator_id')->references('id')->on('users');

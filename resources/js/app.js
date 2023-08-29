@@ -67,6 +67,8 @@ const importComponents = async () => {
       relevantVacancy,
       employerPage,
 
+      enrolledPage,
+
       busyCandidate,
 
       // ... Other component imports ...
@@ -104,7 +106,10 @@ const importComponents = async () => {
       import('./component/admin/candidate/page/vacancy_attached.vue'),
       import('./component/admin/candidate/page/relevant_vacancy.vue'),
       import('./component/admin/employer/page/employer_page.vue'),
+      import('./component/admin/enrollment/page/enrolled_page.vue'),
+
       import('./component/page/busy_candidate.vue'),
+
 
       // ... Other dynamic imports ...
     ]);
@@ -153,6 +158,8 @@ const importComponents = async () => {
     app.component('relevant-vacancy', relevantVacancy.default)
 
     app.component('employer-page', employerPage.default)
+
+    app.component('enrolled-page', enrolledPage.default)
 
 
     // __________________PAGE_____________

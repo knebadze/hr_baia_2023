@@ -7,14 +7,17 @@ use App\Models\Vacancy;
 use Illuminate\Http\Request;
 use App\Models\VacancyDeposit;
 use App\Http\Controllers\Controller;
+use App\Services\Admin\EnrollmentService;
 use App\Services\VacancyUpdateService;
 
 class VacancyDepositController extends Controller
 {
     private VacancyUpdateService $vacancyUpdateService;
-    public function __construct(VacancyUpdateService $vacancyUpdateService)
+    private EnrollmentService $enrollmentService;
+    public function __construct(VacancyUpdateService $vacancyUpdateService, EnrollmentService $enrollmentService)
     {
         $this->vacancyUpdateService = $vacancyUpdateService;
+        $this->enrollmentService = $enrollmentService;
     }
     function index($id) {
         $data['deposit'] = VacancyDeposit::where('vacancy_id', $id)->first();
@@ -29,6 +32,45 @@ class VacancyDepositController extends Controller
 
         try {
             $result['data'] = $this->vacancyUpdateService->updateDepositData($data);
+        } catch (Exception $e) {
+            $result = [
+                'status' => 500,
+                'error' => $e->getMessage()
+            ];
+        }
+
+        return response()->json($result, $result['status']);
+    }
+
+    function updateDate(Request $request) {
+        // dd((int)$request->enrolled);
+        $result = ['status' => 200];
+
+        try {
+            if ($request->type == 1) {
+                $result['data'] = VacancyDeposit::where('id', $request->id)->update(['must_be_enrolled_candidate' => (int)$request->enrolled, 'must_be_enrolled_candidate_date' => $request->date]);
+            }else{
+                $result['data'] = VacancyDeposit::where('id', $request->id)->update(['must_be_enrolled_employer' => (int)$request->enrolled, 'must_be_enrolled_employer_date' => $request->date]);
+            }
+        } catch (Exception $e) {
+            $result = [
+                'status' => 500,
+                'error' => $e->getMessage()
+            ];
+        }
+
+        return response()->json($result, $result['status']);
+    }
+
+    function enrollment(Request $request) {
+        $data['data'] = json_decode($request->input('data'));
+        if ($request->hasFile('file')) {
+            $data['file'] = $request->file('file');
+        }
+        $result = ['status' => 200];
+
+        try {
+            $result['data'] = $this->enrollmentService->save('vacancy',$data);
         } catch (Exception $e) {
             $result = [
                 'status' => 500,

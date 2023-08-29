@@ -85,6 +85,22 @@
                     </p>
                 </a>
             </li>
+            <li class="nav-item">
+                <a @if(Route::currentRouteName() === 'admin.enrollment') class="nav-link active" @else class="nav-link" @endif href="{{ route('admin.enrollment', App()->getLocale()) }}">
+                    <i class="nav-icon fa fa-coins"></i>
+                    <p>
+                        ჩარიცხვები
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a @if(Route::currentRouteName() === 'admin.candidate') class="nav-link active" @else class="nav-link" @endif href="{{ route('admin.candidate', App()->getLocale()) }}">
+                    <i class="nav-icon fa fa-credit-card"></i>
+                    <p>
+                        ხელფასები
+                    </p>
+                </a>
+            </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

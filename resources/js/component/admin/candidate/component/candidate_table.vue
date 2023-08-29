@@ -5,6 +5,7 @@
         :headers="headers"
         :items="items"
         table-class-name="customize-table"
+        :body-row-class-name="bodyRowClassNameFunction"
         border-cell
         :filter-options="filterOptions"
     >
@@ -29,6 +30,7 @@
                 <a class="dropdown-item" :href="attachedUrl+'/'+item.id">მიბმული ვაკანსიები</a>
                 <a class="dropdown-item" :href="relevantUrl+'/'+item.id">შესაბამისი ვაკანსიები</a>
                 <a v-if="item.status_id == 11 || item.status_id == 14" class="dropdown-item" href="#" @click="scheduleModal(item.id)">გრაფიკი</a>
+                <a v-if="item.user.register_log && item.user.register_log.creator_id == hrId && item.user.register_log.enroll_date" href="#" class="dropdown-item" >ჩარიცხა</a>
                 <a class="dropdown-item" href="#"  @click="pdf(item)">ჩამოტვირთვა</a>
                 <a class="dropdown-item" href="#" @click="openSendMessageModal(item)">სმს</a>
                 <a v-if="item.status_id == 9" class="dropdown-item" href="#" @click="blackListModal(item.id)">შავ სიაში დამატება</a>
@@ -49,6 +51,10 @@
                     <div class="row">
                         <div class="col-md-6">
                             <dl class="row">
+                                <div class="row col-12" v-if="item.user.register_log">
+                                    <dt class="col-sm-4">რეგისტრაციის ტიპი:</dt>
+                                    <dd class="col-sm-8">{{ (item.user.register_log.type == 1)?'ფასიანი რეგისტრაცია':'უფასო რეგისტრაცია' }} </dd>
+                                </div>
                                 <dt class="col-sm-4">პირადი ნომერი:</dt>
                                 <dd class="col-sm-8">{{ item.personal_number }}</dd>
                                 <dt class="col-sm-4">ეროვნება:</dt>
@@ -237,7 +243,8 @@ export default {
     },
     props:{
         data: Object,
-        role_id: Number
+        role_id: Number,
+        hrId: Number
     },
 
     setup(props){
@@ -255,6 +262,7 @@ export default {
         var item = ref()
         let modalType = ref('')
         let cla = ref(null);
+        let hr_id = ref(props.hrId)
 
 
 
@@ -348,6 +356,10 @@ export default {
 
             // return filterOptionsArray;
         });
+        const bodyRowClassNameFunction = ( item, number) => {
+            if (item.user.register_log && item.user.register_log.creator_id == hr_id.value) return 'my-candidate-row';
+            return '';
+        };
 
 
 
@@ -379,7 +391,8 @@ export default {
             relevantUrl,
 
             cla,
-            find
+            find,
+            bodyRowClassNameFunction
 
             // statusChange
         };
@@ -472,10 +485,10 @@ export default {
 }
 </script>
 <style >
-    /* .my-vacancy-row  {
+    .my-candidate-row  {
         --easy-table-body-row-background-color: #f8b1b1;
         --easy-table-body-row-font-color: #070707;
-    } */
+    }
     .customize-table {
         --easy-table-border: 1px solid #445269;
         --easy-table-header-font-size: 18px;

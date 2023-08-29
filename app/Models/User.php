@@ -82,4 +82,8 @@ class User extends Authenticatable
     {
         return $this->hasOne(Hr::class);
     }
+    public function registerLog()
+    {
+        return $this->hasOne(userRegisterLog::class);
+    }
 }
