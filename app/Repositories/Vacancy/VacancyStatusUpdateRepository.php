@@ -58,8 +58,8 @@ class VacancyStatusUpdateRepository
             $this->addReminder($data['reminder']);
         }
         if ($data['status']['id'] == 4 || $data['status']['id'] == 5) {
-            // $data['reminder']['vacancy_id'] = $vacancy->id;
             $this->deleteReminder($vacancy->id);
+            $this->deleteDeposit($vacancy->id);
         }
         return ['type' => 's', 'message' => 'სტატუსი წარმატებით შეიცვალა'];
     }
@@ -84,6 +84,10 @@ class VacancyStatusUpdateRepository
         if (VacancyReminder::where('vacancy_id', $vacancyId)->exists()) {
                 VacancyReminder::where('vacancy_id', $vacancyId)->whereDate('date', '>', Carbon::now()->toDateTimeString())->where('active', 0)->delete();
         }
+    }
+
+    function deleteDeposit($vacancyId) {
+        return VacancyDeposit::where('vacancy_id', $vacancyId)->delete();
     }
 
 

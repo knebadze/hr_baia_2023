@@ -21,16 +21,18 @@ class EnrollmentService
     function save($type, $data) {
         if ($type == 'vacancy') {
             $result = $this->enrollmentRepository->vacancy($data);
+        }else if ($type == 'register') {
+            $result = $this->enrollmentRepository->register($data);
         }
 
         return $result;
     }
     function pageData(){
-        if (Auth::user()->role_id == 1) {
-            $result = $this->enrollmentPageRepository->adminData();
-        }else{
-            $result = $this->enrollmentPageRepository->hrData();
-        }
+        // if (Auth::user()->role_id == 1) {
+        //     $result = $this->enrollmentPageRepository->adminData();
+        // }else{
+            $result = $this->enrollmentPageRepository->data();
+        // }
 
         return $result;
     }

@@ -73,7 +73,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a @if(Route::currentRouteName() === 'admin.candidate') class="nav-link active" @else class="nav-link" @endif href="{{ route('admin.candidate', App()->getLocale()) }}">
+                <a @if(Route::currentRouteName() === 'admin.salary') class="nav-link active" @else class="nav-link" @endif href="{{ route('admin.salary', App()->getLocale()) }}">
                     <i class="nav-icon fa fa-credit-card"></i>
                     <p>
                         ხელფასები

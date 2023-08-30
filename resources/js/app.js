@@ -68,6 +68,8 @@ const importComponents = async () => {
       employerPage,
 
       enrolledPage,
+      mustBeEnrolledPage,
+      monthlySalaryPage,
 
       busyCandidate,
 
@@ -107,6 +109,8 @@ const importComponents = async () => {
       import('./component/admin/candidate/page/relevant_vacancy.vue'),
       import('./component/admin/employer/page/employer_page.vue'),
       import('./component/admin/enrollment/page/enrolled_page.vue'),
+      import('./component/admin/enrollment/page/must_be_enrolled_page.vue'),
+      import('./component/admin/salary/page/monthly_salary_page.vue'),
 
       import('./component/page/busy_candidate.vue'),
 
@@ -160,6 +164,8 @@ const importComponents = async () => {
     app.component('employer-page', employerPage.default)
 
     app.component('enrolled-page', enrolledPage.default)
+    app.component('must-be-enrolled-page', mustBeEnrolledPage.default)
+    app.component('monthly-salary-page', monthlySalaryPage.default)
 
 
     // __________________PAGE_____________

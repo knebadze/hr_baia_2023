@@ -37,6 +37,7 @@ use App\Http\Controllers\Admin\EnrollmentController;
 use App\Http\Controllers\Admin\PdfController;
 use App\Http\Controllers\Admin\RelevantVacancyController;
 use App\Http\Controllers\Admin\ReminderController;
+use App\Http\Controllers\Admin\SalaryController;
 use App\Http\Controllers\Admin\Vacancy\VacancyDepositController;
 use App\Http\Controllers\Admin\VacancyAttachedController;
 use App\Http\Controllers\BusyCandidateController;
@@ -134,7 +135,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::get('admin/vacancy', [AdminVacancyController::class, 'index'])->name('admin.vacancy');
     Route::get('admin/vacancy_deposit/{id?}', [VacancyDepositController::class, 'index'])->name('admin.vacancy.deposit');
     Route::get('admin/enrollment', [EnrollmentController::class, 'index'])->name('admin.enrollment');
-
+    Route::get('admin/salary', [SalaryController::class, 'index'])->name('admin.salary');
     // _______________________HR PAGE________________________________
 
     Route::get('hr/selection_personal/{id?}', [SelectionPersonalController::class, 'index'])->name('selection.personal');
@@ -156,7 +157,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('update_candidate_recommendation', [CandidateInfoController::class, 'updateCandidateRecommendation']);
     Route::post('delete_candidate_recommendation', [CandidateInfoController::class, 'deleteCandidateRecommendation']);
     Route::post('add_candidate_file', [CandidateInfoController::class, 'addCandidateFile']);
-    // Route::post('candidate_status_update', [CandidateInfoController::class, 'StatusUpdate']);
+    Route::post('register_log_update', [CandidateInfoController::class, 'registerLogUpdate']);
     // Route::post('remove_old_general_work_experience', [CandidateInfoController::class, 'removeOldWorkExperience']);
 
     Route::post('add_work_information', [WorkInformationController::class, 'store']);
@@ -195,9 +196,11 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('add_reminder_vacancy', [ReminderController::class, 'addReminder']);
     Route::post('vacancy_reminder_filter', [ReminderController::class, 'filter']);
     Route::post('update_vacancy_reminder', [ReminderController::class, 'update']);
-    Route::post('vacancy_enrollment', [VacancyDepositController::class, 'enrollment']);
+    Route::post('vacancy_enrollment', [VacancyDepositController::class, 'vacancyEnrollment']);
     Route::post('enrollment_update', [EnrollmentController::class, 'update']);
     Route::post('enrollment_agree', [EnrollmentController::class, 'agree']);
+    Route::post('register_enrollment', [VacancyDepositController::class, 'registerEnrolment']);
+    Route::post('enrollment_filter', [EnrollmentController::class, 'filter']);
 
     // ________________VACANCY REQUEST__________________________________
 

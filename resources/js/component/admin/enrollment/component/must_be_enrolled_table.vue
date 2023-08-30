@@ -38,57 +38,58 @@
                     <th>ID</th>
                     <th v-if="role_id == 1">HR</th>
                     <th>ვისი</th>
-                    <th>ვინ ჩარიცხა</th>
-                    <th>ჩარიცხვის ტიპი</th>
+                    <!-- <th>ვინ ჩარიცხა</th>
+                    <th>ჩარიცხვის ტიპი</th> -->
+                    <!-- <th>უნდა ჩაირიცხოს სულ</th> -->
                     <th>თანხა</th>
                     <th>ჰრ_ის %</th>
                     <th>ჰრ_ის ბონუსი</th>
-                    <th>თარიღი</th>
-                    <th>ქვითარი</th>
+                    <th>გადახდის თარიღი</th>
                     <th>სტატუსი</th>
-                    <th v-if="role_id == 1">მოქმედება</th>
+                    <!-- <th>ქვითარი</th> -->
+                    <!-- <th>სტატუსი</th> -->
+                    <!-- <th v-if="role_id == 1">მოქმედება</th> -->
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="(item, index) in items" :key="index">
-                    <td><span :class="(item.enrollment_type == 1)?'badge badge-primary':'badge badge-info'">{{ (item.enrollment_type == 1)?'რეგისტრაცია':'ვაკანსია' }}</span></td>
-                    <td><u class="text-primary" @click="fullModal(item)">{{ (item.enrollment_type == 1)?item.candidate_id:item.code }}</u> </td>
+                    <td><span :class="(item.type == 1)?'badge badge-primary':'badge badge-info'">{{ (item.type == 1)?'კანდიდატი':'ვაკანსია' }}</span></td>
+                    <td><u class="text-primary" @click="fullModal(item)">{{ item.id }}</u> </td>
                     <td v-if="role_id == 1">{{ item.name_ka }}</td>
-                    <td>{{ (item.enrollment_type == 1  )?'':(item.who_is_counting == 1)?'კანდიდატი':'დამსაქმებელი' }}</td>
-                    <td>{{ item.name }}</td>
-                    <td><span :class="(item.type == 1)?'badge badge-success':'badge badge-danger'">{{ (item.type == 1)?'სრული':'არასრული' }}</span></td>
+                    <td>{{ (item.vacancy_type == 1 )?'კანდიდატი':'დამსაქმებელი' }}</td>
                     <td>{{ item.money }}</td>
-                    <td>{{ (item.hr_percent)?item.hr_percent:'ფიქს.' }}</td>
-                    <td>{{ item.hr_bonus }}</td>
-                    <td>{{ item.created_at }}</td>
-                    <td>
+                    <!-- <td><span :class="(item.type == 1)?'badge badge-success':'badge badge-danger'">{{ (item.type == 1)?'სრული':'არასრული' }}</span></td> -->
+                    <!-- <td>{{ item.money }}</td> -->
+                    <td>{{ (item.type == 2)?item.bonus_percent:'ფიქს.' }}</td>
+                    <td>{{ (item.type == 2)?item.money * item.bonus_percent / 100:10  }}</td>
+                    <td>{{ item.date }}</td>
+                    <!-- <td>
                         <button type="button" class="btn btn-info" @click="showFile(item.file_path)" title="" :disabled="(item.file_path)?false:true"><i :class="(item.file_path)?'fa fa-eye':'fa fa-eye-slash'"></i></button>
-                    </td>
-                    <td><span :class="(item.agree == 1)?'badge badge-success':'badge badge-warning'">{{ (item.agree == 1)?'დადასტურებული':'მიმდინარე' }}</span></td>
-                    <td v-if="role_id == 1">
+                    </td> -->
+                    <td><span :class="(item.status == 'მიმდინარე')?'badge badge-warning':'badge badge-danger'">{{ item.status }}</span></td>
+                    <!-- <td v-if="role_id == 1">
                         <button type="button" class="btn btn-info mr-1" @click="agree(item)" title="დადასტურება" :disabled="(item.agree == 0)?false:true"><i class="fa fa-check-square"></i> </button>
                         <button type="button" class="btn btn-success" @click="editModal(item)" title="რედაქტირება" :disabled="(item.agree == 0)?false:true"><i class="fa fa-pen"></i> </button>
 
-                    </td>
+                    </td> -->
                 </tr>
             </tbody>
         </table>
         <vacancyFullInfoModal :visible="vacancyModal" :vacancyId="modalId"></vacancyFullInfoModal>
         <candidateFullInfoModal :visible="candidateModal" :vacancyId="modalId"></candidateFullInfoModal>
-        <update_enrolled :visible="updateModal" :item="item"></update_enrolled>
+        <!-- <update_enrolled :visible="updateModal" :item="item"></update_enrolled> -->
     </div>
 </template>
 <script>
-
 import moment from 'moment'
 import vacancyFullInfoModal from '../../../modal/vacancyFullInfoModal.vue';
 import candidateFullInfoModal from '../../../modal/candidateFullInfoModal.vue';
-import update_enrolled from '../modal/update_enrolled.vue'
+// import update_enrolled from '../modal/update_enrolled.vue'
 export default {
     components:{
         vacancyFullInfoModal,
         candidateFullInfoModal,
-        update_enrolled
+        // update_enrolled
     },
     props:{
         items: Object,
@@ -107,11 +108,18 @@ export default {
 
     },
     created() {
+        console.log('this.items', this.items);
         for (let i = 0; i < this.items.length; i++) {
             // Access the element to update in each object
-            this.items[i].created_at = moment(this.items[i].created_at).format("YYYY-MM-DD HH:mm");
+            const createdAtMoment = moment(this.items[i].date);
+            this.items[i].created_at = moment(this.items[i].created_at).format("YYYY-MM-DD HH:mm")
+
+            if (createdAtMoment.isBefore(moment(), 'day')) {
+                this.items[i]['status'] = 'გადაცილება'
+            }else{
+                this.items[i]['status'] = 'მიმდინარე'
+            }
         }
-        console.log('this.items', this.items);
     },
     methods: {
         fullModal(item){
@@ -126,20 +134,14 @@ export default {
 
         },
         editModal(item){
-            console.log('item', item);
             this.updateModal = !this.updateModal
-            this.item = {...item}
+            this.item = item
         },
         showFile(item) {
             const pdfUrl = `/storage/${item}`;
             window.open(pdfUrl, '_blank');
         },
         agree(item){
-            let model = {
-                'id': item.id,
-                'enrollment_type': item.enrollment_type,
-                'vacancy_id': item.vacancy_id
-            }
             let currentObj = this
             this.$swal({
                 title: 'ნამდვილად გსურთ დადასტურება?',
@@ -155,7 +157,7 @@ export default {
                     axios({
                         method: "post",
                         url: "/enrollment_agree",
-                        data: {'model': model},
+                        data: {'id': item.id},
 
                     })
                     .then(function (response) {

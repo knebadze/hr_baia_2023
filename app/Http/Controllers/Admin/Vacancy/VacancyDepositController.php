@@ -62,7 +62,7 @@ class VacancyDepositController extends Controller
         return response()->json($result, $result['status']);
     }
 
-    function enrollment(Request $request) {
+    function vacancyEnrollment(Request $request) {
         $data['data'] = json_decode($request->input('data'));
         if ($request->hasFile('file')) {
             $data['file'] = $request->file('file');
@@ -71,6 +71,24 @@ class VacancyDepositController extends Controller
 
         try {
             $result['data'] = $this->enrollmentService->save('vacancy',$data);
+        } catch (Exception $e) {
+            $result = [
+                'status' => 500,
+                'error' => $e->getMessage()
+            ];
+        }
+
+        return response()->json($result, $result['status']);
+    }
+    function registerEnrolment(Request $request) {
+        $data['data'] = json_decode($request->input('data'));
+        if ($request->hasFile('file')) {
+            $data['file'] = $request->file('file');
+        }
+        $result = ['status' => 200];
+
+        try {
+            $result['data'] = $this->enrollmentService->save('register',$data);
         } catch (Exception $e) {
             $result = [
                 'status' => 500,

@@ -16,12 +16,12 @@
             </button>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                 <a v-if="item.status.id == 1 || item.status.id == 2|| item.status.id == 6" class="dropdown-item" href="#" @click="changeHr(item)"> გადაწერა</a>
-                <a class="dropdown-item" href="#" @click="vacancyUpdateModal(item)">რედაქტირება</a>
-                <a class="dropdown-item" href="#" @click="statusChange(item)">სტატუსის შეცვლა</a>
+                <a v-if="item.status.id != 4 && item.status.id != 5" class="dropdown-item" href="#" @click="vacancyUpdateModal(item)">რედაქტირება</a>
+                <a v-if="item.status.id != 4 && item.status.id != 5" class="dropdown-item" href="#" @click="statusChange(item)">სტატუსის შეცვლა</a>
                 <a v-if="item.status.id == 2" class="dropdown-item" :href="personalSelectionUrl+'/'+item.id" >კადრების შერჩევა</a>
                 <a v-if="item.status.id > 1" class="dropdown-item" :href="vacancyPersonalUrl+'/'+item.id" >შერჩეული კადრები</a>
                 <a class="dropdown-item" href="#" @click="vacancyReminderModal(item)">შეხსენება</a>
-                <a class="dropdown-item" href="#" @click="vacancyDepositModal(item)">დეპოზიტი</a>
+                <a v-if="item.status.id != 4 && item.status.id != 5" class="dropdown-item" href="#" @click="vacancyDepositModal(item)">დეპოზიტი</a>
 
                 <a v-if="item.status.id == 5 || item.status.id == 4" class="dropdown-item" href="#"  @click="vacancyRepeat(item)">გამეორება</a>
                 <a v-if="item.status.id !== 3 && item.status.id !== 4 && item.status.id !== 5" class="dropdown-item" href="#" @click="carryInHead(item)">აპინვა </a>

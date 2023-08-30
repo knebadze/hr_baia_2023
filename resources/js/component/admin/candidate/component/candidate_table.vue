@@ -30,7 +30,7 @@
                 <a class="dropdown-item" :href="attachedUrl+'/'+item.id">მიბმული ვაკანსიები</a>
                 <a class="dropdown-item" :href="relevantUrl+'/'+item.id">შესაბამისი ვაკანსიები</a>
                 <a v-if="item.status_id == 11 || item.status_id == 14" class="dropdown-item" href="#" @click="scheduleModal(item.id)">გრაფიკი</a>
-                <a v-if="item.user.register_log && item.user.register_log.creator_id == hrId && item.user.register_log.enroll_date" href="#" class="dropdown-item" >ჩარიცხა</a>
+                <a v-if="item.user.register_log && item.user.register_log.creator_id == hrId && item.user.register_log.enroll_date" href="#" class="dropdown-item" @click="enrolled(item.user)">ჩარიცხა</a>
                 <a class="dropdown-item" href="#"  @click="pdf(item)">ჩამოტვირთვა</a>
                 <a class="dropdown-item" href="#" @click="openSendMessageModal(item)">სმს</a>
                 <a v-if="item.status_id == 9" class="dropdown-item" href="#" @click="blackListModal(item.id)">შავ სიაში დამატება</a>
@@ -219,6 +219,7 @@
     <add_in_vacancy :visible="showAddInVacancyModal" :item="item"></add_in_vacancy>
     <add_black_list :visible="showBlackListModal" :item="item"></add_black_list>
     <send_message_modal :visible="showSendMessageModal" :item="item"></send_message_modal>
+    <register_enrollment :visible="showEnrolledModal" :item="item"></register_enrollment>
 </div>
 </template>showSendMessageModal
 <script>
@@ -232,6 +233,7 @@ import infoModal from '../modal/info_modal.vue'
 import add_in_vacancy from "../modal/add_in_vacancy.vue";
 import add_black_list from '../modal/add_black_list.vue'
 import send_message_modal from '../modal/Send_message_modal.vue'
+import register_enrollment from "../modal/register_enrollment.vue";
 
 export default {
     components: {
@@ -239,7 +241,8 @@ export default {
         infoModal,
         add_in_vacancy,
         add_black_list,
-        send_message_modal
+        send_message_modal,
+        register_enrollment
     },
     props:{
         data: Object,
@@ -258,6 +261,7 @@ export default {
         var showAddInVacancyModal = ref(false)
         let showBlackListModal = ref(false);
         let showSendMessageModal = ref(false)
+        let showEnrolledModal = ref(false)
         var updateModal = ref(false)
         var item = ref()
         let modalType = ref('')
@@ -383,6 +387,7 @@ export default {
             showAddInVacancyModal,
             showBlackListModal,
             showSendMessageModal,
+            showEnrolledModal,
             updateModal,
             item,
             modalType,
@@ -436,6 +441,11 @@ export default {
             // return
             this.showSendMessageModal = !this.showSendMessageModal
             this.item = {'id': item.id, 'number': item.user.number}
+        },
+        enrolled(item){
+            this.showEnrolledModal = !this.showEnrolledModal
+            this.item = item.register_log
+            this.item['name'] = item.name_ka
         },
         candidateDelete(id){
             let currentObj = this

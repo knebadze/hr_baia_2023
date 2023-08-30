@@ -100,7 +100,7 @@ class AdminCandidateController extends Controller
                 'maritalStatus',
                 'drivingLicense',
                 'status'
-            ])->paginate(50)->toArray();;
+            ])->paginate(50)->toArray();
     }
 
     public function workInfoData(Request $request)
