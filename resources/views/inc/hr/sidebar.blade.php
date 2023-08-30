@@ -60,7 +60,7 @@
                 <a @if(Route::currentRouteName() === 'admin.candidate') class="nav-link active" @else class="nav-link" @endif href="{{ route('admin.candidate', App()->getLocale()) }}">
                     <i class="nav-icon fa fa-users"></i>
                     <p>
-                        კანდიდადეტი
+                        კანდიდატები
                     </p>
                 </a>
             </li>
