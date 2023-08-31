@@ -2,7 +2,7 @@
 
 namespace App\Services\Admin;
 
-use Illuminate\Support\Facades\Auth;
+use App\Repositories\Enrollment\EnrollmentAgreeRepository;
 use App\Repositories\Enrollment\EnrollmentRepository;
 use App\Repositories\Enrollment\EnrollmentPageRepository;
 use App\Repositories\Enrollment\EnrollmentUpdateRepository;
@@ -12,40 +12,54 @@ class EnrollmentService
     protected EnrollmentRepository $enrollmentRepository;
     protected EnrollmentPageRepository $enrollmentPageRepository;
     protected EnrollmentUpdateRepository $enrollmentUpdateRepository;
+    protected EnrollmentAgreeRepository $enrollmentAgreeRepository;
     public function __construct()
     {
         $this->enrollmentRepository = new EnrollmentRepository;
         $this->enrollmentPageRepository = new EnrollmentPageRepository;
         $this->enrollmentUpdateRepository = new EnrollmentUpdateRepository;
+        $this->enrollmentAgreeRepository = new EnrollmentAgreeRepository;
     }
     function save($type, $data) {
-        if ($type == 'vacancy') {
-            $result = $this->enrollmentRepository->vacancy($data);
-        }else if ($type == 'register') {
-            $result = $this->enrollmentRepository->register($data);
+        try {
+            if ($type == 'vacancy') {
+                $result = $this->enrollmentRepository->vacancy($data);
+            }else if ($type == 'register') {
+                $result = $this->enrollmentRepository->register($data);
+            }
+
+            return $result;
+        } catch (\Exception $e) {
+            throw new \Exception("An error occurred during enrollment agreement: " . $e->getMessage(), 500);
         }
 
-        return $result;
     }
     function pageData(){
-        // if (Auth::user()->role_id == 1) {
-        //     $result = $this->enrollmentPageRepository->adminData();
-        // }else{
+        try {
             $result = $this->enrollmentPageRepository->data();
-        // }
+            return $result;
+        } catch (\Exception $e) {
+            throw new \Exception("An error occurred during enrollment agreement: " . $e->getMessage(), 500);
+        }
 
-        return $result;
     }
 
     function update($data) {
-        $result = $this->enrollmentUpdateRepository->update($data);
+        try {
+            $result = $this->enrollmentUpdateRepository->update($data);
+            return $result;
+        } catch (\Exception $e) {
+            throw new \Exception("An error occurred during enrollment agreement: " . $e->getMessage(), 500);
+        }
 
-        return $result;
     }
 
     function agree($data) {
-        $result = $this->enrollmentUpdateRepository->agree($data);
-
-        return $result;
+        try {
+            $result = $this->enrollmentAgreeRepository->agree($data);
+            return $result;
+        } catch (\Exception $e) {
+            throw new \Exception("An error occurred during enrollment agreement: " . $e->getMessage(), 500);
+        }
     }
 }

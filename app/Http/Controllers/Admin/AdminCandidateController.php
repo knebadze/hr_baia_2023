@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Services\ClassificatoryService;
 use App\Filters\Candidate\CandidateFilters;
 use App\Models\Additional_number;
+use App\Models\Enrollment;
 use App\Services\Admin\CandidateUpdateService;
 
 class AdminCandidateController extends Controller
@@ -218,5 +219,14 @@ class AdminCandidateController extends Controller
 
         $data = Additional_number::where('candidate_id', $request->data)->with(['numberOwner', 'numberCode'])->get()->toArray();
         return response()->json($data);
+    }
+
+    function getRegisterEnrollmentInfo(Request $request) {
+        $data = null;
+        $user = User::where('id', $request->data)->first();
+        if (Enrollment::where('candidate_id', $user->candidate->id)->where('agree', 0)) {
+            $data = Enrollment::where('candidate_id', $user->candidate->id)->where('agree', 0)->first();
+        }
+        return response($data);
     }
 }

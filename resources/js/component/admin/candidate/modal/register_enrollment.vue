@@ -8,6 +8,13 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="hide()">X</button>
               </div>
               <div class="modal-body">
+                <div v-if="registerInfo" class="alert alert-info alert-dismissible">
+                    <h5><i class="icon fas fa-info"></i> შეტყობინება!</h5>
+                    ამ კანდიდატზე თქვენ ელოდებით თანხის <u>{{ ( registerInfo.type == 0)?'არასრული':'სრული' }}</u>  ჩარიცხვის დადასტურებას.
+                    <ul>
+                        <li>დასადასტურებელი თანხა: {{ registerInfo.money }} ლარი</li>
+                    </ul>
+                </div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -36,7 +43,7 @@
                 </div>
               </div>
               <div class="modal-footer">
-                  <button type="button" class="btn btn-success" @click.prevent="counting(m)" ><i class=""></i>ჩარიცხვა</button>
+                  <button v-if="!registerInfo" type="button" class="btn btn-success" @click.prevent="counting(m)" ><i class=""></i>ჩარიცხვა</button>
               </div>
               </div>
           </div>
@@ -57,6 +64,7 @@
                 m: {},
                 cla: null,
                 file:null,
+                registerInfo: null
             }
         },
         created(){
@@ -68,16 +76,25 @@
             },
         },
         methods:{
-            // async
-            show(){
-                this.showConfirm = true
+            async show(){
                 console.log('item', this.item);
+                let result = await this.getInfo();
+                this.registerInfo = result.data;
+                console.log('this.registerInfo', result);
+                this.showConfirm = true
+                
                 this.m = {...this.item}
                 // this.min = this.item.end_date;
 
             },
             hide(){
                 this.showConfirm = false
+            },
+            getInfo(){
+                return axios.post('/get_register_enrollment_info' ,{
+                      data: this.item.user_id,
+                  })
+
             },
             handleFileChange(event) {
                 this.file = event.target.files[0];
@@ -86,9 +103,9 @@
             counting(m){
                 let item = m;
                 let enrollmentType;
-                let enrolled;
+                // let enrolled;
                 enrollmentType = (item.money == this.item.money)?1:0
-                enrolled = this.item.money - item.money
+                // enrolled = this.item.money - item.money
                 console.log('enrollmentType', enrollmentType);
 
 
@@ -117,7 +134,7 @@
                         showLoaderOnConfirm: true,
                         preConfirm: () => {
                             const date = document.getElementById('swal-input').value;
-                            return axios.post('/register_log_update?id=' + model.id + '&enrolled=' + enrolled + '&date=' + date)
+                            return axios.post('/register_log_update?id=' + model.id +  '&date=' + date)
                             .then(response => {
                                 return response.data;
                             })

@@ -196,10 +196,13 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('add_reminder_vacancy', [ReminderController::class, 'addReminder']);
     Route::post('vacancy_reminder_filter', [ReminderController::class, 'filter']);
     Route::post('update_vacancy_reminder', [ReminderController::class, 'update']);
-    Route::post('vacancy_enrollment', [VacancyDepositController::class, 'vacancyEnrollment']);
+    //enrollment
+    Route::post('vacancy_enrollment', [EnrollmentController::class, 'vacancyEnrollment']);
+    Route::post('get_register_enrollment_info', [AdminCandidateController::class, 'getRegisterEnrollmentInfo']);
+    Route::post('register_enrollment', [EnrollmentController::class, 'registerEnrolment']);
     Route::post('enrollment_update', [EnrollmentController::class, 'update']);
     Route::post('enrollment_agree', [EnrollmentController::class, 'agree']);
-    Route::post('register_enrollment', [VacancyDepositController::class, 'registerEnrolment']);
+    
     Route::post('enrollment_filter', [EnrollmentController::class, 'filter']);
 
     // ________________VACANCY REQUEST__________________________________
@@ -211,7 +214,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
 
     Route::post('update_vacancy', [VacancyActionController::class, 'update']);
     Route::post('update_vacancy_deposit', [VacancyDepositController::class, 'updateDeposit']);
-    Route::post('update_vacancy_deposit', [VacancyDepositController::class, 'updateDeposit']);
+    Route::post('update_vacancy_status', [VacancyActionController::class, 'updateStatus']);
     Route::post('deposit_date_update', [VacancyDepositController::class, 'updateDate']);
 
     Route::post('repeat_vacancy', [VacancyActionController::class, 'repeat']);

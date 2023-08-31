@@ -4,6 +4,7 @@ namespace App\Repositories\admin;
 
 use App\Models\Hr;
 use App\Models\HrHasVacancy;
+use App\Models\Salary;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Stichoza\GoogleTranslate\GoogleTranslate;
@@ -50,6 +51,9 @@ class HrRepository
         $hr->mobile = $data['fixed_salary'];
         $hr->fb_link = $data['fb_link'];
         $hr->save();
+        
+        //ვქმნი ხელფასის ჩანაწერს
+        $this->salary($hr->id, $hr->fixed_salary);
 
         $hr_has_vacancy = new HrHasVacancy();
         $hr_has_vacancy->hr_id = $hr->id;
@@ -94,5 +98,13 @@ class HrRepository
         $hr->update();
 
         return 'ok';
+   }
+
+   function salary($id, $salary) {
+        Salary::updateOrCreate(
+            ['hr_id' => $id],
+            ['fixed_salary'=> $salary],
+            ['full_salary' => $salary]
+         );
    }
 }

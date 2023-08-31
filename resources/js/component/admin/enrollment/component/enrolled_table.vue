@@ -135,11 +135,12 @@ export default {
             window.open(pdfUrl, '_blank');
         },
         agree(item){
-            let model = {
-                'id': item.id,
-                'enrollment_type': item.enrollment_type,
-                'vacancy_id': item.vacancy_id
-            }
+            // let model = {
+            //     'id': item.id,
+            //     'enrollment_type': item.enrollment_type,
+            //     'vacancy_id': item.vacancy_id,
+            //     'vacancy_enrollment'
+            // }
             let currentObj = this
             this.$swal({
                 title: 'ნამდვილად გსურთ დადასტურება?',
@@ -155,11 +156,10 @@ export default {
                     axios({
                         method: "post",
                         url: "/enrollment_agree",
-                        data: {'model': model},
+                        data: {'model': item},
 
                     })
                     .then(function (response) {
-                        // console.log(response.data);
                         if (response.status == 200) {
                             toast.success('წარმატებით შესრულდა', {
                                 theme: 'colored',
@@ -168,11 +168,26 @@ export default {
                             setTimeout(() => {
                                 document.location.reload();
                             }, 1500);
+                        }else{
+                            
                         }
                     })
                     .catch(function (error) {
-                        // handle error
-                        console.log(error);
+                        if (error.response) {
+                            // The request was made and the server responded with a non-200 status
+                            // Handle the error using toast.error or other methods
+                            toast.error('მოხდა შეცდომა: ' + error.response.status, {
+                                theme: 'colored',
+                                autoClose: 1000,
+                            });
+                        } else if (error.request) {
+                            // The request was made but no response was received
+                            console.log(error.request);
+                        } else {
+                            // Something happened in setting up the request that triggered an error
+                            console.log('Error', error.message);
+                        }
+                        console.log(error.config);
                     })
 
                 } else if (result.isDenied) {

@@ -9,19 +9,11 @@ use App\Models\CandidateNotice;
 use App\Models\userRegisterLog;
 use App\Models\WorkInformation;
 use App\Models\Additional_number;
-use App\Models\Candidate;
 use App\Models\CandidateLanguage;
 use App\Services\CandidateService;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use App\Models\CandidateRecommendation;
 use App\Models\General_work_experience;
-use App\Models\QualifyingCandidate;
-use App\Models\QualifyingType;
-use App\Models\WorkDay;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
-use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class CandidateInfoController extends Controller
 {
@@ -138,13 +130,12 @@ class CandidateInfoController extends Controller
 
     public function addCandidateFile(Request $request){
 
-        $data['data'] = json_decode($request->input('data'));
-        if ($request->hasFile('file')) {
-            $data['file'] = $request->file('file');
-        }
-        $result = ['status' => 200];
-
         try {
+            $data['data'] = json_decode($request->input('data'));
+            if ($request->hasFile('file')) {
+                $data['file'] = $request->file('file');
+            }
+            $result = ['status' => 200];
             $result['data'] = $this->candidateService->candidateFile($data);
         } catch (Exception $e) {
             $result = [
@@ -157,37 +148,13 @@ class CandidateInfoController extends Controller
     }
 
     function addUser(Request $request)  {
-        $data = $request->all();
-        // dd($data);
-        $result = ['status' => 200];
+        
 
         try {
-            $name_ka = $data['name_ka'];
-            $name_en = GoogleTranslate::trans($data['name_ka'], 'en');
-            $name_ru = GoogleTranslate::trans($data['name_ka'], 'ru');
-            if ($data['gender_id'] == 1) {
-                $avatar = 'default_male.jpg';
-             }else{
-                 $avatar = 'default_female.jpg';
-             }
-            $user = User::create([
-                'name_ka' => $name_ka,
-                'name_en' => $name_en,
-                'name_ru' => $name_ru,
-                'email' => $data['email'],
-                'date_of_birth' => $data['date_of_birth'],
-                'gender_id' => $data['gender']['id'],
-                'avatar' => $avatar,
-                'number' => $data['number'],
-                'password' => Hash::make($data['password']),
-                'lang' => 'ka',
-            ]);
-            userRegisterLog::create([
-                'creator_id' => Auth::id(),
-                'user_id' => $user->id
-            ]);
-            // User::where('id', $user->id)->with('gender')->first()->toArray()
-            $result['data'] = [];
+            $data = $request->all();
+            $result = ['status' => 200];
+            $result['data'] = $this->candidateService->addUser($data);
+          
         } catch (Exception $e) {
             $result = [
                 'status' => 500,
@@ -202,7 +169,7 @@ class CandidateInfoController extends Controller
         $result = ['status' => 200];
         try {
             $result['data'] = userRegisterLog::where('id', $request->id)->update([
-                    'money' => $request->enrolled,
+                    // 'money' => $request->enrolled,
                     'enroll_date' => $request->date,
                 ]);
         } catch (Exception $e) {

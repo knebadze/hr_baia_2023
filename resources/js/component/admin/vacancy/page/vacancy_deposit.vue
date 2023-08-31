@@ -13,6 +13,13 @@
               <div class="card-body">
                 <div class="tab-content">
                   <div class="tab-pane active" id="tab_1">
+                    <div v-if="candidateEnrollment" class="alert alert-info alert-dismissible">
+                        <h5><i class="icon fas fa-info"></i> შეტყობინება!</h5>
+                        ამ ვაკანსიაზე თქვენ ელოდებით თანხის <u>{{ ( candidateEnrollment.type == 0)?'არასრული':'სრული' }}</u> ჩარიცხვის დადასტურებას.
+                        <ul>
+                            <li>დასადასტურებელი თანხა: {{ candidateEnrollment.money }} ლარი</li>
+                        </ul>
+                    </div>
                     <div class="row py-3 border border-success">
                         <!-- <div class="row"></div> -->
 
@@ -42,7 +49,7 @@
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <button type="button" class="btn btn-success float-right" @click.prevent="redacted()" ><i class=""></i>რედაქტირების შენახვა</button>
+                                <button v-if="!candidateEnrollment" type="button" class="btn btn-success float-right" @click.prevent="redacted()" ><i class=""></i>რედაქტირების შენახვა</button>
                             </div>
                             <div class=" col-md-12 border-top border-bottom"><h5 class="mt-2 text-danger text-center">მიმდინარე ჩარიცხვა</h5></div>
 
@@ -71,7 +78,7 @@
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <button  type="button" class="btn btn-primary float-right" @click.prevent="counting(1)" ><i class=""></i>ჩარიცხვა</button>
+                                <button v-if="!candidateEnrollment" type="button" class="btn btn-primary float-right" @click.prevent="counting(1)" ><i class=""></i>ჩარიცხვა</button>
                             </div>
                         </div>
                         <div v-else class=" col-md-12">
@@ -87,10 +94,15 @@
                   </div>
                   <!-- /.tab-pane -->
                   <div class="tab-pane" id="tab_2">
+                    <div v-if="employerEnrollment" class="alert alert-info alert-dismissible">
+                        <h5><i class="icon fas fa-info"></i> შეტყობინება!</h5>
+                        ამ ვაკანსიაზე თქვენ ელოდებით თანხის <u>{{ ( employerEnrollment.type == 0)?'არასრული':'სრული' }}</u>  ჩარიცხვის დადასტურებას.
+                        <ul>
+                            <li>დასადასტურებელი თანხა: {{ employerEnrollment.money }} ლარი</li>
+                        </ul>
+                    </div>
                     <div class="row py-3 border border-success">
                         <!-- <div class="row"></div> -->
-
-
                         <div class="row col-md-12" v-if="m.must_be_enrolled_employer_date">
                             <div class=" col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
@@ -117,7 +129,7 @@
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <button type="button" class="btn btn-success float-right" @click.prevent="redacted()" ><i class=""></i>რედაქტირების შენახვა</button>
+                                <button v-if="!employerEnrollment" type="button" class="btn btn-success float-right" @click.prevent="redacted()" ><i class=""></i>რედაქტირების შენახვა</button>
                             </div>
 
                             <div class=" col-md-12 border-top border-bottom"><h5 class="mt-2 text-danger text-center">მიმდინარე ჩარიცხვა</h5></div>
@@ -147,7 +159,7 @@
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <button v-if="m.must_be_enrolled_employer_date" type="button" class="btn btn-primary float-right" @click.prevent="counting(2)" ><i class=""></i>ჩარიცხვა</button>
+                                <button v-if="!employerEnrollment" type="button" class="btn btn-primary float-right" @click.prevent="counting(2)" ><i class=""></i>ჩარიცხვა</button>
                             </div>
                         </div>
                         <div v-else class=" col-md-12">
@@ -174,6 +186,7 @@
 </template>
 <script>
 import moment from 'moment'
+import _ from 'lodash';
 export default {
     components:{
     },
@@ -210,6 +223,21 @@ export default {
         getLang(){
             return I18n.getSharedInstance().options.lang
         },
+        candidateEnrollment(){
+            let find = null;
+            if (this.data.enrollment) {
+                find = _.find(this.data.enrollment, function(o) { return o.who_is_counting == 1; });
+            }
+            return find;
+        },
+        employerEnrollment(){
+            let find = null;
+            if (this.data.enrollment) {
+                find = _.find(this.data.enrollment, function(o) { return o.who_is_counting == 2; });
+            }
+            return find;
+        },
+
     },
     methods:{
         handleFileChange(event) {
@@ -279,11 +307,11 @@ export default {
             if (type == 1) {
                 item = this.enrollmentCandidate
                 enrollmentType = (item.money == this.m.must_be_enrolled_candidate)?1:0
-                enrolled = this.m.must_be_enrolled_candidate - item.money
+                // enrolled = this.m.must_be_enrolled_candidate - item.money
             }else{
                 item = this.enrollmentEmployer
                 enrollmentType = (item.money == this.m.must_be_enrolled_employer)?1:0
-                enrolled = this.m.must_be_enrolled_employer - item.money
+                // enrolled = this.m.must_be_enrolled_employer - item.money
             }
             console.log('enrollmentType', enrollmentType);
 
@@ -314,7 +342,7 @@ export default {
                     showLoaderOnConfirm: true,
                     preConfirm: () => {
                         const date = document.getElementById('swal-input').value;
-                        return axios.post('/deposit_date_update?id=' + this.m.id + '&enrolled=' + enrolled + '&type=' + type + '&date=' + date)
+                        return axios.post('/deposit_date_update?id=' + this.m.id + '&type=' + type + '&date=' + date)
                         .then(response => {
                             return response.data;
                         })

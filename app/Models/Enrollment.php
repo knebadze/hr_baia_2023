@@ -8,6 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class Enrollment extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'enrollment_type',
+        'author_id ',
+        'vacancy_id ',
+        'candidate_id ',
+        'who_is_counting',
+        'type',
+        'name',
+        'money',
+        'hr_percent',
+        'hr_bonus',
+        'file_path',
+        'agree',
+    ];
 
     public function user()
     {

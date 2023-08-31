@@ -11,5 +11,8 @@ class userRegisterLog extends Model
     protected $fillable = [
         'creator_id',
         'user_id',
+        'type',
+        'money',
+        'enroll_date'
     ];
 }

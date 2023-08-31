@@ -25,6 +25,44 @@ class EnrollmentController extends Controller
         return view('admin.enrollment', compact('data', 'role_id'));
     }
 
+    function vacancyEnrollment(Request $request) {
+        $data['data'] = json_decode($request->input('data'));
+        if ($request->hasFile('file')) {
+            $data['file'] = $request->file('file');
+        }
+        $result = ['status' => 200];
+
+        try {
+            $result['data'] = $this->enrollmentService->save('vacancy',$data);
+        } catch (Exception $e) {
+            $result = [
+                'status' => 500,
+                'error' => $e->getMessage()
+            ];
+        }
+
+        return response()->json($result, $result['status']);
+    }
+    
+    function registerEnrolment(Request $request) {
+        $data['data'] = json_decode($request->input('data'));
+        if ($request->hasFile('file')) {
+            $data['file'] = $request->file('file');
+        }
+        $result = ['status' => 200];
+
+        try {
+            $result['data'] = $this->enrollmentService->save('register',$data);
+        } catch (Exception $e) {
+            $result = [
+                'status' => 500,
+                'error' => $e->getMessage()
+            ];
+        }
+
+        return response()->json($result, $result['status']);
+    }
+
     function update(Request $request) {
         $result = ['status' => 200];
         $data = $request->model;
@@ -42,9 +80,10 @@ class EnrollmentController extends Controller
     }
 
     function agree(Request $request) {
-        $result = ['status' => 200];
-        $data = $request->model;
+        
         try {
+            $result = ['status' => 200];
+            $data = $request->model;
             $result['data'] = $this->enrollmentService->agree($data);
         } catch (Exception $e) {
             $result = [

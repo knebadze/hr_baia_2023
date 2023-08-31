@@ -5,8 +5,7 @@ namespace App\Repositories\Enrollment;
 use App\Models\User;
 use App\Models\Vacancy;
 use App\Models\Enrollment;
-use App\Models\userRegisterLog;
-use App\Models\VacancyDeposit;
+use App\Models\GlobalVariable;
 use Illuminate\Support\Facades\Auth;
 
 class EnrollmentRepository
@@ -31,23 +30,13 @@ class EnrollmentRepository
             $enrollment->file_path = $filePath;
         }
         $enrollment->save();
-        if ($data['data']->type == 1) {
-            $this->depositUpdate($data['data']->id, $data['data']->who_is_counting);
-        }
-        return $enrollment;
-    }
-    function depositUpdate($id, $type) {
-        if ($type == 1) {
-            $result['data'] = VacancyDeposit::where('id', $id)->update(['must_be_enrolled_candidate' => 0, 'must_be_enrolled_candidate_date' => null]);
-        }else{
-            $result['data'] = VacancyDeposit::where('id', $id)->update(['must_be_enrolled_employer' => 0, 'must_be_enrolled_employer_date' => null]);
-        }
 
+        return $enrollment;
     }
 
     function register($data) {
-        // dd($data);
         $user = User::where('id', $data['data']->user_id)->first();
+        $paidBonus = GlobalVariable::where('name', 'paid registration')->first();
         $candidate_id = $user->candidate->id;
         $enrollment = new Enrollment();
         $enrollment->enrollment_type = 1;
@@ -56,7 +45,7 @@ class EnrollmentRepository
         $enrollment->type = $data['data']->type;
         $enrollment->name = $data['data']->name;
         $enrollment->money = $data['data']->money;
-        $enrollment->hr_bonus = 10;
+        $enrollment->hr_bonus = $paidBonus->meaning;
         if (isset($data['file'])) {
             $filePath = $data['file']->store('enrollment', 'public');
         }
@@ -64,13 +53,7 @@ class EnrollmentRepository
             $enrollment->file_path = $filePath;
         }
         $enrollment->save();
-        if ($data['data']->type == 1) {
-            $this->registerLogUpdate($data['data']->id);
-        }
         return $enrollment;
     }
 
-    function registerLogUpdate($id) {
-        return userRegisterLog::where('id', $id)->update(['enroll_date' => null, 'money' => 0]);
-    }
 }
