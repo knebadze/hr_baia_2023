@@ -15,7 +15,7 @@ class SalaryController extends Controller
         $this->salaryService = $salaryService;
     }
     function index() {
-        $data = $this->salaryService();
+        $data = $this->salaryService->data();
         $role_id = Auth::user()->role_id;
         return view('admin.salary', compact('data', 'role_id'));
     }

@@ -27,7 +27,7 @@
                 {{-- <vacancy-page :data='@json($data)'></vacancy-page> --}}
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab_1">
-                        {{-- <monthly-salary-page :data='@json($data['enrolled'])' :role_id='@json($role_id)'></monthly-salary-page> --}}
+                        <monthly-salary-page :data='@json($data['current'])' :role_id='@json($role_id)'></monthly-salary-page>
                     </div>
                     <div class="tab-pane" id="tab_2">
                         {{-- <must-be-enrolled-page :data='@json($data['mustBeEnrolled'])' :role_id='@json($role_id)'></must-be-enrolled-page> --}}

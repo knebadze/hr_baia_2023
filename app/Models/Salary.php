@@ -18,4 +18,9 @@ class Salary extends Model
         'disbursement_date',
         'hr_agree'
     ];
+
+    public function hr()
+    {
+        return $this->hasOne(Hr::class, 'id', 'hr_id');
+    }
 }
