@@ -105,6 +105,7 @@ class EnrollmentAgreeRepository
                 'money' => 0,
                 'enroll_date' => null
             ]);
+            $candidate->update(['registration_fee' => 1]);
         }
     }
 

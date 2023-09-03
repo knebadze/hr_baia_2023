@@ -7,6 +7,7 @@ use App\Models\Vacancy;
 use App\Models\VacancyDeposit;
 use App\Models\VacancyReminder;
 use App\Models\QualifyingCandidate;
+use App\Models\RegistrationFee;
 use Illuminate\Support\Facades\Auth;
 
 class VacancyStatusUpdateRepository
@@ -28,21 +29,22 @@ class VacancyStatusUpdateRepository
 
             $date = Carbon::now()->addDays(7)->toDateString();
             $vacancy = VacancyDeposit::where('vacancy_id', $id)->update(['must_be_enrolled_employer_date' => $date, 'must_be_enrolled_candidate_date' => $date]);
+            
             $this->addReminder(['vacancy_id' => $id, 'date' => $date.' 10:00:00', 'reason' =>  'ვაკანსიაზე უნდა მოხდეს თანხის ჩარიცხვა']);
 
         }
         // დასრულდა სტატუსში თუ ვაკანსიას არ ყავსა კადრი დასაქმდა სტატუსში ვაბრუნებ ერორს და თუ ყავს კადრი და თანხა არ არის ჩარიცხული ვაბრუნებ ერორს
-        if ($data['status']['id'] == 4){
-            if (QualifyingCandidate::where('vacancy_id', $id)->whereIn('qualifying_type_id', [6, 7])->doesntExist()) {
+        // if ($data['status']['id'] == 4){
+        //     if (QualifyingCandidate::where('vacancy_id', $id)->whereIn('qualifying_type_id', [6, 7])->doesntExist()) {
 
-                return ['type' => 'e', 'message' => 'ამ სტატუსის მისანიჭებლად აუცილებელია ვაკანსიას ყავდეს "დასაქმებული" კანდიდატი'];
-            }else{
-                $deposit = VacancyDeposit::where('vacancy_id', $id)->first();
-                if ($deposit->must_be_enrolled_employer != 0 && $deposit->must_be_enrolled_candidate != 0) {
-                    return ['type' => 'e', 'message' => 'ამ სტატუსის მისანიჭებლად აუცილებელია ვაკანსიის თანხა იყოს ჩარიცხული სრულად'];
-                }
-            }
-        }
+        //         return ['type' => 'e', 'message' => 'ამ სტატუსის მისანიჭებლად აუცილებელია ვაკანსიას ყავდეს "დასაქმებული" კანდიდატი'];
+        //     }else{
+        //         $deposit = VacancyDeposit::where('vacancy_id', $id)->first();
+        //         if ($deposit->must_be_enrolled_employer != 0 && $deposit->must_be_enrolled_candidate != 0) {
+        //             return ['type' => 'e', 'message' => 'ამ სტატუსის მისანიჭებლად აუცილებელია ვაკანსიის თანხა იყოს ჩარიცხული სრულად'];
+        //         }
+        //     }
+        // }
 
         $vacancy = Vacancy::findOrFail($id);
         // ვამოწმებ ვაკანსიის ძველ სტატუს თუ იყო გაუქმებული მაშინ უწერია გაუქმების მიზეზი და ვააბდეითებ მიზეზს null

@@ -3,12 +3,15 @@
 namespace App\Repositories\Vacancy;
 
 use Carbon\Carbon;
-use App\Models\Candidate;
-use App\Models\QualifyingCandidate;
 use App\Models\Vacancy;
-use App\Models\VacancyReminder;
 use App\Models\WorkDay;
+use App\Models\Candidate;
 use Illuminate\Queue\Worker;
+use App\Models\GlobalVariable;
+use App\Models\RegistrationFee;
+use App\Models\userRegisterLog;
+use App\Models\VacancyReminder;
+use App\Models\QualifyingCandidate;
 
 class AddVacancyPersonalRepository
 {
@@ -108,6 +111,7 @@ class AddVacancyPersonalRepository
             ]
         );
         $this->changeCandidateStatus($data['candidate_id'], $data['employ_type']['id']);
+        $this->addRegistrationFee($data['candidate_id'], $data['vacancy']['id']);
         if ($data['employ_type']['id'] == 7) {
             $this->workDay($qualifying->id, $data['vacancy']['work_schedule_id'], $data['vacancy']['start_date'], $data['vacancy']['term'], $data['week_day']);
         }
@@ -126,6 +130,31 @@ class AddVacancyPersonalRepository
             Candidate::where( 'id', $candidate_id )->update(['status_id'=> 10]);
         }else if($employ_type_id == 5){
             Candidate::where( 'id', $candidate_id )->update(['status_id'=> 14]);
+        }
+
+    }
+
+    function addRegistrationFee($candidate_id, $vacancy_id){
+        if (Candidate::where('id', $candidate_id)->where('registration_fee', 0)->exists()) {
+            $candidate = Candidate::where('id', $candidate_id)->first();
+            if (userRegisterLog::where('user_id', $candidate->user->id)->exists()) {
+                $log = userRegisterLog::where('user_id', $candidate->user->id)->first();
+                $creator_id = $log->creator_id;
+            }else{
+                $vacancy = Vacancy::where('id', $vacancy_id)->first();
+                $creator_id = $vacancy->hr->user->id;
+            }
+            if (RegistrationFee::where('user_id', $candidate->user->id)->exists()) {
+                $paidBonus = GlobalVariable::where('name', 'paid registration')->first();
+                $date = Carbon::now()->addDays(7)->toDateString();
+                $fee = RegistrationFee::create([
+                    'user_id' => $candidate->user->id,
+                    'initial_amount' => $paidBonus->meaning,
+                    'money' => $paidBonus->meaning,
+                    'creator_id' => $creator_id,
+                    'enroll_date' => $date,
+                ]);
+            }
         }
 
     }
