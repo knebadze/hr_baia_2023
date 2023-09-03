@@ -135,6 +135,10 @@ class AddVacancyPersonalRepository
     }
 
     function addRegistrationFee($candidate_id, $vacancy_id){
+        // ვამოწმებ აქვს თუ არაა თანხა გადახდილი
+        // ვამოწმებ რომელიმე ჰრ ის დასაქმებული ხო არაა
+        // თუ არის ბონუსი ეკუთვნის მას
+        // თუ არა ბონუსი ეკუთვნის ვაკანსია რომელ ეიჩარსაც აწერია
         if (Candidate::where('id', $candidate_id)->where('registration_fee', 0)->exists()) {
             $candidate = Candidate::where('id', $candidate_id)->first();
             if (userRegisterLog::where('user_id', $candidate->user->id)->exists()) {

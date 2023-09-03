@@ -66,9 +66,15 @@
   rel="stylesheet"
   href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.6.6/css/flag-icons.min.css"> --}}
 
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    <!-- <link rel="{{asset('build/assets/app-67e4f9a3.css')}}"> -->
-    <!-- <script src="{{asset('build/assets/app-2bee19f0.js')}}"></script> -->
+
+    {{-- <!-- <link rel="{{asset('build/assets/app-67e4f9a3.css')}}"> -->
+    <!-- <script src="{{asset('build/assets/app-2bee19f0.js')}}"></script> --> --}}
+
+     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+
+    {{-- <link rel="stylesheet" href="{{asset('build/assets/app-a8b8d38a.css') }}"> --}}
+
 
 </head>
 <body>
@@ -399,6 +405,9 @@
     <script  src="{{ asset('js/chart.js') }}"></script><!-- Chart -->
     <script  src="{{ asset('js/custom.js') }}"></script><!-- CUSTOM FUCTIONS  -->
     {{-- <script  src="{{ asset('js/register_form.js') }}"></script><!-- MY ADD JS  --> --}}
+
+    {{-- <script type="module" src="{{ asset('build/assets/app-4ed993c7.js') }}"></script>
+    <script type="module" src="{{ asset('build/assets/app-33a2ea6b.js') }}"></script> --}}
 
 </body>
 </html>

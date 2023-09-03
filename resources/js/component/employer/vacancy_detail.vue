@@ -14,7 +14,7 @@
                                 <div class="twm-job-self-info">
                                     <div class="twm-job-self-top">
                                         <div class="twm-media-bg">
-                                            <img src="/images/job-detail-bg.jpg" alt="#">
+                                            <img :src="'/images/job-detail-bg.jpg'" alt="#">
                                             <div class="twm-jobs-category green"><span class="twm-bg-green">New</span></div>
                                         </div>
 
@@ -22,7 +22,7 @@
                                         <div class="twm-mid-content">
 
                                             <div class="twm-media">
-                                                <img src="/images/jobs-company/pic1.jpg" alt="#">
+                                                <img :src="'/images/jobs-company/pic1.jpg'" alt="#">
                                             </div>
 
                                             <h4 class="twm-job-title">{{ vacancy.category[`name_${getLang}`] }} <span class="twm-job-post-duration"></span></h4>
@@ -131,7 +131,7 @@
 
                                     <div class="col-lg-6 col-md-12">
                                         <h4 class="twm-s-title">ჩვენი სურათები</h4>
-                                        <div class="tw-sidebar-gallery">
+                                        <!-- <div class="tw-sidebar-gallery">
                                             <ul>
                                                 <li>
                                                     <div class="tw-service-gallery-thumb">
@@ -243,7 +243,7 @@
 
                                             </ul>
 
-                                        </div>
+                                        </div> -->
                                     </div>
                                     <div class="col-lg-6 col-md-12">
                                         <h4 class="twm-s-title">ვიდეო</h4>

@@ -109,6 +109,8 @@
   <link rel="stylesheet" href="{{ asset('admin/plugins/daterangepicker/daterangepicker.css') }}">
   <!-- summernote -->
   <link rel="stylesheet" href="{{ asset('admin/plugins/summernote/summernote-bs4.min.css') }}">
+
+  {{-- <link rel="stylesheet" href="{{asset('build/assets/app-a8b8d38a.css') }}"> --}}
   @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
@@ -138,6 +140,7 @@
         </div>
         @include('inc.admin.footer')
     </div>
+
     <!-- jQuery -->
     <script src="{{ asset('admin/plugins/jquery/jquery.min.js') }}"></script>
     <!-- jQuery UI 1.11.4 -->
@@ -169,4 +172,7 @@
     <script src="{{ asset('admin/dist/js/demo.js') }}"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('admin/dist/js/pages/dashboard.js') }}"></script>
+
+     {{-- <script type="module" src="{{ asset('build/assets/app-4ed993c7.js') }}"></script>
+    <script type="module" src="{{ asset('build/assets/app-33a2ea6b.js') }}"></script> --}}
 </body>
