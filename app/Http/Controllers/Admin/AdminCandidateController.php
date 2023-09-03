@@ -35,6 +35,7 @@ class AdminCandidateController extends Controller
                 [
                     'user.gender',
                     'user.registerLog',
+                    'user.registerFee',
                     // 'workInformation',
                     'getWorkInformation.category',
                     'getWorkInformation.currency',
@@ -222,9 +223,10 @@ class AdminCandidateController extends Controller
     }
 
     function getRegisterEnrollmentInfo(Request $request) {
+        // dd($request->data);
         $data = null;
         $user = User::where('id', $request->data)->first();
-        if (Enrollment::where('candidate_id', $user->candidate->id)->where('agree', 0)) {
+        if (Enrollment::where('candidate_id', $user->candidate->id)->where('agree', 0)->exists()) {
             $data = Enrollment::where('candidate_id', $user->candidate->id)->where('agree', 0)->first();
         }
         return response($data);

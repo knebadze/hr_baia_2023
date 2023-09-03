@@ -86,4 +86,8 @@ class User extends Authenticatable
     {
         return $this->hasOne(userRegisterLog::class);
     }
+    public function registerFee()
+    {
+        return $this->hasOne(RegistrationFee::class);
+    }
 }

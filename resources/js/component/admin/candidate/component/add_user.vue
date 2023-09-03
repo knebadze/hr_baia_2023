@@ -131,7 +131,6 @@ export default {
             .then(function (response) {
                 console.log(response.data);
                 if (response.data.status == 200) {
-                    // currentObj.m = {...response.data.data};
                     toast.success("ინფორმაცია წარმატებით შეინახა", {
                         theme: 'colored',
                         autoClose: 1000,
@@ -142,8 +141,12 @@ export default {
                 }
             })
             .catch(function (error) {
-                // handle error
                 console.log(error);
+                 // Display an error message to the user
+                toast.error("შეცდომა: ინფორმაციის შენახვის პროცესში შეცდომა", {
+                    theme: 'colored',
+                    autoClose: 3000, // Show the error message for 3 seconds
+                });
             })
         },
         generatePassword(){

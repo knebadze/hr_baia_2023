@@ -15,13 +15,14 @@ return new class extends Migration
     {
         Schema::create('registration_fees', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('candidate_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->tinyInteger('payed');
-            $table->unsignedBigInteger('hr_id');
-            $table->dateTime('payment_date');
-            $table->timestamps();
+            $table->unsignedBigInteger('creator_id');
+            $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->integer('initial_amount')->nullable();
+            $table->integer('money')->nullable();
+            $table->date('enroll_date')->nullable();
 
-            $table->foreign('hr_id')->references('id')->on('users');
+            $table->timestamps();
+            $table->foreign('creator_id')->references('id')->on('users');
         });
     }
 

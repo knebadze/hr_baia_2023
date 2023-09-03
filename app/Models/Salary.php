@@ -12,7 +12,7 @@ class Salary extends Model
         'hr_id',
         'fixed_salary',
         'hr_bonus_from_vacancy',
-        'hr_bonus_from_paid_registration',
+        'hr_bonus_from_registration',
         'hr_bonus_from_free_registration',
         'full_salary',
         'disbursement_date',

@@ -148,13 +148,13 @@ class CandidateInfoController extends Controller
     }
 
     function addUser(Request $request)  {
-        
+
 
         try {
             $data = $request->all();
             $result = ['status' => 200];
             $result['data'] = $this->candidateService->addUser($data);
-          
+
         } catch (Exception $e) {
             $result = [
                 'status' => 500,
@@ -164,24 +164,8 @@ class CandidateInfoController extends Controller
 
         return response()->json($result, $result['status']);
     }
+
     
-    function registerLogUpdate(Request $request)  {
-        $result = ['status' => 200];
-        try {
-            $result['data'] = userRegisterLog::where('id', $request->id)->update([
-                    // 'money' => $request->enrolled,
-                    'enroll_date' => $request->date,
-                ]);
-        } catch (Exception $e) {
-            $result = [
-                'status' => 500,
-                'error' => $e->getMessage()
-            ];
-        }
-
-
-        return response()->json($result);
-    }
     // function StatusUpdate(Request $request)  {
     //     dd($request->id);
     //     Candidate::where('id', $request->id)->update(['status_id', 9]);

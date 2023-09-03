@@ -16,6 +16,10 @@
 
         <span :class="`badge bg-${item.status.color} p-1`" >{{ item.status.name_ka }}</span>
     </template>
+    <template #item-registration_fee="item">
+
+        <span :class="(item.registration_fee == 0)?'badge bg-warning p-1':'badge bg-success p-1'" >{{ (item.registration_fee == 0)?'გადასახდელი':'გადახდილი' }}</span>
+    </template>
     <template #item-operation="item">
        <div class="operation-wrapper">
         <div class="dropdown">
@@ -30,7 +34,8 @@
                 <a class="dropdown-item" :href="attachedUrl+'/'+item.id">მიბმული ვაკანსიები</a>
                 <a class="dropdown-item" :href="relevantUrl+'/'+item.id">შესაბამისი ვაკანსიები</a>
                 <a v-if="item.status_id == 11 || item.status_id == 14" class="dropdown-item" href="#" @click="scheduleModal(item.id)">გრაფიკი</a>
-                <a v-if="item.user.register_log && item.user.register_log.creator_id == hrId && item.user.register_log.enroll_date" href="#" class="dropdown-item" @click="enrolled(item.user)">ჩარიცხა</a>
+                <a v-if="item.user.register_log && item.user.register_log.creator_id == hrId && item.registration_fee != 1" href="#" class="dropdown-item" @click="enrolled(item.user)">ჩარიცხა</a>
+                <a v-if="!item.user.register_log &&  item.registration_fee != 1" href="#" class="dropdown-item" @click="enrolled(item.user)">ჩარიცხა</a>
                 <a class="dropdown-item" href="#"  @click="pdf(item)">ჩამოტვირთვა</a>
                 <a class="dropdown-item" href="#" @click="openSendMessageModal(item)">სმს</a>
                 <a v-if="item.status_id == 9" class="dropdown-item" href="#" @click="blackListModal(item.id)">შავ სიაში დამატება</a>
@@ -278,6 +283,7 @@ export default {
             { text: "ასაკი", value: "age", sortable: true},
             { text: "კატეგორია", value: "category" },
             { text: "სტატუსი", value: "status"},
+            { text: "გადასახადი", value: "registration_fee"},
             { text: "დამატების თარიღი", value: "created_at", sortable: true},
             { text: "Operation", value: "operation" },
         ]);
@@ -443,8 +449,10 @@ export default {
             this.item = {'id': item.id, 'number': item.user.number}
         },
         enrolled(item){
+            console.log('item',item);
             this.showEnrolledModal = !this.showEnrolledModal
-            this.item = item.register_log
+            this.item = (item.register_fee)?item.register_fee:{'log': null}
+            console.log('item.name_ka', item.name_ka);
             this.item['name'] = item.name_ka
         },
         candidateDelete(id){

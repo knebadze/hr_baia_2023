@@ -45,7 +45,11 @@ class EnrollmentRepository
         $enrollment->type = $data['data']->type;
         $enrollment->name = $data['data']->name;
         $enrollment->money = $data['data']->money;
-        $enrollment->hr_bonus = $paidBonus->meaning;
+        if ($data['data']->type == 1) {
+            // აქ შეიძლება დაემატოს პროცენტული გამოთვლა
+            $enrollment->hr_bonus = $paidBonus->meaning;
+        }
+
         if (isset($data['file'])) {
             $filePath = $data['file']->store('enrollment', 'public');
         }

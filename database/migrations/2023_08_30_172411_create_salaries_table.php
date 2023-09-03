@@ -18,9 +18,7 @@ return new class extends Migration
             $table->foreignId('hr_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->integer('fixed_salary');
             $table->float('hr_bonus_from_vacancy')->default(0);
-            $table->integer('hr_bonus_from_paid_registration')->default(0);
-            $table->integer('hr_bonus_from_free_registration')->default(0);
-            $table->integer('hr_bonus_from_free_registration')->default(0);
+            $table->integer('hr_bonus_from_registration')->default(0);
             $table->float('supplement')->nullable();
             $table->dateTime('disbursement_date')->nullable();
             $table->integer('hr_agree')->default(0);

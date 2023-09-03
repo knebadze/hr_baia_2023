@@ -12,7 +12,5 @@ class userRegisterLog extends Model
         'creator_id',
         'user_id',
         'type',
-        'money',
-        'enroll_date'
     ];
 }

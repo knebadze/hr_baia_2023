@@ -12,6 +12,7 @@ use App\Http\Controllers\TermsController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\VacancyController;
 use App\Http\Controllers\admin\HrController;
+use App\Http\Controllers\Admin\PdfController;
 use App\Http\Controllers\CandidateController;
 
 use App\Http\Controllers\JobDetailController;
@@ -23,27 +24,27 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Auth\SocialController;
 use App\Http\Controllers\MapvacancieController;
 use App\Http\Controllers\User\ResumeController;
+use App\Http\Controllers\Admin\SalaryController;
+use App\Http\Controllers\BusyCandidateController;
 use App\Http\Controllers\CandidateInfoController;
 use App\Http\Controllers\VacancyActionController;
+use App\Http\Controllers\Admin\EmployerController;
+use App\Http\Controllers\Admin\ReminderController;
 use App\Http\Controllers\GetVacancyInfoController;
+use App\Http\Controllers\Admin\BlackListController;
+use App\Http\Controllers\Admin\EnrollmentController;
 use App\Http\Controllers\User\PostVacancyController;
 use App\Http\Controllers\User\UserProfileController;
+use App\Http\Controllers\Admin\AdminVacancyController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Admin\AdminCandidateController;
-use App\Http\Controllers\Admin\AdminVacancyController;
-use App\Http\Controllers\Admin\BlackListController;
-use App\Http\Controllers\Admin\EmployerController;
-use App\Http\Controllers\Admin\EnrollmentController;
-use App\Http\Controllers\Admin\PdfController;
-use App\Http\Controllers\Admin\RelevantVacancyController;
-use App\Http\Controllers\Admin\ReminderController;
-use App\Http\Controllers\Admin\SalaryController;
-use App\Http\Controllers\Admin\Vacancy\VacancyDepositController;
-use App\Http\Controllers\Admin\VacancyAttachedController;
-use App\Http\Controllers\BusyCandidateController;
 use App\Http\Controllers\Hr\SelectionPersonalController;
+use App\Http\Controllers\Admin\RegistrationFeeController;
+use App\Http\Controllers\Admin\RelevantVacancyController;
+use App\Http\Controllers\Admin\VacancyAttachedController;
 use App\Http\Controllers\Employer\EmployerInfoController;
 use App\Http\Controllers\Candidate\WorkInformationController;
+use App\Http\Controllers\Admin\Vacancy\VacancyDepositController;
 
 /*
 |--------------------------------------------------------------------------
@@ -136,6 +137,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::get('admin/vacancy_deposit/{id?}', [VacancyDepositController::class, 'index'])->name('admin.vacancy.deposit');
     Route::get('admin/enrollment', [EnrollmentController::class, 'index'])->name('admin.enrollment');
     Route::get('admin/salary', [SalaryController::class, 'index'])->name('admin.salary');
+
     // _______________________HR PAGE________________________________
 
     Route::get('hr/selection_personal/{id?}', [SelectionPersonalController::class, 'index'])->name('selection.personal');
@@ -157,7 +159,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('update_candidate_recommendation', [CandidateInfoController::class, 'updateCandidateRecommendation']);
     Route::post('delete_candidate_recommendation', [CandidateInfoController::class, 'deleteCandidateRecommendation']);
     Route::post('add_candidate_file', [CandidateInfoController::class, 'addCandidateFile']);
-    Route::post('register_log_update', [CandidateInfoController::class, 'registerLogUpdate']);
+    Route::post('register_update', [RegistrationFeeController::class, 'registerUpdate']);
     // Route::post('remove_old_general_work_experience', [CandidateInfoController::class, 'removeOldWorkExperience']);
 
     Route::post('add_work_information', [WorkInformationController::class, 'store']);
@@ -202,8 +204,12 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('register_enrollment', [EnrollmentController::class, 'registerEnrolment']);
     Route::post('enrollment_update', [EnrollmentController::class, 'update']);
     Route::post('enrollment_agree', [EnrollmentController::class, 'agree']);
-    
+
     Route::post('enrollment_filter', [EnrollmentController::class, 'filter']);
+
+    Route::post('salary_supplement', [SalaryController::class, 'supplement']);
+    Route::post('disbursement_of_salary', [SalaryController::class, 'disbursementOfSalary']);
+    Route::post('hr_agree_salary', [SalaryController::class, 'hrAgreeSalary']);
 
     // ________________VACANCY REQUEST__________________________________
 

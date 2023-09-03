@@ -51,7 +51,7 @@ class HrRepository
         $hr->mobile = $data['fixed_salary'];
         $hr->fb_link = $data['fb_link'];
         $hr->save();
-        
+
         //ვქმნი ხელფასის ჩანაწერს
         $this->salary($hr->id, $hr->fixed_salary);
 
@@ -101,10 +101,10 @@ class HrRepository
    }
 
    function salary($id, $salary) {
-        Salary::updateOrCreate(
+        Salary::create(
             ['hr_id' => $id],
             ['fixed_salary'=> $salary],
             ['full_salary' => $salary]
-         );
+        );
    }
 }

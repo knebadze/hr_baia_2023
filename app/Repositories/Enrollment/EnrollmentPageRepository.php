@@ -5,18 +5,20 @@ namespace App\Repositories\Enrollment;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Enrollment;
+use App\Models\RegistrationFee;
+use App\Models\Salary;
 use App\Models\VacancyDeposit;
-use App\Models\userRegisterLog;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class EnrollmentPageRepository
 {
     function data()  {
-        $currentMonth = Carbon::now()->format('m');
+        // $currentMonth = Carbon::now()->format('m');
         $enrolled = [];
-
-        $enrolled['items'] = Enrollment::whereMonth('enrollments.created_at', $currentMonth)
+        $salary = Salary::latest()->first();
+        // dd(Carbon::parse($salary->created_at)->startOfDay()->toDateTimeString());
+        $enrolled['items'] = Enrollment::whereDate('enrollments.created_at', '>=', Carbon::parse($salary->created_at)->startOfDay()->toDateTimeString())
             ->when(Auth::user()->role_id !== 1, function ($query) {
                 return $query->where('enrollments.author_id', Auth::id());
             })
@@ -58,17 +60,16 @@ class EnrollmentPageRepository
                 DB::raw("'1' as vacancy_type")
             );
 
-        $register = userRegisterLog::where('type', 1)
-            ->whereNot('money', 0)
-            ->join('users', 'user_register_logs.user_id', '=', 'users.id')
+        $register = RegistrationFee::whereNot('money', 0)
+            ->join('users', 'registration_fees.user_id', '=', 'users.id')
             ->join('candidates', 'users.id', '=', 'candidates.user_id')
             ->select(
-                'user_register_logs.id as record_id',
+                'registration_fees.id as record_id',
                 'candidates.id as id',
                 'money as money',
                 'enroll_date as date',
                 'creator_id',
-                'user_register_logs.updated_at as updated_at',
+                'registration_fees.updated_at as updated_at',
                 DB::raw("'1' as type"),
                 DB::raw("'0' as type")
             );

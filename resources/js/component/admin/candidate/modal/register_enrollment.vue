@@ -82,7 +82,7 @@
                 this.registerInfo = result.data;
                 console.log('this.registerInfo', result);
                 this.showConfirm = true
-                
+
                 this.m = {...this.item}
                 // this.min = this.item.end_date;
 
@@ -91,6 +91,9 @@
                 this.showConfirm = false
             },
             getInfo(){
+                if (this.item.hasOwnProperty('log')) {
+                    return {'data': null}
+                }
                 return axios.post('/get_register_enrollment_info' ,{
                       data: this.item.user_id,
                   })
@@ -134,7 +137,7 @@
                         showLoaderOnConfirm: true,
                         preConfirm: () => {
                             const date = document.getElementById('swal-input').value;
-                            return axios.post('/register_log_update?id=' + model.id +  '&date=' + date)
+                            return axios.post('/register_update?id=' + model.id +  '&date=' + date)
                             .then(response => {
                                 return response.data;
                             })

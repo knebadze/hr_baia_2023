@@ -3,6 +3,7 @@
 namespace App\Repositories\Candidate;
 
 use App\Models\User;
+use App\Models\Candidate;
 use Illuminate\Support\Facades\Auth;
 use App\Models\CandidateRecommendation;
 use Illuminate\Support\Facades\Storage;
@@ -83,6 +84,7 @@ class RecommendationRepository
             }
 
         }
+        $this->candidateStatusUpdate($data['data']->candidate_id);
 
         $recommendation->save();
         // if (Auth::user()->role_id == 3) {
@@ -135,15 +137,15 @@ class RecommendationRepository
 
     }
 
-    // public function userStatusUpdate($user_id)
-    // {
-    //     $user = User::find($user_id);
-    //     if ($user->status == 1) {
-    //         $user->update([
-    //             'status' => 2,
-    //             'updated_at' => now()
-    //         ]);
-    //     }
-    // }
+    public function candidateStatusUpdate($candidate_id)
+    {
+        $candidate = Candidate::find($candidate_id);
+        if ($candidate->status_id == 8) {
+            $candidate->update([
+                'status_id' => 9,
+                'updated_at' => now()
+            ]);
+        }
+    }
 
 }
