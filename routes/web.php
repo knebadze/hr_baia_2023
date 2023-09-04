@@ -11,13 +11,13 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\TermsController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\VacancyController;
-use App\Http\Controllers\admin\HrController;
+use App\Http\Controllers\Admin\HrController;
+
 use App\Http\Controllers\Admin\PdfController;
+
+
 use App\Http\Controllers\CandidateController;
-
 use App\Http\Controllers\JobDetailController;
-
-
 use App\Http\Controllers\MyprofileController;
 use App\Http\Controllers\MyVacancyController;
 use App\Http\Controllers\Admin\AdminController;

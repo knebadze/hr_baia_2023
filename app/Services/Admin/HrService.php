@@ -2,7 +2,7 @@
 
 namespace App\Services\Admin;
 
-use App\Repositories\admin\HrRepository;
+use App\Repositories\Admin\HrRepository;
 
 class HrService
 {

@@ -29,7 +29,7 @@ class VacancyDemand extends Model
     }
     public function languageLevel()
     {
-        return $this->belongsTo(language_level::class);
+        return $this->belongsTo(Language_level::class);
     }
     public function specialty()
     {
