@@ -88,15 +88,17 @@ return [
 
     'welcome_leftside_bar_search_title' => 'სამსახურის ძიებისთვის ჩაწერეთ სასურველი ინფორმაცია.',
 
-    'welcome_leftside_bar_search_job_select_job' => 'აირჩიეთ',
-        'welcome_leftside_bar_search_job_select_job_category' => 'კატეგორია',
+    // ინგლისური რუსული ჩასასწორებელია
+        'welcome_leftside_bar_search_job_select_job' => 'გრაფიკი',
+            'welcome_leftside_bar_search_job_select_job_category' => 'კატეგორია',
 
-    'welcome_leftside_bar_search_job_category_job' => 'კაეტეგორია',
-        'welcome_leftside_bar_search_job_category_job_all_category' => 'ვაკანსიები',
+        'welcome_leftside_bar_search_job_category_job' => 'კაეტეგორია',
+            'welcome_leftside_bar_search_job_category_job_all_category' => 'გრაფიკი',
 
-    'welcome_leftside_bar_search_job_location_job' => 'ლოკაცია',
-        'welcome_leftside_bar_search_job_location_job_search' => 'ძებნა',
-
+        'welcome_leftside_bar_search_job_location_job' => 'ლოკაცია',
+            'welcome_leftside_bar_search_job_location_job_search' => 'მაგ:თბილისი',
+        'welcome_leftside_bar_search_job_location_job_search_button' => 'ძებნა',
+    //აქამდე
         'welcome_leftside_bar_popular' => 'პოპულარული',
     // ----------------------------------------------------------------------------------------------------
     'welcome_rightside_bar_companyvacancie' => 'კომპანიის ვაკანსიები',

@@ -27,9 +27,9 @@
 
                     <ul class="nav navbar-nav">
                         <li @if(Route::currentRouteName() === 'welcome') class="activeClass" @else class="" @endif><a href="{{ route('welcome' , App()->getLocale())  }}">{{ __('lang.menu_home') }}</a></li>
-                        <li @if(Route::currentRouteName() === 'individual' || Route::currentRouteName() === 'vacancy.detail' || Route::currentRouteName() === 'onmap') class="activeClass" @else class="" @endif class="has-child"><a href="javascript:;">{{ __('lang.menu_vacancies') }}</a>
+                        <li @if(Route::currentRouteName() === 'job' || Route::currentRouteName() === 'vacancy.detail' || Route::currentRouteName() === 'onmap') class="activeClass" @else class="" @endif class="has-child"><a href="javascript:;">{{ __('lang.menu_vacancies') }}</a>
                             <ul class="sub-menu">
-                                <li><a href="{{ route('individual' , App()->getLocale())  }}">{{ __('lang.menu_individual_vacancies') }}</a></li>
+                                <li><a href="{{ route('job' , App()->getLocale())  }}">{{ __('lang.menu_individual_vacancies') }}</a></li>
                                 <li><a href="{{ route('onmap' , App()->getLocale())  }}">{{ __('lang.menu_vacancies_onmap') }}</a></li>
                                 <li><a href="{{ route('vacancy.detail' , App()->getLocale())  }}">{{ __('lang.menu_your_vacancies') }}</a></li>
                             </ul>

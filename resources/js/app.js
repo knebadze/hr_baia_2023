@@ -1,6 +1,5 @@
 // app.js
 import('./bootstrap');
-// import('./register_form')
 import {createApp} from 'vue/dist/vue.esm-bundler'
 import { i18nVue, I18n } from 'laravel-vue-i18n'
 import axios from 'axios';
@@ -14,7 +13,6 @@ import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css'
 
 import Multiselect from 'vue-multiselect'
-// import 'vue-multiselect/dist/vue3-multiselect.css'
 
 import withUUID from "vue-uuid";
 

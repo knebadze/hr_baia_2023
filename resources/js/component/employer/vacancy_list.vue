@@ -288,7 +288,7 @@ export default {
         return {
             vacancy:{},
             staticVacancy:{},
-            count:0,
+            // count:0,
             auth:null,
             category:[],
             categoryFilterOn: false,
@@ -316,6 +316,9 @@ export default {
         detailUrl(){
             var url = new URL( location.href)
             return url.origin+'/'+this.getLang+'/job_detail'
+        },
+        count(){
+            return this.vacancy.length
         }
     },
     methods: {
@@ -326,26 +329,35 @@ export default {
                 this.filter(this.filterItem)
             }
         },
+
         async firstData(){
-            try {
-                const response = await axios.get('/vacancy_data?page=' + this.pagination.current_page);
 
-                console.log('response.data', response.data);
-
-                this.pagination = {
-                    'current_page': response.data.vacancy.current_page,
-                    'last_page': response.data.vacancy.last_page
+            this.pagination = {
+                    'current_page': this.data.vacancy.current_page,
+                    'last_page': this.data.vacancy.last_page
                 };
 
-                this.vacancy = response.data.vacancy.data;
-                this.staticVacancy = response.data.vacancy.data;
-                this.count = response.data.count;
-                this.auth = response.data.auth;
+                this.vacancy = this.data.vacancy.data;
+                this.staticVacancy = this.data.vacancy.data;
+                this.auth = this.data.auth;
+            // try {
+            //     const response = await axios.get('/vacancy_data?page=' + this.pagination.current_page);
 
-                // this.isLoading = false;
-            } catch (error) {
-                console.error(error);
-            }
+            //     console.log('response.data', response.data);
+
+            //     this.pagination = {
+            //         'current_page': response.data.vacancy.current_page,
+            //         'last_page': response.data.vacancy.last_page
+            //     };
+
+            //     this.vacancy = response.data.vacancy.data;
+            //     this.staticVacancy = response.data.vacancy.data;
+            //     this.auth = response.data.auth;
+
+            //     // this.isLoading = false;
+            // } catch (error) {
+            //     console.error(error);
+            // }
         },
         menageFilterItem(){
 
@@ -386,7 +398,6 @@ export default {
                             'last_page': response.data.vacancy.last_page
                         }
                         currentObj.vacancy = response.data.vacancy.data
-                        currentObj.count = response.data.count
 
                 })
                 .catch(function (error) {

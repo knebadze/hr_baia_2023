@@ -21,14 +21,17 @@ class CandidateController extends Controller
     public function index()
     {
 
-        $candidate = Candidate::orderBy('id', 'DESC')->with(['user', 'workInformation'])->get()->toArray();
-        foreach ($candidate as $key => $value) {
-            $ids[] = $value['id'];
-        }
-        $workInformation = WorkInformation::whereIn('candidate_id', $ids)->with(['category', 'currency', 'workSchedule'])->get()->toArray();
+        $candidate = Candidate::orderBy('id', 'DESC')
+            ->whereNotIn('status_id', [8, 12])
+            ->with(['user', 'workInformation'])
+            ->get()->toArray();
+        // foreach ($candidate as $key => $value) {
+        //     $ids[] = $value['id'];
+        // }
+        // $workInformation = WorkInformation::whereIn('candidate_id', $ids)->with(['category', 'currency', 'workSchedule'])->get()->toArray();
         $data = [
             'candidate' => $candidate,
-            'workInformation' => $workInformation
+            // 'workInformation' => $workInformation
         ];
         return view ('candidate', compact('data'));
     }
@@ -48,38 +51,47 @@ class CandidateController extends Controller
     public function show($lang, $id=null)
     {
 
-        $candidate = Candidate::where('id', $id)->with(
-            [
-                'user',
-                'workInformation',
+        $data = Candidate::where('id', $id)
+            ->with([
+                'user.gender',
+                'getWorkInformation.category',
+                'getWorkInformation.currency',
+                'getWorkInformation.getWorkSchedule.workSchedule',
                 'nationality',
                 'citizenship',
                 'religion',
                 'education',
-                'languages',
+                'getLanguage.language',
+                'getLanguage.level',
                 'professions',
                 'specialty',
                 'recommendation',
                 'generalWorkExperience',
-                'familyWorkExperience',
+                'familyWorkExperience.noReason',
+                'familyWorkExperience.getFamilyWorkDuty.duty.category',
                 'characteristic',
+                'allergy',
+                'maritalStatus',
+                'drivingLicense',
+                'status'
             ])->first();
-        $workInformation = WorkInformation::where('candidate_id', $candidate->id)->with(['category', 'currency', 'workSchedule'])->get()->toArray();
-        $skill = FamilyWorkDutywhere('candidate_id', $candidate->id)->with('skill')->get()->toArray();
-
-        $classificatoryArr = ['gender', 'languageLevels', 'yesNo'];
-        $classificatory = $this->classificatoryService->get($classificatoryArr);
-        $gender = gender::all();
-        $languageLevel = Language_level::all();
-        $data = [
-            'candidate' => $candidate,
-            'workInformation' => $workInformation,
-            'skill' => $skill,
-            'classificatory' => $classificatory
-        ];
         return view ('candidate-detail', compact('data'));
     }
 
+    function search($lang, $category_id) {
+        $candidate = Candidate::orderBy('id', 'DESC')
+            ->whereNotIn('status_id', [8, 12])
+            ->whereHas('getWorkInformation', function ($query) use($category_id) {
+                return $query->where('category_id', $category_id);
+            })
+            ->with(['user', 'workInformation'])
+            ->get()->toArray();
+
+            $data = [
+                'candidate' => $candidate,
+            ];
+            return view ('candidate_search', compact('data'));
+    }
 
     public function edit($id)
     {

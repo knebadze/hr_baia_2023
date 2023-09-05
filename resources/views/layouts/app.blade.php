@@ -174,5 +174,5 @@
     <script src="{{ asset('admin/dist/js/pages/dashboard.js') }}"></script>
 
      {{-- <script type="module" src="{{ asset('build/assets/app-4ed993c7.js') }}"></script>
-    <script type="module" src="{{ asset('build/assets/app-33a2ea6b.js') }}"></script> --}}
+    <script type="module" src="{{ asset('build/assets/app-c56146c4.js') }}"></script> --}}
 </body>

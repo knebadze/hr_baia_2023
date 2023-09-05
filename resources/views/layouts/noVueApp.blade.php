@@ -107,7 +107,7 @@
     </div> --}}
     <!-- LOADING AREA  END ====== -->
 
-    <div class="page-wraper" id="app">
+    <div class="page-wraper">
         @include('inc.header')
 
         @yield('content')
