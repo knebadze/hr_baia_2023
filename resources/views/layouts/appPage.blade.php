@@ -37,13 +37,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}"><!-- MAIN STYLE SHEET -->
     <script  src="{{ asset('js/jquery-3.6.0.min.js') }}"></script><!-- JQUERY.MIN JS -->
 
-    {{-- <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly"
-      defer
-    ></script>
-    <script>
-        window.initMap = initMap;
-    </script> --}}
+
 
     {{-- //mapBox --}}
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.js'></script>
@@ -53,27 +47,12 @@
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
     <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
 
-    {{-- //map Libre --}}
-   <!-- Load Leaflet from CDN -->
-{{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.3/leaflet.js">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.3/leaflet.css"></script>
-
-<!-- Load geocoding plugin after Leaflet -->
-<link rel="stylesheet" href="https://maps.locationiq.com/v2/libs/leaflet-geocoder/1.9.6/leaflet-geocoder-locationiq.min.css">
-<script src="https://maps.locationiq.com/v2/libs/leaflet-geocoder/1.9.6/leaflet-geocoder-locationiq.min.js"></script> --}}
-
-    {{-- <link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.6.6/css/flag-icons.min.css"> --}}
-
-
-    {{-- <!-- <link rel="{{asset('build/assets/app-67e4f9a3.css')}}"> -->
-    <!-- <script src="{{asset('build/assets/app-2bee19f0.js')}}"></script> --> --}}
 
      @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
 
-     {{-- <link rel="stylesheet" href="{{asset('build/assets/app-a8b8d38a.css') }}"> --}}
+     {{-- <link rel="stylesheet" href="{{asset('build/assets/app-a8b8d38a.css') }}">
+  <link rel="stylesheet" href="{{asset('build/assets/app-74b23952.css') }}"> --}}
 
 
 </head>

@@ -1,0 +1,22 @@
+.job-categories-carousel-container {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+}
+
+.job-categories-carousel {
+    display: flex;
+    transition: transform 0.3s ease-in-out;
+}
+
+.job-categories-carousel .item {
+    flex: 0 0 auto;
+    width: 100%;
+}
+
+/* Optional: Adjust styling as needed for navigation arrows */
+.job-categories-btn {
+    text-align: right;
+}
+
+/* Add your custom styles for navigation arrows if needed */

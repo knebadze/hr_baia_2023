@@ -96,6 +96,8 @@
                             </div>
                         </div>
 
+
+
                         <div class="twm-bnr-blocks-position-wrap">
                             <!--icon-block-1-->
                             <div class="twm-bnr-blocks twm-bnr-blocks-position-1">
@@ -189,11 +191,13 @@
 
             <div class="twm-job-categories-section">
 
+
                 <div class="job-categories-style1 m-b30">
-                    <div class="owl-carousel job-categories-carousel owl-btn-left-bottom ">
+
+
 
                         <!-- COLUMNS 1 -->
-                        @foreach ($data['categoriesWithVacancies'] as $item)
+                        {{-- @foreach ($data['categoriesWithVacancies'] as $item)
                             <div class="item ">
                                 <div class="job-categories-block">
                                     <div class="twm-media">
@@ -205,10 +209,11 @@
                                     </div>
                                 </div>
                             </div>
-                        @endforeach
+                        @endforeach --}}
+                        <category-carousel :data='@json($data['categoriesWithVacancies'])'></category-carousel>
 
 
-                    </div>
+                    {{-- </div> --}}
                 </div>
 
                 <div class="text-right job-categories-btn">
