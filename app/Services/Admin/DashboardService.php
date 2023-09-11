@@ -3,6 +3,7 @@
 namespace App\Services\Admin;
 
 use Illuminate\Support\Facades\Auth;
+use App\Repositories\Admin\Dashboard\HrDailyWorkRepository;
 use App\Repositories\admin\Dashboard\DailyReminderRepository;
 
 class DashboardService
