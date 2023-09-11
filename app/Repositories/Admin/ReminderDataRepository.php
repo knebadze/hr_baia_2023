@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\admin;
+namespace App\Repositories\Admin;
 
 use Carbon\Carbon;
 use App\Models\VacancyReminder;
@@ -11,7 +11,7 @@ class ReminderDataRepository
     function addReminder($data, $hr_id)  {
         $reminder = new VacancyReminder();
         $reminder->vacancy_id = $data['vacancy_id'];
-        
+
         $reminder->hr_id = $hr_id;
         $reminder->date = $data['date'];
         $reminder->reason = $data['reason'];

@@ -26,19 +26,19 @@ body {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px grey; 
+  box-shadow: inset 0 0 5px grey;
   border-radius: 10px;
 }
- 
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: rgb(2,117,216,0.9); 
+  background: rgb(2,117,216,0.9);
   border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #0275d8; 
+  background: #0275d8;
 }
 
 .activeClass a {
@@ -8252,7 +8252,7 @@ ol.comment-list li.comment .comment-respond .comment-form p {
   white-space: nowrap;
 }
 .twm-jobs-category {
-  
+
 }
 @media (max-width: 767px) {
   .twm-jobs-category span {

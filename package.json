@@ -5,9 +5,9 @@
         "build": "vite build"
     },
     "devDependencies": {
-        "@popperjs/core": "^2.11.6",
+        "@popperjs/core": "^2.11.8",
         "axios": "^1.1.2",
-        "bootstrap": "^5.2.3",
+        "bootstrap": "^5.0.1",
         "laravel-vite-plugin": "^0.7.2",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14",
@@ -38,6 +38,7 @@
         "vue-switches": "^2.0.1",
         "vue-toastr": "^2.1.2",
         "vue-uuid": "^3.0.0",
+        "vue3-carousel": "^0.3.1",
         "vue3-easy-data-table": "^1.5.42",
         "vue3-loading-overlay": "^0.0.0",
         "vue3-popper": "^1.5.0",

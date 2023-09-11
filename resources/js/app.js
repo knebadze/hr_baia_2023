@@ -1,6 +1,5 @@
 // app.js
 import('./bootstrap');
-// import('./register_form')
 import {createApp} from 'vue/dist/vue.esm-bundler'
 import { i18nVue, I18n } from 'laravel-vue-i18n'
 import axios from 'axios';
@@ -14,7 +13,6 @@ import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css'
 
 import Multiselect from 'vue-multiselect'
-// import 'vue-multiselect/dist/vue3-multiselect.css'
 
 import withUUID from "vue-uuid";
 
@@ -72,6 +70,7 @@ const importComponents = async () => {
       monthlySalaryPage,
 
       busyCandidate,
+      categoryCarousel
 
       // ... Other component imports ...
     ] = await Promise.all([
@@ -113,6 +112,8 @@ const importComponents = async () => {
       import('./component/admin/salary/page/monthly_salary_page.vue'),
 
       import('./component/page/busy_candidate.vue'),
+
+      import('./component/welcome/category_carousel.vue')
 
 
       // ... Other dynamic imports ...
@@ -170,6 +171,7 @@ const importComponents = async () => {
 
     // __________________PAGE_____________
     app.component('busy-candidate', busyCandidate.default)
+    app.component('category-carousel', categoryCarousel.default)
 
 
     app.component('multiselect', Multiselect)

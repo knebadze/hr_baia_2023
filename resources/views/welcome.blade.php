@@ -1,4 +1,4 @@
-@extends('layouts.appPage')
+@extends('layouts.noVueApp')
 @section('title-block')
    {{ __('lang.page_title_home') }}
 @endsection
@@ -13,62 +13,59 @@
             <!--Left Section-->
             <div class="col-xl-6 col-lg-6 col-md-12">
                 <div class="twm-bnr-left-section">
-                    <div class="twm-bnr-title-small">{{ __('lang.welcome_leftside_bar_one') }} <span class="site-text-primary">208,000+</span> {{ __('lang.welcome_leftside_bar_two') }}</div>
+                    <div class="twm-bnr-title-small">{{ __('lang.welcome_leftside_bar_one') }} <span class="site-text-primary">{{ $data['slider']['vacancies'] }}+</span> {{ __('lang.welcome_leftside_bar_two') }}</div>
                     <div class="twm-bnr-title-large">{{ __('lang.welcome_leftside_bar_firstword_one') }}  <span class="site-text-primary">{{ __('lang.welcome_leftside_bar_firstword_two') }}</span> {{ __('lang.welcome_leftside_bar_firstword_three') }}</div>
                     <div class="twm-bnr-discription">{{ __('lang.welcome_leftside_bar_search_title') }}
                     </div>
                     {{-- <test-vue></test-vue> --}}
                     <div class="twm-bnr-search-bar">
-                        <form>
+                        <form action="{{ route('job.search', ['category_id' => '', 'work_schedule_id' => '', 'address' => '', 'locale' => app()->getLocale()]) }}" method="GET">
                             <div class="row">
-                                <!--Title-->
-                                <div class="form-group col-xl-3 col-lg-6 col-md-6">
-                                    <label>{{ __('lang.welcome_leftside_bar_search_job_select_job') }}</label>
-                                    <select class="wt-search-bar-select selectpicker"  data-live-search="true" title="" id="j-Job_Title" data-bv-field="size">
-                                        <option disabled selected value="">Select Category</option>
-                                        <option selected>{{ __('lang.welcome_leftside_bar_search_job_select_job_category') }}</option>
-                                        <option>Web Designer</option>
-                                        <option>Developer</option>
-                                        <option>Acountant</option>
-                                    </select>
-                                </div>
-
-                                <!--All Category-->
+                                <!-- Title -->
                                 <div class="form-group col-xl-3 col-lg-6 col-md-6">
                                     <label>{{ __('lang.welcome_leftside_bar_search_job_category_job') }}</label>
-                                    <select class="wt-search-bar-select selectpicker"  data-live-search="true" title="" id="j-All_Category" data-bv-field="size">
-                                        <option disabled selected value="">Select Category</option>
-                                        <option selected>{{ __('lang.welcome_leftside_bar_search_job_category_job_all_category') }}</option>
-                                        <option>Web Designer</option>
-                                        <option>Developer</option>
-                                        <option>Acountant</option>
+                                    <select class="wt-search-bar-select" title="" id="j-Job_Title" name="category_id" required>
+                                        <option value="">{{ __('lang.welcome_leftside_bar_search_job_select_job_category') }}</option>
+                                        @foreach ($data['classificatory']['category'] as $item)
+                                            <option value="{{ $item->id }}">{{ $item->{'name_'.app()->getLocale()} }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
 
-                                <!--Location-->
+                                <!-- All Category -->
+                                <div class="form-group col-xl-3 col-lg-6 col-md-6">
+                                    <label>{{ __('lang.welcome_leftside_bar_search_job_select_job') }}</label>
+                                    <select class="wt-search-bar-select" data-live-search="true" title="" id="j-All_Category" name="work_schedule_id">
+                                        <option value="">{{ __('lang.welcome_leftside_bar_search_job_category_job_all_category') }}</option>
+                                        @foreach ($data['classificatory']['work_schedule'] as $item)
+                                            <option value="{{ $item->id }}">{{ $item->{'name_'.app()->getLocale()} }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <!-- Location -->
                                 <div class="form-group col-xl-3 col-lg-6 col-md-6">
                                     <label>{{ __('lang.welcome_leftside_bar_search_job_location_job') }}</label>
                                     <div class="twm-inputicon-box">
-                                        <input name="username" type="text" required class="form-control" placeholder="{{ __('lang.welcome_leftside_bar_search_job_location_job_search') }}">
+                                        <input type="text" class="form-control" placeholder="{{ __('lang.welcome_leftside_bar_search_job_location_job_search') }}" name="address">
                                         <i class="twm-input-icon fas fa-map-marker-alt"></i>
                                     </div>
                                 </div>
 
-                                <!--Find job btn-->
+                                <!-- Find job btn -->
                                 <div class="form-group col-xl-3 col-lg-6 col-md-6">
-                                    <button type="button" class="site-button">{{ __('lang.welcome_leftside_bar_search_job_location_job_search') }}</button>
+                                    <button type="submit" class="site-button">{{ __('lang.welcome_leftside_bar_search_job_location_job_search_button') }}</button>
                                 </div>
-
                             </div>
                         </form>
+
                     </div>
 
                     <div class="twm-bnr-popular-search">
                         <span class="twm-title">{{ __('lang.welcome_leftside_bar_popular') }}:</span>
-                        <a href="#">ძიძა</a>,
-                        <a href="#">დამხმარე</a>,
-                        <a href="#">მრეცხავი</a>,
-                        <a href="#">მზარეული</a>...
+                        @foreach ($data['popularCategories'] as $item)
+                        <a href="{{ route('job.search' , ['category_id' => $item->id, 'locale' => app()->getLocale()])  }}">{{ $item->{'name_'.app()->getLocale()} }}</a>,
+                        @endforeach...
                     </div>
                 </div>
             </div>
@@ -99,6 +96,8 @@
                             </div>
                         </div>
 
+
+
                         <div class="twm-bnr-blocks-position-wrap">
                             <!--icon-block-1-->
                             <div class="twm-bnr-blocks twm-bnr-blocks-position-1">
@@ -107,7 +106,8 @@
                                 </div>
                                 <div class="twm-content">
                                     <div class="tw-count-number text-clr-sky">
-                                        <span class="counter">12</span>K+
+                                        <span>{{$data['slider']['vacancies'] -  $data['slider']['familyVacancy'] }}</span>
+                                        {{-- <span class="counter">12</span>K+ --}}
                                     </div>
                                     <p class="icon-content-info">{{ __('lang.welcome_rightside_bar_companyvacancie') }}</p>
                                 </div>
@@ -120,7 +120,8 @@
                                 </div>
                                 <div class="twm-content">
                                     <div class="tw-count-number text-clr-pink">
-                                        <span class="counter">98</span> +
+                                        <span>{{ $data['slider']['familyVacancy'] }}</span>
+                                        {{-- <span class="counter">{{ $data['slider']['familyVacancy'] }}</span> + --}}
                                     </div>
                                     <p class="icon-content-info">{{ __('lang.welcome_rightside_bar_individualvacancie') }} </p>
                                 </div>
@@ -138,7 +139,8 @@
                                 </div>
                                 <div class="twm-content">
                                     <div class="tw-count-number text-clr-green">
-                                        <span class="counter">3</span>K+
+                                        <span>{{ $data['slider']['candidateCount'] }}</span>
+                                        {{-- <span class="counter">31</span>K+ --}}
                                     </div>
                                     <p class="icon-content-info">{{ __('lang.welcome_rightside_bar_employees') }}</p>
                                 </div>
@@ -189,236 +191,33 @@
 
             <div class="twm-job-categories-section">
 
+
                 <div class="job-categories-style1 m-b30">
-                    <div class="owl-carousel job-categories-carousel owl-btn-left-bottom ">
+
+
 
                         <!-- COLUMNS 1 -->
-                        <div class="item ">
-                            <div class="job-categories-block">
-                                <div class="twm-media">
-                                    <div class="flaticon-dashboard"></div>
-                                </div>
-                                <div class="twm-content">
-                                    <div class="twm-jobs-available">9,185 სამუშაო</div>
-                                    <a href="job-detail.html">ძიძა</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- COLUMNS 2 -->
-                        <div class="item ">
-                            <div class="job-categories-block">
-                                <div class="twm-media">
-                                    <div class="flaticon-project-management"></div>
-                                </div>
-                                <div class="twm-content">
-                                    <div class="twm-jobs-available">3,205 სამუშაო</div>
-                                    <a href="job-detail.html">მზარეული</a>
+                        {{-- @foreach ($data['categoriesWithVacancies'] as $item)
+                            <div class="item ">
+                                <div class="job-categories-block">
+                                    <div class="twm-media">
+                                        <div class="flaticon-dashboard"></div>
+                                    </div>
+                                    <div class="twm-content">
+                                        <div class="twm-jobs-available">{{ $item->vacancy_count }} სამუშაო</div>
+                                        <a href="{{ route('job.search' , ['category_id' => $item->id, 'locale' => app()->getLocale()])  }}">{{ $item->{'name_'.app()->getLocale()} }}</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <!-- COLUMNS 3 -->
-                        <div class="item ">
-                            <div class="job-categories-block">
-                                <div class="twm-media">
-                                    <div class="flaticon-note"></div>
-                                </div>
-                                <div class="twm-content">
-                                    <div class="twm-jobs-available">2,100 სამუშაო</div>
-                                    <a href="job-detail.html">მომვლელი</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- COLUMNS 4 -->
-                        <div class="item ">
-                            <div class="job-categories-block">
-                                <div class="twm-media">
-                                    <div class="flaticon-customer-support"></div>
-                                </div>
-                                <div class="twm-content">
-                                    <div class="twm-jobs-available">1,500 სამუშაო</div>
-                                    <a href="job-detail.html">ჭურჭლის მრეცხავი</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- COLUMNS 5 -->
-                        <div class="item ">
-                            <div class="job-categories-block">
-                                <div class="twm-media">
-                                    <div class="flaticon-bars"></div>
-                                </div>
-                                <div class="twm-content">
-                                    <div class="twm-jobs-available">9,185 სამუშაო</div>
-                                    <a href="job-detail.html">ადმინისტრატორი</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- COLUMNS 6 -->
-                        <div class="item ">
-                            <div class="job-categories-block">
-                                <div class="twm-media">
-                                    <div class="flaticon-user"></div>
-                                </div>
-                                <div class="twm-content">
-                                    <div class="twm-jobs-available">3,205 სამუშაო</div>
-                                    <a href="job-detail.html">მარკეტინგი</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- COLUMNS 7 -->
-                        <div class="item ">
-                            <div class="job-categories-block">
-                                <div class="twm-media">
-                                    <div class="flaticon-computer"></div>
-                                </div>
-                                <div class="twm-content">
-                                    <div class="twm-jobs-available">2,100 სამუშაო</div>
-                                    <a href="job-detail.html">მოლარე-ოპერატორი</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- COLUMNS 8 -->
-                        <div class="item ">
-                            <div class="job-categories-block">
-                                <div class="twm-media">
-                                    <div class="flaticon-coding"></div>
-                                </div>
-                                <div class="twm-content">
-                                    <div class="twm-jobs-available">1,500 სამუშაო</div>
-                                    <a href="job-detail.html">ბარმენი</a>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach --}}
+                        <category-carousel :data='@json($data['categoriesWithVacancies'])'></category-carousel>
 
 
-                        <!-- COLUMNS 9 -->
-                        <div class="item ">
-                            <div class="job-categories-block">
-                                <div class="twm-media">
-                                    <div class="flaticon-hr"></div>
-                                </div>
-                                <div class="twm-content">
-                                    <div class="twm-jobs-available">9,185 სამუშაო</div>
-                                    <a href="job-detail.html">ოჯახში დამხმარე</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- COLUMNS 10 -->
-                        <div class="item ">
-                            <div class="job-categories-block">
-                                <div class="twm-media">
-                                    <div class="flaticon-healthcare"></div>
-                                </div>
-                                <div class="twm-content">
-                                    <div class="twm-jobs-available">3,205 სამუშაო</div>
-                                    <a href="job-detail.html">ოჯახური წყვილები </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- COLUMNS 11 -->
-                        <div class="item ">
-                            <div class="job-categories-block">
-                                <div class="twm-media">
-                                    <div class="flaticon-repair"></div>
-                                </div>
-                                <div class="twm-content">
-                                    <div class="twm-jobs-available">2,100 სამუშაო</div>
-                                    <a href="job-detail.html">პრომო-გოგონა</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- COLUMNS 12 -->
-                        <div class="item ">
-                            <div class="job-categories-block">
-                                <div class="twm-media">
-                                    <div class="flaticon-teacher"></div>
-                                </div>
-                                <div class="twm-content">
-                                    <div class="twm-jobs-available">1,500 სამუშაო</div>
-                                    <a href="job-detail.html">იურისტები / ადვოკატები</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- COLUMNS 13 -->
-                        <div class="item ">
-                            <div class="job-categories-block">
-                                <div class="twm-media">
-                                    <div class="flaticon-bank"></div>
-                                </div>
-                                <div class="twm-content">
-                                    <div class="twm-jobs-available">9,185 სამუშაო</div>
-                                    <a href="job-detail.html">მცხობელი</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- COLUMNS 14 -->
-                        <div class="item ">
-                            <div class="job-categories-block">
-                                <div class="twm-media">
-                                    <div class="flaticon-deal"></div>
-                                </div>
-                                <div class="twm-content">
-                                    <div class="twm-jobs-available">3,205 სამუშაო</div>
-                                    <a href="job-detail.html">ავადმყოფის მომვლელი</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- COLUMNS 15 -->
-                        <div class="item ">
-                            <div class="job-categories-block">
-                                <div class="twm-media">
-                                    <div class="flaticon-tray"></div>
-                                </div>
-                                <div class="twm-content">
-                                    <div class="twm-jobs-available">2,100 სამუშაო</div>
-                                    <a href="job-detail.html">საბავშვო ბაღის აღმზრდელი</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- COLUMNS 16 -->
-                        <div class="item ">
-                            <div class="job-categories-block">
-                                <div class="twm-media">
-                                    <div class="flaticon-tower"></div>
-                                </div>
-                                <div class="twm-content">
-                                    <div class="twm-jobs-available">1,500 სამუშაო</div>
-                                    <a href="job-detail.html">რესტორანი</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- COLUMNS 17 -->
-                        <div class="item ">
-                            <div class="job-categories-block">
-                                <div class="twm-media">
-                                    <div class="flaticon-lotus"></div>
-                                </div>
-                                <div class="twm-content">
-                                    <div class="twm-jobs-available">9,185 სამუშაო</div>
-                                    <a href="job-detail.html">დამლაგებელი</a>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
+                    {{-- </div> --}}
                 </div>
 
                 <div class="text-right job-categories-btn">
-                    <a href="job-grid.html" class=" site-button">{{ __('lang.welcome_middle_submit') }}</a>
+                    <a href="{{ route('job' , App()->getLocale()) }}" class=" site-button">{{ __('lang.welcome_middle_submit') }}</a>
                 </div>
 
             </div>
@@ -455,7 +254,7 @@
                     <div class="owl-carousel job-categories-carousel owl-btn-left-bottom ">
 
                         <!-- COLUMNS 1 -->
-                        <div class="item ">
+                        {{-- <div class="item ">
                             <div class="job-categories-block">
                                 <div class="twm-media">
                                     <div class="flaticon-dashboard"></div>
@@ -465,233 +264,42 @@
                                     <a href="job-detail.html">ძიძა</a>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <!-- COLUMNS 2 -->
-                        <div class="item ">
-                            <div class="job-categories-block">
-                                <div class="twm-media">
-                                    <div class="flaticon-project-management"></div>
-                                </div>
-                                <div class="twm-content">
-                                    <div class="twm-jobs-available">3,205 სამუშაო</div>
-                                    <a href="job-detail.html">მზარეული</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- COLUMNS 3 -->
-                        <div class="item ">
-                            <div class="job-categories-block">
-                                <div class="twm-media">
-                                    <div class="flaticon-note"></div>
-                                </div>
-                                <div class="twm-content">
-                                    <div class="twm-jobs-available">2,100 სამუშაო</div>
-                                    <a href="job-detail.html">მომვლელი</a>
+                        @foreach ($data['categoriesWithCandidates'] as $item)
+                            <div class="item ">
+                                <div class="job-categories-block">
+                                    <div class="twm-media">
+                                        <div class="flaticon-project-management"></div>
+                                    </div>
+                                    <div class="twm-content">
+                                        <div class="twm-jobs-available">{{ $item->category_count }} კანდიდატი</div>
+                                        <a href="{{ route('candidate.search' , ['category_id' => $item->id, 'locale' => app()->getLocale()])  }}">{{ $item->{'name_'.app()->getLocale()} }}</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <!-- COLUMNS 4 -->
-                        <div class="item ">
-                            <div class="job-categories-block">
-                                <div class="twm-media">
-                                    <div class="flaticon-customer-support"></div>
-                                </div>
-                                <div class="twm-content">
-                                    <div class="twm-jobs-available">1,500 სამუშაო</div>
-                                    <a href="job-detail.html">ჭურჭლის მრეცხავი</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- COLUMNS 5 -->
-                        <div class="item ">
-                            <div class="job-categories-block">
-                                <div class="twm-media">
-                                    <div class="flaticon-bars"></div>
-                                </div>
-                                <div class="twm-content">
-                                    <div class="twm-jobs-available">9,185 სამუშაო</div>
-                                    <a href="job-detail.html">ადმინისტრატორი</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- COLUMNS 6 -->
-                        <div class="item ">
-                            <div class="job-categories-block">
-                                <div class="twm-media">
-                                    <div class="flaticon-user"></div>
-                                </div>
-                                <div class="twm-content">
-                                    <div class="twm-jobs-available">3,205 სამუშაო</div>
-                                    <a href="job-detail.html">მარკეტინგი</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- COLUMNS 7 -->
-                        <div class="item ">
-                            <div class="job-categories-block">
-                                <div class="twm-media">
-                                    <div class="flaticon-computer"></div>
-                                </div>
-                                <div class="twm-content">
-                                    <div class="twm-jobs-available">2,100 სამუშაო</div>
-                                    <a href="job-detail.html">მოლარე-ოპერატორი</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- COLUMNS 8 -->
-                        <div class="item ">
-                            <div class="job-categories-block">
-                                <div class="twm-media">
-                                    <div class="flaticon-coding"></div>
-                                </div>
-                                <div class="twm-content">
-                                    <div class="twm-jobs-available">1,500 სამუშაო</div>
-                                    <a href="job-detail.html">ბარმენი</a>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
 
 
-                        <!-- COLUMNS 9 -->
-                        <div class="item ">
-                            <div class="job-categories-block">
-                                <div class="twm-media">
-                                    <div class="flaticon-hr"></div>
-                                </div>
-                                <div class="twm-content">
-                                    <div class="twm-jobs-available">9,185 სამუშაო</div>
-                                    <a href="job-detail.html">ოჯახში დამხმარე</a>
-                                </div>
-                            </div>
-                        </div>
 
-                        <!-- COLUMNS 10 -->
-                        <div class="item ">
-                            <div class="job-categories-block">
-                                <div class="twm-media">
-                                    <div class="flaticon-healthcare"></div>
-                                </div>
-                                <div class="twm-content">
-                                    <div class="twm-jobs-available">3,205 სამუშაო</div>
-                                    <a href="job-detail.html">ოჯახური წყვილები </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- COLUMNS 11 -->
-                        <div class="item ">
-                            <div class="job-categories-block">
-                                <div class="twm-media">
-                                    <div class="flaticon-repair"></div>
-                                </div>
-                                <div class="twm-content">
-                                    <div class="twm-jobs-available">2,100 სამუშაო</div>
-                                    <a href="job-detail.html">პრომო-გოგონა</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- COLUMNS 12 -->
-                        <div class="item ">
-                            <div class="job-categories-block">
-                                <div class="twm-media">
-                                    <div class="flaticon-teacher"></div>
-                                </div>
-                                <div class="twm-content">
-                                    <div class="twm-jobs-available">1,500 სამუშაო</div>
-                                    <a href="job-detail.html">იურისტები / ადვოკატები</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- COLUMNS 13 -->
-                        <div class="item ">
-                            <div class="job-categories-block">
-                                <div class="twm-media">
-                                    <div class="flaticon-bank"></div>
-                                </div>
-                                <div class="twm-content">
-                                    <div class="twm-jobs-available">9,185 სამუშაო</div>
-                                    <a href="job-detail.html">მცხობელი</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- COLUMNS 14 -->
-                        <div class="item ">
-                            <div class="job-categories-block">
-                                <div class="twm-media">
-                                    <div class="flaticon-deal"></div>
-                                </div>
-                                <div class="twm-content">
-                                    <div class="twm-jobs-available">3,205 სამუშაო</div>
-                                    <a href="job-detail.html">ავადმყოფის მომვლელი</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- COLUMNS 15 -->
-                        <div class="item ">
-                            <div class="job-categories-block">
-                                <div class="twm-media">
-                                    <div class="flaticon-tray"></div>
-                                </div>
-                                <div class="twm-content">
-                                    <div class="twm-jobs-available">2,100 სამუშაო</div>
-                                    <a href="job-detail.html">საბავშვო ბაღის აღმზრდელი</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- COLUMNS 16 -->
-                        <div class="item ">
-                            <div class="job-categories-block">
-                                <div class="twm-media">
-                                    <div class="flaticon-tower"></div>
-                                </div>
-                                <div class="twm-content">
-                                    <div class="twm-jobs-available">1,500 სამუშაო</div>
-                                    <a href="job-detail.html">რესტორანი</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- COLUMNS 17 -->
-                        <div class="item ">
-                            <div class="job-categories-block">
-                                <div class="twm-media">
-                                    <div class="flaticon-lotus"></div>
-                                </div>
-                                <div class="twm-content">
-                                    <div class="twm-jobs-available">9,185 სამუშაო</div>
-                                    <a href="job-detail.html">დამლაგებელი</a>
-                                </div>
-                            </div>
-                        </div>
 
                     </div>
                 </div>
 
                 <div class="text-right job-categories-btn">
-                    <a href="job-grid.html" class=" site-button">{{ __('lang.welcome_middle_submit_candidate') }}</a>
+                    <a href="{{ route('candidate' , App()->getLocale())  }}" class=" site-button">{{ __('lang.welcome_middle_submit_candidate') }}</a>
                 </div>
 
             </div>
 
         </div>
 
-    </div>    
+    </div>
 
             <!-- TESTIMONIAL SECTION START -->
             <div class="section-full p-t120 p-b90 site-bg-white twm-testimonial-1-area">
-                
+
                 <div class="container">
 
                     <div class="wt-separator-two-part">
@@ -699,21 +307,21 @@
                             <div class="col-xl-5 col-lg-6 col-md-12 wt-separator-two-part-left">
                                 <!-- TITLE START-->
                                 <div class="section-head left wt-small-separator-outer">
-                                    <div class="wt-small-separator site-text-primary">                              
+                                    <div class="wt-small-separator site-text-primary">
                                     </div>
                                     <h2 class="wt-title">{{ __('lang.welcome_middle_testimonial_block_head_text') }}</h2>
-                                </div>                  
+                                </div>
                                 <!-- TITLE END-->
                             </div>
-                            
+
                         </div>
                     </div>
 
-                    <div class="section-content"> 
-                        
+                    <div class="section-content">
+
                         <div class="owl-carousel twm-testimonial-1-carousel owl-btn-bottom-center ">
-                        
-                            <!-- COLUMNS 1 --> 
+
+                            <!-- COLUMNS 1 -->
                             <div class="item ">
                                 <div class="twm-testimonial-1">
                                     <div class="twm-testimonial-1-content">
@@ -730,12 +338,12 @@
                                                 <div class="twm-testi-position">Accountant</div>
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- COLUMNS 2 --> 
+                            <!-- COLUMNS 2 -->
                             <div class="item ">
                                 <div class="twm-testimonial-1">
                                     <div class="twm-testimonial-1-content">
@@ -752,12 +360,12 @@
                                                 <div class="twm-testi-position">Accountant</div>
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </div>
-                            
-                            <!-- COLUMNS 3 --> 
+
+                            <!-- COLUMNS 3 -->
                             <div class="item ">
                                 <div class="twm-testimonial-1">
                                     <div class="twm-testimonial-1-content">
@@ -774,12 +382,12 @@
                                                 <div class="twm-testi-position">Accountant</div>
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </div>
-                            
-                            <!-- COLUMNS 4 --> 
+
+                            <!-- COLUMNS 4 -->
                             <div class="item ">
                                 <div class="twm-testimonial-1">
                                     <div class="twm-testimonial-1-content">
@@ -796,12 +404,12 @@
                                                 <div class="twm-testi-position">Accountant</div>
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </div>
-                            
-                            <!-- COLUMNS 5 --> 
+
+                            <!-- COLUMNS 5 -->
                             <div class="item ">
                                 <div class="twm-testimonial-1">
                                     <div class="twm-testimonial-1-content">
@@ -818,17 +426,17 @@
                                                 <div class="twm-testi-position">Accountant</div>
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </div>
-         
-                    
+
+
                         </div>
-                        
-                    </div>                              
+
+                    </div>
                 </div>
-                
+
             </div>
             <!-- TESTIMONIAL SECTION END -->
 

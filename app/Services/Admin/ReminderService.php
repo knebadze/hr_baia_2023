@@ -4,7 +4,7 @@ namespace App\Services\Admin;
 
 use App\Models\Vacancy;
 use Illuminate\Support\Facades\Auth;
-use App\Repositories\admin\ReminderDataRepository;
+use App\Repositories\Admin\ReminderDataRepository;
 
 class ReminderService
 {

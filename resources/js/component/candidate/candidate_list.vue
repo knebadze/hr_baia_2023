@@ -254,7 +254,7 @@
                     <div class="col-lg-8 col-md-12">
                         <!--Filter Short By-->
                         <div class="product-filter-wrap d-flex justify-content-between align-items-center m-b30">
-                            <span class="woocommerce-result-count-left">{{ $t('lang.candidate_page_middle_first_title') }}</span>
+                            <span class="woocommerce-result-count-left">{{ 'ნაჩვენებია ' + count + ' კანდიდატი' }}</span>
 
                             <form class="woocommerce-ordering twm-filter-select" method="get">
                                 <span class="woocommerce-result-count">{{ $t('lang.candidate_page_middle_title_sort') }}</span>
@@ -300,7 +300,7 @@
                                          <div class="twm-fot-content">
                                              <div class="twm-left-info">
                                                 <p class="twm-candidate-address"><i class="feather-map-pin"></i>{{ item[`address_${getLang}`].substring(0, item[`address_${getLang}`].lastIndexOf(" ")) }}</p>
-                                                <i class="fa fa-clock"> 11:23</i>
+                                                <i class="fa fa-clock"> {{ item.created_at }}</i>
                                                 <!-- <div class="twm-jobs-vacancies">$</div> -->
                                              </div>
 
@@ -339,16 +339,22 @@
     <!-- OUR BLOG END -->
 </template>
 <script>
+import moment from 'moment'
 export default {
     props:{
         data: Object
     },
     data() {
         return {
-
+            candidate: []
         }
     },
     created(){
+        this.candidate = this.data.candidate
+        for (let i = 0; i < this.candidate.length; i++) {
+            // Access the element to update in each object
+            this.candidate[i].created_at = moment(this.candidate[i].created_at).format("YYYY-MM-DD");
+        }
     },
     computed:{
         getLang(){
@@ -357,6 +363,9 @@ export default {
         detailUrl(){
             var url = new URL( location.href)
             return url.origin+'/'+this.getLang+'/candidate-detail'
+        },
+        count(){
+            return this.candidate.length
         }
     },
     methods: {

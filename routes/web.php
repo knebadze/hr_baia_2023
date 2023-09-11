@@ -11,13 +11,13 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\TermsController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\VacancyController;
-use App\Http\Controllers\admin\HrController;
+use App\Http\Controllers\Admin\HrController;
+
 use App\Http\Controllers\Admin\PdfController;
+
+
 use App\Http\Controllers\CandidateController;
-
 use App\Http\Controllers\JobDetailController;
-
-
 use App\Http\Controllers\MyprofileController;
 use App\Http\Controllers\MyVacancyController;
 use App\Http\Controllers\Admin\AdminController;
@@ -69,8 +69,9 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
 
         Route::get('/', [MainController::class, 'index'])->name('welcome');
 
-            Route::get('/individual', [VacancyController::class, 'index'])->name('individual');
+            Route::get('/job', [VacancyController::class, 'index'])->name('job');
             Route::get('/vacancy_detail', [MyVacancyController::class, 'index'])->name('vacancy.detail');
+            Route::get('/job_search/{category_id?}/{work_schedule_id?}/{address?}', [VacancyController::class, 'search'])->name('job.search');
 
             // Route::get('/company', [CompanyController::class, 'index'])->name('company');
             Route::get('/onmap', [MapvacancieController::class, 'index'])->name('onmap');
@@ -80,6 +81,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
             // Route::get('/candidate-detail/{id}', [CandidateController::class, 'test']);
 
             Route::get('/candidate-detail/{id?}', [CandidateController::class, 'show'])->name('candidate-detail');
+            Route::get('/candidate_search/{category_id?}', [CandidateController::class, 'search'])->name('candidate.search');
 
         Route::get('/blog', [BlogController::class, 'index'])->name('blog');
         Route::get('/contact', [ContactController::class, 'index'])->name('contact');
@@ -230,7 +232,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('change_hr_in_vacancy', [VacancyActionController::class, 'changeHr']);
 
 
-    Route::get('vacancy_data', [VacancyController::class, 'data']);
+    // Route::get('vacancy_data', [VacancyController::class, 'data']);
     Route::post('vacancy_filter', [VacancyController::class, 'filter']);
     Route::post('/interest_vacancy', [VacancyController::class, 'interest']);
     // Route::post('/add_interest_vacancy', [VacancyController::class, 'addInterest']);

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\admin;
+namespace App\Repositories\Admin;
 
 use App\Models\Hr;
 use App\Models\HrHasVacancy;

@@ -29,35 +29,42 @@ class VacancyController extends Controller
     public function index()
     {
 
-        $classificatoryArr = ['category', 'workSchedule'];
-        $classificatory = $this->classificatoryService->get($classificatoryArr);
-        $data = [
-            'classificatory' => $classificatory
-        ];
-        return view ('individual', compact('data'));
-    }
-    public function data(Request $request)
-    {
-
-        $vacancy = Vacancy::orderby('updated_at', 'DESC')->whereIn('status_id', [2, 6])->with(['author','currency', 'category', 'workSchedule', 'vacancyForWhoNeed', 'vacancyBenefit', 'vacancyInterest', 'hr.user'])->paginate(20)->toArray();
-        // dd($vacancy);
-        $countVacancy = Vacancy::whereIn('status_id', [2, 6])->count();
-        $auth = User::where('id', Auth::id())->with('candidate')->first();
+        $vacancy = Vacancy::orderby('updated_at', 'DESC')->whereIn('status_id', [2, 6])->with(['author','currency', 'category', 'workSchedule', 'vacancyForWhoNeed', 'vacancyBenefit', 'vacancyInterest', 'hr.user'])->paginate(25)->toArray();
         $data = [
             'vacancy' => $vacancy,
-            'count' => $countVacancy,
-            'auth' => $auth
         ];
-        return response($data);
+        $data = array_merge($data, $this->addData());
+        return view ('job', compact('data'));
     }
+
+    function addData()  {
+        $classificatoryArr = ['category', 'workSchedule'];
+        $classificatory = $this->classificatoryService->get($classificatoryArr);
+        $auth = User::where('id', Auth::id())->with('candidate')->first();
+        return ['classificatory' => $classificatory, 'auth' => $auth];
+    }
+    // public function data(Request $request)
+    // {
+
+    //     $vacancy = Vacancy::orderby('updated_at', 'DESC')->whereIn('status_id', [2, 6])->with(['author','currency', 'category', 'workSchedule', 'vacancyForWhoNeed', 'vacancyBenefit', 'vacancyInterest', 'hr.user'])->paginate(25)->toArray();
+    //     // dd($vacancy);
+    //     // $countVacancy = Vacancy::whereIn('status_id', [2, 6])->count();
+    //     $auth = User::where('id', Auth::id())->with('candidate')->first();
+    //     $data = [
+    //         'vacancy' => $vacancy,
+    //         // 'count' => $countVacancy,
+    //         'auth' => $auth
+    //     ];
+    //     return response($data);
+    // }
 
     public function filter(VacancyFilters $filters)
     {
-        $vacancy = Vacancy::filter($filters)->orderby('updated_at', 'DESC')->with(['author','currency', 'category', 'workSchedule'])->paginate(25)->toArray();;
-        $countVacancy = Vacancy::filter($filters)->count();
+        $vacancy = Vacancy::filter($filters)->orderby('updated_at', 'DESC')->whereIn('status_id', [2, 6])->with(['author','currency', 'category', 'workSchedule', 'vacancyForWhoNeed', 'vacancyBenefit', 'vacancyInterest', 'hr.user'])->paginate(25)->toArray();;
+        // $countVacancy = Vacancy::filter($filters)->count();
         $data = [
             'vacancy' => $vacancy,
-            'count' => $countVacancy
+            // 'count' => $countVacancy
         ];
         return $data;
     }
@@ -110,21 +117,35 @@ class VacancyController extends Controller
         }
 
         return response()->json($result, $result['status']);
-        // $qualifying = new QualifyingCandidate();
-        // $qualifying->vacancy_id = $request->id;
-        // $qualifying->qualifying_type_id = 2;
-        // $qualifying->candidate_id = Auth::user()->candidate->id;
-        // $qualifying->save();
-        // if (isset($request->_token)) {
-        //     return back();
-        // }
-        // return response()->json($qualifying);
     }
 
-    // function addInterest(Request $request){
-    //     dd($request->_token);
+    public function search(Request $request, $lang, $category_id = null, $work_schedule_id = null, $address = null){
+        // dd($category_id);
+        $category_id = ($category_id)?$category_id:$request->input('category_id', $category_id);
+        $work_schedule_id = $request->input('work_schedule_id', $work_schedule_id);
+        $address = $request->input('address', $address);
+        $vacancy = Vacancy::orderby('updated_at', 'DESC')
+            ->whereIn('status_id', [2, 6])
+            ->where('category_id', $category_id)
+            ->when($work_schedule_id, function ($query) use($work_schedule_id) {
+                return $query->where('work_schedule_id', $work_schedule_id);
+            })
+            ->when($address, function ($query) use($address) {
+                return $query->whereHas('employer', function ($query) use($address) {
+                    return $query->where('address_ka', 'LIKE', $address.'%')
+                    ->orWhere('address_en', 'LIKE', $address.'%')
+                    ->orWhere('address_ru', 'LIKE', $address.'%');
+                });
+            })
+            ->with(['author','currency', 'category', 'workSchedule', 'vacancyForWhoNeed', 'vacancyBenefit', 'vacancyInterest', 'hr.user'])
+            ->paginate(25)->toArray();
+            $data = [
+                'vacancy' => $vacancy,
+            ];
+            $data = array_merge($data, $this->addData());
+        return view('job_search', compact('data'));
 
-    // }
+    }
 
 
 }
