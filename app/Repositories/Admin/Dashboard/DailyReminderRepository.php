@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\admin\Dashboard;
+namespace App\Repositories\Admin\Dashboard;
 
 use Carbon\Carbon;
 use App\Models\VacancyReminder;

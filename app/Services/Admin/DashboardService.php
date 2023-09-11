@@ -3,14 +3,17 @@
 namespace App\Services\Admin;
 
 use Illuminate\Support\Facades\Auth;
-use App\Repositories\admin\Dashboard\DailyReminderRepository;
+use App\Repositories\Admin\Dashboard\DailyReminderRepository;
+use App\Repositories\Admin\Dashboard\HrDailyWorkRepository;
 
 class DashboardService
 {
     protected DailyReminderRepository $dailyReminderRepository;
+    protected HrDailyWorkRepository $hrDailyWorkRepository;
     public function __construct()
     {
         $this->dailyReminderRepository = new DailyReminderRepository;
+        $this->hrDailyWorkRepository = new HrDailyWorkRepository;
     }
 
     function dailyReminder() {
@@ -19,6 +22,12 @@ class DashboardService
         }else{
             $result = $this->dailyReminderRepository->hr();
         }
+
+        return $result;
+    }
+
+    function hrDailyWork() {
+        $result = $this->hrDailyWorkRepository->data();
 
         return $result;
     }
