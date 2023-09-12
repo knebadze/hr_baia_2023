@@ -23,4 +23,6 @@ class HrHasVacancy extends Model
     {
         return $this->hr();
     }
+
+    
 }

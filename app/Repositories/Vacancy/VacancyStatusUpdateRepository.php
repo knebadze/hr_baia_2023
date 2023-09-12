@@ -29,7 +29,7 @@ class VacancyStatusUpdateRepository
 
             $date = Carbon::now()->addDays(7)->toDateString();
             $vacancy = VacancyDeposit::where('vacancy_id', $id)->update(['must_be_enrolled_employer_date' => $date, 'must_be_enrolled_candidate_date' => $date]);
-            
+
             $this->addReminder(['vacancy_id' => $id, 'date' => $date.' 10:00:00', 'reason' =>  'ვაკანსიაზე უნდა მოხდეს თანხის ჩარიცხვა']);
 
         }
@@ -54,6 +54,10 @@ class VacancyStatusUpdateRepository
         $vacancy->status_id = $data['status']['id'];
         $vacancy->status_change_reason = $data['status_change_reason'];
         $vacancy->update();
+        // ვამოწმებ ვაკანსიას თუ გადავიდა წარმოებაში ვამატებ დეპოზიტს
+        if ($data['status']['id'] == 2) {
+            $this->addDeposit($vacancy->id);
+        }
         // ვამოწმებ უნდა კადრის სტატუსი თუ არის ვამატებ შეხსენებას
         if ($data['status']['id'] == 6) {
             $data['reminder']['vacancy_id'] = $vacancy->id;
@@ -90,6 +94,17 @@ class VacancyStatusUpdateRepository
 
     function deleteDeposit($vacancyId) {
         return VacancyDeposit::where('vacancy_id', $vacancyId)->delete();
+    }
+
+    function addDeposit($vacancy_id){
+        $vacancy = Vacancy::where('id', $vacancy_id)->select('id', 'payment')->first();
+        $deposit = new VacancyDeposit();
+        $deposit->vacancy_id = $vacancy->id;
+        $deposit->must_be_enrolled_employer = ((int)$vacancy->payment * 10) / 100;
+        $deposit->employer_initial_amount = ((int)$vacancy->payment * 10) / 100;
+        $deposit->must_be_enrolled_candidate = (int)$vacancy->payment / 2;
+        $deposit->candidate_initial_amount =(int)$vacancy->payment / 2;
+        $deposit->save();
     }
 
 

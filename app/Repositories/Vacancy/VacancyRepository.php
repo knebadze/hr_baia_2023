@@ -139,17 +139,7 @@ class VacancyRepository{
         }, []);
         $vacancy->vacancyDuty()->sync($selectDutyId);
 
-        $deposit = new VacancyDeposit();
-        $deposit->vacancy_id = $vacancy->id;
-        $deposit->must_be_enrolled_employer = ((int)$vacancy->payment * 10) / 100;
-        $deposit->employer_initial_amount = ((int)$vacancy->payment * 10) / 100;
-        $deposit->must_be_enrolled_candidate = (int)$vacancy->payment / 2;
-        $deposit->candidate_initial_amount =(int)$vacancy->payment / 2;
-        $candidate_percent = GlobalVariable::where('name', 'candidate_percent')->first();
-        $employer_percent = GlobalVariable::where('name', 'employer_percent')->first();
-        $deposit->candidate_percent = (int)$candidate_percent->meaning;
-        $deposit->employer_percent = (int)$employer_percent->meaning;
-        $deposit->save();
+        
 
         return $vacancy->code;
 
@@ -206,7 +196,7 @@ class VacancyRepository{
             ->where('is_active', 1)
             ->where('has_vacancy', 0)
             ->first();
-            
+
         if ($findNext) {
             $hr_id = $findNext->hr_id;
             $findNext->update(['has_vacancy'=> 1]);
