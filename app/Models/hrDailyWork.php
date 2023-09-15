@@ -8,4 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class hrDailyWork extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'hr_id',
+        'has_vacancy',
+        'employed',
+        'has_probationary_period',
+        'has_enrollment_vacancy',
+        'candidate_has_registered',
+        'has_enrollment_register',
+    ];
+
+    public function hr()
+    {
+        return $this->belongsTo(Hr::class);
+    }
 }

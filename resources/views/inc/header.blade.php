@@ -134,4 +134,14 @@
     </div>
 
 </header>
+{{-- <script>
+    const mobileSideDrawer = document.getElementById('mobile-side-drawer');
+    const mobileSiderDrawerMenu = document.querySelector('.mobile-sider-drawer-menu');
+
+    // Add a click event listener to the mobile-side-drawer element
+    mobileSideDrawer.addEventListener('click', function () {
+        // Toggle the 'active' class on the mobile-sider-drawer-menu element
+        mobileSiderDrawerMenu.classList.toggle('active');
+    });
+</script> --}}
 <!-- HEADER END -->

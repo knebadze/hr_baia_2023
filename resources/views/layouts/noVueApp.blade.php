@@ -87,10 +87,14 @@
     </div> --}}
     <!-- LOADING AREA  END ====== -->
 
-    <div class="page-wraper" id="app">
+    <div class="page-wraper" >
         @include('inc.header')
+        <div id="app">
+            @yield('content')
+        </div>
 
-        @yield('content')
+
+
 
         @include('inc.footer')
 
@@ -367,7 +371,7 @@
 
     {{-- <script  src="{{ asset('js/popper.min.js') }}"></script><!-- POPPER.MIN JS --> --}}
     <script  src="{{ asset('js/bootstrap.min.js') }}"></script><!-- BOOTSTRAP.MIN JS -->
-    {{-- <script  src="{{ asset('js/magnific-popup.min.js') }}"></script><!-- MAGNIFIC-POPUP JS --> --}}
+    <script  src="{{ asset('js/magnific-popup.min.js') }}"></script><!-- MAGNIFIC-POPUP JS -->
     <script  src="{{ asset('js/waypoints.min.js') }}"></script><!-- WAYPOINTS JS -->
     {{-- <script  src="{{ asset('js/counterup.min.js') }}"></script><!-- COUNTERUP JS --> --}}
     <script  src="{{ asset('js/waypoints-sticky.min.js') }}"></script><!-- STICKY HEADER -->
@@ -376,7 +380,7 @@
 
     {{-- <script  src="{{ asset('js/carusel.js') }}"></script><!-- OWL  SLIDER  --> --}}
     <script  src="{{ asset('js/owl.carousel.min.js') }}"></script><!-- OWL  SLIDER  -->
-    {{-- <script  src="{{ asset('js/theia-sticky-sidebar.js') }}"></script><!-- STICKY SIDEBAR  --> --}}
+    <script  src="{{ asset('js/theia-sticky-sidebar.js') }}"></script><!-- STICKY SIDEBAR  -->
     <script  src="{{ asset('js/lc_lightbox.lite.js') }}" ></script><!-- IMAGE POPUP -->
     <script  src="{{ asset('js/bootstrap-select.min.js') }}"></script><!-- Form js -->
     {{-- <script  src="{{ asset('js/dropzone.js') }}"></script><!-- IMAGE UPLOAD  --> --}}

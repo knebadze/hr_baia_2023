@@ -2,11 +2,11 @@
 All JavaScript fuctions Start
 ======================================*/
 (function ($) {
-	
+
     'use strict';
 /*--------------------------------------------------------------------------------------------
 	document.ready ALL FUNCTION START
----------------------------------------------------------------------------------------------*/	
+---------------------------------------------------------------------------------------------*/
 
 //  selectpicker function by = bootstrap-select.min.js ========================== //
 	function select_picker_select(){
@@ -35,7 +35,7 @@ All JavaScript fuctions Start
 			loop:true,
 			nav:true,
 			dots: false,
-			center:false,				
+			center:false,
 			margin:30,
 			autoplay:true,
 			navText: ['<i class="feather-chevron-left"></i>', '<i class="feather-chevron-right"></i>'],
@@ -45,14 +45,14 @@ All JavaScript fuctions Start
 				},
 				480:{
 					items:1,
-				},			
+				},
 				767:{
 					items:2,
 					margin:0,
 				},
 				991:{
 					items:2,
-					
+
 				},
 				1024:{
 					items:3
@@ -61,42 +61,42 @@ All JavaScript fuctions Start
 		});
 	}
 
-// > Video responsive function by = custom.js ========================= //	
-	function video_responsive(){	
+// > Video responsive function by = custom.js ========================= //
+	function video_responsive(){
 		jQuery('iframe[src*="youtube.com"]').wrap('<div class="embed-responsive embed-responsive-16by9"></div>');
-		jQuery('iframe[src*="vimeo.com"]').wrap('<div class="embed-responsive embed-responsive-16by9"></div>');	
-	}  
+		jQuery('iframe[src*="vimeo.com"]').wrap('<div class="embed-responsive embed-responsive-16by9"></div>');
+	}
 
-// > LIGHTBOX Gallery Popup function	by = lc_lightbox.lite.js =========================== //      
+// > LIGHTBOX Gallery Popup function	by = lc_lightbox.lite.js =========================== //
  	function lightbox_popup(){
         lc_lightbox('.elem', {
             wrap_class: 'lcl_fade_oc',
-            gallery : true,	
-            thumb_attr: 'data-lcl-thumb', 
-            
+            gallery : true,
+            thumb_attr: 'data-lcl-thumb',
+
             skin: 'minimal',
             radius: 0,
             padding	: 0,
             border_w: 0,
         });
-	}			
+	}
 
-// > magnificPopup for video function	by = magnific-popup.js ===================== //	
-	function magnific_video(){	
+// > magnificPopup for video function	by = magnific-popup.js ===================== //
+	function magnific_video(){
 		jQuery('.mfp-video').magnificPopup({
 			type: 'iframe',
 		});
 	}
 
 // Vertically center Bootstrap modal popup function by = custom.js ==============//
-	function popup_vertical_center(){	
+	function popup_vertical_center(){
 		jQuery(function() {
 			function reposition() {
 				var modal = jQuery(this),
 				dialog = modal.find('.modal-dialog');
 				modal.css('display', 'block');
-				
-				// Dividing by two centers the modal exactly, but dividing by three 
+
+				// Dividing by two centers the modal exactly, but dividing by three
 				// or four works better for larger screens.
 				dialog.css("margin-top", Math.max(0, (jQuery(window).height() - dialog.height()) / 2));
 			}
@@ -109,7 +109,7 @@ All JavaScript fuctions Start
 		});
 	}
 
-// > Main menu sticky on top  when scroll down function by = custom.js ========== //		
+// > Main menu sticky on top  when scroll down function by = custom.js ========== //
 	function sticky_header(){
 		if(jQuery('.sticky-header').length){
 			var sticky = new Waypoint.Sticky({
@@ -118,15 +118,15 @@ All JavaScript fuctions Start
 		}
 	}
 
-// > Sidebar sticky  when scroll down function by = theia-sticky-sidebar.js ========== //		
-	function sticky_sidebar(){		
+// > Sidebar sticky  when scroll down function by = theia-sticky-sidebar.js ========== //
+	function sticky_sidebar(){
 		$('.rightSidebar')
 			.theiaStickySidebar({
 				additionalMarginTop: 100
-			});		
+			});
 	}
 
-// > page scroll top on button click function by = custom.js ===================== //	
+// > page scroll top on button click function by = custom.js ===================== //
 	function scroll_top(){
 		jQuery("button.scroltop").on('click', function() {
 			jQuery("html, body").animate({
@@ -144,8 +144,8 @@ All JavaScript fuctions Start
 			}
 		});
 	}
-	
-// > input type file function by = custom.js ========================== //	 	 
+
+// > input type file function by = custom.js ========================== //
 	function input_type_file_form(){
 		jQuery(document).on('change', '.btn-file :file', function() {
 			var input = jQuery(this),
@@ -162,10 +162,10 @@ All JavaScript fuctions Start
 			} else {
 				if (log) alert(log);
 			}
-		});	
+		});
 	}
 
-// > input Placeholder in IE9 function by = custom.js ======================== //	
+// > input Placeholder in IE9 function by = custom.js ======================== //
 	function placeholderSupport(){
 	/* input placeholder for ie9 & ie8 & ie7 */
 		jQuery.support.placeholder = ('placeholder' in document.createElement('input'));
@@ -187,7 +187,7 @@ All JavaScript fuctions Start
 			});
 		}
 		/*fix for IE7 and IE8 end */
-	}	
+	}
 
 	// > Nav submenu show hide on mobile by = custom.js
 	function mobile_nav(){
@@ -206,37 +206,37 @@ All JavaScript fuctions Start
 
 			ev.stopPropagation();
 		});
-	
+
 	}
-	 
+
 	// Mobile side drawer function by = custom.js
 	function mobile_side_drawer(){
-		jQuery('#mobile-side-drawer').on('click', function () { 
+		jQuery('#mobile-side-drawer').on('click', function () {
 			jQuery('.mobile-sider-drawer-menu').toggleClass('active');
 		});
-	}	
-	
-//  > Top Search bar Show Hide function by = custom.js =================== //	
+	}
+
+//  > Top Search bar Show Hide function by = custom.js =================== //
 
 	function site_search(){
-		jQuery('a[href="#search"]').on('click', function(event) {                    
+		jQuery('a[href="#search"]').on('click', function(event) {
 		jQuery('#search').addClass('open');
 		jQuery('#search > form > input[type="search"]').focus();
 	});
-				
+
 	jQuery('#search, #search button.close').on('click keyup', function(event) {
 		if (event.target === this || event.target.className === 'close') {
 			jQuery(this).removeClass('open');
 		}
-	});  
- 	}	
+	});
+ 	}
 
 //  Client logo Carousel function by = owl.carousel.js ========================== //
 	function home_client_carousel(){
 	jQuery('.home-client-carousel').owlCarousel({
 		loop:true,
 		nav:false,
-		dots: true,				
+		dots: true,
 		margin:5,
 		autoplay:true,
 		navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
@@ -246,7 +246,7 @@ All JavaScript fuctions Start
 			},
 			480:{
 				items:3,
-			},			
+			},
 			767:{
 				items:4,
 			},
@@ -262,7 +262,7 @@ All JavaScript fuctions Start
 		jQuery('.home-client-carousel2').owlCarousel({
 			loop:true,
 			nav:true,
-			dots: false,				
+			dots: false,
 			margin:30,
 			autoplay:true,
 			navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
@@ -272,7 +272,7 @@ All JavaScript fuctions Start
 				},
 				480:{
 					items:3,
-				},			
+				},
 				767:{
 					items:4,
 				},
@@ -288,7 +288,7 @@ All JavaScript fuctions Start
 		jQuery('.home-client-carousel3').owlCarousel({
 			loop:true,
 			nav:false,
-			dots: false,				
+			dots: false,
 			margin:30,
 			autoplay:true,
 			autoplayTimeout: 1500,
@@ -299,7 +299,7 @@ All JavaScript fuctions Start
 				},
 				480:{
 					items:3,
-				},			
+				},
 				767:{
 					items:4,
 				},
@@ -315,7 +315,7 @@ All JavaScript fuctions Start
 		jQuery('.twm-related-jobs-carousel').owlCarousel({
 			loop:true,
 			nav:false,
-			dots: true,				
+			dots: true,
 			margin:30,
 			//autoplay:true,
 			autoplayTimeout:3000,
@@ -326,7 +326,7 @@ All JavaScript fuctions Start
 				},
 				480:{
 					items:1,
-				},			
+				},
 				767:{
 					items:2,
 				},
@@ -342,7 +342,7 @@ All JavaScript fuctions Start
 		jQuery('.home-client-carousel4').owlCarousel({
 			loop:true,
 			nav:false,
-			dots: false,				
+			dots: false,
 			margin:0,
 			autoplay:true,
 			autoplayTimeout: 1500,
@@ -353,7 +353,7 @@ All JavaScript fuctions Start
 				},
 				480:{
 					items:3,
-				},			
+				},
 				767:{
 					items:4,
 				},
@@ -369,7 +369,7 @@ All JavaScript fuctions Start
 		jQuery('.trusted-logo').owlCarousel({
 			loop:true,
 			nav:false,
-			dots: false,				
+			dots: false,
 			margin:5,
 			autoplay:true,
 			navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
@@ -379,7 +379,7 @@ All JavaScript fuctions Start
 				},
 				480:{
 					items:2,
-				},			
+				},
 				767:{
 					items:2,
 				},
@@ -395,7 +395,7 @@ All JavaScript fuctions Start
 		jQuery('.twm-testimonial-1-carousel').owlCarousel({
 			loop:true,
 			nav:true,
-			dots: false,				
+			dots: false,
 			margin:30,
 			autoplay:true,
 			navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
@@ -405,7 +405,7 @@ All JavaScript fuctions Start
 				},
 				480:{
 					items:1,
-				},			
+				},
 				991:{
 					items:2,
 				}
@@ -413,13 +413,13 @@ All JavaScript fuctions Start
 			}
 		});
 	}
-	
+
 	//  Testimonial Carousel function by = owl.carousel.js ========================== //
 	function twm_testimonial_2_carousel(){
 		jQuery('.twm-testimonial-2-carousel').owlCarousel({
 			loop:true,
 			nav:true,
-			dots: false,				
+			dots: false,
 			margin:5,
 			autoplay:true,
 			navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
@@ -429,7 +429,7 @@ All JavaScript fuctions Start
 				},
 				480:{
 					items:1,
-				},			
+				},
 				991:{
 					items:2,
 				},
@@ -447,7 +447,7 @@ All JavaScript fuctions Start
 		jQuery('.twm-la-home-blog').owlCarousel({
 			loop:true,
 			nav:true,
-			dots: false,				
+			dots: false,
 			margin:30,
 			autoplay:false,
 			navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
@@ -457,7 +457,7 @@ All JavaScript fuctions Start
 				},
 				480:{
 					items:1,
-				},			
+				},
 				991:{
 					items:2,
 				},
@@ -474,40 +474,40 @@ All JavaScript fuctions Start
 		jQuery('.counter').counterUp({
 			delay: 10,
 			time: 3000
-		});	
-	}	
+		});
+	}
 
-		
+
 	// sidebarCollapse function by = custom.js
 	function msg_user_list_slide(){
-		jQuery('.user-msg-list-btn-open, .user-msg-list-btn-close').on('click', function () { 
+		jQuery('.user-msg-list-btn-open, .user-msg-list-btn-close').on('click', function () {
 			jQuery('.wt-admin-dashboard-msg-2').toggleClass('active');
 		});
-	}		
+	}
 
 	// sidebarCollapse function by = custom.js
 	function sidebarCollapse(){
-		jQuery('#sidebarCollapse').on('click', function () { 
+		jQuery('#sidebarCollapse').on('click', function () {
 			jQuery('#header-admin, #sidebar-admin-wraper, #content').toggleClass('active');
 		});
 	}
 
 	// dashboard Notification function by = custom.js
 	function dashboard_noti_dropdown(){
-		jQuery('.dashboard-noti-dropdown').on('click', function () { 
+		jQuery('.dashboard-noti-dropdown').on('click', function () {
 			jQuery('.dashboard-noti-panel').toggleClass('active');
 		});
-	}	
-	
+	}
+
 	// dashboard Message function by = custom.js
 	function dashboard_message_dropdown(){
-		jQuery('.dashboard-message-dropdown').on('click', function () { 
+		jQuery('.dashboard-message-dropdown').on('click', function () {
 			jQuery('.dashboard-message-panel').toggleClass('active');
 		});
-	}			
+	}
 
 	// CustomScrollbar function by = jquery.scrollbar.js
-	function scroll_bar_custome(){	
+	function scroll_bar_custome(){
 		jQuery('.scrollbar-macosx').scrollbar();
 	}
 
@@ -515,20 +515,20 @@ All JavaScript fuctions Start
 	// Jobs Bookmark table function by = dataTables.bootstrap5.js
     function jobs_bookmark_table(){
         jQuery('#jobs_bookmark_table').DataTable(
-            {     
+            {
                 "aLengthMenu": [[3, 5, 10, -1], [3, 5, 10, "All"]],
                 "iDisplayLength": 3
-            } 
+            }
         );
     }
-	
+
 	// candidate_data_table function by = dataTables.bootstrap5.js
     function candidate_data_table(){
         jQuery('#candidate_data_table').DataTable(
-            {     
+            {
                 "aLengthMenu": [[5, 8, 10, -1], [5, 8, 10, "All"]],
                     "iDisplayLength": 5
-                } 
+                }
             );
 
 		function checkAll(bx) {
@@ -581,7 +581,7 @@ All JavaScript fuctions Start
 
 	// view map sidebar function by = custom.js
 	function view_map_sidebar(){
-		jQuery('.map-show-btn-open, .map-show-btn-close').on('click', function () { 
+		jQuery('.map-show-btn-open, .map-show-btn-close').on('click', function () {
 			jQuery('.half-map-section').toggleClass('active');
 		});
 	}
@@ -591,7 +591,7 @@ All JavaScript fuctions Start
 	}
 
 	//DropZone File Uploading Function Start=========================//
-	function Dropzone_infut_file(){	
+	function Dropzone_infut_file(){
 		if(jQuery('#demo-upload').length){
 		var dropzone = new Dropzone('#demo-upload', {
 		previewTemplate: document.querySelector('#preview-template').innerHTML,
@@ -612,26 +612,26 @@ All JavaScript fuctions Start
 			setTimeout(function() { file.previewElement.classList.add("dz-image-preview"); }, 1);
 			}
 		}
-	
+
 		});
-	
-	
+
+
 		// Now fake the file upload, since GitHub does not handle file uploads
 		// and returns a 404
-	
+
 		var minSteps = 6,
 			maxSteps = 60,
 			timeBetweenSteps = 100,
 			bytesPerStep = 100000;
-	
+
 		dropzone.uploadFiles = function(files) {
 		var self = this;
-	
+
 		for (var i = 0; i < files.length; i++) {
-	
+
 			var file = files[i];
 			totalSteps = Math.round(Math.min(maxSteps, Math.max(minSteps, file.size / bytesPerStep)));
-	
+
 			for (var step = 0; step < totalSteps; step++) {
 			var duration = timeBetweenSteps * (step + 1);
 			setTimeout(function(file, totalSteps, step) {
@@ -641,7 +641,7 @@ All JavaScript fuctions Start
 					total: file.size,
 					bytesSent: (step + 1) * file.size / totalSteps
 				};
-	
+
 				self.emit('uploadprogress', file, file.upload.progress, file.upload.bytesSent);
 				if (file.upload.progress == 100) {
 					file.status = Dropzone.SUCCESS;
@@ -657,7 +657,7 @@ All JavaScript fuctions Start
 		}
 		}
 	}
-	//DropZone File Uploading Function End =========================//	
+	//DropZone File Uploading Function End =========================//
 
 
 	//Maximum input box fields function Start by custom.js==============//
@@ -669,7 +669,7 @@ All JavaScript fuctions Start
 	var add_button_youtube      = $(".add_field_youtube"); //Add button ID
 	var add_button_vimeo      = $(".add_field_vimeo"); //Add button ID
 	var add_custom_field      = $(".add_field_custom"); //Add button ID
-	
+
 	var x = 1; //initlal text box count
 	$(add_button_youtube).click(function(e){ //on add input button click
 		e.preventDefault();
@@ -678,7 +678,7 @@ All JavaScript fuctions Start
 			$(wrapper).append('<div class="ls-inputicon-box"><input class="form-control wt-form-control m-tb10" name="mytext[]" type="text" placeholder="https://www.youtube.com/"><i class="fs-input-icon fab fa-youtube"></i><a href="#" class="remove_field"><i class="fa fa-times"></i></a></div>'); //add input box
 		}
 	});
-	
+
 	var x = 1; //initlal text box count
 	$(add_button_vimeo).click(function(e){ //on add input button click
 		e.preventDefault();
@@ -686,7 +686,7 @@ All JavaScript fuctions Start
 			x++; //text box increment
 			$(wrapper_2).append('<div class="ls-inputicon-box"><input class="form-control m-tb10 wt-form-control" name="mytext[]" type="text" placeholder="https://vimeo.com/"><i class="fs-input-icon fab fa-vimeo-v"></i><a href="#" class="remove_field"><i class="fa fa-times"></i></a></div>'); //add input box
 		}
-	});	
+	});
 
 	var x = 1; //initlal text box count
 	$(add_custom_field).click(function(e){ //on add input button click
@@ -695,18 +695,18 @@ All JavaScript fuctions Start
 			x++; //text box increment
 			$(wrapper_3).append('<div class="ls-inputicon-box"><input class="form-control m-tb10 wt-form-control" name="mytext[]" type="text" placeholder="Selet the role that you work in"><i class="fs-input-icon fa fa-user"></i><a href="#" class="remove_field"><i class="fa fa-times"></i></a></div>'); //add input box
 		}
-	});	
-	
+	});
+
 	$(wrapper).on("click",".remove_field", function(e){ //user click on remove text
 		e.preventDefault(); $(this).parent('div').remove(); x--;
 	})
 	$(wrapper_2).on("click",".remove_field", function(e){ //user click on remove text
 		e.preventDefault(); $(this).parent('div').remove(); x--;
-	})	
+	})
 	$(wrapper_3).on("click",".remove_field", function(e){ //user click on remove text
 		e.preventDefault(); $(this).parent('div').remove(); x--;
-	})	
-	
+	})
+
 //Maximum input box fields function End by custom.js==============//
 
 // > Tooltip function by = isotope.pkgd.min.js ========================= //
@@ -717,10 +717,10 @@ All JavaScript fuctions Start
 /*--------------------------------------------------------------------------------------------
 	Window on load ALL FUNCTION START
 ---------------------------------------------------------------------------------------------*/
-	// > masonry function function by = isotope.pkgd.min.js ========================= //	
+	// > masonry function function by = isotope.pkgd.min.js ========================= //
 
 	function masonryBox() {
-		if ( jQuery().isotope ) {      
+		if ( jQuery().isotope ) {
 			var $container = jQuery('.masonry-wrap');
 				$container.isotope({
 					itemSelector: '.masonry-item',
@@ -733,7 +733,7 @@ All JavaScript fuctions Start
 				$container.isotope('layout');
 			});
 
-			jQuery('.masonry-filter li').on('click',function() {                           
+			jQuery('.masonry-filter li').on('click',function() {
 				var selector = jQuery(this).find("a").attr('data-filter');
 				jQuery('.masonry-filter li').removeClass('active');
 				jQuery(this).addClass('active');
@@ -742,9 +742,9 @@ All JavaScript fuctions Start
 			});
 		};
 	}
-	
 
-// > page loader function by = custom.js ========================= //		
+
+// > page loader function by = custom.js ========================= //
 	function page_loader() {
 		$('.loading-area').fadeOut(1000);
 	}
@@ -761,7 +761,7 @@ All JavaScript fuctions Start
             $(".is-fixed").removeClass("color-fill");
         }
     }
-	
+
 
 /*--------------------------------------------------------------------------------------------
 	document.ready ALL FUNCTION START
@@ -773,25 +773,25 @@ All JavaScript fuctions Start
 	    twm_h1_bnr_carousal(),
 		//  Job Categories Carousel function by = owl.carousel.js ========================== //
 	    job_categories_carousel(),
-		// > Top Search bar Show Hide function by = custom.js  		
-		site_search(),	
-		// > Video responsive function by = custom.js 
+		// > Top Search bar Show Hide function by = custom.js
+		site_search(),
+		// > Video responsive function by = custom.js
 		video_responsive(),
-		 // > LIGHTBOX Gallery Popup function	by = lc_lightbox.lite.js =========================== //      
+		 // > LIGHTBOX Gallery Popup function	by = lc_lightbox.lite.js =========================== //
 		lightbox_popup(),
 		// > magnificPopup for video function	by = magnific-popup.js
 		magnific_video(),
 		// > Vertically center Bootstrap modal popup function by = custom.js
 		popup_vertical_center();
-		// > Main menu sticky on top  when scroll down function by = custom.js		
+		// > Main menu sticky on top  when scroll down function by = custom.js
 		sticky_header(),
-	    // > Sidebar sticky  when scroll down function by = theia-sticky-sidebar.js ========== //		
+	    // > Sidebar sticky  when scroll down function by = theia-sticky-sidebar.js ========== //
 		sticky_sidebar(),
-		// > page scroll top on button click function by = custom.js	
+		// > page scroll top on button click function by = custom.js
 		scroll_top(),
-		// > input type file function by = custom.js	 	
+		// > input type file function by = custom.js
 		input_type_file_form(),
-		// > input Placeholder in IE9 function by = custom.js		
+		// > input Placeholder in IE9 function by = custom.js
 		placeholderSupport(),
 		// > Nav submenu on off function by = custome.js ===================//
 		mobile_nav(),
@@ -822,10 +822,10 @@ All JavaScript fuctions Start
 		// sidebarCollapse function by = custom.js
 		sidebarCollapse(),
 		// dashboard Notification function by = custom.js
-	    dashboard_noti_dropdown(),	
+	    dashboard_noti_dropdown(),
 		// dashboard Message function by = custom.js
 		dashboard_message_dropdown(),
-		// CustomScrollbar function by = jquery.scrollbar.js	
+		// CustomScrollbar function by = jquery.scrollbar.js
 		scroll_bar_custome(),
 		// Jobs Bookmark table function by = dataTables.bootstrap5.js
 		jobs_bookmark_table(),
@@ -841,16 +841,16 @@ All JavaScript fuctions Start
 	     radius_range(),
 		//DropZone File Uploading Function Start=========================//
 	    Dropzone_infut_file();
-			
-	}); 	
+
+	});
 
 /*--------------------------------------------------------------------------------------------
 	Window Load START
 ---------------------------------------------------------------------------------------------*/
 jQuery(window).on('load', function () {
-	// > masonry function function by = isotope.pkgd.min.js		
+	// > masonry function function by = isotope.pkgd.min.js
 	masonryBox(),
-	// > page loader function by = custom.js		
+	// > page loader function by = custom.js
 	page_loader();
 });
 
@@ -859,23 +859,23 @@ jQuery(window).on('load', function () {
 ===========================*/
 
 jQuery(window).on('scroll', function () {
-// > Window on scroll header color fill 
+// > Window on scroll header color fill
 	color_fill_header();
 });
-	
+
 
 /*===========================
 	Document on  Submit FUNCTION START
 ===========================*/
 
-	// > Contact form function by = custom.js	
+	// > Contact form function by = custom.js
 	jQuery(document).on('submit', 'form.cons-contact-form', function(e){
 		e.preventDefault();
 		var form = jQuery(this);
 		/* sending message */
 		jQuery.ajax({
 			url: 'https://thewebmax.com/jobzilla/form-handler2.php',
-			
+
 			data: form.serialize() + "&action=contactform",
 			type: 'POST',
 			dataType: 'JSON',
@@ -888,7 +888,7 @@ jQuery(window).on('scroll', function () {
 				if(data['success']){
 				jQuery("<div class='alert alert-success'>"+data['message']+"</div>").insertBefore('form.cons-contact-form');
 				}else{
-				jQuery("<div class='alert alert-danger'>"+data['message']+"</div>").insertBefore('form.cons-contact-form');	
+				jQuery("<div class='alert alert-danger'>"+data['message']+"</div>").insertBefore('form.cons-contact-form');
 				}
 			}
 		});
@@ -898,7 +898,7 @@ jQuery(window).on('scroll', function () {
 
 /*===========================
 	Document on  Submit FUNCTION END
-===========================*/	
+===========================*/
 
 
 	/*upload profile pic function*/
@@ -910,14 +910,14 @@ jQuery(window).on('scroll', function () {
 		fileUploader.addEventListener('change', (event) => {
 			const files = event.target.files;
 			const file = files[0];
-			
+
 			const img = document.createElement('img');
 			imageGrid.appendChild(img);
 			img.src = URL.createObjectURL(file);
 			img.alt = file.name;
 		});
-		
+
 	}
 
-	
+
 })(window.jQuery);

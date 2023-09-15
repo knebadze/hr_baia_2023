@@ -24,13 +24,13 @@ export default {
         }
     },
     created(){
-       if(this.auth &&  this.auth.status == 0){
-            var url = new URL( location.href)
-            if (url.pathname == `/${this.getLang}/user/userProfile`) {
-                return;
-            }
-            this.showPersonInformation = true
-        }
+    //    if(this.auth && this.auth.role_id == 3 && this.auth.status == 0){
+    //         var url = new URL( location.href)
+    //         if (url.pathname == `/${this.getLang}/user/userProfile`) {
+    //             return;
+    //         }
+    //         this.showPersonInformation = true
+    //     }
         // else if(this.auth && this.auth.status == 1){
 
         //     var url = new URL( location.href)

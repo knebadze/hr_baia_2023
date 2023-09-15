@@ -58,13 +58,16 @@ class GetVacancyInfoController extends Controller
         return response()->json($data);
     }
     function getVacancyFullInfo(Request $request)  {
+
         $vacancy = Vacancy::where('id', $request->data)->with([
             'vacancyDuty', 'vacancyBenefit', 'vacancyForWhoNeed', 'characteristic', 'employer', 'currency','category', 'status',
             'workSchedule', 'vacancyInterest', 'interviewPlace','term', 'demand', 'demand.language', 'demand.education', 'demand.languageLevel','demand.specialty',
             'employer.numberCode','deposit','hr.user', 'vacancyDrivingLicense'
             ])->first();
-        $hr_id = Auth::user()->hr->id;
+            
+        $hr_id = (Auth::user()->role_id == 2)?Auth::user()->hr->id:null;
         $data = ['vacancy' => $vacancy, 'hr_id' => $hr_id];
+
         return response()->json($data);
     }
 

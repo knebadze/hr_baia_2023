@@ -377,8 +377,9 @@ export default {
         //     });
         //     return arr
         // }
-
+            console.log('hr_id.value',hr_id.value);
         const bodyRowClassNameFunction = ( item, number) => {
+            console.log('item.hr_id', item.hr_id);
             if (item.hr_id == hr_id.value) return 'my-vacancy-row';
             return '';
         };

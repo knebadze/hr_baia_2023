@@ -8,6 +8,7 @@
                 <ul class="nav nav-pills ml-auto p-2">
                   <li class="nav-item"><a class="nav-link active" href="#tab_1" data-toggle="tab">კანდიდატის ჩარიცხვა</a></li>
                   <li class="nav-item"><a class="nav-link" href="#tab_2" data-toggle="tab">დამსაქმებლის ჩარიცხვა</a></li>
+                  <li v-if="data.register" class="nav-item"><a class="nav-link" href="#tab_3" data-toggle="tab">რეგისტრაციის ჩარიცხვა</a></li>
                 </ul>
               </div><!-- /.card-header -->
               <div class="card-body">
@@ -175,6 +176,7 @@
                     </div>
                   </div>
                   <!-- /.tab-pane -->
+                  <component v-if="data.register"  :is="registerEnrollmentComponent" :item="componentItem" ></component>
                 </div>
                 <!-- /.tab-content -->
               </div><!-- /.card-body -->
@@ -185,6 +187,7 @@
         </div>
 </template>
 <script>
+import { markRaw } from 'vue';
 import moment from 'moment'
 import _ from 'lodash';
 export default {
@@ -200,7 +203,9 @@ export default {
             enrollmentEmployer:{},
             enrollmentCandidate:{},
             file:null,
-            item:{}
+            item:{},
+            registerEnrollmentComponent: null,
+            componentItem: null
         }
     },
     created(){
@@ -218,6 +223,7 @@ export default {
             'file_name': null
         }
         console.log('data', this.data);
+        this.data.register?this.registerEnrollment():null
     },
     computed:{
         getLang(){
@@ -237,6 +243,7 @@ export default {
             }
             return find;
         },
+
 
     },
     methods:{
@@ -395,6 +402,16 @@ export default {
                 // handle error
                 console.log(error);
             })
+        },
+        async registerEnrollment(){
+            if (!this.registerEnrollmentComponent) {
+
+                let module = await import('../component/registration_enrollment.vue');
+                this.registerEnrollmentComponent = markRaw(module.default);
+            }
+
+            this.componentItem = this.data.register
+            this.componentItem.name = this.enrollmentCandidate.name
         }
     },
     watch:{

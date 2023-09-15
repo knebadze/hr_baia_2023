@@ -18,7 +18,7 @@
                         <tr>
                             <th style="width: 10px">#</th>
                             <th>ვაკანსისი ID</th>
-                            <th v-if="data.role_id == 1">HR</th>
+                            <th v-if="role_id == 1">HR</th>
                             <th>შეხსენების მიზეზი</th>
                             <th>დრო</th>
                             <th>სტატუსი</th>
@@ -28,7 +28,7 @@
                         <tr v-for="(item, index) in items" :key="index">
                             <td>{{ index + 1 }}.</td>
                             <td><u class="text-primary" @click="vacancyModal(item.vacancy_id)">{{ item.vacancy.code }}</u> </td>
-                            <td v-if="data.role_id == 1">{{ item.hr.user.name_ka }}</td>
+                            <td v-if="role_id == 1">{{ item.hr.user.name_ka }}</td>
                             <td>{{ item.reason }}</td>
                             <td>{{ item.date }}</td>
                             <td>
@@ -52,7 +52,8 @@ export default {
         vacancyFullInfoModal
     },
     props:{
-        data: Object
+        data: Object,
+        role_id: Number
     },
     data() {
         return {
@@ -64,7 +65,7 @@ export default {
         items(){
             const currentDateTime = moment();
             let arr = []
-            this.data.data.forEach(element => {
+            this.data.forEach(element => {
                 let baseDateTime = element.date;
                 // Convert base time to a moment object
                 let baseTimeMoment = moment(baseDateTime, "YYYY-MM-DD HH:mm");

@@ -27,16 +27,19 @@ class WelcomeService
         ];
         $categoriesWithVacancies = DB::table('categories')
             ->leftJoin('vacancies', 'categories.id', '=', 'vacancies.category_id')
-            ->select('categories.*', DB::raw('COUNT(CASE WHEN vacancies.status_id != 5 THEN vacancies.id ELSE NULL END) as vacancy_count'))
+            ->select('categories.*', DB::raw('COUNT(CASE WHEN vacancies.status_id != 5 THEN vacancies.id ELSE NULL END) as count'))
             ->groupBy('categories.id')
-            ->get();
+            ->get()->toArray();
+            $categoriesWithVacancies['type'] = 'vacancy';
         $result['categoriesWithVacancies'] = $categoriesWithVacancies;
+
         $categoriesWithCandidates = DB::table('categories')
             ->leftJoin('work_information', 'categories.id', '=', 'work_information.category_id')
             ->leftJoin('candidates', 'work_information.candidate_id', '=', 'candidates.id')
-            ->select('categories.*', DB::raw('COUNT(CASE WHEN candidates.status_id NOT IN (8, 12) THEN candidates.id ELSE NULL END) as category_count'))
+            ->select('categories.*', DB::raw('COUNT(CASE WHEN candidates.status_id NOT IN (8, 12) THEN candidates.id ELSE NULL END) as count'))
             ->groupBy('categories.id')
-            ->get();
+            ->get()->toArray();
+        $categoriesWithCandidates['type'] = 'candidate';
         $result['categoriesWithCandidates'] = $categoriesWithCandidates;
 
         $popularCategories = DB::table('categories')

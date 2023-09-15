@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Vacancy;
 
+use App\Events\hrDailyJob;
 use App\Models\Vacancy;
 use App\Models\Employer;
 use App\Models\GlobalVariable;
@@ -139,7 +140,7 @@ class VacancyRepository{
         }, []);
         $vacancy->vacancyDuty()->sync($selectDutyId);
 
-        
+
 
         return $vacancy->code;
 
@@ -203,9 +204,9 @@ class VacancyRepository{
         }else{
             $this->hrHasVacancyUpdate();
             $findNext = HrHasVacancy::orderBy('id', 'ASC')
-            ->where('has_vacancy', 0)
-            ->where('is_active', 1)
-            ->first();
+                ->where('has_vacancy', 0)
+                ->where('is_active', 1)
+                ->first();
             $hr_id = $findNext->hr_id;
         }
 
@@ -214,6 +215,9 @@ class VacancyRepository{
         if ($lastHrId->hr_id == $findNext->hr_id) {
             $this->hrHasVacancyUpdate();
         }
+
+        // ვამატებ დღის სამუშაოში ჰრ ის გრაფაში პლიუს ერთ ვაკანსიას
+        $this->dailyWorkEvent($hr_id);
         return $hr_id;
 
 
@@ -226,5 +230,9 @@ class VacancyRepository{
             HrHasVacancy::where('id', $value->id)->update(['has_vacancy'=> ($value->has_vacancy - 1)]);
         }
 
+    }
+
+    function dailyWorkEvent($hr_id) {
+        event(new hrDailyJob($hr_id, 'has_vacancy'));
     }
 }

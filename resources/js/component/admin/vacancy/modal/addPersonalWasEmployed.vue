@@ -252,8 +252,8 @@
                     return
                 }
                 // return
-
-                this.m.candidate_id = this.m.candidate_id.candidate.id
+                console.log('this.m.candidate_id',typeof(this.m.candidate_id));
+                this.m.candidate_id = (typeof(this.m.candidate_id) == 'number')? this.m.candidate_id: this.m.candidate_id.candidate.id
                 console.log('this.m', this.m);
                 let currentObj = this
                 axios.post('/add_vacancy_personal_was_employed' ,{

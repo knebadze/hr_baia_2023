@@ -13,15 +13,15 @@
                         <div class="twm-candidates-grid-style1 mb-5" style="background-color: #fdfff5;">
                             <div class="twm-media" >
                                 <div class="twm-media-pic">
-                                <img :src="'/images/user-avatar/'+item.avatar" alt="#">
+                                <img :src="'/images/user-avatar/'+item.candidate.user.avatar" alt="#">
                                 </div>
                             </div>
                             <div class="twm-mid-content" >
                                 <a href="#" class="twm-job-title">
-                                    <h4>{{ item[`fullName_${getLang}`] }} </h4>
+                                    <h4>{{ item.candidate.user[`name_${getLang}`] }} </h4>
                                 </a>
                                 <p><span>{{ item[`name_${getLang}`] }}</span></p>
-                                <a href="javascript:;"  @click="gotoDetail(item.candidate_id)" class="twm-view-prifile site-text-primary">{{ $t('lang.company_vacancies_page_middle_leftside_read_more') }}</a>
+                                <a href="javascript:;"  @click="gotoDetail(item.candidate.id)" class="twm-view-prifile site-text-primary">{{ $t('lang.company_vacancies_page_middle_leftside_read_more') }}</a>
 
                                 <div class="twm-fot-content">
                                     <div class="twm-left-info">

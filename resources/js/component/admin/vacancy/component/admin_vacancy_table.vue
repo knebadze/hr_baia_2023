@@ -8,6 +8,14 @@
         border-cell
         :filter-options="filterOptions"
     >
+    <template #item-category="item">
+
+        <span :class="`badge bg-${item.category.color} p-1`" >{{ item.category.name_ka }}</span>
+    </template>
+    <template #item-status="item">
+
+        <span :class="`badge bg-${item.status.color} p-1`" >{{ item.status.name_ka }}</span>
+    </template>
     <template #item-operation="item">
        <div class="operation-wrapper">
         <div class="dropdown">
@@ -319,11 +327,11 @@ export default {
         console.log('data',props.data);
         const headers = ref([
             { text: "id", value: "code" },
-            { text: "კატეგორია", value: "category.name_ka" },
+            { text: "კატეგორია", value: "category" },
             { text: "გრაფიკი", value: "work_schedule.name_ka"},
             { text: "დამსაქმებელი", value: "employer.name_ka"},
             { text: "ნომერი", value: "employer.number"},
-            { text: "სტატუსი", value: "status.name_ka"},
+            { text: "სტატუსი", value: "status"},
             { text: "ანაზღაურება", value: "payment", sortable: true},
             { text: "საჭიროება", value: "start_date", sortable: true},
             { text: "Operation", value: "operation" },

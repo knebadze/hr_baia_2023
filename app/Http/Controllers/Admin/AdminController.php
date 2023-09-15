@@ -32,10 +32,9 @@ class AdminController extends Controller
 
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
-            if (DailyTask::whereDate('date', '!=', Carbon::today())) {
+            if (DailyTask::whereDate('date', '!=', Carbon::today())->exists()) {
                 $this->dailyTaskService->task();
             }
-
             return redirect()->intended('ka/admin/dashboard')
                         ->withSuccess('Signed in');
         }
@@ -46,11 +45,10 @@ class AdminController extends Controller
    {
        if(Auth::check()){
 
-            $dailyReminderData = $this->dashboardService->dailyReminder();
+            $dailyReminder = $this->dashboardService->dailyReminder();
             $hrDailyWork = $this->dashboardService->hrDailyWork();
-            $dailyReminder = ['data' => $dailyReminderData, 'role_id' => Auth::user()->role_id];
-
-           return view('admin.dashboard', compact('dailyReminder'));
+            $role_id = Auth::user()->role_id;
+           return view('admin.dashboard', compact('dailyReminder', 'hrDailyWork', 'role_id'));
        }
 
        return redirect("admin")->withSuccess('are not allowed to access');

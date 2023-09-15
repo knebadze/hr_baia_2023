@@ -4,10 +4,11 @@ namespace App\Repositories\Vacancy;
 
 use Carbon\Carbon;
 use App\Models\Vacancy;
+use App\Events\hrDailyJob;
 use App\Models\VacancyDeposit;
+use App\Models\RegistrationFee;
 use App\Models\VacancyReminder;
 use App\Models\QualifyingCandidate;
-use App\Models\RegistrationFee;
 use Illuminate\Support\Facades\Auth;
 
 class VacancyStatusUpdateRepository
@@ -19,6 +20,7 @@ class VacancyStatusUpdateRepository
         // ვამოწმებ დაკავდა სტატუსში გადაყვანამდეე იძებნება თუ არაა ამ ვაკანსიაზე კადრი დაკავდაა სტატუსით
         if ($data['status']['id'] == 3) {
 
+
             if (!QualifyingCandidate::where('vacancy_id', $id)->exists()) {
                 return ['type' => 'e', 'message' => 'დამატეთ დასაქმებული კანდიდატი'];
             }else{
@@ -28,7 +30,9 @@ class VacancyStatusUpdateRepository
             }
 
             $date = Carbon::now()->addDays(7)->toDateString();
-            $vacancy = VacancyDeposit::where('vacancy_id', $id)->update(['must_be_enrolled_employer_date' => $date, 'must_be_enrolled_candidate_date' => $date]);
+            $vacancyDeposit = VacancyDeposit::where('vacancy_id', $id)->update(['must_be_enrolled_employer_date' => $date, 'must_be_enrolled_candidate_date' => $date]);
+            $vacancy = Vacancy::where('id', $id)->first();
+            $this->dailyWorkEvent($vacancy->hr_id);
 
             $this->addReminder(['vacancy_id' => $id, 'date' => $date.' 10:00:00', 'reason' =>  'ვაკანსიაზე უნდა მოხდეს თანხის ჩარიცხვა']);
 
@@ -66,6 +70,9 @@ class VacancyStatusUpdateRepository
         if ($data['status']['id'] == 4 || $data['status']['id'] == 5) {
             $this->deleteReminder($vacancy->id);
             $this->deleteDeposit($vacancy->id);
+        }
+        if ($data['status']['id'] == 7) {
+            $vacancy->update(['start_date', $data['suspended_date']]);
         }
         return ['type' => 's', 'message' => 'სტატუსი წარმატებით შეიცვალა'];
     }
@@ -105,6 +112,10 @@ class VacancyStatusUpdateRepository
         $deposit->must_be_enrolled_candidate = (int)$vacancy->payment / 2;
         $deposit->candidate_initial_amount =(int)$vacancy->payment / 2;
         $deposit->save();
+    }
+
+    function dailyWorkEvent($hr_id) {
+        event(new hrDailyJob($hr_id, 'has_vacancy'));
     }
 
 

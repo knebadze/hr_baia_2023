@@ -72,7 +72,44 @@ class DailyTaskService
         }
 
 
+        // #მესამე ნაწილი
+        //ვამოწმებ ვაკანსიებს საწყისი, წარომებაში, უნდა კადრი, შეჩერებული სტატუსებში რომლის დაწყების თარიღიც დღევანდელზე ნაკლებია ან ტოლია
+        // თუ ტოლია ამ ვაკანსიებზე ვამატებ შეხსენებას
+        // თუ ნაკლებია სტატუსი გადამყავს  გაუქმდაში,
+        if (Vacancy::whereIn('status_id', [1, 2, 6, 7])->whereDate('start_date', '<=', Carbon::today())->exists()) {
+            $vacancyEquals = Vacancy::whereIn('status_id', [1, 2, 6, 7])->whereDate('start_date', '=', Carbon::today())->get();
+            // dd($vacancyEquals);
+            if (count($vacancyEquals)) {
+
+                foreach ($vacancyEquals as $key => $value) {
+                    $this->addRemainder($value->hr_id, $value->id);
+                }
+            }
+
+            $vacancyLess = Vacancy::whereIn('status_id', [1, 2, 6, 7])->whereDate('start_date', '<', Carbon::today())->get();
+            if (count($vacancyLess)) {
+                foreach ($vacancyLess as $key => $value) {
+                    Vacancy::where('id', $value->id)->update(['status_id' => 5, 'status_change_reason' => 'გაუქმდა დაწყების თარიღის დროს ('.$value->start_date.') სტატუსის ('.$value->status->name_ka. ') გამო'  ]);
+                }
+            }
+
+        }
+
+
         $daily = DailyTask::first();
         $daily->update(['date' => Carbon::today()->toDateString()]);
+    }
+
+    function addRemainder($hr_id, $vacancy_id) {
+        // dd($hr_id, $vacancy_id);
+        $currentDateTime = Carbon::today();
+        VacancyReminder::create(
+                [
+                    'vacancy_id' => $vacancy_id,
+                    'hr_id' => $hr_id,
+                    'date' =>  $currentDateTime.'10:30:00',
+                    'reason' => 'ვაკანსის დაწების თარღიში მითითებული დღევანდელი თარიღი გადაწიეთ!!! რადგან ვაკანსია ხვალ გაუქმდება, დაწყების თარიღამდე დასაქმებული კანდიდატის არ არსებობის გამო'
+                ]
+            );
     }
 }

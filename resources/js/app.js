@@ -54,6 +54,7 @@ const importComponents = async () => {
       modalManager,
       hrTable,
       dailyReminder,
+      dailyWork,
 
       candidatePage,
       candidateUpdate,
@@ -98,6 +99,7 @@ const importComponents = async () => {
       import('./component/modal/modalManager.vue'),
       import('./component/admin/hr/hr_table.vue'),
       import('./component/admin/dashboard/dailyReminder.vue'),
+      import('./component/admin/dashboard/hr_daily_work.vue'),
       import('./component/admin/candidate/page/candidate_page.vue'),
       import('./component/admin/candidate/page/candidate_update_page.vue'),
       import('./component/admin/candidate/page/add_candidate.vue'),
@@ -152,6 +154,7 @@ const importComponents = async () => {
     // app.component('candidate-table', candidateTable)
     // dashboard
     app.component('daily-reminder',dailyReminder.default)
+    app.component('daily-work',dailyWork.default)
     // page
     app.component('candidate-page', candidatePage.default)
     app.component('candidate-update', candidateUpdate.default)

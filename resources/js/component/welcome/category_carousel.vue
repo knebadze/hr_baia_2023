@@ -1,14 +1,14 @@
 <template>
     <div class=" job-categories-carousel owl-btn-left-bottom ">
         <Carousel :itemsToShow="itemsToShow" :autoplay="4000" :wrap-around="true">
-        <Slide v-for="slide in data" :key="slide">
+        <Slide v-for="slide in items" :key="slide">
             <div class="carousel__item">
                 <div class="job-categories-block">
                     <div class="twm-media">
                         <div class="flaticon-dashboard"></div>
                     </div>
                     <div class="twm-content">
-                        <div class="twm-jobs-available">{{ slide.vacancy_count  }} სამუშაო</div>
+                        <div class="twm-jobs-available text-nowrap">{{ slide.count+ ' '+text  }} </div>
                         <a :href="detailUrl+'/'+slide.id">{{ slide[`name_${getLang}`] }}</a>
                     </div>
                 </div>
@@ -33,6 +33,7 @@
   import { Carousel, Pagination, Slide } from 'vue3-carousel'
 
   import 'vue3-carousel/dist/carousel.css'
+  import _ from 'lodash';
 
   export default defineComponent({
     name: 'Autoplay',
@@ -42,11 +43,13 @@
       Pagination,
     },
     props:{
-        data: Object
+        data: Object,
+        type: String
     },
     data() {
         return {
-            itemsToShow: 3.95
+            itemsToShow: 3.95,
+            items: null
         }
     },
     computed:{
@@ -55,10 +58,17 @@
         },
         detailUrl(){
             var url = new URL( location.href)
-            return url.origin+'/'+this.getLang+'/job_search'
+            let rout = this.data.type == 'vacancy'? '/job_search': '/candidate_search'
+            return url.origin+'/'+this.getLang+rout
         },
+        text(){
+            return this.data.type == 'vacancy'?'სამუშაო':'კანდიდატი'
+        }
     },
     created() {
+        console.log('this.data', this.data);
+        this.items = _.omit(this.data, ['type']);
+        console.log('this.items',this.items);
         const screenWidth = window.screen.width;
         const screenHeight = window.screen.height;
         console.log(`Screen Resolution: ${screenWidth} x ${screenHeight}`);

@@ -210,6 +210,8 @@
                                 </div>
                             </div>
                         @endforeach --}}
+
+
                         <category-carousel :data='@json($data['categoriesWithVacancies'])'></category-carousel>
 
 
@@ -251,10 +253,14 @@
             <div class="twm-job-categories-section">
 
                 <div class="job-categories-style1 m-b30">
-                    <div class="owl-carousel job-categories-carousel owl-btn-left-bottom ">
+
+                    <category-carousel :data='@json($data['categoriesWithCandidates'])'></category-carousel>
+
+
+                    {{-- <div class="owl-carousel job-categories-carousel owl-btn-left-bottom ">
 
                         <!-- COLUMNS 1 -->
-                        {{-- <div class="item ">
+                         <div class="item ">
                             <div class="job-categories-block">
                                 <div class="twm-media">
                                     <div class="flaticon-dashboard"></div>
@@ -264,7 +270,7 @@
                                     <a href="job-detail.html">ძიძა</a>
                                 </div>
                             </div>
-                        </div> --}}
+                        </div>
 
                         <!-- COLUMNS 2 -->
                         @foreach ($data['categoriesWithCandidates'] as $item)
@@ -284,7 +290,7 @@
 
 
 
-                    </div>
+                    </div> --}}
                 </div>
 
                 <div class="text-right job-categories-btn">

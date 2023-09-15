@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Vacancy;
 use App\Models\WorkDay;
 use App\Models\Candidate;
+use App\Events\hrDailyJob;
 use Illuminate\Queue\Worker;
 use App\Models\GlobalVariable;
 use App\Models\RegistrationFee;
@@ -30,6 +31,7 @@ class AddVacancyPersonalRepository
             $qualifying->end_date = $data['end_date'];
             $this->addReminder($data['vacancy_id'], $data['start_date'], 'კანდიდატი შევიდა გამოსაცდელი ვადით, უნდა გადავამოწმო იმყოფება თუ არაა სამუშაო ადგილზე');
             $this->changeCandidateStatus($data['candidate_id'], $data['type']['id']);
+            $this->dailyWorkEvent($data['vacancy_id']);
         }
         $qualifying->save();
         return $qualifying;
@@ -64,6 +66,7 @@ class AddVacancyPersonalRepository
             $qualifying->end_date = $data['end_date'];
             $this->addReminder($data['vacancy_id'], $data['start_date'], 'კანდიდატი შევიდა გამოსაცდელი ვადით, უნდა გადავამოწმო იმყოფება თუ არაა სამუშაო ადგილზე');
             $this->changeCandidateStatus($data['candidate_id'], $data['type']['id']);
+            $this->dailyWorkEvent($data['vacancy_id']);
         }
         $qualifying->update();
         return $qualifying;
@@ -98,7 +101,7 @@ class AddVacancyPersonalRepository
         $qualifying = QualifyingCandidate::where('candidate_id', $data['candidate_id'])->where('vacancy_id', $data['vacancy_id'])->delete();
         return $qualifying;
     }
-
+    // როცა კადრი დასაქმდა
     function wasEmployed($data){
         // dd($data);
         $end_date = $this->endDay($data['vacancy']['term'], $data['vacancy']['start_date']);
@@ -148,7 +151,7 @@ class AddVacancyPersonalRepository
                 $vacancy = Vacancy::where('id', $vacancy_id)->first();
                 $creator_id = $vacancy->hr->user->id;
             }
-            if (RegistrationFee::where('user_id', $candidate->user->id)->exists()) {
+            // if (RegistrationFee::where('user_id', $candidate->user->id)->exists()) {
                 $paidBonus = GlobalVariable::where('name', 'paid registration')->first();
                 $date = Carbon::now()->addDays(7)->toDateString();
                 $fee = RegistrationFee::create([
@@ -158,7 +161,7 @@ class AddVacancyPersonalRepository
                     'creator_id' => $creator_id,
                     'enroll_date' => $date,
                 ]);
-            }
+            // }
         }
 
     }
@@ -256,5 +259,10 @@ class AddVacancyPersonalRepository
         $reminder->date = $start_date.' 10:00:00';
         $reminder->reason = $text;
         $reminder->save();
+    }
+
+    function dailyWorkEvent($vacancy_id) {
+        $vacancy = Vacancy::where('id', $vacancy_id)->first();
+        event(new hrDailyJob($vacancy->hr_id, 'has_probationary_period'));
     }
 }

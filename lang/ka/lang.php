@@ -492,7 +492,7 @@ return [
     'user_profile_page_button_save_changes' => 'ცვლილების შენახვა',
     // Personal information Block Lang
     'user_profile_page_personal_info' => 'პერსონალური ინფორმაცია',
-    'user_profile_page_personal_number' => 'პერსონალური ნომერი',
+    'user_profile_page_personal_number' => 'პირადი ნომერი',
     'user_profile_page_personal_citizenship' => 'მოქალაქეობა',
     'user_profile_page_personal_education' => 'განათლება',
     'user_profile_page_personal_specialty' => 'სპეციალობა',

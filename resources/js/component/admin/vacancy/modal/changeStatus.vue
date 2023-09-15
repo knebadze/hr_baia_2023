@@ -18,12 +18,19 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-12" v-if="m.status.id == 7">
+                    <div class="form-group">
+                        <label> სადამდე </label>
+                        <input class="form-control" v-model="m.suspended_date" type="date" placeholder="" rows="3">
+                    </div>
+                </div>
                 <div class="col-md-12" v-if="m.status.id == 5 || m.status.id == 7">
                     <div class="form-group">
                         <label> სტატუსის შეცვლის მიზეზი </label>
                         <textarea class="form-control" v-model="m.status_change_reason" type="text" placeholder="" rows="3"></textarea>
                     </div>
                 </div>
+
                 <div v-if="m.status.id == 6">
                     <hr>
                     <h6><i class="fa fa-hourglass-start"></i> შეხსენება</h6>
@@ -131,10 +138,18 @@
                 return {...newItem}
             },
             makeCla(id){
+                console.log('id', id);
                 let status = []
-                if (id !== 3) {
-                    status = this.data.status.filter(item => item.id !== 4);
+                if (id == 1) {
+                    status = this.data.status.filter(item => item.id != id && item.id != 3 && item.id != 4 &&  item.id != 13);
+                }else if(id == 2){
+                    status = this.data.status.filter(item => item.id != id && item.id != 4 &&  item.id != 13);
+                }else if(id == 3){
+                    status = this.data.status.filter(item => item.id != id && item.id != 1 && item.id != 2 && item.id != 5 &&  item.id != 6 && item.id != 7 && item.id != 13);
                 }
+                // if (id != 3) {
+                //     status = this.data.status.filter(item => item.id != id && item.id != 3 && item.id != 4 &&  item.id != 13);
+                // }
                 if (this.data.role_id == 2) {
                     if(id == 3 ){
                         status = this.data.status.filter(item => item.id == 4);

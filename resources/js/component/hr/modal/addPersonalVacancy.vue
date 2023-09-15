@@ -16,7 +16,7 @@
                     </div>
                 </div>
 
-                <div v-if="info && info.hasOwnProperty('another_vacancy')" class="col-12">
+                <div v-if="info && info.hasOwnProperty('another_vacancy') && info.another_vacancy.length > 0" class="col-12">
                     <div  class="alert alert-dismissible alert-danger" >
                         <!-- <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> -->
                         <h5><i class="icon fas fa-info"></i> შეტყობინება!</h5>

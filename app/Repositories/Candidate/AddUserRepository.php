@@ -5,6 +5,7 @@ namespace App\Repositories\Candidate;
 use App\Models\User;
 use App\Models\Salary;
 use App\Models\Vacancy;
+use App\Events\hrDailyJob;
 use App\Models\GlobalVariable;
 use App\Models\RegistrationFee;
 use App\Models\userRegisterLog;
@@ -30,7 +31,9 @@ class AddUserRepository
             $allModelsCreated = true;
 
             // Create the User model
-            $user = User::create([
+            $user = User::updateOrCreate(
+                ['number' => $data['number']],
+                [
                 'name_ka' => $name_ka,
                 'name_en' => $name_en,
                 'name_ru' => $name_ru,
@@ -42,38 +45,48 @@ class AddUserRepository
                 'password' => Hash::make($data['password']),
                 'lang' => 'ka',
             ]);
+            if ($user->wasRecentlyCreated) {
+                // User record was just created
+                // You can perform actions for a newly created user here
+                $registerLog = userRegisterLog::create([
+                    'creator_id' => Auth::id(),
+                    'user_id' => $user->id,
+                    'type' => $data['type']['id'],
+                ]);
 
+                $this->dailyWorkEvent(Auth::user()->hr->id);
+
+                if (!$registerLog) {
+                    $allModelsCreated = false;
+                }
+
+                if ($data['type']['id'] == 1) {
+                    $fee = RegistrationFee::create([
+                        'user_id' => $user->id,
+                        'initial_amount' => ($data['money']) ? $data['money'] : null,
+                        'money' => ($data['money']) ? $data['money'] : null,
+                        'creator_id' => Auth::id(),
+                        'enroll_date' => ($data['enroll_date']) ? $data['enroll_date'] : null,
+                    ]);
+                    //ვერ ვამატებ შეხსენებას რადგან მარტო ვაკანსიაზეა გათვლილი
+                    // $this->addReminder(['vacancy_id' => $id, 'date' => $date.' 10:00:00', 'reason' =>  'ვაკანსიაზე უნდა მოხდეს თანხის ჩარიცხვა']);
+                }
+
+                // Check if RegistrationFee creation failed
+                if (!$fee) {
+                    $allModelsCreated = false;
+                }
+            } else {
+                // dd('update');
+                // User record already existed and was updated
+                // You can perform actions for an updated user here
+            }
             // Check if User creation failed
             if (!$user) {
                 $allModelsCreated = false;
             }
 
-            $registerLog = userRegisterLog::create([
-                'creator_id' => Auth::id(),
-                'user_id' => $user->id,
-                'type' => $data['type']['id'],
-            ]);
 
-            if (!$registerLog) {
-                $allModelsCreated = false;
-            }
-
-            if ($data['type']['id'] == 1) {
-                $fee = RegistrationFee::create([
-                    'user_id' => $user->id,
-                    'initial_amount' => ($data['money']) ? $data['money'] : null,
-                    'money' => ($data['money']) ? $data['money'] : null,
-                    'creator_id' => Auth::id(),
-                    'enroll_date' => ($data['enroll_date']) ? $data['enroll_date'] : null,
-                ]);
-                //ვერ ვამატებ შეხსენებას რადგან მარტო ვაკანსიაზეა გათვლილი
-                // $this->addReminder(['vacancy_id' => $id, 'date' => $date.' 10:00:00', 'reason' =>  'ვაკანსიაზე უნდა მოხდეს თანხის ჩარიცხვა']);
-            }
-
-            // Check if RegistrationFee creation failed
-            if (!$fee) {
-                $allModelsCreated = false;
-            }
 
             // Check if at least one model creation failed
             if (!$allModelsCreated) {
@@ -84,6 +97,10 @@ class AddUserRepository
         } catch (\Throwable $th) {
             throw new \Exception("An error occurred during enrollment agreement: " . $th->getMessage(), 500);
         }
+    }
+
+    function dailyWorkEvent($hr_id) {
+        event(new hrDailyJob($hr_id, 'candidate_has_registered'));
     }
 
     // function addReminder($data) {

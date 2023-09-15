@@ -2,14 +2,17 @@
 
 namespace App\Repositories\Enrollment;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Salary;
 use App\Models\Vacancy;
 use App\Models\Candidate;
+use App\Events\hrDailyJob;
 use App\Models\Enrollment;
-use App\Models\RegistrationFee;
 use App\Models\VacancyDeposit;
+use App\Models\RegistrationFee;
 use App\Models\userRegisterLog;
+use App\Models\VacancyReminder;
 
 class EnrollmentAgreeRepository
 {
@@ -24,11 +27,13 @@ class EnrollmentAgreeRepository
                 //ვაკანსიის ჩარიცხვა
                 $updateVacancyDeposit = $this->updateVacancyDeposit($data['vacancy_id'], $data['who_is_counting'], $data['type'], $data['money']);
                 ($updateVacancyDeposit)?$this->checkVacancy($data['vacancy_id']):'';
+                $this->dailyWorkEvent($data['author_id'], 'v');
 
 
             }else{
                 //რეგისტრაცისს ჩარიცხვა
                 $this->updateRegisterFee($data['candidate_id'], $data['type'], $data['money']);
+                $this->dailyWorkEvent($data['author_id'], 'c');
 
             }
             $this->addHrBonus($data['enrollment_type'], $data['author_id'], $data['hr_bonus']);
@@ -89,6 +94,9 @@ class EnrollmentAgreeRepository
         if (VacancyDeposit::where('vacancy_id', $vacancy_id)->where('must_be_enrolled_employer', 0)->where('must_be_enrolled_candidate', 0)->exists()) {
             // VacancyDeposit::where('vacancy_id', $vacancy_id)->delete();
             Vacancy::where('id', $vacancy_id)->update(['status_id', 4]);
+            $this->deleteReminder($vacancy_id);
+            $this->deleteDeposit($vacancy_id);
+
         }
     }
 
@@ -131,5 +139,21 @@ class EnrollmentAgreeRepository
 
 
 
+    }
+
+    function deleteReminder($vacancyId)  {
+        if (VacancyReminder::where('vacancy_id', $vacancyId)->exists()) {
+                VacancyReminder::where('vacancy_id', $vacancyId)->whereDate('date', '>', Carbon::now()->toDateTimeString())->where('active', 0)->delete();
+        }
+    }
+
+    function deleteDeposit($vacancyId) {
+        return VacancyDeposit::where('vacancy_id', $vacancyId)->delete();
+    }
+
+    function dailyWorkEvent($user_id, $type) {
+        $user = User::where('id', $user_id)->first();
+        $eventType = ($type == 'v') ? 'has_enrollment_vacancy' : 'has_enrollment_register';
+        event(new hrDailyJob($user->hr->id, $eventType));
     }
 }

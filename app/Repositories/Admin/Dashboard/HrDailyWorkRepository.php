@@ -2,33 +2,35 @@
 
 namespace App\Repositories\Admin\Dashboard;
 
-use App\Models\HrHasVacancy;
 use Carbon\Carbon;
+use App\Models\Vacancy;
+use App\Models\hrDailyWork;
+use App\Models\HrHasVacancy;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 
 class HrDailyWorkRepository
 {
     function data() {
         // Retrieve the last uploaded record
-        $lastRecord = HrHasVacancy::orderBy('updated_at', 'desc')
+        $lastRecord = Vacancy::orderBy('created_at', 'desc')
                 ->first();
 
         // Retrieve the next record after the last uploaded record
         $nextRecord = HrHasVacancy::where('is_active', 1)
             ->where('has_vacancy', 0)
-            ->with('hr.user')
             ->first();
-        $user = DB::table('users')->from('users as a')->where('role_id', 2)
-                ->where('is_active', 1)
-                ->join('hrs as b', 'a.id', 'b.user_id')
-                ->leftJoin('vacancies as c', 'b.id', 'c.hr_id')
-                ->whereDate('c.created_at', Carbon::today())
 
-                ->get()->toArray();
-
-
-                dd($lastRecord->hr->user->name_ka, $nextRecord, $user);
-        return [];
+        $dailyWork = hrDailyWork::from('hr_daily_works as a')
+            ->whereDate('a.created_at', Carbon::today())
+            ->when(Auth::user()->role_id !== 1, function ($query) {
+                return $query->where('hr_id', Auth::user()->hr->id);
+            })
+            ->join('hrs as b', 'a.hr_id', '=', 'b.id')
+            ->join('users as c', 'b.user_id', '=', 'c.id')
+            ->select('a.*', 'c.name_ka')
+            ->get()->toArray();
+        return ['lastRecord' => $lastRecord->hr->user->name_ka, 'nextRecord' => $nextRecord->hr->user->name_ka, 'dailyWork' => $dailyWork];
     }
 }

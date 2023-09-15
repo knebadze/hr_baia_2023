@@ -38,7 +38,7 @@
                                             </div>
 
                                             <div class="twm-job-self-bottom">
-                                                <button v-if=" !data.staticVacancy" class="site-button" @click="interest(item)">
+                                                <button v-if=" !data.staticVacancy" class="site-button" @click="interest(vacancy)">
                                                     დაინტერესება
                                                 </button>
                                                 <!-- // @auth()
@@ -459,6 +459,8 @@ export default {
                 }else if(this.auth.role_id == 3){
 
                 }
+                console.log('item', item);
+                // return
                 this.sendInterestAxios(item)
 
             }else{
