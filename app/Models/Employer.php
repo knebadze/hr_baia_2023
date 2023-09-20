@@ -40,4 +40,9 @@ class Employer extends Model
     {
         return $this->belongsTo(numberCode::class, 'number_code_id', 'id');
     }
+
+    public function scopeFilter($query, $filters)
+    {
+        return $filters->apply($query);
+    }
 }

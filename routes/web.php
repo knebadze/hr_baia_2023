@@ -114,11 +114,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
         //______________________ADMIN PAGE_____________________________
         Route::get('/admin', [AdminController::class, 'index'])->name('admin');
         Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-        Route::get('/admin/hr', [HrController::class, 'index'])->name('admin.hr');
-        Route::get('/admin/candidate', [AdminCandidateController::class, 'index'])->name('admin.candidate');
-        Route::get('/admin/employer', [EmployerController::class, 'index'])->name('admin.employer');
 
-        Route::get('/admin/reminder', [ReminderController::class, 'index'])->name('admin.reminder');
     });
 
     //admin Route
@@ -131,14 +127,48 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::get('auth/{provider}/callback', [SocialController::class, 'callback'])->name('auth.social.callback');
 
     //________________________admin page without lang________________
-    Route::get('admin/candidate_update/{id?}', [AdminCandidateController::class, 'edit'])->name('admin.candidate.update');
-    Route::get('admin/add_candidate', [AdminCandidateController::class, 'addCandidate'])->name('admin.add.candidate');
-    Route::get('admin/vacancy_attached/{id?}', [VacancyAttachedController::class, 'index'])->name('admin.vacancy.attached');
-    Route::get('admin/relevant_vacancy/{id?}', [RelevantVacancyController::class, 'index'])->name('admin.relevant.vacancy');
-    Route::get('admin/vacancy', [AdminVacancyController::class, 'index'])->name('admin.vacancy');
-    Route::get('admin/vacancy_deposit/{id?}', [VacancyDepositController::class, 'index'])->name('admin.vacancy.deposit');
-    Route::get('admin/enrollment', [EnrollmentController::class, 'index'])->name('admin.enrollment');
-    Route::get('admin/salary', [SalaryController::class, 'index'])->name('admin.salary');
+    // Define a route group for admin-related routes
+    Route::prefix('admin')->group(function () {
+        Route::get('candidate_update/{id?}', [AdminCandidateController::class, 'edit'])
+            ->name('admin.candidate.update');
+
+        Route::get('add_candidate', [AdminCandidateController::class, 'addCandidate'])
+            ->name('admin.add.candidate');
+
+        Route::get('vacancy_attached/{id?}', [VacancyAttachedController::class, 'index'])
+            ->name('admin.vacancy.attached');
+
+        Route::get('relevant_vacancy/{id?}', [RelevantVacancyController::class, 'index'])
+            ->name('admin.relevant.vacancy');
+
+        Route::get('vacancy', [AdminVacancyController::class, 'index'])
+            ->name('admin.vacancy');
+
+        Route::get('vacancy_deposit/{id?}', [VacancyDepositController::class, 'index'])
+            ->name('admin.vacancy.deposit');
+
+        Route::get('enrollment', [EnrollmentController::class, 'index'])
+            ->name('admin.enrollment');
+
+        Route::get('salary', [SalaryController::class, 'index'])
+            ->name('admin.salary');
+
+        Route::get('employer_vacancy/{id?}', [EmployerController::class, 'attached'])
+            ->name('admin.employer.vacancy');
+
+        Route::get('hr', [HrController::class, 'index'])
+            ->name('admin.hr');
+
+        Route::get('candidate', [AdminCandidateController::class, 'index'])
+            ->name('admin.candidate');
+
+        Route::get('employer', [EmployerController::class, 'index'])
+            ->name('admin.employer');
+
+        Route::get('reminder', [ReminderController::class, 'index'])
+            ->name('admin.reminder');
+    });
+
 
     // _______________________HR PAGE________________________________
 
@@ -162,6 +192,8 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('delete_candidate_recommendation', [CandidateInfoController::class, 'deleteCandidateRecommendation']);
     Route::post('add_candidate_file', [CandidateInfoController::class, 'addCandidateFile']);
     Route::post('register_update', [RegistrationFeeController::class, 'registerUpdate']);
+
+    Route::post('user_candidate_filter', [CandidateController::class, 'filter']);
     // Route::post('remove_old_general_work_experience', [CandidateInfoController::class, 'removeOldWorkExperience']);
 
     Route::post('add_work_information', [WorkInformationController::class, 'store']);
@@ -212,6 +244,10 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('salary_supplement', [SalaryController::class, 'supplement']);
     Route::post('disbursement_of_salary', [SalaryController::class, 'disbursementOfSalary']);
     Route::post('hr_agree_salary', [SalaryController::class, 'hrAgreeSalary']);
+    Route::post('salary_filter', [SalaryController::class, 'filter']);
+
+    Route::post('employer_filter', [EmployerController::class, 'filter']);
+    Route::post('employer_update', [EmployerController::class, 'update']);
 
     // ________________VACANCY REQUEST__________________________________
 

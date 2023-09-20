@@ -18,11 +18,11 @@
     </template>
     <template #item-operation="item">
        <div class="operation-wrapper">
-        <div class="dropdown">
+        <div class="dropdown" >
             <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fa fa-cog"></i>
             </button>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" style="z-index: 10;">
                 <a v-if="item.status.id == 1 || item.status.id == 2|| item.status.id == 6" class="dropdown-item" href="#" @click="changeHr(item)"> გადაწერა</a>
                 <a v-if="item.status.id != 4 && item.status.id != 5" class="dropdown-item" href="#" @click="vacancyUpdateModal(item)">რედაქტირება</a>
                 <a v-if="item.status.id != 4 && item.status.id != 5" class="dropdown-item" href="#" @click="statusChange(item)">სტატუსის შეცვლა</a>
@@ -82,8 +82,8 @@
                                     <dt class="col-sm-4">მართვის მოწმობა:</dt>
                                     <dd class="col-sm-8"><span v-for="(i, index) in item.vacancy_driving_license" :key="index" class="badge badge-primary">{{ i.name+', '}}</span> </dd>
                                 </div>
-                                <div class="row col-12" >
-                                    <div class="row col-12 border-top">
+                                <div class="row col-12" v-if="item.status_id != 1">
+                                    <div class="row col-12 border-top" >
                                         <dt class="col-sm-4">კანდიდატისგან უნდა ჩაირიცხოს:</dt>
                                         <dd class="col-sm-8"> {{ item.deposit.candidate_initial_amount }}</dd>
                                     </div>
@@ -147,7 +147,7 @@
                                     <dt class="col-sm-4">მახასიათებლები:</dt>
                                     <dd class="col-sm-8"><span v-for="(i, index) in item.characteristic" :key="index" >{{ i.name_ka+', ' }}</span> </dd>
                                 </div>
-                                <div class="row col-12" >
+                                <div class="row col-12" v-if="item.status_id != 1">
                                     <div class="row col-12 border-top">
                                         <dt class="col-sm-4 ">დამსაქმებლისგან უნდა ჩაირიცხოს:</dt>
                                         <dd class="col-sm-8"> {{ item.deposit.employer_initial_amount }}</dd>

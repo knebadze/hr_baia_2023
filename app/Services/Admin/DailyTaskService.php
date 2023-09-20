@@ -107,7 +107,7 @@ class DailyTaskService
                 [
                     'vacancy_id' => $vacancy_id,
                     'hr_id' => $hr_id,
-                    'date' =>  $currentDateTime.'10:30:00',
+                    'date' =>  $currentDateTime->hour(10)->minute(0)->second(0),
                     'reason' => 'ვაკანსის დაწების თარღიში მითითებული დღევანდელი თარიღი გადაწიეთ!!! რადგან ვაკანსია ხვალ გაუქმდება, დაწყების თარიღამდე დასაქმებული კანდიდატის არ არსებობის გამო'
                 ]
             );

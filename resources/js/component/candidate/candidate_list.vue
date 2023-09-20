@@ -15,18 +15,22 @@
 
                                     <div class="form-group mb-4 categorySideBar">
                                         <h4 class="section-head-small mb-4">{{ $t('lang.candidate_page_leftside_category') }}</h4>
-                                        <select class="wt-select-bar-large selectpicker"  data-live-search="true" data-bv-field="size">
-                                            <option selected>{{ $t('lang.candidate_page_leftside_category_allcategory') }}</option>
-                                            <option>ძიძა</option>
-                                            <option>დამხმარე</option>
-                                            <option>მზარეული</option>
-                                        </select>
+                                        <multiselect v-model="filterItem.category" :options="data.classificatory.category" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" :label="`name_${getLang}`" :track-by="`name_${getLang}`" :preselect-first="false">
+                                            <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                        </multiselect>
+                                    </div>
+                                    <div class="form-group mb-4 sheduldeSideBar">
+                                        <h4 class="section-head-small mb-4">{{ $t('lang.candidate_page_leftside_shedulde') }}</h4>
+                                        <multiselect v-model="filterItem.work_schedule" :options="data.classificatory.workSchedule" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" :label="`name_${getLang}`" :track-by="`name_${getLang}`" :preselect-first="false">
+                                            <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+                                        </multiselect>
                                     </div>
 
                                     <div class="form-group mb-4 keywordSideBar">
-                                        <h4 class="section-head-small mb-4">{{ $t('lang.candidate_page_leftside_keyword') }}</h4>
+                                        <!-- სათარგმნი -->
+                                        <h4 class="section-head-small mb-4">{{ $t('სახელი გვარი') }}</h4>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" :placeholder="$t('lang.candidate_page_leftside_name_or_keyword') ">
+                                            <input type="text" v-model="filterItem.name" class="form-control" :placeholder="$t('სახელი გვარი') ">
                                             <button class="btn" type="button"><i class="feather-search"></i></button>
                                         </div>
                                     </div>
@@ -34,12 +38,12 @@
                                     <div class="form-group mb-4 locationSideBar">
                                         <h4 class="section-head-small mb-4">{{ $t('lang.candidate_page_leftside_location') }}</h4>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" :placeholder="$t('lang.candidate_page_leftside_search_location') ">
+                                            <input type="text" class="form-control" v-model="filterItem.address" :placeholder="$t('lang.candidate_page_leftside_search_location') ">
                                             <button class="btn" type="button"><i class="feather-map-pin"></i></button>
                                         </div>
                                     </div>
 
-                                    <div class="twm-sidebar-ele-filter jobTypeSideBar">
+                                    <!-- <div class="twm-sidebar-ele-filter jobTypeSideBar">
                                         <h4 class="section-head-small mb-4">{{ $t('lang.candidate_page_leftside_type_of_work') }}</h4>
                                         <ul>
                                             <li>
@@ -91,9 +95,9 @@
                                             </li>
 
                                         </ul>
-                                    </div>
+                                    </div> -->
 
-                                    <div class="twm-sidebar-ele-filter publicationSideBar">
+                                    <!-- <div class="twm-sidebar-ele-filter publicationSideBar">
                                         <h4 class="section-head-small mb-4">{{ $t('lang.candidate_page_leftside_date_of_publication') }}</h4>
                                         <ul>
 
@@ -124,115 +128,43 @@
                                             </li>
 
                                         </ul>
-                                    </div>
+                                    </div> -->
 
                                     <div class="twm-sidebar-ele-filter sallarySideBar">
                                         <h4 class="section-head-small mb-4">{{ $t('lang.candidate_page_leftside_sallary') }}</h4>
                                         <ul>
                                             <li>
                                                 <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" id="Any1">
-                                                    <label class="form-check-label" for="Any1">{{ $t('lang.candidate_page_leftside_sallary_any') }}</label>
+                                                    <input type="radio" value="0" v-model="filterItem.user_filter_payment" class="form-check-input" id="Any1">
+                                                    <label class="form-check-label" for="Any1">{{ $t('lang.individual_vacancies_page_leftside_sallary_any') }}</label>
                                                 </div>
                                             </li>
                                             <li>
                                                 <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" id="Compensation1">
-                                                    <label class="form-check-label" for="Compensation1">{{ $t('lang.candidate_page_leftside_sallary_from_500') }}</label>
+                                                    <input type="radio" value="1" v-model="filterItem.user_filter_payment" class="form-check-input" id="Compensation1">
+                                                    <label class="form-check-label" for="Compensation1">{{ $t('lang.individual_vacancies_page_leftside_sallary_from_500') }}</label>
                                                 </div>
                                             </li>
                                             <li>
                                                 <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" id="Compensation21">
-                                                    <label class="form-check-label" for="Compensation21">{{ $t('lang.candidate_page_leftside_sallary_from_700') }}</label>
-                                                </div>
-                                            </li>
-
-                                            <li>
-                                                <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" id="Compensation31">
-                                                    <label class="form-check-label" for="Compensation31">{{ $t('lang.candidate_page_leftside_sallary_from_900') }}</label>
+                                                    <input type="radio" value="2" v-model="filterItem.user_filter_payment" class="form-check-input" id="Compensation2">
+                                                    <label class="form-check-label" for="Compensation2">{{ $t('lang.individual_vacancies_page_leftside_sallary_from_700') }}</label>
                                                 </div>
                                             </li>
 
                                             <li>
                                                 <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" id="Other11">
-                                                    <label class="form-check-label" for="Other1">{{ $t('lang.candidate_page_leftside_sallary_other') }}</label>
+                                                    <input type="radio" value="3" v-model="filterItem.user_filter_payment" class="form-check-input" id="Compensation3">
+                                                    <label class="form-check-label" for="Compensation3">{{ $t('lang.individual_vacancies_page_leftside_sallary_from_900') }}</label>
                                                 </div>
                                             </li>
 
-                                            <div class="twm-sidebar-ele-filter sheduldeSideBar">
-                                                <h4 class="section-head-small mb-4">{{ $t('lang.candidate_page_leftside_shedulde') }}</h4>
-                                                <ul>
-                                                    <li>
-                                                        <div class="form-check">
-                                                            <input type="checkbox" class="form-check-input" id="AnySchedule1">
-                                                            <label class="form-check-label" for="AnySchedule1">{{ $t('lang.candidate_page_leftside_shedulde_any') }}</label>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="form-check">
-                                                            <input type="checkbox" class="form-check-input" id="DaySchedule1">
-                                                            <label class="form-check-label" for="DaySchedule1">{{ $t('lang.candidate_page_leftside_shedulde_day') }}</label>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="form-check">
-                                                            <input type="checkbox" class="form-check-input" id="Compensation2">
-                                                            <label class="form-check-label" for="Compensation2">{{ $t('lang.candidate_page_leftside_shedulde_night') }}</label>
-                                                        </div>
-                                                    </li>
-
-                                                    <li>
-                                                        <div class="form-check">
-                                                            <input type="checkbox" class="form-check-input" id="Compensation3">
-                                                            <label class="form-check-label" for="Compensation3">{{ $t('lang.candidate_page_leftside_shedulde_daily') }}</label>
-                                                        </div>
-                                                    </li>
-
-                                                    <li>
-                                                        <div class="form-check">
-                                                            <input type="checkbox" class="form-check-input" id="Other1">
-                                                            <label class="form-check-label" for="Other1">{{ $t('lang.candidate_page_leftside_shedulde_other') }}</label>
-                                                        </div>
-                                                    </li>
-
-                                                </ul>
-                                            </div>
-
-                                            <div class="twm-sidebar-ele-filter">
-                                                <h4 class="section-head-small mb-4">{{ $t('lang.candidate_page_leftside_second_location') }}</h4>
-                                                <ul>
-                                                    <li>
-                                                        <div class="form-check">
-                                                            <input type="checkbox" class="form-check-input" id="AnyLocation1">
-                                                            <label class="form-check-label" for="AnyLocation1">{{ $t('lang.candidate_page_leftside_second_location_any') }}</label>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="form-check">
-                                                            <input type="checkbox" class="form-check-input" id="FromLocation1">
-                                                            <label class="form-check-label" for="FromLocation1">{{ $t('lang.candidate_page_leftside_second_location_3km') }}</label>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="form-check">
-                                                            <input type="checkbox" class="form-check-input" id="FromLocation2">
-                                                            <label class="form-check-label" for="FromLocation2">{{ $t('lang.candidate_page_leftside_second_location_5km') }}</label>
-                                                        </div>
-                                                    </li>
-
-                                                    <li>
-                                                        <div class="form-check">
-                                                            <input type="checkbox" class="form-check-input" id="FromLocation3">
-                                                            <label class="form-check-label" for="FromLocation3">{{ $t('lang.candidate_page_leftside_second_location_7km') }}</label>
-                                                        </div>
-                                                    </li>
-
-                                                </ul>
-                                            </div>
-
+                                            <li>
+                                                <div class="form-check">
+                                                    <input type="checkbox" value="4" class="form-check-input" id="Other1">
+                                                    <label class="form-check-label" for="Other1">{{ $t('lang.individual_vacancies_page_leftside_sallary_other') }}</label>
+                                                </div>
+                                            </li>
                                         </ul>
                                     </div>
 
@@ -253,11 +185,12 @@
 
                     <div class="col-lg-8 col-md-12">
                         <!--Filter Short By-->
+                        <!--  წაშალე ენები-->
                         <div class="product-filter-wrap d-flex justify-content-between align-items-center m-b30">
                             <span class="woocommerce-result-count-left">{{ 'ნაჩვენებია ' + count + ' კანდიდატი' }}</span>
 
                             <form class="woocommerce-ordering twm-filter-select" method="get">
-                                <span class="woocommerce-result-count">{{ $t('lang.candidate_page_middle_title_sort') }}</span>
+                                <!-- <span class="woocommerce-result-count">{{ $t('lang.candidate_page_middle_title_sort') }}</span>
                                 <select class="wt-select-bar-2 selectpicker" data-live-search="true" data-bv-field="size">
                                     <option>{{ $t('lang.candidate_page_middle_latest') }}</option>
                                     <option>{{ $t('lang.candidate_page_middle_free_schedule') }}</option>
@@ -265,24 +198,27 @@
                                     <option>{{ $t('lang.candidate_page_middle_intership') }}</option>
                                     <option>{{ $t('lang.candidate_page_middle_half_time') }}</option>
                                     <option>{{ $t('lang.candidate_page_middle_temporary') }}</option>
-                                </select>
-                                <select class="wt-select-bar-2 selectpicker" data-live-search="true" data-bv-field="size">
+                                </select> -->
+
+                                <!-- აქ ენები წააშალე სელეცტი კომენტარში დატოვე -->
+
+                                <!-- <select class="wt-select-bar-2 selectpicker" data-live-search="true" data-bv-field="size">
                                     <option>{{ $t('lang.candidate_page_middle_show_me_10') }}</option>
                                     <option>{{ $t('lang.candidate_page_middle_show_me_20') }}</option>
                                     <option>{{ $t('lang.candidate_page_middle_show_me_30') }}</option>
                                     <option>{{ $t('lang.candidate_page_middle_show_me_40') }}</option>
                                     <option>{{ $t('lang.candidate_page_middle_show_me_50') }}</option>
                                     <option>{{ $t('lang.candidate_page_middle_show_me_60') }}</option>
-                                </select>
+                                </select> -->
                             </form>
-                            <p style="color: red;"> ამის lang რო წაშლი ჩამიკოპირე</p>
+                            <!-- <p style="color: red;"> ამის lang რო წაშლი ჩამიკოპირე</p> -->
 
                         </div>
 
                     <div class="twm-candidates-grid-wrap" >
                         <div class="row">
 
-                            <div class="col-lg-6 col-md-6" v-for="(item, index) in data.candidate" :key="index">
+                            <div class="col-lg-6 col-md-6" v-for="(item, index) in candidate" :key="index">
                                  <div class="twm-candidates-grid-style1 mb-5" style="background-color: #fdfff5;">
                                      <div class="twm-media" >
                                          <div class="twm-media-pic">
@@ -319,15 +255,18 @@
 
                     <div class="pagination-outer">
                         <div class="pagination-style1">
-                            <ul class="clearfix">
-                                <li class="prev"><a href="javascript:;"><span> <i class="fa fa-angle-left"></i> </span></a></li>
-                                <li><a href="javascript:;">1</a></li>
-                                <li class="active"><a href="javascript:;">2</a></li>
-                                <li><a href="javascript:;">3</a></li>
-                                <li><a class="javascript:;" href="javascript:;"><i class="fa fa-ellipsis-h"></i></a></li>
-                                <li><a href="javascript:;">5</a></li>
-                                <li class="next"><a href="javascript:;"><span> <i class="fa fa-angle-right"></i> </span></a></li>
-                            </ul>
+                            <paginate
+                                v-model="pagination.current_page"
+                                :page-count="pagination.last_page"
+                                :page-range="3"
+                                :margin-pages="2"
+                                :click-handler="getData"
+                                :prev-text="'<<'"
+                                :next-text="'>>'"
+                                :container-class="'pagination'"
+                                :page-class="'page-item'"
+                                >
+                        </paginate>
                         </div>
                     </div>
 
@@ -339,22 +278,29 @@
     <!-- OUR BLOG END -->
 </template>
 <script>
+import Paginate from 'vuejs-paginate-next';
 import moment from 'moment'
 export default {
+    components:{
+        paginate: Paginate,
+    },
     props:{
-        data: Object
+        data: Object,
     },
     data() {
         return {
-            candidate: []
+            candidate: [],
+            staticItems: [],
+            filterItem:{},
+            getDataType: 'first_data',
+            pagination:{
+                current_page: 1,
+                last_page: 2,
+            },
         }
     },
     created(){
-        this.candidate = this.data.candidate
-        for (let i = 0; i < this.candidate.length; i++) {
-            // Access the element to update in each object
-            this.candidate[i].created_at = moment(this.candidate[i].created_at).format("YYYY-MM-DD");
-        }
+        this.getData()
     },
     computed:{
         getLang(){
@@ -369,10 +315,67 @@ export default {
         }
     },
     methods: {
+        getData(){
+            if (this.getDataType == 'first_data') {
+                this.firstData()
+            } else if (this.getDataType == 'filter') {
+                this.filter(this.filterItem)
+            }
+        },
+        firstData(){
+
+            this.pagination = {
+                'current_page': this.data.candidate.current_page,
+                'last_page': this.data.candidate.last_page
+            };
+            this.candidate = this.data.candidate.data;
+            for (let i = 0; i < this.candidate.length; i++) {
+                // Access the element to update in each object
+                this.candidate[i].created_at = moment(this.candidate[i].created_at).format("YYYY-MM-DD");
+            }
+
+            this.staticItems = this.data.candidate.data;
+            this.auth = this.data.auth;
+        },
+        filter(newVal){
+            let currentObj = this;
+            axios({
+                    method: "post",
+                    url: '/user_candidate_filter?page=' + this.pagination.current_page,
+                    data: newVal,
+
+                })
+                .then(function (response) {
+                    console.log('response.data',response.data);
+                    currentObj.pagination = {
+                            'current_page':response.data.data.current_page,
+                            'last_page': response.data.data.last_page
+                        }
+                        currentObj.candidate = response.data.data
+
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                })
+        },
 
     },
     mounted() {
         console.log('data', this.data);
+    },
+    watch:{
+        filterItem: {
+            handler(newValue, oldValue) {
+                // this.menageFilterItem()
+                var newVal = this.filterItem
+                this.getDataType = 'filter'
+
+                this.filter(newVal)
+                // this.filterCount ++
+            },
+            deep: true
+        }
     },
 
 }

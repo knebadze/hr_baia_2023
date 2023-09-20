@@ -13,9 +13,9 @@
                     <i class="fa fa-cog"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item"  :href="updateUrl+'/'+item.id">რედაქტირება</a>
+                    <a class="dropdown-item" href="#"  @click="openUpdateModal(item)">რედაქტირება</a>
                     <a class="dropdown-item" :href="attachedUrl+'/'+item.id">მიბმული ვაკანსიები</a>
-                    <a class="dropdown-item" href="#" @click="openSendMessageModal(item)">სმს</a>
+                    <a v-if="item.number_code_id == 79" class="dropdown-item" href="#" @click="openSendMessageModal(item)">სმს</a>
                     <a class="dropdown-item" href="#" @click="blackListModal(item.id)">შავ სიაში დამატება</a>
                     <a v-if="role_id == 1" class="dropdown-item" href="#" @click="candidateDelete(item.id)"> წაშლა</a>
 
@@ -24,13 +24,12 @@
           </div>
         </template>
         </EasyDataTable>
-        <!-- {{ statusChangeModal }} -->
-        <!-- <infoModal :visible="showInfoModal" :type="modalType" :items="item"></infoModal>
-        <add_in_vacancy :visible="showAddInVacancyModal" :item="item"></add_in_vacancy>
-        <add_black_list :visible="showBlackListModal" :item="item"></add_black_list>
-        <send_message_modal :visible="showSendMessageModal" :item="item"></send_message_modal> -->
+
+        <component  :is="updateComponent" v-if="updateComponent" :visible="showUpdateModal" :item="item"></component>
+        <component  :is="blackListComponent" v-if="blackListComponent" :visible="showBlackListModal" :item="item" :type="'employer'"></component>
+        <component  :is="sendMessageComponent" v-if="sendMessageComponent" :visible="showSendMessageModal" :item="item"></component>
     </div>
-    </template>showSendMessageModal
+    </template>
     <script>
     import { ref, computed } from "vue";
     import moment from 'moment'
@@ -38,11 +37,7 @@
     import "@vueform/slider/themes/default.css";
     // import Switch from '../../inc/Switch.vue';
     import _ from 'lodash'
-    // import infoModal from '../modal/info_modal.vue'
-    // import add_in_vacancy from "../modal/add_in_vacancy.vue";
-    // import add_black_list from '../modal/add_black_list.vue'
-    // import send_message_modal from '../modal/Send_message_modal.vue'
-
+    import { markRaw } from 'vue';
     export default {
         components: {
             Slider,
@@ -60,18 +55,18 @@
             let url = new URL( location.href)
             const itemsSelected = ref([]);
             let updateUrl = ref(url.origin+'/admin/candidate_update')
-            let attachedUrl = ref(url.origin+'/admin/vacancy_attached')
+            let attachedUrl = ref(url.origin+'/admin/employer_vacancy')
             let relevantUrl = ref(url.origin+'/admin/relevant_vacancy')
-
-            var showInfoModal = ref(false)
+            var showUpdateModal = ref(false)
             var showAddInVacancyModal = ref(false)
             let showBlackListModal = ref(false);
             let showSendMessageModal = ref(false)
             var updateModal = ref(false)
             var item = ref()
             let modalType = ref('')
-            let cla = ref(null);
-
+            let updateComponent = ref(null);
+            let blackListComponent = ref(null);
+            let sendMessageComponent = ref(null);
 
 
             console.log('data.props',props.data);
@@ -119,10 +114,13 @@
                 itemsSelected,
 
 
-                showInfoModal,
-                showAddInVacancyModal,
+                showUpdateModal,
+                updateComponent,
                 showBlackListModal,
+                blackListComponent,
+                showAddInVacancyModal,
                 showSendMessageModal,
+                sendMessageComponent,
                 updateModal,
                 item,
                 modalType,
@@ -130,35 +128,44 @@
                 attachedUrl,
                 relevantUrl,
 
-                cla,
                 find
 
                 // statusChange
             };
         },
         methods:{
-            // openInfoModal(type, item){
-            //     this.modalType = type
-            //     this.item = item
-            //     this.showInfoModal = !this.showInfoModal
-            // },
+            async openUpdateModal(item){
+                this.item = item
+                if (!this.updateComponent) {
+                    let module = await import('../modal/update_modal.vue');
+                    this.updateComponent = markRaw(module.default);
+                }
+                this.showUpdateModal = !this.showUpdateModal
+            },
             // addInVacancy(item){
             //     this.showAddInVacancyModal = !this.showAddInVacancyModal
             //     this.item = {'id':item.id}
             // },
-            // blackListModal(id){
-            //     this.showBlackListModal = !this.showBlackListModal
-            //     this.item = {
-            //         'id': id,
-            //         'type': 'candidate'
-            //     }
-            // },
-            // openSendMessageModal(item){
-            //     console.log('item', item);
-            //     // return
-            //     this.showSendMessageModal = !this.showSendMessageModal
-            //     this.item = {'id': item.id, 'number': item.user.number}
-            // },
+            async blackListModal(id){
+                if (!this.blackListComponent) {
+                    let module = await import('../../candidate/modal/add_black_list.vue');
+                    this.blackListComponent = markRaw(module.default);
+                }
+                this.showBlackListModal = !this.showBlackListModal
+                this.item = {
+                    'id': id
+                }
+            },
+            async openSendMessageModal(item){
+                console.log('item', item);
+                // return
+                if (!this.sendMessageComponent) {
+                    let module = await import('../../candidate/modal/send_message_modal.vue');
+                    this.sendMessageComponent = markRaw(module.default);
+                }
+                this.showSendMessageModal = !this.showSendMessageModal
+                this.item = {'id': item.id, 'number': item.number}
+            },
             // candidateDelete(id){
             //     let currentObj = this
             //     this.$swal({

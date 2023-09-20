@@ -11,7 +11,7 @@
         <div class="col-md-6 d-flex justify-content-end">
             <ul class="nav nav-pills ml-auto p-2">
                 <li class="nav-item"><a class="nav-link active" href="#tab_1" data-toggle="tab">მიმდინარე თვის</a></li>
-                <li class="nav-item"><a class="nav-link" href="#tab_2" data-toggle="tab">ძველი დარიცხვები</a></li>
+                <li class="nav-item"><a class="nav-link" href="#tab_2" data-toggle="tab">ძველი ხელფასები</a></li>
             </ul>
         </div>
       </div><!-- /.row -->
@@ -30,7 +30,7 @@
                         <monthly-salary-page :data='@json($data['current'])' :role_id='@json($role_id)'></monthly-salary-page>
                     </div>
                     <div class="tab-pane" id="tab_2">
-                        {{-- <must-be-enrolled-page :data='@json($data['mustBeEnrolled'])' :role_id='@json($role_id)'></must-be-enrolled-page> --}}
+                        <old-salary-page :data='@json($data['old'])' :role_id='@json($role_id)' :hr='@json($hr)'></old-salary-page>
                     </div>
                 </div>
 

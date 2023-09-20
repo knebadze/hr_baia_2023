@@ -34,7 +34,7 @@ class EndWorkService
         $currentDate = Carbon::now();
         $find = QualifyingCandidate::findOrFail($data['id']);
 
-        
+
         $findVacancy = Vacancy::where('id', $find->vacancy_id)->with('status')->first()->toArray();
         if (Auth::user()->role_id == 2 && $findVacancy['hr_id'] != Auth::user()->hr->id) {
             return ['type' => 'e', 'message' => 'თქვენ არ გაქვთ უფლება ამ ვაკანსიაზე შეაწყვეტინოთ მუშაობა კანდიდატს'];
@@ -42,7 +42,7 @@ class EndWorkService
         $redacted = [];
         if ($data['reason']['id'] == 15) {
             QualifyingCandidate::where('id', $data['id'])->update(['success'=> 1, 'end_date' => $currentDate->copy()->subDay(1)->toDateString()]);
-            Vacancy::where('id', $find->vacancy_id)->update(['status_id', 13]);
+            Vacancy::where('id', $find->vacancy_id)->update(['status_id' => 13]);
             $redacted['status'] = $findVacancy['status'];
             $this->vacancyRedactedRepository->save($findVacancy['id'], $redacted);
         }else{

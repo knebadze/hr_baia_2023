@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use Exception;
+use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Salary;
 use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\TryCatch;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Filters\Salary\SalaryFilters;
 use App\Services\Admin\SalaryService;
 
 class SalaryController extends Controller
@@ -20,7 +23,8 @@ class SalaryController extends Controller
     function index() {
         $data = $this->salaryService->data();
         $role_id = Auth::user()->role_id;
-        return view('admin.salary', compact('data', 'role_id'));
+        $hr = User::where('role_id', 2)->whereNot('is_active', 2)->get();
+        return view('admin.salary', compact('data', 'role_id', 'hr'));
     }
 
     function supplement(Request $request) {
@@ -70,5 +74,16 @@ class SalaryController extends Controller
         }
 
         return response()->json($result, $result['status']);
+    }
+
+    function filter(SalaryFilters $filters) {
+        $threeMonthsAgo = Carbon::now()->subMonths(3);
+        return Salary::filter($filters)
+            ->when(Auth::user()->role_id !== 1, function ($query) {
+                return $query->where('hr_id', Auth::user()->hr->id);
+            })
+            ->orderBy('created_at', 'ASC')
+            ->With('hr.user')
+            ->get()->toArray();
     }
 }

@@ -225,7 +225,7 @@
                                     <!-- <a href="https://themeforest.net/user/thewebmax/portfolio" class="twm-job-websites site-text-primary">https://thewebmax.com</a> -->
                                 </div>
                                 <div class="twm-right-content">
-                                    <div class="twm-jobs-category green"><span class="twm-bg-green">{{ item.category[`name_${getLang}`] }}</span></div>
+                                    <div class="twm-jobs-category green"><span class="twm-bg-green">{{ item.category[`name_${getLang}`] }} </span></div>
                                     <div class="twm-jobs-amount">{{ item.currency.icon }} {{ item.payment }}</div>
                                     <div class="twm-jobs-amount">{{ item.hr.user.number }} <span>/ {{ item.hr.user[`name_${getLang}`] }}</span></div>
                                     <span v-if="auth && item.vacancy_interest.some( (o) => o.candidate_id == auth.candidate.id ) " style="font-size:20px;">
@@ -330,7 +330,7 @@ export default {
             }
         },
 
-        async firstData(){
+        firstData(){
 
             this.pagination = {
                     'current_page': this.data.vacancy.current_page,

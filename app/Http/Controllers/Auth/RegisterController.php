@@ -117,7 +117,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'lang' => $lang,
         ]);
-
+        // return view('user.userProfile' );
         return $user;
     }
 }

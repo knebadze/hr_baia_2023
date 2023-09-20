@@ -49,8 +49,16 @@ class WelcomeService
             ->orderByDesc('vacancy_count') // Order by vacancy count in descending order
             ->take(3) // Limit to the top 3 categories
             ->get();
-        // dd($popularCategories);
+
         $result['popularCategories'] = $popularCategories;
+
+        $popularVacancy = Vacancy::whereIn('status_id', [2, 6, 7])
+                ->orderBy('view', 'DESC')
+                ->with(['author','currency', 'category', 'workSchedule', 'vacancyForWhoNeed', 'vacancyBenefit', 'vacancyInterest', 'hr.user'])
+                ->take(5)
+                ->get()->toArray();
+
+        $result['popularVacancy'] = $popularVacancy;
 
         $classificatory = [
             'category' => Category::all(),

@@ -17,7 +17,7 @@
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-12">
                         <div class="form-group">
-                            <label>შეწყვეტის მიზეზი</label>
+                            <label>დამატებითი ნომერი</label>
                             <div class="ls-inputicon-box">
                                 <select class="form-control" id="exampleFormControlSelect1" v-model="m.additional_number" @input="choseEvent()">
                                     <option value="">არცერთი</option>
@@ -137,8 +137,11 @@
 
         },
         watch:{
-            visible: function(){
-                this.show()
+            visible: {
+                immediate: true,
+                handler(newVal) {
+                    this.show()
+                },
             },
             'm.additional_number': function(newVal, oldVal){
                 console.log("newVal", newVal);

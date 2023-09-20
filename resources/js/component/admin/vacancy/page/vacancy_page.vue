@@ -305,10 +305,10 @@
     <!-- /.container-fluid -->
     <!-- {{ (Object.keys(items).length > 0)?items[0].id:'' }} -->
     <div v-if="roleId == 1">
-        <adminVacancyTable v-if="Object.keys(items).length > 0"  :data="items" :key="items.length" ></adminVacancyTable>
+        <adminVacancyTable v-if="Object.keys(items).length > 0"  :data="items" :key="tableKey" ></adminVacancyTable>
     </div>
     <div v-else>
-        <hrVacancyTable v-if="Object.keys(items).length > 0"  :data="items" :hrId="hrId"  :key="items[0].id"></hrVacancyTable>
+        <hrVacancyTable v-if="Object.keys(items).length > 0"  :data="items" :hrId="hrId"  :key="tableKey"></hrVacancyTable>
     </div>
 
     <div class="mt-2">
@@ -362,6 +362,7 @@ export default {
             roleId: null,
             hrId:null,
             // randomNumber: 0
+            tableKey: 0,
         }
     },
     computed:{
@@ -427,6 +428,7 @@ export default {
                     'last_page': response.data.last_page
                 }
                 currentObj.items = response.data.data
+                currentObj.tableKey++
                 // console.log('this.items', currentObj.items);
 
 

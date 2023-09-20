@@ -57,7 +57,7 @@ class AdminCandidateController extends Controller
                     'maritalStatus',
                     'drivingLicense',
                     'status'
-                ])->paginate(50)->toArray();
+                ])->paginate(25)->toArray();
 
                 $candidateClassificatoryArr = [
                     'gender', 'nationality', 'religions','educations', 'maritalStatus', 'citizenship', 'professions',
@@ -102,7 +102,7 @@ class AdminCandidateController extends Controller
                 'maritalStatus',
                 'drivingLicense',
                 'status'
-            ])->paginate(50)->toArray();
+            ])->paginate(25)->toArray();
     }
 
     public function workInfoData(Request $request)

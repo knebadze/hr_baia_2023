@@ -55,6 +55,7 @@ const importComponents = async () => {
       hrTable,
       dailyReminder,
       dailyWork,
+      popularVacancy,
 
       candidatePage,
       candidateUpdate,
@@ -64,11 +65,13 @@ const importComponents = async () => {
       vacancyDeposit,
       vacancyAttached,
       relevantVacancy,
+      adminVacancyTable,
       employerPage,
 
       enrolledPage,
       mustBeEnrolledPage,
       monthlySalaryPage,
+      oldSalaryPage,
 
       busyCandidate,
       categoryCarousel
@@ -100,6 +103,8 @@ const importComponents = async () => {
       import('./component/admin/hr/hr_table.vue'),
       import('./component/admin/dashboard/dailyReminder.vue'),
       import('./component/admin/dashboard/hr_daily_work.vue'),
+      import('./component/admin/dashboard/popular_vacancy.vue'),
+
       import('./component/admin/candidate/page/candidate_page.vue'),
       import('./component/admin/candidate/page/candidate_update_page.vue'),
       import('./component/admin/candidate/page/add_candidate.vue'),
@@ -108,10 +113,12 @@ const importComponents = async () => {
       import('./component/admin/vacancy/page/vacancy_deposit.vue'),
       import('./component/admin/candidate/page/vacancy_attached.vue'),
       import('./component/admin/candidate/page/relevant_vacancy.vue'),
+      import('./component/admin/vacancy/component/admin_vacancy_table.vue'),
       import('./component/admin/employer/page/employer_page.vue'),
       import('./component/admin/enrollment/page/enrolled_page.vue'),
       import('./component/admin/enrollment/page/must_be_enrolled_page.vue'),
       import('./component/admin/salary/page/monthly_salary_page.vue'),
+      import('./component/admin/salary/page/old_salary_page.vue'),
 
       import('./component/page/busy_candidate.vue'),
 
@@ -155,6 +162,7 @@ const importComponents = async () => {
     // dashboard
     app.component('daily-reminder',dailyReminder.default)
     app.component('daily-work',dailyWork.default)
+    app.component('popular-vacancy',popularVacancy.default)
     // page
     app.component('candidate-page', candidatePage.default)
     app.component('candidate-update', candidateUpdate.default)
@@ -164,12 +172,14 @@ const importComponents = async () => {
     app.component('vacancy-deposit', vacancyDeposit.default)
     app.component('vacancy-attached', vacancyAttached.default)
     app.component('relevant-vacancy', relevantVacancy.default)
+    app.component('admin-vacancy-table', adminVacancyTable.default)
 
     app.component('employer-page', employerPage.default)
 
     app.component('enrolled-page', enrolledPage.default)
     app.component('must-be-enrolled-page', mustBeEnrolledPage.default)
     app.component('monthly-salary-page', monthlySalaryPage.default)
+    app.component('old-salary-page', oldSalaryPage.default)
 
 
     // __________________PAGE_____________

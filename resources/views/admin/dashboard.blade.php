@@ -27,14 +27,14 @@
           <!-- small box -->
           <div class="small-box bg-info">
             <div class="inner">
-              <h3>150</h3>
+              <h3>{{ $data['infoBox']['vacancyCount'] }}</h3>
 
               <p>ვაკანსიები</p>
             </div>
             <div class="icon">
               <i class="ion ion-bag"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{ route('admin.vacancy') }}" class="small-box-footer">სრულად <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -42,14 +42,14 @@
           <!-- small box -->
           <div class="small-box bg-success">
             <div class="inner">
-                <h3>65</h3>
+                <h3>{{ $data['infoBox']['candidateCount'] }}</h3>
 
               <p>კანდიდატები</p>
             </div>
             <div class="icon">
               <i class="ion ion-person-add"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{ route('admin.candidate') }}" class="small-box-footer">სრულად <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -57,14 +57,14 @@
           <!-- small box -->
           <div class="small-box bg-warning">
             <div class="inner">
-              <h3>44</h3>
+              <h3>{{ $data['infoBox']['enRollmentCount'] }}</h3>
 
               <p>ჩარიცხვები</p>
             </div>
             <div class="icon">
               <i class="ion ion-card"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{ route('admin.enrollment') }}" class="small-box-footer">სრულად <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -72,7 +72,7 @@
           <!-- small box -->
           <div class="small-box bg-danger">
             <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
+                <h3>{{ $data['infoBox']['success'] }}<sup style="font-size: 20px">%</sup></h3>
 
 
               <p>დაკავებული %</p>
@@ -80,7 +80,7 @@
             <div class="icon">
               <i class="ion ion-pie-graph"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="#" class="small-box-footer">სრულად <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -89,10 +89,10 @@
       <!-- Main row -->
         <div class="row">
             <section class="col-lg-12 connectedSortable">
-                <daily-reminder :data='@json($dailyReminder)' :role_id='@json($role_id)'></daily-reminder>
+                <daily-reminder :data='@json($data['dailyReminder'])' :role_id='@json($role_id)'></daily-reminder>
             </section>
             <section class="col-lg-12 connectedSortable">
-                <daily-work :data='@json($hrDailyWork)' :role_id='@json($role_id)'></daily-work>
+                <daily-work :data='@json($data["hrDailyWork"])' :role_id='@json($role_id)'></daily-work>
             </section>
         </div>
       <!-- /.row (main row) -->

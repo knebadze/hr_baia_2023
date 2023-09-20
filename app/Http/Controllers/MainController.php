@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\WelcomeService;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Services\WelcomeService;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 
 class MainController extends Controller
 {
@@ -17,7 +19,8 @@ class MainController extends Controller
     {
         // dd(app()->getLocale());
         $data = $this->welcomeService->data();
-        return view ('welcome', compact('data'));
+        $auth = User::where('id', Auth::id())->with('candidate')->first();
+        return view ('welcome', compact('data', 'auth'));
     }
 
 }

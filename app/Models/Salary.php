@@ -23,4 +23,9 @@ class Salary extends Model
     {
         return $this->hasOne(Hr::class, 'id', 'hr_id');
     }
+
+    public function scopeFilter($query, $filters)
+    {
+        return $filters->apply($query);
+    }
 }

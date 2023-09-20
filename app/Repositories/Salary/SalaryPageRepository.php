@@ -26,6 +26,18 @@ class SalaryPageRepository
             ->get()->toArray();
         // dd($data);
         $data['current']['info'] = $this->info();
+
+        $threeMonthsAgo = Carbon::now()->subMonths(3);
+        $data['old']['data'] = Salary::when(Auth::user()->role_id !== 1, function ($query) {
+                return $query->where('hr_id', Auth::user()->hr->id);
+            })
+            ->whereDate('disbursement_date', '>=', $threeMonthsAgo)
+            ->whereDate('disbursement_date', '<', Carbon::now()->startOfMonth())
+            ->orderBy('created_at', 'DESC')
+            ->With('hr.user')
+            ->get()->toArray();
+        $data['old']['info'] = $this->oldInfo($data['old']['data']);
+            // dd($data);
         return $data;
     }
 
@@ -44,6 +56,18 @@ class SalaryPageRepository
         // dd(Carbon::parse($salary->created_at)->startOfDay()->toDateTimeString());
         $enrollment_total = Enrollment::where('agree', 1)
             ->whereDate('created_at', '>=', Carbon::parse($salary->created_at)->startOfDay()->toDateTimeString())
+            ->sum('money');
+
+        return ['enrollment_total' => $enrollment_total];
+    }
+
+    function oldInfo($data) {
+        $firstElement = collect($data)->first();
+        $lastElement = collect($data)->last();
+        // dd($lastElement['created_at'], $firstElement['created_at']);
+        $enrollment_total = Enrollment::where('agree', 1)
+            ->whereDate('created_at', '>=', Carbon::parse($lastElement['created_at'])->startOfDay()->toDateTimeString())
+            ->whereDate('created_at', '<=', Carbon::parse($firstElement['created_at'])->startOfDay()->toDateTimeString())
             ->sum('money');
 
         return ['enrollment_total' => $enrollment_total];

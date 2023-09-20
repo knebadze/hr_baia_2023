@@ -263,10 +263,10 @@ export default {
             return today;
         },
         total_money(){
-            return  _.sumBy(this.items, item => (item.agree == 1 ? item.money : 0));
+            return  _.sumBy(this.items, item => (item.agree == 1 ? item.money : 0)).toFixed(2);
         },
         total_hr_bonus(){
-            return  _.sumBy(this.items, item => (item.agree == 1 ? item.hr_bonus : 0));
+            return  _.sumBy(this.items, item => (item.agree == 1 ? item.hr_bonus : 0)).toFixed(2);
         },
         agree_count(){
             return _.countBy(this.items, 'agree')[1] || 0;

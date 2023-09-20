@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Language_level;
 use App\Models\WorkInformation;
 use App\Services\ClassificatoryService;
+use App\Filters\Candidate\CandidateFilters;
 
 class CandidateController extends Controller
 {
@@ -24,14 +25,16 @@ class CandidateController extends Controller
         $candidate = Candidate::orderBy('id', 'DESC')
             ->whereNotIn('status_id', [8, 12])
             ->with(['user', 'workInformation'])
-            ->get()->toArray();
+            ->paginate(25)->toArray();
+            $classificatoryArr = ['category', 'workSchedule'];
+            $classificatory = $this->classificatoryService->get($classificatoryArr);
         // foreach ($candidate as $key => $value) {
         //     $ids[] = $value['id'];
         // }
         // $workInformation = WorkInformation::whereIn('candidate_id', $ids)->with(['category', 'currency', 'workSchedule'])->get()->toArray();
         $data = [
             'candidate' => $candidate,
-            // 'workInformation' => $workInformation
+            'classificatory' => $classificatory
         ];
         return view ('candidate', compact('data'));
     }
@@ -91,6 +94,13 @@ class CandidateController extends Controller
                 'candidate' => $candidate,
             ];
             return view ('candidate_search', compact('data'));
+    }
+
+    function filter(CandidateFilters $filters) {
+        return Candidate::filter($filters)->orderBy('id', 'DESC')
+            ->whereNotIn('status_id', [8, 12])
+            ->with(['user', 'workInformation'])
+            ->paginate(25)->toArray();
     }
 
     public function edit($id)

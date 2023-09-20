@@ -165,10 +165,10 @@ class CandidateInfoController extends Controller
         return response()->json($result, $result['status']);
     }
 
-    
+
     // function StatusUpdate(Request $request)  {
     //     dd($request->id);
-    //     Candidate::where('id', $request->id)->update(['status_id', 9]);
+    //     Candidate::where('id', $request->id)->update(['status_id'=> 9]);
     //     if (QualifyingCandidate::where('candidate_id', $request->id)->whereDate('end_date', '>', Carbon::today())->where('qualifying_type_id', 7)->exists()) {
     //         $qualifying = QualifyingCandidate::where('candidate_id', $request->id)->whereDate('end_date', '>', Carbon::today()->where('qualifying_type_id', 7))->get();
     //         $ids = collect($qualifying)->pluck('id')->toArray();

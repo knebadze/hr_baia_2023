@@ -55,14 +55,14 @@
                         <div class="header-nav-btn-section">
                         @guest
                             <div class="twm-nav-btn-left">
-                                <a class="twm-nav-sign-up" data-bs-toggle="modal" href="#sign_up_popup" role="button">
+                                <a class="twm-nav-sign-up"  href="{{ route('register', App()->getLocale()) }}" role="button">
                                     <i class="feather-user-plus"></i>
                                     {{ __('lang.menu_registration') }}
                                 </a>
                             </div>
 
                             <div class="twm-nav-btn-right">
-                                <a href="#sign_up_popup2" class="twm-nav-post-a-job" data-bs-toggle="modal">
+                                <a href="{{ route('login', App()->getLocale()) }}" class="twm-nav-post-a-job" >
                                     <i class="feather-log-in"></i>
                                     {{ __('lang.menu_log_in') }}
                                 </a>

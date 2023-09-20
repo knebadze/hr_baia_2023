@@ -25,14 +25,15 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/font-awesome.min.css') }}"><!-- FONTAWESOME STYLE SHEET -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/feather.css') }}"><!-- FEATHER ICON SHEET -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/owl.carousel.min.css') }}"><!-- OWL CAROUSEL STYLE SHEET -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/magnific-popup.min.css') }}"><!-- MAGNIFIC POPUP STYLE SHEET -->
+    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/carousel.css') }}"><!-- OWL CAROUSEL STYLE SHEET --> --}}
+    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/magnific-popup.min.css') }}"><!-- MAGNIFIC POPUP STYLE SHEET --> --}}
     <link rel="stylesheet" type="text/css" href="{{ asset('css/lc_lightbox.css') }}"><!-- Lc light box popup -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-select.min.css') }}"><!-- BOOTSTRAP SLECT BOX STYLE SHEET  -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/dataTables.bootstrap5.min.css') }}"><!-- DATA table STYLE SHEET  -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/select.bootstrap5.min.css') }}"><!-- DASHBOARD select bootstrap  STYLE SHEET  -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/dropzone.css') }}"><!-- DROPZONE STYLE SHEET -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/scrollbar.css') }}"><!-- CUSTOM SCROLL BAR STYLE SHEET -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/datepicker.css') }}"><!-- DATEPICKER STYLE SHEET -->
+    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-select.min.css') }}"><!-- BOOTSTRAP SLECT BOX STYLE SHEET  --> --}}
+    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/dataTables.bootstrap5.min.css') }}"><!-- DATA table STYLE SHEET  --> --}}
+    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/select.bootstrap5.min.css') }}"><!-- DASHBOARD select bootstrap  STYLE SHEET  --> --}}
+    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/dropzone.css') }}"><!-- DROPZONE STYLE SHEET --> --}}
+    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/scrollbar.css') }}"><!-- CUSTOM SCROLL BAR STYLE SHEET --> --}}
+    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/datepicker.css') }}"><!-- DATEPICKER STYLE SHEET --> --}}
     <link rel="stylesheet" type="text/css" href="{{ asset('css/flaticon.css') }}"> <!-- Flaticon -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}"><!-- MAIN STYLE SHEET -->
     <script  src="{{ asset('js/jquery-3.6.0.min.js') }}"></script><!-- JQUERY.MIN JS -->
@@ -86,10 +87,11 @@
     </div> --}}
     <!-- LOADING AREA  END ====== -->
 
-    <div class="page-wraper" id="app">
+    <div class="page-wraper" >
         @include('inc.header')
-
-        @yield('content')
+        <div id="app">
+            @yield('content')
+        </div>
 
         @include('inc.footer')
 
@@ -215,18 +217,18 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    <div class="col-lg-5" >
-                                                        <p>{{ __('lang.modal_registration_gender') }}</p>
-                                                            <div class="form-check form-check-inline">
-                                                                <input type="radio" name="gender_id" value="1" class="form-check-input" id="exampleradio1">
-                                                                <label class="form-check-label" for="exampleradio1">{{ __('lang.modal_registration_gender_male') }}</label>
-                                                            </div>
-                                                            <div class="form-check form-check-inline">
-                                                                <input type="radio" name="gender_id" value="2" class="form-check-input" id="exampleradio2">
-                                                                <label class="form-check-label" for="exampleradio2">{{ __('lang.modal_registration_gender_female') }}</label>
-                                                            </div>
+                                                        <div class="col-lg-5" >
+                                                            <p>{{ __('lang.modal_registration_gender') }}</p>
+                                                                <div class="form-check form-check-inline">
+                                                                    <input type="radio" name="gender_id" value="1" class="form-check-input" id="exampleradio1">
+                                                                    <label class="form-check-label" for="exampleradio1">{{ __('lang.modal_registration_gender_male') }}</label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline">
+                                                                    <input type="radio" name="gender_id" value="2" class="form-check-input" id="exampleradio2">
+                                                                    <label class="form-check-label" for="exampleradio2">{{ __('lang.modal_registration_gender_female') }}</label>
+                                                                </div>
 
-                                                    </div>
+                                                        </div>
 
                                                     </div>
                                                     <div class="col-lg-12">
@@ -262,8 +264,20 @@
                             <div class="modal-footer">
                                 <span class="modal-f-title">{{ __('lang.modal_registration_with') }}</span>
                                 <ul class="twm-modal-social">
-                                    <li><a href="{{ route('auth.social.redirect', 'facebook') }}" class="facebook-clr"><i class="fab fa-facebook-f"></i></a></li>
-                                    <li><a href="{{ route('auth.social.redirect', 'google') }}" class="google-clr"><i class="fab fa-google"></i></a></li>
+                                    <li>
+                                        <form action="{{ route('auth.social.redirect', 'facebook') }}" method="GET">
+                                            @csrf
+                                            <button type="submit" class="facebook-clr"><i class="fab fa-facebook-f"></i></button>
+                                        </form>
+                                    </li>
+
+                                    <li>
+                                        <form action="{{ route('auth.social.redirect', 'google') }}" method="GET">
+                                            @csrf
+                                            <button type="submit" class="google-clr"><i class="fab fa-google"></i></button>
+                                        </form>
+                                    </li>
+
                                 </ul>
                             </div>
 
@@ -346,10 +360,19 @@
                             <div class="modal-footer">
                                 <span class="modal-f-title">{{ __('lang.modal_login_with') }}</span>
                                 <ul class="twm-modal-social">
-                                    <li><a href="{{ route('auth.social.redirect', 'facebook') }}" class="facebook-clr"><i class="fab fa-facebook-f"></i></a></li>
-                                    {{-- <li><a href="javascript.html" class="twitter-clr"><i class="fab fa-twitter"></i></a></li> --}}
-                                    {{-- <li><a href="javascript.html" class="linkedin-clr"><i class="fab fa-linkedin-in"></i></a></li> --}}
-                                    <li><a href="{{ route('auth.social.redirect', 'google') }}" class="google-clr"><i class="fab fa-google"></i></a></li>
+                                    <li>
+                                        <form action="{{ route('auth.social.redirect', 'facebook') }}" method="GET">
+                                            @csrf
+                                            <button type="submit" class="facebook-clr"><i class="fab fa-facebook-f"></i></button>
+                                        </form>
+                                    </li>
+
+                                    <li>
+                                        <form action="{{ route('auth.social.redirect', 'google') }}" method="GET">
+                                            @csrf
+                                            <button type="submit" class="google-clr"><i class="fab fa-google"></i></button>
+                                        </form>
+                                    </li>
                                 </ul>
                             </div>
                         {{-- </form> --}}
@@ -364,25 +387,28 @@
 
     <!-- JAVASCRIPT  FILES ========================================= -->
 
-    <script  src="{{ asset('js/popper.min.js') }}"></script><!-- POPPER.MIN JS -->
-    <script  src="{{ asset('js/bootstrap.min.js') }}"></script><!-- BOOTSTRAP.MIN JS -->
-    <script  src="{{ asset('js/magnific-popup.min.js') }}"></script><!-- MAGNIFIC-POPUP JS -->
-    <script  src="{{ asset('js/waypoints.min.js') }}"></script><!-- WAYPOINTS JS -->
-    <script  src="{{ asset('js/counterup.min.js') }}"></script><!-- COUNTERUP JS -->
-    <script  src="{{ asset('js/waypoints-sticky.min.js') }}"></script><!-- STICKY HEADER -->
-    <script  src="{{ asset('js/isotope.pkgd.min.js') }}"></script><!-- MASONRY  -->
-    <script  src="{{ asset('js/imagesloaded.pkgd.min.js') }}"></script><!-- MASONRY  -->
-    <script  src="{{ asset('js/owl.carousel.min.js') }}"></script><!-- OWL  SLIDER  -->
-    <script  src="{{ asset('js/theia-sticky-sidebar.js') }}"></script><!-- STICKY SIDEBAR  -->
-    <script  src="{{ asset('js/lc_lightbox.lite.js') }}" ></script><!-- IMAGE POPUP -->
-    <script  src="{{ asset('js/bootstrap-select.min.js') }}"></script><!-- Form js -->
-    <script  src="{{ asset('js/dropzone.js') }}"></script><!-- IMAGE UPLOAD  -->
-    <script  src="{{ asset('js/jquery.scrollbar.js') }}"></script><!-- scroller -->
-    <script  src="{{ asset('js/bootstrap-datepicker.js') }}"></script><!-- scroller -->
-    <script  src="{{ asset('js/jquery.dataTables.min.js') }}"></script><!-- Datatable -->
-    <script  src="{{ asset('js/dataTables.bootstrap5.min.js') }}"></script><!-- Datatable -->
-    <script  src="{{ asset('js/chart.js') }}"></script><!-- Chart -->
-    <script  src="{{ asset('js/custom.js') }}"></script><!-- CUSTOM FUCTIONS  -->
+  {{-- <script  src="{{ asset('js/popper.min.js') }}"></script><!-- POPPER.MIN JS --> --}}
+  <script  src="{{ asset('js/bootstrap.min.js') }}"></script><!-- BOOTSTRAP.MIN JS -->
+  <script  src="{{ asset('js/magnific-popup.min.js') }}"></script><!-- MAGNIFIC-POPUP JS -->
+  <script  src="{{ asset('js/waypoints.min.js') }}"></script><!-- WAYPOINTS JS -->
+  {{-- <script  src="{{ asset('js/counterup.min.js') }}"></script><!-- COUNTERUP JS --> --}}
+  <script  src="{{ asset('js/waypoints-sticky.min.js') }}"></script><!-- STICKY HEADER -->
+  {{-- <script  src="{{ asset('js/isotope.pkgd.min.js') }}"></script><!-- MASONRY  --> --}}
+  {{-- <script  src="{{ asset('js/imagesloaded.pkgd.min.js') }}"></script><!-- MASONRY  --> --}}
+
+  {{-- <script  src="{{ asset('js/carusel.js') }}"></script><!-- OWL  SLIDER  --> --}}
+  <script  src="{{ asset('js/owl.carousel.min.js') }}"></script><!-- OWL  SLIDER  -->
+  <script  src="{{ asset('js/theia-sticky-sidebar.js') }}"></script><!-- STICKY SIDEBAR  -->
+  <script  src="{{ asset('js/lc_lightbox.lite.js') }}" ></script><!-- IMAGE POPUP -->
+  <script  src="{{ asset('js/bootstrap-select.min.js') }}"></script><!-- Form js -->
+  {{-- <script  src="{{ asset('js/dropzone.js') }}"></script><!-- IMAGE UPLOAD  --> --}}
+  {{-- <script  src="{{ asset('js/jquery.scrollbar.js') }}"></script><!-- scroller --> --}}
+  {{-- <script  src="{{ asset('js/bootstrap-datepicker.js') }}"></script><!-- scroller --> --}}
+  {{-- <script  src="{{ asset('js/jquery.dataTables.min.js') }}"></script><!-- Datatable --> --}}
+  {{-- <script  src="{{ asset('js/dataTables.bootstrap5.min.js') }}"></script><!-- Datatable --> --}}
+  {{-- <script  src="{{ asset('js/chart.js') }}"></script><!-- Chart --> --}}
+  <script  src="{{ asset('js/custom.js') }}"></script><!-- CUSTOM FUCTIONS  -->
+  {{-- <script  src="{{ asset('js/register_form.js') }}"></script><!-- MY ADD JS  --> --}}
     {{-- <script  src="{{ asset('js/register_form.js') }}"></script><!-- MY ADD JS  --> --}}
 
     {{-- <script type="module" src="{{ asset('build/assets/app-4ed993c7.js') }}"></script>

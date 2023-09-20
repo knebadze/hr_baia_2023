@@ -8,6 +8,13 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="hide()">X</button>
               </div>
               <div class="modal-body">
+                <div v-if="type == 'employer' && check" class="alert alert-info alert-dismissible">
+                    <h5><i class="icon fas fa-info"></i> შეტყობინება!</h5>
+                    <p>ამ დამსაქმებელს აქვს ვაკანსია (ები) აქტიურ სტატუსში:</p>
+                    <ul>
+                        <li v-for="(item, index) in check" :key="index">ID: <a><u>{{ item.code }},</u></a> სტატუსი: {{ item.status.name_ka }}</li>
+                    </ul>
+                </div>
                 <div class="col-xl-12 col-lg-12 col-md-12">
                     <div class="form-group">
                         <label>შავ სიაში დამატების მიზეზი</label>
@@ -34,7 +41,8 @@
   export default {
         props:{
             visible: Boolean,
-            item: Object
+            item: Object,
+            type: String
         },
         data() {
             return {
@@ -95,7 +103,7 @@
                         axios({
                             method: "post",
                             url: "/add_black_list",
-                            data: {'model': this.m},
+                            data: {'model': this.m, 'type': this.type},
 
                         })
                         .then(function (response) {
@@ -122,15 +130,21 @@
             },
             getClassificatory(){
                 return axios.post('/get_add_black_list_info' ,{
-                      data: {'id':this.item.id, 'type': this.item.type},
+                      data: {'id':this.item.id, 'type': this.type},
                   })
 
             },
+            showFullVacancyModal(){
+                
+            }
 
         },
         watch:{
-            visible: function(){
-                this.show()
+            visible: {
+                immediate: true,
+                handler(newVal) {
+                    this.show()
+                },
             },
         }
   }

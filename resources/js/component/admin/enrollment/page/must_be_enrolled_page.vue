@@ -322,7 +322,7 @@
                 <!-- small box -->
                 <div class="small-box bg-indigo">
                     <div class="inner">
-                        <h3>{{ bonus }}</h3>
+                        <h3>{{ bonus.toFixed(2) }}</h3>
 
                         <p>ჰრ_ის ბონუსი იქნება</p>
                     </div>

@@ -93,7 +93,7 @@ class EnrollmentAgreeRepository
     function checkVacancy($vacancy_id) {
         if (VacancyDeposit::where('vacancy_id', $vacancy_id)->where('must_be_enrolled_employer', 0)->where('must_be_enrolled_candidate', 0)->exists()) {
             // VacancyDeposit::where('vacancy_id', $vacancy_id)->delete();
-            Vacancy::where('id', $vacancy_id)->update(['status_id', 4]);
+            Vacancy::where('id', $vacancy_id)->update(['status_id' => 4]);
             $this->deleteReminder($vacancy_id);
             $this->deleteDeposit($vacancy_id);
 

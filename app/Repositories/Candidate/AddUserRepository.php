@@ -59,7 +59,7 @@ class AddUserRepository
                 if (!$registerLog) {
                     $allModelsCreated = false;
                 }
-
+                $fee = null;
                 if ($data['type']['id'] == 1) {
                     $fee = RegistrationFee::create([
                         'user_id' => $user->id,

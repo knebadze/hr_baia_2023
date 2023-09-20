@@ -334,7 +334,7 @@
         </div>
     </div>
     <!-- /.container-fluid -->
-    <select_personal_table v-if="candidate.length > 0" :data="modalData"></select_personal_table>
+    <select_personal_table v-if="candidate.length > 0" :data="modalData" :key="tableKey"></select_personal_table>
   </section>
 </template>
 <script>
@@ -356,7 +356,8 @@ export default {
             candidate:[],
             colspan: 'show',
             modalData:{},
-            vacancy:null
+            vacancy:null,
+            tableKey: 0,
         }
     },
     computed:{
@@ -406,6 +407,7 @@ export default {
                 console.log(response.data);
                 currentObj.candidate = response.data
                 currentObj.modalData['candidate'] = response.data
+                currentObj.tableKey++
 
             })
             .catch(function (error) {

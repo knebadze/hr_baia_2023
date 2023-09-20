@@ -6,9 +6,12 @@ class CandidateCategoryFilter
 {
     function __invoke($query, $request)
     {
-        $query->whereHas('workInformation', function ($query) use ( $request ) {
-            return $query->where('category_id', $request['id']);
+        $ids = is_array($request) ? collect($request)->pluck('id')->toArray() : [$request['id']];
+
+        $query->whereHas('workInformation', function ($query) use ($ids) {
+            return $query->whereIn('category_id', $ids);
         });
+
 
     }
 }

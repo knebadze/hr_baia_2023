@@ -222,12 +222,14 @@
     <!-- {{ statusChangeModal }} -->
     <infoModal :visible="showInfoModal" :type="modalType" :items="item"></infoModal>
     <add_in_vacancy :visible="showAddInVacancyModal" :item="item"></add_in_vacancy>
-    <add_black_list :visible="showBlackListModal" :item="item"></add_black_list>
-    <send_message_modal :visible="showSendMessageModal" :item="item"></send_message_modal>
+    <component  :is="blackListComponent" v-if="blackListComponent" :visible="showBlackListModal" :item="item" :type="'candidate'"></component>
+    <component  :is="sendMessageComponent" v-if="sendMessageComponent" :visible="showSendMessageModal" :item="item"></component>
     <register_enrollment :visible="showEnrolledModal" :item="item"></register_enrollment>
+    <schedule_calendar_modal :visible="scheduleModalShow" :item="item"></schedule_calendar_modal>
 </div>
 </template>showSendMessageModal
 <script>
+    import { markRaw } from 'vue';
 import { ref, computed } from "vue";
 import moment from 'moment'
 import Slider from '@vueform/slider'
@@ -236,18 +238,20 @@ import "@vueform/slider/themes/default.css";
 import _ from 'lodash'
 import infoModal from '../modal/info_modal.vue'
 import add_in_vacancy from "../modal/add_in_vacancy.vue";
-import add_black_list from '../modal/add_black_list.vue'
-import send_message_modal from '../modal/Send_message_modal.vue'
+// import add_black_list from '../modal/add_black_list.vue'
+// import send_message_modal from '../modal/Send_message_modal.vue'
 import register_enrollment from "../modal/register_enrollment.vue";
+import schedule_calendar_modal from '../modal/schedule_calendar_modal.vue';
 
 export default {
     components: {
         Slider,
         infoModal,
         add_in_vacancy,
-        add_black_list,
-        send_message_modal,
-        register_enrollment
+        // add_black_list,
+        // send_message_modal,
+        register_enrollment,
+        schedule_calendar_modal
     },
     props:{
         data: Object,
@@ -268,10 +272,14 @@ export default {
         let showSendMessageModal = ref(false)
         let showEnrolledModal = ref(false)
         var updateModal = ref(false)
+        let scheduleModalShow = ref(false)
         var item = ref()
         let modalType = ref('')
         let cla = ref(null);
         let hr_id = ref(props.hrId)
+
+        let blackListComponent = ref(null);
+        let sendMessageComponent = ref(null);
 
 
 
@@ -395,6 +403,7 @@ export default {
             showSendMessageModal,
             showEnrolledModal,
             updateModal,
+            scheduleModalShow,
             item,
             modalType,
             updateUrl,
@@ -403,7 +412,10 @@ export default {
 
             cla,
             find,
-            bodyRowClassNameFunction
+            bodyRowClassNameFunction,
+
+            blackListComponent,
+            sendMessageComponent
 
             // statusChange
         };
@@ -418,11 +430,14 @@ export default {
             this.showAddInVacancyModal = !this.showAddInVacancyModal
             this.item = {'id':item.id}
         },
-        blackListModal(id){
+        async blackListModal(id){
+            if (!this.blackListComponent) {
+                let module = await import('../modal/add_black_list.vue');
+                this.blackListComponent = markRaw(module.default);
+            }
             this.showBlackListModal = !this.showBlackListModal
             this.item = {
-                'id': id,
-                'type': 'candidate'
+                'id': id
             }
         },
         pdf(item){
@@ -442,9 +457,13 @@ export default {
                 }
             })
         },
-        openSendMessageModal(item){
+        async openSendMessageModal(item){
             console.log('item', item);
             // return
+            if (!this.sendMessageComponent) {
+                let module = await import('../modal/send_message_modal.vue');
+                this.sendMessageComponent = markRaw(module.default);
+            }
             this.showSendMessageModal = !this.showSendMessageModal
             this.item = {'id': item.id, 'number': item.user.number}
         },
@@ -497,6 +516,10 @@ export default {
                     return
                 }
             });
+        },
+        scheduleModal(id){
+            this.item = id
+            this.scheduleModalShow = !this.scheduleModalShow
         }
 
     }

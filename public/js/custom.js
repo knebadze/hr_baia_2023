@@ -232,30 +232,30 @@ All JavaScript fuctions Start
  	}
 
 //  Client logo Carousel function by = owl.carousel.js ========================== //
-	// function home_client_carousel(){
-    //     jQuery('.home-client-carousel').owlCarousel({
-    //         loop:true,
-    //         nav:false,
-    //         dots: true,
-    //         margin:5,
-    //         autoplay:true,
-    //         navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
-    //         responsive:{
-    //             0:{
-    //                 items:2,
-    //             },
-    //             480:{
-    //                 items:3,
-    //             },
-    //             767:{
-    //                 items:4,
-    //             },
-    //             1000:{
-    //                 items:4
-    //             }
-    //         }
-    //     });
-    // }
+	function home_client_carousel(){
+	jQuery('.home-client-carousel').owlCarousel({
+		loop:true,
+		nav:false,
+		dots: true,
+		margin:5,
+		autoplay:true,
+		navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
+		responsive:{
+			0:{
+				items:2,
+			},
+			480:{
+				items:3,
+			},
+			767:{
+				items:4,
+			},
+			1000:{
+				items:4
+			}
+		}
+	});
+	}
 
 	//  Client logo Carousel function by = owl.carousel.js ========================== //
 	function home_client_carousel_2(){

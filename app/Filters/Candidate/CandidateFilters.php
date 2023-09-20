@@ -9,7 +9,7 @@ class CandidateFilters
         'name' => CandidateNameFilter::class,
         'number' => CandidateNumberFilter::class,
         'personal_number' => CandidatePersonalNumberFilter::class,
-        // 'address' => CandidateAddressFilter::class,
+        'address' => CandidateAddressFilter::class,
         'age' => CandidateAgeFilter::class,
         'height' => CandidateHeightFilter::class,
         'weight' => CandidateWeightFilter::class,
@@ -45,6 +45,7 @@ class CandidateFilters
         'free_registration' => CandidateFreeRegistrationFilter::class,
         'paid' => CandidatePaidFilter::class,
         'has_to_pay' => CandidateHasToPayFilter::class,
+        'user_filter_payment' => CandidateUserPaymentFilter::class
     ];
 
     public function apply($query)

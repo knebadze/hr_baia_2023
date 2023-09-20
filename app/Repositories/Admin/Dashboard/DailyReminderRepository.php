@@ -8,10 +8,13 @@ use Illuminate\Support\Facades\Auth;
 
 class DailyReminderRepository
 {
-    function admin()  {
-        return VacancyReminder::orderBy('created_at', 'DESC')->whereDate('date', Carbon::today())->with(['vacancy', 'hr.user'])->get();
-    }
-    function hr() {
-        return VacancyReminder::orderBy('created_at', 'DESC')->whereDate('date', Carbon::today())->where('hr_id', Auth::user()->hr->id)->with('vacancy')->get();
+    function data() {
+        return VacancyReminder::orderBy('created_at', 'DESC')
+            ->whereDate('date', Carbon::today())
+            ->when(Auth::user()->role_id !== 1, function ($query) {
+                return $query->where('hr_id', Auth::user()->hr->id);
+            })
+            ->with(['vacancy', 'hr.user'])
+            ->get();
     }
 }

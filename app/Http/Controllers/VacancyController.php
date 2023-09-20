@@ -29,7 +29,10 @@ class VacancyController extends Controller
     public function index()
     {
 
-        $vacancy = Vacancy::orderby('updated_at', 'DESC')->whereIn('status_id', [2, 6])->with(['author','currency', 'category', 'workSchedule', 'vacancyForWhoNeed', 'vacancyBenefit', 'vacancyInterest', 'hr.user'])->paginate(25)->toArray();
+        $vacancy = Vacancy::orderby('updated_at', 'DESC')
+                ->whereIn('status_id', [2, 6, 7])
+                ->with(['author','currency', 'category', 'workSchedule', 'vacancyForWhoNeed', 'vacancyBenefit', 'vacancyInterest', 'hr.user'])
+                ->paginate(25)->toArray();
         $data = [
             'vacancy' => $vacancy,
         ];

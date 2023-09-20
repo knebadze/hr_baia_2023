@@ -44,11 +44,9 @@ class AdminController extends Controller
    public function dashboard()
    {
        if(Auth::check()){
-
-            $dailyReminder = $this->dashboardService->dailyReminder();
-            $hrDailyWork = $this->dashboardService->hrDailyWork();
+            $data = $this->dashboardService->getData();
             $role_id = Auth::user()->role_id;
-           return view('admin.dashboard', compact('dailyReminder', 'hrDailyWork', 'role_id'));
+           return view('admin.dashboard', compact('data', 'role_id'));
        }
 
        return redirect("admin")->withSuccess('are not allowed to access');

@@ -24,7 +24,8 @@ class VacancyDepositController extends Controller
         $data['deposit'] = VacancyDeposit::where('vacancy_id', $id)->first();
         $vacancy = Vacancy::where('id',$id)->first();
         $data['employer'] = $vacancy->employer;
-        $qualifying = QualifyingCandidate::orderBy('id', 'DESC')->where('vacancy_id', $vacancy->id)->whereIn('qualifying_type_id', [5, 6])->first();
+        $qualifying = QualifyingCandidate::orderBy('id', 'DESC')->where('vacancy_id', $vacancy->id)->whereIn('qualifying_type_id', [5, 6, 7])->first();
+        // dd($vacancy);
         // dd(Candidate::where('id', $qualifying->candidate->id)->where('registration_fee', 0)->exists());
         $data['register'] = (Candidate::where('id', $qualifying->candidate->id)->where('registration_fee', 0)->exists())? RegistrationFee::where('user_id', $qualifying->candidate->user_id)->first(): null;
         $data['enrollment'] = Enrollment::where('vacancy_id', $vacancy->id)->exists()? Enrollment::where('vacancy_id', $vacancy->id)->where('agree', 0)->get()->toArray(): null;

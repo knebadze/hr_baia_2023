@@ -87,10 +87,10 @@ export default {
     },
     computed:{
         total_salary(){
-            return  _.sumBy(this.data.data, item => (item.full_salary));
+            return  _.sumBy(this.data.data, item => (item.full_salary)).toFixed(2);
         },
         total_hr_bonus(){
-            return  _.sumBy(this.data.data, item => (item.hr_bonus_from_vacancy)) + _.sumBy(this.data.data, item => (item.hr_bonus_from_registration));
+            return  (_.sumBy(this.data.data, item => (item.hr_bonus_from_vacancy)) + _.sumBy(this.data.data, item => (item.hr_bonus_from_registration))).toFixed(2);
         },
         total_supplement() {
             return  _.sumBy(this.data.data, item => (item.supplement));

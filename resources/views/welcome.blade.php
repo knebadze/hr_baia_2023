@@ -1,4 +1,4 @@
-@extends('layouts.noVueApp')
+@extends('layouts.appPage')
 @section('title-block')
    {{ __('lang.page_title_home') }}
 @endsection
@@ -106,7 +106,7 @@
                                 </div>
                                 <div class="twm-content">
                                     <div class="tw-count-number text-clr-sky">
-                                        <span>{{$data['slider']['vacancies'] -  $data['slider']['familyVacancy'] }}</span>
+                                        <span>{{($data['slider']['vacancies'] -  $data['slider']['familyVacancy'] <= 0)?10:$data['slider']['vacancies'] -  $data['slider']['familyVacancy'] }}</span>
                                         {{-- <span class="counter">12</span>K+ --}}
                                     </div>
                                     <p class="icon-content-info">{{ __('lang.welcome_rightside_bar_companyvacancie') }}</p>
@@ -195,27 +195,7 @@
                 <div class="job-categories-style1 m-b30">
 
 
-
-                        <!-- COLUMNS 1 -->
-                        {{-- @foreach ($data['categoriesWithVacancies'] as $item)
-                            <div class="item ">
-                                <div class="job-categories-block">
-                                    <div class="twm-media">
-                                        <div class="flaticon-dashboard"></div>
-                                    </div>
-                                    <div class="twm-content">
-                                        <div class="twm-jobs-available">{{ $item->vacancy_count }} სამუშაო</div>
-                                        <a href="{{ route('job.search' , ['category_id' => $item->id, 'locale' => app()->getLocale()])  }}">{{ $item->{'name_'.app()->getLocale()} }}</a>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach --}}
-
-
                         <category-carousel :data='@json($data['categoriesWithVacancies'])'></category-carousel>
-
-
-                    {{-- </div> --}}
                 </div>
 
                 <div class="text-right job-categories-btn">
@@ -256,41 +236,6 @@
 
                     <category-carousel :data='@json($data['categoriesWithCandidates'])'></category-carousel>
 
-
-                    {{-- <div class="owl-carousel job-categories-carousel owl-btn-left-bottom ">
-
-                        <!-- COLUMNS 1 -->
-                         <div class="item ">
-                            <div class="job-categories-block">
-                                <div class="twm-media">
-                                    <div class="flaticon-dashboard"></div>
-                                </div>
-                                <div class="twm-content">
-                                    <div class="twm-jobs-available">9,185 სამუშაო</div>
-                                    <a href="job-detail.html">ძიძა</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- COLUMNS 2 -->
-                        @foreach ($data['categoriesWithCandidates'] as $item)
-                            <div class="item ">
-                                <div class="job-categories-block">
-                                    <div class="twm-media">
-                                        <div class="flaticon-project-management"></div>
-                                    </div>
-                                    <div class="twm-content">
-                                        <div class="twm-jobs-available">{{ $item->category_count }} კანდიდატი</div>
-                                        <a href="{{ route('candidate.search' , ['category_id' => $item->id, 'locale' => app()->getLocale()])  }}">{{ $item->{'name_'.app()->getLocale()} }}</a>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-
-
-
-
-                    </div> --}}
                 </div>
 
                 <div class="text-right job-categories-btn">
@@ -302,6 +247,56 @@
         </div>
 
     </div>
+      <!-- JOB POST START -->
+    <div class="section-full p-t120 p-b90 site-bg-light-purple twm-bg-ring-wrap">
+        <div class="twm-bg-ring-right"></div>
+        <div class="twm-bg-ring-left"></div>
+        <div class="container">
+
+            <!-- TITLE START-->
+            <div class="section-head center wt-small-separator-outer">
+                <div class="wt-small-separator site-text-primary">
+                   <div>მიმდინარე ვაკანსიები</div>
+                </div>
+                <h2 class="wt-title">პოპულარული ვაკანსიები</h2>
+            </div>
+            <!-- TITLE END-->
+
+
+            <div class="section-content">
+               <div class="twm-jobs-list-wrap">
+                   <ul>
+                    <popular-vacancy :items='@json($data['popularVacancy'])' :auth='@json($auth)'></popular-vacancy>
+                        {{-- <li>
+                            <div class="twm-jobs-list-style1 mb-5">
+                                <div class="twm-media">
+                                    <img src="images/jobs-company/pic1.jpg" alt="#">
+                                </div>
+                                <div class="twm-mid-content">
+                                    <a href="job-detail.html" class="twm-job-title">
+                                        <h4>Senior Web Designer , Developer  <span class="twm-job-post-duration">/ 1 days ago</span></h4>
+                                    </a>
+                                    <p class="twm-job-address">1363-1385 Sunset Blvd Los Angeles, CA 90026, USA</p>
+                                    <a href="https://themeforest.net/user/thewebmax/portfolio" class="twm-job-websites site-text-primary">https://thewebmax.com</a>
+                                </div>
+                                <div class="twm-right-content">
+                                    <div class="twm-jobs-category green"><span class="twm-bg-green">New</span></div>
+                                    <div class="twm-jobs-amount">$2500 <span>/ Month</span></div>
+                                    <a href="job-detail.html" class="twm-jobs-browse site-text-primary">Browse Job</a>
+                                </div>
+                            </div>
+                        </li> --}}
+
+                   </ul>
+                   <div class="text-center m-b30">
+                        <a href="job-list.html" class=" site-button">ყველას ნახვა</a>
+                   </div>
+               </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- JOB POST END -->
 
             <!-- TESTIMONIAL SECTION START -->
             <div class="section-full p-t120 p-b90 site-bg-white twm-testimonial-1-area">
@@ -377,50 +372,6 @@
                                     <div class="twm-testimonial-1-content">
                                         <div class="twm-testi-media">
                                             <img src="images/testimonials/pic-3.png" alt="#">
-                                        </div>
-                                        <div class="twm-testi-content">
-                                            <div class="twm-quote">
-                                                <img src="images/quote-dark.png" alt="">
-                                            </div>
-                                            <div class="twm-testi-info">I just got a job that I applied for via careerfy! I used the site all the time during my job hunt.</div>
-                                            <div class="twm-testi-detail">
-                                                <div class="twm-testi-name">Nikola Tesla</div>
-                                                <div class="twm-testi-position">Accountant</div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- COLUMNS 4 -->
-                            <div class="item ">
-                                <div class="twm-testimonial-1">
-                                    <div class="twm-testimonial-1-content">
-                                        <div class="twm-testi-media">
-                                            <img src="images/testimonials/pic-2.png" alt="#">
-                                        </div>
-                                        <div class="twm-testi-content">
-                                            <div class="twm-quote">
-                                                <img src="images/quote-dark.png" alt="">
-                                            </div>
-                                            <div class="twm-testi-info">I just got a job that I applied for via careerfy! I used the site all the time during my job hunt.</div>
-                                            <div class="twm-testi-detail">
-                                                <div class="twm-testi-name">Nikola Tesla</div>
-                                                <div class="twm-testi-position">Accountant</div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- COLUMNS 5 -->
-                            <div class="item ">
-                                <div class="twm-testimonial-1">
-                                    <div class="twm-testimonial-1-content">
-                                        <div class="twm-testi-media">
-                                            <img src="images/testimonials/pic-1.png" alt="#">
                                         </div>
                                         <div class="twm-testi-content">
                                             <div class="twm-quote">
@@ -535,66 +486,6 @@
                                         <ul>
                                             <li class="post-date">მარტი 05, 2022</li>
                                             <li class="post-author"> <a href="candidate-detail.html">Mike Doe</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="wt-post-title ">
-                                        <h4 class="post-title">
-                                            <a href="blog-single.html">შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს და ტიპოგრაფიული ნაწარმის შემქმნელებს.</a>
-                                        </h4>
-                                    </div>
-                                    <div class="wt-post-text ">
-                                        <p>
-                                            შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს და ტიპოგრაფიული ნაწარმის შემქმნელებს.
-                                        </p>
-                                    </div>
-                                    <div class="wt-post-readmore ">
-                                        <a href="blog-single.html" class="site-button-link site-text-primary">სრულად</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="item">
-                            <!--Block one-->
-                            <div class="blog-post twm-blog-post-1-outer">
-                                <div class="wt-post-media">
-                                    <a href="blog-single.html"><img src="images/blog/latest/bg1.jpg" alt=""></a>
-                                </div>
-                                <div class="wt-post-info">
-                                    <div class="wt-post-meta ">
-                                        <ul>
-                                            <li class="post-date">მარტი 05, 2022</li>
-                                            <li class="post-author"> <a href="candidate-detail.html">Mark Petter</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="wt-post-title ">
-                                        <h4 class="post-title">
-                                            <a href="blog-single.html">შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს და ტიპოგრაფიული ნაწარმის შემქმნელებს.</a>
-                                        </h4>
-                                    </div>
-                                    <div class="wt-post-text ">
-                                        <p>
-                                            შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს და ტიპოგრაფიული ნაწარმის შემქმნელებს.
-                                        </p>
-                                    </div>
-                                    <div class="wt-post-readmore ">
-                                        <a href="blog-single.html" class="site-button-link site-text-primary">სრულად</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="item">
-                            <!--Block two-->
-                            <div class="blog-post twm-blog-post-1-outer">
-                                <div class="wt-post-media">
-                                    <a href="blog-single.html"><img src="images/blog/latest/bg2.jpg" alt=""></a>
-                                </div>
-                                <div class="wt-post-info">
-                                    <div class="wt-post-meta ">
-                                        <ul>
-                                            <li class="post-date">მარტი 05, 2022</li>
-                                            <li class="post-author"> <a href="candidate-detail.html">David Wish</a></li>
                                         </ul>
                                     </div>
                                     <div class="wt-post-title ">

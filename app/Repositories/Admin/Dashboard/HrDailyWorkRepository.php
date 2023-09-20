@@ -22,6 +22,12 @@ class HrDailyWorkRepository
             ->where('has_vacancy', 0)
             ->first();
 
+        $noActive = HrHasVacancy::where('is_active', 0)
+            ->where('has_vacancy', 0)
+            ->with('hr.user')
+            ->get()
+            ->toArray();
+
         $dailyWork = hrDailyWork::from('hr_daily_works as a')
             ->whereDate('a.created_at', Carbon::today())
             ->when(Auth::user()->role_id !== 1, function ($query) {
@@ -31,6 +37,6 @@ class HrDailyWorkRepository
             ->join('users as c', 'b.user_id', '=', 'c.id')
             ->select('a.*', 'c.name_ka')
             ->get()->toArray();
-        return ['lastRecord' => $lastRecord->hr->user->name_ka, 'nextRecord' => $nextRecord->hr->user->name_ka, 'dailyWork' => $dailyWork];
+        return ['lastRecord' => $lastRecord->hr->user->name_ka, 'nextRecord' => $nextRecord->hr->user->name_ka, 'dailyWork' => $dailyWork, 'noActive' => $noActive];
     }
 }

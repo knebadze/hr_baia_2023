@@ -52,8 +52,9 @@
             </div>
         </div>
         <div class="card-footer d-flex justify-content-between">
-            <p class="text-success"><strong>ბოლო ვაკანსია მიიღო ჰრ: {{ data.lastRecord }}</strong></p>
+            <p class="text-success"><strong>ვაკანსია მიიღო: {{ data.lastRecord }}</strong></p>
             <p class="text-warning"><strong>რიგშია: {{ data.nextRecord }}</strong> </p>
+            <p class="text-danger"><strong>არააქტიური: {{ data.noActive.length > 0?data.noActive.map(i => i.hr.user.name_ka).join(', '):'არცერთი' }}</strong> </p>
         </div>
         <vacancyFullInfoModal :visible="vacancyModelShow" :vacancyId="item"></vacancyFullInfoModal>
     </div>
