@@ -116,7 +116,6 @@
         methods:{
             show(){
                 this.m = {...this.items.item}
-                console.log('this.m', this.m);
                 this.cla = this.items.cla
                 this.showConfirm = true
 

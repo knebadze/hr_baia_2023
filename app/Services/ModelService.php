@@ -30,4 +30,10 @@ class ModelService
         $result = $this->workInformationModelRepository->model($auth->id);
         return $result;
     }
+    function getFullData(){
+        $auth = Auth::user();
+        $result = $this->userModelRepository->fullData($auth->id);
+
+        return $result;
+    }
 }

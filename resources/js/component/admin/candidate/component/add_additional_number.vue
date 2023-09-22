@@ -100,7 +100,6 @@ export default {
     methods: {
         // async
         add(item){
-            console.log('item',item);
             let currentObj = this;
             axios({
                 method: "post",
@@ -109,7 +108,6 @@ export default {
 
             })
             .then(function (response) {
-                console.log(response.data);
                 if (response.data.status == 200) {
                     currentObj.m = response.data.data;
                     toast.success("ინფორმაცია წარმატებით შეინახა", {
@@ -128,7 +126,6 @@ export default {
         },
         addNumber(code, model){
             model['number_code'] = code
-            console.log(model);
             if (model.number == '' || model.number_code == '' || model.number_owner == '') {
                 toast.error("აუცილებელია ყველა პარამეტრის შევსება", {
                     theme: 'colored',
@@ -159,7 +156,6 @@ export default {
 
                     })
                     .then(function (response) {
-                        // console.log(response.data);
                         if (response.data.status == 200) {
                             toast.success("წარმატებით წაიშალა", {
                                 theme: 'colored',

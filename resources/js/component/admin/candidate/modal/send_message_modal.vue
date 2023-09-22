@@ -73,10 +73,8 @@
             async show(){
                 try {
                     let result = await this.getClassificatory();
-                    console.log('result', result.data);
                     this.cla = result.data
                     this.m = this.item
-                    // console.log(this.m);
                     this.showConfirm = true
                 } catch (error) {
                 }
@@ -92,7 +90,6 @@
 
             },
             choseEvent(){
-                console.log('item', this.m.additional_number);
             },
             save(){
                 let currentObj = this
@@ -144,7 +141,6 @@
                 },
             },
             'm.additional_number': function(newVal, oldVal){
-                console.log("newVal", newVal);
                 this.m.number = newVal.number
 
             }

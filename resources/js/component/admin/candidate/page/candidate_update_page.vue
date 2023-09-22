@@ -309,7 +309,6 @@ export default {
         }
     },
     created(){
-        console.log('data', this.data);
         this.cla = this.data.classificatory
         this.data.candidate.smoke = (this.data.candidate.smoke == 1)?true:0;
         this.data.candidate.convection = (this.data.candidate.convection == 1)?true:0;

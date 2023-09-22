@@ -106,10 +106,8 @@
                     </div>
                 </div>
                 <!-- </div> -->
-                <div class="col-lg-12 col-md-12 mt-4" >
-                    <div class="text-left">
-                        <button type="submit" @click.prevent="add()"  class="site-button">{{ $t('lang.user_profile_page_work_button_save') }}</button>
-                    </div>
+                <div class="col-lg-12 col-md-12 mt-4 d-flex justify-content-center" >
+                    <button type="submit" @click.prevent="add()"  class="site-button">{{ $t('lang.user_profile_page_work_button_save') }}</button>
                 </div>
 
             </div>

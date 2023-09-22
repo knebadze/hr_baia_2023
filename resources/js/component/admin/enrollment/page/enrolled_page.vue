@@ -277,7 +277,6 @@ export default {
 
     },
     created() {
-        console.log('data', this.data);
         this.getData()
         // this.role_id = this.data.role_id
         let arr = [
@@ -311,7 +310,6 @@ export default {
         },
         async filter(m){
             if (m.date_from || m.date_to) {
-                console.log(m.date_from,  m.date_to);
                 if (!m.date_from || !m.date_to) {
                     toast.error('ორივე თარიღის შევსება სავალდებულოა', {
                         theme: 'colored',

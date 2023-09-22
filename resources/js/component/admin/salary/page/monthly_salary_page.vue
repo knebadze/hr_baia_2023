@@ -97,7 +97,6 @@ export default {
         }
     },
     created() {
-        console.log('this.data',this.data);
 
         this.items = this.data.data
     },

@@ -180,7 +180,6 @@ export default {
 
     },
     created() {
-        console.log('data', this.data);
         this.getData()
     },
     methods: {

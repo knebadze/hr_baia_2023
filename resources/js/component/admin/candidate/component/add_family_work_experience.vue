@@ -174,7 +174,6 @@ export default {
         },
     },
     created(){
-        console.log(this.data);
         this.m = {...this.data.model}
         this.cla = _.cloneDeep(this.data.cla)
         this.m.user_id = this.data.user_id

@@ -384,7 +384,6 @@ export default {
             if (!isFormCorrect) return;
             this.m['lang'] = this.getLang
             let currentObj = this;
-            console.log('currentObj',currentObj);
             axios({
                 method: "post",
                 url: "/add_candidate",
@@ -392,7 +391,6 @@ export default {
 
             })
             .then(function (response) {
-                console.log(response.data);
                 if (response.data.status == 200) {
                     currentObj.candidate_id = response.data.data;
                     currentObj.emitMessage(response.data.data);

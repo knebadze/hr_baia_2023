@@ -53,7 +53,6 @@
         created(){
             // this.showConfirm = this.visible
 
-            console.log(this.min);
         },
         computed:{
             getLang(){
@@ -82,7 +81,6 @@
                 })
                 .then(function (response) {
                     // handle success
-                    console.log(response.data);
                     if (response.status == 200) {
                         toast.success("წარმატებით განახლდა", {
                             theme: 'colored',

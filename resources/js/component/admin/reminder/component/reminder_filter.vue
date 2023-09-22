@@ -166,7 +166,6 @@ export default {
         }
     },
     created(){
-        // console.log('data', this.data);
         let currentObj = this
         axios({
                 method: "post",
@@ -175,7 +174,6 @@ export default {
 
             })
             .then(function (response) {
-                console.log('response',  response.data);
 
                 currentObj.hr = response.data
             })
@@ -208,7 +206,6 @@ export default {
 
             })
             .then(function (response) {
-                console.log('response',  response.data);
 
                 currentObj.data = currentObj.maker(response.data)
             })
@@ -250,7 +247,6 @@ export default {
                         element['status'] = 2
                     }
                 } else{
-                    console.log('else');
                 }
                 arr.push(element)
             });

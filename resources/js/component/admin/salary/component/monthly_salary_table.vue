@@ -73,7 +73,6 @@
 
 
 
-            console.log('data',props.data);
             const headers = ref([
                 // { text: "id", value: "id" },
                 { text: "ჰრ", value: "hr.user.name_ka" },
@@ -90,7 +89,6 @@
             ]);
 
             let data =  props.data
-            // console.log(data.length);
             for (let i = 0; i < data.length; i++) {
                 // Access the element to update in each object
                 data[i].created_at = moment(data[i].created_at).format("YYYY-MM-DD HH:mm");
@@ -99,7 +97,6 @@
 
             // cla = ref(props.data.classificatory)
             const items = ref(data)
-            console.log('let data', data);
 
 
             function makeData(params) {
@@ -146,7 +143,6 @@
 
                 })
                 .then(function (response) {
-                    console.log('response.data',response.data);
                     if (response.data.status == 200) {
                         let text;
                         if(response.data.data.type == 'w'){
@@ -205,7 +201,6 @@
 
                         })
                         .then(function (response) {
-                            console.log('response.data',response.data);
                             if (response.data.status == 200) {
                                 toast.success('თქვენ გაეცით ხელფასები', {
                                     theme: 'colored',
@@ -247,7 +242,6 @@
                     }else{
                         this.disbursement_of_salary_button = false
                     }
-                    console.log('newValue', newValue);
 
                 },
                 deep: true

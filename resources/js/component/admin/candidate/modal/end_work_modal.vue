@@ -63,10 +63,8 @@
             async show(){
                 try {
                     let result = await this.getClassificatory();
-                    console.log('result', result.data);
                     this.cla = result.data
                     this.m.id = this.item
-                    // console.log(this.m);
                     this.showConfirm = true
                 } catch (error) {
                     console.log(error);
@@ -111,7 +109,6 @@
 
                         })
                         .then(function (response) {
-                            // console.log(response.data);
                             if (response.data.status == 200) {
                                 if (response.data.data.type == 'e') {
                                     toast.error(response.data.data.message, {

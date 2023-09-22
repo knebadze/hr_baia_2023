@@ -66,11 +66,9 @@
             async show(){
                 try {
                     let result = await this.getClassificatory();
-                    console.log('result', result.data);
                     this.cla = result.data.cla
                     this.check = result.data.check
                     this.m = this.item
-                    // console.log(this.m);
                     this.showConfirm = true
                 } catch (error) {
                     console.log(error);
@@ -107,7 +105,6 @@
 
                         })
                         .then(function (response) {
-                            // console.log(response.data);
                             if (response.status == 200) {
                                 toast.success('წარმატებით შესრულდა', {
                                     theme: 'colored',
@@ -135,7 +132,7 @@
 
             },
             showFullVacancyModal(){
-                
+
             }
 
         },

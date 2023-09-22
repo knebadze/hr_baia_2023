@@ -134,11 +134,9 @@
         },
         methods:{
             show(){
-                console.log('this.m', this.items.item);
                 this.m = {...this.items.item}
                 // (this.m.hasOwnProperty('has_experience'))?
                 this.experience = (this.items.item && this.items.item.length != 0)?this.items.item.has_experience:''
-                console.log('this.m', this.m);
                 this.cla = _.cloneDeep(this.items.cla)
                 this.showConfirm = true
 
@@ -147,14 +145,12 @@
                 this.showConfirm = false
             },
             save(){
-                console.log(this.m);
                 // return
                 if (this.m.has_experience.id == 2) {
                     // this.m.has_experience = this.experience
                     this.m.candidate_id = this.items.candidate_id
                     this.m = this.m
                 }
-                console.log('save this.m',this.m);
                 let currentObj = this
                 this.$swal({
                     title: 'ნამდვილად გსურთ რედაქტირება?',

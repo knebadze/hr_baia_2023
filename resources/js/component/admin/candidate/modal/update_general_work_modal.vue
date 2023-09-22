@@ -159,10 +159,8 @@
         },
         methods:{
             show(){
-                console.log('this.m', this.items.item.length);
                 this.m = {...this.items.item}
                 this.experience = (this.items.item.length != 0)?this.items.item[0].has_experience:''
-                console.log('this.m', this.m);
                 this.cla = this.items.cla
                 this.showConfirm = true
 
@@ -176,7 +174,6 @@
                     this.m.candidate_id = this.items.candidate_id
                     this.m = [this.m]
                 }
-                console.log('save this.m',this.m);
                 let currentObj = this
                 this.$swal({
                     title: 'ნამდვილად გსურთ რედაქტირება?',

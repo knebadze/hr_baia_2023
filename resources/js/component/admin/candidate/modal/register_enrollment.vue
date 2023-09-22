@@ -77,10 +77,8 @@
         },
         methods:{
             async show(){
-                console.log('item', this.item);
                 let result = await this.getInfo();
                 this.registerInfo = result.data;
-                console.log('this.registerInfo', result);
                 this.showConfirm = true
 
                 this.m = {...this.item}
@@ -109,7 +107,6 @@
                 // let enrolled;
                 enrollmentType = (item.money == this.item.money)?1:0
                 // enrolled = this.item.money - item.money
-                console.log('enrollmentType', enrollmentType);
 
 
 
@@ -175,7 +172,6 @@
                 let currentObj = this;
                 axios.post('/register_enrollment', formData)
                 .then(function (response) {
-                    console.log('response.data',response.data);
                     if (response.status == 200) {
                         toast.success("წარმატებით ჩაირიცხა", {
                             theme: 'colored',

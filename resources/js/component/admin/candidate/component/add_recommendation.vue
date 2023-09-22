@@ -264,7 +264,6 @@ export default {
             .then(function (response) {
 
                 // handle success
-                console.log('response.data',response.data);
                 if (response.data.status == 200) {
                     currentObj.items.push(response.data.data)
                     toast.success("წარმატებით დაემატა", {

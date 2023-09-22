@@ -74,7 +74,6 @@
 
 
 
-            console.log('data',props.data);
             const headers = ref([
                 // { text: "id", value: "id" },
                 { text: "ჰრ", value: "hr.user.name_ka" },
@@ -92,7 +91,6 @@
             ]);
 
             let data =  props.data
-            // console.log(data.length);
             const georgianMonthNames = {
                 'January': 'იანვარი',
                 'February': 'თებერვალი',
@@ -126,7 +124,6 @@
 
             // cla = ref(props.data.classificatory)
             const items = ref(data)
-            console.log('let data', data);
 
 
             function makeData(params) {
@@ -274,7 +271,6 @@
                     }else{
                         this.disbursement_of_salary_button = false
                     }
-                    console.log('newValue', newValue);
 
                 },
                 deep: true

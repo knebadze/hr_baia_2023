@@ -95,7 +95,6 @@
         methods:{
             show(){
                 this.m = this.items.item
-                console.log('this.m', this.items);
                 this.cla = this.items.cla
                 this.showConfirm = true
 
@@ -137,11 +136,9 @@
                 if (this.file) {
                     formData.append('file', this.file);
                 }
-                console.log('item',item);
                 let currentObj = this;
                 axios.post('/add_candidate_file', formData)
                 .then(function (response) {
-                    console.log(response.data);
                     if (response.data.status == 200) {
                         currentObj.m = response.data.data;
                         toast.success("ინფორმაცია წარმატებით შეინახა", {
@@ -165,7 +162,6 @@
                 }).then((result) => {
                 /* Read more about isConfirmed, isDenied below */
                     if (result.isConfirmed) {
-                        // console.log(index);
                         // return
                         const removed = this.m.splice(index, 1);
                         axios({

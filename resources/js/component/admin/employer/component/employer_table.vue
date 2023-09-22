@@ -69,7 +69,6 @@
             let sendMessageComponent = ref(null);
 
 
-            console.log('data.props',props.data);
             const headers = ref([
                 { text: "id", value: "id" },
                 { text: "სახელი გვარი", value: "name_ka" },
@@ -88,7 +87,6 @@
                 data[i].created_at = moment(data[i].created_at).format("YYYY-MM-DD HH:mm");
             }
             const items = ref(data)
-            console.log('let data', data);
 
 
             function makeData(params) {
@@ -157,7 +155,6 @@
                 }
             },
             async openSendMessageModal(item){
-                console.log('item', item);
                 // return
                 if (!this.sendMessageComponent) {
                     let module = await import('../../candidate/modal/send_message_modal.vue');

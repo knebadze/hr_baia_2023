@@ -128,8 +128,6 @@ methods:{
         //     let id = this.items.candidate_id
         //     this.getFamilyWorkInfo(id)
         // }
-       console.log('data', this.items);
-       console.log('type', this.type);
     },
     hide(){
         this.showConfirm = false

@@ -129,7 +129,6 @@ export default {
             if (this.file) {
                 formData.append('file', this.file);
             }
-            console.log('item',item);
             let currentObj = this;
             axios.post('/add_candidate_file', formData)
             .then(function (response) {
@@ -165,7 +164,6 @@ export default {
 
                     })
                     .then(function (response) {
-                        // console.log(response.data);
                         if (response.data.status == 200) {
                             toast.success("წარმატებით წაიშალა", {
                                 theme: 'colored',

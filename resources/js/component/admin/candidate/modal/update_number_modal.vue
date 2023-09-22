@@ -131,10 +131,8 @@
         methods:{
             show(){
                 this.m = {...this.items.item}
-                console.log('this.m', this.m);
                 this.cla = this.items.cla
                 this.showConfirm = true
-                console.log(this.cla.numberCode.find(element => element.numbercode == 995));
                 this.newItem.number_code = this.cla.numberCode.find(element => element.phonecode == 995);
 
             },

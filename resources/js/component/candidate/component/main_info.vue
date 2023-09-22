@@ -1,6 +1,10 @@
 <template lang="">
 <!--Basic Information-->
-
+<div class="panel panel-default">
+    <div class="panel-heading wt-panel-heading p-a20">
+        <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_input_basic_info') }}</h4>
+    </div>
+    <div class="panel-body wt-panel-body p-a20 m-b30 ">
         <form @submit.prevent="authUpdate()">
             <div class="row" >
 
@@ -52,7 +56,7 @@
                     <div class="form-group">
                         <label>{{ $t('lang.user_profile_page_input_gender') }}</label>
                         <div class="ls-inputicon-box">
-                            <multiselect v-model="m.gender" :options="genderCLA" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one" :searchable="true" :allow-empty="false" @blur="v$.m.gender_id.$touch">
+                            <multiselect v-model="m.gender" :options="cla.gender" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one" :searchable="true" :allow-empty="false" @blur="v$.m.gender_id.$touch">
                                 <template slot="singleLabel" slot-scope="{ option }"></template>
                             </multiselect>
                             <span v-if="v$.m.gender_id.required.$invalid && v$.m.gender_id.$dirty" style='color:red'>* {{ v$.m.gender_id.required.$message}}</span>
@@ -62,15 +66,15 @@
 
 
 
-                <div class="col-lg-12 col-md-12 mt-4">
-                    <div class="text-left">
-                        <button type="" class="site-button" >{{ $t('lang.user_profile_page_button_save_changes') }}</button>
-                    </div>
+                <div class="col-lg-12 col-md-12 mt-4 d-flex justify-content-center" >
+                    <button type="" class="site-button" >{{ $t('lang.user_profile_page_button_save_changes') }}</button>
                 </div>
 
 
             </div>
         </form>
+    </div>
+</div>
 </template>
 <script>
 import { I18n } from 'laravel-vue-i18n'
@@ -84,11 +88,11 @@ export default {
     },
     props:{
         data: Object,
-        genderCLA: Object
     },
     data() {
         return {
-            m:null
+            m:null,
+            cla:{}
         }
     },
     validations () {
@@ -107,7 +111,9 @@ export default {
         return validations
     },
     created(){
-        this.m = {...this.data}
+        console.log('this.data',this.data);
+        this.m = {...this.data.model}
+        this.cla = this.data.cla
     },
     computed:{
         getLang(){

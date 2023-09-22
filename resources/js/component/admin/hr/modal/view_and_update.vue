@@ -190,7 +190,6 @@ methods:{
        this.imgName = event.target.files[0].name
    },
    updateHR(model){
-       console.log('model', model);
        let currentObj = this
        const config = {
            headers: {
@@ -221,7 +220,6 @@ methods:{
        axios.post('/update_hr', formData, config)
        .then(function (response) {
            // handle success
-           console.log('response.data',response.data);
            if (response.status == 200) {
                // currentObj.candidate_id = response.data.data;
                currentObj.hide()

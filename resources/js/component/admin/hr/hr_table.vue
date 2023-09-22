@@ -85,7 +85,6 @@ export default {
                 value['switch'] = false
             }
         });
-        console.log('this.hr', this.hr);
     },
     methods: {
         openAddModal(){
@@ -96,9 +95,7 @@ export default {
             this.showViewModal = !this.showViewModal
         },
         isActiveUpdate(item){
-            console.log('item', item);
             let currentObj = this;
-            // console.log('currentObj',currentObj);
             axios({
                 method: "post",
                 url: "/hr_is_active_update",
@@ -106,9 +103,7 @@ export default {
 
             })
             .then(function (response) {
-                // console.log('this.noticeFile',currentObj);
                 // handle success
-                console.log('response.data', response.data);
                 if (response.status == 200) {
                     // currentObj.candidate_id = response.data.data;
                     toast.success(response.data, {
@@ -129,7 +124,6 @@ export default {
     },
     watch:{
         'item.switch': function (newVal, oldVal) {
-            console.log('newVal', newVal);
         }
     }
 }

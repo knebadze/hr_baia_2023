@@ -324,7 +324,6 @@ export default {
         let cla = ref(null)
 
 
-        console.log('data',props.data);
         const headers = ref([
             { text: "id", value: "code" },
             { text: "კატეგორია", value: "category" },
@@ -340,15 +339,11 @@ export default {
 
         cla = ref(props.data.classificatory)
         const items = ref(data)
-        console.log('let data', items.value);
 
         // ref(makeData(props.data.vacancy));
-        // console.log(makeData(props.data));
         function makeData(params) {
             var arr = []
-            // console.log('params',params);
             params.forEach(element => {
-                console.log('element.get_vacancy_driving_license.length',element.vacancy_driving_license.length);
                 // var data = {
                 //     'id': element.code,
                 //     'category':element.category.name_ka,
@@ -453,7 +448,6 @@ export default {
 
                 })
                 .then(function (response) {
-                    console.log('response',  response.data);
                     items.value = response.data
                     if (response.status == 200) {
                         toast.success("წარმატებით წაიშალა", {
@@ -557,7 +551,6 @@ export default {
             }
         },
         carryInHead(item){
-            console.log('head', item);
             let editedFields = {
                 'carry_in_head_date': item.carry_in_head_date,
             }

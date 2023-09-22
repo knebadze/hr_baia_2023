@@ -28,11 +28,13 @@ class UserProfileController extends Controller
 
         //კლასიფიკატორები
 
+
         $candidateClassificatoryArr = ['gender', 'nationality', 'religions','educations', 'maritalStatus', 'citizenship', 'professions',
         'specialties', 'allergies', 'languages', 'languageLevels', 'workExperiences', 'notices', 'noExperienceReason', 'drivingLicense',
-        'numberCode', 'characteristic', 'numberOwner', 'yesNo'];
+        'numberCode', 'characteristic', 'numberOwner', 'yesNo', 'category', 'workSchedule','currency', 'recommendationFromWhom', 'noRecommendationReason',
+        'duty', ];
         $classificatory = $this->classificatoryService->get($candidateClassificatoryArr);
-        $model = $this->modelService->getUserModel();
+        $model = $this->modelService->getFullData();
 
         $data = [
             'basic' => [

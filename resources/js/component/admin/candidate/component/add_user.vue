@@ -121,7 +121,6 @@ export default {
             const isFormCorrect = await this.v$.$validate()
             if (!isFormCorrect) return;
             let currentObj = this;
-            console.log('currentObj',currentObj);
             axios({
                 method: "post",
                 url: "/add_user",
@@ -129,7 +128,6 @@ export default {
 
             })
             .then(function (response) {
-                console.log(response.data);
                 if (response.data.status == 200) {
                     toast.success("ინფორმაცია წარმატებით შეინახა", {
                         theme: 'colored',

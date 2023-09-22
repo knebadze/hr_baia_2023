@@ -3,6 +3,7 @@
 namespace App\Repositories\Candidate;
 
 use App\Models\FamilyWorkExperience;
+use Illuminate\Support\Facades\Auth;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class FamilyWorkExperienceRepository
@@ -29,7 +30,7 @@ class FamilyWorkExperienceRepository
     }
     function updateOrCreate($data){
         // dd($data);
-        $candidate_id = $data['candidate_id'];
+        $candidate_id = $data['candidate_id'] ? $data['candidate_id']: Auth::user()->candidate->id;
 
         if ($data["has_experience"]['id'] == 1) {
             if (FamilyWorkExperience::where('candidate_id', $candidate_id)->exists() && FamilyWorkExperience::where('candidate_id', $candidate_id)->where('experience', 2)->exists()) {

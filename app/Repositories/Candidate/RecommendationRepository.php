@@ -47,12 +47,13 @@ class RecommendationRepository
         // dd($data);
         $lang = (isset($data['data']->lang))?$data['data']->lang:'ka';
         $data = $this->translate($lang, $data);
+        $candidate_id = $data['data']->candidate_id ? $data['data']->candidate_id :Auth::user()->candidate->id;
         $recommendation = new CandidateRecommendation();
-        $recommendation->candidate_id = $data['data']->candidate_id;
+        $recommendation->candidate_id = $candidate_id;
         $recommendation->recommendation = $data['data']->has_recommendation->id;
         if ($data['data']->has_recommendation->id == 1) {
-            if (CandidateRecommendation::where('candidate_id', $data['data']->candidate_id)->exists() && CandidateRecommendation::where('candidate_id', $data['data']->candidate_id)->where('recommendation', 2)->exists()) {
-                CandidateRecommendation::where('candidate_id', $data['data']->candidate_id)->delete();
+            if (CandidateRecommendation::where('candidate_id', $candidate_id)->exists() && CandidateRecommendation::where('candidate_id', $candidate_id)->where('recommendation', 2)->exists()) {
+                CandidateRecommendation::where('candidate_id', $candidate_id)->delete();
             }
             $recommendation->recommendation_from_whom_id = $data['data']->recommendation_whom->id;
             $recommendation->name_ka = $data['data']->name_ka;
@@ -73,8 +74,8 @@ class RecommendationRepository
                 $recommendation->file_name = $data['data']->file_name;
             }
         }else{
-            if (CandidateRecommendation::where('candidate_id', $data['data']->candidate_id)->exists() && CandidateRecommendation::where('candidate_id', $data['data']->candidate_id)->where('recommendation', 1)->exists()) {
-                CandidateRecommendation::where('candidate_id', $data['data']->candidate_id)->delete();
+            if (CandidateRecommendation::where('candidate_id', $candidate_id)->exists() && CandidateRecommendation::where('candidate_id', $candidate_id)->where('recommendation', 1)->exists()) {
+                CandidateRecommendation::where('candidate_id', $candidate_id)->delete();
             }
             $recommendation->no_reason_id = $data['data']->no_reason->id;
             if (isset($data['data']->no_reason_info_ka)) {
@@ -84,7 +85,7 @@ class RecommendationRepository
             }
 
         }
-        $this->candidateStatusUpdate($data['data']->candidate_id);
+        $this->candidateStatusUpdate($candidate_id);
 
         $recommendation->save();
         // if (Auth::user()->role_id == 3) {
@@ -95,11 +96,13 @@ class RecommendationRepository
 
     function update($data)  {
         // dd($data);
+
         $data = $this->translate('ka',$data);
+        $candidate_id = $data['data']->candidate_id ? $data['data']->candidate_id :Auth::user()->candidate->id;
         $recommendation = CandidateRecommendation::findOrFail($data['data']->id);
         if ($data['data']->has_recommendation->id == 1) {
-            if (CandidateRecommendation::where('candidate_id', $data['data']->candidate_id)->exists() && CandidateRecommendation::where('candidate_id', $data['data']->candidate_id)->where('recommendation', 2)->exists()) {
-                CandidateRecommendation::where('candidate_id', $data['data']->candidate_id)->delete();
+            if (CandidateRecommendation::where('candidate_id', $candidate_id)->exists() && CandidateRecommendation::where('candidate_id', $candidate_id)->where('recommendation', 2)->exists()) {
+                CandidateRecommendation::where('candidate_id', $candidate_id)->delete();
             }
             $recommendation->recommendation_from_whom_id = $data['data']->recommendation_whom->id;
             $recommendation->name_ka = $data['data']->name_ka;
@@ -121,8 +124,8 @@ class RecommendationRepository
                 $recommendation->file_name = $data['data']->file_name;
             }
         }else{
-            if (CandidateRecommendation::where('candidate_id', $data['data']->candidate_id)->exists() && CandidateRecommendation::where('candidate_id', $data['data']->candidate_id)->where('recommendation', 1)->exists()) {
-                CandidateRecommendation::where('candidate_id', $data['data']->candidate_id)->delete();
+            if (CandidateRecommendation::where('candidate_id', $candidate_id)->exists() && CandidateRecommendation::where('candidate_id', $candidate_id)->where('recommendation', 1)->exists()) {
+                CandidateRecommendation::where('candidate_id', $candidate_id)->delete();
             }
             $recommendation->no_reason_id = $data['data']->no_reason->id;
             if (isset($data['data']->no_reason_info_ka)) {

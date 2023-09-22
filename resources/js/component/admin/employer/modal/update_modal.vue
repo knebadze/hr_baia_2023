@@ -81,7 +81,6 @@
             show(){
                 this.showConfirm = true
                 this.m = {...this.item}
-                console.log('this.m', this.m);
 
             },
             hide(){
@@ -106,7 +105,6 @@
                         })
                         .then(function (response) {
                             // Check if the response contains a message
-                            console.log('response', response);
                             if (response.data && response.data.message) {
 
                                 if (response.status === 200) {

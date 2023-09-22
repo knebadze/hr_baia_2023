@@ -111,11 +111,9 @@ export default {
             // Access the element to update in each object
             this.items[i].created_at = moment(this.items[i].created_at).format("YYYY-MM-DD HH:mm");
         }
-        console.log('this.items', this.items);
     },
     methods: {
         fullModal(item){
-            console.log('item', item);
             if (item.enrollment_type == 1) {
                 this.candidateModal = !this.candidateModal
                 this.modalId = item.candidate_id
@@ -126,7 +124,6 @@ export default {
 
         },
         editModal(item){
-            console.log('item', item);
             this.updateModal = !this.updateModal
             this.item = {...item}
         },
@@ -169,7 +166,7 @@ export default {
                                 document.location.reload();
                             }, 1500);
                         }else{
-                            
+
                         }
                     })
                     .catch(function (error) {

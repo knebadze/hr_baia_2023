@@ -411,7 +411,6 @@ export default {
 
     },
     created() {
-        console.log('must data', this.data);
         this.getData()
         // this.role_id = this.data.role_id
     },

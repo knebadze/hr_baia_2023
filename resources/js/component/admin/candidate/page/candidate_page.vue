@@ -411,7 +411,6 @@ export default {
         }
     },
     created(){
-        console.log('data',this.data);
         this.getData()
     },
     computed:{
@@ -459,7 +458,6 @@ export default {
                 })
             .then(function (response) {
                 // handle success
-                console.log(response.data);
                 currentObj.candidate = response.data.data
                 currentObj.pagination = {
                     'current_page':response.data.current_page,

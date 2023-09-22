@@ -139,14 +139,12 @@ export default {
     },
     created() {
         // this.m.id = this.data
-        console.log('data', this.data);
         // this.getData()
         this.m.payment = this.data.candidate.get_work_information.map(item => item.payment);
         this.m.work_schedule = this.data.candidate.get_work_information.flatMap(item => item.get_work_schedule.map(schedule => schedule.work_schedule_id));
         this.m.category = this.data.candidate.get_work_information.map(item => item.category_id);
         this.m.address = this.data.candidate.address_ka
 
-        console.log(this.m);
 
     },
     methods: {
@@ -232,11 +230,9 @@ export default {
         hrs: {
             deep: true,
             handler(newValue, oldValue) {
-                console.log(newValue.length);
                 if (newValue.length == 0) {
                     delete this.m['hrs']
                 }else{
-                    console.log(newValue.map(item => item.hr.id));
                     this.m.hrs = newValue.map(item => item.hr.id);
                 }
             },

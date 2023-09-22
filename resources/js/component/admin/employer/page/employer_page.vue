@@ -142,7 +142,6 @@ export default {
         }
     },
     created(){
-        console.log('data',this.data);
         this.getData()
     },
     computed:{
@@ -179,7 +178,6 @@ export default {
         },
         filter(m){
             if (m.date_from || m.date_to) {
-                console.log(m.date_from,  m.date_to);
                 if (!m.date_from || !m.date_to) {
                     toast.info('ორივე თარიღის შევსება სავალდებულოა', {
                         theme: 'colored',
@@ -199,7 +197,6 @@ export default {
                 })
             .then(function (response) {
                 // handle success
-                console.log('response.data',response.data);
                 currentObj.employer = response.data.data
                 currentObj.pagination = {
                     'current_page':response.data.current_page,

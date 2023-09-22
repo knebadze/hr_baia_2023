@@ -21,6 +21,9 @@ import Vue3EasyDataTable from 'vue3-easy-data-table';
 import 'vue3-easy-data-table/dist/style.css';
 
 import Popper from "vue3-popper";
+import * as Vue3FormWizard  from '../../node_modules/vue3-form-wizard/dist/vue3-form-wizard.es.js'
+// import Vue3FormWizard from 'vue3-form-wizard'
+import 'vue3-form-wizard/dist/style.css'
 
 window.I18n = I18n;
 window.toast = toast
@@ -206,6 +209,7 @@ const importComponents = async () => {
     })
     app.use(VueSweetalert2);
     app.use(withUUID);
+    app.use(Vue3FormWizard.default)
     app.mount('#app');
   })();
 

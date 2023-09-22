@@ -215,7 +215,6 @@
         methods:{
             show(){
                 this.m = makeModel(this.items.item)
-                console.log('this.items', this.items);
                 function makeModel(params) {
                     let arr =[]
                     params.forEach(element => {
@@ -227,7 +226,6 @@
 
                     return {...arr}
                 }
-                console.log('this.m', this.m);
                 this.cla = this.items.cla
                 this.showConfirm = true
 

@@ -90,7 +90,6 @@
         },
         methods:{
             show(){
-                console.log('item', this.item);
                 this.showConfirm = true
 
             },
@@ -109,7 +108,6 @@
                 })
                 .then(function (response) {
                     // handle success
-                    console.log('response',response.data);
                     currentObj.items = response.data
 
                 })

@@ -307,7 +307,6 @@ export default {
     },
     created() {
         // this.data.model.candidate_information.candidate.id = 4
-        console.log('data', this.data);
     },
     methods: {
         // childMessageReceived(item){
@@ -316,7 +315,6 @@ export default {
         // }
         handleMessageFromChildren(item) {
         // Handle the emitted event
-            console.log('msg', item);
             this.candidate_id = item
         },
     },

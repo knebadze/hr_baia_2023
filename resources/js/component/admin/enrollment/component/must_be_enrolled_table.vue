@@ -108,7 +108,6 @@ export default {
 
     },
     created() {
-        console.log('this.items', this.items);
         for (let i = 0; i < this.items.length; i++) {
             // Access the element to update in each object
             const createdAtMoment = moment(this.items[i].date);
@@ -123,7 +122,6 @@ export default {
     },
     methods: {
         fullModal(item){
-            console.log('item', item);
             if (item.enrollment_type == 1) {
                 this.candidateModal = !this.candidateModal
                 this.modalId = item.candidate_id

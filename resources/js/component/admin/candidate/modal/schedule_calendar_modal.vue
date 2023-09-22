@@ -73,7 +73,6 @@
             async show(){
                 try {
                     let result = await this.getClassificatory();
-                    // console.log('result', result.data);
                     this.items = result.data
                     this.calendarOptions.events = this.event( JSON.parse(result.data.schedule.work_day))
                     this.showConfirm = true
@@ -83,10 +82,8 @@
 
             },
             event(schedule){
-                // console.log('schedule', schedule);
                 let arr = [];
                 schedule.forEach(element => {
-                    // console.log(element);
                     // title: this.items.vacancy.code,
                     let obj = {  start: element, display: 'background' }
                     arr.push(obj);

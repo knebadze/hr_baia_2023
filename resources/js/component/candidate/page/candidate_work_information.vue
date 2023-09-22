@@ -53,7 +53,6 @@ export default {
     },
     created(){
         this.data.model.workInformation['payment'] = 800;
-        console.log('data', this.data);
 
         this.m = { ...this.data.model };
         this.workInformationData = {
@@ -95,56 +94,6 @@ export default {
     methods:{
     },
     watch: {
-        // 'candidateRecommendationModel.has_recommendation': function (newVal, oldVa) {
-        //     if (newVal.id == 2) {
-        //         this.showNoReccomendation = true;
-        //     }
-
-        //     if (this.m.candidateRecommendation.length != 0 && this.m.candidateRecommendation[0].recommendation != newVal.id ) {
-        //         this.$swal({
-        //             title: 'თქვენ უკვე შეავსეთ რეკომენდაციის ინფორმაცია თუ ამ ცვლილებას დაეთანხმებით ავტომატურად წაიშლება წინა შევსებული ინფორმაცია. <br><p>გსურთ გაგრძელება?</p>',
-        //             showDenyButton: true,
-        //             confirmButtonText: 'კი',
-        //             denyButtonText: `არა`,
-        //         }).then((result) => {
-        //             if (result.isConfirmed) {
-        //                 console.log('this.m', this.m.candidateRecommendation);
-        //                 var idArr = [];
-        //                 this.m.candidateRecommendation.forEach(element => {
-        //                     idArr.push(element.id)
-        //                     console.log('idArr',idArr);
-        //                 });
-        //                 axios.post('/trash_recommendation' ,{
-        //                     id: idArr
-        //                 })
-        //                 .then((response)=> {
-        //                     console.log('response.data', response.data);
-        //                     if (response.status == 200) {
-        //                         this.m.candidateRecommendation = [];
-        //                     }
-        //                 })
-        //                 .catch(function (error) {
-        //                     console.log(error);
-        //                 });
-        //             } else if (result.isDenied) {
-        //             }
-        //         })
-        //     }
-        //     if(this.m.candidateRecommendation.length != 0 && this.m.candidateRecommendation[0].recommendation == 2 && newVal.id == 2){
-        //         this.showNoReccomendation = false
-        //         this.$swal({
-        //             title: '<p>თქვენ უკვე შეავსეთ რეკომენდაციის ინფორმაცია</p>',
-        //             icon: 'info',
-        //             html:
-        //                 'ცვლილების შესატანად გამოიყენეთ რედაქტირების ღილაკი',
-        //             showCloseButton: true,
-        //             showCancelButton: false,
-        //             focusConfirm: false,
-        //             // confirmButtonText: 'შესავსებად გადასვლა',
-        //         })
-        //     }
-        //     console.log('new', newVal.id);
-        // },
     },
 
     mounted() {

@@ -283,7 +283,6 @@ export default {
 
 
 
-        console.log('data',props.data);
         const headers = ref([
             { text: "id", value: "id" },
             { text: "სახელი გვარი", value: "user.name_ka" },
@@ -299,7 +298,6 @@ export default {
 
         // cla = ref(props.data.classificatory)
         const items = ref(data)
-        console.log('let data', data);
 
 
         function makeData(params) {
@@ -448,7 +446,6 @@ export default {
                 confirmButtonText: 'სრული',
                 showCancelButton: true,
             }).then((result) => {
-                console.log('result', result);
                 if (result.isConfirmed) {
 
                     window.location.href = `/candidate_full_pdf?data=${item}`
@@ -458,7 +455,6 @@ export default {
             })
         },
         async openSendMessageModal(item){
-            console.log('item', item);
             // return
             if (!this.sendMessageComponent) {
                 let module = await import('../modal/send_message_modal.vue');
@@ -468,10 +464,8 @@ export default {
             this.item = {'id': item.id, 'number': item.user.number}
         },
         enrolled(item){
-            console.log('item',item);
             this.showEnrolledModal = !this.showEnrolledModal
             this.item = (item.register_fee)?item.register_fee:{'log': null}
-            console.log('item.name_ka', item.name_ka);
             this.item['name'] = item.name_ka
         },
         candidateDelete(id){
@@ -494,7 +488,6 @@ export default {
 
                     })
                     .then(function (response) {
-                        // console.log(response.data);
                         if (response.data.status == 200) {
 
                             toast.success('წარმატებით წაიშალა', {

@@ -36,9 +36,11 @@ class WorkInformationRepository
             $lang = (isset($data['lang']))?$data['lang']:'ka';
             $data = $this->translate($lang, $data);
         }
+        $candidate_id = $data['candidate_id'] ? $data['candidate_id']: Auth::user()->candidate->id;
+        // dd($data);
         $workInformation = WorkInformation::updateOrCreate(
             [
-                'candidate_id' => $data['candidate_id'],
+                'candidate_id' => $candidate_id,
                 'category_id' => $data['category']['id']
             ],
             [
@@ -57,9 +59,9 @@ class WorkInformationRepository
         }, []);
         $workInformation->workSchedule()->sync( $selectSchedule );
 
-        if (Auth::user()->role_id == 3) {
-            $this->candidateStatusUpdate($data['candidate_id']);
-        }
+        // if (Auth::user()->role_id == 3) {
+            $this->candidateStatusUpdate($candidate_id);
+        // }
 
         return WorkInformation::where('id', $workInformation->id)->with(['category', 'workSchedule', 'currency'])->first();
     }

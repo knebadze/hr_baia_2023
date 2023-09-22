@@ -315,10 +315,10 @@
                     </div>
                 </div>
 
-                <div class="col-lg-12 col-md-12">
-                    <div class="text-left">
+                <div class="col-lg-12 col-md-12 d-flex justify-content-center">
+                    <!-- <div class="text-left"> -->
                         <button type="submit" @click.prevent="addCandidate()"  class="site-button">{{ $t('lang.user_profile_page_social_button_save') }}</button>
-                    </div>
+                    <!-- </div> -->
                 </div>
 
 

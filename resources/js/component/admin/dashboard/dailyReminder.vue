@@ -84,7 +84,6 @@ export default {
                         element['status'] = 2
                     }
                 } else{
-                    console.log('else');
                 }
                 arr.push(element)
             });
@@ -92,7 +91,6 @@ export default {
         }
     },
     created(){
-        console.log('items',this.items);
     },
     methods:{
         vacancyModal(id){

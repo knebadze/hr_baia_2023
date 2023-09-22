@@ -97,7 +97,6 @@ export default {
         }
     },
     created(){
-        console.log('items',this.data);
     },
     methods:{
         vacancyModal(id){

@@ -163,7 +163,6 @@ export default {
     methods: {
         // async
         add(item){
-            console.log('item',item);
             let currentObj = this;
             axios({
                 method: "post",
@@ -172,7 +171,6 @@ export default {
 
             })
             .then(function (response) {
-                console.log(response.data);
                 if (response.data.status == 200) {
                     currentObj.m = response.data.data;
                     toast.success("ინფორმაცია წარმატებით შეინახა", {
@@ -187,7 +185,6 @@ export default {
             })
         },
         addCandidateWorkExperience(workExperience){
-            console.log('workExperience',JSON.parse(JSON.stringify(workExperience)));
             var data = JSON.parse(JSON.stringify(workExperience))
             if (data.has_experience.id == 1 && (data.work_experience == '' || data[`position_${this.getLang}`] == '' || data[`object_${this.getLang}`]== '')) {
                 toast.error("სამუშაო გამოცდილების ყველ ველის შევსება სავალდებულოა", {
@@ -247,7 +244,6 @@ export default {
 
                     })
                     .then(function (response) {
-                        // console.log(response.data);
                         if (response.data.status == 200) {
                             toast.success("წარმატებით წაიშალა", {
                                 theme: 'colored',
@@ -270,7 +266,6 @@ export default {
     },
     watch:{
         'candidateWorkExperienceModel.has_experience.id': function(newVal, oldVa){
-            console.log('newVal', newVal);
             if (newVal == 2) {
                 this.showNoWorkExperience = true;
                 this.showYesWorkExperience = false;

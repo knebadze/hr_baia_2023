@@ -89,7 +89,6 @@
                 this.showConfirm = true
                 this.m = {...this.item}
                 this.m.total_salary = Number(this.m.full_salary) + Number(this.m.supplement)
-                console.log('this.m', this.m);
                 // this.m.type = this.cla.find((element) => element.id == this.item.type)
                 // try {
                 //     let result = await this.getClassificatory();
@@ -130,7 +129,6 @@
                             data: { 'model': this.m },
                         })
                         .then(function (response) {
-                            console.log(response.data.message);
                             if (response.status == 200 && response.data.message === 'Update successful') {
                                 toast.success('წარმატებით შესრულდა', {
                                     theme: 'colored',

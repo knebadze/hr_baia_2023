@@ -170,7 +170,6 @@ export default {
         }
     },
     created(){
-        console.log('data', this.data);
     },
     computed:{
         getLang(){
@@ -198,7 +197,6 @@ export default {
                         element['status'] = 2
                     }
                 } else{
-                    console.log('else');
                 }
                 arr.push(element)
             });
@@ -226,7 +224,6 @@ export default {
                         element['status'] = 2
                     }
                 } else{
-                    console.log('else');
                 }
                 arr.push(element)
             });
@@ -246,7 +243,6 @@ export default {
             this.vacancyId = id
         },
         editModal(item){
-            console.log('hi');
             this.reminderEditModelShow = !this.reminderEditModelShow
             this.item = item
         }
