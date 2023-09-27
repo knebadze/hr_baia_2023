@@ -56,7 +56,6 @@
         },
         created(){
             // this.showConfirm = this.visible
-            console.log(this.min);
         },
         computed:{
             getLang(){
@@ -76,7 +75,6 @@
                 this.showConfirm = false
             },
             makeModel(item){
-                console.log(item);
 
                 var newItem = {}
                 newItem.vacancy_id = item.vacancy_id
@@ -101,7 +99,6 @@
                 })
                 .then(function (response) {
                     // handle success
-                    console.log(response.data);
                     if (response.status == 200) {
                         toast.success("წარმატებით დაემატა", {
                             theme: 'colored',

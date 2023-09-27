@@ -147,7 +147,6 @@
                     let result = await this.getInfo();
                     this.data = this.makeData(result.data)
                     this.staticData = this.makeData(result.data)
-                    console.log('data', result.data);
                     this.showConfirm = true
                 } catch (error) {
                     console.log(error);

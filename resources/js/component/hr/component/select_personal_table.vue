@@ -308,7 +308,6 @@ export default {
     },
 
     setup(props){
-        console.log('candidate data',props.data);
         //variable
         const itemsSelected = ref([]);
         let itemsSelectedButton = ref(false)
@@ -330,11 +329,8 @@ export default {
 
 
         const items = ref(makeData(('candidate' in props.data)?props.data.candidate:props.data));
-        // console.log(props.data);
         function makeData(params) {
-            // console.log();
             params.forEach((element, key) => {
-                console.log('element', element);
                 params[key].created_at = moment(element.created_at).format("YYYY-MM-DD HH:mm")
             });
             return params
@@ -472,7 +468,6 @@ export default {
                 }else{
                     this.itemsSelectedButton = false
                 }
-                console.log('newValue', newValue);
 
             },
             deep: true

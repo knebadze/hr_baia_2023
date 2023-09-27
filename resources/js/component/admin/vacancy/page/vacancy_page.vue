@@ -374,7 +374,6 @@ export default {
         }
     },
     created() {
-        console.log('this.data', this.data);
         this.cla = this.data.classificatory
         this.roleId = this.data.roleId
         this.hrId = (this.data.hasOwnProperty('hrId'))?this.data.hrId:null
@@ -404,10 +403,6 @@ export default {
             }
         },
         filter(m){
-            // this.colspan = 'hide'
-
-
-            console.log('this.randomNumber', this.randomNumber);
             (m.created_at_from || m.created_at_to)?m['created_at'] = [m.created_at_from, m.created_at_to]:'';
             (m.start_date_from || m.start_date_to)?m['start_date'] = [m.start_date_from, m.start_date_to]:'';
             (m.interview_date_from || m.interview_date_to)?m['interview_date'] = [m.interview_date_from, m.interview_date_to]:'';
@@ -422,14 +417,12 @@ export default {
                 data: m,
             })
             .then(function (response) {
-                // console.log('response.data', response.data);
                 currentObj.pagination = {
                     'current_page':response.data.current_page,
                     'last_page': response.data.last_page
                 }
                 currentObj.items = response.data.data
                 currentObj.tableKey++
-                // console.log('this.items', currentObj.items);
 
 
 

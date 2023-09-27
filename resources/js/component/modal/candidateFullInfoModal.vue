@@ -47,7 +47,6 @@
         },
         methods:{
             show(){
-                console.log('this.item',this.vacancyId);
                 this.showConfirm = true
 
             },

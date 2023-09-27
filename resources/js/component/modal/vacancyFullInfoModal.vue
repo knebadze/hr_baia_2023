@@ -208,7 +208,6 @@
                     let result = await this.getInfo();
                     this.item = result.data.vacancy
                     this.hr_id = result.data.hr_id
-                    console.log('this.data', this.item);
                     this.showConfirm = true
                 } catch (error) {
                     console.log(error);

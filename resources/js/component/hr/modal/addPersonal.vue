@@ -119,13 +119,11 @@
             },
             save(){
                 var editedFields = this.forItem(this.m)
-                console.log('editedFields', editedFields);
                 axios.post('/update_vacancy_status' ,{
                     data: {'model':this.m, 'edit': editedFields},
                 })
                 .then(function (response) {
                     // handle success
-                    console.log(response.data);
                     if (response.status == 200) {
                         toast.success("წარმატებით დაემატა", {
                             theme: 'colored',

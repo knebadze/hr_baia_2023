@@ -57,7 +57,6 @@
             });
 
             function show() {
-                console.log('props.data', props.item);
                 showConfirm.value = true
             }
 
@@ -76,10 +75,8 @@
                     // { text: "Operation", value: "operation" },
                 ];
                 let data = ref(props.item)
-                console.log('itemsSelected', itemsSelected);
                 return data
             }
-            console.log('props.data', props.item);
 
 
             return {

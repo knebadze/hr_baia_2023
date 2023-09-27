@@ -39,7 +39,6 @@ export default {
         selectImage(event){
             // alert()
             this.avatar = event.target.files[0]
-            console.log('this.avatar', this.avatar);
 
             const config = {
                 headers: {
@@ -51,10 +50,8 @@ export default {
             let currentObj = this;
             axios.post('/upload_avatar', formData, config)
             .then(function (response) {
-                console.log('response',response.data);
                 if (response.status == 200) {
                     currentObj.img = response.data.avatar
-                    console.log('this.img',currentObj.img);
                     toast.success("სურათი წარმატებით შეიცვალა", {
                         theme: 'colored',
                         autoClose: 1000,
@@ -71,13 +68,11 @@ export default {
         img: {
             handler(newValue, oldValue) {
                 this.src = this.path + newValue
-                console.log('this.src', this.src);
             },
             deep: true
         }
     },
     mounted(){
-        console.log('this.auth',this.auth);
     }
 }
 </script>

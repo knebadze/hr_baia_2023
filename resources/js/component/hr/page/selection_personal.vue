@@ -404,7 +404,6 @@ export default {
                 })
             .then(function (response) {
                 // handle success
-                console.log(response.data);
                 currentObj.candidate = response.data
                 currentObj.modalData['candidate'] = response.data
                 currentObj.tableKey++
@@ -417,7 +416,6 @@ export default {
         }
     },
     mounted() {
-        console.log(this.data);
     },
 }
 </script>

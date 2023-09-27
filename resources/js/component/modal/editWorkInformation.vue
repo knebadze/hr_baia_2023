@@ -179,7 +179,6 @@ export default {
         show(){
             this.showConfirm = true
             this.m = {...this.data.item}
-            console.log('this.m',this.m);
         },
         hide(){
            this.showConfirm = false
@@ -199,7 +198,6 @@ export default {
             .then(function (response) {
 
                 // handle success
-                console.log('response.data',response.data);
                 if (response.data.status == 200) {
                     if (response.data.data.message) {
                         toast.error(response.data.data.message, {
@@ -228,7 +226,6 @@ export default {
     },
     watch:{
         visible: function(){
-            console.log('this.data', this.data);
             this.show()
 
         },

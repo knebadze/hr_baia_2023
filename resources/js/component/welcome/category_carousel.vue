@@ -66,12 +66,9 @@
         }
     },
     created() {
-        console.log('this.data', this.data);
         this.items = _.omit(this.data, ['type']);
-        console.log('this.items',this.items);
         const screenWidth = window.screen.width;
         const screenHeight = window.screen.height;
-        console.log(`Screen Resolution: ${screenWidth} x ${screenHeight}`);
     },
     mounted() {
         // Listen for window resize events

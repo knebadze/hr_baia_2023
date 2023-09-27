@@ -86,7 +86,6 @@
         },
         created(){
             // this.showConfirm = this.visible
-            console.log(this.min);
         },
         computed:{
             getLang(){
@@ -97,11 +96,9 @@
             async show(){
                 try {
                     let result = await this.getClassificatory();
-                    console.log('result', result.data);
                     this.data = result.data
 
                     this.m = this.makeModel(this.item)
-                    console.log(this.m);
                     this.showConfirm = true
                     this.max = moment(moment().add(2, 'd').format('YYYY/MM/DD HH:mm')).toISOString().slice(0, -8)
                     this.min = moment(new Date()).toISOString().slice(0, -8)
@@ -115,7 +112,6 @@
                 this.showConfirm = false
             },
             makeModel(item){
-                console.log(item);
 
                 var newItem = {}
                 newItem.vacancy_id = item.id
@@ -152,7 +148,6 @@
                 })
                 .then(function (response) {
                     // handle success
-                    console.log(response.data);
                     if (response.status == 200) {
                         toast.success("წარმატებით დაემატა", {
                             theme: 'colored',

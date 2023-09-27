@@ -111,7 +111,6 @@ export default {
         return validations
     },
     created(){
-        console.log('this.data',this.data);
         this.m = {...this.data.model}
         this.cla = this.data.cla
     },
@@ -122,8 +121,6 @@ export default {
     },
     methods:{
         async authUpdate(){
-            // console.log(this.auth);
-            // console.log('this.v$.$validate()', this.v$);
             const isFormCorrect = await this.v$.$validate()
             if (!isFormCorrect) return;
             axios({
@@ -133,7 +130,6 @@ export default {
             })
             .then(function (response) {
                 // handle success
-                console.log(response);
                 if (response.status == 200) {
                     toast.success("წარმატებით განახლდა", {
                         theme: 'colored',
@@ -151,7 +147,6 @@ export default {
         },
     },
     mounted(){
-        console.log('data',this.data);
     }
 }
 </script>

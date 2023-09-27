@@ -323,7 +323,6 @@ export default {
         let cla = ref(null)
 
 
-        console.log('data',props.data);
         const headers = ref([
             { text: "id", value: "code" },
             { text: "კატეგორია", value: "category" },
@@ -339,7 +338,6 @@ export default {
 
         // cla = ref(props.data.classificatory)
         const items = ref(data)
-        console.log('let data', items.value);
         // ref(makeData(props.data.vacancy));
         // console.log(makeData(props.data.vacancy));
         // function makeData(params) {
@@ -377,9 +375,7 @@ export default {
         //     });
         //     return arr
         // }
-            console.log('hr_id.value',hr_id.value);
         const bodyRowClassNameFunction = ( item, number) => {
-            console.log('item.hr_id', item.hr_id);
             if (item.hr_id == hr_id.value) return 'my-vacancy-row';
             return '';
         };
@@ -460,7 +456,6 @@ export default {
 
             })
             .then(function (response) {
-                console.log('response',  response.data);
                 items.value = response.data.data
                 if (response.status == 200) {
                     // items.value = response.data.data
@@ -562,7 +557,6 @@ export default {
             this.vacancyId = id
         },
         carryInHead(item){
-            console.log('head', item);
             let editedFields = {
                 'carry_in_head_date': item.carry_in_head_date,
             }

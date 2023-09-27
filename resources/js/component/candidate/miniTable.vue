@@ -43,11 +43,7 @@ export default {
     },
     methods:{
         trash(type, index){
-            // console.log('type', type);
-            // console.log('index', index);
-            console.log('tableData', this.tableData);
             const removed = this.tableData.splice(index, 1);
-            console.log('tableData', this.tableData);
             this.sendMessageToParent(this.tableData, type)
         },
         sendMessageToParent(newData, type){
@@ -57,9 +53,6 @@ export default {
     watch:{
         tableData: {
             handler(newValue, oldValue) {
-                // console.log(this.tableRow);
-                console.log('tableData', this.tableData[0]);
-                // console.log('length', Object.keys(this.tableData[0]).length);
             }
         }
     },

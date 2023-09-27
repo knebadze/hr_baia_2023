@@ -211,7 +211,6 @@ export default {
     created(){
         this.m = {...this.data.deposit}
         this.item = this.data.deposit
-        console.log('this.m',this.m);
         this.enrollmentEmployer = {
             'money': this.m.must_be_enrolled_employer,
             'name': this.data.employer.name_ka,
@@ -222,7 +221,6 @@ export default {
             'name': this.data.employer.name_ka,
             'file_name': null
         }
-        console.log('data', this.data);
         this.data.register?this.registerEnrollment():null
     },
     computed:{
@@ -254,17 +252,14 @@ export default {
         forItem(item){
             var editedFields = {}
             for (const field in item) {
-                console.log('item', item[field] !== this.item[field]);
                 if ( item[field] !== this.item[field] ) {
                         editedFields[field] = this.item[field]
                 }
             }
-            // console.log('this.editedFields', this.editedFields);
             return editedFields
         },
         redacted(){
             var editedFields = this.forItem(this.m)
-            console.log('editedFields',editedFields);
             // this.m.hr_bonus = (this.payment.candidate_payment + this.payment.employer_payment).toFixed(2)
             let currentObj = this
             this.$swal({
@@ -281,7 +276,6 @@ export default {
                     })
                     .then(function (response) {
                         // handle success
-                        // console.log(response.data);
                         if (response.status == 200) {
                             toast.success("წარმატებით დარედაქტირდა", {
                                 theme: 'colored',
@@ -307,7 +301,6 @@ export default {
             });
         },
         counting(type){
-            console.log('type',type);
             let item;
             let enrollmentType;
             let enrolled;
@@ -320,7 +313,6 @@ export default {
                 enrollmentType = (item.money == this.m.must_be_enrolled_employer)?1:0
                 // enrolled = this.m.must_be_enrolled_employer - item.money
             }
-            console.log('enrollmentType', enrollmentType);
 
 
 
@@ -387,7 +379,6 @@ export default {
             let currentObj = this;
             axios.post('/vacancy_enrollment', formData)
             .then(function (response) {
-                console.log('response.data',response.data);
                 if (response.status == 200) {
                     toast.success("წარმატებით ჩაირიცხა", {
                         theme: 'colored',
@@ -416,8 +407,6 @@ export default {
     },
     watch:{
         'enrollmentEmployer.money': function(newVal, oldVal){
-            console.log('newVal', newVal);
-            console.log('oldVal', oldVal);
             if ( newVal > this.m.must_be_enrolled_employer) {
 
                 toast.error("თქვენ მიერ ჩაწერილი თანხა აღემატება ჩასარიცხ თანხას", {
@@ -433,8 +422,6 @@ export default {
         },
 
         'enrollmentCandidate.money': function(newVal, oldVal){
-            console.log('newVal', newVal);
-            console.log('oldVal', oldVal);
             if ( newVal > this.m.must_be_enrolled_candidate) {
 
                 toast.error("თქვენ მიერ ჩაწერილი თანხა აღემატება ჩასარიცხ თანხას", {

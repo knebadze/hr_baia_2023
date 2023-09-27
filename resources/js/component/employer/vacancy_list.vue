@@ -343,7 +343,7 @@ export default {
             // try {
             //     const response = await axios.get('/vacancy_data?page=' + this.pagination.current_page);
 
-            //     console.log('response.data', response.data);
+
 
             //     this.pagination = {
             //         'current_page': response.data.vacancy.current_page,
@@ -392,7 +392,6 @@ export default {
 
                 })
                 .then(function (response) {
-                    console.log('response.data',response.data);
                     currentObj.pagination = {
                             'current_page':response.data.vacancy.current_page,
                             'last_page': response.data.vacancy.last_page
@@ -466,7 +465,6 @@ export default {
 
             })
             .then(function (response) {
-                console.log('response.data',response.data);
                 if (response.data.status == 200) {
                     let text;
                     if(response.data.data.type == 'w'){
@@ -522,7 +520,6 @@ export default {
         }
     },
     mounted() {
-        // console.log('this.data',this.data);
 
     },
 }

@@ -95,17 +95,14 @@ export default {
         }
     },
     created(){
-        console.log('item', this.item);
         this.show()
     },
     computed:{
     },
     methods:{
         async show(){
-            console.log('item', this.item);
             let result = await this.getInfo();
             this.registerInfo = (result.data == '')?null:result.data?result.data:null;
-            console.log('this.registerInfo', this.registerInfo);
             this.showConfirm = true
 
             this.m = {...this.item}
@@ -134,7 +131,6 @@ export default {
             // let enrolled;
             enrollmentType = (item.money == this.item.initial_amount)?1:0
             // enrolled = this.item.money - item.money
-            console.log('enrollmentType', enrollmentType);
 
 
 
@@ -200,7 +196,6 @@ export default {
             let currentObj = this;
             axios.post('/register_enrollment', formData)
             .then(function (response) {
-                console.log('response.data',response.data);
                 if (response.status == 200) {
                     toast.success("წარმატებით ჩაირიცხა", {
                         theme: 'colored',

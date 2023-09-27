@@ -96,12 +96,10 @@ export default {
 
         this.cla = this.data.cla
         // this.m.user_id = this.data.user_id
-        console.log('this.m,,,', this.m);
     },
     methods: {
         // async
         add(item){
-            console.log('item',item);
             let currentObj = this;
             axios({
                 method: "post",
@@ -110,7 +108,6 @@ export default {
 
             })
             .then(function (response) {
-                console.log(response.data);
                 if (response.data.status == 200) {
                     currentObj.m = response.data.data;
                     toast.success("ინფორმაცია წარმატებით შეინახა", {
@@ -169,7 +166,6 @@ export default {
 
                     })
                     .then(function (response) {
-                        // console.log(response.data);
                         if (response.data.status == 200) {
                             toast.success("წარმატებით წაიშალა", {
                                 theme: 'colored',

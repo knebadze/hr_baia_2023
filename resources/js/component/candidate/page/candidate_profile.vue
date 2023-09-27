@@ -150,7 +150,6 @@ export default {
     },
     created(){
 
-        console.log('data', this.data);
         this.userData = {
             'model': this.data.basic.user,
             'cla': {

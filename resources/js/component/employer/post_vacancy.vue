@@ -602,7 +602,6 @@ export default {
         this.cla = { ...this.data.classificatory}
         this.cla.workSchedule = this.data.classificatory.workSchedule.filter(item => item.id !== 10 && item.id !== 11);
         let url = new URL( location.href)
-        console.log('url', url);
     },
     computed:{
         getLang(){
@@ -622,7 +621,6 @@ export default {
             this.m.vacancy.payment = 800
             this.m['characteristic'] = []
             this.m['duty'] = []
-            console.log('this.m', this.m);
         },
         addVacancy(){
             this.m['lang'] = this.getLang
@@ -643,7 +641,6 @@ export default {
                 if (result.isConfirmed) {
                     let currentObj = this
                     // this.loader = true
-                    console.log('this.m', this.m);
                     // return;
                     axios({
                         method: "post",
@@ -652,7 +649,6 @@ export default {
 
                     })
                     .then(function (response) {
-                        console.log('response.data', response.data);
                         if (response.data.status == 200) {
                             if (response.data.data.type == "e") {
                                 toast.error(response.data.data.message, {
@@ -741,7 +737,6 @@ export default {
         }
     },
     mounted(){
-        console.log('this.data', this.data);
     }
 }
 </script>

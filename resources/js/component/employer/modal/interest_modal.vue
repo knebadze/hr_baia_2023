@@ -92,7 +92,6 @@ export default {
 
             try {
                 let result = await this.getData();
-                console.log('result',result);
                 this.interest = result.data
                 this.showConfirm = true
                 this.m.id = this.id
@@ -138,7 +137,6 @@ export default {
                             var index = currentObj.interest.findIndex(object => {
                                 return object.id === id;
                             });
-                            console.log(index);
                             currentObj.interest[index]['employer_answer'] = 0
                         }
 
@@ -175,7 +173,6 @@ export default {
                             var index = currentObj.interest.findIndex(object => {
                                 return object.id === id;
                             });
-                            console.log(index);
                             currentObj.interest[index]['employer_answer'] = 1
                         }
 

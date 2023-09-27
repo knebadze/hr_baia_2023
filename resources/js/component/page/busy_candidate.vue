@@ -111,7 +111,6 @@ export default {
     },
 
     setup(props){
-        console.log('data', props.data);
         const headers = ref([
             { text: "კანდიდატის ID", value: "candidate" },
             { text: "სახელი გვარი", value: "user_name"},
@@ -226,7 +225,6 @@ export default {
         vacancyModal(id){
             this.showVacancyModal = !this.showVacancyModal
             this.vacancy_id = id
-            console.log('id',id);
         }
     }
 }

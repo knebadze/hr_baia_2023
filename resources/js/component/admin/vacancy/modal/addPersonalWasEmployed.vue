@@ -205,7 +205,6 @@
                         'start_date': this.item.start_date,
                         'term':this.item.term
                     }
-                    console.log('info', this.info);
                     if ( this.item.work_schedule_id == 8 ) {
                         this.m.week_day = null
                     }
@@ -252,16 +251,13 @@
                     return
                 }
                 // return
-                console.log('this.m.candidate_id',typeof(this.m.candidate_id));
                 this.m.candidate_id = (typeof(this.m.candidate_id) == 'number')? this.m.candidate_id: this.m.candidate_id.candidate.id
-                console.log('this.m', this.m);
                 let currentObj = this
                 axios.post('/add_vacancy_personal_was_employed' ,{
                     data: this.m,
                 })
                 .then(function (response) {
                     // handle success
-                    console.log(response.data);
                     if (response.status == 200) {
                         toast.success("წარმატებით დაემატა", {
                             theme: 'colored',
@@ -291,7 +287,6 @@
                     })
                 .then(function (response) {
                     // handle success
-                    console.log('candidate',response.data);
                     currentObj.candidate = response.data
 
                 })
@@ -326,8 +321,6 @@
             //     this.m.vacancy_id = newValue.vacancy_id
             // }
             'm.candidate_id': function (newValue, oldValue){
-                console.log('newValue', typeof newValue);
-                console.log('this.m', this.m);
                 let currentObj = this
                 if(typeof newValue == 'object'){
 
@@ -339,7 +332,6 @@
                     })
                 .then(function (response) {
                     // handle success
-                    console.log('candidate',response.data);
                     if (response.data.length > 0) {
                         currentObj.day = currentObj.day.filter(item => !response.data.includes(item.filter_name));
                         currentObj.disabled = true

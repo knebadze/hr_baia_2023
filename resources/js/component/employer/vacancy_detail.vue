@@ -430,7 +430,6 @@ export default {
         this.auth = this.data.auth
         this.vacancy.created_at =  moment(this.data.vacancy.created_at).format("YYYY-MM-DD HH:mm")
         this.vacancy.start_date = moment(this.data.vacancy.start_date).format("YYYY-MM-DD")
-        console.log('this.vacancy', this.data.vacancy);
     },
     methods: {
         interest(item){
@@ -459,7 +458,6 @@ export default {
                 }else if(this.auth.role_id == 3){
 
                 }
-                console.log('item', item);
                 // return
                 this.sendInterestAxios(item)
 
@@ -496,7 +494,6 @@ export default {
 
             })
             .then(function (response) {
-                console.log('response.data',response.data);
                 if (response.data.status == 200) {
                     let text;
                     if(response.data.data.type == 'w'){

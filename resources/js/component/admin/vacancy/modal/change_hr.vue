@@ -64,14 +64,12 @@
             async show(){
                 try {
                     let result = await this.getClassificatory();
-                    console.log('result', result.data);
                     let item = this.item
                     this.cla = _.filter(result.data, function(o) { return o.hr.id != item.hr.id; });
                     this.m = this.item
                     this.edit = {
                         'hr':this.item.hr
                     }
-                    // console.log(this.m);
                     this.showConfirm = true
                 } catch (error) {
                 }
@@ -106,7 +104,6 @@
 
                         })
                         .then(function (response) {
-                            // console.log(response.data);
                             if (response.data.status == 200) {
 
                                 toast.success('წარმატებით განახლდა', {

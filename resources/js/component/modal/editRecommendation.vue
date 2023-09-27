@@ -134,8 +134,6 @@ export default {
         show(){
             this.showConfirm = true
             this.candidateRecommendationModel = this.data.item
-            // console.log('this.candidateRecommendationModel',this.candidateRecommendationModel);
-            console.log('this.data',this.data);
         },
         hide(){
            this.showConfirm = false
@@ -149,7 +147,6 @@ export default {
 
             })
             .then(function (response) {
-                console.log('response.data',response.data);
                 if (response.data.status == 200) {
                     if (currentObj.recommendationFile != null) {
                         currentObj.updateRecommendationFile()
@@ -180,7 +177,6 @@ export default {
             }
             axios.post('/update_recommendation_file', this.formData, config)
             .then(function (response) {
-                console.log('response',response);
                 if (response.data.status == 200) {
                     toast.success('წარმატებით დარედაქტირდა', {
                         theme: 'colored',
@@ -211,7 +207,6 @@ export default {
                         id: id
                     })
                     .then((response)=> {
-                        console.log(response.data);
                         if (response.status == 200) {
                             toast.success("წარმატებით წაიშალა", {
                                 theme: 'colored',
@@ -233,7 +228,6 @@ export default {
             this.formData.append('file', this.recommendationFile)
             this.formData.append('id', this.candidateRecommendationModel.id)
 
-            console.log(this.recommendationFile);
         }
     },
     watch:{

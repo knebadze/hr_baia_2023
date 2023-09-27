@@ -184,7 +184,6 @@ export default {
     },
     methods: {
         find(){
-            console.log(this.search);
             let currentObj = this;
             axios({
                     method: "post",
@@ -193,7 +192,6 @@ export default {
 
                 })
                 .then(function (response) {
-                    console.log('response.data',response.data);
                     currentObj.vacancy = response.data.data.vacancy
                     // currentObj.interest = response.data.interest
 
@@ -204,15 +202,13 @@ export default {
                 })
         },
         showInterest(id){
-            console.log(id);
             this.vacancyId = id
             this.showInterestModal = !this.showInterestModal
         },
-    
+
 
     },
     mounted(){
-        // console.log('data', this.data);
     }
 
 }

@@ -170,7 +170,6 @@
 
             //     })
             //     .then(function (response) {
-            //         console.log('response.data',response.data);
             //         if (response.data.status == 200) {
             //             let text;
             //             if(response.data.data.type == 'w'){

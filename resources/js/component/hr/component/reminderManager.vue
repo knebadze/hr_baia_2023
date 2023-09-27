@@ -27,7 +27,6 @@ export default {
     created(){
         axios.post('/hr_reminder_info' )
         .then((response)=> {
-            // console.log('response', response)
             this.data = response.data
             // Get the current time
             // const currentTime = moment();
@@ -45,7 +44,6 @@ export default {
         .catch(function (error) {
             console.log(error);
         });
-        // console.log('data', this.data);
     },
     methods:{
         openModal(item){
@@ -54,7 +52,6 @@ export default {
         }
     },
     mounted() {
-        // console.log('data', this.data);
     }
 
 }

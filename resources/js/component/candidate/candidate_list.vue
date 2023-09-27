@@ -346,7 +346,6 @@ export default {
 
                 })
                 .then(function (response) {
-                    console.log('response.data',response.data);
                     currentObj.pagination = {
                             'current_page':response.data.data.current_page,
                             'last_page': response.data.data.last_page
@@ -362,7 +361,6 @@ export default {
 
     },
     mounted() {
-        console.log('data', this.data);
     },
     watch:{
         filterItem: {

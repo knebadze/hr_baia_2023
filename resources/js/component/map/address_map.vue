@@ -71,14 +71,12 @@ export default {
         //     }
 
         //     $.ajax(settings).done(function (response) {
-        //     console.log('response',response);
         //     });
         // },
         chosenAddress(item){
             this.search = item.display_name
 
             this.divHidden = 'visually-hidden'
-            console.log('item', item);
         }
     },
     watch: {
@@ -97,24 +95,20 @@ export default {
             let currentObj = this
             $.ajax(settings).done(function (response) {
                 currentObj.results = response
-            console.log('response',response);
             });
             // axios(settings)
             // .then(function (response) {
             //     currentObj.results = response
-            // console.log('response',response);
             // });
         },
         searchResult: {
         handler(newValue, oldValue) {
 
-            console.log('newValue', newValue);
             this.sendMessageToParent(newValue)
         },
         deep: true
         },
         // 'data': function(){
-        //     console.log('data', this.data);
         // }
     },
     mounted(){

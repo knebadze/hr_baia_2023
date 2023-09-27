@@ -105,14 +105,12 @@ export default {
             this.m.employer[`address_${this.getLang}`] = arg.name
             this.m.employer.latitude = arg.lngLat.lat
             this.m.employer.longitude = arg.lngLat.lng
-            console.log('this.m.candidate.latitude', this.m.employer.latitude);
         },
         async addEmployer(){
             const isFormCorrect = await this.v$.$validate()
             if (!isFormCorrect) return;
             this.m.employer['lang'] = this.getLang
             let currentObj = this;
-            // console.log('currentObj',currentObj);
             axios({
                 method: "post",
                 url: "/add_employer",
@@ -120,7 +118,6 @@ export default {
             })
             .then(function (response) {
                 // handle success
-                console.log('response.data',response.data);
                 if (response.data.status == 200) {
                     // currentObj.candidate_id = response.data.data;
                     toast.success("ინფორმაცია წარმატებით შეინახა", {

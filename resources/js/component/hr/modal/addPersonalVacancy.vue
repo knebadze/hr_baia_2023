@@ -136,10 +136,8 @@
         methods:{
             async show(){
                 try {
-                    console.log('item,,,', this.item);
 
                     let result = await this.getClassificatory();
-                    console.log('result', result.data);
                     this.cla = result.data.classificatory
                     this.qualifyingType = this.cla.qualifyingType.filter(item => item.id !== 6 && item.id !== 7);
                     this.info  = result.data.findCandidate
@@ -165,14 +163,12 @@
 
             save(){
 
-                console.log('this.m', this.m);
                 let currentObj = this
                 axios.post('/add_vacancy_personal' ,{
                     data: this.m,
                 })
                 .then(function (response) {
                     // handle success
-                    console.log(response.data);
                     if (response.status == 200) {
                         toast.success("წარმატებით დაემატა", {
                             theme: 'colored',
@@ -195,14 +191,12 @@
             },
             update(){
 
-                console.log('this.m', this.m);
                 let currentObj = this
                 axios.post('/update_vacancy_personal' ,{
                     data: this.m,
                 })
                 .then(function (response) {
                     // handle success
-                    console.log(response.data);
                     if (response.status == 200) {
                         toast.success("წარმატებით განახლდა", {
                             theme: 'colored',
@@ -240,7 +234,6 @@
                         })
                         .then(function (response) {
                             // handle success
-                            console.log(response.data);
                             if (response.status == 200) {
                                 toast.success("წარმატებით წაიშალა", {
                                     theme: 'colored',

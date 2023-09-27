@@ -113,12 +113,10 @@
             async show(){
                 try {
                     let result = await this.getClassificatory();
-                    console.log('result', result.data);
                     this.data = result.data
 
                     this.m = this.makeModel(this.item)
                     this.cla = this.makeCla(this.item.status.id)
-                    console.log('this.item', this.item);
                     this.showConfirm = true
                 } catch (error) {
                     console.log(error);
@@ -138,7 +136,6 @@
                 return {...newItem}
             },
             makeCla(id){
-                console.log('id', id);
                 let status = []
                 if (id == 1) {
                     status = this.data.status.filter(item => item.id != id && item.id != 3 && item.id != 4 &&  item.id != 13);
@@ -160,7 +157,6 @@
                 return status
             },
             save(){
-                // console.log('this.m', this.m);
                 // return
                 if (this.m.status.id == 6) {
                     this.m['reminder'] = this.reminder
@@ -172,13 +168,11 @@
                 // return
                 var editedFields = this.forItem(this.m)
                 let currentObj = this
-                console.log('editedFields', editedFields);
                 axios.post('/update_vacancy_status' ,{
                     data: {'model':this.m, 'edit': editedFields},
                 })
                 .then(function (response) {
                     // handle success
-                    console.log('response.data',response.data.data);
                     if (response.status == 200 && response.data.data[0].type == 's') {
 
                         toast.success(response.data.data[0].message, {
@@ -222,7 +216,6 @@
                 })
                 .then(function (response) {
                     // handle success
-                    console.log('response.data',response.data);
                     if (response.data || response.data.next.length > 0) {
                         currentObj.openDeleteReminderModal(response.data.next)
                     }
@@ -263,12 +256,10 @@
                 return moment(time).format("YYYY-MM-DD HH:mm")
             },
             openModal(){
-                console.log('this.item modal', this.item);
                 this.showModal = !this.showModal
                 this.modalItem = this.item
             },
             openDeleteReminderModal(item){
-                console.log('openDeleteReminderModal(item)' ,item);
                 this.showDeleteReminderModal = !this.showDeleteReminderModal
                 this.modalItem = item
             }

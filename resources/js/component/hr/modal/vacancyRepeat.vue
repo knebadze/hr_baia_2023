@@ -355,18 +355,15 @@
             async show(){
                 try {
                     let result = await this.getClassificatory();
-                    console.log('result', result);
                     this.classificatory = {...result.data}
                     this.cla = result.data
-                    let item = this.item
-                    console.log(this.cla);
+                    let item = this.item;
                     this.cla.forWhoNeed = _.filter(this.classificatory.forWhoNeed, function(o) { return o.category_id == item.category_id; });
                     this.cla.duty = _.filter(this.classificatory.duty, function(o) { return o.category_id == item.category_id; });
                     this.m = this.makeModel(this.item)
                     // {...this.item}
                     // (this.m.stay_night == 1)? this.m.stay_night = true: this.m.stay_night = false
                     // this.makeModel()
-                    console.log('this.item',this.item);
                     this.showConfirm = true
                 } catch (error) {
                     console.log(error);
@@ -429,7 +426,6 @@
             chooseNumberCode(item){
 
                 this.m.number_code = item
-                console.log('this.m', this.m);
                 this.numberCode = {
                     'phonecode': item.phonecode,
                     'iso':item.iso
@@ -513,7 +509,6 @@
 
             },
             'm.category': function (newValue, oldValue) {
-                console.log('newValue',newValue);
                 if (newValue != this.item.vacancy_for_who_need && oldValue != null) {
                     this.m.title_ka = null
                     this.m.vacancy_for_who_need = null

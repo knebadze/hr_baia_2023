@@ -465,7 +465,6 @@ export default {
         }
     },
     created(){
-        console.log(this.data);
         this.addLanguageLevel
         if(this.data.get_work_information.length == 1){
             this.chooseResume(this.data.get_work_information[0])
@@ -483,7 +482,6 @@ export default {
             return Math.abs(age_dt.getUTCFullYear() - 1970);
         },
         headLine(){
-                // console.log('this.workInformation', this.workInformation);
             return this.data.get_work_information[0].category[`name_${this.getLang}`]
 
         },
@@ -500,12 +498,10 @@ export default {
             window.open(pdfUrl, '_blank');
         },
         chooseResume(item){
-            console.log(item);
             this.workInformation = item
         }
     },
     mounted() {
-        console.log('data', this.data);
     },
 }
 </script>

@@ -185,7 +185,6 @@
                 //     // {...this.item}
                 //     // (this.m.stay_night == 1)? this.m.stay_night = true: this.m.stay_night = false
                 // this.m = this.makeModel(this.item)
-                    console.log('this.item',this.item);
                     this.showConfirm = true
                 // } catch (error) {
                 //     console.log(error);
@@ -215,12 +214,10 @@
                             editedFields[field] = this.item[field]
                     }
                 }
-                // console.log('this.editedFields', this.editedFields);
                 return editedFields
             },
             save(){
                 var editedFields = this.forItem(this.m)
-                console.log('editedFields',editedFields);
                 this.m.hr_bonus = (this.payment.candidate_payment + this.payment.employer_payment).toFixed(2)
                 let currentObj = this
                 this.$swal({
@@ -271,7 +268,6 @@
                 this.show()
             },
             'm.enrolled_candidate': function(newVal, oldVal){
-                console.log('newVal', newVal);
                 if ( newVal > this.item.candidate_initial_amount  ) {
                     toast.error("თქვენ მიერ ჩაწერილი თანხა აღემატება ჩასარიცხ თანხას", {
                         theme: 'colored',
@@ -288,7 +284,6 @@
                 }
             },
             'm.enrolled_employer': function(newVal, oldVal){
-                console.log(newVal > this.item.employer_initial_amount);
                 if ( newVal > this.item.employer_initial_amount) {
 
                     toast.error("თქვენ მიერ ჩაწერილი თანხა აღემატება ჩასარიცხ თანხას", {

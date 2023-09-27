@@ -104,7 +104,6 @@ export default {
             })
             .then(function (response) {
                 // handle success
-                console.log(response.data);
                 if (response.status == 200) {
                     toast.success("წარმატებით დაემატა", {
                         theme: 'colored',
