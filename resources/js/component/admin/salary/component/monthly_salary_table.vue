@@ -135,54 +135,68 @@
         methods:{
             disbursement_of_salary(){
                 let currentObj = this
+                this.$swal({
+                    title: 'ნამდვილად გსურთ ხელფასის გაცემა?',
+                    // html:'ცვლილება ავტომატურად მოხსნის კანდიდატს ვაკანის დასაქმებული სტატუსიდან',
+                    //   showDenyButton: true,
+                    cancelButtonText:'არა',
+                    confirmButtonText: 'კი',
+                    showCancelButton: true,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        axios({
+                            method: "post",
+                            url: '/disbursement_of_salary',
+                            data: {'items': this.itemsSelected, 'check': this.checkDisbursement},
 
-                axios({
-                    method: "post",
-                    url: '/disbursement_of_salary',
-                    data: {'items': this.itemsSelected, 'check': this.checkDisbursement},
-
-                })
-                .then(function (response) {
-                    if (response.data.status == 200) {
-                        let text;
-                        if(response.data.data.type == 'w'){
-                            currentObj.$swal({
-                                title: '<p>გიფიქსირდება დაუდასტურებელი ჩარიცხვები</p>',
-                                icon: 'info',
-                                html:
-                                    'დარწმუნებული ხართ რომ გსურთ ამ ჩარიცხვების შემდეგ თვეში გადადება?',
-                                showCloseButton: true,
-                                showCancelButton: true,
-                                showDenyButton: true,
-                                focusConfirm: false,
-                                confirmButtonText: 'კი',
-                                denyButtonText: 'ჩარიცხვებზე გადასვლა',
-                                cancelButtonText:'გაუქმება'
-                            }).then((result) => {
-                                /* Read more about isConfirmed, isDenied below */
-                                if (result.isConfirmed) {
-                                    currentObj.checkDisbursement = true
-                                    currentObj.disbursement_of_salary()
-                                }else if (result.isDenied) {
-                                    window.location.replace(`/admin/enrollment`)
+                        })
+                        .then(function (response) {
+                            if (response.data.status == 200) {
+                                let text;
+                                if(response.data.data.type == 'w'){
+                                    currentObj.$swal({
+                                        title: '<p>გიფიქსირდება დაუდასტურებელი ჩარიცხვები</p>',
+                                        icon: 'info',
+                                        html:
+                                            'დარწმუნებული ხართ რომ გსურთ ამ ჩარიცხვების შემდეგ თვეში გადადება?',
+                                        showCloseButton: true,
+                                        showCancelButton: true,
+                                        showDenyButton: true,
+                                        focusConfirm: false,
+                                        confirmButtonText: 'კი',
+                                        denyButtonText: 'ჩარიცხვებზე გადასვლა',
+                                        cancelButtonText:'გაუქმება'
+                                    }).then((result) => {
+                                        /* Read more about isConfirmed, isDenied below */
+                                        if (result.isConfirmed) {
+                                            currentObj.checkDisbursement = true
+                                            currentObj.disbursement_of_salary()
+                                        }else if (result.isDenied) {
+                                            window.location.replace(`/admin/enrollment`)
+                                        }
+                                    })
+                                }else if(response.data.data.type == 's'){
+                                    toast.success('თქვენ გაეცით ხელფასები', {
+                                        theme: 'colored',
+                                        autoClose: 1000,
+                                    });
+                                    setTimeout(() => {
+                                        document.location.reload();
+                                    }, 1500);
                                 }
-                            })
-                        }else if(response.data.data.type == 's'){
-                            toast.success('თქვენ გაეცით ხელფასები', {
-                                theme: 'colored',
-                                autoClose: 1000,
-                            });
-                            setTimeout(() => {
-                                document.location.reload();
-                            }, 1500);
-                        }
-                    }
+                            }
 
-                })
-                .catch(function (error) {
-                    // handle error
-                    console.log(error);
-                })
+                        })
+                        .catch(function (error) {
+                            // handle error
+                            console.log(error);
+                        })
+                    } else if (result.isDenied) {
+                        return
+                    }
+                });
+
+
             },
             agree(item){
                 this.$swal({
@@ -202,7 +216,7 @@
                         })
                         .then(function (response) {
                             if (response.data.status == 200) {
-                                toast.success('თქვენ გაეცით ხელფასები', {
+                                toast.success('თქვენ დაადასტურეთ ხელფასის აღება', {
                                     theme: 'colored',
                                     autoClose: 1000,
                                 });

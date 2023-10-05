@@ -26,7 +26,7 @@
                         <div class="wizard-footer-left">
                             <button
                                 v-if="props.activeTabIndex > 0 && !props.isLastStep"
-                                @click="props.prevTab()"
+                                @click="prevStep(props)"
                                 class="site-button"
                                 >
                                 უკან დაბრუნება
@@ -35,7 +35,7 @@
                         <div class="wizard-footer-right">
                             <button
                                 v-if="!props.isLastStep"
-                                @click="props.nextTab()"
+                                @click="nextStep(props)"
                                 class="site-button"
                                 >
                                 შემდეგი
@@ -309,20 +309,22 @@ export default {
                 }
             })
         },
-        // nextStep(props) {
-        //     props.nextTab();
-        //     if (this.currentStep < this.stepComponents.length - 1) {
-        //         this.currentStep++;
-        //     }
-        //     this.stepComponent()
-        // },
-        // prevStep(props) {
-        //     props.prevTab()
-        //     if (this.currentStep > 0) {
-        //         this.currentStep--;
-        //     }
-        //     this.stepComponent()
-        // },
+        nextStep(props) {
+            props.nextTab();
+            window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+            // if (this.currentStep < this.stepComponents.length - 1) {
+            //     this.currentStep++;
+            // }
+            // this.stepComponent()
+        },
+        prevStep(props) {
+            props.prevTab()
+            window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+            // if (this.currentStep > 0) {
+            //     this.currentStep--;
+            // }
+            // this.stepComponent()
+        },
         // async stepComponent() {
         //     let module = await import(`../component/${this.stepComponents[this.currentStep].component}.vue`);
         //     console.log('model', module);

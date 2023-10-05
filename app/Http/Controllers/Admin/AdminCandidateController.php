@@ -222,13 +222,5 @@ class AdminCandidateController extends Controller
         return response()->json($data);
     }
 
-    function getRegisterEnrollmentInfo(Request $request) {
-        // dd($request->data);
-        $data = null;
-        $user = User::where('id', $request->data)->first();
-        if (Enrollment::where('candidate_id', $user->candidate->id)->where('agree', 0)->exists()) {
-            $data = Enrollment::where('candidate_id', $user->candidate->id)->where('agree', 0)->first();
-        }
-        return response($data);
-    }
+
 }

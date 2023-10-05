@@ -102,6 +102,7 @@ class VacancyUpdateRepository
     }
 
     function updateDeposit($data) {
+        dd($data);
         $deposit = VacancyDeposit::findOrFail($data['id']);
         if ($deposit->employer_initial_amount != $data['employer_initial_amount']) {
             if ($deposit->employer_initial_amount > $data['employer_initial_amount']) {
@@ -122,6 +123,17 @@ class VacancyUpdateRepository
         }else{
             $mustCandidate = $data['must_be_enrolled_employer'];
         }
+        VacancyDeposit::updateOrCreate(
+            ['vacancy_id' => $data['vacancy_id']],
+            [
+                'employer_initial_amount' => $data['employer_initial_amount'],
+                'must_be_enrolled_employer' => $mustEmployer,
+                'must_be_enrolled_employer_date' => $data['must_be_enrolled_employer_date'],
+                'candidate_initial_amount' => $data['candidate_initial_amount'],
+                'must_be_enrolled_candidate' => $mustCandidate,
+                'must_be_enrolled_candidate_date' => $data['must_be_enrolled_candidate_date'],
+            ]
+        );
         $deposit->employer_initial_amount = $data['employer_initial_amount'];
         $deposit->must_be_enrolled_employer = $mustEmployer;
         $deposit->must_be_enrolled_employer_date = $data['must_be_enrolled_employer_date'];

@@ -29,7 +29,7 @@
                 <a v-if="item.status.id == 2" class="dropdown-item" :href="personalSelectionUrl+'/'+item.id" >კადრების შერჩევა</a>
                 <a v-if="item.status.id > 1" class="dropdown-item" :href="vacancyPersonalUrl+'/'+item.id" >შერჩეული კადრები</a>
                 <a class="dropdown-item" href="#" @click="vacancyReminderModal(item)">შეხსენება</a>
-                <a v-if="item.status.id != 1 && item.status.id != 4 && item.status.id != 5" class="dropdown-item" href="#" @click="vacancyDepositModal(item)">დეპოზიტი</a>
+                <a v-if="item.status.id != 4 && item.status.id != 5" class="dropdown-item" href="#" @click="vacancyDepositModal(item)">დეპოზიტი</a>
 
                 <a v-if="item.status.id == 5 || item.status.id == 4" class="dropdown-item" href="#"  @click="vacancyRepeat(item)">გამეორება</a>
                 <a v-if="item.status.id !== 3 && item.status.id !== 4 && item.status.id !== 5" class="dropdown-item" href="#" @click="carryInHead(item)">აპინვა </a>
@@ -302,8 +302,8 @@ export default {
     setup(props){
         var url = new URL( location.href)
         const itemsSelected = ref([]);
-        var personalSelectionUrl = ref(url.origin+'/hr/selection_personal')
-        var vacancyPersonalUrl = ref(url.origin+'/hr/vacancy_personal')
+        var personalSelectionUrl = ref(url.origin+'/admin/selection_personal')
+        var vacancyPersonalUrl = ref(url.origin+'/admin/vacancy_personal')
 
         var statusChangeModal = ref(false)
         var updateModal = ref(false)

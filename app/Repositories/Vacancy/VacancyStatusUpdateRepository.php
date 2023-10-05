@@ -104,14 +104,17 @@ class VacancyStatusUpdateRepository
     }
 
     function addDeposit($vacancy_id){
-        $vacancy = Vacancy::where('id', $vacancy_id)->select('id', 'payment')->first();
-        $deposit = new VacancyDeposit();
-        $deposit->vacancy_id = $vacancy->id;
-        $deposit->must_be_enrolled_employer = ((int)$vacancy->payment * 10) / 100;
-        $deposit->employer_initial_amount = ((int)$vacancy->payment * 10) / 100;
-        $deposit->must_be_enrolled_candidate = (int)$vacancy->payment / 2;
-        $deposit->candidate_initial_amount =(int)$vacancy->payment / 2;
-        $deposit->save();
+        if (Vacancy::where('id', $vacancy_id)->doesntExist()) {
+            $vacancy = Vacancy::where('id', $vacancy_id)->select('id', 'payment')->first();
+            $deposit = new VacancyDeposit();
+            $deposit->vacancy_id = $vacancy->id;
+            $deposit->must_be_enrolled_employer = ((int)$vacancy->payment * 10) / 100;
+            $deposit->employer_initial_amount = ((int)$vacancy->payment * 10) / 100;
+            $deposit->must_be_enrolled_candidate = (int)$vacancy->payment / 2;
+            $deposit->candidate_initial_amount =(int)$vacancy->payment / 2;
+            $deposit->save();
+        }
+
     }
 
     function dailyWorkEvent($hr_id) {

@@ -398,7 +398,7 @@
             <!-- TESTIMONIAL SECTION END -->
 
     <!-- OUR BLOG START -->
-    <div class="section-full p-t120 p-b90 site-bg-gray">
+    {{-- <div class="section-full p-t120 p-b90 site-bg-gray">
         <div class="container">
 
             <!-- TITLE START-->
@@ -540,7 +540,7 @@
             </div>
 
         </div>
-    </div>
+    </div> --}}
     <!-- OUR BLOG END -->
 
 </div>

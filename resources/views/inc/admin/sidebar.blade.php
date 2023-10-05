@@ -90,6 +90,7 @@
                     <i class="nav-icon fa fa-coins"></i>
                     <p>
                         ჩარიცხვები
+                        <span class="badge badge-danger right">{{ \App\Models\Enrollment::where('agree', 0)->count() }}</span>
                     </p>
                 </a>
             </li>
@@ -98,6 +99,14 @@
                     <i class="nav-icon fa fa-credit-card"></i>
                     <p>
                         ხელფასები
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a @if(Route::currentRouteName() === 'admin.global') class="nav-link active" @else class="nav-link" @endif href="{{ route('admin.global', App()->getLocale()) }}">
+                    <i class="nav-icon fa fa-globe"></i>
+                    <p>
+                        ცვლადები
                     </p>
                 </a>
             </li>

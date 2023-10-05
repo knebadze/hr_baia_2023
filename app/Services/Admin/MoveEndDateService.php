@@ -10,7 +10,6 @@ use App\Models\Vacancy;
 class MoveEndDateService
 {
     function move($data) {
-        dd($data);
         $find = QualifyingCandidate::where('id', $data['id'])->first();
         $findWorkSchedule = WorkDay::where('qualifying_candidate_id', $find->id)->first();
 

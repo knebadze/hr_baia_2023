@@ -238,8 +238,8 @@
                                 <div class="form-group">
                                     <label>კატეგორია</label>
                                     <div class="ls-inputicon-box">
-                                        <multiselect v-model="m.category" :options="cla.category" deselect-label="Can't remove this value" track-by="name_ka" label="name_ka" placeholder="Select one"  :searchable="true" :allow-empty="false">
-                                            <template slot="singleLabel" slot-scope="{ option }"></template>
+                                        <multiselect v-model="m.category"  :options="cla.category" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true"  label="name_ka" track-by="name_ka" :preselect-first="false" >
+                                            <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                                         </multiselect>
                                     </div>
                                 </div>
@@ -248,8 +248,8 @@
                                 <div class="form-group">
                                     <label>გრაფიკი</label>
                                     <div class="ls-inputicon-box">
-                                        <multiselect v-model="m.work_schedule" :options="cla.workSchedule" deselect-label="Can't remove this value" track-by="name_ka" label="name_ka" placeholder="Select one"  :searchable="true" :allow-empty="false">
-                                            <template slot="singleLabel" slot-scope="{ option }"></template>
+                                        <multiselect v-model="m.work_schedule"  :options="cla.workSchedule" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true"  label="name_ka" track-by="name_ka" :preselect-first="false" >
+                                            <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                                         </multiselect>
                                     </div>
                                 </div>
@@ -393,7 +393,27 @@ export default {
         this.modalData['vacancy'] = this.vacancy
     },
     methods:{
+
         find(){
+            console.log(this.m);
+            // Initialize a new object to store the filtered properties
+            const filteredObject = {};
+
+            // Loop through the properties of the original object (this.m)
+            for (const key in this.m) {
+            if (this.m.hasOwnProperty(key)) {
+                const element = this.m[key];
+
+                // Check if the property is not null and has a length greater than 0
+                if (element !== null && element.length !== 0) {
+                    // Add the property to the filtered object
+                    filteredObject[key] = element;
+                }
+            }
+            }
+
+            // Assign the filtered object back to this.m
+            this.m = filteredObject;
             this.colspan = 'hide'
             let currentObj = this;
             axios({

@@ -420,7 +420,7 @@ export default {
 
         // var url = new URL( location.href)
 
-        // var personalSelectionUrl = ref(url.origin+'/hr/selection_personal')
+        // var personalSelectionUrl = ref(url.origin+'/admin/selection_personal')
         // console.log(personalSelectionUrl);
 
 

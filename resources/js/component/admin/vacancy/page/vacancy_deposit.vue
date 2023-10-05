@@ -24,7 +24,7 @@
                     <div class="row py-3 border border-success">
                         <!-- <div class="row"></div> -->
 
-                        <div class="row col-md-12" v-if="m.must_be_enrolled_candidate_date">
+                        <div class="row col-md-12" v-if="m.must_be_enrolled_candidate != 0">
                             <div class=" col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
                                     <label>კანდიდატისგან  <span class="text-danger">სულ </span>უნდა ჩაირიცხოს</label>
@@ -49,42 +49,46 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                <button v-if="!candidateEnrollment" type="button" class="btn btn-success float-right" @click.prevent="redacted()" ><i class=""></i>რედაქტირების შენახვა</button>
+                            <div class="col-md-12" >
+                                <button v-if="hasDeposit" type="button" class="btn btn-success float-right" @click.prevent="save()" ><i class=""></i>შენახვა</button>
+                                <button v-else-if="!candidateEnrollment" type="button" class="btn btn-success float-right" @click.prevent="redacted()" ><i class=""></i>რედაქტირების შენახვა</button>
                             </div>
-                            <div class=" col-md-12 border-top border-bottom"><h5 class="mt-2 text-danger text-center">მიმდინარე ჩარიცხვა</h5></div>
+                            <div class="row col-md-12" v-if="m.must_be_enrolled_candidate != null">
+                                <div class=" col-md-12 border-top border-bottom"><h5 class="mt-2 text-danger text-center">მიმდინარე ჩარიცხვა</h5></div>
 
-                            <div class="col-xl-6 col-lg-6 col-md-12">
-                                <div class="form-group">
-                                    <label>ამჟამინდელი ჩარიცხვის თანხა  </label>
-                                    <div class="ls-inputicon-box">
-                                        <input class="form-control" v-model="enrollmentCandidate.money" type="number" placeholder="0" >
+                                <div class="col-xl-6 col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label>ამჟამინდელი ჩარიცხვის თანხა  </label>
+                                        <div class="ls-inputicon-box">
+                                            <input class="form-control" v-model="enrollmentCandidate.money" type="number" placeholder="0" >
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-12">
-                                <div class="form-group">
-                                    <label>თანხა ჩარიცხა  </label>
-                                    <div class="ls-inputicon-box">
-                                        <input class="form-control" v-model="enrollmentCandidate.name" type="text" placeholder="0" >
+                                <div class="col-xl-6 col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label>თანხა ჩარიცხა  </label>
+                                        <div class="ls-inputicon-box">
+                                            <input class="form-control" v-model="enrollmentCandidate.name" type="text" placeholder="0" >
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class=" col-md-12">
-                                <div class="form-group">
-                                    <label>ქვითარი </label>
-                                    <div class="ls-inputicon-box">
-                                        <input class="form-control" type="file" ref="fileInput" @change="handleFileChange">
+                                <div class=" col-md-12">
+                                    <div class="form-group">
+                                        <label>ქვითარი </label>
+                                        <div class="ls-inputicon-box">
+                                            <input class="form-control" type="file" ref="fileInput" @change="handleFileChange">
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="col-md-12">
+                                    <button v-if="!candidateEnrollment" type="button" class="btn btn-primary float-right" @click.prevent="counting(1)" ><i class=""></i>ჩარიცხვა</button>
+                                </div>
                             </div>
-                            <div class="col-md-12">
-                                <button v-if="!candidateEnrollment" type="button" class="btn btn-primary float-right" @click.prevent="counting(1)" ><i class=""></i>ჩარიცხვა</button>
-                            </div>
+
                         </div>
                         <div v-else class=" col-md-12">
                             <div class="form-group">
-                                <label>კანდიდატისგან სულ ჩაირიცახ</label>
+                                <label>კანდიდატისგან სულ ჩაირიცხა</label>
                                 <div class="ls-inputicon-box">
                                     <input class="form-control" v-model="m.candidate_initial_amount" type="number" placeholder="0" disabled>
                                 </div>
@@ -104,7 +108,7 @@
                     </div>
                     <div class="row py-3 border border-success">
                         <!-- <div class="row"></div> -->
-                        <div class="row col-md-12" v-if="m.must_be_enrolled_employer_date">
+                        <div class="row col-md-12" v-if="m.must_be_enrolled_employer != null">
                             <div class=" col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
                                     <label>დამსაქმებლისგან  <span class="text-danger">სულ </span>უნდა ჩაირიცხოს</label>
@@ -130,7 +134,8 @@
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <button v-if="!employerEnrollment" type="button" class="btn btn-success float-right" @click.prevent="redacted()" ><i class=""></i>რედაქტირების შენახვა</button>
+                                <button v-if="hasDeposit" type="button" class="btn btn-success float-right" @click.prevent="save()" ><i class=""></i>შენახვა</button>
+                                <button v-else-if="!employerEnrollment" type="button" class="btn btn-success float-right" @click.prevent="redacted()" ><i class=""></i>რედაქტირების შენახვა</button>
                             </div>
 
                             <div class=" col-md-12 border-top border-bottom"><h5 class="mt-2 text-danger text-center">მიმდინარე ჩარიცხვა</h5></div>
@@ -165,7 +170,7 @@
                         </div>
                         <div v-else class=" col-md-12">
                             <div class="form-group">
-                                <label>დამსაქმებლისგან სულ ჩაირიცახ</label>
+                                <label>დამსაქმებლისგან სულ ჩაირიცხა</label>
                                 <div class="ls-inputicon-box">
                                     <input class="form-control" v-model="m.employer_initial_amount" type="number" placeholder="0" disabled>
                                 </div>
@@ -209,7 +214,9 @@ export default {
         }
     },
     created(){
+
         this.m = {...this.data.deposit}
+        console.log('this.m', this.data);
         this.item = this.data.deposit
         this.enrollmentEmployer = {
             'money': this.m.must_be_enrolled_employer,
@@ -241,6 +248,10 @@ export default {
             }
             return find;
         },
+        hasDeposit(){
+            const filter = Object.keys(this.data.deposit).filter((key) => this.data.deposit[key] !== null);
+            return filter.length > 1 ? false : true
+        }
 
 
     },
@@ -257,6 +268,48 @@ export default {
                 }
             }
             return editedFields
+        },
+        save(){
+            var editedFields = this.forItem(this.m)
+            // this.m.hr_bonus = (this.payment.candidate_payment + this.payment.employer_payment).toFixed(2)
+            let currentObj = this
+            this.$swal({
+                title: 'ნამდვილად გსურთ ვაკანსიის ჩარიცხვის შენახვა?',
+                //   showDenyButton: true,
+                cancelButtonText:'არა',
+                confirmButtonText: 'კი',
+                showCancelButton: true,
+            }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    axios.post('/save_vacancy_deposit' ,{
+                        data: {'model':this.m, 'edit': editedFields},
+                    })
+                    .then(function (response) {
+                        // handle success
+                        if (response.status == 200) {
+                            toast.success("წარმატებით დარედაქტირდა", {
+                                theme: 'colored',
+                                autoClose: 1000,
+                            });
+                            setTimeout(() => {
+                                document.location.reload();
+                            }, 2000);
+                        }
+
+
+
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+                    // this.hide()
+
+                } else if (result.isDenied) {
+                    return
+                }
+            });
         },
         redacted(){
             var editedFields = this.forItem(this.m)

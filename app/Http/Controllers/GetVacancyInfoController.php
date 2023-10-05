@@ -44,19 +44,8 @@ class GetVacancyInfoController extends Controller
         return response()->json($data);
     }
 
-    function getReminderInfo(Request $request)  {
-        // dd(Carbon::now()->toDateTimeString());
-        $history = VacancyReminder::orderBy('id', 'DESC')->where('vacancy_id', $request->data)->where('date', '<', Carbon::now()->toDateTimeString())->get();
-        $next = VacancyReminder::orderBy('id', 'DESC')->where('vacancy_id', $request->data)->where('date', '>', Carbon::now()->toDateTimeString())->get();
-        $data = ['history' => $history, 'next' => $next];
-        return response()->json($data);
-    }
-    function getAddPersonalWasEmployedInfo(Request $request)  {
-        // dd($request->data);
-        $data['candidates'] = QualifyingCandidate::where('vacancy_id', $request->data)->with(['candidate.user', 'qualifyingType'])->get();
-        $data['employ_type'] = QualifyingType::whereIN('id', [6, 7])->get()->toArray();
-        return response()->json($data);
-    }
+
+
     function getVacancyFullInfo(Request $request)  {
 
         $vacancy = Vacancy::where('id', $request->data)->with([
@@ -64,7 +53,7 @@ class GetVacancyInfoController extends Controller
             'workSchedule', 'vacancyInterest', 'interviewPlace','term', 'demand', 'demand.language', 'demand.education', 'demand.languageLevel','demand.specialty',
             'employer.numberCode','deposit','hr.user', 'vacancyDrivingLicense'
             ])->first();
-            
+
         $hr_id = (Auth::user()->role_id == 2)?Auth::user()->hr->id:null;
         $data = ['vacancy' => $vacancy, 'hr_id' => $hr_id];
 
@@ -78,26 +67,7 @@ class GetVacancyInfoController extends Controller
         return response()->json($data);
     }
 
-    function hrReminderInfo()  {
-        $vacancyReminder = VacancyReminder::orderBy('date', 'ASC')
-                ->where('hr_id', Auth::user()->hr->id)
-                ->where('active', 0)
-                ->where('date', '>=', Carbon::now()->toDateTimeString())
-                ->with('vacancy')
-                ->get();
-        $data = [];
-        $currentDateTime = Carbon::now();
-        foreach ($vacancyReminder as $key => $value) {
-            $baseDateTime = Carbon::parse($value->date);
-            if ($currentDateTime->lt($baseDateTime) && $currentDateTime->diffInMinutes($baseDateTime) <= 30) {
-                $data[] = $value;
-            }
-        }
-        // Assuming the base time is in the 'date' property of the first item in $data
 
-        // dd($currentDateTime->diffInMinutes($baseDateTime));
-        return response()->json($data);
-    }
 
     function findVacancy(Request $request) {
         // dd($request->data);

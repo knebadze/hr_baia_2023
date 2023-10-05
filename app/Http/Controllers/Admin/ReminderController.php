@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use App\Models\VacancyReminder;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -61,6 +62,35 @@ class ReminderController extends Controller
             $data = VacancyReminder::filter($filters)->orderby('date', 'DESC')->where('hr_id', Auth::user()->hr->id)->with('vacancy')->get();
         }
 
+        return response()->json($data);
+    }
+
+    function getReminderInfo(Request $request)  {
+        // dd(Carbon::now()->toDateTimeString());
+        $history = VacancyReminder::orderBy('id', 'DESC')->where('vacancy_id', $request->data)->where('date', '<', Carbon::now()->toDateTimeString())->get();
+        $next = VacancyReminder::orderBy('id', 'DESC')->where('vacancy_id', $request->data)->where('date', '>', Carbon::now()->toDateTimeString())->get();
+        $data = ['history' => $history, 'next' => $next];
+        return response()->json($data);
+    }
+
+    function hrReminderInfo()  {
+        $vacancyReminder = VacancyReminder::orderBy('date', 'ASC')
+                ->where('hr_id', Auth::user()->hr->id)
+                ->where('active', 0)
+                ->where('date', '>=', Carbon::now()->toDateTimeString())
+                ->with('vacancy')
+                ->get();
+        $data = [];
+        $currentDateTime = Carbon::now();
+        foreach ($vacancyReminder as $key => $value) {
+            $baseDateTime = Carbon::parse($value->date);
+            if ($currentDateTime->lt($baseDateTime) && $currentDateTime->diffInMinutes($baseDateTime) <= 30) {
+                $data[] = $value;
+            }
+        }
+        // Assuming the base time is in the 'date' property of the first item in $data
+
+        // dd($currentDateTime->diffInMinutes($baseDateTime));
         return response()->json($data);
     }
 

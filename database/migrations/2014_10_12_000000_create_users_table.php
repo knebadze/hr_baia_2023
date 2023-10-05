@@ -31,7 +31,7 @@ return new class extends Migration
             $table->string('provider_token', 1000)->nullable();
             $table->tinyInteger('is_active')->default(1);
             $table->smallInteger('status')->default(0);
-            $table->string('lang', 2);
+            $table->string('lang', 2)->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

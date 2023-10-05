@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Exception;
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Enrollment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -43,7 +44,7 @@ class EnrollmentController extends Controller
 
         return response()->json($result, $result['status']);
     }
-    
+
     function registerEnrolment(Request $request) {
         $data['data'] = json_decode($request->input('data'));
         if ($request->hasFile('file')) {
@@ -80,7 +81,7 @@ class EnrollmentController extends Controller
     }
 
     function agree(Request $request) {
-        
+
         try {
             $result = ['status' => 200];
             $data = $request->model;
@@ -115,5 +116,14 @@ class EnrollmentController extends Controller
         }
 
 
+    }
+
+    function getRegisterEnrollmentInfo(Request $request) {
+        $data = null;
+        $user = User::where('id', $request->data)->first();
+        if (Enrollment::where('candidate_id', $user->candidate->id)->where('agree', 0)->exists()) {
+            $data = Enrollment::where('candidate_id', $user->candidate->id)->where('agree', 0)->first();
+        }
+        return response($data);
     }
 }

@@ -55,7 +55,7 @@ class SelectionPersonalController extends Controller
         $classificatory = $this->classificatoryService->get($candidateClassificatoryArr);
 
         $data = ['vacancy'=> $vacancy, 'classificatory' => $classificatory];
-        return view('hr.selection_personal', compact('data'));
+        return view('admin.selection_personal', compact('data'));
     }
     function vacancyPersonal($id) {
 
@@ -69,7 +69,7 @@ class SelectionPersonalController extends Controller
             'auth' => (Auth::user()->role_id == 1)?Auth::user():User::where('id', Auth::id())->with('hr')->first()
         ];
         // dd($data);
-        return view('hr.vacancy_personal', compact('data', 'classificatory'));
+        return view('admin.vacancy_personal', compact('data', 'classificatory'));
     }
 
     public function find(CandidateFilters $filters)  {
@@ -272,6 +272,14 @@ class SelectionPersonalController extends Controller
         // dd($find);
         // $data = [];
         return response()->json($dayArr);
+    }
+
+
+    function getAddPersonalWasEmployedInfo(Request $request)  {
+        // dd($request->data);
+        $data['candidates'] = QualifyingCandidate::where('vacancy_id', $request->data)->with(['candidate.user', 'qualifyingType'])->get();
+        $data['employ_type'] = QualifyingType::whereIN('id', [6, 7])->get()->toArray();
+        return response()->json($data);
     }
 
 
