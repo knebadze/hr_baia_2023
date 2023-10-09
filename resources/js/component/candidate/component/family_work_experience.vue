@@ -50,7 +50,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-4 col-lg-6 col-md-12">
+                        <div class="col-xl-4 col-lg-6 col-md-12" v-if="m.has_experience">
                             <div class="form-group">
                                 <label>{{ $t('lang.user_profile_page_family_work_staji_time') }}</label>
                                 <div class="ls-inputicon-box">

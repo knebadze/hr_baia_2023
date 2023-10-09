@@ -2,8 +2,9 @@
 
 namespace App\Services;
 
-use App\Repositories\Candidate\AddUserRepository;
 use App\Repositories\Candidate\NumberRepository;
+use App\Repositories\Candidate\AddressRepository;
+use App\Repositories\Candidate\AddUserRepository;
 use App\Repositories\Candidate\LanguageRepository;
 use App\Repositories\Candidate\CandidateRepository;
 use App\Repositories\Candidate\RecommendationRepository;
@@ -14,6 +15,7 @@ use App\Repositories\Candidate\GeneralWorkExperienceRepository;
 class CandidateService
 {
     protected CandidateRepository $candidateRepository;
+    protected AddressRepository $addressRepository;
     protected LanguageRepository $languageRepository;
     protected RecommendationRepository $recommendationRepository;
     protected GeneralWorkExperienceRepository $generalWorkExperienceRepository;
@@ -24,6 +26,7 @@ class CandidateService
     public function __construct()
     {
         $this->candidateRepository = new  CandidateRepository;
+        $this->addressRepository = new  AddressRepository;
         $this->languageRepository = new LanguageRepository;
         $this->generalWorkExperienceRepository = new GeneralWorkExperienceRepository;
         $this->recommendationRepository = new RecommendationRepository;
@@ -43,6 +46,8 @@ class CandidateService
 
         if ($data['type'] == 'information') {
             $result = $this->candidateRepository->save($data['model']);
+        }elseif ($data['type'] == 'address') {
+            $result = $this->addressRepository->save($data['model'], $data['model']['user_id']);
         }elseif ($data['type'] == 'language') {
             $result = $this->languageRepository->save($data['model'], $data['user_id']);
         }elseif($data['type'] == 'general_work'){

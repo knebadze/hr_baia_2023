@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Vacancy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -28,6 +29,9 @@ class HomeController extends Controller
         // dd(App::setLocale());
         // dd(app()->getLocale());
         $auth = Auth::User();
-        return view('home', compact('auth'));
+        $vacancyCount = Vacancy::whereIn('status_id', [2, 6, 7])->count();
+        $view = 0;
+        // $auth->candidate->view
+        return view('home', compact('auth', 'vacancyCount', 'view'));
     }
 }

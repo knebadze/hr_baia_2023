@@ -72,7 +72,8 @@ class ResumeController extends Controller
                 'allergy',
                 'maritalStatus',
                 'drivingLicense',
-                'status'
+                'status',
+                'getNotice.notice'
             ])->first();
         // [
         //    'candidate' => $candidate,

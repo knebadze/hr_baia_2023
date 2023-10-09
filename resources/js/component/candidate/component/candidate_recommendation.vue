@@ -280,7 +280,7 @@ export default {
                         theme: 'colored',
                         autoClose: 1000,
                     });
-                    currentObj.m = {...currentObj.data.model.recommendation}
+                    currentObj.m = {'has_recommendation':currentObj.m.has_recommendation, ...currentObj.data.model.recommendation}
                 }
 
             })

@@ -56,6 +56,7 @@
                             <h2>{{ Auth::user()->name_ka }}</h2>
                             {{-- <p>IT Contractor</p> --}}
                         </div>
+                        @if (Auth::user()->candidate)
 
                         <div class="twm-dash-b-blocks mb-5">
                             <div class="row">
@@ -64,9 +65,9 @@
                                         <div class="panel-body wt-panel-body dashboard-card-2 block-gradient">
                                             <div class="wt-card-wrap-2">
                                                 <div class="wt-card-icon-2"><i class="flaticon-job"></i></div>
-                                                <div class="wt-card-right wt-total-active-listing counter ">25</div>
+                                                <div class="wt-card-right wt-total-active-listing counter ">{{ $vacancyCount }}</div>
                                                 <div class="wt-card-bottom-2 ">
-                                                    <h4 class="m-b0">Posted Jobs</h4>
+                                                    <h4 class="m-b0">აქტიური ვაკანსიები</h4>
                                                 </div>
                                             </div>
                                         </div>
@@ -77,15 +78,15 @@
                                         <div class="panel-body wt-panel-body dashboard-card-2 block-gradient-2">
                                             <div class="wt-card-wrap-2">
                                                 <div class="wt-card-icon-2"><i class="flaticon-resume"></i></div>
-                                                <div class="wt-card-right  wt-total-listing-view counter ">435</div>
+                                                <div class="wt-card-right  wt-total-listing-view counter ">{{ $view }}</div>
                                                 <div class="wt-card-bottom-2">
-                                                    <h4 class="m-b0">Total Applications</h4>
+                                                    <h4 class="m-b0">თქვენი რეზიუმე ნახა</h4>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-6 col-lg-6 col-md-12 mb-3">
+                                {{-- <div class="col-xl-6 col-lg-6 col-md-12 mb-3">
                                     <div class="panel panel-default">
                                         <div class="panel-body wt-panel-body dashboard-card-2 block-gradient-3">
                                             <div class="wt-card-wrap-2">
@@ -97,8 +98,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-xl-6 col-lg-6 col-md-12 mb-3">
+                                </div> --}}
+                                {{-- <div class="col-xl-6 col-lg-6 col-md-12 mb-3">
                                     <div class="panel panel-default">
                                         <div class="panel-body wt-panel-body dashboard-card-2 block-gradient-4">
                                             <div class="wt-card-wrap-2">
@@ -110,11 +111,24 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div> --}}
+                            </div>
+                        </div>
+                        @else
+                        <div class="twm-pro-view-chart-wrap">
+                            <div class="row">
+                                <div class="col-xl-12 col-lg-12 col-md-12 mb-4 text-center">
+                                    <p class="">მოგესალმებით ტექტს...... თუ გსურთ დასაქმება სავალდებულოა შეავსოთ პირადი ინფორმაცი!!!</p>
+                                    <a href="{{ route('userProfile' , App()->getLocale())  }}" class="site-button">
+                                        ...<span class="fa fa-pen">  შევსება</span>
+                                    </a>
+
                                 </div>
                             </div>
                         </div>
+                        @endif
 
-                        <div class="twm-pro-view-chart-wrap">
+                        {{-- <div class="twm-pro-view-chart-wrap">
                             <div class="row">
                                 <div class="col-xl-12 col-lg-12 col-md-12 mb-4">
 
@@ -487,7 +501,7 @@
                                 </div>
 
                             </div>
-                        </div>
+                        </div> --}}
 
                     </div>
                 </div>

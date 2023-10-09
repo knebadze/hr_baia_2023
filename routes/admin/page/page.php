@@ -3,11 +3,15 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HrController;
 use App\Http\Controllers\Admin\SalaryController;
+use App\Http\Controllers\Admin\EmployerController;
+use App\Http\Controllers\Admin\ReminderController;
 use App\Http\Controllers\Admin\EnrollmentController;
+use App\Http\Controllers\Admin\AdminVacancyController;
 use App\Http\Controllers\Admin\AdminCandidateController;
 use App\Http\Controllers\Admin\GlobalVariableController;
 use App\Http\Controllers\Hr\SelectionPersonalController;
 use App\Http\Controllers\Admin\RelevantVacancyController;
+use App\Http\Controllers\Admin\Vacancy\VacancyDepositController;
 
 Route::prefix('admin')->group(function () {
     Route::get('candidate_update/{id?}', [AdminCandidateController::class, 'edit'])

@@ -11,13 +11,7 @@ class CandidateRepository
     public function translate($lang, $data)
     {
         if ($lang == 'ka') {
-            $data['address_en'] = GoogleTranslate::trans($data['address_ka'], 'en');
-            $data['address_ru']  = GoogleTranslate::trans($data['address_ka'], 'ru');
 
-            if ($data['street_ka']) {
-                $data['street_en'] = GoogleTranslate::trans($data['street_ka'], 'en');
-                $data['street_ru']  = GoogleTranslate::trans($data['street_ka'], 'ru');
-            }
             if ($data['medical_info_ka']) {
                 $data['medical_info_en'] = GoogleTranslate::trans($data['medical_info_ka'], 'en');
                 $data['medical_info_ru']  = GoogleTranslate::trans($data['medical_info_ka'], 'ru');
@@ -26,14 +20,6 @@ class CandidateRepository
 
 
         }elseif ($lang == 'en') {
-            $data['address_ka'] = GoogleTranslate::trans($data['address_en'], 'ka');
-            $data['address_ru']  = GoogleTranslate::trans($data['address_en'], 'ru');
-
-
-            if ($data['street_en']) {
-                $data['street_ka'] = GoogleTranslate::trans($data['street_en'], 'ka');
-                $data['street_ru']  = GoogleTranslate::trans($data['street_en'], 'ru');
-            }
 
             if ($data['medical_info_en']) {
                 $data['medical_info_ka'] = GoogleTranslate::trans($data['medical_info_en'], 'ka');
@@ -42,15 +28,7 @@ class CandidateRepository
 
 
         }elseif ($lang == 'ru') {
-            $data['address_ka'] = GoogleTranslate::trans($data['address_ru'], 'ka');
-            $data['address_en']  = GoogleTranslate::trans($data['address_ru'], 'en');
-
-
-            if ($data['street_ru']) {
-                $data['street_ka'] = GoogleTranslate::trans($data['street_ru'], 'ka');
-                $data['street_en']  = GoogleTranslate::trans($data['vacancy']['street_ru'], 'en');
-            }
-
+          
             if ($data['medical_info_ru']) {
                 $data['medical_info_ka'] = GoogleTranslate::trans($data['medical_info_ru'], 'ka');
                 $data['medical_info_en']  = GoogleTranslate::trans($data['medical_info_ru'], 'en');

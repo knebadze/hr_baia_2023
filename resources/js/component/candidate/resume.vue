@@ -444,6 +444,20 @@
                             </div>
                         </div>
                     </div>
+                    <!--notice-->
+                    <div class="panel panel-default mb-3">
+                        <div class="panel-heading wt-panel-heading p-a20 panel-heading-with-btn ">
+                            <h4 class="panel-tittle m-a0">დოკუმენტები</h4>
+
+                        </div>
+                        <div class="panel-body wt-panel-body p-a20 ">
+                            <div class="tw-sidebar-tags-wrap">
+                                <div class="tagcloud">
+                                    <a v-for="item in data.get_notice" href="javascript:;" @click="openPDF(item.file_path)">{{ item.notice[`name_${getLang}`] }}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
 
@@ -465,6 +479,7 @@ export default {
         }
     },
     created(){
+        console.log(this.data);
         this.addLanguageLevel
         if(this.data.get_work_information.length == 1){
             this.chooseResume(this.data.get_work_information[0])

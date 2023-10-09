@@ -40,7 +40,7 @@
         "vue-toastr": "^2.1.2",
         "vue-uuid": "^3.0.0",
         "vue3-carousel": "^0.3.1",
-        "vue3-easy-data-table": "^1.5.42",
+        "vue3-easy-data-table": "^1.5.47",
         "vue3-form-wizard": "^0.2.1",
         "vue3-loading-overlay": "^0.0.0",
         "vue3-popper": "^1.5.0",

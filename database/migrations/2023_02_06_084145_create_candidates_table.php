@@ -43,6 +43,9 @@ return new class extends Migration
             $table->string('fb_link', 500)->nullable();
             $table->string('youtube_link', 500)->nullable();
             $table->string('map_link', 500)->nullable();
+            $table->foreignId('status_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->integer('registration_fee')->default(0);
+            $table->integer('view')->default(0);
             $table->timestamps();
         });
     }

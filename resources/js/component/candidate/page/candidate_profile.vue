@@ -15,7 +15,7 @@
                         >
                         </wizard-step>
                     </template>
-                    <tab-content v-for="(item, index) in stepComponents" :key="index">
+                    <tab-content v-for="(item, index) in stepComponents" :key="index" :icon="item.icon">
                         <component :is="item.component" :data="item.data" />
                     </tab-content>
                     <!-- <tab-content icon="">
@@ -84,6 +84,7 @@
 <script>
 import main_info from '../component/main_info.vue';
 import candidate_information from '../component/candidate_information.vue';
+import candidate_address from '../component/candidate_address.vue';
 import candidate_language from '../component/candidate_language.vue';
 import general_work_Information from '../component/general_work_Information.vue';
 import additional_number from '../component/additional_number.vue';
@@ -103,6 +104,7 @@ export default {
     components:{
         main_info,
         candidate_information,
+        candidate_address,
         candidate_language,
         general_work_Information,
         additional_number,
@@ -149,7 +151,7 @@ export default {
         }
     },
     created(){
-
+console.log(this.data);
         this.userData = {
             'model': this.data.basic.user,
             'cla': {
@@ -238,7 +240,19 @@ export default {
                 'yesNo': this.data.classificatory.yesNo,
             }
         }
-
+        this.addressData = {
+            'user_id': this.data.basic.auth.id,
+            'model': {
+                    'address_ka': this.data.model.candidate.address_ka,
+                    'address_en': this.data.model.candidate.address_en,
+                    'address_ru': this.data.model.candidate.address_ru,
+                    'street_ka': this.data.model.candidate.street_ka,
+                    'street_en': this.data.model.candidate.street_en,
+                    'street_ru': this.data.model.candidate.street_ru,
+                    'latitude': this.data.model.candidate.latitude,
+                    'longitude': this.data.model.candidate.longitude,
+                },
+        }
         // if (!this.currentStepComponent) {
         //     this.stepComponent()
         // }
@@ -260,15 +274,17 @@ export default {
         },
         stepComponents() {
             return [
-                {'component':'main_info', 'data':this.userData},
-                {'component':'candidate_information', 'data':this.candidateInformationData},
-                {'component':'candidate_language', 'data':this.candidateLanguageData},
-                {'component':'general_work_Information', 'data':this.generalWorkInformationData},
-                {'component':'additional_number', 'data':this.additionalNumberData},
-                {'component':'candidate_notice', 'data':this.candidateNoticeData},
-                {'component':'work_information', 'data':this.workInformationData},
-                {'component':'family_work_experience', 'data':this.familyWorkExperienceData},
-                {'component':'candidate_recommendation', 'data':this.recommendationData}
+                {'component':'main_info', 'data':this.userData, 'icon': 'fa fa-user'},
+                {'component':'candidate_information', 'data':this.candidateInformationData, 'icon': 'fa fa-user'},
+                {'component':'candidate_address', 'data':this.addressData, 'icon': 'fa fa-map'},
+                {'component':'candidate_language', 'data':this.candidateLanguageData, 'icon': 'fa fa-language'},
+                {'component':'general_work_Information', 'data':this.generalWorkInformationData, 'icon': 'fa fa-user'},
+                {'component':'additional_number', 'data':this.additionalNumberData, 'icon': 'fa fa-phone'},
+                {'component':'candidate_notice', 'data':this.candidateNoticeData, 'icon': 'fa fa-list-alt'},
+                {'component':'work_information', 'data':this.workInformationData, 'icon': 'fa fa-dollar-sign'},
+                {'component':'family_work_experience', 'data':this.familyWorkExperienceData, 'icon': 'fa fa-user'},
+                {'component':'candidate_recommendation', 'data':this.recommendationData, 'icon': 'fa fa-user'},
+
             ]
         },
 

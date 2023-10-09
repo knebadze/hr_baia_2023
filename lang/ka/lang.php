@@ -473,7 +473,7 @@ return [
     'user_page_candidate_left_side_bar_work_info' => 'სამუშაო ინფორმაცია',
     'user_page_candidate_left_side_bar_applied_jobs' => 'ვაკანსიები',
     'user_page_candidate_left_side_bar_my_resume' => 'ჩემი რეზიუმე',
-    'user_page_candidate_left_side_bar_job_alerts' => 'შეტყბინებებები',
+    'user_page_candidate_left_side_bar_job_alerts' => 'შეტყობინებები',
     'user_page_candidate_left_side_bar_change_psswd' => 'პაროლის შეცვლა',
 
     // ----------------------------------------------------------------------------------------------------

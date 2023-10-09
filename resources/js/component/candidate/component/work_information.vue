@@ -16,7 +16,7 @@
                     <div class="form-group">
                         <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_category_title') }}</label>
                         <div class="ls-inputicon-box">
-                            <multiselect v-model="m.category" :options="cla.category" :searchable="true" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :allow-empty="false" @blur="v$.m.category.$touch">
+                            <multiselect v-model="m.category" :options="cla.category" :searchable="true" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :allow-empty="false" >
                                 <template slot="singleLabel" slot-scope="{ option }"></template>
                             </multiselect>
                             <span v-if="v$.m.category.required.$invalid && v$.m.category.$dirty" style='color:red'>* {{ v$.m.category.required.$message}}</span>
@@ -29,7 +29,7 @@
                         <div class="form-group">
                             <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_work_schedule_title') }}</label>
                             <div class="ls-inputicon-box">
-                                <multiselect v-model="m.work_schedule"  :options="cla.workSchedule" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name_ka" track-by="name_ka" :preselect-first="false" @blur="v$.m.work_schedule.$touch">
+                                <multiselect v-model="m.work_schedule"  :options="cla.workSchedule" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name_ka" track-by="name_ka" :preselect-first="false" >
                                     <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                                 </multiselect>
                                 <span v-if="v$.m.work_schedule.required.$invalid && v$.m.work_schedule.$dirty" style='color:red'>* {{ v$.m.work_schedule.required.$message}}</span>
@@ -60,7 +60,7 @@
                         <div class="form-group">
                             <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_work_currency_title') }}</label>
                             <div class="ls-inputicon-box">
-                                <multiselect v-model="m.currency" :options="cla.currency" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false" @blur="v$.m.currency.$touch">
+                                <multiselect v-model="m.currency" :options="cla.currency" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false" >
                                     <template slot="singleLabel" slot-scope="{ option }"></template>
                                 </multiselect>
                                 <span v-if="v$.m.currency.required.$invalid && v$.m.currency.$dirty" style='color:red'>* {{ v$.m.currency.required.$message}}</span>
