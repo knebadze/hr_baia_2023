@@ -16,9 +16,9 @@
                     <div class="form-group">
                         <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_address') }}</label>
                         <div class="ls-inputicon-box">
-                            <input class="form-control" v-model="m[`address_${getLang}`]" type="text" placeholder=""  @blur="v$.m[`address_${getLang}`].$touch">
+                            <input class="form-control" v-model="m.address" type="text" placeholder=""  @blur="v.address.$touch">
                             <i class="fs-input-icon fa fa-user"></i>
-                            <span v-if="v$.m[`address_${getLang}`].required.$invalid && v$.m[`address_${getLang}`].$dirty" style='color:red'>* {{ v$.m[`address_${getLang}`].required.$message}}</span>
+                            <span v-if="!v.address.required.$response" style='color:red'>* </span>
                         </div>
                     </div>
                 </div>
@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 d-flex justify-content-center">
-                    <button type="submit" @click.prevent="add()"  class="site-button">{{ $t('lang.user_profile_page_social_button_save') }}</button>
+                    <button type="submit" @click.prevent="validateAndSubmit()"  class="site-button">{{ $t('lang.user_profile_page_social_button_save') }}</button>
                 </div>
 
             </div>
@@ -44,86 +44,83 @@
 
 </template>
 <script>
-import { useVuelidate } from '@vuelidate/core'
-import { required, email, helpers, requiredIf, numeric, maxLength } from '@vuelidate/validators'
+import { ref, computed, watch } from 'vue';
+import { I18n } from 'laravel-vue-i18n';
+import { useVuelidate } from '@vuelidate/core';
+import { required, email, numeric, maxLength } from '@vuelidate/validators';
+
 export default {
-    setup () {
-        return { v$: useVuelidate() }
-    },
-    props:{
+    emits: ['validateAndEmit'],
+    props: {
         data: Object,
-
     },
-    data() {
+    setup(props, { emit }) {
+        const getLang = computed(() => {
+            return I18n.getSharedInstance().options.lang;
+        });
+
+        const cla = ref(props.data.cla)
+        const formData = { ...props.data.model };
+        formData.user_id = props.data.user_id;
+        formData.getLang = getLang;
+        formData.address = props.data.model[`address_${getLang.value}`];
+
+        const m = ref(formData);
+
+        const rules = {
+            address: { required },
+        };
+
+        const v = useVuelidate(rules, m);
+
+
+        const validateAndSubmit = () => {
+            v.value.$touch();
+            if (!v.value.$invalid) {
+                m.value[`address_${getLang.value}`] = m.value.address
+
+                axios({
+                    method: "post",
+                    url: "/add_candidate",
+                    data: {'model':m.value, 'type': 'address'},
+                })
+                .then(function (response) {
+                    // handle success
+                    if (response.status == 200) {
+                        toast.success("ინფორმაცია წარმატებით შეინახა", {
+                            theme: 'colored',
+                            autoClose: 2000,
+                        });
+                    }
+
+
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                })
+            }else{
+                toast.warning("აუცილებელია სავალდებულო ველები იყოს შევსებული", {
+                    theme: 'colored',
+                    autoClose: 2000,
+                });
+            }
+        };
+        const validateAndEmit = () => {
+            const isFormValid = !v.value.$invalid;
+            emit("validateAndEmit", isFormValid);
+        }
+
+
         return {
-            m:null,
-            cla: null
-        }
+            m,
+            cla,
+            validateAndSubmit,
+            v,
+            getLang,
+            validateAndEmit,
+
+        };
     },
-    validations () {
-        const validations = {
-            m:{
-
-                address_ka:{},
-                address_en:{},
-                address_ru:{},
-
-            },
-        }
-
-        if (this.getLang == 'ka') {
-            validations.m.address_ka = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
-        }else if(this.getLang == 'en'){
-            validations.m.address_en = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
-        }else if(this.getLang == 'ru'){
-            validations.m.address_ru = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
-        }
-
-        return validations
-    },
-    computed:{
-        getLang(){
-            return I18n.getSharedInstance().options.lang
-        },
-    },
-    created(){
-        this.m = {...this.data.model}
-
-        this.m.user_id = this.data.user_id
-
-    },
-    methods: {
-        async add(){
-            const isFormCorrect = await this.v$.$validate()
-            if (!isFormCorrect) return;
-            this.m['lang'] = this.getLang
-            let currentObj = this;
-            axios({
-                method: "post",
-                url: "/add_candidate",
-                data: {'model':this.m, 'type': 'address'},
-
-            })
-            .then(function (response) {
-                if (response.data.status == 200) {
-                    currentObj.candidate_id = response.data.data;
-                    toast.success("ინფორმაცია წარმატებით შეინახა", {
-                        theme: 'colored',
-                        autoClose: 1000,
-                    });
-                }
-            })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
-            })
-        },
-    },
-    watch:{
-
-    }
-}
+};
 </script>
-<style>
-
-</style>

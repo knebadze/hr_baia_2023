@@ -79,6 +79,8 @@
     <script src="{{ asset('admin/plugins/daterangepicker/daterangepicker.js') }}"></script>
     <!-- Tempusdominus Bootstrap 4 -->
     {{-- <script src="{{ asset('admin/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script> --}}
+
+
     <!-- Summernote -->
     <script src="{{ asset('admin/plugins/summernote/summernote-bs4.min.js') }}"></script>
     <!-- overlayScrollbars -->

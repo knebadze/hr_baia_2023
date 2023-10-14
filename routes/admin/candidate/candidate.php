@@ -14,7 +14,7 @@ Route::post('add_candidate_recommendation', [CandidateInfoController::class, 'ad
 Route::post('add_candidate_file', [CandidateInfoController::class, 'addCandidateFile']);
 
 //შესაცვლელია
-Route::post('add_work_information', [WorkInformationController::class, 'store']);
+// Route::post('add_work_information', [WorkInformationController::class, 'store']);
 
 // R
 Route::post('candidate_work_info_data', [AdminCandidateController::class, 'workInfoData']);

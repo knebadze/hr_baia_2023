@@ -22,7 +22,7 @@
                 {{-- <li ><a href="{{ route('work_information' , App()->getLocale())  }}"><i class="fa fa-file-download"></i> {{ __('lang.user_page_candidate_left_side_bar_work_info') }}</a></li> --}}
             {{-- @endif --}}
             @if (Auth::user()->candidate && Auth::user()->candidate->status_id != 8)
-                <li><a href="{{ route('myrezume' , App()->getLocale())  }}"><i class="fa fa-receipt"></i> {{ __('lang.user_page_candidate_left_side_bar_my_resume') }}</a></li>
+                <li @if(Route::currentRouteName() === 'myrezume') class="active" @else class="" @endif><a href="{{ route('myrezume' , App()->getLocale())  }}"><i class="fa fa-receipt"></i> {{ __('lang.user_page_candidate_left_side_bar_my_resume') }}</a></li>
             @endif
 
 
@@ -31,7 +31,7 @@
 
         <!-- <li><a href="candidate-cv-manager.html"><i class="fa fa-paperclip"></i> CV Manager</a></li> -->
         {{-- <li><a href="#" class="d-flex justify-content-between position-relative"><i class="fa fa-bell"></i> {{ __('lang.user_page_candidate_left_side_bar_job_alerts') }}<span class=" position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">3</span></a></li> --}}
-        <li><a href="{{ route('auth.password.change_password', App()->getLocale()) }}"><i class="fa fa-fingerprint"></i> {{ __('lang.user_page_candidate_left_side_bar_change_psswd') }}</a></li>
+        <li @if(Route::currentRouteName() === 'auth.password.change_password') class="active" @else class="" @endif><a href="{{ route('auth.password.change_password', App()->getLocale()) }}"><i class="fa fa-fingerprint"></i> {{ __('lang.user_page_candidate_left_side_bar_change_psswd') }}</a></li>
         <!-- <li><a href="candidate-chat.html"><i class="fa fa-comments"></i>Chat</a></li> -->
     </ul>
 </div>

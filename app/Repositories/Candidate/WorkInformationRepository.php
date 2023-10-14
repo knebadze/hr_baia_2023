@@ -63,7 +63,7 @@ class WorkInformationRepository
             $this->candidateStatusUpdate($candidate_id);
         // }
 
-        return WorkInformation::where('id', $workInformation->id)->with(['category', 'workSchedule', 'currency'])->first();
+        return [];
     }
 
     function delete($id)  {

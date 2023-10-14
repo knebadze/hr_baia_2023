@@ -6,8 +6,9 @@ import axios from 'axios';
 
 const lang = localStorage.getItem('localLang');
 //_______________________VUE ITEM____________________
-import VueSweetalert2 from 'vue-sweetalert2';
-import 'sweetalert2/dist/sweetalert2.min.css';
+
+import 'sweetalert2/dist/sweetalert2.min.css'; // Import the SweetAlert2 CSS
+import VueSweetalert2 from 'vue-sweetalert2'; // Import VueSweetalert2
 
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css'
@@ -27,9 +28,10 @@ import 'vue3-form-wizard/dist/style.css'
 
 window.I18n = I18n;
 window.toast = toast
+// window.swal = VueSweetalert2
+
 
 const app = createApp({});
-
 // Dynamic imports
 const importComponents = async () => {
     const [

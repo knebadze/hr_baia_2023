@@ -9,18 +9,17 @@
         </div>
         <div class="panel-body wt-panel-body p-a20 m-b30 ">
             <p class="text-danger">{{ $t('lang.user_profile_page_category_end_schedule_title') }}</p>
-            <small>{{ $t('lang.user_profile_page_category_end_schedule_title_2') }}</small>
+            <!-- <small>{{ $t('lang.user_profile_page_category_end_schedule_title_2') }}</small> -->
             <hr>
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
                         <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_category_title') }}</label>
                         <div class="ls-inputicon-box">
-                            <multiselect v-model="m.category" :options="cla.category" :searchable="true" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :allow-empty="false" >
+                            <multiselect v-model="model.category" :options="cla.category" :searchable="true" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :allow-empty="false" @blur="v.category.$touch">
                                 <template slot="singleLabel" slot-scope="{ option }"></template>
                             </multiselect>
-                            <span v-if="v$.m.category.required.$invalid && v$.m.category.$dirty" style='color:red'>* {{ v$.m.category.required.$message}}</span>
-                            <!-- <i class="fs-input-icon fa fa-smoking"></i> -->
+                            <span v-if="!v.category.required.$response" style='color:red'>* </span>
                         </div>
                     </div>
                 </div>
@@ -29,19 +28,18 @@
                         <div class="form-group">
                             <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_work_schedule_title') }}</label>
                             <div class="ls-inputicon-box">
-                                <multiselect v-model="m.work_schedule"  :options="cla.workSchedule" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name_ka" track-by="name_ka" :preselect-first="false" >
+                                <multiselect v-model="model.work_schedule"  :options="cla.workSchedule" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name_ka" track-by="name_ka" :preselect-first="false" @blur="v.work_schedule.$touch">
                                     <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                                 </multiselect>
-                                <span v-if="v$.m.work_schedule.required.$invalid && v$.m.work_schedule.$dirty" style='color:red'>* {{ v$.m.work_schedule.required.$message}}</span>
-                                <!-- <i class="fs-input-icon fa fa-smoking"></i> -->
+                                <span v-if="!v.work_schedule.required.$response" style='color:red'>* </span>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-8" v-if="showAdditionalSchedule">
                         <div class="form-group">
                             <label><span class="text-danger">* </span>სასურველი სამუშაო გრაფიკი</label>
-                            <textarea class="form-control" rows="3" v-model="m[`additional_schedule_${getLang}`]" placeholder="ჩაწერეთ სასურველი სამუშაო დღეები და საათები" @blur="v$.m[`additional_schedule_${getLang}`].$touch"></textarea>
-                            <span v-if="v$.m[`additional_schedule_${getLang}`].required.$invalid && v$.m[`additional_schedule_${getLang}`].$dirty" style='color:red'>* {{ v$.m[`additional_schedule_${getLang}`].required.$message}}</span>
+                            <textarea class="form-control" rows="3" v-model="model.additional_schedule" placeholder="ჩაწერეთ სასურველი სამუშაო დღეები და საათები" @blur="v$.m[`additional_schedule_${getLang}`].$touch"></textarea>
+                            <!-- <span v-if="!v.additional_schedule.required.$response" style='color:red'>* </span> -->
                         </div>
                     </div>
 
@@ -49,10 +47,9 @@
                         <div class="form-group">
                             <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_work_salary_title') }}</label>
                             <div class="ls-inputicon-box">
-                                <input class="form-control" type="number" step="50" v-model="m.payment" @blur="v$.m.payment.$touch" style='height:45px;'>
-                                <!-- <i class="fs-input-icon fa fa-money"></i> -->
-                                <span v-if="v$.m.payment.numeric.$invalid && v$.m.payment.$dirty" style='color:red'>* {{ v$.m.payment.numeric.$message}}</span>
-                                <span v-if="v$.m.payment.required.$invalid && v$.m.payment.$dirty" style='color:red'>* {{ v$.m.payment.required.$message}}</span>
+                                <input class="form-control" type="number" step="50" v-model="model.payment" @blur="v.payment.$touch" style='height:45px;'>
+                                <span v-if="!v.payment.required.$response" style='color:red'>* </span>
+                                <span v-if="!v.payment.numeric.$response" style='color:red'>* </span>
                             </div>
                         </div>
                     </div>
@@ -60,23 +57,22 @@
                         <div class="form-group">
                             <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_work_currency_title') }}</label>
                             <div class="ls-inputicon-box">
-                                <multiselect v-model="m.currency" :options="cla.currency" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false" >
+                                <multiselect v-model="model.currency" :options="cla.currency" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false" @blur="v.currency.$touch">
                                     <template slot="singleLabel" slot-scope="{ option }"></template>
                                 </multiselect>
-                                <span v-if="v$.m.currency.required.$invalid && v$.m.currency.$dirty" style='color:red'>* {{ v$.m.currency.required.$message}}</span>
-                                <!-- <i class="fs-input-icon fa fa-usd"></i> -->
+                                <span v-if="!v.currency.required.$response" style='color:red'>* </span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- <div v-if="m.category"> -->
-                <div class="row" v-if=" m.category.id == 1 || m.category.id == 2 || m.category.id == 4">
-                    <div class="col-xl-4 col-lg-6 col-md-12" v-if="m.category.id != 4">
+                <div class="row" v-if=" model.category.id == 1 || model.category.id == 2 || model.category.id == 4">
+                    <div class="col-xl-4 col-lg-6 col-md-12" v-if="model.category.id != 4">
                         <div class="form-group">
 
                             <div class="ls-inputicon-box">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="1" v-model="m.go_vacation" id="flexCheckDefault">
+                                    <input class="form-check-input" type="checkbox" value="1" v-model="model.go_vacation" id="flexCheckDefault">
                                     <label>{{ ('შეძლებთ არდადეგებზე გაყოლას?') }}</label>
                                 </div>
                             </div>
@@ -87,7 +83,7 @@
 
                             <div class="ls-inputicon-box">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="1" v-model="m.stay_night" id="flexCheckDefault">
+                                    <input class="form-check-input" type="checkbox" value="1" v-model="model.stay_night" id="flexCheckDefault">
                                     <label>{{ $t('შეძლებთ ღამე დარჩენას?') }}</label>
                                 </div>
                             </div>
@@ -98,7 +94,7 @@
 
                             <div class="ls-inputicon-box">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="1" v-model="m.work_additional_hours" id="flexCheckDefault">
+                                    <input class="form-check-input" type="checkbox" value="1" v-model="model.work_additional_hours" id="flexCheckDefault">
                                     <label>{{ $t('შეძლებთ დამატებით საათებში მუშაობას?') }}</label>
                                 </div>
                             </div>
@@ -106,8 +102,15 @@
                     </div>
                 </div>
                 <!-- </div> -->
-                <div class="col-lg-12 col-md-12 mt-4 d-flex justify-content-center" >
-                    <button type="submit" @click.prevent="add()"  class="site-button">{{ $t('lang.user_profile_page_work_button_save') }}</button>
+                <div class="col-lg-12 col-md-12 mt-4" >
+                    <div class="text-right ">
+                        <button class="btn btn-success"
+                        @click.prevent="add(model)"
+                        title="დამატება" data-bs-toggle="tooltip"
+                        data-bs-placement="top">{{ $t('lang.user_profile_page_foreign_lang_button_add_info') }}
+                            <span class="fa fa-plus"></span>
+                        </button>
+                    </div>
                 </div>
 
             </div>
@@ -115,7 +118,7 @@
     </div>
 
     <!-- table -->
-    <div class="panel panel-default" v-if="items.length != 0" >
+    <div class="panel panel-default" v-if="m.length != 0" >
         <div class="panel-heading wt-panel-heading p-a20">
             <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_category_end_schedule_table') }}</h4>
         </div>
@@ -134,7 +137,7 @@
                 </thead>
 
                 <tbody>
-                    <tr v-for="(item, index) in items" :key="index">
+                    <tr v-for="(item, index) in m" :key="index">
                     <td>{{ index + 1 }}</td>
                     <td><span style="margin-bottom: 5px; margin-right: 5px;" class="badge rounded-pill bg-success p-2">{{ item.category[`name_${getLang}`] }}</span></td>
                     <td><span style="margin-bottom: 5px; margin-right: 5px;" v-for="i in item.work_schedule" class="badge rounded-pill bg-primary p-2">{{ i[`name_${getLang}`] }}</span></td>
@@ -156,116 +159,138 @@
     </div>
 </template>
 <script>
-import { useVuelidate } from '@vuelidate/core'
-import { required, email, helpers, requiredIf, numeric, maxLength } from '@vuelidate/validators'
-import _ from 'lodash'
+import { ref, computed, watch } from 'vue';
+import { I18n } from 'laravel-vue-i18n';
+import { useVuelidate } from '@vuelidate/core';
+import { required, numeric, maxLength } from '@vuelidate/validators';
 export default {
-    setup () {
-        return { v$: useVuelidate() }
-    },
-    props:{
+    emits: ['validateAndEmit'],
+    props: {
         data: Object,
-
     },
-    data() {
-        return {
-            m:null,
-            cla: null,
-            items:[],
-            // m.work_schedule: [],
-            showAdditionalSchedule:false,
-        }
-    },
-    validations () {
-        const validations = {
-            m:{
-                category:{
-                    required:helpers.withMessage('არჩევა სავალდებულოა', required ),
-                },
-                payment:{
-                    required:helpers.withMessage('არჩევა სავალდებულოა', required ),
-                    numeric: helpers.withMessage('უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric ),
-                },
-                currency:{
-                    required:helpers.withMessage('არჩევა სავალდებულოა', required )
-                },
-                additional_schedule_ka:{},
-                additional_schedule_en:{},
-                additional_schedule_ru:{},
-                work_schedule:{required:helpers.withMessage('სამუშაო გრაფიკის არჩევა სავალდებულოა', required )},
+    setup(props, { emit }) {
 
-            },
+        const showAdditionalSchedule = ref(false);
+        const cla = ref(props.data.cla)
+        const formData = {...props.data.model.workInformation};
 
-        }
-        if (this.m.work_schedule != '' &&  this.m.work_schedule[0].id == 9) {
-            if (this.getLang == 'ka') {
-                validations.m.additional_schedule_ka = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
-            }else if(this.getLang == 'en'){
-                validations.m.additional_schedule_en = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
-            }else if(this.getLang == 'ru'){
-                validations.m.additional_schedule_ru = {required: helpers.withMessage('შევსება სავალდებულოა', required)}
-            }
-        }
+        const getLang = computed(() => {
+            return I18n.getSharedInstance().options.lang;
+        });
 
 
-        return validations
-    },
-    computed:{
-        getLang(){
-            return I18n.getSharedInstance().options.lang
-        },
-    },
-    created(){
-        this.m = {...this.data.model.workInformation}
-        this.m.stay_night = 0;
-        this.m.go_vacation = 0;
-        this.m.work_additional_hours = 0;
-        this.items = this.data.model.getWorkInformation
-        this.cla = this.data.cla
-        this.m.user_id = this.data.user_id
-//
-    },
-    methods: {
-        async add(){
-            const isFormCorrect = await this.v$.m.$validate()
-            if (!isFormCorrect) return;
-            if (this.items.length > 0 && this.items.some((element) => element.category_id === this.m.category.id)) {
+        formData.getLang = getLang;
+        formData.stay_night = 0;
+        formData.go_vacation = 0;
+        formData.work_additional_hours = 0;
+        formData.additional_schedule = props.data.model.workInformation[`additional_schedule_${getLang.value}`]
+        const model = ref(formData);
+        const m = ref(props.data.model.getWorkInformation)
+
+        const rules = {
+            category: { required },
+            payment: { required, numeric },
+            currency: { required},
+            work_schedule: { required },
+            // additional_schedule: showAdditionalSchedule.value ? { required }: {}
+        };
+
+        const v = useVuelidate(rules, model);
+
+
+        const getWorkSchedule = () => model.value.work_schedule;
+        watch(getWorkSchedule, (newVal) => {
+            showAdditionalSchedule.value = _.find(newVal, function(o) { if(o.id == 9) return true; });
+        });
+
+        const add = (item) =>{
+            let data = {...item}
+            if (m.value.length > 0 && m.value.some((element) => element.category_id === data.category.id)) {
                 toast.error('არჩეულ კატეგორიაზე უკვე გაქვთ ინფორმაცია შევსებული', {
                     theme: 'colored',
                     autoClose: 1000,
                 });
                 return
             }
-            this.m.lang = this.getLang
-            this.m.candidate_id = this.data.candidate_id
-            let currentObj = this;
+            if (data.work_schedule.id == 9 && data.additional_schedule == '') {
+                toast.error('სავალდებულოა სამუშაო დღეების და საათების მითითება', {
+                    theme: 'colored',
+                    autoClose: 1000,
+                });
+                return
+            }
+            if (showAdditionalSchedule.value) {
+                data[`additional_schedule_${getLang.value}`] = data.additional_schedule;
+            }
+
+            v.value.$touch();
+            if (!v.value.$invalid) {
+                validateAndSubmit(data)
+
+            }else{
+                toast.warning("აუცილებელია სავალდებულო ველები იყოს შევსებული", {
+                    theme: 'colored',
+                    autoClose: 2000,
+                });
+            }
+        }
+
+
+        const validateAndSubmit = (item) => {
             axios({
                 method: "post",
-                url: "/add_work_information",
-                data: {'model':this.m, 'type': 'work_information'},
+                url: "/add_candidate",
+                data: {'model':item, 'type': 'work_information', 'user_id': props.data.user_id},
 
             })
             .then(function (response) {
-
-                // handle success
                 if (response.data.status == 200) {
-                    toast.success("წარმატებით დაემატა", {
+                    m.value.push(item)
+                    model.value.category = "";
+                    model.value.work_schedule = "";
+                    model.value.additional_schedule = "";
+                    model.value.payment = 800;
+                    model.value.currency = "";
+                    model.stay_night = 0;
+                    model.go_vacation = 0;
+                    model.work_additional_hours = 0;
+                    toast.success("ინფორმაცია წარმატებით შეინახა", {
                         theme: 'colored',
                         autoClose: 1000,
                     });
-                    currentObj.items.push(response.data.data)
-                    currentObj.m.category = '';
-                    currentObj.m.work_schedule = '';
-                    currentObj.m.payment = 800;
-                    currentObj.m.currency = '';
                 }
-
             })
             .catch(function (error) {
                 // handle error
                 console.log(error);
             })
-        },
+
+        };
+
+        const validateAndEmit = () => {
+            const isFormValid = m.value.length > 0 ? true: false;
+            console.log('isFormValid', isFormValid);
+            emit("validateAndEmit", isFormValid);
+        }
+
+
+;
+
+
+        return {
+            m,
+            model,
+            cla,
+            v,
+            validateAndSubmit,
+            add,
+            getLang,
+            validateAndEmit,
+            showAdditionalSchedule
+
+        };
+    },
+    methods: {
         remove(index, id){
             this.$swal({
                 title: 'ნამდვილად გსურთ წაშლა?',
@@ -304,12 +329,7 @@ export default {
 
         },
     },
-    watch:{
-        'm.work_schedule': function (newVal, oldVa) {
-            this.showAdditionalSchedule = _.find(newVal, function(o) { if(o.id == 9) return true; });
-        },
-    }
-}
+};
 </script>
 <style lang="">
 

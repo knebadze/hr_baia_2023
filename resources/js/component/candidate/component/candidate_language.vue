@@ -29,7 +29,7 @@
                 <div class="col-lg-12 col-md-12">
                     <div class="text-right ">
                         <button class="btn btn-success"
-                        @click.prevent="addLanguage(model)"
+                        @click.prevent="add(model)"
                         title="დამატება" data-bs-toggle="tooltip"
                         data-bs-placement="top">{{ $t('lang.user_profile_page_foreign_lang_button_add_info') }}
                             <span class="fa fa-plus"></span>
@@ -71,58 +71,31 @@
 
 </template>
 <script>
+import { ref, computed, watch } from 'vue';
+import { I18n } from 'laravel-vue-i18n';
 export default {
-    props:{
+    emits: ['validateAndEmit'],
+    props: {
         data: Object,
+    },
+    setup(props, { emit }) {
+        const getLang = computed(() => {
+            return I18n.getSharedInstance().options.lang;
+        });
 
-    },
-    data() {
-        return {
-            m:null,
-            cla: null,
-            model:{
-                'language': '',
-                'level':''
-            }
-        }
-    },
-    computed:{
-        getLang(){
-            return I18n.getSharedInstance().options.lang
-        },
-    },
-    created(){
-        this.m = this.data.model
+        const cla = ref(props.data.cla)
+        const formData = props.data.model;
+        formData.getLang = getLang;
 
-        this.cla = this.data.cla
-        // this.m.user_id = this.data.user_id
-    },
-    methods: {
-        // async
-        add(item){
-            let currentObj = this;
-            axios({
-                method: "post",
-                url: "/add_candidate",
-                data: {'model':item, 'type': 'language', 'user_id': this.data.user_id},
+        const m = ref(formData);
+        const model = ref({
+            language: '',
+            level:''
+        });
 
-            })
-            .then(function (response) {
-                if (response.data.status == 200) {
-                    currentObj.m = response.data.data;
-                    toast.success("ინფორმაცია წარმატებით შეინახა", {
-                        theme: 'colored',
-                        autoClose: 1000,
-                    });
-                }
-            })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
-            })
-        },
-        addLanguage(item){
-            if (this.m.length == 0 && item.level.id != 1) {
+
+        const add = (item) =>{
+            if (m.value.length == 0 && item.level.id != 1) {
                 toast.error("გთხოვთ დაამატოთ მშობლიური ენა", {
                     theme: 'colored',
                     autoClose: 1000,
@@ -136,18 +109,69 @@ export default {
                 });
                 return
             }
-            if (this.m.length > 0 && this.m.some((element) => element.language.id === item.language.id)) {
-                toast.warning("არჩეული ენა უკვე დაამატეთ", {
+            if (m.value.length > 0 && m.value.some((element) => element.language.id === item.language.id)) {
+                toast.info("არჩეული ენა უკვე დაამატეთ", {
                     theme: 'colored',
                     autoClose: 1000,
                 });
                 return
             }
-            this.add(item)
-            this.model.language = '';
-            this.model.level = '';
 
-        },
+            if (m.value.length > 0 && m.value.some((element) => element.level.id === item.level.id)) {
+                toast.error("არ შეიძლება ორი მშობლიური ენის დამატება", {
+                    theme: 'colored',
+                    autoClose: 1000,
+                });
+                return
+            }
+            validateAndSubmit(item)
+            model.value.language = '';
+            model.value.level = '';
+
+        }
+
+
+        const validateAndSubmit = (item) => {
+            axios({
+                method: "post",
+                url: "/add_candidate",
+                data: {'model':item, 'type': 'language', 'user_id': props.data.user_id},
+
+            })
+            .then(function (response) {
+                if (response.data.status == 200) {
+                    m.value = response.data.data;
+                    toast.success("ინფორმაცია წარმატებით შეინახა", {
+                        theme: 'colored',
+                        autoClose: 1000,
+                    });
+                }
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+
+        };
+
+        const validateAndEmit = () => {
+            const isFormValid = m.value.length > 0;
+            emit("validateAndEmit", isFormValid);
+        }
+
+
+        return {
+            m,
+            model,
+            cla,
+            validateAndSubmit,
+            add,
+            getLang,
+            validateAndEmit,
+
+        };
+    },
+    methods: {
         remove(index, id){
             this.$swal({
                 title: 'ნამდვილად გსურთ წაშლა?',
@@ -186,11 +210,5 @@ export default {
 
         },
     },
-    watch:{
-
-    }
-}
+};
 </script>
-<style lang="">
-
-</style>

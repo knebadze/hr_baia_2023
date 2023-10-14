@@ -75,6 +75,7 @@ class CandidateInfoController extends Controller
         if ($request->hasFile('file')) {
             $data['file'] = $request->file('file');
         }
+        // dd($data);
         $result = ['status' => 200];
 
         try {

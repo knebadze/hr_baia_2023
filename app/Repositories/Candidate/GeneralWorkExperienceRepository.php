@@ -48,9 +48,9 @@ class GeneralWorkExperienceRepository
             $generalWork->object_ru = $data['object_ru'];
         }elseif ($data['has_experience']['id'] == 2) {
             $generalWork->no_reason_id = $data['no_reason']['id'];
-            $generalWork->no_reason_info_ka = $data['no_reason_info_ka'];
-            $generalWork->no_reason_info_en = $data['no_reason_info_en'];
-            $generalWork->no_reason_info_ru = $data['no_reason_info_ru'];
+            $generalWork->no_reason_info_ka = isset($data['no_reason_info_ka'])?$data['no_reason_info_ka']:null;
+            $generalWork->no_reason_info_en = isset($data['no_reason_info_en'])?$data['no_reason_info_en']:null;
+            $generalWork->no_reason_info_ru = isset($data['no_reason_info_ru'])?$data['no_reason_info_ru']:null;
         }
         $generalWork->save();
         $candidate = Candidate::where('id', $candidate->id)->with(['getGeneralWorkExperience.workExperience', 'getGeneralWorkExperience.noReason', 'getGeneralWorkExperience.hasExperience'])->first();

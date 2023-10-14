@@ -10,7 +10,7 @@
                     <div class="form-group">
                         <label>{{ $t('lang.user_profile_page_references_name_notice') }}</label>
                         <div class="ls-inputicon-box">
-                            <multiselect v-model="candidateNoticeModel.notice" :options="cla.notices" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                            <multiselect v-model="model.notice" :options="cla.notices" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
                                 <template slot="singleLabel" slot-scope="{ option }"></template>
                             </multiselect>
                         </div>
@@ -27,7 +27,7 @@
                 <div class="col-lg-12 col-md-12">
                     <div class="text-right ">
                         <button class="btn btn-success"
-                        @click="addNotice(candidateNoticeModel)"
+                        @click="add(model)"
                         title="დამატება" data-bs-toggle="tooltip" data-bs-placement="top">{{ $t('lang.user_profile_page_references_button_add_info') }}
                             <span class="fa fa-plus"></span>
                         </button>
@@ -68,55 +68,60 @@
     </div>
 </template>
 <script>
+import { ref, computed, watch } from 'vue';
+import { I18n } from 'laravel-vue-i18n';
+// import { useVuelidate } from '@vuelidate/core';
+// import { required, numeric, maxLength } from '@vuelidate/validators';
 export default {
-    props:{
+    emits: ['validateAndEmit'],
+    props: {
         data: Object,
+    },
+    setup(props, { emit }) {
+        const file = ref(null);
+        const showNoRecommendation = ref(false);
+        const cla = ref(_.cloneDeep(props.data.cla))
+        const formData = {notice: ''};
 
-    },
-    data() {
-        return {
-            m:null,
-            cla: null,
-            candidateNoticeModel:{
-                'notice':'',
-            },
-            file: null
-        }
-    },
-    computed:{
-        getLang(){
-            return I18n.getSharedInstance().options.lang
-        },
-    },
-    created(){
-        this.m = this.data.model
-        this.cla = this.data.cla
+        const m = ref(props.data.model)
 
-        // this.m.user_id = this.data.user_id
-    },
-    methods: {
-        handleFileChange(event) {
-            this.file = event.target.files[0];
-        },
-        addNotice(item){
+        const getLang = computed(() => {
+            return I18n.getSharedInstance().options.lang;
+        });
 
-            item['file'] = (this.file)?this.file.name:null
-            if (this.m.length > 0 && item.notice.id != 6 && this.m.some((element) => element.notice.id === item.notice.id)) {
+
+        formData.getLang = getLang;
+        formData.user_id = props.data.user_id
+        const model = ref(formData)
+
+        const handleFileChange = (event) => {
+            file.value = event.target.files[0];
+            model.value.file_name = file.value.name
+        };
+
+        const openPDF = (item) => {
+            const pdfUrl = `/storage/${item}`;
+            window.open(pdfUrl, '_blank');
+        };
+
+        const add = (item) =>{
+            let data = {...item}
+            data['file'] = (file.value)?file.value.name:null
+            if (m.value.length > 0 && data.notice.id != 6 && m.value.some((element) => element.notice.id === item.notice.id)) {
                 toast.warning("ცნობა უკვე ატვირთულია შესაცვლელად წაშალეთ ძველი ცნობა", {
                     theme: 'colored',
                     autoClose: 1000,
                 });
                 return
             }
-            if (this.file != null && this.file.type !== 'application/pdf') {
+            if (file.value != null && file.value.type !== 'application/pdf') {
                 toast.error("გთხოვთ ფაილი ატვირთეთ pdf ფორმატში", {
                     theme: 'colored',
                     autoClose: 1000,
                 });
                 return
             }
-
-            if (this.file == null || item.notice == '') {
+            if (!file.value || data.notice == '') {
                 toast.error("ყველა ველის შევსება სავალდებულოა", {
                     theme: 'colored',
                     autoClose: 1000,
@@ -124,24 +129,23 @@ export default {
                 return
             }
 
-            this.m.push(JSON.parse(JSON.stringify(item)))
-            this.add(item)
-            this.candidateNoticeModel.notice = '';
-            this.candidateNoticeModel.file= ''
-        },
-        add(item){
-            item.user_id = this.data.user_id
-
-            const formData = new FormData();
-            formData.append('data', JSON.stringify(item))
-            if (this.file) {
-                formData.append('file', this.file);
+            data.candidate_id = props.data.candidate_id
+            const sendFormData = new FormData();
+            sendFormData.append('data', JSON.stringify(data))
+            if (file.value) {
+                sendFormData.append('file', file.value);
             }
-            let currentObj = this;
+            validateAndSubmit(sendFormData, data)
+
+        }
+        const validateAndSubmit = (formData, data) => {
+
             axios.post('/add_candidate_file', formData)
             .then(function (response) {
                 if (response.data.status == 200) {
-                    currentObj.m = response.data.data;
+                    m.value.push(data)
+                    model.value.notice = "";
+                    model.value.file = "";
                     toast.success("ინფორმაცია წარმატებით შეინახა", {
                         theme: 'colored',
                         autoClose: 1000,
@@ -152,8 +156,33 @@ export default {
                 // handle error
                 console.log(error);
             })
-        },
+        };
+        console.log(m.value);
+        const validateAndEmit = () => {
+            const isFormValid = true ;
+            console.log('isFormValid', isFormValid);
+            emit("validateAndEmit", isFormValid);
+        };
+
+        return {
+            m,
+            model,
+            cla,
+            // v,
+            validateAndSubmit,
+            add,
+            getLang,
+            validateAndEmit,
+            // chooseNumberCode,
+            handleFileChange,
+            showNoRecommendation,
+            openPDF
+
+        };
+    },
+    methods: {
         remove(index, id){
+            let currentObj = this
             this.$swal({
                 title: 'ნამდვილად გსურთ წაშლა?',
                 //   showDenyButton: true,
@@ -164,41 +193,32 @@ export default {
             /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
                     const removed = this.m.splice(index, 1);
-                    axios({
-                        method: "post",
-                        url: "/delete_candidate_info",
+                    axios.post('/delete_candidate_info' ,{
                         data: {'id':id, 'type': 'notice'},
-
                     })
                     .then(function (response) {
-                        if (response.data.status == 200) {
+                        if (response.status == 200) {
                             toast.success("წარმატებით წაიშალა", {
                                 theme: 'colored',
                                 autoClose: 1000,
                             });
                         }
+
                     })
                     .catch(function (error) {
                         // handle error
                         console.log(error);
                     })
+                    // this.hide()
 
                 } else if (result.isDenied) {
                     return
                 }
             });
-
-
         },
-        openPDF(item) {
-            const pdfUrl = `/storage/${item}`;
-            window.open(pdfUrl, '_blank');
-        },
+
     },
-    watch:{
-
-    }
-}
+};
 </script>
 <style lang="">
 

@@ -4,26 +4,64 @@
             <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_title') }}</h4>
         </div>
         <div class="panel-body wt-panel-body p-a20 m-b30 ">
+            <div class="d-flex justify-content-between border border-info p-2 mb-2">
+                <span>შეგიძლიათ დაამატოთ 2 ნომერი</span>
+                <span>{{ m.length }} / 2</span>
+            </div>
 
             <div class="row">
                 <div class="col-xl-6 col-lg-6 col-md-12">
                     <div class="form-group">
                         <label>{{ $t('lang.user_profile_page_number') }}</label>
-                        <div class="input-group mb-3">
-                        <button style="border-style: none;" class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><span :class="`fi fi-${numberCode.iso.toLowerCase()}`"></span>+{{ numberCode.phonecode }}</button>
-                        <ul class="dropdown-menu" style=" overflow: hidden; overflow-y: auto; max-height: calc(100vh - 550px);">
-                            <li v-for="item in cla.numberCode" @click="chooseNumberCode(item)"><a class="dropdown-item"><span :class="`fi fi-${item.iso.toLowerCase()}`"></span>+{{ item.phonecode }}</a></li>
-                        </ul>
-                        <input type="text" class="form-control" aria-label="Text input with dropdown button" v-model="candidateNumberModel.number" placeholder="555666777" onkeypress="return /[0-9]/i.test(event.key)" >
+                        <div class="input-group mb-3 dropdown" ref="myDiv">
+                        <button
+                            style="border-style: none;"
+                            class="btn btn-outline-secondary dropdown-toggle"
+                            type="button"
+                            @click="toggleDropdown"
+                        >
+                            <span :class="`fi fi-${selectedOption.iso.toLowerCase()}`"></span>
+                            +{{ selectedOption.phonecode }}
+                        </button>
+                        <ul
+                            class="dropdown-menu"
+                            :class="{ 'show': isDropdownOpen }"
+                            style="position: absolute;"
 
-                        </div>
+                        >
+                            <li v-for="(option, index) in cla.numberCode" :key="index">
+                                <a
+                                    class="dropdown-item"
+                                    @click="selectOption(option)"
+                                >
+                                    <span :class="`fi fi-${option.iso.toLowerCase()}`"></span>+{{ option.phonecode }}
+                                </a>
+                            </li>
+                        </ul>
+                        <input
+                            type="text"
+                            class="form-control"
+                            aria-label="Text input with dropdown button"
+                            v-model="model.number"
+                            placeholder="555666777"
+                            onkeypress="return /[0-9]/i.test(event.key)"
+                        >
+                    </div>
+                        <!-- <div class="input-group mb-3">
+                        <button style="border-style: none;" class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><span :class="`fi fi-${numberCode.iso.toLowerCase()}`"></span>+{{ numberCode.phonecode }}</button>
+                            <ul class="dropdown-menu" style=" overflow: hidden; overflow-y: auto; max-height: calc(100vh - 550px);">
+                                <li v-for="item in cla.numberCode" @click="chooseNumberCode(item)"><a class="dropdown-item"><span :class="`fi fi-${item.iso.toLowerCase()}`"></span>+{{ item.phonecode }}</a></li>
+                            </ul>
+                            <input type="text" class="form-control" aria-label="Text input with dropdown button" v-model="model.number" placeholder="555666777" onkeypress="return /[0-9]/i.test(event.key)" >
+
+                        </div> -->
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-12">
                     <div class="form-group">
                         <label>{{ $t('lang.user_profile_page_number_owner') }}</label>
                         <div class="ls-inputicon-box">
-                            <multiselect v-model="candidateNumberModel.number_owner" :options="cla.numberOwner" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                            <multiselect v-model="model.number_owner" :options="cla.numberOwner" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
                                 <template slot="singleLabel" slot-scope="{ option }"></template>
                             </multiselect>
                             <!-- <span v-if="v$.candidateNumberModel.number_owner.required.$invalid && v$.candidateNumberModel.number_owner.$dirty" style='color:red'>* {{ v$.candidateNumberModel.number_owner.required.$message}}</span> -->
@@ -34,7 +72,7 @@
                 <div class="col-lg-12 col-md-12">
                     <div class="text-right ">
                         <button class="btn btn-success"
-                        @click="addNumber(numberCode, candidateNumberModel)"
+                        @click="add(selectedOption, model)"
                         title="Add Number" data-bs-toggle="tooltip"
                         data-bs-placement="top">{{ $t('lang.user_profile_page_foreign_lang_button_add_info') }}
                             <span class="fa fa-plus"></span>
@@ -77,47 +115,77 @@
     </div>
 </template>
 <script>
-import _ from 'lodash';
+import { ref, computed, onUnmounted, onMounted, nextTick  } from 'vue';
+import { I18n } from 'laravel-vue-i18n';
 export default {
-    props:{
+    emits: ['validateAndEmit'],
+    props: {
         data: Object,
+    },
+    setup(props, { emit }) {
 
-    },
-    data() {
-        return {
-            m:null,
-            cla: null,
-            numberCode: {},
-            candidateNumberModel:{
-                'number':'',
-                'number_owner':'',
-            },
+        const classificatory = props.data.cla
+        const sort = () =>{
+            classificatory.numberCode[0] = _.find(classificatory.numberCode, function(o) { return o.phonecode == 995; })
+            const index = _.findIndex(props.data.cla.numberCode, function(o) { return o.phonecode == 995; });
+            classificatory.numberCode[index] = props.data.cla.numberCode[0]
+            return classificatory
         }
-    },
-    computed:{
-        getLang(){
-            return I18n.getSharedInstance().options.lang
-        },
-    },
-    created(){
-        this.m = this.data.model
-        this.cla = this.data.cla
-        this.numberCode = _.find(this.cla.numberCode, function(o) { return o.phonecode == 995; });
-        // this.m.user_id = this.data.user_id
-    },
-    methods: {
-        // async
-        add(item){
-            let currentObj = this;
+        const cla = ref(sort())
+        const formData = props.data.model;
+        const isDropdownOpen = ref(false);
+        const selectedOption = ref(_.find(cla.value.numberCode, function(o) { return o.phonecode == 995; }));
+        const myDiv = ref(null);
+
+        const getLang = computed(() => {
+            return I18n.getSharedInstance().options.lang;
+        });
+
+
+        formData.getLang = getLang;
+
+        let m = ref(formData);
+        const model = ref({
+            number:'',
+            number_owner:'',
+        });
+
+
+        const add = (code, item) =>{
+            // console.log(item);
+            item['number_code'] = code
+            // console.log('item', item);
+            if (item.number == '' || item.number_code == '' || item.number_owner == '') {
+                toast.error("აუცილებელია ყველა პარამეტრის შევსება", {
+                    theme: 'colored',
+                    autoClose: 1000,
+                });
+                return
+            }
+            if (m.value.length == 2) {
+                toast.error("თქვენ უკვე დაამატეთ 2 ნომერი", {
+                    theme: 'colored',
+                    autoClose: 1000,
+                });
+                return
+            }
+            m.value.push({...item})
+            validateAndSubmit(model.value)
+            model.value.number = "";
+            model.value.number_owner = "";
+        }
+
+
+        const validateAndSubmit = (item) => {
             axios({
                 method: "post",
                 url: "/add_candidate",
-                data: {'model':item, 'type': 'number', 'user_id': this.data.user_id},
+                data: {'model':item, 'type': 'number', 'user_id': props.data.user_id},
 
             })
             .then(function (response) {
                 if (response.data.status == 200) {
-                    currentObj.m = response.data.data;
+                    m.value = response.data.data;
                     toast.success("ინფორმაცია წარმატებით შეინახა", {
                         theme: 'colored',
                         autoClose: 1000,
@@ -128,24 +196,47 @@ export default {
                 // handle error
                 console.log(error);
             })
-        },
-        chooseNumberCode(item){
-            this.numberCode = item;
-        },
-        addNumber(code, model){
-            model['number_code'] = code
-            if (model.number == '' || model.number_code == '' || model.number_owner == '') {
-                toast.error("აუცილებელია ყველა პარამეტრის შევსება", {
-                    theme: 'colored',
-                    autoClose: 1000,
-                });
-                return
-            }
-            this.m.push(JSON.parse(JSON.stringify(model)))
-            this.add(model)
-            this.candidateNumberModel.number = "";
-            this.candidateNumberModel.number_owner = "";
-        },
+
+        };
+
+        const validateAndEmit = () => {
+            const isFormValid = true;
+            emit("validateAndEmit", isFormValid);
+        }
+
+        // drop down input const isDropdownOpen = ref(false);
+
+
+        const toggleDropdown = () => {
+            isDropdownOpen.value = !isDropdownOpen.value;
+        };
+
+        const selectOption = (option) => {
+
+            selectedOption.value = option;
+            isDropdownOpen.value = false;
+        };
+;
+
+
+        return {
+            m,
+            model,
+            cla,
+            validateAndSubmit,
+            add,
+            getLang,
+            validateAndEmit,
+
+            isDropdownOpen,
+            selectedOption,
+            toggleDropdown,
+            selectOption,
+            myDiv
+
+        };
+    },
+    methods: {
         remove(index, id){
             this.$swal({
                 title: 'ნამდვილად გსურთ წაშლა?',
@@ -184,11 +275,12 @@ export default {
 
         },
     },
-    watch:{
-
-    }
-}
+};
 </script>
-<style lang="">
-
+<style>
+.dropdown-menu {
+  overflow: hidden;
+  overflow-y: auto;
+  max-height: calc(100vh - 600px);
+}
 </style>

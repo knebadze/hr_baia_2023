@@ -11,9 +11,9 @@
                         <div class="form-group">
                             <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_personal_number') }}</label>
                             <div class="ls-inputicon-box">
-                                <input class="form-control" v-model="m.personal_number" type="text" placeholder=""  @blur="v$.m.personal_number.$touch">
+                                <input class="form-control" v-model="m.personal_number" :class="(m.personal_number == null || v.personal_number.$error)?'is-invalid':''" type="text" placeholder=""  @blur="v.personal_number.$touch">
                                 <i class="fs-input-icon fa fa-user"></i>
-                                <span v-if="v$.m.personal_number.required.$invalid && v$.m.personal_number.$dirty" style='color:red'>* {{ v$.m.personal_number.required.$message}}</span>
+                                <span v-if="!v.personal_number.required.$response" style='color:red'>* </span>
                             </div>
                         </div>
                     </div>
@@ -22,10 +22,10 @@
                         <div class="form-group">
                             <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_personal_nationality') }}</label>
                             <div class="ls-inputicon-box">
-                                <multiselect v-model="m.nationality" :options="cla.nationality" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false" @blur="v$.m.nationality.$touch">
+                                <multiselect v-model="m.nationality" :options="cla.nationality"   deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false" @blur="v.nationality.$touch">
                                     <template slot="singleLabel" slot-scope="{ option }"></template>
                                 </multiselect>
-                                <span v-if="v$.m.nationality.required.$invalid && v$.m.nationality.$dirty" style='color:red'>* {{ v$.m.nationality.required.$message}}</span>
+                                <span v-if="!v.nationality.required.$response" style='color:red'>* </span>
 
                             </div>
                         </div>
@@ -34,10 +34,23 @@
                         <div class="form-group">
                             <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_personal_citizenship') }}</label>
                             <div class="ls-inputicon-box">
-                                <multiselect v-model="m.citizenship"  :options="cla.citizenship" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" :label="`name_${getLang}`" :track-by="`name_${getLang}`" :preselect-first="false" @blur="v$.m.citizenship.$touch">
+                                <multiselect
+                                    v-model="m.citizenship"
+                                    :options="cla.citizenship"
+                                    :multiple="true"
+                                    :close-on-select="false"
+                                    :clear-on-select="false"
+                                    :preserve-search="true"
+                                    placeholder="Pick some"
+                                    :label="`name_${getLang}`"
+                                    :track-by="`name_${getLang}`"
+                                    :preselect-first="false"
+                                    @blur="v.citizenship.$touch"
+
+                                >
                                     <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                                 </multiselect>
-                                <span v-if="v$.m.citizenship.required.$invalid && v$.m.citizenship.$dirty" style='color:red'>* {{ v$.m.citizenship.required.$message}}</span>
+                                <span v-if="!v.citizenship.required.$response" style='color:red'>* </span>
                             </div>
                         </div>
                     </div>
@@ -45,10 +58,10 @@
                         <div class="form-group">
                             <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_personal_religion') }}</label>
                             <div class="ls-inputicon-box">
-                                <multiselect v-model="m.religion" :options="cla.religions" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false" @blur="v$.m.religion.$touch">
+                                <multiselect v-model="m.religion" :options="cla.religions" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false" @blur="v.religion.$touch">
                                     <template slot="singleLabel" slot-scope="{ option }"></template>
                                 </multiselect>
-                                <span v-if="v$.m.religion.required.$invalid && v$.m.religion.$dirty" style='color:red'>* {{ v$.m.religion.required.$message}}</span>
+                                <span v-if="!v.religion.required.$response" style='color:red'>* </span>
                             </div>
                         </div>
                     </div>
@@ -56,10 +69,10 @@
                         <div class="form-group">
                             <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_personal_education') }}</label>
                             <div class="ls-inputicon-box">
-                                <multiselect v-model="m.education" :options="cla.educations" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false" @blur="v$.m.education.$touch">
+                                <multiselect v-model="m.education" :options="cla.educations" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false" @blur="v.education.$touch">
                                     <template slot="singleLabel" slot-scope="{ option }"></template>
                                 </multiselect>
-                                <span v-if="v$.m.education.required.$invalid && v$.m.education.$dirty" style='color:red'>* {{ v$.m.education.required.$message}}</span>
+                                <span v-if="!v.education.required.$response" style='color:red'>* </span>
                             </div>
                         </div>
                     </div>
@@ -70,7 +83,7 @@
                                 <multiselect v-model="m.professions"  :options="cla.professions" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" :label="`name_${getLang}`" :track-by="`name_${getLang}`" :preselect-first="false" >
                                     <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                                 </multiselect>
-                                <!-- <span v-if="v$.m.professions.required.$invalid && v$.m.professions.$dirty" style='color:red'>* {{ v$.m.professions.required.$message}}</span> -->
+                                <!-- <span v-if="!v.nationality.required.$response" style='color:red'>* </span> professions.required.$invalid && v.professions.$dirty" style='color:red'>* {{ v.professions.required.$message}}</span> -->
                             </div>
                         </div>
                     </div>
@@ -81,7 +94,7 @@
                                 <multiselect v-model="m.specialty"  :options="cla.specialties" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" :label="`name_${getLang}`" :track-by="`name_${getLang}`" :preselect-first="false" >
                                     <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                                 </multiselect>
-                                <!-- <span v-if="v$.m.professions.required.$invalid && v$.m.professions.$dirty" style='color:red'>* {{ v$.m.professions.required.$message}}</span> -->
+                                <!-- <span v-if="!v.nationality.required.$response" style='color:red'>* </span> professions.required.$invalid && v.professions.$dirty" style='color:red'>* {{ v.professions.required.$message}}</span> -->
                             </div>
                         </div>
                     </div>
@@ -89,10 +102,10 @@
                         <div class="form-group">
                             <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_personal_general_characters') }}</label>
                             <div class="ls-inputicon-box">
-                                <multiselect v-model="m.characteristic"  :options="cla.characteristic" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" :label="`name_${getLang}`" :track-by="`name_${getLang}`" :preselect-first="false" @blur="v$.m.characteristic.$touch">
+                                <multiselect v-model="m.characteristic"  :options="cla.characteristic" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" :label="`name_${getLang}`" :track-by="`name_${getLang}`" :preselect-first="false" @blur="v.characteristic.$touch">
                                     <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                                 </multiselect>
-                                <span v-if="v$.m.characteristic.required.$invalid && v$.m.characteristic.$dirty" style='color:red'>* {{ v$.m.characteristic.required.$message}}</span>
+                                <span v-if="!v.characteristic.required.$response" style='color:red'>* </span>
                             </div>
                         </div>
                     </div>
@@ -102,10 +115,10 @@
                         <div class="form-group">
                             <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_personal_family') }}</label>
                             <div class="ls-inputicon-box">
-                                <multiselect v-model="m.marital_status" :options="cla.maritalStatus" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false" @blur="v$.m.marital_status.$touch">
+                                <multiselect v-model="m.marital_status" :options="cla.maritalStatus" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false" @blur="v.marital_status.$touch">
                                     <template slot="singleLabel" slot-scope="{ option }"></template>
                                 </multiselect>
-                                <span v-if="v$.m.marital_status.required.$invalid && v$.m.marital_status.$dirty" style='color:red'>* {{ v$.m.marital_status.required.$message}}</span>
+                                <span v-if="!v.marital_status.required.$response" style='color:red'>* </span>
                             </div>
                         </div>
                     </div>
@@ -113,10 +126,10 @@
                         <div class="form-group">
                             <label>{{ $t('lang.user_profile_page_personal_family_children') }}</label>
                             <div class="ls-inputicon-box">
-                                <input class="form-control" v-model="m.children" type="number" placeholder="" @blur="v$.m.children.$touch">
+                                <input class="form-control" v-model="m.children" type="number" placeholder="">
                                 <i class="fs-input-icon fa fa-user"></i>
-                                <span v-if="v$.m.children.numeric.$invalid && v$.m.children.$dirty" style='color:red'>* {{ v$.m.children.numeric.$message}}</span>
-                                <span v-if="v$.m.children.maxLength.$invalid && v$.m.children.$dirty" style='color:red'>* {{ v$.m.children.maxLength.$message}}</span>
+                                <!-- <span v-if="!v.nationality.required.$response" style='color:red'>* </span>
+                                <span v-if="!v.nationality.required.$response" style='color:red'>* </span> -->
                             </div>
                         </div>
                     </div>
@@ -132,8 +145,8 @@
                     <div v-if="m.marital_status && m.marital_status.id == 2 " class="col-md-12">
                         <div class="form-group">
                             <label>{{ $t('lang.user_profile_page_personal_family_spouse') }}</label>
-                            <textarea class="form-control" v-model="m.spouse" rows="3" :placeholder="$t('lang.user_profile_page_personal_family_fill_info')" @blur="v$.m.spouse.$touch"></textarea>
-                            <span v-if="v$.m.spouse.maxLength.$invalid && v$.m.spouse.$dirty" style='color:red'>* {{ v$.m.spouse.maxLength.$message}}</span>
+                            <textarea class="form-control" v-model="m.spouse" rows="3" :placeholder="$t('lang.user_profile_page_personal_family_fill_info')" @blur="v.spouse.$touch"></textarea>
+                            <span v-if="!v.spouse.maxLength.$response" style='color:red'>* </span>
                             <!-- " -->
                         </div>
                     </div>
@@ -197,9 +210,9 @@
                     <div class="form-group city-outer-bx has-feedback">
                         <label>{{ $t('lang.user_profile_page_additional_height') }}</label>
                         <div class="ls-inputicon-box">
-                            <input class="form-control" v-model="m.height" type="text" placeholder="65K" @blur="v$.m.height.$touch">
+                            <input class="form-control" v-model="m.height" type="text" placeholder="65K" @blur="v.height.$touch">
                             <i class="fs-input-icon fa fa-arrows-alt-v" aria-hidden="true"></i>
-                            <span v-if="v$.m.height.numeric.$invalid && v$.m.height.$dirty" style='color:red'>* {{ v$.m.height.numeric.$message}}</span>
+                            <span v-if="!v.height.numeric.$response" style='color:red'>* </span>
                         </div>
                     </div>
                 </div>
@@ -208,9 +221,9 @@
                     <div class="form-group city-outer-bx has-feedback">
                         <label>{{ $t('lang.user_profile_page_additional_weight') }}</label>
                         <div class="ls-inputicon-box">
-                            <input class="form-control" v-model="m.weight" type="text" placeholder="75K" @blur="v$.m.weight.$touch">
+                            <input class="form-control" v-model="m.weight" type="text" placeholder="75K" @blur="v.weight.$touch">
                             <i class="fs-input-icon fa fa-arrows-alt-h"></i>
-                            <span v-if="v$.m.weight.numeric.$invalid && v$.m.weight.$dirty" style='color:red'>* {{ v$.m.weight.numeric.$message}}</span>
+                            <span v-if="!v.weight.numeric.$response" style='color:red'>* </span>
                         </div>
 
                     </div>
@@ -283,7 +296,7 @@
                 </div>
 
                 <div class="col-lg-12 col-md-12 d-flex justify-content-center">
-                    <button type="submit" @click.prevent="addCandidate()"  class="site-button">{{ $t('lang.user_profile_page_social_button_save') }}</button>
+                    <button type="submit" @click.prevent="validateAndSubmit()"  class="site-button">{{ $t((!updateButton)?'lang.user_profile_page_social_button_save': 'ცვლილების შენახვა') }}</button>
                 </div>
 
 
@@ -293,106 +306,100 @@
     </div>
 </template>
 <script>
-import { useVuelidate } from '@vuelidate/core'
-import { required, email, helpers, requiredIf, numeric, maxLength } from '@vuelidate/validators'
+import { ref, computed, watch } from 'vue';
+import { I18n } from 'laravel-vue-i18n';
+import { useVuelidate } from '@vuelidate/core';
+import { required, numeric, maxLength } from '@vuelidate/validators';
+
 export default {
-    setup () {
-        return { v$: useVuelidate() }
-    },
-    props:{
+    emits: ['validateAndEmit'],
+    props: {
         data: Object,
-
     },
-    data() {
+    setup(props, { emit }) {
+        const getLang = computed(() => {
+            return I18n.getSharedInstance().options.lang;
+        });
+
+
+        const cla = ref(props.data.cla)
+        const formData = { ...props.data.model };
+        formData.user_id = props.data.user_id;
+        formData.getLang = getLang;
+        if (formData.convection == 1) {
+            formData.convection = true
+        }
+        if (formData.smoke == 1) {
+            formData.smoke = true
+        }
+        if (formData.work_abroad == 1) {
+            formData.work_abroad = true
+        }
+        const m = ref(formData);
+
+        const rules = {
+            personal_number: { required },
+            nationality: { required },
+            religion: { required },
+            education: { required },
+            marital_status: { required },
+            spouse: {maxLength: maxLength(150)},
+            citizenship: { required },
+            characteristic: { required },
+            height: { numeric },
+            weight: { numeric },
+        };
+
+        const v = useVuelidate(rules, m);
+
+        const updateButton = () =>v.value.$invalid ? false: true
+        const validateAndSubmit = () => {
+            v.value.$touch();
+            if (!v.value.$invalid) {
+
+
+                axios({
+                    method: "post",
+                    url: "/add_candidate",
+                    data: {'model':m.value, 'type': 'information'},
+                })
+                .then(function (response) {
+                    // handle success
+                    if (response.status == 200) {
+                        toast.success("ინფორმაცია წარმატებით შეინახა", {
+                            theme: 'colored',
+                            autoClose: 2000,
+                        });
+                    }
+
+
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                })
+            }else{
+                toast.warning("აუცილებელია სავალდებულო ველები იყოს შევსებული", {
+                    theme: 'colored',
+                    autoClose: 2000,
+                });
+            }
+        };
+        const validateAndEmit = () => {
+            const isFormValid = !v.value.$invalid;
+            emit("validateAndEmit", isFormValid);
+        }
+
+
         return {
-            m:null,
-            cla: null
-        }
+            m,
+            cla,
+            validateAndSubmit,
+            v,
+            getLang,
+            validateAndEmit,
+            updateButton
+        };
     },
-    validations () {
-        const validations = {
-            m:{
-                personal_number: { required: helpers.withMessage('შევსება სავალდებულოა', required)},
-                nationality: { required: helpers.withMessage('არჩევა სავალდებულოა', required)},
-                religion: { required: helpers.withMessage('არჩევა სავალდებულოა', required) },
-                education: { required: helpers.withMessage('არჩევა სავალდებულოა', required) },
-                marital_status: { required: helpers.withMessage('არჩევა სავალდებულოა', required) },
-                children: {
-                    numeric: helpers.withMessage('უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric ),
-                    maxLength: helpers.withMessage('დასაშვებია 2 ციფრი', maxLength(2) )
-                },
-                spouse: { maxLength: helpers.withMessage('დასაშვებია 150 სიმბოლო', maxLength(150) ) },
-                height: { numeric: helpers.withMessage('უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric ) },
-                weight: { numeric: helpers.withMessage('უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric ) },
-                citizenship: { required: helpers.withMessage('არჩევა სავალდებულოა', required) },
-                characteristic: { required: helpers.withMessage('არჩევა სავალდებულოა', required) }
-                // candidateProfessions: { required: helpers.withMessage('არჩევა სავალდებულოა', required) },
-            },
-            // candidateNumberModel:{
-            //     number:{numeric: helpers.withMessage('უნდა შედგებოდეს მხოლოდ ციფრებისგან', numeric )},
-            //     number_owner:{}
-            // }
-        }
-
-
-
-
-        // if (this.candidateNumberModel.number != '') {
-        //     validations.candidateNumberModel.number_owner = { required: helpers.withMessage('არჩევა სავალდებულოა', required) }
-        // }
-        return validations
-    },
-    computed:{
-        getLang(){
-            return I18n.getSharedInstance().options.lang
-        },
-    },
-    created(){
-        this.m = {...this.data.model}
-        this.cla = this.data.cla
-        this.m.user_id = this.data.user_id
-        if (this.m.convection == 1) {
-            this.m.convection = true
-        }
-        if (this.m.smoke == 1) {
-            this.m.smoke = true
-        }
-        if (this.m.work_abroad == 1) {
-            this.m.work_abroad = true
-        }
-    },
-    methods: {
-        async addCandidate(){
-            const isFormCorrect = await this.v$.$validate()
-            if (!isFormCorrect) return;
-            this.m['lang'] = this.getLang
-            let currentObj = this;
-            axios({
-                method: "post",
-                url: "/add_candidate",
-                data: {'model':this.m, 'type': 'information'},
-
-            })
-            .then(function (response) {
-                if (response.data.status == 200) {
-                    currentObj.candidate_id = response.data.data;
-                    toast.success("ინფორმაცია წარმატებით შეინახა", {
-                        theme: 'colored',
-                        autoClose: 1000,
-                    });
-                }
-            })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
-            })
-        },
-    },
-    watch:{
-
-    }
-}
+};
 </script>
-<style>
-
-</style>

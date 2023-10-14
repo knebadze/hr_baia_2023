@@ -133,10 +133,11 @@
                                                     <div class="form-group">
                                                         <label>{{ __('lang.modal_registration_birth_date') }}</label>
                                                         <div class="ls-inputicon-box">
-                                                            <input class="form-control " id="date_of_birth"  name="date_of_birth" type="date" placeholder="mm/dd/yyyy">
+                                                            <input class="form-control" id="date_of_birth" name="date_of_birth" type="date" placeholder="mm/dd/yyyy">
                                                         </div>
                                                     </div>
                                                 </div>
+
                                                 <div class="col-lg-5" >
                                                     <p>{{ __('lang.modal_registration_gender') }}</p>
                                                         <div class="form-check form-check-inline">

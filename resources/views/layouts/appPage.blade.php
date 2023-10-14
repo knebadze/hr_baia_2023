@@ -32,7 +32,7 @@
     {{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/dataTables.bootstrap5.min.css') }}"><!-- DATA table STYLE SHEET  --> --}}
     {{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/select.bootstrap5.min.css') }}"><!-- DASHBOARD select bootstrap  STYLE SHEET  --> --}}
     {{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/dropzone.css') }}"><!-- DROPZONE STYLE SHEET --> --}}
-    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/scrollbar.css') }}"><!-- CUSTOM SCROLL BAR STYLE SHEET --> --}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/scrollbar.css') }}"><!-- CUSTOM SCROLL BAR STYLE SHEET -->
     {{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/datepicker.css') }}"><!-- DATEPICKER STYLE SHEET --> --}}
     <link rel="stylesheet" type="text/css" href="{{ asset('css/flaticon.css') }}"> <!-- Flaticon -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}"><!-- MAIN STYLE SHEET -->
@@ -386,8 +386,10 @@
     </div>
 
     <!-- JAVASCRIPT  FILES ========================================= -->
-
+    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script> --}}
   {{-- <script  src="{{ asset('js/popper.min.js') }}"></script><!-- POPPER.MIN JS --> --}}
+  {{-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script> --}}
   <script  src="{{ asset('js/bootstrap.min.js') }}"></script><!-- BOOTSTRAP.MIN JS -->
   <script  src="{{ asset('js/magnific-popup.min.js') }}"></script><!-- MAGNIFIC-POPUP JS -->
   <script  src="{{ asset('js/waypoints.min.js') }}"></script><!-- WAYPOINTS JS -->
@@ -402,7 +404,7 @@
   <script  src="{{ asset('js/lc_lightbox.lite.js') }}" ></script><!-- IMAGE POPUP -->
   <script  src="{{ asset('js/bootstrap-select.min.js') }}"></script><!-- Form js -->
   {{-- <script  src="{{ asset('js/dropzone.js') }}"></script><!-- IMAGE UPLOAD  --> --}}
-  {{-- <script  src="{{ asset('js/jquery.scrollbar.js') }}"></script><!-- scroller --> --}}
+  <script  src="{{ asset('js/jquery.scrollbar.js') }}"></script><!-- scroller -->
   {{-- <script  src="{{ asset('js/bootstrap-datepicker.js') }}"></script><!-- scroller --> --}}
   {{-- <script  src="{{ asset('js/jquery.dataTables.min.js') }}"></script><!-- Datatable --> --}}
   {{-- <script  src="{{ asset('js/dataTables.bootstrap5.min.js') }}"></script><!-- Datatable --> --}}

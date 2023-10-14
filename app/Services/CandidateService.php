@@ -9,6 +9,8 @@ use App\Repositories\Candidate\LanguageRepository;
 use App\Repositories\Candidate\CandidateRepository;
 use App\Repositories\Candidate\RecommendationRepository;
 use App\Repositories\Candidate\CandidateNoticeRepository;
+use App\Repositories\Candidate\WorkInformationRepository;
+use App\Repositories\Candidate\FamilyWorkExperienceRepository;
 use App\Repositories\Candidate\GeneralWorkExperienceRepository;
 
 
@@ -22,6 +24,8 @@ class CandidateService
     protected NumberRepository $numberRepository;
     protected CandidateNoticeRepository $candidateNoticeRepository;
     protected AddUserRepository $addUserRepository;
+    protected WorkInformationRepository $workInformationRepository;
+    protected FamilyWorkExperienceRepository $familyWorkExperienceRepository;
 
     public function __construct()
     {
@@ -33,6 +37,8 @@ class CandidateService
         $this->numberRepository = new NumberRepository;
         $this->candidateNoticeRepository = new CandidateNoticeRepository;
         $this->addUserRepository = new AddUserRepository;
+        $this->workInformationRepository = new WorkInformationRepository;
+        $this->familyWorkExperienceRepository = new FamilyWorkExperienceRepository;
     }
 
 
@@ -54,6 +60,10 @@ class CandidateService
             $result = $this->generalWorkExperienceRepository->save($data['model'], $data['user_id']);
         }elseif($data['type'] == 'number'){
             $result = $this->numberRepository->save($data['model'], $data['user_id']);
+        }else  if($data['type'] == 'work_information'){
+            $result = $this->workInformationRepository->updateOrCreate($data['model']);
+        }else if($data['type'] == 'family_work_information'){
+            $result = $this->familyWorkExperienceRepository->updateOrCreate($data['model']);
         }
 
         return $result;
