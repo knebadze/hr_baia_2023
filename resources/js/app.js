@@ -7,7 +7,7 @@ import axios from 'axios';
 const lang = localStorage.getItem('localLang');
 //_______________________VUE ITEM____________________
 
-import 'sweetalert2/dist/sweetalert2.min.css'; // Import the SweetAlert2 CSS
+import 'sweetalert2/dist/sweetalert2.min.css';
 import VueSweetalert2 from 'vue-sweetalert2'; // Import VueSweetalert2
 
 import { toast } from 'vue3-toastify';

@@ -179,7 +179,7 @@ export default {
         });
 
 
-        formData.getLang = getLang;
+        formData.lang = getLang;
         formData.stay_night = 0;
         formData.go_vacation = 0;
         formData.work_additional_hours = 0;

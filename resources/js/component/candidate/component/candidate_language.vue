@@ -85,7 +85,7 @@ export default {
 
         const cla = ref(props.data.cla)
         const formData = props.data.model;
-        formData.getLang = getLang;
+        formData.lang = getLang;
 
         const m = ref(formData);
         const model = ref({

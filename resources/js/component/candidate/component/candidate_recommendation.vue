@@ -203,7 +203,7 @@ export default {
         });
 
 
-        formData.getLang = getLang;
+        formData.lang = getLang;
         formData.user_id = props.data.user_id
         formData.number_code = cla.value.numberCode.find(element => element.phonecode == 995);
         formData.has_recommendation = m.value.length > 0 ? m.value[0].has_recommendation : formData.has_recommendation

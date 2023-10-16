@@ -43,7 +43,12 @@
                         <div class="form-group">
                             <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_work_position') }}</label>
                             <div class="ls-inputicon-box">
-                                <input class="form-control" v-model="model.position" type="text" placeholder="" >
+                                <input
+                                    class="form-control"
+                                    v-model="model.position"
+                                    type="text"
+                                    placeholder=""
+                                >
                                 <i class="fs-input-icon fa fa-tasks"></i>
                                 <!-- <span v-if="v$.model[`position_${getLang}`].required.$invalid && v$.model[`position_${getLang}`].$dirty" style='color:red'>* {{ v$.model[`position_${getLang}`].required.$message}}</span> -->
                             </div>
@@ -169,7 +174,7 @@ export default {
         });
 
 
-        formData.getLang = getLang;
+        formData.lang = getLang;
 
         let m = ref(formData);
         const model = ref({

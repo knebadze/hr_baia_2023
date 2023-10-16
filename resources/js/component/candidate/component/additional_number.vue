@@ -142,7 +142,7 @@ export default {
         });
 
 
-        formData.getLang = getLang;
+        formData.lang = getLang;
 
         let m = ref(formData);
         const model = ref({

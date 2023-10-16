@@ -26,9 +26,15 @@
                             <div class="form-group">
                                 <label><span class="text-danger">* </span>სახელი გვარი</label>
                                 <div class="ls-inputicon-box">
-                                    <input class="form-control" v-model="m.employer[`name_${getLang}`]"  type="text" placeholder="Devid Smith" @blur="v$.m.employer[`name_${getLang}`].$touch">
-                                    <span v-if="v$.m.employer[`name_${getLang}`].required.$invalid && v$.m.employer[`name_${getLang}`].$dirty" style='color:red'>* {{ v$.m.employer[`name_${getLang}`].required.$message}}</span>
-                                    <!-- <i class="fs-input-icon fa fa-address-card"></i> -->
+                                    <input
+                                        class="form-control"
+                                        v-model="m.employer.name"
+                                        :class="{ 'is-invalid': (m.employer.name == null || v.employer.name.$error) }"
+                                        type="text"
+                                        placeholder="Devid Smith"
+                                        @blur="v.employer.name.$touch"
+                                    >
+                                    <span v-if="send && !v.employer.name.required.$response" style='color:red'>* </span>
                                 </div>
                             </div>
                         </div>
@@ -37,31 +43,38 @@
                             <div class="form-group">
                                 <label>მაილი</label>
                                 <div class="ls-inputicon-box">
-                                    <input class="form-control" v-model="m.employer.email" type="email" placeholder="employer@gmail.com">
-                                    <!-- <i class="fs-input-icon fa fa-address-card"></i> -->
+                                    <input
+                                        class="form-control"
+                                        :class="(m.employer.email == null || v.employer.email.$error)?'is-invalid':''"
+                                        v-model="m.employer.email"
+                                        type="email"
+                                        placeholder="employer@gmail.com"
+                                        @blur="v.employer.email.$touch"
+                                    >
+                                    <span v-if="send && !v.employer.email.email.$response" style='color:red'>* </span>
                                 </div>
                             </div>
                         </div>
-                        <!--Job title-->
-                        <!-- <div class="col-xl-4 col-lg-6 col-md-12">
-                            <div class="form-group">
-                                <label><span class="text-danger">* </span>ტელეფონის ნომერი</label>
-                                <div class="ls-inputicon-box">
-                                    <input class="form-control" v-model="m.employer.number" type="text" placeholder="555444333" onkeypress="return /[0-9]/i.test(event.key)">
 
-                                </div>
-                            </div>
-                        </div> -->
                         <div class="col-xl-4 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                    <label>{{ ('ტელეფონის ნომერი') }}</label>
+                                    <label><span class="text-danger">* </span>{{ ('ტელეფონის ნომერი') }}</label>
                                     <div class="input-group mb-3">
-                                    <button style="border-style: none;" class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><span :class="`fi fi-${numberCode.iso.toLowerCase()}`"></span>+{{ numberCode.phonecode }}</button>
+                                    <button style="border-style: none;" class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><span :class="`fi fi-${m.employer.number_code.iso.toLowerCase()}`"></span>+{{ m.employer.number_code.phonecode }}</button>
                                     <ul class="dropdown-menu" style=" overflow: hidden; overflow-y: auto; max-height: calc(100vh - 550px);">
                                         <li v-for="item in cla.numberCode" @click="chooseNumberCode(item)"><a class="dropdown-item"><span :class="`fi fi-${item.iso.toLowerCase()}`"></span>+{{ item.phonecode }}</a></li>
                                     </ul>
-                                    <input type="text" class="form-control" aria-label="Text input with dropdown button" v-model="m.employer.number" placeholder="555666777" onkeypress="return /[0-9]/i.test(event.key)" >
-                                    <!-- <span v-if="v$.candidateNumberModel.number.numeric.$invalid && v$.candidateNumberModel.number.$dirty" style='color:red'>* {{ v$.candidateNumberModel.number.numeric.$message}}</span> -->
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            :class="(m.employer.number == null || v.employer.number.$error)?'is-invalid':''"
+                                            v-model="m.employer.number"
+                                            placeholder="555666777"
+                                            onkeypress="return /[0-9]/i.test(event.key)"
+                                            @blur="v.employer.number.$touch"
+                                        >
+                                        <span v-if="send && !v.employer.number.required.$response" style='color:red'>* </span>
+                                        <span v-if="send && !v.employer.number.numeric.$response" style='color:red'>* </span>
                                     </div>
                                 </div>
                             </div>
@@ -69,8 +82,28 @@
                             <div class="form-group">
                                 <label><span class="text-danger">* </span>მისამართი</label>
                                 <div class="ls-inputicon-box">
-                                    <input class="form-control" v-model="m.employer[`address_${getLang}`]" type="text" placeholder="მაგ: თბილისი, სამგორი, კახეთის გზატკეცილი 36 ბ">
-                                    <!-- <i class="fs-input-icon fa fa-address-card"></i> -->
+                                    <input
+                                        class="form-control"
+                                        :class="(m.employer.address == null || v.employer.address.$error)?'is-invalid':''"
+                                        v-model="m.employer.address"
+                                        type="text"
+                                        placeholder="მაგ: თბილისი, სამგორი"
+                                        @blur="v.employer.address.$touch"
+                                    >
+                                    <span v-if="send && !v.employer.address.required.$response" style='color:red'>* </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-6 col-md-12">
+                            <div class="form-group">
+                                <label>ქუჩა</label>
+                                <div class="ls-inputicon-box">
+                                    <input
+                                        class="form-control"
+                                        v-model="m.employer.street"
+                                        type="text"
+                                        placeholder="მაგ: კახეთის გზატკეცილი 36 ბ"
+                                    >
                                 </div>
                             </div>
                         </div>
@@ -85,9 +118,16 @@
                                 <div class="form-group">
                                     <label><span class="text-danger">* </span>{{ $t('lang.employer_add_job_vacancy_name') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <input class="form-control" v-model="m.vacancy[`title_${getLang}`]" type="text" :placeholder="$t('lang.employer_add_job_vacancy_name_placeholder')"  @blur="v$.m.vacancy[`title_${getLang}`].$touch">
-                                        <!-- <i class="fs-input-icon fa fa-user"></i> -->
-                                        <span v-if="v$.m.vacancy[`title_${getLang}`].required.$invalid && v$.m.vacancy[`title_${getLang}`].$dirty" style='color:red'>* {{ v$.m.vacancy[`title_${getLang}`].required.$message}}</span>
+                                        <input
+                                            class="form-control"
+                                            :class="(m.vacancy.title == null || v.vacancy.title.$error)?'is-invalid':''"
+                                            v-model="m.vacancy.title"
+                                            type="text"
+                                            :placeholder="$t('lang.employer_add_job_vacancy_name_placeholder')"
+                                            @blur="v.vacancy.title.$touch"
+                                        >
+                                        <span v-if="send && !v.vacancy.title.required.$response" style='color:red'>* </span>
+                                        <span v-if="send && !v.vacancy.title.maxLength.$response" style='color:red'>* </span>
                                     </div>
                                 </div>
                             </div>
@@ -97,9 +137,21 @@
                                 <div class="form-group">
                                     <label><span class="text-danger">* </span>{{ $t('lang.employer_add_job_position') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <multiselect v-model="m.vacancy.category_id" :options="cla.category" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                        <multiselect
+                                            :customClass="{ 'is-invalid': (m.vacancy.category_id == null || v.vacancy.category_id.$error) }"
+                                            v-model="m.vacancy.category_id"
+                                            :options="cla.category"
+                                            deselect-label="Can't remove this value"
+                                            :track-by="`name_${getLang}`"
+                                            :label="`name_${getLang}`"
+                                            placeholder="Select one"
+                                            :searchable="true"
+                                            :allow-empty="false"
+                                            @blur="v.vacancy.category_id.$touch"
+                                        >
                                             <template slot="singleLabel" slot-scope="{ option }"></template>
                                         </multiselect>
+                                        <span v-if="send && !v.vacancy.category_id.required.$response" style='color:red'>* </span>
                                     </div>
                                 </div>
                             </div>
@@ -110,10 +162,20 @@
                                 <div class="form-group">
                                     <label><span class="text-danger">* </span>{{ ('ვისთვის გესაჭიროებათ?') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <multiselect v-model="m.for_who_need"  :options="cla.forWhoNeed" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" :placeholder="$t('lang.employer_add_job_select')" label="name_ka" track-by="name_ka" :preselect-first="false" >
-                                            <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
-                                        </multiselect>
-                                        <!-- <span v-if="v$.m.candidate.personal_number.required.$invalid && v$.m.candidate.personal_number.$dirty" style='color:red'>* {{ v$.m.candidate.personal_number.required.$message}}</span> -->
+                                        <multiselect
+                                            v-model="m.for_who_need"
+                                            :options="cla.forWhoNeed"
+                                            :multiple="true"
+                                            :close-on-select="false"
+                                            :clear-on-select="false"
+                                            :preserve-search="true"
+                                            :placeholder="$t('lang.employer_add_job_select')"
+                                            label="name_ka"
+                                            track-by="name_ka"
+                                            :preselect-first="false"
+                                            @blur="v.for_who_need.$touch"
+                                        />
+                                        <span v-if="send && !v.for_who_need.required.$response" style='color:red'>* </span>
                                     </div>
                                 </div>
                             </div>
@@ -121,10 +183,18 @@
                                 <div class="form-group">
                                     <label>მართვის მოწმობა </label>
                                     <div class="ls-inputicon-box">
-                                        <multiselect v-model="m.driving_license"  :options="cla.drivingLicense" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" :placeholder="$t('lang.employer_add_job_select')" label="name" track-by="name" :preselect-first="false" >
-                                            <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
-                                        </multiselect>
-                                        <!-- <span v-if="v$.m.familyWorkedSelected.required.$invalid && v$.m.familyWorkedSelected.$dirty" style='color:red'>* {{ v$.m.candidateFamilyWorkSkill.required.$message}}</span> -->
+                                        <multiselect
+                                            v-model="m.driving_license"
+                                            :options="cla.drivingLicense"
+                                            :multiple="true"
+                                            :close-on-select="false"
+                                            :clear-on-select="false"
+                                            :preserve-search="true"
+                                            :placeholder="$t('lang.employer_add_job_select')"
+                                            label="name"
+                                            track-by="name"
+                                            :preselect-first="false"
+                                        />
                                     </div>
 
                                 </div>
@@ -133,11 +203,20 @@
                                 <div class="form-group">
                                     <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_work_schedule_title') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <multiselect v-model="m.vacancy.work_schedule_id" :options="cla.workSchedule" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false" >
+                                        <multiselect
+                                            v-model="m.vacancy.work_schedule_id"
+                                            :options="cla.workSchedule"
+                                            deselect-label="Can't remove this value"
+                                            :track-by="`name_${getLang}`"
+                                            :label="`name_${getLang}`"
+                                            placeholder="Select one"
+                                            :searchable="false"
+                                            :allow-empty="false"
+                                            @blur="v.vacancy.work_schedule_id.$touch"
+                                        >
                                             <template slot="singleLabel" slot-scope="{ option }"></template>
                                         </multiselect>
-                                        <!-- <span v-if="v$.workInformationSchedule.required.$invalid && v$.workInformationSchedule.$dirty" style='color:red'>* {{ v$.workInformationSchedule.required.$message}}</span> -->
-                                        <!-- <i class="fs-input-icon fa fa-smoking"></i> -->
+                                        <span v-if="send && !v.vacancy.work_schedule_id.required.$response" style='color:red'>* </span>
                                     </div>
                                 </div>
                             </div>
@@ -146,9 +225,13 @@
                                 <div class="form-group">
                                     <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_work_salary_title') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <input class="form-control" v-model="m.vacancy.payment" type="number" step="50" >
-                                        <!-- <i class="fs-input-icon fa fa-money"></i> -->
-                                        <!-- <span v-if="v$.m.getWorkInformation.payment.numeric.$invalid && v$.m.getWorkInformation.payment.$dirty" style='color:red'>* {{ v$.m.getWorkInformation.payment.numeric.$message}}</span> -->
+                                        <input
+                                            class="form-control"
+                                            :class="{ 'is-invalid': (m.vacancy.payment == null || v.vacancy.payment.$error) }"
+                                            v-model="m.vacancy.payment"
+                                            type="number" step="50"
+                                            @blur="v.vacancy.payment.$touch">
+                                        <span v-if="send && !v.vacancy.payment.required.$response" style='color:red'>* </span>
                                     </div>
                                 </div>
                             </div>
@@ -157,10 +240,20 @@
                                 <div class="form-group">
                                     <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_work_currency_title') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <multiselect v-model="m.vacancy.currency_id" :options="cla.currency" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false" >
+                                        <multiselect
+                                            v-model="m.vacancy.currency_id"
+                                            :options="cla.currency"
+                                            deselect-label="Can't remove this value"
+                                            :track-by="`name_${getLang}`"
+                                            :label="`name_${getLang}`"
+                                            placeholder="Select one"
+                                            :searchable="false"
+                                            :allow-empty="false"
+                                            @blur="v.vacancy.currency_id.$touch"
+                                        >
                                             <template slot="singleLabel" slot-scope="{ option }"></template>
                                         </multiselect>
-                                        <!-- <span v-if="v$.m.getWorkInformation.currency_id.required.$invalid && v$.m.getWorkInformation.currency_id.$dirty" style='color:red'>* {{ v$.m.getWorkInformation.currency_id.required.$message}}</span> -->
+                                        <span v-if="send && !v.vacancy.currency_id.required.$response" style='color:red'>* </span>
                                     </div>
                                 </div>
                             </div>
@@ -172,8 +265,16 @@
                                     <p><small v-if="m.vacancy.work_schedule_id" class='text-danger'>* სავალდებულოო სამუშაო დღეების მითითება!!! </small></p>
 
                                     <div class="ls-inputicon-box">
-                                        <textarea class="form-control" v-model="m.vacancy[`additional_schedule_${getLang}`]" type="text" placeholder="" rows="3"></textarea>
-                                        <!-- <span v-if="v$.m.candidate.personal_number.required.$invalid && v$.m.candidate.personal_number.$dirty" style='color:red'>* {{ v$.m.candidate.personal_number.required.$message}}</span> -->
+                                        <textarea
+                                            class="form-control"
+                                            :class="{ 'is-invalid': (m.vacancy.additional_schedule == null || v.vacancy.additional_schedule.$error) }"
+                                            v-model="m.vacancy.additional_schedule"
+                                            type="text"
+                                            placeholder=""
+                                            rows="3"
+                                            @blur="v.vacancy.additional_schedule.$touch"
+                                        ></textarea>
+                                        <span v-if="send && !v.vacancy.additional_schedule.required.$response" style='color:red'>* </span>
                                     </div>
                                 </div>
                             </div>
@@ -208,7 +309,8 @@
                                 <div class="form-group">
                                     <label><span class="text-danger">* </span>{{ $t('lang.employer_add_job_when_need') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <input class="form-control" v-model="m.vacancy.start_date" type="date" placeholder="" >
+                                        <input class="form-control" v-model="m.vacancy.start_date" type="date" placeholder="" @blur="v.vacancy.start_date.$touch">
+                                        <span v-if="send && !v.vacancy.start_date.required.$response" style='color:red'>* </span>
                                     </div>
                                 </div>
                             </div>
@@ -216,9 +318,20 @@
                                 <div class="form-group">
                                     <label><span class="text-danger">* </span>{{ $t('lang.employer_add_job_how_long') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <multiselect v-model="m.vacancy.term_id" :options="cla.term" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false" >
+                                        <multiselect
+                                            v-model="m.vacancy.term_id"
+                                            :options="cla.term"
+                                            deselect-label="Can't remove this value"
+                                            :track-by="`name_${getLang}`"
+                                            :label="`name_${getLang}`"
+                                            placeholder="Select one"
+                                            :searchable="true"
+                                            :allow-empty="false"
+                                            @blur="v.vacancy.term_id.$touch"
+                                        >
                                             <template slot="singleLabel" slot-scope="{ option }"></template>
                                         </multiselect>
+                                        <span v-if="send && !v.vacancy.term_id.required.$response" style='color:red'>* </span>
                                     </div>
                                 </div>
                             </div>
@@ -323,7 +436,7 @@
                                         <multiselect v-model="m.duty"  :options="cla.duty" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" :placeholder="$t('lang.employer_add_job_select')" label="name_ka" track-by="name_ka" :preselect-first="false" >
                                             <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                                         </multiselect>
-                                        <!-- <span v-if="v$.m.familyWorkedSelected.required.$invalid && v$.m.familyWorkedSelected.$dirty" style='color:red'>* {{ v$.m.candidateFamilyWorkSkill.required.$message}}</span> -->
+                                        <!-- <span v-if="v.m.familyWorkedSelected.required.$invalid && v.m.familyWorkedSelected.$dirty" style='color:red'>* {{ v.m.candidateFamilyWorkSkill.required.$message}}</span> -->
                                     </div>
 
                                 </div>
@@ -335,7 +448,7 @@
                                         <multiselect v-model="m.driving_license"  :options="cla.drivingLicense" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" :placeholder="$t('lang.employer_add_job_select')" label="name" track-by="name" :preselect-first="false" >
                                             <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                                         </multiselect>
-                                        <!-- <span v-if="v$.m.familyWorkedSelected.required.$invalid && v$.m.familyWorkedSelected.$dirty" style='color:red'>* {{ v$.m.candidateFamilyWorkSkill.required.$message}}</span> -->
+                                        <!-- <span v-if="v.m.familyWorkedSelected.required.$invalid && v.m.familyWorkedSelected.$dirty" style='color:red'>* {{ v.m.candidateFamilyWorkSkill.required.$message}}</span> -->
                                     </div>
 
                                 </div>
@@ -392,7 +505,7 @@
 
                             <div class="col-lg-12 col-md-12">
                                 <div class="text-left">
-                                    <button type="submit" @click.prevent="addVacancy()" class="site-button m-r5">{{ $t('lang.employer_add_job_button_add') }}</button>
+                                    <button type="submit" @click.prevent="add(m)" class="site-button m-r5">{{ $t('lang.employer_add_job_button_add') }}</button>
                                 </div>
                             </div>
 
@@ -440,280 +553,133 @@
 </template>
 <script>
 import _ from 'lodash';
-import { useVuelidate } from '@vuelidate/core'
-import { required, email, helpers, requiredIf, numeric, maxLength } from '@vuelidate/validators'
-import { uuid } from 'vue-uuid'
+import { ref, computed, watch } from 'vue';
+import { I18n } from 'laravel-vue-i18n';
+import { useVuelidate } from '@vuelidate/core';
+import { required, numeric, maxLength, email } from '@vuelidate/validators';
+import Swal from 'sweetalert2';
 export default {
-    setup () {
-        return { v$: useVuelidate() }
+    props: {
+        data: Object,
     },
-    props:{
-        data: Object
-    },
-    data() {
-        return {
-            uuid: uuid.v1(),
-            m: {
-                'employer':null,
-                'vacancy':null,
-                'demand':null,
-                'characteristic':[],
-                'duty': [],
-                'for_who_need': [],
-                'benefit': [],
-                'interviewDate':'',
-                'interviewTime':'',
-            },
-            workInformationSchedule:null,
-            cla:null,
-            loader: false,
-            localText:{
-                schedule: {
-                    '1':{
-                        ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
-                        en:'',
-                        ru:'',
-                    },
-                    '2':{
-                        ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
-                        en:'',
-                        ru:'',
-                    },
-                    '3':{
-                        ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
-                        en:'',
-                        ru:'',
-                    },
-                    '4':{
-                        ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
-                        en:'',
-                        ru:'',
-                    },
-                    '5':{
-                        ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
-                        en:'',
-                        ru:'',
-                    },
-                    '6':{
-                        ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
-                        en:'',
-                        ru:'',
-                    },
-                    '7':{
-                        ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
-                        en:'',
-                        ru:'',
-                    },
-                    '8':{
-                        ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
-                        en:'',
-                        ru:'',
-                    },
-                    '9':{
-                        ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
-                        en:'',
-                        ru:'',
-                    },
+    setup(props) {
+        const getLang = computed(() => {
+            return I18n.getSharedInstance().options.lang;
+        });
+        const workInformationSchedule = ref(null);
+        const loader = ref(false);
+        const send = ref(false);
+        const cla = ref(_.cloneDeep(props.data.classificatory));
+        cla.value.workSchedule = props.data.classificatory.workSchedule.filter(item => item.id !== 10 && item.id !== 11);
+        const formData = {
+            employer: {...props.data.model.employer},
+            vacancy: {...props.data.model.vacancy},
+            demand: {...props.data.model.demand},
+            characteristic:[],
+            duty: [],
+            for_who_need: [],
+            benefit: [],
+            interviewDate:'',
+            interviewTime:'',
+        };
+        formData.employer.name = formData.employer[`name_${getLang.value}`];
+        formData.employer.address = formData.employer[`address_${getLang.value}`];
+        formData.employer.street = formData.employer[`street_${getLang.value}`];
+        formData.employer.number_code = cla.value.numberCode.find(element => element.phonecode == 995);
+        formData.vacancy.additional_schedule = formData.vacancy[`additional_schedule_${getLang.value}`];
+        formData.vacancy.title = formData.vacancy[`title_${getLang.value}`];
+        formData.vacancy.payment = 800;
+        formData.vacancy['go_vacation'] = 0;
+        formData.vacancy['stay_night'] = 0;
+        formData.vacancy['work_additional_hours'] = 0;
+        formData.lang = getLang;
 
-                }
-            },
-            benefitText:'',
-            numberCode: {
-                'phonecode': 995,
-                'iso':'ge'
-            },
+        const m = ref(formData)
 
 
-        }
-    },
-    validations () {
-        const validations = {
-            m:{
+        formData.getLang = getLang;
+        formData.number_code = cla.value.numberCode.find(element => element.phonecode == 995);
+
+        const benefitText = ref('');
+        const  localText = () => {
+            return  {
+                '1':{
+                    ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
+                    en:'',
+                    ru:'',
+                },
+                '2':{
+                    ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
+                    en:'',
+                    ru:'',
+                },
+                '3':{
+                    ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
+                    en:'',
+                    ru:'',
+                },
+                '4':{
+                    ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
+                    en:'',
+                    ru:'',
+                },
+                '5':{
+                    ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
+                    en:'',
+                    ru:'',
+                },
+                '6':{
+                    ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
+                    en:'',
+                    ru:'',
+                },
+                '7':{
+                    ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
+                    en:'',
+                    ru:'',
+                },
+                '8':{
+                    ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
+                    en:'',
+                    ru:'',
+                },
+                '9':{
+                    ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
+                    en:'',
+                    ru:'',
+                },
+
+            }
+        };
+
+        const rules = {
+
                 employer:{
-                    name_ka:{},
-                    name_en:{},
-                    name_ru:{},
-                    // email:{required:helpers.withMessage('შევსება სავალდებულოა', required )},
-                    number:{
-                        required:helpers.withMessage('შევსება სავალდებულოა', required ),
-                        numeric:helpers.withMessage('უნდა შეიცავდეც მხოლოდ ციფრებს', numeric )
-                    }
+                    name: { required },
+                    number: { required, numeric },
+                    address: { required },
+                    email: { email }
                 },
                 vacancy:{
-                    title_ka:{},
-                    title_en:{},
-                    title_ru:{},
-                    category_id:{
-                        required:helpers.withMessage('არჩევა სავალდებულოა', required ),
-                    },
-                    for_who_ka:{},
-                    for_who_en:{},
-                    for_who_ru:{},
-                    address_ka:{},
-                    address_en:{},
-                    address_ru:{},
-                    payment:{
-                        required:helpers.withMessage('შევსება სავალდებულოა', required ),
-                        numeric:helpers.withMessage('უნდა შეიცავდეც მხოლოდ ციფრებს', numeric ),
-                    },
-                    currency_id:{
-                        required:helpers.withMessage('არჩევა სავალდებულოა', required ),
-                    },
-                    work_schedule_id:{
-                        required:helpers.withMessage('არჩევა სავალდებულოა', required ),
-                    },
-                    additional_schedule_ka:{},
-                    additional_schedule_en:{},
-                    additional_schedule_ru:{},
+                    title: { required, maxLength:maxLength(50) },
+                    category_id: { required },
+                    payment: { required },
+                    currency_id: { required },
+                    work_schedule_id: { required },
+                    additional_schedule: { required },
+                    start_date: { required },
+                    term_id: { required },
                 },
-                demand:{
+                for_who_need: { required }
 
-                }
-            }
+        };
+        const v = useVuelidate(rules, m);
+        console.log(v.value);
+        const watchWorkSchedule = () => m.value.vacancy.work_schedule_id;
+        watch(watchWorkSchedule, (newVal) => {
 
-
-        }
-        if (this.getLang == 'ka') {
-            validations.m.employer.name_ka ={
-                required:helpers.withMessage('შევსება სავალდებულოა', required )
-            }
-            validations.m.vacancy.title_ka ={
-                required:helpers.withMessage('შევსება სავალდებულოა', required )
-            }
-        }else if(this.getLang == 'en'){
-            validations.m.employer.name_en ={
-                required:helpers.withMessage('შევსება სავალდებულოა', required )
-            }
-            validations.m.vacancy.title_en ={
-                required:helpers.withMessage('შევსება სავალდებულოა', required )
-            }
-        }else{
-            validations.m.employer.name_ru ={
-                required:helpers.withMessage('შევსება სავალდებულოა', required )
-            }
-            validations.m.vacancy.title_ru ={
-                required:helpers.withMessage('შევსება სავალდებულოა', required )
-            }
-        }
-        return validations
-    },
-    created(){
-        this.createModel()
-        this.cla = { ...this.data.classificatory}
-        this.cla.workSchedule = this.data.classificatory.workSchedule.filter(item => item.id !== 10 && item.id !== 11);
-        let url = new URL( location.href)
-    },
-    computed:{
-        getLang(){
-            return I18n.getSharedInstance().options.lang
-        },
-    },
-    methods:{
-
-        createModel(){
-            this.m['employer'] = {...this.data.model.employer}
-            this.m.employer.number_code_id = 79
-            this.m['vacancy'] = {...this.data.model.vacancy};
-            this.m.vacancy['go_vacation'] = 0;
-            this.m.vacancy['stay_night'] = 0;
-            this.m.vacancy['work_additional_hours'] = 0;
-            this.m['demand'] = {...this.data.model.demand};
-            this.m.vacancy.payment = 800
-            this.m['characteristic'] = []
-            this.m['duty'] = []
-        },
-        addVacancy(){
-            this.m['lang'] = this.getLang
-            var uuid = this.$uuid.v4()
-            this.m.vacancy.uuid = uuid
-            var html = `${this.m.employer[`address_${this.getLang}`]}_ზე ${(this.m.vacancy[`for_who_${this.getLang}`])?this.m.vacancy[`for_who_${this.getLang}`]:''} გვესაჭიროება ${this.m.vacancy.category_id[`name_${this.getLang}`]}. ${this.m.vacancy.work_schedule_id[`name_${this.getLang}`]} გრაფიკით, ${this.m.vacancy[`additional_schedule_${this.getLang}`]}. ანაზღაურება: ${this.m.vacancy.payment} ${this.m.vacancy.currency_id[`name_${this.getLang}`]}.  ${`დამატებით: `+this.m.vacancy[`additional_${this.getLang}`]} `
-            this.$swal(
-                {
-                    title: '<p>თქვენი ვაკანსია</p>',
-                    // icon: 'info',
-                    html:html,
-                    showCloseButton: true,
-                    showCancelButton: false,
-                    focusConfirm: false,
-                    confirmButtonText: 'დამატება',
-                }).then((result) => {
-                /* Read more about isConfirmed, isDenied below */
-                if (result.isConfirmed) {
-                    let currentObj = this
-                    // this.loader = true
-                    // return;
-                    axios({
-                        method: "post",
-                        url: "/add_vacancy",
-                        data: this.m,
-
-                    })
-                    .then(function (response) {
-                        if (response.data.status == 200) {
-                            if (response.data.data.type == "e") {
-                                toast.error(response.data.data.message, {
-                                    theme: 'colored',
-                                    autoClose: 1000,
-                                });
-                                return
-                            }
-                            currentObj.loader = false
-                            currentObj.createModel()
-
-                            currentObj.$swal({
-                                title: '<strong>ვაკანსია წარმატებით დაემატა</strong>',
-                                icon: 'info',
-                                html:
-                                    `თქვენი ვაკანსიის კოდია <b>${ response.data.data }</b>, დააკოპირეთ კოდი და ეწვიეთ
-                                    <a href="//sweetalert2.github.io"><u>ლინკს</u></a>
-                                    სადაც შეგიძლიათ მიიღოთ ინფორმაცია თქვენი ვაკანსიის შესახებ`,
-                                showCloseButton: true,
-                                showCancelButton: false,
-                                focusConfirm: false,
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    let url = new URL( location.href)
-                                    if (currentObj.data.model.role_id == 3) {
-                                        window.location.replace(`${url.origin}/ka`);
-                                    }else{
-                                        window.location.replace( `${url.origin}/admin/vacancy?ka`);
-                                    }
-
-                                }
-
-                            })
-
-                        }
-                    })
-                    .catch(function (error) {
-                        // handle error
-                        console.log(error);
-                    })
-                }
-            // else if (result.isDenied) {
-            //     Swal.fire('Changes are not saved', '', 'info')
-            // }
-            })
-
-        },
-        addBenefit(item){
-            this.m.benefit.push(item)
-            this.benefitText += item[`name_${this.getLang}`]+', '
-        },
-        chooseNumberCode(item){
-            this.m.employer.number_code_id = item.id
-            this.numberCode = {
-                'phonecode': item.phonecode,
-                'iso':item.iso
-            }
-        }
-
-
-    },
-    watch:{
-        'm.vacancy.work_schedule_id': function (newValue, oldValue) {
-            if (newValue != '') {
-                this.m.vacancy[`additional_schedule_${this.getLang}`] = this.localText.schedule[`${newValue.id}`][`${this.getLang}`]
+            if (newVal != '') {
+                m.value.vacancy.additional_schedule = localText()[`${newVal.id}`][`${getLang.value}`]
                 const priceMap = {
                     1: 1100,
                     2: 1300,
@@ -727,18 +693,169 @@ export default {
                     // Add more cases as needed
                 };
 
-                let price = priceMap[newValue.id] || 0;
-                this.m.vacancy.payment = price;
+                let price = priceMap[newVal.id] || 0;
+                m.value.vacancy.payment = price;
             }
-        },
-        'm.vacancy.category_id': function (newValue, oldValue) {
-            this.cla.forWhoNeed = _.filter(this.data.classificatory.forWhoNeed, function(o) { return o.category_id == newValue.id; });
-            this.cla.duty = _.filter(this.data.classificatory.duty, function(o) { return o.category_id == newValue.id; });
+        });
+
+        const watchCategory = () => m.value.vacancy.category_id;
+        watch(watchCategory, (newVal) => {
+            cla.value.forWhoNeed = _.filter(props.data.classificatory.forWhoNeed, function(o) { return o.category_id == newVal.id; });
+            cla.value.duty = _.filter(props.data.classificatory.duty, function(o) { return o.category_id == newVal.id; });
+        });
+
+        const chooseNumberCode = (item) =>{
+            model.value.number_code = item
+        };
+        const handleFileChange = (event) => {
+            file.value = event.target.files[0];
+            model.value.file_name = file.value.name
+        };
+        const addBenefit = (item) => {
+            if (!m.value.benefit.some((benefit) => benefit.id == item.id)) {
+                m.value.benefit.push(item)
+               benefitText.value += `${item[`name_${getLang.value}`]}, `;
+            }
+        };
+
+
+
+        const add = (item) =>{
+            let data = {...item}
+            // if (file.value != null && file.value.type !== 'application/pdf') {
+            //     toast.error("გთხოვთ ფაილი ატვირთეთ pdf ფორმატში", {
+            //         theme: 'colored',
+            //         autoClose: 1000,
+            //     });
+            //     return
+            // }
+            // if (data.has_recommendation.id == 1) {
+            //     data[`name_${getLang.value}`] = data.name;
+            //     data[`position_${getLang.value}`] = data.position;
+            // }else{
+            //     data[`no_reason_info_${getLang}`] = data.no_reason_info;
+            // }
+            // data.candidate_id = props.data.candidate_id
+            // const sendFormData = new FormData();
+            // sendFormData.append('data', JSON.stringify(data))
+            // if (file.value) {
+            //     sendFormData.append('file', file.value);
+            // }
+            data.employer[`name_${getLang.value}`] = data.employer.name
+            data.employer[`address_${getLang.value}`] = data.employer.address
+            data.employer[`street_${getLang.value}`] = data.employer.street
+            data.vacancy[`additional_schedule_${getLang.value}`] = data.vacancy.additional_schedule
+            data.vacancy[`title_${getLang.value}`] = data.vacancy.title
+            send.value = true
+            v.value.$touch();
+            if (!v.value.$invalid) {
+                let html =  `${data.employer[`address_${getLang.value}`]}_ზე
+                    ${(data.vacancy[`for_who_${getLang.value}`])?data.vacancy[`for_who_${getLang.value}`]:''}
+                    გვესაჭიროება ${data.vacancy.category_id[`name_${getLang.value}`]}. ${data.vacancy.work_schedule_id[`name_${getLang.value}`]}
+                    გრაფიკით, ${data.vacancy[`additional_schedule_${getLang.value}`]}.
+                    ანაზღაურება: ${data.vacancy.payment} ${data.vacancy.currency_id[`name_${getLang.value}`]}.
+                    ${`დამატებით: `+data.vacancy[`additional_${getLang.value}`]} `;
+                Swal.fire({
+                    title: '<p>თქვენი ვაკანსია</p>',
+                    // icon: 'info',
+                    html:html,
+                    showCloseButton: true,
+                    showCancelButton: false,
+                    focusConfirm: false,
+                    confirmButtonText: 'დამატება',
+                    // icon: 'success',
+                    customClass: {
+                        confirmButton: 'btn btn-success',
+                        cancelButton: 'btn btn-danger',
+                    },
+                }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        validateAndSubmit(data)
+                    }
+                })
+
+
+            }else{
+                toast.warning("აუცილებელია სავალდებულო ველები იყოს შევსებული", {
+                    theme: 'colored',
+                    autoClose: 2000,
+                });
+            }
         }
+        const validateAndSubmit = (data) => {
+
+            axios({
+                method: "post",
+                url: "/add_vacancy",
+                data: data,
+
+            })
+            .then(function (response) {
+                if (response.data.status == 200) {
+                    if (response.data.data.type == "e") {
+                        toast.error(response.data.data.message, {
+                            theme: 'colored',
+                            autoClose: 1000,
+                        });
+                        return
+                    }
+                    loader.value = false
+                    m.value = formData
+                    showAlert()
+                }
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+        };
+        const showAlert = () => {
+            Swal.fire({
+                        title: '<strong>ვაკანსია წარმატებით დაემატა</strong>',
+                        icon: 'info',
+                        html:
+                            `ეწვიეთ ლინკს სადაც შეგიძლიათ მიიღოთ ინფორმაცია თქვენი ვაკანსიის შესახებ, თქვენი ტელეფონის ნომრის გამოყენებით`,
+                        showCloseButton: true,
+                        showCancelButton: false,
+                        focusConfirm: false,
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            let url = new URL( location.href)
+                            if (props.data.model.role_id == 3) {
+                                window.location.replace(`${url.origin}/ka`);
+                            }else{
+                                window.location.replace( `${url.origin}/admin/vacancy?ka`);
+                            }
+
+                        }
+
+                    })
+        };
+
+        return {
+            m,
+            // model,
+            cla,
+            v,
+            validateAndSubmit,
+            add,
+            getLang,
+            chooseNumberCode,
+            handleFileChange,
+            loader,
+            workInformationSchedule,
+            benefitText,
+            addBenefit,
+            send
+
+        };
     },
-    mounted(){
-    }
-}
+    methods: {
+
+
+    },
+};
 </script>
 <style lang="">
 

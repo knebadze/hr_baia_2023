@@ -16,7 +16,14 @@
                     <div class="form-group">
                         <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_address') }}</label>
                         <div class="ls-inputicon-box">
-                            <input class="form-control" v-model="m.address" type="text" placeholder=""  @blur="v.address.$touch">
+                            <input
+                                class="form-control"
+                                :class="{ 'is-invalid': (m.address == null || v.address.$error) }"
+                                v-model="m.address"
+                                type="text"
+                                placeholder=""
+                                @blur="v.address.$touch"
+                            >
                             <i class="fs-input-icon fa fa-user"></i>
                             <span v-if="!v.address.required.$response" style='color:red'>* </span>
                         </div>
@@ -26,7 +33,12 @@
                     <div class="form-group">
                         <label>{{ $t('lang.user_profile_page_street') }}</label>
                         <div class="ls-inputicon-box">
-                            <input class="form-control" v-model="m[`street_${getLang}`]" type="text" placeholder=""  >
+                            <input
+                                class="form-control"
+                                v-model="m[`street_${getLang}`]"
+                                type="text"
+                                placeholder=""
+                            >
                             <i class="fs-input-icon fa fa-user"></i>
                         </div>
                     </div>
@@ -62,7 +74,7 @@ export default {
         const cla = ref(props.data.cla)
         const formData = { ...props.data.model };
         formData.user_id = props.data.user_id;
-        formData.getLang = getLang;
+        formData.lang = getLang;
         formData.address = props.data.model[`address_${getLang.value}`];
 
         const m = ref(formData);

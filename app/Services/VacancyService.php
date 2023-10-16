@@ -26,6 +26,11 @@ class VacancyService{
 
             $data['employer']['address_en'] = GoogleTranslate::trans($data['employer']['address_ka'], 'en');
             $data['employer']['address_ru']  = GoogleTranslate::trans($data['employer']['address_ka'], 'ru');
+            if ($data['employer']['street_ka']) {
+                $data['employer']['street_en'] = GoogleTranslate::trans($data['employer']['street_ka'], 'en');
+                $data['employer']['street_ru']  = GoogleTranslate::trans($data['employer']['street_ka'], 'ru');
+            }
+
 
             $data['vacancy']['title_en'] = GoogleTranslate::trans($data['vacancy']['title_ka'], 'en');
             $data['vacancy']['title_ru']  = GoogleTranslate::trans($data['vacancy']['title_ka'], 'ru');
@@ -46,6 +51,12 @@ class VacancyService{
 
             $data['employer']['address_ka'] = GoogleTranslate::trans($data['employer']['address_en'], 'ka');
             $data['employer']['address_ru']  = GoogleTranslate::trans($data['employer']['address_en'], 'ru');
+
+            if ($data['employer']['street_en']) {
+                $data['employer']['street_ka'] = GoogleTranslate::trans($data['employer']['street_en'], 'ka');
+                $data['employer']['street_ru']  = GoogleTranslate::trans($data['employer']['street_en'], 'ru');
+            }
+
 
             $data['vacancy']['title_ka'] = GoogleTranslate::trans($data['vacancy']['title_en'], 'ka');
             $data['vacancy']['title_ru']  = GoogleTranslate::trans($data['vacancy']['title_en'], 'ru');
@@ -68,6 +79,11 @@ class VacancyService{
 
             $data['employer']['address_ka'] = GoogleTranslate::trans($data['employer']['address_ru'], 'ka');
             $data['employer']['address_en']  = GoogleTranslate::trans($data['employer']['address_ru'], 'en');
+
+            if ($data['employer']['street_ru']) {
+                $data['employer']['street_ka'] = GoogleTranslate::trans($data['employer']['street_ru'], 'ka');
+                $data['employer']['street_en']  = GoogleTranslate::trans($data['employer']['street_ru'], 'en');
+            }
 
             $data['vacancy']['title_ka'] = GoogleTranslate::trans($data['vacancy']['title_ru'], 'ka');
             $data['vacancy']['title_en']  = GoogleTranslate::trans($data['vacancy']['title_ru'], 'en');

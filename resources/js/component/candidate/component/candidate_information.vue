@@ -11,7 +11,14 @@
                         <div class="form-group">
                             <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_personal_number') }}</label>
                             <div class="ls-inputicon-box">
-                                <input class="form-control" v-model="m.personal_number" :class="(m.personal_number == null || v.personal_number.$error)?'is-invalid':''" type="text" placeholder=""  @blur="v.personal_number.$touch">
+                                <input
+                                    class="form-control"
+                                    v-model="m.personal_number"
+                                    :class="{ 'is-invalid': (m.personal_number == null || v.personal_number.$error) }"
+                                    type="text"
+                                    placeholder=""
+                                    @blur="v.personal_number.$touch"
+                                >
                                 <i class="fs-input-icon fa fa-user"></i>
                                 <span v-if="!v.personal_number.required.$response" style='color:red'>* </span>
                             </div>
@@ -22,7 +29,17 @@
                         <div class="form-group">
                             <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_personal_nationality') }}</label>
                             <div class="ls-inputicon-box">
-                                <multiselect v-model="m.nationality" :options="cla.nationality"   deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false" @blur="v.nationality.$touch">
+                                <multiselect
+                                    v-model="m.nationality"
+                                    :options="cla.nationality"
+                                    deselect-label="Can't remove this value"
+                                    :track-by="`name_${getLang}`"
+                                    :label="`name_${getLang}`"
+                                    placeholder="Select one"
+                                    :searchable="true"
+                                    :allow-empty="false"
+                                    @blur="v.nationality.$touch"
+                                >
                                     <template slot="singleLabel" slot-scope="{ option }"></template>
                                 </multiselect>
                                 <span v-if="!v.nationality.required.$response" style='color:red'>* </span>
@@ -58,7 +75,17 @@
                         <div class="form-group">
                             <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_personal_religion') }}</label>
                             <div class="ls-inputicon-box">
-                                <multiselect v-model="m.religion" :options="cla.religions" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false" @blur="v.religion.$touch">
+                                <multiselect
+                                    v-model="m.religion"
+                                    :options="cla.religions"
+                                    deselect-label="Can't remove this value"
+                                    :track-by="`name_${getLang}`"
+                                    :label="`name_${getLang}`"
+                                    placeholder="Select one"
+                                    :searchable="true"
+                                    :allow-empty="false"
+                                    @blur="v.religion.$touch"
+                                >
                                     <template slot="singleLabel" slot-scope="{ option }"></template>
                                 </multiselect>
                                 <span v-if="!v.religion.required.$response" style='color:red'>* </span>
@@ -69,7 +96,17 @@
                         <div class="form-group">
                             <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_personal_education') }}</label>
                             <div class="ls-inputicon-box">
-                                <multiselect v-model="m.education" :options="cla.educations" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false" @blur="v.education.$touch">
+                                <multiselect
+                                    v-model="m.education"
+                                    :options="cla.educations"
+                                    deselect-label="Can't remove this value"
+                                    :track-by="`name_${getLang}`"
+                                    :label="`name_${getLang}`"
+                                    placeholder="Select one"
+                                    :searchable="true"
+                                    :allow-empty="false"
+                                    @blur="v.education.$touch"
+                                >
                                     <template slot="singleLabel" slot-scope="{ option }"></template>
                                 </multiselect>
                                 <span v-if="!v.education.required.$response" style='color:red'>* </span>
@@ -80,7 +117,18 @@
                         <div class="form-group">
                             <label>{{ $t('lang.user_profile_page_personal_profession') }}</label>
                             <div class="ls-inputicon-box">
-                                <multiselect v-model="m.professions"  :options="cla.professions" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" :label="`name_${getLang}`" :track-by="`name_${getLang}`" :preselect-first="false" >
+                                <multiselect
+                                    v-model="m.professions"
+                                    :options="cla.professions"
+                                    :multiple="true"
+                                    :close-on-select="false"
+                                    :clear-on-select="false"
+                                    :preserve-search="true"
+                                    placeholder="Pick some"
+                                    :label="`name_${getLang}`"
+                                    :track-by="`name_${getLang}`"
+                                    :preselect-first="false"
+                                >
                                     <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                                 </multiselect>
                                 <!-- <span v-if="!v.nationality.required.$response" style='color:red'>* </span> professions.required.$invalid && v.professions.$dirty" style='color:red'>* {{ v.professions.required.$message}}</span> -->
@@ -91,7 +139,18 @@
                         <div class="form-group">
                             <label>{{ $t('lang.user_profile_page_personal_specialty') }}</label>
                             <div class="ls-inputicon-box">
-                                <multiselect v-model="m.specialty"  :options="cla.specialties" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" :label="`name_${getLang}`" :track-by="`name_${getLang}`" :preselect-first="false" >
+                                <multiselect
+                                    v-model="m.specialty"
+                                    :options="cla.specialties"
+                                    :multiple="true"
+                                    :close-on-select="false"
+                                    :clear-on-select="false"
+                                    :preserve-search="true"
+                                    placeholder="Pick some"
+                                    :label="`name_${getLang}`"
+                                    :track-by="`name_${getLang}`"
+                                    :preselect-first="false"
+                                >
                                     <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                                 </multiselect>
                                 <!-- <span v-if="!v.nationality.required.$response" style='color:red'>* </span> professions.required.$invalid && v.professions.$dirty" style='color:red'>* {{ v.professions.required.$message}}</span> -->
@@ -102,7 +161,19 @@
                         <div class="form-group">
                             <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_personal_general_characters') }}</label>
                             <div class="ls-inputicon-box">
-                                <multiselect v-model="m.characteristic"  :options="cla.characteristic" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" :label="`name_${getLang}`" :track-by="`name_${getLang}`" :preselect-first="false" @blur="v.characteristic.$touch">
+                                <multiselect
+                                    v-model="m.characteristic"
+                                    :options="cla.characteristic"
+                                    :multiple="true"
+                                    :close-on-select="false"
+                                    :clear-on-select="false"
+                                    :preserve-search="true"
+                                    placeholder="Pick some"
+                                    :label="`name_${getLang}`"
+                                    :track-by="`name_${getLang}`"
+                                    :preselect-first="false"
+                                    @blur="v.characteristic.$touch"
+                                >
                                     <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                                 </multiselect>
                                 <span v-if="!v.characteristic.required.$response" style='color:red'>* </span>
@@ -115,7 +186,17 @@
                         <div class="form-group">
                             <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_personal_family') }}</label>
                             <div class="ls-inputicon-box">
-                                <multiselect v-model="m.marital_status" :options="cla.maritalStatus" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false" @blur="v.marital_status.$touch">
+                                <multiselect
+                                    v-model="m.marital_status"
+                                    :options="cla.maritalStatus"
+                                    deselect-label="Can't remove this value"
+                                    :track-by="`name_${getLang}`"
+                                    :label="`name_${getLang}`"
+                                    placeholder="Select one"
+                                    :searchable="true"
+                                    :allow-empty="false"
+                                    @blur="v.marital_status.$touch"
+                                >
                                     <template slot="singleLabel" slot-scope="{ option }"></template>
                                 </multiselect>
                                 <span v-if="!v.marital_status.required.$response" style='color:red'>* </span>
@@ -325,7 +406,7 @@ export default {
         const cla = ref(props.data.cla)
         const formData = { ...props.data.model };
         formData.user_id = props.data.user_id;
-        formData.getLang = getLang;
+        formData.lang = getLang;
         if (formData.convection == 1) {
             formData.convection = true
         }

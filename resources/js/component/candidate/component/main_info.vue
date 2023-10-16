@@ -12,9 +12,16 @@
                     <div class="form-group">
                         <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_input_name') }}</label>
                         <div class="ls-inputicon-box">
-                            <input class="form-control" :class="(m.name == null || v.name.$error)?'is-invalid':''" v-model="m.name"  type="text" placeholder="" @blur="v.name.$touch">
+                            <input
+                                class="form-control"
+                                :class="(m.name == null || v.name.$error)?'is-invalid':''"
+                                v-model="m.name"
+                                type="text"
+                                placeholder=""
+                                @blur="v.name.$touch"
+                            >
                             <i class="fs-input-icon fa fa-user "></i>
-                            <span v-if="!v.name.required.$response" style='color:red'>* </span>
+                            <span v-if="m.name !== null && !v.name.required.$response" style='color:red'>* </span>
                         </div>
                     </div>
                 </div>
@@ -23,7 +30,13 @@
                     <div class="form-group">
                         <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_input_phone') }}</label>
                         <div class="ls-inputicon-box">
-                            <input class="form-control " :class="(m.number == null || v.number.$error)?'is-invalid':''"  v-model="m.number" type="text" @blur="v.number.$touch">
+                            <input
+                                class="form-control "
+                                :class="(m.number == null || v.number.$error)?'is-invalid':''"
+                                v-model="m.number"
+                                type="text"
+                                @blur="v.number.$touch"
+                            >
                             <i class="fs-input-icon fa fa-phone-alt"></i>
                             <span v-if="!v.number.required.$response" style='color:red'>* </span>
                             <span v-if="!v.number.numeric.$response" style='color:red'>* </span>
@@ -37,7 +50,14 @@
                     <div class="form-group">
                         <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_input_email') }}</label>
                         <div class="ls-inputicon-box">
-                            <input class="form-control" :class="(m.email == null || v.email.$error)?'is-invalid':''" v-model="m.email" type="email" placeholder="" @blur="v.email.$touch">
+                            <input
+                                class="form-control"
+                                :class="(m.email == null || v.email.$error)?'is-invalid':''"
+                                v-model="m.email"
+                                type="email"
+                                placeholder=""
+                                @blur="v.email.$touch"
+                            >
                             <i class="fs-input-icon fas fa-at"></i>
                             <span v-if="!v.email.required.$response" style='color:red'>* </span>
                             <span v-if="!v.email.email.$response" style='color:red'>* </span>
@@ -48,7 +68,14 @@
                     <div class="form-group">
                         <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_input_birth_date') }}</label>
                         <div class="ls-inputicon-box">
-                            <input class="form-control d" auth-provide=""  type="date" v-model="m.date_of_birth" placeholder="mm/dd/yyyy" @blur="v.date_of_birth.$touch">
+                            <input
+                                class="form-control"
+                                auth-provide=""
+                                type="date"
+                                v-model="m.date_of_birth"
+                                placeholder="mm/dd/yyyy"
+                                @blur="v.date_of_birth.$touch"
+                            >
                             <i class="fs-input-icon far fa-calendar"></i>
                             <span v-if="!v.date_of_birth.required.$response" style='color:red'>* </span>
                         </div>
@@ -59,7 +86,17 @@
                     <div class="form-group">
                         <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_input_gender') }}</label>
                         <div class="ls-inputicon-box">
-                            <multiselect v-model="m.gender" :options="cla.gender" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one" :searchable="true" :allow-empty="false" @blur="v.gender_id.$touch">
+                            <multiselect
+                                v-model="m.gender"
+                                :options="cla.gender"
+                                deselect-label="Can't remove this value"
+                                :track-by="`name_${getLang}`"
+                                :label="`name_${getLang}`"
+                                placeholder="Select one"
+                                :searchable="true"
+                                :allow-empty="false"
+                                @blur="v.gender_id.$touch"
+                            >
                                 <template slot="singleLabel" slot-scope="{ option }"></template>
                             </multiselect>
                             <span v-if="!v.gender_id.required.$response" style='color:red'>* </span>

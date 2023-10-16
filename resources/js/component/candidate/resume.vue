@@ -9,7 +9,13 @@
                         </a>
                     </div>
 
-                    <a v-for="(item, index) in data.get_work_information" :key="index" style="margin-right:1%; margin-top:1%;" class="btn btn-success" href="javascript:void(0)" @click="chooseResume(item)">{{ item.category[`name_${getLang}`] }}</a>
+                    <a v-for="(item, index) in data.get_work_information"
+                        :key="index"
+                        style="margin-right:1%; margin-top:1%;"
+                        :class="workInformation.id == item.id ? 'btn btn-success': 'btn btn-outline-success'"
+                        href="javascript:void(0)"
+                        @click="chooseResume(item)"
+                    >{{ item.category[`name_${getLang}`] }}</a>
 
                 </div>
 
@@ -481,7 +487,7 @@ export default {
     created(){
         console.log(this.data);
         this.addLanguageLevel
-        if(this.data.get_work_information.length == 1){
+        if(this.data.get_work_information.length > 0){
             this.chooseResume(this.data.get_work_information[0])
         }
     },

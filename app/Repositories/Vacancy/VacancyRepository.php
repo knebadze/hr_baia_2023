@@ -159,8 +159,11 @@ class VacancyRepository{
                 'address_ka' => $data['address_ka'],
                 'address_en' => $data['address_en'],
                 'address_ru' => $data['address_ru'],
+                'street_ka' => $data['street_ka'],
+                'street_en' => $data['street_en'],
+                'street_ru' => $data['street_ru'],
                 'email' => $data['email'],
-                'number_code_id' => $data['number_code_id']
+                'number_code_id' => $data['number_code']['id']
 
             ]
         );

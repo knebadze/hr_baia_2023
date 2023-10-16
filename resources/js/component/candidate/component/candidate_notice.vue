@@ -90,7 +90,7 @@ export default {
         });
 
 
-        formData.getLang = getLang;
+        formData.lang = getLang;
         formData.user_id = props.data.user_id
         const model = ref(formData)
 
