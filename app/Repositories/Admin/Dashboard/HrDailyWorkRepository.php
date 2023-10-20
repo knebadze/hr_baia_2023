@@ -23,7 +23,7 @@ class HrDailyWorkRepository
             ->first();
 
         $noActive = HrHasVacancy::where('is_active', 0)
-            ->where('has_vacancy', 0)
+            // ->where('has_vacancy', 0)
             ->with('hr.user')
             ->get()
             ->toArray();

@@ -20,7 +20,7 @@ class MyVacancyController extends Controller
     }
     public function index()
     {
-        return view ('vacancy_detail');
+        return view ('my_vacancy');
     }
 
     public function find(Request $request)

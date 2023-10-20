@@ -24,7 +24,7 @@
                             >
                                 <template slot="singleLabel" slot-scope="{ option }"></template>
                             </multiselect>
-                            <span v-if="!v.has_recommendation.required.$response" style='color:red'>* </span>
+                            <span v-if="send && !v.has_recommendation.required.$response" style='color:red'>* </span>
 
                         </div>
                     </div>
@@ -37,7 +37,7 @@
                                 <multiselect v-model="model.recommendation_whom" :options="cla.recommendationFromWhom" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false" @blur="v.recommendation_whom.$touch">
                                     <template slot="singleLabel" slot-scope="{ option }"></template>
                                 </multiselect>
-                                <span v-if="!v.recommendation_whom.required.$response" style='color:red'>* </span>
+                                <span v-if="send && !v.recommendation_whom.required.$response" style='color:red'>* </span>
                             </div>
                         </div>
                     </div>
@@ -47,7 +47,7 @@
                             <div class="ls-inputicon-box">
                                 <input class="form-control" v-model="model.name" type="text" placeholder="" @blur="v.name.$touch">
                                 <i class="fs-input-icon fa fa-star"></i>
-                                <span v-if="!v.name.required.$response" style='color:red'>* </span>
+                                <span v-if="send && !v.name.required.$response" style='color:red'>* </span>
                             </div>
                         </div>
                     </div>
@@ -56,7 +56,7 @@
                             <label><span class="text-danger">* </span>თანამდებობა</label>
                             <div class="ls-inputicon-box">
                                 <input class="form-control" v-model="model.position" type="text" placeholder="" @blur="v.position.$touch">
-                                <span v-if="!v.position.required.$response" style='color:red'>* </span>
+                                <span v-if="send && !v.position.required.$response" style='color:red'>* </span>
                             </div>
                         </div>
                     </div>
@@ -68,8 +68,16 @@
                                 <ul class="dropdown-menu" style=" overflow: hidden; overflow-y: auto; max-height: calc(100vh - 550px);">
                                     <li v-for="item in cla.numberCode" @click="chooseNumberCode(item)"><a class="dropdown-item"><span :class="`fi fi-${item.iso.toLowerCase()}`"></span>+{{ item.phonecode }}</a></li>
                                 </ul>
-                                <input type="text" class="form-control" aria-label="Text input with dropdown button" v-model="model.number" placeholder="555666777" @blur="v.number.$touch">
-                                <span v-if="!v.number.required.$response" style='color:red'>* </span>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    aria-label="Text input with dropdown button"
+                                    v-model="model.number"
+                                    placeholder="555666777"
+                                    @blur="v.number.$touch"
+                                    onkeypress="return /[0-9]/i.test(event.key)"
+                                >
+                                <span v-if="send && !v.number.required.$response" style='color:red'>* </span>
                                 <!-- <span v-if="v.number.numeric.$invalid && v.number.$dirty" style='color:red'>* {{ v.number.numeric.$message}}</span> -->
                             </div>
                         </div>
@@ -92,7 +100,7 @@
                                 <multiselect v-model="model.no_reason" :options="cla.noRecommendationReason" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false" @blur="v.no_reason.$touch">
                                     <template slot="singleLabel" slot-scope="{ option }"></template>
                                 </multiselect>
-                                <span v-if="!v.no_reason.required.$response" style='color:red'>* </span>
+                                <span v-if="send && !v.no_reason.required.$response" style='color:red'>* </span>
                             </div>
                         </div>
                     </div>
@@ -106,8 +114,13 @@
                 <div  class="col-lg-12 col-md-12">
                     <div class="text-right ">
                         <button class="btn btn-success"
-                        @click="add(model)"
-                        title="დამატება" data-bs-toggle="tooltip" data-bs-placement="top">დამატება
+                            @click.prevent="add(model)"
+                            title="დამატება"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="top"
+                            :disabled="send"
+                        >
+                            დამატება
                             <span class="fa fa-plus"></span>
                         </button>
                     </div>
@@ -121,7 +134,6 @@
                                     <th>N</th>
                                     <th>{{ $t('lang.user_profile_page_recomendation_from') }}</th>
                                     <th>{{$t('lang.user_profile_page_recomendation_name')}}</th>
-                                    <th>{{ $t('lang.user_profile_page_work_number_code') }}</th>
                                     <th>{{$t('lang.user_profile_page_recomendation_number')}}</th>
                                     <th>{{$t('პოზიცია')}}</th>
                                     <th>{{$t('lang.user_profile_page_recomendation_file')}}</th>
@@ -134,8 +146,7 @@
                                     <td>{{ index + 1 }}</td>
                                     <td><span :class="( item.recommendation_whom.id == 1)?'badge bg-success p-2':'badge bg-info text-dark p-2'">{{ item.recommendation_whom[`name_${getLang}`] }}</span></td>
                                     <td>{{ item[`name_${getLang}`] }}</td>
-                                    <td>+{{ item.number_code.phonecode}}</td>
-                                    <td>{{ item.number }}</td>
+                                    <td>{{ `+${item.number_code.phonecode} ${item.number}` }}</td>
                                     <td>{{ item[`position_${getLang}`] }}</td>
                                     <td><u class="text-primary" @click="openPDF(item.file_path)">{{ item.file_name }}</u></td>
                                     <td>
@@ -184,13 +195,15 @@
 import { ref, computed, watch } from 'vue';
 import { I18n } from 'laravel-vue-i18n';
 import { useVuelidate } from '@vuelidate/core';
-import { required, numeric, maxLength } from '@vuelidate/validators';
+import { required } from '@vuelidate/validators';
+import Swal from 'sweetalert2';
 export default {
     emits: ['validateAndEmit'],
     props: {
         data: Object,
     },
     setup(props, { emit }) {
+        const send = ref(false)
         const file = ref(null);
         const showNoRecommendation = ref(false);
         const cla = ref(_.cloneDeep(props.data.cla))
@@ -228,23 +241,8 @@ export default {
             };
         }
 
-        // const watchItem = () => m.value.family_work_category;
-        // watch(watchItem, (newVal) => {
-        //     let duty = _.cloneDeep(props.data.cla.duty)
-        //     if (newVal !== undefined && newVal != '') {
-        //         let filteredDuty = [];
-        //         newVal.forEach(element => {
-        //             let filter = _.filter(duty, function(o) {
-        //                 return o.category_id === element.id;
-        //             });
-        //             filteredDuty = filteredDuty.concat(filter);
-        //         });
-        //         cla.value.duty = filteredDuty;
-        //     }
-        // });
         const chooseNumberCode = (item) =>{
             model.value.number_code = item
-            console.log(model.value);
         };
         const handleFileChange = (event) => {
             file.value = event.target.files[0];
@@ -257,12 +255,14 @@ export default {
         };
 
         const add = (item) =>{
+            send.value = true
             let data = {...item}
             if (file.value != null && file.value.type !== 'application/pdf') {
                 toast.error("გთხოვთ ფაილი ატვირთეთ pdf ფორმატში", {
                     theme: 'colored',
                     autoClose: 1000,
                 });
+                send.value = false
                 return
             }
             if (data.has_recommendation.id == 1) {
@@ -280,21 +280,23 @@ export default {
 
             v.value.$touch();
             if (!v.value.$invalid) {
-                validateAndSubmit(sendFormData, data)
+                validateAndSubmit(sendFormData)
 
             }else{
                 toast.warning("აუცილებელია სავალდებულო ველები იყოს შევსებული", {
                     theme: 'colored',
                     autoClose: 2000,
                 });
+                send.value = false
             }
         }
-        const validateAndSubmit = (formData, data) => {
+        const validateAndSubmit = (formData) => {
 
             axios.post('/add_candidate_recommendation', formData)
             .then(function (response) {
                 if (response.data.status == 200) {
-                    m.value.push(data)
+                    m.value.push(response.data.data)
+                    send.value = false
                     toast.success("ინფორმაცია წარმატებით შეინახა", {
                         theme: 'colored',
                         autoClose: 1000,
@@ -306,33 +308,13 @@ export default {
                 console.log(error);
             })
         };
-        console.log(m.value);
         const validateAndEmit = () => {
             const isFormValid = m.value.length > 0 ? true : false;
-            console.log('isFormValid', isFormValid);
             emit("validateAndEmit", isFormValid);
         };
 
-        return {
-            m,
-            model,
-            cla,
-            v,
-            validateAndSubmit,
-            add,
-            getLang,
-            validateAndEmit,
-            chooseNumberCode,
-            handleFileChange,
-            showNoRecommendation,
-            openPDF
-
-        };
-    },
-    methods: {
-        remove(index, id){
-            let currentObj = this
-            this.$swal({
+        const remove = (index, id) => {
+            Swal.fire({
                 title: 'ნამდვილად გსურთ წაშლა?',
                 //   showDenyButton: true,
                 cancelButtonText:'არა',
@@ -341,7 +323,7 @@ export default {
             }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
-                    const removed = this.m.splice(index, 1);
+                    const removed = m.value.splice(index, 1);
                     axios.post('/delete_candidate_recommendation' ,{
                         data: id,
                     })
@@ -364,7 +346,28 @@ export default {
                     return
                 }
             });
-        },
+        }
+
+        return {
+            m,
+            model,
+            cla,
+            v,
+            validateAndSubmit,
+            add,
+            getLang,
+            validateAndEmit,
+            chooseNumberCode,
+            handleFileChange,
+            showNoRecommendation,
+            openPDF,
+            send,
+            remove
+
+        };
+    },
+    methods: {
+
 
     },
 };

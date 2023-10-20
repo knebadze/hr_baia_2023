@@ -30,7 +30,7 @@
                 <div class="row" v-if="showYesWorkExperience">
                     <div class="col-xl-4 col-lg-6 col-md-12">
                         <div class="form-group">
-                            <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_work_exp') }}</label>
+                            <label><span class="text-danger">* </span>{{ $t('სტაჟი') }}</label>
                             <div class="ls-inputicon-box">
                                 <multiselect v-model="model.work_experience" :options="cla.workExperiences" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false" >
                                     <template slot="singleLabel" slot-scope="{ option }"></template>
@@ -86,8 +86,12 @@
                 <div v-if="model.has_experience" class="col-lg-12 col-md-12">
                     <div class="text-right ">
                         <button class="btn btn-success"
-                        @click="add(model)"
-                        title="დამატება" data-bs-toggle="tooltip" data-bs-placement="top">{{ $t('lang.user_profile_page_work_button_add_info') }}
+                            @click.prevent="add(model)"
+                            title="დამატება"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="top"
+                            :disabled="send"
+                        >{{ $t('lang.user_profile_page_work_button_add_info') }}
                             <span class="fa fa-plus"></span>
                         </button>
                     </div>
@@ -156,6 +160,7 @@
 <script>
 import { ref, computed, watch } from 'vue';
 import { I18n } from 'laravel-vue-i18n';
+import Swal from 'sweetalert2';
 // import { useVuelidate } from '@vuelidate/core';
 // import { required, numeric, maxLength } from '@vuelidate/validators';
 export default {
@@ -165,7 +170,7 @@ export default {
     },
     setup(props, { emit }) {
 
-
+        const send = ref(false)
         const cla = ref(props.data.cla)
         const formData = props.data.model;
 
@@ -207,14 +212,14 @@ export default {
         });
 
         const add = (item) =>{
-            console.log(item);
+            send.value = true;
             let data = {...item}
-            // console.log('item', item);
             if (data.has_experience.id == 1 && (data.work_experience == '' || data.position == '' || data.object == '')) {
                 toast.error("სამუშაო გამოცდილების ყველ ველის შევსება სავალდებულოა", {
                     theme: 'colored',
                     autoClose: 1000,
                 });
+                send.value = false;
                 return;
             }
             if (data.has_experience.id == 2 && data.no_reason == '') {
@@ -222,6 +227,7 @@ export default {
                     theme: 'colored',
                     autoClose: 1000,
                 });
+                send.value = false;
                 return;
             }
             if (data.has_experience.id == 1) {
@@ -250,6 +256,7 @@ export default {
             .then(function (response) {
                 if (response.data.status == 200) {
                     m.value = response.data.data;
+                    send.value = false;
                     toast.success("ინფორმაცია წარმატებით შეინახა", {
                         theme: 'colored',
                         autoClose: 1000,
@@ -264,31 +271,12 @@ export default {
         };
 
         const validateAndEmit = () => {
-            console.log(m.value.length);
             const isFormValid = m.value.length > 0 ? true: false;
             emit("validateAndEmit", isFormValid);
         }
 
-
-;
-
-
-        return {
-            m,
-            model,
-            cla,
-            validateAndSubmit,
-            add,
-            getLang,
-            validateAndEmit,
-            showNoWorkExperience,
-            showYesWorkExperience,
-
-        };
-    },
-    methods: {
-        remove(index, id){
-            this.$swal({
+        const remove = (index, id) => {
+            Swal.fire({
                 title: 'ნამდვილად გსურთ წაშლა?',
                 //   showDenyButton: true,
                 cancelButtonText:'არა',
@@ -297,7 +285,7 @@ export default {
             }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
-                    const removed = this.m.splice(index, 1);
+                    const removed = m.value.splice(index, 1);
                     axios({
                         method: "post",
                         url: "/delete_candidate_info",
@@ -323,7 +311,29 @@ export default {
             });
 
 
-        },
+        }
+
+
+;
+
+
+        return {
+            m,
+            model,
+            cla,
+            validateAndSubmit,
+            add,
+            getLang,
+            validateAndEmit,
+            showNoWorkExperience,
+            showYesWorkExperience,
+            send,
+            remove
+
+        };
+    },
+    methods: {
+
     },
 };
 </script>

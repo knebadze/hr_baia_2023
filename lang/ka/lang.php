@@ -331,8 +331,8 @@ return [
     // ----------------------------------------------------------------------------------------------------
     // Employer  Page
     'employer_profile_page_personal_info' => 'პირადი ინფორმაცია',
-    'employer_profile_page_address' => 'მისამართი',
-    'employer_profile_page_street' => 'ქუჩა',
+    'employer_profile_page_address' => 'დასახლების დასახელება',
+    'employer_profile_page_street' => 'ქუჩის დასახელება',
 
     'employer_jobs_page_first_title' => 'ვაკანსიები',
     'employer_jobs_page_grid_first_title' => 'კატეგორია',
@@ -514,8 +514,8 @@ return [
     'user_profile_page_medical_please_info' => 'გთხოვთ მოგვაწოდოთ ინფორმაცია მნიშვნელოვანი ოპერაციების და ქრონიკული დაავადებების შესახებ ასეთის არსებობის შემთხვევაში.',
 
     // Map
-    'user_profile_page_address' => 'მისამართი',
-        'user_profile_page_street' => 'ქუჩა',
+    'user_profile_page_address' => 'დასახლების დასახელება',
+        'user_profile_page_street' => 'ქუჩის დასახელება',
     'user_profile_page_address_map' => 'მისამართის შესავსებათ უმჯობესია გამოიყენოთ რუკის საძიებო ველი',
     'user_profile_page_address_map_2' => 'მოძებვნის შემდეგ შეგიძლიათ ამოძრაოთ მარკერი რათა დააზუსთოთ
     თქვენი მისამართი',
@@ -576,8 +576,8 @@ return [
 
     // Work Additional Information Block Lang
     'user_profile_page_additional_title' => 'დამატებითი ინფორმაცია',
-    'user_profile_page_additional_height' => 'სიმაღლე',
-    'user_profile_page_additional_weight' => 'წონა',
+    'user_profile_page_additional_height' => 'სიმაღლე (სმ)',
+    'user_profile_page_additional_weight' => 'წონა (კგ)',
     'user_profile_page_additional_conviction' => 'ნასამართლეობა',
     'user_profile_page_additional_smoke' => 'ეწევით?',
     'user_profile_page_additional_work_abroad' => 'იმუშავებდით საზღარგარეთ?',
@@ -611,7 +611,7 @@ return [
     'employer_add_job_vacancy_name' => 'ვაკანსიის სათაური',
         'employer_add_job_vacancy_name_placeholder' => 'მაგ: ვეძებ გამოცდილ ძიძას',
     'employer_add_job_address' => 'მისამართი',
-    'employer_add_job_position' => 'პოზიცოა',
+    'employer_add_job_position' => 'პოზიცია',
     'employer_add_job_jobs_day' => 'სამუშაო დღეები და საათები',
 
     'employer_add_job_additional_info' => 'დამატებითი ინფორმაცია',

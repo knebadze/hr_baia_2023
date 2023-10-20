@@ -45,6 +45,7 @@
                             v-model="model.number"
                             placeholder="555666777"
                             onkeypress="return /[0-9]/i.test(event.key)"
+                            :disabled="m.length == 2"
                         >
                     </div>
                         <!-- <div class="input-group mb-3">
@@ -61,7 +62,17 @@
                     <div class="form-group">
                         <label>{{ $t('lang.user_profile_page_number_owner') }}</label>
                         <div class="ls-inputicon-box">
-                            <multiselect v-model="model.number_owner" :options="cla.numberOwner" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                            <multiselect
+                                v-model="model.number_owner"
+                                :options="cla.numberOwner"
+                                deselect-label="Can't remove this value"
+                                :track-by="`name_${getLang}`"
+                                :label="`name_${getLang}`"
+                                placeholder="Select one"
+                                :searchable="true"
+                                :allow-empty="false"
+                                :disabled="m.length == 2"
+                            >
                                 <template slot="singleLabel" slot-scope="{ option }"></template>
                             </multiselect>
                             <!-- <span v-if="v$.candidateNumberModel.number_owner.required.$invalid && v$.candidateNumberModel.number_owner.$dirty" style='color:red'>* {{ v$.candidateNumberModel.number_owner.required.$message}}</span> -->
@@ -69,12 +80,15 @@
 
                     </div>
                 </div>
-                <div class="col-lg-12 col-md-12">
+                <div class="col-lg-12 col-md-12" v-if="m.length != 2">
                     <div class="text-right ">
                         <button class="btn btn-success"
-                        @click="add(selectedOption, model)"
-                        title="Add Number" data-bs-toggle="tooltip"
-                        data-bs-placement="top">{{ $t('lang.user_profile_page_foreign_lang_button_add_info') }}
+                            @click.prevent="add(selectedOption, model)"
+                            title="Add Number"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="top"
+                            :disabled="send"
+                        >{{ $t('lang.user_profile_page_foreign_lang_button_add_info') }}
                             <span class="fa fa-plus"></span>
                         </button>
                     </div>
@@ -86,7 +100,6 @@
                                 <thead>
                                     <tr>
                                     <th>N</th>
-                                    <th>{{ $t('lang.user_profile_page_work_number_code') }}</th>
                                     <th>{{ $t('lang.user_profile_page_number') }}</th>
                                     <th>{{ $t('lang.user_profile_page_number_owner') }}</th>
                                     <th>{{ $t('lang.user_profile_page_work_number_actions') }}</th>
@@ -96,8 +109,7 @@
                                 <tbody>
                                     <tr v-for="(item, index) in m">
                                     <td>{{ index + 1 }}</td>
-                                    <td>+{{ item.number_code.phonecode }}</td>
-                                    <td>{{ item.number }}</td>
+                                    <td>{{ `+${item.number_code.phonecode} ${item.number}` }}</td>
                                     <td>{{ item.number_owner[`name_${getLang}`] }}</td>
                                     <td>
                                         <button @click="remove(index, item.id)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
@@ -115,15 +127,16 @@
     </div>
 </template>
 <script>
-import { ref, computed, onUnmounted, onMounted, nextTick  } from 'vue';
+import { ref, computed  } from 'vue';
 import { I18n } from 'laravel-vue-i18n';
+import Swal from 'sweetalert2';
 export default {
     emits: ['validateAndEmit'],
     props: {
         data: Object,
     },
     setup(props, { emit }) {
-
+        const send = ref(false);
         const classificatory = props.data.cla
         const sort = () =>{
             classificatory.numberCode[0] = _.find(classificatory.numberCode, function(o) { return o.phonecode == 995; })
@@ -152,14 +165,15 @@ export default {
 
 
         const add = (code, item) =>{
-            // console.log(item);
-            item['number_code'] = code
-            // console.log('item', item);
-            if (item.number == '' || item.number_code == '' || item.number_owner == '') {
+            let data = {...item}
+            send.value = true;
+            data['number_code'] = code
+            if (data.number == '' || data.number_code == '' || data.number_owner == '') {
                 toast.error("აუცილებელია ყველა პარამეტრის შევსება", {
                     theme: 'colored',
                     autoClose: 1000,
                 });
+                send.value = false;
                 return
             }
             if (m.value.length == 2) {
@@ -167,10 +181,11 @@ export default {
                     theme: 'colored',
                     autoClose: 1000,
                 });
+                send.value = false;
                 return
             }
-            m.value.push({...item})
-            validateAndSubmit(model.value)
+
+            validateAndSubmit(data)
             model.value.number = "";
             model.value.number_owner = "";
         }
@@ -185,7 +200,8 @@ export default {
             })
             .then(function (response) {
                 if (response.data.status == 200) {
-                    m.value = response.data.data;
+                    m.value = response.data.data
+                    send.value = false;
                     toast.success("ინფორმაცია წარმატებით შეინახა", {
                         theme: 'colored',
                         autoClose: 1000,
@@ -216,29 +232,9 @@ export default {
             selectedOption.value = option;
             isDropdownOpen.value = false;
         };
-;
 
-
-        return {
-            m,
-            model,
-            cla,
-            validateAndSubmit,
-            add,
-            getLang,
-            validateAndEmit,
-
-            isDropdownOpen,
-            selectedOption,
-            toggleDropdown,
-            selectOption,
-            myDiv
-
-        };
-    },
-    methods: {
-        remove(index, id){
-            this.$swal({
+        const remove = (index, id) =>{
+            Swal.fire({
                 title: 'ნამდვილად გსურთ წაშლა?',
                 //   showDenyButton: true,
                 cancelButtonText:'არა',
@@ -247,7 +243,7 @@ export default {
             }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
-                    const removed = this.m.splice(index, 1);
+                    const removed = m.value.splice(index, 1);
                     axios({
                         method: "post",
                         url: "/delete_candidate_info",
@@ -273,7 +269,30 @@ export default {
             });
 
 
-        },
+        }
+
+
+        return {
+            m,
+            model,
+            cla,
+            validateAndSubmit,
+            add,
+            getLang,
+            validateAndEmit,
+
+            isDropdownOpen,
+            selectedOption,
+            toggleDropdown,
+            selectOption,
+            myDiv,
+            send,
+            remove
+
+        };
+    },
+    methods: {
+
     },
 };
 </script>

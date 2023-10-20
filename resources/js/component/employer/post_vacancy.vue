@@ -270,7 +270,7 @@
                                             :class="{ 'is-invalid': (m.vacancy.additional_schedule == null || v.vacancy.additional_schedule.$error) }"
                                             v-model="m.vacancy.additional_schedule"
                                             type="text"
-                                            placeholder=""
+                                            :placeholder="''"
                                             rows="3"
                                             @blur="v.vacancy.additional_schedule.$touch"
                                         ></textarea>
@@ -309,7 +309,7 @@
                                 <div class="form-group">
                                     <label><span class="text-danger">* </span>{{ $t('lang.employer_add_job_when_need') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <input class="form-control" v-model="m.vacancy.start_date" type="date" placeholder="" @blur="v.vacancy.start_date.$touch">
+                                        <input class="form-control" @input="startDate(m.vacancy.start_date)" v-model="m.vacancy.start_date" type="date" placeholder="" @blur="v.vacancy.start_date.$touch">
                                         <span v-if="send && !v.vacancy.start_date.required.$response" style='color:red'>* </span>
                                     </div>
                                 </div>
@@ -362,7 +362,7 @@
                                 <div class="form-group">
                                     <label>{{ $t('lang.employer_add_job_minimal_age') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <input class="form-control" v-model="m.demand.min_age" type="number" placeholder="25" >
+                                        <input class="form-control" @input="minAge(m.demand.min_age)" v-model="m.demand.min_age" type="number" placeholder="18" min="18">
                                     </div>
                                 </div>
                             </div>
@@ -370,7 +370,7 @@
                                 <div class="form-group">
                                     <label>{{ $t('lang.employer_add_job_max_age') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <input class="form-control" v-model="m.demand.max_age" type="number" placeholder="45" >
+                                        <input class="form-control" @input="maxAge(m.demand.max_age)" v-model="m.demand.max_age" type="number" placeholder="45" >
                                     </div>
                                 </div>
                             </div>
@@ -480,7 +480,7 @@
                                 <div class="form-group">
                                     <label>{{ $t('გასაუბრების თარიღი') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <input class="form-control" v-model="m.interviewDate"  type="date"  >
+                                        <input class="form-control" v-model="m.interviewDate"  type="date"  :min="minDate" :max="maxDate">
                                     </div>
                                 </div>
                             </div>
@@ -553,11 +553,12 @@
 </template>
 <script>
 import _ from 'lodash';
-import { ref, computed, watch } from 'vue';
+import { ref, computed, watch, watchEffect } from 'vue';
 import { I18n } from 'laravel-vue-i18n';
 import { useVuelidate } from '@vuelidate/core';
 import { required, numeric, maxLength, email } from '@vuelidate/validators';
 import Swal from 'sweetalert2';
+import moment from 'moment';
 export default {
     props: {
         data: Object,
@@ -566,6 +567,9 @@ export default {
         const getLang = computed(() => {
             return I18n.getSharedInstance().options.lang;
         });
+        const minDate = computed(() => moment().format('YYYY-MM-DD'));
+        const maxDate = ref(null);
+        let min_age, max_age = null;
         const workInformationSchedule = ref(null);
         const loader = ref(false);
         const send = ref(false);
@@ -674,7 +678,6 @@ export default {
 
         };
         const v = useVuelidate(rules, m);
-        console.log(v.value);
         const watchWorkSchedule = () => m.value.vacancy.work_schedule_id;
         watch(watchWorkSchedule, (newVal) => {
 
@@ -704,6 +707,11 @@ export default {
             cla.value.duty = _.filter(props.data.classificatory.duty, function(o) { return o.category_id == newVal.id; });
         });
 
+        const startDate = (item) =>{
+            console.log('item', item);
+            maxDate.value = item
+        }
+
         const chooseNumberCode = (item) =>{
             model.value.number_code = item
         };
@@ -718,7 +726,41 @@ export default {
             }
         };
 
+        const minAge = (item) =>{
 
+            const numberAsString = item.toString();
+            if (numberAsString.length == 2) {
+                min_age = item
+            }else if(numberAsString.length > 2){
+                m.value.demand.min_age = min_age
+            }
+            if (numberAsString.length == 2 && item < 18) {
+                m.value.demand.min_age = 18
+                toast.error("მინიმალური ასაკი არ უნდა იყოს 18 ზე ნაკლები", {
+                    theme: 'colored',
+                    autoClose: 1000,
+                });
+                return
+            }
+        }
+
+        const maxAge = (item) =>{
+
+            const numberAsString = item.toString();
+            if (numberAsString.length == 2) {
+                max_age = item
+            }else if(numberAsString.length > 2){
+                m.value.demand.max_age = max_age
+            }
+            if (numberAsString.length == 2 && item > 70) {
+                m.value.demand.max_age = 70
+                toast.error(`მაქსიმალური ასაკი არ უნდა იყოს 70 ზე მეტი`, {
+                    theme: 'colored',
+                    autoClose: 1000,
+                });
+                return
+            }
+        }
 
         const add = (item) =>{
             let data = {...item}
@@ -741,20 +783,25 @@ export default {
             // if (file.value) {
             //     sendFormData.append('file', file.value);
             // }
+            loader.value = true
             data.employer[`name_${getLang.value}`] = data.employer.name
             data.employer[`address_${getLang.value}`] = data.employer.address
             data.employer[`street_${getLang.value}`] = data.employer.street
             data.vacancy[`additional_schedule_${getLang.value}`] = data.vacancy.additional_schedule
             data.vacancy[`title_${getLang.value}`] = data.vacancy.title
-            send.value = true
+
             v.value.$touch();
             if (!v.value.$invalid) {
-                let html =  `${data.employer[`address_${getLang.value}`]}_ზე
+                let html =  `
+                    ${data.vacancy.start_date}_დან ${data.vacancy.term_id[`name_${getLang.value}`]},
                     ${(data.vacancy[`for_who_${getLang.value}`])?data.vacancy[`for_who_${getLang.value}`]:''}
-                    გვესაჭიროება ${data.vacancy.category_id[`name_${getLang.value}`]}. ${data.vacancy.work_schedule_id[`name_${getLang.value}`]}
-                    გრაფიკით, ${data.vacancy[`additional_schedule_${getLang.value}`]}.
+                    გვესაჭიროება ${data.vacancy.category_id[`name_${getLang.value}`]}.
+                    მისამართი: ${data.employer[`address_${getLang.value}`]} ${data.employer[`street_${getLang.value}`]},
+                    გრაფიკი: ${data.vacancy.work_schedule_id[`name_${getLang.value}`]},
+                    ${data.vacancy[`additional_schedule_${getLang.value}`]}.
                     ანაზღაურება: ${data.vacancy.payment} ${data.vacancy.currency_id[`name_${getLang.value}`]}.
-                    ${`დამატებით: `+data.vacancy[`additional_${getLang.value}`]} `;
+                    მოვალეობები: ${data.duty.map(i => i[`name_${getLang.value}`]).join(', ')}
+                `;
                 Swal.fire({
                     title: '<p>თქვენი ვაკანსია</p>',
                     // icon: 'info',
@@ -768,6 +815,7 @@ export default {
                         confirmButton: 'btn btn-success',
                         cancelButton: 'btn btn-danger',
                     },
+                    width: '60%'
                 }).then((result) => {
                     /* Read more about isConfirmed, isDenied below */
                     if (result.isConfirmed) {
@@ -777,6 +825,7 @@ export default {
 
 
             }else{
+                loader.value = false
                 toast.warning("აუცილებელია სავალდებულო ველები იყოს შევსებული", {
                     theme: 'colored',
                     autoClose: 2000,
@@ -784,7 +833,7 @@ export default {
             }
         }
         const validateAndSubmit = (data) => {
-
+            send.value = true
             axios({
                 method: "post",
                 url: "/add_vacancy",
@@ -811,12 +860,14 @@ export default {
             })
         };
         const showAlert = () => {
+            //let html =  `ეწვიეთ ლინკს სადაც შეგიძლიათ მიიღოთ ინფორმაცია თქვენი ვაკანსიის შესახებ, თქვენი ტელეფონის ნომრის გამოყენებით`;
             Swal.fire({
                         title: '<strong>ვაკანსია წარმატებით დაემატა</strong>',
-                        icon: 'info',
-                        html:
-                            `ეწვიეთ ლინკს სადაც შეგიძლიათ მიიღოთ ინფორმაცია თქვენი ვაკანსიის შესახებ, თქვენი ტელეფონის ნომრის გამოყენებით`,
+                        icon: 'success',
+                        html:'',
+
                         showCloseButton: true,
+                        confirmButtonText: 'მთავარზე დაბრუნება',
                         showCancelButton: false,
                         focusConfirm: false,
                     }).then((result) => {
@@ -847,7 +898,13 @@ export default {
             workInformationSchedule,
             benefitText,
             addBenefit,
-            send
+            send,
+            minAge,
+            maxAge,
+            localText,
+            minDate,
+            maxDate,
+            startDate
 
         };
     },

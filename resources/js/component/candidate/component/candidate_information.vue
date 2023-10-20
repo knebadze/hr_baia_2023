@@ -19,8 +19,9 @@
                                     placeholder=""
                                     @blur="v.personal_number.$touch"
                                 >
-                                <i class="fs-input-icon fa fa-user"></i>
-                                <span v-if="!v.personal_number.required.$response" style='color:red'>* </span>
+
+                                <span v-if="send && !v.personal_number.required.$response" style='color:red'>* </span>
+                                <span v-if="send && !v.personal_number.numeric.$response" style='color:red'>* </span>
                             </div>
                         </div>
                     </div>
@@ -42,7 +43,7 @@
                                 >
                                     <template slot="singleLabel" slot-scope="{ option }"></template>
                                 </multiselect>
-                                <span v-if="!v.nationality.required.$response" style='color:red'>* </span>
+                                <span v-if="send && !v.nationality.required.$response" style='color:red'>* </span>
 
                             </div>
                         </div>
@@ -67,7 +68,7 @@
                                 >
                                     <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                                 </multiselect>
-                                <span v-if="!v.citizenship.required.$response" style='color:red'>* </span>
+                                <span v-if="send && !v.citizenship.required.$response" style='color:red'>* </span>
                             </div>
                         </div>
                     </div>
@@ -88,7 +89,7 @@
                                 >
                                     <template slot="singleLabel" slot-scope="{ option }"></template>
                                 </multiselect>
-                                <span v-if="!v.religion.required.$response" style='color:red'>* </span>
+                                <span v-if="send && !v.religion.required.$response" style='color:red'>* </span>
                             </div>
                         </div>
                     </div>
@@ -109,7 +110,7 @@
                                 >
                                     <template slot="singleLabel" slot-scope="{ option }"></template>
                                 </multiselect>
-                                <span v-if="!v.education.required.$response" style='color:red'>* </span>
+                                <span v-if="send && !v.education.required.$response" style='color:red'>* </span>
                             </div>
                         </div>
                     </div>
@@ -176,7 +177,7 @@
                                 >
                                     <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                                 </multiselect>
-                                <span v-if="!v.characteristic.required.$response" style='color:red'>* </span>
+                                <span v-if="send && !v.characteristic.required.$response" style='color:red'>* </span>
                             </div>
                         </div>
                     </div>
@@ -199,7 +200,7 @@
                                 >
                                     <template slot="singleLabel" slot-scope="{ option }"></template>
                                 </multiselect>
-                                <span v-if="!v.marital_status.required.$response" style='color:red'>* </span>
+                                <span v-if="send && !v.marital_status.required.$response" style='color:red'>* </span>
                             </div>
                         </div>
                     </div>
@@ -227,7 +228,7 @@
                         <div class="form-group">
                             <label>{{ $t('lang.user_profile_page_personal_family_spouse') }}</label>
                             <textarea class="form-control" v-model="m.spouse" rows="3" :placeholder="$t('lang.user_profile_page_personal_family_fill_info')" @blur="v.spouse.$touch"></textarea>
-                            <span v-if="!v.spouse.maxLength.$response" style='color:red'>* </span>
+                            <span v-if="send && !v.spouse.maxLength.$response" style='color:red'>* </span>
                             <!-- " -->
                         </div>
                     </div>
@@ -291,9 +292,9 @@
                     <div class="form-group city-outer-bx has-feedback">
                         <label>{{ $t('lang.user_profile_page_additional_height') }}</label>
                         <div class="ls-inputicon-box">
-                            <input class="form-control" v-model="m.height" type="text" placeholder="65K" @blur="v.height.$touch">
-                            <i class="fs-input-icon fa fa-arrows-alt-v" aria-hidden="true"></i>
-                            <span v-if="!v.height.numeric.$response" style='color:red'>* </span>
+                            <input class="form-control" @input="height(m.height)" v-model="m.height" type="number" placeholder="165" @blur="v.height.$touch">
+                            <!-- <i class="fs-input-icon fa fa-arrows-alt-v" aria-hidden="true"></i> -->
+                            <span v-if="send && !v.height.numeric.$response" style='color:red'>* </span>
                         </div>
                     </div>
                 </div>
@@ -302,9 +303,9 @@
                     <div class="form-group city-outer-bx has-feedback">
                         <label>{{ $t('lang.user_profile_page_additional_weight') }}</label>
                         <div class="ls-inputicon-box">
-                            <input class="form-control" v-model="m.weight" type="text" placeholder="75K" @blur="v.weight.$touch">
-                            <i class="fs-input-icon fa fa-arrows-alt-h"></i>
-                            <span v-if="!v.weight.numeric.$response" style='color:red'>* </span>
+                            <input class="form-control" @input="weight(m.weight)" v-model="m.weight" type="number" placeholder="75" @blur="v.weight.$touch">
+                            <!-- <i class="fs-input-icon fa fa-arrows-alt-h"></i> -->
+                            <span v-if="send && !v.weight.numeric.$response" style='color:red'>* </span>
                         </div>
 
                     </div>
@@ -315,7 +316,7 @@
                         <div class="ls-inputicon-box">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="1" v-model="m.convection" id="flexCheckDefault">
-                                <label>{{ 'ნასამართლევი ხართ?' }}</label>
+                                <label>{{ 'ნასამართლევი' }}</label>
                             </div>
                         </div>
                     </div>
@@ -327,7 +328,7 @@
 
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="1" v-model="m.smoke" id="flexCheckDefault">
-                                <label>{{ $t('lang.user_profile_page_additional_smoke') }}</label>
+                                <label>{{ $t('მწეველი') }}</label>
                             </div>
                         </div>
                     </div>
@@ -401,8 +402,8 @@ export default {
         const getLang = computed(() => {
             return I18n.getSharedInstance().options.lang;
         });
-
-
+        let m_height, m_weight = null;
+        const send = ref(false);
         const cla = ref(props.data.cla)
         const formData = { ...props.data.model };
         formData.user_id = props.data.user_id;
@@ -419,7 +420,7 @@ export default {
         const m = ref(formData);
 
         const rules = {
-            personal_number: { required },
+            personal_number: { required, numeric },
             nationality: { required },
             religion: { required },
             education: { required },
@@ -430,11 +431,69 @@ export default {
             height: { numeric },
             weight: { numeric },
         };
+        cla.value.nationality = swapObjectsById(cla.value.nationality, 1, 101);
+        function swapObjectsById(arr, id1, id2) {
+            const index1 = arr.findIndex(obj => obj.id === id1);
+            const index2 = arr.findIndex(obj => obj.id === id2);
+
+            if (index1 === -1 || index2 === -1) {
+                // Handle the case where one or both IDs are not found
+                return arr;
+            }
+
+            // Swap the objects
+            [arr[index1], arr[index2]] = [arr[index2], arr[index1]];
+
+            return arr;
+        }
 
         const v = useVuelidate(rules, m);
 
         const updateButton = () =>v.value.$invalid ? false: true
+
+        const height = (item) =>{
+
+            const numberAsString = item.toString();
+            if (numberAsString.length == 3) {
+                m_height = item
+                if (item < 140) {
+                    m.value.height = 140
+                    toast.error("მინიმალური სიმაღლე არ უნდა იყოს 140 ზე ნაკლები", {
+                        theme: 'colored',
+                        autoClose: 1000,
+                    });
+                }
+                if (item > 210) {
+                    m.value.height = 210
+                }
+            }else if(numberAsString.length > 3){
+                m.value.height = m_height
+            }
+
+        }
+        const weight = (item) =>{
+
+            const numberAsString = item.toString();
+            if (numberAsString.length == 3) {
+                m_weight = item
+                if (item < 40) {
+                    m.value.weight = 40
+                    toast.error("მინიმალური წონა არ უნდა იყოს 40 ზე ნაკლები", {
+                        theme: 'colored',
+                        autoClose: 1000,
+                    });
+                }
+                if (item > 180) {
+                    m.value.weight = 180
+                }
+            }else if(numberAsString.length > 3){
+                m.value.weight = m_weight
+            }
+
+        }
+
         const validateAndSubmit = () => {
+            send.value = true
             v.value.$touch();
             if (!v.value.$invalid) {
 
@@ -479,7 +538,10 @@ export default {
             v,
             getLang,
             validateAndEmit,
-            updateButton
+            updateButton,
+            send,
+            height,
+            weight
         };
     },
 };

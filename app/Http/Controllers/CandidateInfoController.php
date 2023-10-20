@@ -45,18 +45,20 @@ class CandidateInfoController extends Controller
         $result = ['status' => 200];
 
         try {
-            if ($request->type == 'language') {
-                CandidateLanguage::where('id', $request->id)->delete();
-            }elseif($request->type == 'general_work'){
-                General_work_experience::where('id', $request->id)->delete();
-            }elseif($request->type == 'number'){
-                Additional_number::where('id', $request->id)->delete();
-            }elseif($request->type == 'notice'){
-                $notice = CandidateNotice::where('id', $request->id)->first();
+
+            $data = $request->all();
+            if ($data['type'] == 'language') {
+                CandidateLanguage::where('id', $data['id'])->delete();
+            }elseif($data['type'] == 'general_work'){
+                General_work_experience::where('id', $data['id'])->delete();
+            }elseif($data['type'] == 'number'){
+                Additional_number::where('id', $data['id'])->delete();
+            }elseif($data['type'] == 'notice'){
+                $notice = CandidateNotice::where('id', $data['id'])->first();
                 Storage::disk('public')->delete($notice->file_path);
                 $notice->delete();
-            }elseif($request->type == 'work_information'){
-                WorkInformation::where('id', $request->id)->delete();
+            }elseif($data['type'] == 'work_information'){
+                WorkInformation::where('id', $data['id'])->delete();
             }
 
             $result['data'] = [];

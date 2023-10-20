@@ -482,6 +482,7 @@ export default {
         return {
             // show: false
             workInformation:{},
+            headLine: null
         }
     },
     created(){
@@ -502,10 +503,9 @@ export default {
 
             return Math.abs(age_dt.getUTCFullYear() - 1970);
         },
-        headLine(){
-            return this.data.get_work_information[0].category[`name_${this.getLang}`]
-
-        },
+        // headLine(){
+        //     return this.data.get_work_information[0].category[`name_${this.getLang}`]
+        // },
         showMainBody(){
             if (Object.keys(this.workInformation).length != 0) {
                 return true
@@ -520,6 +520,7 @@ export default {
         },
         chooseResume(item){
             this.workInformation = item
+            this.headLine = item.category[`name_${this.getLang}`]
         }
     },
     mounted() {

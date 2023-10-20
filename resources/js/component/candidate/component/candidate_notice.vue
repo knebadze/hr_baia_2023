@@ -27,8 +27,12 @@
                 <div class="col-lg-12 col-md-12">
                     <div class="text-right ">
                         <button class="btn btn-success"
-                        @click="add(model)"
-                        title="დამატება" data-bs-toggle="tooltip" data-bs-placement="top">{{ $t('lang.user_profile_page_references_button_add_info') }}
+                            @click.prevent="add(model)"
+                            title="დამატება"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="top"
+                            :disabled="send"
+                        >{{ $t('lang.user_profile_page_references_button_add_info') }}
                             <span class="fa fa-plus"></span>
                         </button>
                     </div>
@@ -70,6 +74,7 @@
 <script>
 import { ref, computed, watch } from 'vue';
 import { I18n } from 'laravel-vue-i18n';
+import Swal from 'sweetalert2';
 // import { useVuelidate } from '@vuelidate/core';
 // import { required, numeric, maxLength } from '@vuelidate/validators';
 export default {
@@ -78,9 +83,11 @@ export default {
         data: Object,
     },
     setup(props, { emit }) {
+        const send = ref(false)
         const file = ref(null);
         const showNoRecommendation = ref(false);
         const cla = ref(_.cloneDeep(props.data.cla))
+        console.log(cla.value);
         const formData = {notice: ''};
 
         const m = ref(props.data.model)
@@ -94,6 +101,14 @@ export default {
         formData.user_id = props.data.user_id
         const model = ref(formData)
 
+        const filterNotice = () =>{
+            let ids = m.value.map(item => item.notice_id)
+            cla.value.notices = props.data.cla.notices.filter((element) => !ids.includes(element.id));
+        }
+        if (m.value.length > 0) {
+            filterNotice()
+        }
+
         const handleFileChange = (event) => {
             file.value = event.target.files[0];
             model.value.file_name = file.value.name
@@ -105,6 +120,7 @@ export default {
         };
 
         const add = (item) =>{
+            send.value = true
             let data = {...item}
             data['file'] = (file.value)?file.value.name:null
             if (m.value.length > 0 && data.notice.id != 6 && m.value.some((element) => element.notice.id === item.notice.id)) {
@@ -112,6 +128,7 @@ export default {
                     theme: 'colored',
                     autoClose: 1000,
                 });
+                send.value = false
                 return
             }
             if (file.value != null && file.value.type !== 'application/pdf') {
@@ -119,6 +136,7 @@ export default {
                     theme: 'colored',
                     autoClose: 1000,
                 });
+                send.value = false
                 return
             }
             if (!file.value || data.notice == '') {
@@ -126,6 +144,7 @@ export default {
                     theme: 'colored',
                     autoClose: 1000,
                 });
+                send.value = false
                 return
             }
 
@@ -143,9 +162,11 @@ export default {
             axios.post('/add_candidate_file', formData)
             .then(function (response) {
                 if (response.data.status == 200) {
-                    m.value.push(data)
+                    m.value = response.data.data
+                    filterNotice()
                     model.value.notice = "";
                     model.value.file = "";
+                    send.value = false
                     toast.success("ინფორმაცია წარმატებით შეინახა", {
                         theme: 'colored',
                         autoClose: 1000,
@@ -157,33 +178,13 @@ export default {
                 console.log(error);
             })
         };
-        console.log(m.value);
         const validateAndEmit = () => {
             const isFormValid = true ;
-            console.log('isFormValid', isFormValid);
             emit("validateAndEmit", isFormValid);
         };
 
-        return {
-            m,
-            model,
-            cla,
-            // v,
-            validateAndSubmit,
-            add,
-            getLang,
-            validateAndEmit,
-            // chooseNumberCode,
-            handleFileChange,
-            showNoRecommendation,
-            openPDF
-
-        };
-    },
-    methods: {
-        remove(index, id){
-            let currentObj = this
-            this.$swal({
+        const remove = (index, id) =>{
+            Swal.fire({
                 title: 'ნამდვილად გსურთ წაშლა?',
                 //   showDenyButton: true,
                 cancelButtonText:'არა',
@@ -192,9 +193,13 @@ export default {
             }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
-                    const removed = this.m.splice(index, 1);
-                    axios.post('/delete_candidate_info' ,{
-                        data: {'id':id, 'type': 'notice'},
+                    const removed = m.value.splice(index, 1);
+                    filterNotice()
+                    axios({
+                        method: "post",
+                        url: "/delete_candidate_info",
+                        data: {id: id, type: 'notice'},
+
                     })
                     .then(function (response) {
                         if (response.status == 200) {
@@ -215,7 +220,27 @@ export default {
                     return
                 }
             });
-        },
+        }
+
+        return {
+            m,
+            model,
+            cla,
+            // v,
+            validateAndSubmit,
+            add,
+            getLang,
+            validateAndEmit,
+            // chooseNumberCode,
+            handleFileChange,
+            showNoRecommendation,
+            openPDF,
+            send,
+            remove
+
+        };
+    },
+    methods: {
 
     },
 };

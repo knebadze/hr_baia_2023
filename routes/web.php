@@ -59,7 +59,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
         Route::get('/', [MainController::class, 'index'])->name('welcome');
 
             Route::get('/job', [VacancyController::class, 'index'])->name('job');
-            Route::get('/vacancy_detail', [MyVacancyController::class, 'index'])->name('vacancy.detail');
+            Route::get('/my_vacancy', [MyVacancyController::class, 'index'])->name('my.vacancy');
             Route::get('/job_search/{category_id?}/{work_schedule_id?}/{address?}', [VacancyController::class, 'search'])->name('job.search');
 
             // Route::get('/company', [CompanyController::class, 'index'])->name('company');

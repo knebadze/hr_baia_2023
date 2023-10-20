@@ -4,7 +4,7 @@
             <div class="col-lg-12 col-md-12 mb-4">
                 <div class="twm-error-content">
                     <h4 class="twm-error-title2 site-text-primary">მიიღეთ ინფორმაციაა თქვენს ვაკანსიაზე</h4>
-                    <p>გამოიყენეთ თქვენის მიერ ვაკანშიაში მითითებული ტელეფონის ნომერი.</p>
+                    <p>გამოიყენეთ თქვენის მიერ ვაკანსიაში მითითებული ტელეფონის ნომერი.</p>
                 </div>
             </div>
             <div class="col-lg-12 col-md-12">
@@ -17,14 +17,14 @@
                                 <div class="form-group  col-md-9">
                                     <label>{{ ('ტელეფონის ნომერი') }}</label>
                                     <div class="twm-inputicon-box">
-                                        <input v-model="search" type="text"  required class="form-control" :placeholder=" $t('lang.welcome_leftside_bar_search_job_location_job_search')">
+                                        <input v-model="search" type="text"  required class="form-control" :placeholder=" $t('მაგ:555321065')" onkeypress="return /[0-9]/i.test(event.key)">
 
                                     </div>
                                 </div>
 
                                 <!--Find job btn-->
                                 <div class="form-group col-xl-3 col-lg-6 col-md-6">
-                                    <button type="button" class="site-button" @click="find()">{{ $t('lang.welcome_leftside_bar_search_job_location_job_search') }}</button>
+                                    <button type="button" class="site-button" @click="find()">{{ $t('lang.welcome_leftside_bar_search_job_location_job_search_button') }}</button>
                                 </div>
 
                             </div>
@@ -46,11 +46,11 @@
                                 <table id="" class="table table-bordered twm-bookmark-list-wrap">
                                     <thead>
                                         <tr>
-                                            <th>სათაური</th>
                                             <th>კატეგორია</th>
                                             <th>გრაფიკი</th>
-                                            <th>დაინტერესდნენ</th>
+                                            <th>ანაზღაურება</th>
                                             <th>სტატუსი</th>
+                                            <th>დაინტერესდნენ</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -61,7 +61,7 @@
                                                 <div class="twm-bookmark-list">
 
                                                     <div class="twm-mid-content">
-                                                        <a href="#" class="twm-job-title">
+                                                        <a class="twm-job-title">
                                                             <h4>{{ item[`title_${getLang}`] }}</h4>
                                                             <!-- <p class="twm-bookmark-address">
                                                                 <i class="feather-map-pin"></i>Sacramento, California
@@ -76,7 +76,12 @@
                                             <td>
                                                 <span class="text-clr-green2">{{ item.work_schedule[`name_${getLang}`] }}</span>
                                             </td>
-                                            <td class="d-flex justify-content-between"><a href="javascript:;" class="site-text-primary">{{  item.vacancy_interest.length }}</a><button class="btn btn-info btn-sm" @click="showInterest(item.id)"><i class="fa fa-eye text-white"></i></button> </td>
+                                            <td class="d-flex justify-content-between">
+                                                <a href="javascript:;" class="site-text-primary">{{  item.vacancy_interest.length }}</a>
+                                                <button v-if="item.vacancy_interest.length > 0" class="btn btn-info btn-sm" @click="showInterest(item.id)">
+                                                    <i class="fa fa-eye text-white"></i>
+                                                </button>
+                                            </td>
 
                                             <td><div class="twm-jobs-category"><span class="twm-bg-green">{{ item.status[`name_${getLang}`] }}</span></div></td>
 

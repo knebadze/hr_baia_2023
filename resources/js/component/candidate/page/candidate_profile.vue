@@ -63,7 +63,7 @@
                                 @click="nextStep(props)"
                                 class="site-button"
                                 >
-                                შემდეგი
+                                გაგრძელება
                             </button>
 
                             <button
@@ -141,7 +141,6 @@ export default {
         }
     },
     created(){
-        console.log(this.data);
         this.data.model.workInformation['payment'] = 800;
         this.m = { ...this.data.model };
 
@@ -337,7 +336,6 @@ export default {
             })
         },
         nextStep(props) {
-            console.log(props);
             let arr = ['mainInfoComponent', 'candidateInformationComponent', 'candidateAddressComponent', 'candidateLanguageComponent', 'additionalNumberComponent', 'generalWorkInformationComponent', 'workInformationComponent', 'familyWorkExperienceComponent', 'recommendationComponent', 'candidateNoticeComponent']
             this.$refs[arr[props.activeTabIndex]].validateAndEmit();
             // this.$refs.candidateInformationComponent.validateAndEmit();
@@ -357,7 +355,6 @@ export default {
             window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
         },
         handleFormValidation(isValid) {
-            console.log('Form validation result:', isValid);
             this.isValid = isValid
         },
 

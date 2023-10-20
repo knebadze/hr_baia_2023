@@ -72,12 +72,16 @@
                                                             <input type="checkbox" class="form-check-input" id="Password3">
                                                             <label class="form-check-label rem-forgot" for="Password3">
                                                                 {{ __('lang.modal_login_password_remember') }}
-                                                                <a href="#">{{ __('lang.modal_login_password_forgot') }}</a></label>
+                                                            </label>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-
+                                            <div class="col-lg-12">
+                                                <div class="form-group mb-3 ">
+                                                    <a class="text-primary" href="#">{{ __('lang.modal_login_password_forgot') }}</a>
+                                                </div>
+                                            </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <button type="submit" class="site-button">{{ __('lang.modal_login_sign_in') }}</button>

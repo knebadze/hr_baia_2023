@@ -62,8 +62,8 @@ class WorkInformationRepository
         // if (Auth::user()->role_id == 3) {
             $this->candidateStatusUpdate($candidate_id);
         // }
-
-        return [];
+        $candidate = Candidate::where('id', $candidate_id)->with(['getWorkInformation.category', 'getWorkInformation.currency', 'getWorkInformation.workSchedule'])->first();
+        return $candidate->getWorkInformation;
     }
 
     function delete($id)  {

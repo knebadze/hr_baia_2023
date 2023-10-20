@@ -19,7 +19,7 @@
                             <multiselect v-model="m.has_experience" :options="cla.yesNo" :searchable="false" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :allow-empty="false" >
                                 <template slot="singleLabel" slot-scope="{ option }"></template>
                             </multiselect>
-                            <span v-if="!v.has_experience.required.$response" style='color:red'>* </span>
+                            <span v-if="send && !v.has_experience.required.$response" style='color:red'>* </span>
 
                         </div>
                     </div>
@@ -33,8 +33,8 @@
                             <div class="form-group">
                                 <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_family_work_experience_answer_2') }}</label>
                                 <div class="ls-inputicon-box">
-                                    <input class="form-control" type="number" v-model="m.families_worked_count" @blur="v.families_worked_count.$touch" style="height: 40px;">
-                                    <span v-if="!v.families_worked_count.required.$response" style='color:red'>* </span>
+                                    <input class="form-control" type="number" @input="workCountNumber(m.families_worked_count)" v-model="m.families_worked_count" @blur="v.families_worked_count.$touch" style="height: 40px;">
+                                    <span v-if="send && !v.families_worked_count.required.$response" style='color:red'>* </span>
                                 </div>
                             </div>
                         </div>
@@ -46,7 +46,7 @@
                                     <multiselect v-model="m.work_experience"  :options="cla.workExperiences" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false" @blur="v.work_experience.$touch">
                                         <template slot="singleLabel" slot-scope="{ option }"></template>
                                     </multiselect>
-                                    <span v-if="!v.work_experience.required.$response" style='color:red'>* </span>
+                                    <span v-if="send && !v.work_experience.required.$response" style='color:red'>* </span>
                                 </div>
                             </div>
                         </div>
@@ -57,7 +57,7 @@
                                     <multiselect v-model="m.longest" :options="cla.workExperiences" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false" @blur="v.longest.$touch">
                                         <template slot="singleLabel" slot-scope="{ option }"></template>
                                     </multiselect>
-                                    <span v-if="!v.longest.required.$response" style='color:red'>* </span>
+                                    <span v-if="send && !v.longest.required.$response" style='color:red'>* </span>
                                 </div>
                             </div>
                         </div>
@@ -65,12 +65,12 @@
 
                         <div class="col-xl-6 col-lg-6 col-md-12">
                             <div class="form-group">
-                                <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_family_work_in_family') }}</label>
+                                <label><span class="text-danger">* </span>{{ $t('ოჯახში მუშაობდით, როგორც: ') }}</label>
                                 <div class="ls-inputicon-box">
                                     <multiselect v-model="m.family_work_category"  :options="cla.category" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name_ka" track-by="name_ka" :preselect-first="false" @blur="v.family_work_category.$touch">
                                         <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                                     </multiselect>
-                                    <span v-if="!v.family_work_category.required.$response" style='color:red'>* </span>
+                                    <span v-if="send && !v.family_work_category.required.$response" style='color:red'>* </span>
                                 </div>
                             </div>
                         </div>
@@ -81,7 +81,7 @@
                                     <multiselect v-model="m.family_work_duty"  :options="cla.duty" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name_ka" track-by="name_ka" :preselect-first="false" @blur="v.family_work_duty.$touch">
                                         <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                                     </multiselect>
-                                    <span v-if="!v.family_work_duty.required.$response" style='color:red'>* </span>
+                                    <span v-if="send && !v.family_work_duty.required.$response" style='color:red'>* </span>
                                 </div>
 
                             </div>
@@ -97,7 +97,7 @@
                                     <multiselect v-model="m.no_reason" :options="cla.noExperienceReason" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false" @blur="v.no_reason.$touch">
                                         <template slot="singleLabel" slot-scope="{ option }"></template>
                                     </multiselect>
-                                    <span v-if="!v.no_reason.required.$response" style='color:red'>* </span>
+                                    <span v-if="send && !v.no_reason.required.$response" style='color:red'>* </span>
                                 </div>
                             </div>
                         </div>
@@ -111,7 +111,7 @@
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 d-flex justify-content-center">
-                    <button type="submit" @click.prevent="validateAndSubmit()"  class="site-button">{{ $t('lang.user_profile_page_work_button_save') }}</button>
+                    <button type="submit" @click.prevent="validateAndSubmit()"  class="site-button" :disabled="send">{{ $t('lang.user_profile_page_work_button_save') }}</button>
                 </div>
             </div>
         </div>
@@ -129,7 +129,8 @@ export default {
     },
     setup(props, { emit }) {
 
-        // const showAdditionalSchedule = ref(false);
+        let workCount = null
+        const send = ref(false);
         const cla = ref(_.cloneDeep(props.data.cla))
         const formData = {...props.data.model};
 
@@ -176,11 +177,32 @@ export default {
             }
         });
 
+        const workCountNumber = (item) =>{
 
+            const numberAsString = item.toString();
+            if (numberAsString.length == 2) {
+                workCount = item
+                if (item > 20) {
+                    m.value.families_worked_coun = 20
+                }
+            }else if(numberAsString.length == 1){
+                if (item < 1) {
+                    m.value.families_worked_count = 1
+                    toast.error("მინიმალური რაოდენობა არ უნდა იყოს 1 ზე ნაკლები", {
+                        theme: 'colored',
+                        autoClose: 1000,
+                    });
+                }
+            }
+            else if(numberAsString.length > 2){
+                m.value.families_worked_count = workCount
+            }
+
+        }
 
         const validateAndSubmit = () => {
+            send.value = true;
             v.value.$touch();
-            // console.log(v.value);
             if (!v.value.$invalid) {
                 axios({
                     method: "post",
@@ -190,7 +212,7 @@ export default {
                 })
                 .then(function (response) {
                     if (response.data.status == 200) {
-
+                        send.value = false
                         toast.success("ინფორმაცია წარმატებით შეინახა", {
                             theme: 'colored',
                             autoClose: 1000,
@@ -206,12 +228,12 @@ export default {
                     theme: 'colored',
                     autoClose: 2000,
                 });
+                send.value = false
             }
         };
 
         const validateAndEmit = () => {
             const isFormValid = !v.value.$invalid;
-            console.log('isFormValid', isFormValid);
             emit("validateAndEmit", isFormValid);
         };
 
@@ -224,7 +246,8 @@ export default {
             // add,
             getLang,
             validateAndEmit,
-            // showAdditionalSchedule
+            send,
+            workCountNumber
 
         };
     },

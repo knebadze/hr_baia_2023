@@ -21,7 +21,7 @@ class AddUserRepository
             $name_ka = $data['name_ka'];
             $name_en = GoogleTranslate::trans($data['name_ka'], 'en');
             $name_ru = GoogleTranslate::trans($data['name_ka'], 'ru');
-            if ($data['gender_id'] == 1) {
+            if ($data['gender']['id'] == 1) {
                 $avatar = 'default_male.jpg';
             } else {
                 $avatar = 'default_female.jpg';

@@ -13,15 +13,7 @@
             <div class="wt-bnr-inr-entry">
                 <div class="banner-title-outer">
                     <div class="banner-title-name">
-                        {{-- @if (Auth::user()->user_type_id == 1) --}}
                             <h2 class="wt-title">{{ __('lang.user_page_candidate_first_title') }}</h2>
-                        {{-- @elseif (Auth::user()->user_type_id == 2)
-                            <h2 class="wt-title">{{ __('lang.user_page_candidate_second_title') }}</h2>
-                        @elseif (Auth::user()->user_type_id == 3)
-                            <h2 class="wt-title">{{ __('lang.user_page_candidate_third_title') }}</h2>
-                        @elseif (Auth::user()->user_type_id == 4)
-                            <h2 class="wt-title">{{ __('lang.user_page_candidate_fourth_title') }}</h2>
-                        @endif --}}
                     </div>
                 </div>
             </div>
@@ -80,7 +72,7 @@
                                                 <div class="wt-card-icon-2"><i class="flaticon-resume"></i></div>
                                                 <div class="wt-card-right  wt-total-listing-view counter ">{{ $view }}</div>
                                                 <div class="wt-card-bottom-2">
-                                                    <h4 class="m-b0">თქვენი რეზიუმე ნახა</h4>
+                                                    <h4 class="m-b0">რეზიუმეს ნახვების რაოდენობა</h4>
                                                 </div>
                                             </div>
                                         </div>

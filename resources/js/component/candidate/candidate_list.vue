@@ -230,7 +230,7 @@
                                          <a href="#" class="twm-job-title">
                                              <h4>{{ item.user[`name_${getLang}`] }} </h4>
                                          </a>
-                                         <p><span v-for="(i, index) in item.work_information" :key="index">{{ i[`name_${getLang}`]+', ' }}</span></p>
+                                         <p><span>{{ item.work_information.map(i => i.name_ka).join(', ')}}</span></p>
                                          <a :href="detailUrl+'/'+item.id" class="twm-view-prifile site-text-primary">{{ $t('lang.company_vacancies_page_middle_leftside_read_more') }}</a>
 
                                          <div class="twm-fot-content">

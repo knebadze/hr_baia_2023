@@ -19,7 +19,7 @@
                             <multiselect v-model="model.category" :options="cla.category" :searchable="true" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :allow-empty="false" @blur="v.category.$touch">
                                 <template slot="singleLabel" slot-scope="{ option }"></template>
                             </multiselect>
-                            <span v-if="!v.category.required.$response" style='color:red'>* </span>
+                            <span v-if="send && !v.category.required.$response" style='color:red'>* </span>
                         </div>
                     </div>
                 </div>
@@ -31,14 +31,14 @@
                                 <multiselect v-model="model.work_schedule"  :options="cla.workSchedule" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name_ka" track-by="name_ka" :preselect-first="false" @blur="v.work_schedule.$touch">
                                     <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                                 </multiselect>
-                                <span v-if="!v.work_schedule.required.$response" style='color:red'>* </span>
+                                <span v-if="send && !v.work_schedule.required.$response" style='color:red'>* </span>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-8" v-if="showAdditionalSchedule">
                         <div class="form-group">
                             <label><span class="text-danger">* </span>სასურველი სამუშაო გრაფიკი</label>
-                            <textarea class="form-control" rows="3" v-model="model.additional_schedule" placeholder="ჩაწერეთ სასურველი სამუშაო დღეები და საათები" @blur="v$.m[`additional_schedule_${getLang}`].$touch"></textarea>
+                            <textarea class="form-control" rows="3" v-model="model.additional_schedule" placeholder="ჩაწერეთ სასურველი სამუშაო დღეები და საათები" @blur="v.additional_schedule.$touch"></textarea>
                             <!-- <span v-if="!v.additional_schedule.required.$response" style='color:red'>* </span> -->
                         </div>
                     </div>
@@ -48,8 +48,8 @@
                             <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_work_salary_title') }}</label>
                             <div class="ls-inputicon-box">
                                 <input class="form-control" type="number" step="50" v-model="model.payment" @blur="v.payment.$touch" style='height:45px;'>
-                                <span v-if="!v.payment.required.$response" style='color:red'>* </span>
-                                <span v-if="!v.payment.numeric.$response" style='color:red'>* </span>
+                                <span v-if="send && !v.payment.required.$response" style='color:red'>* </span>
+                                <span v-if="send && !v.payment.numeric.$response" style='color:red'>* </span>
                             </div>
                         </div>
                     </div>
@@ -60,7 +60,7 @@
                                 <multiselect v-model="model.currency" :options="cla.currency" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false" @blur="v.currency.$touch">
                                     <template slot="singleLabel" slot-scope="{ option }"></template>
                                 </multiselect>
-                                <span v-if="!v.currency.required.$response" style='color:red'>* </span>
+                                <span v-if="send && !v.currency.required.$response" style='color:red'>* </span>
                             </div>
                         </div>
                     </div>
@@ -105,9 +105,12 @@
                 <div class="col-lg-12 col-md-12 mt-4" >
                     <div class="text-right ">
                         <button class="btn btn-success"
-                        @click.prevent="add(model)"
-                        title="დამატება" data-bs-toggle="tooltip"
-                        data-bs-placement="top">{{ $t('lang.user_profile_page_foreign_lang_button_add_info') }}
+                            @click.prevent="add(model)"
+                            title="დამატება"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="top"
+                            :disabled="send"
+                        >{{ $t('lang.user_profile_page_foreign_lang_button_add_info') }}
                             <span class="fa fa-plus"></span>
                         </button>
                     </div>
@@ -163,15 +166,16 @@ import { ref, computed, watch } from 'vue';
 import { I18n } from 'laravel-vue-i18n';
 import { useVuelidate } from '@vuelidate/core';
 import { required, numeric, maxLength } from '@vuelidate/validators';
+import Swal from 'sweetalert2';
 export default {
     emits: ['validateAndEmit'],
     props: {
         data: Object,
     },
     setup(props, { emit }) {
-
+        const send = ref(false);
         const showAdditionalSchedule = ref(false);
-        const cla = ref(props.data.cla)
+        const cla = ref({...props.data.cla})
         const formData = {...props.data.model.workInformation};
 
         const getLang = computed(() => {
@@ -186,6 +190,15 @@ export default {
         formData.additional_schedule = props.data.model.workInformation[`additional_schedule_${getLang.value}`]
         const model = ref(formData);
         const m = ref(props.data.model.getWorkInformation)
+
+        const filterCategory = () => {
+            let ids = m.value.map(item => item.category.id)
+            cla.value.category = props.data.cla.category.filter((element) => !ids.includes(element.id));
+        }
+
+        if (m.value.length > 0) {
+            filterCategory()
+        }
 
         const rules = {
             category: { required },
@@ -204,12 +217,14 @@ export default {
         });
 
         const add = (item) =>{
+            send.value = true;
             let data = {...item}
             if (m.value.length > 0 && m.value.some((element) => element.category_id === data.category.id)) {
                 toast.error('არჩეულ კატეგორიაზე უკვე გაქვთ ინფორმაცია შევსებული', {
                     theme: 'colored',
                     autoClose: 1000,
                 });
+                send.value = false;
                 return
             }
             if (data.work_schedule.id == 9 && data.additional_schedule == '') {
@@ -217,6 +232,7 @@ export default {
                     theme: 'colored',
                     autoClose: 1000,
                 });
+                send.value = false;
                 return
             }
             if (showAdditionalSchedule.value) {
@@ -232,9 +248,21 @@ export default {
                     theme: 'colored',
                     autoClose: 2000,
                 });
+                send.value = false;
             }
         }
 
+
+        const cleanModel = () => {
+            model.value.category = "";
+            model.value.work_schedule = "";
+            model.value.additional_schedule = "";
+            model.value.payment = 800;
+            model.value.currency = "";
+            model.value.stay_night = 0;
+            model.value.go_vacation = 0;
+            model.value.work_additional_hours = 0;
+        }
 
         const validateAndSubmit = (item) => {
             axios({
@@ -245,15 +273,10 @@ export default {
             })
             .then(function (response) {
                 if (response.data.status == 200) {
-                    m.value.push(item)
-                    model.value.category = "";
-                    model.value.work_schedule = "";
-                    model.value.additional_schedule = "";
-                    model.value.payment = 800;
-                    model.value.currency = "";
-                    model.stay_night = 0;
-                    model.go_vacation = 0;
-                    model.work_additional_hours = 0;
+                    m.value = response.data.data
+                    filterCategory()
+                    cleanModel()
+                    send.value = false
                     toast.success("ინფორმაცია წარმატებით შეინახა", {
                         theme: 'colored',
                         autoClose: 1000,
@@ -269,30 +292,11 @@ export default {
 
         const validateAndEmit = () => {
             const isFormValid = m.value.length > 0 ? true: false;
-            console.log('isFormValid', isFormValid);
             emit("validateAndEmit", isFormValid);
-        }
-
-
-;
-
-
-        return {
-            m,
-            model,
-            cla,
-            v,
-            validateAndSubmit,
-            add,
-            getLang,
-            validateAndEmit,
-            showAdditionalSchedule
-
         };
-    },
-    methods: {
-        remove(index, id){
-            this.$swal({
+
+        const remove = (index, id) => {
+            Swal.fire({
                 title: 'ნამდვილად გსურთ წაშლა?',
                 //   showDenyButton: true,
                 cancelButtonText:'არა',
@@ -301,7 +305,8 @@ export default {
             }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
-                    const removed = this.m.splice(index, 1);
+                    const removed = m.value.splice(index, 1);
+                    filterCategory()
                     axios({
                         method: "post",
                         url: "/delete_candidate_info",
@@ -327,7 +332,25 @@ export default {
             });
 
 
-        },
+        };
+
+        return {
+            m,
+            model,
+            cla,
+            v,
+            validateAndSubmit,
+            add,
+            getLang,
+            validateAndEmit,
+            showAdditionalSchedule,
+            send,
+            remove
+
+        };
+    },
+    methods: {
+
     },
 };
 </script>

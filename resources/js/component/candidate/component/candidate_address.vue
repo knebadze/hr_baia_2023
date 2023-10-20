@@ -25,7 +25,7 @@
                                 @blur="v.address.$touch"
                             >
                             <i class="fs-input-icon fa fa-user"></i>
-                            <span v-if="!v.address.required.$response" style='color:red'>* </span>
+                            <span v-if="send && !v.address.required.$response" style='color:red'>* </span>
                         </div>
                     </div>
                 </div>
@@ -70,7 +70,7 @@ export default {
         const getLang = computed(() => {
             return I18n.getSharedInstance().options.lang;
         });
-
+        const send = ref(false);
         const cla = ref(props.data.cla)
         const formData = { ...props.data.model };
         formData.user_id = props.data.user_id;
@@ -87,6 +87,7 @@ export default {
 
 
         const validateAndSubmit = () => {
+            send.value = true
             v.value.$touch();
             if (!v.value.$invalid) {
                 m.value[`address_${getLang.value}`] = m.value.address
@@ -131,6 +132,7 @@ export default {
             v,
             getLang,
             validateAndEmit,
+            send
 
         };
     },

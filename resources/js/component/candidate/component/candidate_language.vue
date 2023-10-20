@@ -4,13 +4,22 @@
             <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_foreign_lang_title') }}</h4>
         </div>
         <div class="panel-body wt-panel-body p-a20 m-b30 ">
-            <p class="text-danger">* {{ $t('lang.user_profile_page_foreign_lang_language_comiitment') }}</p>
+            <p v-if="m.length == 0" class="text-danger">* {{ $t('პირველ რიგში მიუთით მშობლიური ენა') }}</p>
             <div class="row">
                 <div class="col-xl-6 col-lg-6 col-md-12">
                     <div class="form-group">
                         <label>{{ $t('lang.user_profile_page_foreign_lang_language') }}</label>
                         <div class="ls-inputicon-box">
-                            <multiselect v-model="model.language" :options="cla.languages" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                            <multiselect
+                                v-model="model.language"
+                                :options="cla.languages"
+                                deselect-label="Can't remove this value"
+                                :track-by="`name_${getLang}`"
+                                :label="`name_${getLang}`"
+                                placeholder="Select one"
+                                :searchable="true"
+                                :allow-empty="false"
+                            >
                                 <template slot="singleLabel" slot-scope="{ option }"></template>
                             </multiselect>
                         </div>
@@ -20,7 +29,17 @@
                     <div class="form-group">
                         <label>{{ $t('lang.user_profile_page_foreign_lang_level') }}</label>
                         <div class="ls-inputicon-box">
-                            <multiselect v-model="model.level" :options="cla.languageLevels" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                            <multiselect
+                                v-model="model.level"
+                                :options="cla.languageLevels"
+                                deselect-label="Can't remove this value"
+                                :track-by="`name_${getLang}`"
+                                :label="`name_${getLang}`"
+                                placeholder="Select one"
+                                :searchable="true"
+                                :allow-empty="false"
+                                :disabled="m.length == 0"
+                            >
                                 <template slot="singleLabel" slot-scope="{ option }"></template>
                             </multiselect>
                         </div>
@@ -29,9 +48,12 @@
                 <div class="col-lg-12 col-md-12">
                     <div class="text-right ">
                         <button class="btn btn-success"
-                        @click.prevent="add(model)"
-                        title="დამატება" data-bs-toggle="tooltip"
-                        data-bs-placement="top">{{ $t('lang.user_profile_page_foreign_lang_button_add_info') }}
+                            @click.prevent="add(model)"
+                            title="დამატება"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="top"
+                            :disabled="send"
+                        >{{ $t('lang.user_profile_page_foreign_lang_button_add_info') }}
                             <span class="fa fa-plus"></span>
                         </button>
                     </div>
@@ -55,7 +77,7 @@
                                     <td>{{ item.language[`name_${getLang}`] }}</td>
                                     <td>{{ item.level[`name_${getLang}`] }}</td>
                                     <td>
-                                        <button @click="remove(index, item.id)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
+                                        <button @click="remove(index, item.id)" class="" title="delete" >
                                             <i class="fa fa-trash-alt"></i>
                                         </button>
                                     </td>
@@ -73,6 +95,7 @@
 <script>
 import { ref, computed, watch } from 'vue';
 import { I18n } from 'laravel-vue-i18n';
+import Swal from 'sweetalert2';
 export default {
     emits: ['validateAndEmit'],
     props: {
@@ -82,8 +105,8 @@ export default {
         const getLang = computed(() => {
             return I18n.getSharedInstance().options.lang;
         });
-
-        const cla = ref(props.data.cla)
+        const send = ref(false);
+        const cla = ref({...props.data.cla})
         const formData = props.data.model;
         formData.lang = getLang;
 
@@ -93,38 +116,64 @@ export default {
             level:''
         });
 
+        const languageFilter = (id = null) =>{
+            let ids = m.value.map(item => item.language_id)
+            if (id) {
+                ids.push(id)
+            }
+            cla.value.languages = props.data.cla.languages.filter((element) => !ids.includes(element.id));
+        }
+
+        if (m.value.length == 0) {
+            model.value.level = props.data.cla.languageLevels.find((element) => element.id == 1);
+            console.log('model.value',model.value);
+        }else{
+            cla.value.languageLevels = props.data.cla.languageLevels.filter((element) => element.id != 1);
+            languageFilter()
+        }
 
         const add = (item) =>{
-            if (m.value.length == 0 && item.level.id != 1) {
+            send.value = true;
+            let data = {...item}
+            if (m.value.length == 0 && data.level.id != 1) {
                 toast.error("გთხოვთ დაამატოთ მშობლიური ენა", {
                     theme: 'colored',
                     autoClose: 1000,
                 });
+                send.value = false;
                 return
             }
-            if (!item.language || !item.level) {
+            if (!data.language || !data.level) {
                 toast.error("აუცილებელია ორივე პარამეტრის შევსება", {
                     theme: 'colored',
                     autoClose: 1000,
                 });
+                send.value = false;
                 return
             }
-            if (m.value.length > 0 && m.value.some((element) => element.language.id === item.language.id)) {
+            if (m.value.length > 0 && m.value.some((element) => element.language.id == data.language.id)) {
                 toast.info("არჩეული ენა უკვე დაამატეთ", {
                     theme: 'colored',
                     autoClose: 1000,
                 });
+                send.value = false;
                 return
             }
 
-            if (m.value.length > 0 && m.value.some((element) => element.level.id === item.level.id)) {
+            if (m.value.length > 0 && m.value.some((element) => data.level.id == 1 && element.level.id == data.level.id)) {
                 toast.error("არ შეიძლება ორი მშობლიური ენის დამატება", {
                     theme: 'colored',
                     autoClose: 1000,
                 });
+                send.value = false;
                 return
             }
-            validateAndSubmit(item)
+
+            validateAndSubmit(data)
+            languageFilter(data.language.id)
+            if (data.level.id == 1) {
+                cla.value.languageLevels = props.data.cla.languageLevels.filter((element) => element.id != 1);
+            }
             model.value.language = '';
             model.value.level = '';
 
@@ -140,15 +189,18 @@ export default {
             })
             .then(function (response) {
                 if (response.data.status == 200) {
+                    send.value = false;
                     m.value = response.data.data;
                     toast.success("ინფორმაცია წარმატებით შეინახა", {
                         theme: 'colored',
                         autoClose: 1000,
                     });
+
                 }
             })
             .catch(function (error) {
                 // handle error
+                send.value = false;
                 console.log(error);
             })
 
@@ -159,21 +211,8 @@ export default {
             emit("validateAndEmit", isFormValid);
         }
 
-
-        return {
-            m,
-            model,
-            cla,
-            validateAndSubmit,
-            add,
-            getLang,
-            validateAndEmit,
-
-        };
-    },
-    methods: {
-        remove(index, id){
-            this.$swal({
+        const remove = (index, id) =>{
+            Swal.fire({
                 title: 'ნამდვილად გსურთ წაშლა?',
                 //   showDenyButton: true,
                 cancelButtonText:'არა',
@@ -182,11 +221,17 @@ export default {
             }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
-                    const removed = this.m.splice(index, 1);
+                    const removed = m.value.splice(index, 1);
+                    if (m.value.length == 0) {
+                        cla.value.languages = props.data.cla.languages;
+                        model.value.level = props.data.cla.languageLevels.find((element) => element.id == 1);
+                    }else{
+                        languageFilter()
+                    }
                     axios({
                         method: "post",
                         url: "/delete_candidate_info",
-                        data: {'id':id, 'type': 'language'},
+                        data: {id: id, type: 'language'},
 
                     })
                     .then(function (response) {
@@ -208,7 +253,23 @@ export default {
             });
 
 
-        },
+        }
+
+
+        return {
+            m,
+            model,
+            cla,
+            validateAndSubmit,
+            add,
+            getLang,
+            validateAndEmit,
+            send,
+            remove
+
+        };
+    },
+    methods: {
     },
 };
 </script>

@@ -10,7 +10,7 @@
 
                 <div class="col-xl-6 col-lg-6 col-md-12">
                     <div class="form-group">
-                        <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_input_name') }}</label>
+                        <label><span class="text-danger">* </span>{{ $t('სახელი და გვარი') }}</label>
                         <div class="ls-inputicon-box">
                             <input
                                 class="form-control"
@@ -36,6 +36,8 @@
                                 v-model="m.number"
                                 type="text"
                                 @blur="v.number.$touch"
+                                onkeypress="return /[0-9]/i.test(event.key)"
+                                maxLength="9"
                             >
                             <i class="fs-input-icon fa fa-phone-alt"></i>
                             <span v-if="!v.number.required.$response" style='color:red'>* </span>
@@ -95,11 +97,11 @@
                                 placeholder="Select one"
                                 :searchable="true"
                                 :allow-empty="false"
-                                @blur="v.gender_id.$touch"
+                                @blur="v.gender.$touch"
                             >
                                 <template slot="singleLabel" slot-scope="{ option }"></template>
                             </multiselect>
-                            <span v-if="!v.gender_id.required.$response" style='color:red'>* </span>
+                            <span v-if="!v.gender.required.$response" style='color:red'>* </span>
                         </div>
                     </div>
                 </div>
@@ -140,7 +142,7 @@ export default {
         name: { required },
         number: { required, numeric, maxLength: maxLength(9) },
         email: { required, email },
-        gender_id: { required },
+        gender: { required },
         date_of_birth: { required },
     };
 
