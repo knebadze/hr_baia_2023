@@ -64,13 +64,13 @@ class VacancyUpdateRepository
         $employer->email = $data['email'];
         $employer->update();
 
-        $findDeposit = VacancyDeposit::where('vacancy_id', $data['id'])->first();
-        $deposit = VacancyDeposit::findOrFail($findDeposit->id);
-        $deposit->candidate_initial_amount = (int)$data['payment'] / 2;
-        $deposit->employer_initial_amount = ((int)$data['payment'] * 10) / 100;
-        $deposit->must_be_enrolled_candidate = (int)$data['payment'] / 2;
-        $deposit->must_be_enrolled_employer = ((int)$data['payment'] * 10) / 100;
-        $deposit->update();
+        // $findDeposit = VacancyDeposit::where('vacancy_id', $data['id'])->first();
+        // $deposit = VacancyDeposit::findOrFail($findDeposit->id);
+        // $deposit->candidate_initial_amount = (int)$data['payment'] / 2;
+        // $deposit->employer_initial_amount = ((int)$data['payment'] * 10) / 100;
+        // $deposit->must_be_enrolled_candidate = (int)$data['payment'] / 2;
+        // $deposit->must_be_enrolled_employer = ((int)$data['payment'] * 10) / 100;
+        // $deposit->update();
 
         $selectForWhoNeedId = collect($data['vacancy_for_who_need'])->reduce(function ($carry, $item) {
             if($carry  == null) $carry = [];

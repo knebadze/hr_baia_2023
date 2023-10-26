@@ -38,7 +38,7 @@
                     <!--Personal Details-->
                     <div class="panel panel-default mb-3">
                         <div class="panel-heading wt-panel-heading p-a20 panel-heading-with-btn ">
-                            <h4 class="panel-tittle m-a0">Personal Details</h4>
+                            <h4 class="panel-tittle m-a0">პირადი ინფორმაცია</h4>
 
                         </div>
                         <div class="panel-body wt-panel-body p-a20 ">

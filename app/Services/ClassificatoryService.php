@@ -43,7 +43,7 @@ class ClassificatoryService
     public function get($arr)
     {
         $classificatory = [
-            'gender' => gender::all()->toArray(),
+            'gender' => gender::get()->toArray(),
             'nationality' => Nationality::all()->toArray(),
             'religions' => Religion::all()->toArray(),
             'educations' => Education::all()->toArray(),
@@ -59,7 +59,7 @@ class ClassificatoryService
             'workExperiences' => Work_experience::all()->toArray(),
             'noExperienceReason' => NoReason::where('category', 1)->get()->toArray(),
             'drivingLicense' => DrivingLicense::all()->toArray(),
-            'numberCode' => numberCode::all()->toArray(),
+            'numberCode' => numberCode::get()->toArray(),
             'characteristic' => GeneralCharacteristic::all()->toArray(),
             'yesNo' => YesNo::all()->toArray(),
             'numberOwner' => NumberOwner::all()->toArray(),

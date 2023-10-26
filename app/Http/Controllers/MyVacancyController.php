@@ -3,19 +3,24 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\QualifyingCandidate;
 use Exception;
+use App\Models\Vacancy;
 use Illuminate\Http\Request;
 use App\Services\VacancyService;
 use Illuminate\Support\Facades\DB;
+use App\Models\QualifyingCandidate;
+use Illuminate\Support\Facades\Auth;
+use App\Services\ClassificatoryService;
 
 class MyVacancyController extends Controller
 {
     private VacancyService $vacancyService;
+    private ClassificatoryService $classificatoryService;
 
-    public function __construct( VacancyService $vacancyService)
+    public function __construct( VacancyService $vacancyService, ClassificatoryService $classificatoryService)
     {
         $this->vacancyService = $vacancyService;
+        $this->classificatoryService = $classificatoryService;
 
     }
     public function index()
@@ -92,5 +97,43 @@ class MyVacancyController extends Controller
                 'error' => $e->getMessage()
             ];
         }
+    }
+
+    function show($lang, $id) {
+        // dd($id);
+        $vacancy = Vacancy::where('code', $id)
+            ->with([
+                'vacancyDuty', 'vacancyBenefit', 'vacancyForWhoNeed', 'characteristic', 'employer', 'currency','category', 'status',
+                'workSchedule', 'interviewPlace','term', 'demand', 'demand.language', 'demand.education', 'demand.languageLevel','demand.specialty',
+                'employer.numberCode', 'hr.user', 'vacancyDrivingLicense'
+            ])
+            ->first()->toArray();
+        //     // dd($vacancy);
+        $auth = Auth::user();
+
+        // $vacancy = Vacancy::where('code', $id)
+        //     ->with([
+        //         'vacancyDuty', 'vacancyBenefit', 'vacancyForWhoNeed', 'characteristic','currency','category', 'status',
+        //         'workSchedule', 'vacancyInterest', 'interviewPlace','term', 'demand.education',
+        //         'employer.numberCode', 'hr.user'
+        //     ])
+        //     ->first();
+        // $employer = $vacancy->employer;
+        // $demand = $vacancy->demand;
+
+        $classificatoryArr = ['category', 'currency', 'workSchedule', 'educations', 'characteristic', 'duty',
+        'languages', 'languageLevels', 'interviewPlace', 'term', 'benefit','forWhoNeed', 'numberCode', 'specialties', 'drivingLicense'];
+        $classificatory = $this->classificatoryService->get($classificatoryArr);
+        $data = [
+            'model' => [
+                // 'employer' => $employer,
+                'vacancy' => $vacancy,
+                // 'demand' => $demand,
+                'role_id' => (Auth::check())?Auth::User()->role_id:3,
+            ],
+            'classificatory' => $classificatory
+        ];
+
+        return view('show_vacancy', ['data' => $data]);
     }
 }

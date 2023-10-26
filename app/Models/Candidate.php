@@ -48,6 +48,9 @@ class Candidate extends Model
         'work_abroad' => 0
     ];
 
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d',
+    ];
     // protected $appends = ['HasRecommendation'];
 
     public function user()

@@ -13,30 +13,30 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">სახელი გვარი</label>
+                            <label for="exampleInputEmail1"><span class="text-danger">* </span>სახელი გვარი</label>
                             <input type="text" class="form-control" id="exampleInputEmail1" v-model="model.name" placeholder="სახელი გვარი">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Email</label>
+                            <label for="exampleInputEmail1"><span class="text-danger">* </span>Email</label>
                             <input type="email" class="form-control" id="exampleInputEmail2" v-model="model.email" placeholder="ემაილი">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">საკუთარი ტელეფონის ნომერი</label>
+                            <label for="exampleInputEmail1"><span class="text-danger">* </span>საკუთარი ტელეფონის ნომერი</label>
                             <input type="text" class="form-control" id="exampleInputEmail3" v-model="model.mobile" placeholder="საკუთარი ტელეფონის ნომერი" minlength="9">
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">დაბადების თარიღი</label>
+                            <label for="exampleInputEmail1"><span class="text-danger">* </span>დაბადების თარიღი</label>
                             <input type="date" class="form-control" v-model="model.date_of_birth" id="exampleInputEmail4">
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6">
-                        <label for="">სქესი</label>
+                        <label for=""><span class="text-danger">* </span>სქესი</label>
                         <div class="form-group d-flex border rounded p-2">
 
                             <div class="form-check mr-2">
@@ -51,7 +51,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">პირადი ნომერი</label>
+                            <label for="exampleInputEmail1"><span class="text-danger">* </span>პირადი ნომერი</label>
                             <input type="text" class="form-control" id="exampleInputEmail7" v-model="model.person_number" placeholder="პირადი ნომერი" minlength="11">
                         </div>
                     </div>
@@ -68,7 +68,7 @@
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label for="exampleInputFile">პაროლი</label>
+                            <label for="exampleInputFile"><span class="text-danger">* </span>პაროლი</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" id="exampleInputPassword1" v-model="model.password" placeholder="Password">
                                 <div class="input-group-append">
@@ -81,7 +81,7 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">კორპორატიული ნომერი</label>
+                            <label for="exampleInputEmail1"><span class="text-danger">* </span>კორპორატიული ნომერი</label>
                             <input type="text" class="form-control" id="exampleInputEmail5" v-model="model.k_mobile" placeholder="კორპორატიული ნომერი" minlength="9">
                         </div>
                     </div>
@@ -93,13 +93,13 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">ბონუსის პროცენტი</label>
+                            <label for="exampleInputEmail1"><span class="text-danger">* </span>ბონუსის პროცენტი</label>
                             <input type="number" class="form-control" id="exampleInputEmail6" v-model="model.bonus_percent" placeholder="ვაკანსისი ბონუსის პროცენტი" step="0.5">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">ფიქსირებული ხელფასი</label>
+                            <label for="exampleInputEmail1"><span class="text-danger">* </span>ფიქსირებული ხელფასი</label>
                             <input type="number" class="form-control" id="exampleInputEmail6" v-model="model.fixed_salary" placeholder="ფიქსირებული ხელფასი">
                         </div>
                     </div>

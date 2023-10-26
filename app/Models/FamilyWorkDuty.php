@@ -13,9 +13,9 @@ class FamilyWorkDuty extends Model
         'family_work_experience_id',
         'duty_id',
     ];
-    
+
     public function duty()
     {
-        return $this->belongsTo(duty::class);
+        return $this->belongsTo(Duty::class);
     }
 }

@@ -11,7 +11,12 @@ use App\Models\VacancyInterest;
 class FindVacancyRepository{
     public function data($code)
     {
-        $data = Employer::where('number', $code)->with(['vacancy', 'vacancy.category', 'vacancy.currency',  'vacancy.workSchedule', 'vacancy.status', 'vacancy.vacancyInterest'])->first();
+        $data = Employer::where('number', $code)
+            ->whereHas('vacancy', function ($query) {
+                return $query->whereNotIn('status_id', [4, 5]);
+            })
+            ->with(['vacancy', 'vacancy.category', 'vacancy.currency',  'vacancy.workSchedule', 'vacancy.status', 'vacancy.vacancyInterest'])
+            ->first();
         // dd($data);
         // $interest = VacancyInterest::where('vacancy_id', $data->id)
         //             ->join('candidates', 'vacancy_interests.user_id', 'candidates.user_id')

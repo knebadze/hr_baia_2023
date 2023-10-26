@@ -23,6 +23,7 @@ class VacancyActionController extends Controller
         $this->vacancyRedactedRepository = $vacancyRedactedRepository;
     }
     public function update(Request $request) {
+        dd($request->all());
         $data = $request->data;
         $result = ['status' => 200];
 
@@ -38,7 +39,7 @@ class VacancyActionController extends Controller
         return response()->json($result, $result['status']);
     }
 
-    
+
 
     public function updateStatus(Request $request){
         $data = $request->data;

@@ -80,6 +80,20 @@
                     </p>
                 </a>
             </li>
+            <li class="nav-item mt-3">
+                <a
+                    href="{{ route('logout') }}"
+                    class="nav-link btn btn-danger text-white"
+                    onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();"
+                >
+                    <i class="nav-icon fa fa-arrow-left"></i>
+                    <p>გასვლა</p>
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
+            </li>
 
           {{-- <li class="nav-item">
             <a href="#" @if(Route::currentRouteName() === 'admin.hr') class="nav-link active" @else class="nav-link" @endif>

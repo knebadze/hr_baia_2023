@@ -51,6 +51,7 @@ const importComponents = async () => {
       vacancyList,
       vacancyDetail,
       myVacancy,
+      showUpdateVacancy,
 //_______________________ADMIN COMPONENT_____________________
       selectionPersonal,
       vacancyPersonal,
@@ -99,6 +100,7 @@ const importComponents = async () => {
       import('./component/employer/vacancy_list.vue'),
       import('./component/employer/vacancy_detail.vue'),
       import('./component/employer/my_vacancy.vue'),
+      import('./component/employer/show_update_vacancy.vue'),
 
       import('./component/hr/page/selection_personal.vue'),
       import('./component/admin/vacancy/page/vacancy_personal.vue'),
@@ -142,16 +144,17 @@ const importComponents = async () => {
     //candidate
     app.component('candidate-profile', candidateProfile.default)
     app.component('candidate-work-information', candidateWorkInformation.default)
-    app.component('resume-vue', resume.default)
-    app.component('candidate-list', candidateList.default)
-    app.component('candidate-detail', candidateDetail.default)
+    app.component('resume-vue', resume.default);
+    app.component('candidate-list', candidateList.default);
+    app.component('candidate-detail', candidateDetail.default);
 
     //employer
-    app.component('employer-profile', employerProfile.default)
-    app.component('post-vacancy', postVacancy.default)
-    app.component('vacancy-list', vacancyList.default)
-    app.component('vacancy-detail', vacancyDetail.default)
-    app.component('my-vacancy', myVacancy.default)
+    app.component('employer-profile', employerProfile.default);
+    app.component('post-vacancy', postVacancy.default);
+    app.component('vacancy-list', vacancyList.default);
+    app.component('vacancy-detail', vacancyDetail.default);
+    app.component('my-vacancy', myVacancy.default);
+    app.component('show-update-vacancy', showUpdateVacancy.default);
 
     // HR
 

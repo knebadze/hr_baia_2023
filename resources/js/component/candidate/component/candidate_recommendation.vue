@@ -290,13 +290,21 @@ export default {
                 send.value = false
             }
         }
+
+        const clearModel = () =>{
+            model.value.name = '';
+            model.value.position = '';
+            model.value.number = '';
+            model.value.recommendation_whom = '';
+        }
         const validateAndSubmit = (formData) => {
 
             axios.post('/add_candidate_recommendation', formData)
             .then(function (response) {
                 if (response.data.status == 200) {
-                    m.value.push(response.data.data)
-                    send.value = false
+                    m.value.push(response.data.data);
+                    send.value = false;
+                    clearModel();
                     toast.success("ინფორმაცია წარმატებით შეინახა", {
                         theme: 'colored',
                         autoClose: 1000,

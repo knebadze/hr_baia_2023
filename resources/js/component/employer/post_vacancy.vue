@@ -783,7 +783,7 @@ export default {
             // if (file.value) {
             //     sendFormData.append('file', file.value);
             // }
-            loader.value = true
+            // loader.value = true
             data.employer[`name_${getLang.value}`] = data.employer.name
             data.employer[`address_${getLang.value}`] = data.employer.address
             data.employer[`street_${getLang.value}`] = data.employer.street
@@ -886,7 +886,6 @@ export default {
 
         return {
             m,
-            // model,
             cla,
             v,
             validateAndSubmit,

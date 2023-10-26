@@ -57,25 +57,25 @@
                                     <tbody>
                                         <!--1-->
                                         <tr v-for="(item, index) in vacancy" :key="index">
-                                            <td>
+                                            <td>{{ item.category[`name_${getLang}`] }}</td>
+                                            <!-- <td>
                                                 <div class="twm-bookmark-list">
 
                                                     <div class="twm-mid-content">
                                                         <a class="twm-job-title">
                                                             <h4>{{ item[`title_${getLang}`] }}</h4>
-                                                            <!-- <p class="twm-bookmark-address">
-                                                                <i class="feather-map-pin"></i>Sacramento, California
-                                                            </p> -->
                                                         </a>
 
                                                     </div>
 
                                                 </div>
-                                            </td>
-                                            <td>{{ item.category[`name_${getLang}`] }}</td>
+                                            </td> -->
+
                                             <td>
                                                 <span class="text-clr-green2">{{ item.work_schedule[`name_${getLang}`] }}</span>
                                             </td>
+                                            <td>{{ `${item.payment} ${item.currency.icon}` }}</td>
+                                            <td><div class="twm-jobs-category"><span class="twm-bg-green">{{ item.status[`name_${getLang}`] }}</span></div></td>
                                             <td class="d-flex justify-content-between">
                                                 <a href="javascript:;" class="site-text-primary">{{  item.vacancy_interest.length }}</a>
                                                 <button v-if="item.vacancy_interest.length > 0" class="btn btn-info btn-sm" @click="showInterest(item.id)">
@@ -83,15 +83,15 @@
                                                 </button>
                                             </td>
 
-                                            <td><div class="twm-jobs-category"><span class="twm-bg-green">{{ item.status[`name_${getLang}`] }}</span></div></td>
+                                            <!-- <td><div class="twm-jobs-category"><span class="twm-bg-green">{{ item.status[`name_${getLang}`] }}</span></div></td> -->
 
                                             <td>
                                                 <div class="twm-table-controls">
                                                     <ul class="twm-DT-controls-icon list-unstyled">
                                                         <li>
-                                                            <button title="View profile" type="button" data-bs-toggle="tooltip" data-bs-placement="top">
+                                                            <a :href="`/${getLang}/show_vacancy/${item.code}`">
                                                                 <span class="fa fa-eye"></span>
-                                                            </button>
+                                                            </a>
                                                         </li>
 
                                                         <li>
@@ -109,51 +109,7 @@
                                 </table>
                             </div>
                         </div>
-
-                        <!-- <div class="twm-candidates-grid-wrap" >
-                            <div class="panel-heading wt-panel-heading p-a20">
-                                <h4 class="panel-tittle m-a0"><i class="fa fa-user"></i>დაინტერესებული კანდიდატები</h4>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-4 col-md-6 " style="margin-top:50px;" v-for="(item, index) in interest" :key="index">
-                                    <div class="twm-candidates-grid-style1 mb-5" style="background-color: #fdfff5;">
-                                        <div class="twm-media" >
-                                            <div class="twm-media-pic">
-                                            <img :src="'/images/user-avatar/'+item.avatar" alt="#">
-                                            </div>
-                                        </div>
-                                        <div class="twm-mid-content" >
-                                            <a href="#" class="twm-job-title">
-                                                <h4>{{ item[`fullName_${getLang}`] }} </h4>
-                                            </a>
-                                            <p><span>{{ item[`name_${getLang}`] }}</span></p>
-                                            <a href="javascript:;"  @click="gotoDetail(item.candidate_id)" class="twm-view-prifile site-text-primary">{{ $t('lang.company_vacancies_page_middle_leftside_read_more') }}</a>
-
-                                            <div class="twm-fot-content">
-                                                <div class="twm-left-info">
-                                                <p class="twm-candidate-address"><i class="feather-map-pin"></i>{{ item[`address_${getLang}`] }}</p>
-                                                <i class="fa fa-clock"> 11:23</i>
-                                                </div>
-
-                                                <div class="twm-left-info mt-3" v-if="item.employer_answer == null">
-                                                    <button type="button" class="btn btn-danger" @click="doNotLike(item.id)"> <i class="fa fa-thumbs-down"></i> არ მომწონს</button>
-                                                    <button type="button" class="btn btn-success" @click="like(item.id)"> <i class="fa fa-thumbs-up"></i> მომწონს</button>
-
-                                                </div>
-                                                <div class="twm-left-info mt-3" v-if="item.employer_answer == 0">
-                                                    <span><i class="text-danger fa fa-thumbs-down" style="font-size:25px"></i></span>
-                                                </div>
-                                                <div class="twm-left-info mt-3" v-if="item.employer_answer == 1">
-                                                    <span><i class="text-success fa fa-thumbs-up" style="font-size:25px"></i></span>
-                                                    <button type="button" class="btn btn-info" @click="like()"> <i class="fa fa-eye"></i> გასაუბრება</button>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
+                            <!-- <show_update_vacancy></show_update_vacancy> -->
                     </div>
                 </div>
             </div>
@@ -163,9 +119,11 @@
 </template>
 <script>
 import interest_modal from './modal/interest_modal.vue'
+import show_update_vacancy from './show_update_vacancy.vue'
 export default {
     components:{
         interest_modal,
+        show_update_vacancy
     },
     props:{
         // data: Object
@@ -197,6 +155,7 @@ export default {
 
                 })
                 .then(function (response) {
+                    console.log('response.data',response.data);
                     currentObj.vacancy = response.data.data.vacancy
                     // currentObj.interest = response.data.interest
 

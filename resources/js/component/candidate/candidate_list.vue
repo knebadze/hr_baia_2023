@@ -329,10 +329,10 @@ export default {
                 'last_page': this.data.candidate.last_page
             };
             this.candidate = this.data.candidate.data;
-            for (let i = 0; i < this.candidate.length; i++) {
-                // Access the element to update in each object
-                this.candidate[i].created_at = moment(this.candidate[i].created_at).format("YYYY-MM-DD");
-            }
+            // for (let i = 0; i < this.candidate.length; i++) {
+            //     // Access the element to update in each object
+            //     this.candidate[i].created_at = moment(this.candidate[i].created_at).format("YYYY-MM-DD");
+            // }
 
             this.staticItems = this.data.candidate.data;
             this.auth = this.data.auth;
