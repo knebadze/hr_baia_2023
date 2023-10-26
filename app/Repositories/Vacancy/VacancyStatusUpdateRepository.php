@@ -104,7 +104,7 @@ class VacancyStatusUpdateRepository
     }
 
     function addDeposit($vacancy_id){
-        if (Vacancy::where('id', $vacancy_id)->doesntExist()) {
+        if (!VacancyDeposit::where('vacancy_id', $vacancy_id)->exists()) {
             $vacancy = Vacancy::where('id', $vacancy_id)->select('id', 'payment')->first();
             $deposit = new VacancyDeposit();
             $deposit->vacancy_id = $vacancy->id;
@@ -114,7 +114,6 @@ class VacancyStatusUpdateRepository
             $deposit->candidate_initial_amount =(int)$vacancy->payment / 2;
             $deposit->save();
         }
-
     }
 
     function dailyWorkEvent($hr_id) {
