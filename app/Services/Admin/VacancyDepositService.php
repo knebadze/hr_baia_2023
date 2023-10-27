@@ -16,12 +16,14 @@ class VacancyDepositService
     }
 
     public function save($data) {
-        $result = $this->vacancyDepositRepository->save($data['model']);
+        // dd($data);
+        $result = $this->vacancyDepositRepository->save($data['model'], $data['type']);
         return $result;
     }
     public function update($data) {
-        $update = $this->vacancyDepositRepository->update($data['model']);
-        $history = $this->vacancyRedactedRepository->save($data['model']['id'], $data['edit']);
+        $update = $this->vacancyDepositRepository->update($data['model'], $data['type']);
+
+        $history = $this->vacancyRedactedRepository->save($data['model']['vacancy_id'], $data['edit']);
         $result = [$update, $history];
         return $result;
     }

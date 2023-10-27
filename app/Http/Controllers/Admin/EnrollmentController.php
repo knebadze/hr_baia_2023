@@ -34,6 +34,7 @@ class EnrollmentController extends Controller
         $result = ['status' => 200];
 
         try {
+            // dd($data);
             $result['data'] = $this->enrollmentService->save('vacancy',$data);
         } catch (Exception $e) {
             $result = [

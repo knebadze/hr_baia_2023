@@ -14,6 +14,31 @@
               <div class="card-body">
                 <div class="tab-content">
                   <div class="tab-pane active" id="tab_1">
+                    <deposit_tab
+                        :item="candidateModel"
+                        :author="depositAuthor"
+                        :Enrollment ="candidateEnrollment"
+                        :status="data.status"
+                        :type="'candidate'"
+                        @redacted="handleRedacted"
+                        @save="handleSave"
+                        @send="handelSend"
+                    ></deposit_tab>
+                  </div>
+                  <div class="tab-pane" id="tab_2">
+                    <deposit_tab
+                        :item="employerModel"
+                        :author="depositAuthor"
+                        :Enrollment ="employerEnrollment"
+                        :status="data.status"
+                        :type="'employer'"
+                        @redacted="handleRedacted"
+                        @save="handleSave"
+                        @send="handelSend"
+                    ></deposit_tab>
+                  </div>
+                  <div class="tab-pane" id="tab_3">
+                    <component v-if="data.register"  :is="registerEnrollmentComponent" :item="componentItem" ></component>
                   </div>
                 </div>
               </div>
@@ -23,16 +48,199 @@
 </template>
 <script>
 import { ref, computed, } from 'vue';
+import Swal from 'sweetalert2';
+import deposit_tab from '../component/deposit_tab.vue';
 export default {
+    emits: ['redacted', 'save'],
+    components:{
+        deposit_tab
+    },
     props:{
         data: Object
     },
     setup(props) {
-        const m = ref({...props.data.deposit})
-        console.log(m.value);
+        const model = ref({...props.data.deposit})
+        const depositAuthor = ref(props.data.employer);
+        const registerEnrollmentComponent = ref(null);
+        const componentItem = ref(null);
+        console.log(props.data);
+        const registerEnrollment =  async () =>{
+            if (!registerEnrollmentComponent.value) {
+
+                let module = await import('../component/registration_enrollment.vue');
+                registerEnrollmentComponent.value = markRaw(module.default);
+            }
+
+            componentItem.value = props.data.register
+            componentItem.value.name = depositAuthor.value
+        }
+        props.data.register?registerEnrollment():null
+        const candidateModel = computed(() => {
+            const { id, vacancy_id, candidate_initial_amount, must_be_enrolled_candidate, must_be_enrolled_candidate_date } = model.value;
+            return {
+                id,
+                vacancy_id,
+                initial_amount: candidate_initial_amount,
+                must_be_enrolled: must_be_enrolled_candidate,
+                must_be_enrolled_date: must_be_enrolled_candidate_date
+            }
+        });
+        const employerModel = computed(() => {
+            const { id, vacancy_id, employer_initial_amount, must_be_enrolled_employer, must_be_enrolled_employer_date } = model.value;
+            return {
+                id,
+                vacancy_id,
+                initial_amount: employer_initial_amount,
+                must_be_enrolled: must_be_enrolled_employer,
+                must_be_enrolled_date: must_be_enrolled_employer_date
+            }
+        });
+        const candidateEnrollment = computed(() => {
+            let find = null;
+            if (props.data.enrollment) {
+                find = _.find(props.data.enrollment, function(o) { return o.who_is_counting == 1; });
+            }
+            return find;
+        })
+
+        const employerEnrollment = computed(() => {
+            let find = null;
+            if (props.data.enrollment) {
+                find = _.find(props.data.enrollment, function(o) { return o.who_is_counting == 2; });
+            }
+            return find;
+        })
+
+        const forItem = (item) =>{
+            var editedFields = {}
+            for (const field in item) {
+                if ( item[field] !== candidateModel.value[field] ) {
+                        editedFields[field] = candidateModel.value[field]
+                }
+            }
+            return editedFields
+        }
+        const handleRedacted = (updatedModel, type) => {
+            let editedFields = forItem(updatedModel)
+            Swal.fire({
+                title: 'ნამდვილად გსურთ რედაქტირება?',
+                //   showDenyButton: true,
+                cancelButtonText:'არა',
+                confirmButtonText: 'კი',
+                showCancelButton: true,
+            }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    // return
+                    axios.post('/update_vacancy_deposit' ,{
+                        data: {model: updatedModel, edit: editedFields, type: type},
+                    })
+                    .then(function (response) {
+                        // handle success
+                        if (response.status == 200) {
+                            toast.success("წარმატებით დარედაქტირდა", {
+                                theme: 'colored',
+                                autoClose: 1000,
+                            });
+                            setTimeout(() => {
+                                document.location.reload();
+                            }, 2000);
+                        }
+
+
+
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+                    // this.hide()
+
+                } else if (result.isDenied) {
+                    return
+                }
+            });
+
+        };
+
+        const handleSave = (updatedModel, type) => {
+            let editedFields = forItem(updatedModel)
+            Swal.fire({
+                title: 'ნამდვილად გსურთ ვაკანსიის ჩარიცხვის შენახვა?',
+                //   showDenyButton: true,
+                cancelButtonText:'არა',
+                confirmButtonText: 'კი',
+                showCancelButton: true,
+            }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    axios.post('/save_vacancy_deposit' ,{
+                        data: {model: updatedModel, edit: editedFields, type: type},
+                    })
+                    .then(function (response) {
+                        // handle success
+                        if (response.status == 200) {
+                            toast.success("წარმატებით შეინახა", {
+                                theme: 'colored',
+                                autoClose: 1000,
+                            });
+                            setTimeout(() => {
+                                document.location.reload();
+                            }, 2000);
+                        }
+
+
+
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+                    // this.hide()
+
+                } else if (result.isDenied) {
+                    return
+                }
+            });
+        };
+        const handelSend = (formData) =>{
+            // console.log('formData',formData);
+            // return
+            axios.post('/vacancy_enrollment', formData)
+            .then(function (response) {
+                if (response.status == 200) {
+                    toast.success("წარმატებით ჩაირიცხა", {
+                        theme: 'colored',
+                        autoClose: 1000,
+                    });
+                    setTimeout(() => {
+                        document.location.reload();
+                    }, 2000);
+                }
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+        };
+
+
 
         return {
-            m,
+            model,
+            candidateModel,
+            candidateEnrollment,
+            depositAuthor,
+            handleRedacted,
+            handleSave,
+            handelSend,
+
+
+            employerModel,
+            employerEnrollment,
+
+            registerEnrollmentComponent,
+            componentItem,
         }
     }
 
