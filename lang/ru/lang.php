@@ -464,6 +464,8 @@ return [
     'user_page_candidate_second_title' => 'Работодатель',
     'user_page_candidate_third_title' => 'Компания-работодатель',
     'user_page_candidate_fourth_title' => 'Неизвестный',
+    'user_page_candidate_active_vacancy' => 'Активные вакансии',
+    'user_page_candidate_resume_views' => 'Количество просмотров резюме',
     // leftside
     'user_page_candidate_left_side_bar_photo_upload' => 'Загрузить фото',
     'user_page_candidate_left_side_bar_dashboard' => 'Панель управления',

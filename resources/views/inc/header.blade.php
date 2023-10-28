@@ -30,7 +30,7 @@
                         <li @if(Route::currentRouteName() === 'job' || Route::currentRouteName() === 'my.vacancy' || Route::currentRouteName() === 'onmap') class="activeClass" @else class="" @endif class="has-child"><a href="javascript:;">{{ __('lang.menu_vacancies') }}</a>
                             <ul class="sub-menu">
                                 <li><a href="{{ route('job' , App()->getLocale())  }}">{{ __('lang.menu_individual_vacancies') }}</a></li>
-                                <li><a href="{{ route('onmap' , App()->getLocale())  }}">{{ __('lang.menu_vacancies_onmap') }}</a></li>
+                                {{-- <li><a href="{{ route('onmap' , App()->getLocale())  }}">{{ __('lang.menu_vacancies_onmap') }}</a></li> --}}
                                 <li><a href="{{ route('my.vacancy' , App()->getLocale())  }}">{{ __('lang.menu_your_vacancies') }}</a></li>
                             </ul>
                         </li>

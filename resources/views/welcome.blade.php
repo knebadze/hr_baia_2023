@@ -81,6 +81,7 @@
                     </div>
 
                     <div class="twm-bnr-right-carousel">
+                        
                         <div class="owl-carousel twm-h1-bnr-carousal">
                             <div class="item">
                               <div class="slide-img">
@@ -89,9 +90,9 @@
                             </div>
                             <div class="item">
                               <div class="slide-img">
-                                <div class="slide-img">
+                                {{-- <div class="slide-img"> --}}
                                     <img src="images/main-slider/slider1/r-img2.png" alt="#">
-                                  </div>
+                                {{-- </div> --}}
                               </div>
                             </div>
                         </div>

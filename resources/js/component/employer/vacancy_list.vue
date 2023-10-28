@@ -157,6 +157,12 @@
 
                             </form>
 
+                        <div class="twm-advertisment" style="background-image:url(/images/add-bg.jpg);">
+                           <div class="overlay"></div>
+                           <p>{{ $t('lang.candidate_page_leftside_box_title') }} </p>
+                            <a href="about-1.html" class="site-button white">{{ $t('lang.candidate_page_leftside_box_read_more') }}</a>
+                        </div>
+
                         </div>
 
                         <!-- <div class="widget tw-sidebar-tags-wrap">

@@ -464,6 +464,8 @@ return [
     'user_page_candidate_second_title' => 'Employer',
     'user_page_candidate_third_title' => 'Employer Company',
     'user_page_candidate_fourth_title' => 'Unknow',
+    'user_page_candidate_active_vacancy' => 'Active vacancies',
+    'user_page_candidate_resume_views' => 'Number of resume views',
     // leftside
     'user_page_candidate_left_side_bar_photo_upload' => 'Upload Photo',
     'user_page_candidate_left_side_bar_dashboard' => 'Dashboard',

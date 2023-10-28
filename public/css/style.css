@@ -2161,7 +2161,11 @@ ol li {
 .site-button i {
   padding-right: 10px;
 }
+
 @media (max-width: 480px) {
+  .slide-img {
+    display: none;
+  }
   .site-button {
     padding: 8px 8px;
     font-size: 14px;

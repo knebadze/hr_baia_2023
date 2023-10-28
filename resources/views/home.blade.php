@@ -45,7 +45,7 @@
                     <!--Filter Short By-->
                     <div class="twm-right-section-panel site-bg-gray">
                         <div class="wt-admin-right-page-header">
-                            <h2>{{ Auth::user()->name_ka }}</h2>
+                            <h2>{{ Auth::user()->name_ka }} <p style="color: red">სხვა ენები ბაზიდან არ მოაქვს</p></h2>
                             {{-- <p>IT Contractor</p> --}}
                         </div>
                         @if (Auth::user()->candidate)
@@ -59,7 +59,7 @@
                                                 <div class="wt-card-icon-2"><i class="flaticon-job"></i></div>
                                                 <div class="wt-card-right wt-total-active-listing counter ">{{ $vacancyCount }}</div>
                                                 <div class="wt-card-bottom-2 ">
-                                                    <h4 class="m-b0">აქტიური ვაკანსიები</h4>
+                                                    <h4 class="m-b0">{{ __('lang.user_page_candidate_active_vacancy') }}</h4>
                                                 </div>
                                             </div>
                                         </div>
@@ -72,7 +72,7 @@
                                                 <div class="wt-card-icon-2"><i class="flaticon-resume"></i></div>
                                                 <div class="wt-card-right  wt-total-listing-view counter ">{{ $view }}</div>
                                                 <div class="wt-card-bottom-2">
-                                                    <h4 class="m-b0">რეზიუმეს ნახვების რაოდენობა</h4>
+                                                    <h4 class="m-b0">{{ __('lang.user_page_candidate_resume_views') }}</h4>
                                                 </div>
                                             </div>
                                         </div>

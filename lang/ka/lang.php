@@ -466,6 +466,8 @@ return [
     'user_page_candidate_second_title' => 'დამსაქმებლი',
     'user_page_candidate_third_title' => 'დამსაქმებელი კომპანია',
     'user_page_candidate_fourth_title' => 'უცნობი',
+    'user_page_candidate_active_vacancy' => 'აქტიური ვაკანსიები',
+    'user_page_candidate_resume_views' => 'რეზიუმეს ნახვების რაოდენობა',
     // leftside
     'user_page_candidate_left_side_bar_photo_upload' => 'ფოტოს ატვირთვა',
     'user_page_candidate_left_side_bar_dashboard' => 'სამართავი პანელი',
