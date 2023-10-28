@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('vacancy_deposits', function (Blueprint $table) {
             $table->id();
             $table->foreignId('vacancy_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->integer('candidate_initial_amount')->default(0);
-            $table->integer('employer_initial_amount')->default(0);
-            $table->integer('must_be_enrolled_employer')->default(0);
+            $table->integer('candidate_initial_amount')->nullable();
+            $table->integer('employer_initial_amount')->nullable();
+            $table->integer('must_be_enrolled_employer')->nullable();
             $table->date('must_be_enrolled_employer_date')->nullable();
-            $table->integer('must_be_enrolled_candidate')->default(0);
+            $table->integer('must_be_enrolled_candidate')->nullable();
             $table->date('must_be_enrolled_candidate_date')->nullable();
             // $table->integer('enrolled_employer')->default(0);
             // $table->dateTime('enrolled_employer_date')->nullable();

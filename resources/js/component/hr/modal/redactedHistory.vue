@@ -170,7 +170,7 @@
                         'column_name': this.key(value.column_name),
                         'old_value': (typeof JSON.parse(value.old_value) === 'object')?this.oldValue(JSON.parse(value.old_value)):JSON.parse(value.old_value),
                         'created_at': moment(value.created_at).format("YYYY-MM-DD HH:mm"),
-                        'hr': value.hr.user.name_ka
+                        'hr': value.name
                     }
                     arr.push(data)
                 });

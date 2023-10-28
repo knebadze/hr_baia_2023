@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Services\CandidateModelService;
 use Illuminate\Support\Facades\Auth;
 use App\Services\ClassificatoryService;
 use App\Services\ModelService;
@@ -13,10 +14,12 @@ class UserProfileController extends Controller
 
     private ClassificatoryService $classificatoryService;
     private ModelService $modelService;
-    public function __construct(ClassificatoryService $classificatoryService, ModelService $modelService)
+    private CandidateModelService $candidateModelService;
+    public function __construct(ClassificatoryService $classificatoryService, ModelService $modelService, CandidateModelService $candidateModelService)
     {
         $this->classificatoryService = $classificatoryService;
         $this->modelService = $modelService;
+        $this->candidateModelService = $candidateModelService;
     }
 
     public function index()
@@ -34,7 +37,7 @@ class UserProfileController extends Controller
         'numberCode', 'characteristic', 'numberOwner', 'yesNo', 'category', 'workSchedule','currency', 'recommendationFromWhom', 'noRecommendationReason',
         'duty', ];
         $classificatory = $this->classificatoryService->get($candidateClassificatoryArr);
-        $model = $this->modelService->getFullData();
+        $model = $this->candidateModelService->findData();
 
         $data = [
             'basic' => [

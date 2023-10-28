@@ -62,8 +62,12 @@ class GetVacancyInfoController extends Controller
 
     function vacancyRedactedHistory(Request $request) {
         $data = VacancyRedactedHistory::orderBy('created_at', 'DESC')
-                ->where('vacancy_id', $request->data)->with('hr.user')
-                ->get();
+                ->where('vacancy_id', $request->data)
+                ->leftJoin('users', 'users.id', 'vacancy_redacted_histories.user_id')
+                // ->with('user')
+                ->select('vacancy_redacted_histories.*', 'users.name_ka as name')
+                ->get()->toArray();
+        // dd($data);
         return response()->json($data);
     }
 

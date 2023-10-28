@@ -47,6 +47,7 @@
     </div>
 </template>
 <script>
+import { markRaw } from 'vue';
 import { ref, computed, } from 'vue';
 import Swal from 'sweetalert2';
 import deposit_tab from '../component/deposit_tab.vue';

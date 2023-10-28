@@ -46,6 +46,7 @@ return new class extends Migration
             $table->foreignId('status_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->integer('registration_fee')->default(0);
             $table->integer('view')->default(0);
+            $table->integer('stage')->default(1);
             $table->timestamps();
         });
     }
