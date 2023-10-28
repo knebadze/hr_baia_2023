@@ -1,27 +1,90 @@
 @extends('layouts.appPage')
 @section('title-block')
-Terms & Conditions
+{{ __('lang.footer_nav_terms') }}
 @endsection
 @section('content')
 <div class="page-content">
 
-<div class="wt-bnr-inr overlay-wraper bg-center" style="padding-top: 10%">
-    <div class="overlay-main site-bg-white opacity-01"></div>
-    <div class="container">
-        <div class="wt-bnr-inr-entry aboutUsText">
-            <div class="banner-title-outer">
-                <div class="banner-title-name">
-                    <h2 class="wt-title">Terms & Conditions</h2>
-                </div>
-            </div>
-            <!-- BREADCRUMB ROW -->
+<div class="wt-bnr-inr overlay-wraper bg-center">
+    <div class="wt-bnr-inr overlay-wraper bg-center" style="background-image:url(/images/banner/1.jpg);">
+        <div class="overlay-main site-bg-white opacity-01"></div>
+        <div class="container">
+            <div class="wt-bnr-inr-entry">
+                <!-- BREADCRUMB ROW -->
 
                 <div>
                     <ul class="wt-breadcrumb breadcrumb-style-2">
                         <li><a href="{{ url ('/') }}">{{ __('lang.about_us_page_title_link') }}</a>/ </li>
-                        <li>Terms & Conditions</li>
+                        <li>{{ __('lang.footer_nav_terms') }}</li>
                     </ul>
                 </div>
+
+
+                <!-- BREADCRUMB ROW END -->
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="container">
+        <div class="wt-bnr-inr-entry aboutUsText">
+
+                <div class="termsDescr">
+                    <p style="color: red;">აღწერის ტექსტი ძველი საიტიდან</p>
+                </div>
+
+                <div class="conditionTitleDescr">
+                    <h4><span>ძიძა (კვალიფიკაციის აღწერა, კანდიდატთა ფოტოები)</span></h4>
+                </div>
+
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">მოსმახურება</th>
+                        <th scope="col">კვალიფიკაცია</th>
+                        <th scope="col">ფუნქცია მოვალეობები</th>
+                        <th scope="col">ანაზრაურება</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>ძიძა 0-1 წლამდე ჩვილი ბავშვისთვის
+                            
+                        </td>
+                        <td>სამდეიცინო განათლებით,<br>
+                            ჩვილ ბავშვთან მუშაობის გამოცდილებით,<br>
+                            რეკომენდაცია წინა სამუშაო ადგილიდან
+                        </td>
+                        <td>ბავშვის მოვლა, ასევე, მისი ოთახის დალკაგება, <br>
+                            ბავშვის ტანსაცმლის გარეცხვა, დაუთოება, <br>
+                            საკვების მომზადება და კვება(მასაჟი)</td>
+                        <td>თვეში 700-100 ლარი</td>
+                      </tr>
+
+                      <tr>
+                        <td>ძიძის გამოძახებით</td>
+                        <td>ბავშვთან მუშაობის გამოცდილებით, <br>
+                            რეკომენდაცია წინა სამუშაო ადგილიდან
+                        </td>
+                        <td>მშობლების სახლში არყოფნისას ბავშვის მოვლა და კვება</td>
+                        <td>1 საათში 10 ლარიდან</td>
+                      </tr>
+
+                      <tr>
+                        <td>ღამის ძიძა</td>
+                        <td>ბავშვთან მუშაობის გამოცდილებით, <br>
+                            რეკომენდაცია წინა სამუშაო ადგილიდან
+                        </td>
+                        <td>მშობლების სახლში არყოფნისას ბავშვის მოვლა და კვება</td>
+                        <td>ღამეში 30-35 ლარიდან</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                <div class="conditionTitleDescr">
+                    <h4><span>გუვერნანტი (კვალიფიკაციის აღწერა, კანდიდატთა ფოტოები)</span></h4>
+                </div>
+
                 <h4>For Candidates</h4>
                 <h4 class="terms" style="padding-top: 5%;">
                     GEO<br>

@@ -14,6 +14,36 @@ body {
     font-family: mtavruli !important;
 }
 
+/* Terms End Conditions */
+.termsDescr {
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
+
+.conditionTitleDescr h4 {
+  text-align: center !important;
+  padding-bottom: 5%;
+}
+
+.conditionTitleDescr h4 span {
+  color: rgb(2,117,216,0.9);
+}
+
+/* FAQ Page */
+.faqDescr {
+  padding: 3%;
+}
+
+.faqDescr h4 span {
+  color: rgb(2,117,216,0.9);
+  border-bottom: 1px solid rgb(229, 228, 226);
+}
+
+.faqFullPage {
+  background: linear-gradient(45deg, white, rgb(2,117,216,0.2));
+  padding-top: 0 !important;
+}
+
 .employerPageBorder {
   border: 1px solid rgb(128, 128, 128, 0.2);
   border-radius: 10px;

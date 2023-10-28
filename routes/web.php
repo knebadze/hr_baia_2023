@@ -11,6 +11,7 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\TermsController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\VacancyController;
+use App\Http\Controllers\FaqController;
 
 
 use App\Http\Controllers\Admin\PdfController;
@@ -92,6 +93,9 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
         //Job Detail
         Route::get('/job_detail/{id?}/{slug?}', [VacancyController::class, 'show'])->name('job.detail');
 
+        // Faq Page
+        Route::get('/faq', [FaqController::class, 'index'])->name('faq');
+
         //user vacancy
         // Route::get('/user/vacancy', [VacancyController::class, 'index'])->name('user.vacancy');
 
@@ -102,6 +106,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
 
 
         Route::get('/home', [HomeController::class, 'index'])->name('home');
+
         //______________________ADMIN PAGE_____________________________
         Route::get('/admin', [AdminController::class, 'index'])->name('admin');
         Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
