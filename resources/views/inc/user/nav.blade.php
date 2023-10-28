@@ -1,6 +1,6 @@
 <div class="twm-mid-content text-center">
     <a href="candidate-detail.html" class="twm-job-title">
-        <h4>{{ Auth::user()->name_ka }} </h4>
+        <h4>{{ Auth::user()->name_ka }} <p style="color: red">სხვა ენები ბაზიდან არ მოაქვს</p></h4>
     </a>
     {{-- <p>IT Contractor</p> --}}
 </div>

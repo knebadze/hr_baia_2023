@@ -103,7 +103,7 @@
                                              <option>₾2000</option>
                                              <option>₾2500</option>
                                          </select>
-                                         <i class="fs-input-icon fa fa-dollar-sign"></i>
+                                         {{-- <i class="fs-input-icon fa fa-dollar-sign"></i> --}}
                                      </div>
                                  </div>
                              </div>
