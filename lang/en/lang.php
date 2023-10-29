@@ -448,7 +448,7 @@ return [
     // Footer Nav
     'footer_nav_faq' => 'FAQ',
         'footer_nav_large' => 'Frequently Asked Questions',
-    'footer_nav_terms' => 'Terms & Conditions',
+    'prices' => 'Prices',
     
     // ====================================================================================================
     // Admin Panel Page

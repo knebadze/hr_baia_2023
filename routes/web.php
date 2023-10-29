@@ -8,7 +8,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\AboutController;
-use App\Http\Controllers\TermsController;
+use App\Http\Controllers\PricesController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\VacancyController;
 use App\Http\Controllers\FaqController;
@@ -55,7 +55,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
        function()
     {
 
-        Route::get('/terms_end_conditions', [TermsController::class, 'index'])->name('terms_end_conditions');
+        Route::get('/prices', [PricesController::class, 'index'])->name('prices');
 
         Route::get('/', [MainController::class, 'index'])->name('welcome');
 

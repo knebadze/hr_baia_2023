@@ -14,18 +14,27 @@ body {
     font-family: mtavruli !important;
 }
 
-/* Terms End Conditions */
-.termsDescr {
+/* Prices Page */
+
+.termsPrices h4 {
   padding-top: 5%;
+  font-weight: bold;
+}
+
+.textPriceTermsDescription {
+  text-align: left;
+}
+
+.termsPrices .table {
+  font-size: 11px;
+}
+
+.pricesTitleDescr h4 {
+  text-align: center;
   padding-bottom: 5%;
 }
 
-.conditionTitleDescr h4 {
-  text-align: center !important;
-  padding-bottom: 5%;
-}
-
-.conditionTitleDescr h4 span {
+.pricesTitleDescr h4 span {
   color: rgb(2,117,216,0.9);
 }
 

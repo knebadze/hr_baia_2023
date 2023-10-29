@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class TermsController extends Controller
+class PricesController extends Controller
 {
 
     public function index()
     {
-        return view ('terms_end_conditions');
+        return view ('prices');
     }
 
 

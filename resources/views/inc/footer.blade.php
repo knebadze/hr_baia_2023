@@ -56,7 +56,7 @@
                                     {{-- <li><a href="{{ route('blog' , App()->getLocale())  }}">{{ __('lang.menu_blog') }}</a></li> --}}
                                     <li><a href="{{ route('contact' , App()->getLocale())  }}">{{ __('lang.menu_contact') }}</a></li>
                                     <li><a href="{{ route('faq' , App()->getLocale())  }}">{{ __('lang.footer_nav_faq') }}</a></li>
-                                    <li><a href="{{ route('terms_end_conditions' , App()->getLocale())  }}">{{ __('lang.footer_nav_terms') }}</a></li>
+                                    <li><a href="{{ route('prices' , App()->getLocale())  }}">{{ __('lang.prices') }}</a></li>
                                 </ul>
                             </div>
                         </div>
