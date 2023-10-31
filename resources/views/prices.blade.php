@@ -28,10 +28,10 @@
     {{-- MODAL SECTION --}}
     <div class="container mt-3">
       
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal" style="float: left;">
         პირობები კანდიდატს
       </button>
-      <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal2" style="margin-left: 20px">
+      <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal2" style="float: right;">
         პირობები დამქირავებელს
       </button>
     </div>
