@@ -25,10 +25,87 @@
         </div>
     </div>
 
+    {{-- MODAL SECTION --}}
+    <div class="container mt-3">
+      
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+        პირობები კანდიდატს
+      </button>
+      <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal2" style="margin-left: 20px">
+        პირობები დამქირავებელს
+      </button>
+    </div>
     
-    <div class="container-fluid">
+    <!-- The Modal Candidates -->
+    <div class="modal fade" id="myModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+    
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">პირობები კანდიდატს</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+    
+          <!-- Modal body -->
+          <div class="modal-body">
+            🌹ჩვენი პირობები შემდგომში მდგომარეობს: პირველი თვის ანაზღაურებიდან ნახევარი ჩამოგეჭრებათ, 
+              მას შემდეგ რაც აიღებთ ამ ანაზღაურებას, ხოლო რეგისტრაცია კი ფასიანია და 30 ლარი ჯდება, 
+              რეგისტრაცია კი იმისთვის არის საჭირო რომ ჩვენგან ვაკანსიები შემოგეთავაზოთ.
+          </div>
+    
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+          </div>
+    
+        </div>
+      </div>
+      
+    </div>   
+    
+    <!-- The Modal Employer -->
+    <div class="modal fade" id="myModal2">
+      <div class="modal-dialog">
+        <div class="modal-content">
+    
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">პირობები დამქირავებელს</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+    
+          <!-- Modal body -->
+          <div class="modal-body">
+            🌹ჩვენ შემოგთავაზებთ თქვენს მოთხოვნებთან მაქსიმალურ შესაბამისობაში მოყვანილ 4-5 კანდიდატს მათი ასაკის, 
+              საცხოვრებელი ადგილის, განათლების, უცხო ენის ცოდნის იქნება ეს თუ ნებისმიერი სხვა თქვენს მიერ მოთხოვნილი პარამეტრებითა და სათანადო ცნობებით, 
+              გაგასაუბრებთ მათ ჩვენთან ოფისში მოისურვებთ, თქვენთან ოჯახში თუ დისტანციურად როგორც თქვენთვის უფრო კომფორტული იქნება და რომელიმეს
+              მოწონებისა და 1 კვირიანი გამოსაცდელი ვადის წარმატებით გავლის შემთხვევაში ჩვენთან იხდით კადრის მოძიების 
+              საფასურად თქვენს მიერ დასახელებული თვიური ხელფასის მხოლოდ 10%-ს ერთჯერადად, რაშიაც შედის 1 წლის 
+              განმავლობაში კადრი თუ წავიდა სამსახურიდან მისგან დამოუკიდებელი მიზეზების გამო ან თავად დაითხოვეთ - 
+              3 ჯერ უფასოდ ჩაგინაცვლებთ სხვა ალტერნატიული კანდიდატურით, ხოლო დასაქმებული კანდიდატი კი იხდის 
+              პირველი თვის ანაზღაურებიდან 50%-ს, რომელი თანხის წარმოდგენის უზრუნველყოფის ვალდებულებაც გეკისრებათ 
+              თქვენ რადგან ასე ვთქვათ ,,თქვენი ხელიდან გადის“ მასთან ეს თანხა და თვის ბოლო რომ დადგება ნახევარს აძლევთ 
+              მას/კანდიდატს, რის შესახებაც რათქმაუნდა ინფორმირებული და თანახმანი არიან თვით კანდიდატებიც.
+          </div>
+    
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+          </div>
+    
+        </div>
+      </div>
+      
+    </div>   
+
+    
+    {{-- MODAL SECTION CLOSE --}}
+    
+    <div class="container">
         <div class="row">
         <div class="wt-bnr-inr-entry termsPrices">
+          
             <p class="textPriceTermsDescription">თქვენს ყურადღებას იმაზე გავამახვილებთ, რომ სააგენტო არ საზღვრავს ამათუიმ საქმიანობის საფასურს, აღნიშნული არის დღევანდელი საერთო საბაზრო ღირებულებიდან გამომდინარე როგორც საოჯახო ასევე ყველა, სხვა ზემოთჩამოთვლილი პერსონალის  საქმიანობის სფეროში.</p>
 
                 <div class="pricesTitleDescr">
