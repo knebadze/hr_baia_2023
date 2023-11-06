@@ -26,35 +26,48 @@ class GeneralWorkExperienceRepository
 
     function save($data, $user_id) {
         // dd($data);
-        $data = $this->saveTranslate($data);
-        $candidate = Candidate::where('user_id', $user_id)->first();
-        if (General_work_experience::where('candidate_id', $candidate->id)->exists()) {
-            $work = General_work_experience::where('candidate_id', $candidate->id)->first();
-            if ($work->experience != $data['has_experience']['id']) {
-                General_work_experience::where('candidate_id', $candidate->id)->delete();
-            }
+        try{
+            $data = $this->saveTranslate($data);
+            $candidate = Candidate::where('user_id', $user_id)->first();
+            if (General_work_experience::where('candidate_id', $candidate->id)->exists()) {
+                $work = General_work_experience::where('candidate_id', $candidate->id)->first();
+                if ($work->experience != $data['has_experience']['id']) {
+                    General_work_experience::where('candidate_id', $candidate->id)->delete();
+                }
 
+            }
+            $generalWork = new General_work_experience();
+            $generalWork->candidate_id = $candidate->id;
+            $generalWork->experience = $data['has_experience']['id'];
+            if ($data['has_experience']['id'] == 1) {
+                $generalWork->work_experience_id = $data['work_experience']['id'];
+                $generalWork->position_ka = $data['position_ka'];
+                $generalWork->position_en = $data['position_en'];
+                $generalWork->position_ru = $data['position_ru'];
+                $generalWork->object_ka = $data['object_ka'];
+                $generalWork->object_en = $data['object_en'];
+                $generalWork->object_ru = $data['object_ru'];
+            }elseif ($data['has_experience']['id'] == 2) {
+                $generalWork->no_reason_id = $data['no_reason']['id'];
+                $generalWork->no_reason_info_ka = isset($data['no_reason_info_ka'])?$data['no_reason_info_ka']:null;
+                $generalWork->no_reason_info_en = isset($data['no_reason_info_en'])?$data['no_reason_info_en']:null;
+                $generalWork->no_reason_info_ru = isset($data['no_reason_info_ru'])?$data['no_reason_info_ru']:null;
+            }
+            $generalWork->save();
+            $candidate = Candidate::where('id', $candidate->id)->with(['getGeneralWorkExperience.workExperience', 'getGeneralWorkExperience.noReason', 'getGeneralWorkExperience.hasExperience'])->first();
+            if($candidate->stage = 4){
+                $candidate->update(['stage' => 5]);
+            }
+            return [
+                'success' => true,
+                'data' => $candidate->getGeneralWorkExperience,
+            ];
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+                'error' => $e->getMessage(),
+            ];
         }
-        $generalWork = new General_work_experience();
-        $generalWork->candidate_id = $candidate->id;
-        $generalWork->experience = $data['has_experience']['id'];
-        if ($data['has_experience']['id'] == 1) {
-            $generalWork->work_experience_id = $data['work_experience']['id'];
-            $generalWork->position_ka = $data['position_ka'];
-            $generalWork->position_en = $data['position_en'];
-            $generalWork->position_ru = $data['position_ru'];
-            $generalWork->object_ka = $data['object_ka'];
-            $generalWork->object_en = $data['object_en'];
-            $generalWork->object_ru = $data['object_ru'];
-        }elseif ($data['has_experience']['id'] == 2) {
-            $generalWork->no_reason_id = $data['no_reason']['id'];
-            $generalWork->no_reason_info_ka = isset($data['no_reason_info_ka'])?$data['no_reason_info_ka']:null;
-            $generalWork->no_reason_info_en = isset($data['no_reason_info_en'])?$data['no_reason_info_en']:null;
-            $generalWork->no_reason_info_ru = isset($data['no_reason_info_ru'])?$data['no_reason_info_ru']:null;
-        }
-        $generalWork->save();
-        $candidate = Candidate::where('id', $candidate->id)->with(['getGeneralWorkExperience.workExperience', 'getGeneralWorkExperience.noReason', 'getGeneralWorkExperience.hasExperience'])->first();
-        return $candidate->getGeneralWorkExperience;
     }
 
     function updateTranslate($data) {

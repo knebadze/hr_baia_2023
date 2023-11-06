@@ -103,6 +103,35 @@ class AddUserRepository
         event(new hrDailyJob($hr_id, 'candidate_has_registered'));
     }
 
+    public function update($data)
+    {
+        try {
+            $user = User::findOrFail($data['id']);
+            if ($data['lang'] == 'ka') {
+                $user->name_ka = $data['name_ka'];
+            } elseif ($data['lang'] == 'en') {
+                $user->name_en = $data['name_en'];
+            } elseif ($data['lang'] == 'ru') {
+                $user->name_ru = $data['name_ru'];
+            }
+            $user->email = $data['email'];
+            $user->number = $data['number'];
+            $user->date_of_birth = $data['date_of_birth'];
+            $user->gender_id = $data['gender']['id'];
+            $user->update();
+
+            return [
+                'success' => true,
+                'data' => $user,
+            ];
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+                'error' => $e->getMessage(),
+            ];
+        }
+    }
+
     // function addReminder($data) {
     //     $reminder = new VacancyReminder();
     //     $reminder->vacancy_id = $data['vacancy_id'];

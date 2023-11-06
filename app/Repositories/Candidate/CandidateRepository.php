@@ -28,7 +28,7 @@ class CandidateRepository
 
 
         }elseif ($lang == 'ru') {
-          
+
             if ($data['medical_info_ru']) {
                 $data['medical_info_ka'] = GoogleTranslate::trans($data['medical_info_ru'], 'ka');
                 $data['medical_info_en']  = GoogleTranslate::trans($data['medical_info_ru'], 'en');
@@ -40,46 +40,56 @@ class CandidateRepository
     }
 
     function save($data)  {
-        $lang = (array_key_exists('lang', $data))?$data['lang']:'ka';
-        $data = $this->translate($lang, $data);
-        $candidate = Candidate::updateOrCreate(
-            ['user_id' =>  $data['user_id']],
-            [
-                'personal_number' => $data['personal_number'],
-                'nationality_id' => $data['nationality']['id'],
-                'religion_id' => $data['religion']['id'],
-                'education_id' => $data['education']['id'],
-                'marital_status_id' => $data['marital_status']['id'],
-                'children' => $data['children'],
-                'children_age' => $data['children_age'],
-                'spouse' => $data['spouse'],
-                'fb_link' => $data['fb_link'],
-                'youtube_link' =>  $data['youtube_link'],
-                'map_link' =>  $data['map_link'],
-                'height' =>  $data['height'],
-                'weight' =>  $data['weight'],
-                'address_ka' =>  $data['address_ka'],
-                'address_en' =>  $data['address_en'],
-                'address_ru' =>  $data['address_ru'],
-                'street_ka' =>  $data['street_ka'],
-                'street_en' =>  $data['street_en'],
-                'street_ru' =>  $data['street_ru'],
-                'medical_info_ka' =>  $data['medical_info_ka'],
-                'medical_info_en' =>  $data['medical_info_en'],
-                'medical_info_ru' =>  $data['medical_info_ru'],
-                'convection' => ($data['convection'] == null)?0:$data['convection'],
-                'smoke' =>  ($data['smoke'] == null)?0:$data['smoke'],
-                'work_abroad' =>  ($data['work_abroad'] == null)?0:$data['work_abroad'],
-                'latitude' => $data['latitude'],
-                'longitude' => $data['longitude'],
-                'status_id' => 8
-            ]
-        );
+        // dd($data);
+        try {
+            $lang = (array_key_exists('lang', $data))?$data['lang']:'ka';
+            $data = $this->translate($lang, $data);
+            $candidate = Candidate::updateOrCreate(
+                ['user_id' =>  $data['user_id']],
+                [
+                    'personal_number' => $data['personal_number'],
+                    'nationality_id' => $data['nationality']['id'],
+                    'religion_id' => $data['religion']['id'],
+                    'education_id' => $data['education']['id'],
+                    'marital_status_id' => $data['marital_status']['id'],
+                    'children' => $data['children'],
+                    'children_age' => $data['children_age'],
+                    'spouse' => $data['spouse'],
+                    'fb_link' => $data['fb_link'],
+                    'youtube_link' =>  $data['youtube_link'],
+                    'map_link' =>  $data['map_link'],
+                    'height' =>  $data['height'],
+                    'weight' =>  $data['weight'],
+                    'address_ka' =>  $data['address_ka'],
+                    'address_en' =>  $data['address_en'],
+                    'address_ru' =>  $data['address_ru'],
+                    'street_ka' =>  $data['street_ka'],
+                    'street_en' =>  $data['street_en'],
+                    'street_ru' =>  $data['street_ru'],
+                    'medical_info_ka' =>  $data['medical_info_ka'],
+                    'medical_info_en' =>  $data['medical_info_en'],
+                    'medical_info_ru' =>  $data['medical_info_ru'],
+                    'convection' => ($data['convection'] == null)?0:$data['convection'],
+                    'smoke' =>  ($data['smoke'] == null)?0:$data['smoke'],
+                    'work_abroad' =>  ($data['work_abroad'] == null)?0:$data['work_abroad'],
+                    'latitude' => $data['latitude'],
+                    'longitude' => $data['longitude'],
+                    'status_id' => 8,
+                    'stage' => 1
+                ]
+            );
 
-        $this->addCollect($candidate, $data);
-        // $this->userStatusUpdate($data['user_id']);
-
-        return $candidate->id;
+            $this->addCollect($candidate, $data);
+            return [
+                'success' => true,
+                'data' => $candidate->id,
+            ];
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+                'error' => $e->getMessage(),
+            ];
+        }
     }
     // public function userStatusUpdate($user_id)
     // {

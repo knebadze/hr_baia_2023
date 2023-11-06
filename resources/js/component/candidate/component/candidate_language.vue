@@ -107,7 +107,7 @@ export default {
         });
         const send = ref(false);
         const cla = ref({...props.data.cla})
-        const formData = props.data.model;
+        const formData = props.data.model.get_language;
         formData.lang = getLang;
 
         const m = ref(formData);
@@ -126,7 +126,6 @@ export default {
 
         if (m.value.length == 0) {
             model.value.level = props.data.cla.languageLevels.find((element) => element.id == 1);
-            console.log('model.value',model.value);
         }else{
             cla.value.languageLevels = props.data.cla.languageLevels.filter((element) => element.id != 1);
             languageFilter()
@@ -184,7 +183,7 @@ export default {
             axios({
                 method: "post",
                 url: "/add_candidate",
-                data: {'model':item, 'type': 'language', 'user_id': props.data.user_id},
+                data: {'model':item, 'type': 'language', 'user_id': props.data.model.user_id},
 
             })
             .then(function (response) {

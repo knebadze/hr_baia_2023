@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('hr_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->integer('has_vacancy')->default(0);
             $table->integer('employed')->default(0);
-            $table->integer('has _probationary_period')->default(0);
+            $table->integer('has_probationary_period')->default(0);
             $table->integer('has_enrollment_vacancy')->default(0);
             $table->integer('candidate_has_registered')->default(0);
             $table->integer('has_enrollment_register')->default(0);

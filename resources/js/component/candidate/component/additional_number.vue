@@ -145,7 +145,7 @@ export default {
             return classificatory
         }
         const cla = ref(sort())
-        const formData = props.data.model;
+        const formData = props.data.model.candidateNumber;
         const isDropdownOpen = ref(false);
         const selectedOption = ref(_.find(cla.value.numberCode, function(o) { return o.phonecode == 995; }));
         const myDiv = ref(null);
@@ -195,7 +195,7 @@ export default {
             axios({
                 method: "post",
                 url: "/add_candidate",
-                data: {'model':item, 'type': 'number', 'user_id': props.data.user_id},
+                data: {'model':item, 'type': 'number', 'user_id': props.data.model.user_id},
 
             })
             .then(function (response) {

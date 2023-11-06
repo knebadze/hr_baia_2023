@@ -26,7 +26,6 @@ class CandidateService
     protected AddUserRepository $addUserRepository;
     protected WorkInformationRepository $workInformationRepository;
     protected FamilyWorkExperienceRepository $familyWorkExperienceRepository;
-
     public function __construct()
     {
         $this->candidateRepository = new  CandidateRepository;
@@ -49,8 +48,9 @@ class CandidateService
     public function candidateSaveData($data)
     {
         // dd($data);
-
-        if ($data['type'] == 'information') {
+        if($data['type'] == 'main'){
+            $result = $this->addUserRepository->update($data['model']);
+        }else if ($data['type'] == 'information') {
             $result = $this->candidateRepository->save($data['model']);
         }elseif ($data['type'] == 'address') {
             $result = $this->addressRepository->save($data['model'], $data['model']['user_id']);

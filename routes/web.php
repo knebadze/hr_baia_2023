@@ -78,7 +78,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
         Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 
         // Account Pages
-        Route::get('/user/userProfile', [UserProfileController::class, 'index'])->name('userProfile');
+        Route::get('/user/userProfile/{id?}', [UserProfileController::class, 'index'])->name('userProfile');
 
         Route::get('/user/work_information', [WorkInformationController::class, 'index'])->name('work_information');
         // Route::get('/user/work_information_detail/{id}', [WorkInformationController::class, 'show'])->name('work.information.detail');

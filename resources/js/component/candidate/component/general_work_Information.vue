@@ -172,7 +172,7 @@ export default {
 
         const send = ref(false)
         const cla = ref(props.data.cla)
-        const formData = props.data.model;
+        const formData = props.data.model.candidateWorkExperience;
 
         const getLang = computed(() => {
             return I18n.getSharedInstance().options.lang;
@@ -250,7 +250,7 @@ export default {
             axios({
                 method: "post",
                 url: "/add_candidate",
-                data: {'model':item, 'type': 'general_work', 'user_id': props.data.user_id},
+                data: {'model':item, 'type': 'general_work', 'user_id': props.data.model.user_id},
 
             })
             .then(function (response) {

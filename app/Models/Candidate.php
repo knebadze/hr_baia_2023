@@ -41,6 +41,7 @@ class Candidate extends Model
         'youtube_link',
         'map_link',
         'status_id',
+        'stage',
     ];
     protected $attributes = [
         'convection' => 0,

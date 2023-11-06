@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\User;
 
 use App\Models\User;
+use App\Services\ModelService;
 use App\Http\Controllers\Controller;
-use App\Services\CandidateModelService;
 use Illuminate\Support\Facades\Auth;
 use App\Services\ClassificatoryService;
-use App\Services\ModelService;
+use App\Services\CandidateModel\CandidateModelService;
 
 class UserProfileController extends Controller
 {
@@ -22,12 +22,12 @@ class UserProfileController extends Controller
         $this->candidateModelService = $candidateModelService;
     }
 
-    public function index()
+    public function index($lang, $id = null)
     {
         $data = [];
 
-        $auth = Auth::user();
-        $user = User::where('id', $auth->id)->with('gender')->first();
+        // $auth = Auth::user();
+        // $user = User::where('id', $auth->id)->with('gender')->first();
 
         //კლასიფიკატორები
 
@@ -36,14 +36,20 @@ class UserProfileController extends Controller
         'specialties', 'allergies', 'languages', 'languageLevels', 'workExperiences', 'notices', 'noExperienceReason', 'drivingLicense',
         'numberCode', 'characteristic', 'numberOwner', 'yesNo', 'category', 'workSchedule','currency', 'recommendationFromWhom', 'noRecommendationReason',
         'duty', ];
+        // $candidateClassificatoryArr = [
+        //     ['gender'],
+        //     ['allergies', 'characteristic', 'citizenship', 'professions', 'specialties', 'nationality', 'religions','educations', 'maritalStatus'],
+        //     [],
+        //     ['languages', 'languageLevels'],
+        //     ['numberOwner', 'numberCode'],
+        //     ['yesNo', 'noExperienceReason', 'workExperiences'],
+        //     ['category', 'workSchedule','currency'],
+
+        // ];
         $classificatory = $this->classificatoryService->get($candidateClassificatoryArr);
         $model = $this->candidateModelService->findData();
 
         $data = [
-            'basic' => [
-                'auth' => $auth,
-                'user' => $user
-            ],
             'model' => $model,
             'classificatory' => $classificatory
         ];

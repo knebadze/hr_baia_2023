@@ -305,10 +305,10 @@
     <!-- /.container-fluid -->
     <!-- {{ (Object.keys(items).length > 0)?items[0].id:'' }} -->
     <div v-if="roleId == 1">
-        <adminVacancyTable v-if="Object.keys(items).length > 0"  :data="items" :key="tableKey" ></adminVacancyTable>
+        <adminVacancyTable v-if="Object.keys(items).length > 0"  :data="items" :key="tableKey" :classificatory="tableCla"></adminVacancyTable>
     </div>
     <div v-else>
-        <hrVacancyTable v-if="Object.keys(items).length > 0"  :data="items" :hrId="hrId"  :key="tableKey"></hrVacancyTable>
+        <hrVacancyTable v-if="Object.keys(items).length > 0"  :data="items" :hrId="hrId" :classificatory="tableCla"  :key="tableKey"></hrVacancyTable>
     </div>
 
     <div class="mt-2">
@@ -363,6 +363,7 @@ export default {
             hrId:null,
             // randomNumber: 0
             tableKey: 0,
+            tableCla: null
         }
     },
     computed:{
@@ -377,6 +378,7 @@ export default {
         this.cla = this.data.classificatory
         this.roleId = this.data.roleId
         this.hrId = (this.data.hasOwnProperty('hrId'))?this.data.hrId:null
+        this.tableCla = this.data.classificatory.workSchedule
         this.getData()
     },
     methods: {
@@ -394,7 +396,9 @@ export default {
                     'current_page':this.data.vacancy.current_page,
                     'last_page': this.data.vacancy.last_page
                 }
+                // console.log('this.data.classificatory',this.data.classificatory.workSchedule);
             this.items = this.data.vacancy.data
+
         },
         filterMeth(type,m){
             this.getDataType = type

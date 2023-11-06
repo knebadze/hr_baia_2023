@@ -188,6 +188,7 @@ export default {
         formData.go_vacation = 0;
         formData.work_additional_hours = 0;
         formData.additional_schedule = props.data.model.workInformation[`additional_schedule_${getLang.value}`]
+        formData.candidate_id = props.data.model.candidate_id
         const model = ref(formData);
         const m = ref(props.data.model.getWorkInformation)
 
@@ -268,7 +269,7 @@ export default {
             axios({
                 method: "post",
                 url: "/add_candidate",
-                data: {'model':item, 'type': 'work_information', 'user_id': props.data.user_id},
+                data: {'model':item, 'type': 'work_information', 'user_id': props.data.model.user_id},
 
             })
             .then(function (response) {

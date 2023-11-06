@@ -14,23 +14,36 @@ use App\Services\CandidateService;
 use App\Models\CandidateRecommendation;
 use App\Models\General_work_experience;
 use Illuminate\Support\Facades\Storage;
+use App\Services\CandidateModel\CandidateModelService;
 
 class CandidateInfoController extends Controller
 {
     private CandidateService $candidateService;
-    public function __construct(CandidateService $candidateService)
+    private CandidateModelService $candidateModelService;
+    public function __construct(CandidateService $candidateService, CandidateModelService $candidateModelService)
     {
         $this->candidateService = $candidateService;
+        $this->candidateModelService = $candidateModelService;
     }
 
     public function addCandidate(Request $request)
     {
         $data = $request->all();
+        // dd($data);
         $result = ['status' => 200];
 
         try {
-            $result['data'] = $this->candidateService->candidateSaveData($data);
-        } catch (Exception $e) {
+            $updateResult = $this->candidateService->candidateSaveData($data);
+
+            if ($updateResult['success']) {
+                $result['data'] = $updateResult['data'];
+            } else {
+                $result = [
+                    'status' => 500,
+                    'error' => $updateResult['error']
+                ];
+            }
+        } catch (\Exception $e) {
             $result = [
                 'status' => 500,
                 'error' => $e->getMessage()
@@ -168,6 +181,22 @@ class CandidateInfoController extends Controller
         return response()->json($result, $result['status']);
     }
 
+    function findModel(Request $request) {
+        try {
+
+            $data = $request->all();
+            $result = ['status' => 200];
+            $result['data'] = $this->candidateModelService->findData($data['stage'], $data['user_id'], $data['candidate_id']);
+
+        } catch (Exception $e) {
+            $result = [
+                'status' => 500,
+                'error' => $e->getMessage()
+            ];
+        }
+
+        return response()->json($result, $result['status']);
+    }
 
     // function StatusUpdate(Request $request)  {
     //     dd($request->id);

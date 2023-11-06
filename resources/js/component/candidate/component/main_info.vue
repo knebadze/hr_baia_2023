@@ -5,7 +5,7 @@
         <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_input_basic_info') }}</h4>
     </div>
     <div class="panel-body wt-panel-body p-a20 m-b30 ">
-        <form @submit.prevent="validateAndSubmit()">
+        <form @submit.prevent="validateAndEmit()">
             <div class="row" >
 
                 <div class="col-xl-6 col-lg-6 col-md-12">
@@ -108,9 +108,9 @@
 
 
 
-                <div class="col-lg-12 col-md-12 mt-4 d-flex justify-content-center" >
+                <!-- <div class="col-lg-12 col-md-12 mt-4 d-flex justify-content-center" >
                     <button type="submit"  class="site-button" >{{ $t('lang.user_profile_page_button_save_changes') }}</button>
-                </div>
+                </div> -->
 
 
             </div>
@@ -125,7 +125,7 @@ import { useVuelidate } from '@vuelidate/core';
 import { required, email, numeric, maxLength } from '@vuelidate/validators';
 
 export default {
-    emits: ['validateAndEmit'],
+    emits: ['validateAndEmit','validateAndSubmit'],
     props: {
         data: Object,
     },
@@ -137,6 +137,7 @@ export default {
     const formData = { ...props.data.model };;
     formData.name = props.data.model[`name_${getLang.value}`];
     const m = ref(formData);
+    const saveButton  = ref(false);
 
     const rules = {
         name: { required },
@@ -148,43 +149,45 @@ export default {
 
     const v = useVuelidate(rules, m);
 
-    const validateAndSubmit = () => {
+    const validateAndSubmit = (item) => {
+        let data = {...item}
+        // v.value.$touch();
+        // if (!v.value.$invalid) {
+            data[`name_${getLang.value}`] = m.value.name
+            return data
+        // }else {
+        //     toast.error("შეავსეთ სავალდებულო ველები", {
+        //         theme: 'colored',
+        //         autoClose: 2000,
+        //     });
+        //     return
+        // }
+    };
+    const validateAndEmit = async () => {
+
         v.value.$touch();
         if (!v.value.$invalid) {
-            m.value[`name_${getLang.value}`] = m.value.name
-
-            axios({
-                method: "post",
-                url: "/profile_update",
-                data: m.value
-            })
-            .then(function (response) {
-                // handle success
-                if (response.status == 200) {
-                    toast.success("წარმატებით განახლდა", {
-                        theme: 'colored',
-                        autoClose: 2000,
-                    });
-                }
-
-
-            })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
-            })
+            let data = validateAndSubmit(m.value)
+            const isFormValid = !v.value.$invalid;
+            emit("validateAndEmit", isFormValid, data, 'main', saveButton.value);
+        }else {
+            toast.error("შეავსეთ სავალდებულო ველები", {
+                theme: 'colored',
+                autoClose: 2000,
+            });
         }
-    };
-    const validateAndEmit = () => {
-      const isFormValid = !v.value.$invalid;
-      emit("validateAndEmit", isFormValid);
     }
+
+
+    watch(m.value, (newVal) => {
+        saveButton.value = true
+    });
 
 
     return {
       m,
       cla,
-      validateAndSubmit,
+    //   validateAndSubmit,
       v,
       getLang,
       validateAndEmit

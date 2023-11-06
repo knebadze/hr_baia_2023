@@ -52,7 +52,7 @@
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-12">
                         <div class="form-group">
-                            <label>თანხა ჩარიცხა  </label>
+                            <label>გადამხდელი  </label>
                             <div class="ls-inputicon-box">
                                 <input class="form-control" v-model="model.name" type="text" placeholder="0" >
                             </div>

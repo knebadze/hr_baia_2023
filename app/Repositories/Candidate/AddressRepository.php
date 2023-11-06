@@ -45,19 +45,30 @@ class AddressRepository
         return $data;
     }
     function save($data, $user_id) {
-        $lang = (array_key_exists('lang', $data))?$data['lang']:'ka';
-        $data = $this->translate($lang, $data);
-        $candidate = Candidate::where('user_id', $user_id)->update(
-            [
-                'address_ka' =>  $data['address_ka'],
-                'address_en' =>  $data['address_en'],
-                'address_ru' =>  $data['address_ru'],
-                'street_ka' =>  $data['street_ka'],
-                'street_en' =>  $data['street_en'],
-                'street_ru' =>  $data['street_ru'],
-                'latitude' => $data['latitude'],
-                'longitude' => $data['longitude'],
-            ]);
-        return $candidate;
+        try {
+            $lang = (array_key_exists('lang', $data))?$data['lang']:'ka';
+            $data = $this->translate($lang, $data);
+            $candidate = Candidate::where('user_id', $user_id)->update(
+                [
+                    'address_ka' =>  $data['address_ka'],
+                    'address_en' =>  $data['address_en'],
+                    'address_ru' =>  $data['address_ru'],
+                    'street_ka' =>  $data['street_ka'],
+                    'street_en' =>  $data['street_en'],
+                    'street_ru' =>  $data['street_ru'],
+                    'latitude' => $data['latitude'],
+                    'longitude' => $data['longitude'],
+                    'stage' => 2,
+                ]);
+                return [
+                    'success' => true,
+                    'data' => $candidate,
+                ];
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+                'error' => $e->getMessage(),
+            ];
+        }
     }
 }

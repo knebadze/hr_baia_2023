@@ -87,18 +87,16 @@ export default {
         const file = ref(null);
         const showNoRecommendation = ref(false);
         const cla = ref(_.cloneDeep(props.data.cla))
-        console.log(cla.value);
         const formData = {notice: ''};
 
-        const m = ref(props.data.model)
-
+        const m = ref(props.data.model.candidateNotices)
         const getLang = computed(() => {
             return I18n.getSharedInstance().options.lang;
         });
 
 
         formData.lang = getLang;
-        formData.user_id = props.data.user_id
+        formData.user_id = props.data.model.user_id
         const model = ref(formData)
 
         const filterNotice = () =>{
@@ -162,7 +160,7 @@ export default {
             axios.post('/add_candidate_file', formData)
             .then(function (response) {
                 if (response.data.status == 200) {
-                    m.value = response.data.data
+                    m.value = response.data.data.data
                     filterNotice()
                     model.value.notice = "";
                     model.value.file = "";

@@ -31,39 +31,53 @@ class WorkInformationRepository
         return $data;
     }
     function updateOrCreate($data){
-        // dd($dataqar);
-        if (isset($data['additional_schedule_ka'])) {
-            $lang = (isset($data['lang']))?$data['lang']:'ka';
-            $data = $this->translate($lang, $data);
-        }
-        $candidate_id = $data['candidate_id'] ? $data['candidate_id']: Auth::user()->candidate->id;
-        // dd($data);
-        $workInformation = WorkInformation::updateOrCreate(
-            [
-                'candidate_id' => $candidate_id,
-                'category_id' => $data['category']['id']
-            ],
-            [
-                'payment' => $data['payment'],
-                'currency_id' => $data['currency']['id'],
-                'stay_night' => ($data['stay_night'] == true)?1:$data['stay_night'],
-                'go_vacation' => ($data['go_vacation'] == true)?1:$data['go_vacation'],
-                'work_additional_hours' => ($data['work_additional_hours'] == true)?1:$data['work_additional_hours'],
-            ]
-        );
+        try{
+            // dd($data);
+            if (isset($data['additional_schedule_ka'])) {
+                $lang = (isset($data['lang']))?$data['lang']:'ka';
+                $data = $this->translate($lang, $data);
+            }
+            $candidate_id = $data['candidate_id'] ? $data['candidate_id']: Auth::user()->candidate->id;
+            // dd($data);
+            $workInformation = WorkInformation::updateOrCreate(
+                [
+                    'candidate_id' => $candidate_id,
+                    'category_id' => $data['category']['id']
+                ],
+                [
+                    'payment' => $data['payment'],
+                    'currency_id' => $data['currency']['id'],
+                    'stay_night' => ($data['stay_night'] == true)?1:$data['stay_night'],
+                    'go_vacation' => ($data['go_vacation'] == true)?1:$data['go_vacation'],
+                    'work_additional_hours' => ($data['work_additional_hours'] == true)?1:$data['work_additional_hours'],
+                ]
+            );
 
-        $selectSchedule = collect($data['work_schedule'])->reduce(function ($carry, $item) {
-            if($carry  == null) $carry = [];
-            $carry[] = $item['id'];
-            return $carry;
-        }, []);
-        $workInformation->workSchedule()->sync( $selectSchedule );
+            $selectSchedule = collect($data['work_schedule'])->reduce(function ($carry, $item) {
+                if($carry  == null) $carry = [];
+                $carry[] = $item['id'];
+                return $carry;
+            }, []);
+            $workInformation->workSchedule()->sync( $selectSchedule );
 
-        // if (Auth::user()->role_id == 3) {
+
             $this->candidateStatusUpdate($candidate_id);
-        // }
-        $candidate = Candidate::where('id', $candidate_id)->with(['getWorkInformation.category', 'getWorkInformation.currency', 'getWorkInformation.workSchedule'])->first();
-        return $candidate->getWorkInformation;
+
+            $candidate = Candidate::where('id', $candidate_id)->with(['getWorkInformation.category', 'getWorkInformation.currency', 'getWorkInformation.workSchedule'])->first();
+
+            if($candidate->stage = 5){
+                $candidate->update(['stage' => 6]);
+            }
+            return [
+                'success' => true,
+                'data' => $candidate->getWorkInformation,
+            ];
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+                'error' => $e->getMessage(),
+            ];
+        }
     }
 
     function delete($id)  {
@@ -73,7 +87,7 @@ class WorkInformationRepository
 
     public function candidateStatusUpdate($id)
     {
-        $candidate = Candidate::find($id);
+        $candidate = Candidate::where('id', $id)->first();
         if ($candidate->status_id == 1) {
             $candidate->update([
                 'status_id' => 9,

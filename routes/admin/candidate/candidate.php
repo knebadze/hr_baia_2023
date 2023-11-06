@@ -18,6 +18,7 @@ Route::post('add_candidate_file', [CandidateInfoController::class, 'addCandidate
 // Route::post('add_work_information', [WorkInformationController::class, 'store']);
 
 // R
+Route::post('find_candidate_model', [CandidateInfoController::class, 'findModel']);
 Route::post('candidate_work_info_data', [AdminCandidateController::class, 'workInfoData']);
 Route::post('candidate_family_work_info_data', [AdminCandidateController::class, 'familyWorkInfoData']);
 Route::post('get_candidate_additional_number', [AdminCandidateController::class, 'additionalNumberInfo']);

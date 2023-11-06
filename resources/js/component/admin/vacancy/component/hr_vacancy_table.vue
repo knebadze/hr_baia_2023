@@ -231,7 +231,7 @@
                     <option value="ყველა">
                         ყველა
                     </option>
-                    <option v-for="(item, index) in data.classificatory.workSchedule" :key="index" :value="item.name_ka">
+                    <option v-for="(item, index) in cla" :key="index" :value="item.name_ka">
                         {{ item.name_ka }}
                     </option>
 
@@ -295,10 +295,12 @@ export default {
     },
     props:{
         data: Object,
-        hrId: Number
+        hrId: Number,
+        classificatory: Object,
     },
 
     setup(props){
+        console.log(props);
         var url = new URL( location.href)
         const itemsSelected = ref([]);
         var personalSelectionUrl = ref(url.origin+'/admin/selection_personal')
@@ -320,7 +322,7 @@ export default {
         let colspan = ref('hide')
         let hr_id = ref(props.hrId)
         let myVacancy = ref(false)
-        let cla = ref(null)
+        let cla = ref(props.classificatory)
 
 
         const headers = ref([

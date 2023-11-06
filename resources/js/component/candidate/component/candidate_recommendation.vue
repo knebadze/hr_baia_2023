@@ -217,11 +217,11 @@ export default {
 
 
         formData.lang = getLang;
-        formData.user_id = props.data.user_id
+        formData.user_id = props.data.model.user_id
+        formData.candidate_id = props.data.model.candidate_id
         formData.number_code = cla.value.numberCode.find(element => element.phonecode == 995);
         formData.has_recommendation = m.value.length > 0 ? m.value[0].has_recommendation : formData.has_recommendation
         const model = ref(formData)
-
 
         const rules = {
             has_recommendation: { required },
@@ -271,7 +271,7 @@ export default {
             }else{
                 data[`no_reason_info_${getLang}`] = data.no_reason_info;
             }
-            data.candidate_id = props.data.candidate_id
+
             const sendFormData = new FormData();
             sendFormData.append('data', JSON.stringify(data))
             if (file.value) {
@@ -302,7 +302,7 @@ export default {
             axios.post('/add_candidate_recommendation', formData)
             .then(function (response) {
                 if (response.data.status == 200) {
-                    m.value.push(response.data.data);
+                    m.value.push(response.data.data.data);
                     send.value = false;
                     clearModel();
                     toast.success("ინფორმაცია წარმატებით შეინახა", {
