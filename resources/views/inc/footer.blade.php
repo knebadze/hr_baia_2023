@@ -55,8 +55,8 @@
                                     <li><a href="{{ route('candidate' , App()->getLocale())  }}">{{ __('lang.menu_candidate') }}</a></li>
                                     {{-- <li><a href="{{ route('blog' , App()->getLocale())  }}">{{ __('lang.menu_blog') }}</a></li> --}}
                                     <li><a href="{{ route('contact' , App()->getLocale())  }}">{{ __('lang.menu_contact') }}</a></li>
-                                    <li><a href="#">ხ.დ.კ</a></li>
-                                    <li><a href="#">წესები და პირობები</a></li>
+                                    <li><a href="{{ route('faq' , App()->getLocale())  }}">{{ __('lang.footer_nav_faq') }}</a></li>
+                                    <li><a href="{{ route('prices' , App()->getLocale())  }}">{{ __('lang.prices') }}</a></li>
                                 </ul>
                             </div>
                         </div>

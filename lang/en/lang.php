@@ -444,6 +444,11 @@ return [
     'footer_subscribe_first_text' => 'Subscribe to active vacancies',
     'footer_subscribe_form_placeholder' => 'Enter your email',
     'footer_subscribe_button' => 'Subscribe now',
+
+    // Footer Nav
+    'footer_nav_faq' => 'FAQ',
+        'footer_nav_large' => 'Frequently Asked Questions',
+    'prices' => 'Prices',
     
     // ====================================================================================================
     // Admin Panel Page
