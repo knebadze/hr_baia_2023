@@ -34,7 +34,7 @@
                                 <div class="form-group">
                                     <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_family_work_experience_answer_2') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <input class="form-control" type="number" @input="workCountNumber(m.families_worked_count)" v-model="m.families_worked_count" @blur="v.families_worked_count.$touch" style="height: 40px;">
+                                        <input class="form-control" type="number" min="1" @input="workCountNumber(m.families_worked_count)" v-model="m.families_worked_count" @blur="v.families_worked_count.$touch" style="height: 40px;">
                                         <span v-if="send && !v.families_worked_count.required.$response" style='color:red'>* </span>
                                     </div>
                                 </div>
@@ -55,7 +55,7 @@
                                 <div class="form-group">
                                     <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_family_work_staji_time') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <multiselect v-model="m.longest" :options="cla.workExperiences" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false" @blur="v.longest.$touch">
+                                        <multiselect v-model="m.longest" :options="claLongest" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false" @blur="v.longest.$touch">
                                             <template slot="singleLabel" slot-scope="{ option }"></template>
                                         </multiselect>
                                         <span v-if="send && !v.longest.required.$response" style='color:red'>* </span>
@@ -131,6 +131,7 @@ export default {
         let workCount = null
         const send = ref(false);
         const cla = ref(_.cloneDeep(props.data.cla))
+        const claLongest = ref(cla.value.workExperiences)
         const formData = {...props.data.model.familyWorkExperience};
 
         const getLang = computed(() => {
@@ -178,6 +179,15 @@ export default {
             }
         });
 
+        const workExperienceInput = () => m.value.work_experience;
+        watch(workExperienceInput, (newVal) => {
+            claLongest.value = _.filter(cla.value.workExperiences, function(o) { return o.id <= newVal.id; });
+            if (newVal.id == 1) {
+                m.value.longest = _.find(cla.value.workExperiences, function(o) { return o.id == 1; });
+            }
+
+        });
+
         const workCountNumber = (item) =>{
 
             const numberAsString = item.toString();
@@ -200,6 +210,8 @@ export default {
             }
 
         }
+
+
 
         const validateAndSubmit = (item) => {
             let data = {...item}
@@ -235,7 +247,8 @@ export default {
             getLang,
             validateAndEmit,
             send,
-            workCountNumber
+            workCountNumber,
+            claLongest
 
         };
     },

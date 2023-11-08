@@ -61,12 +61,12 @@ class WorkInformationRepository
             $workInformation->workSchedule()->sync( $selectSchedule );
 
 
-            $this->candidateStatusUpdate($candidate_id);
+            // $this->candidateStatusUpdate($candidate_id);
 
             $candidate = Candidate::where('id', $candidate_id)->with(['getWorkInformation.category', 'getWorkInformation.currency', 'getWorkInformation.workSchedule'])->first();
 
             if($candidate->stage = 5){
-                $candidate->update(['stage' => 6]);
+                $candidate->update(['stage' => 6, 'status_id' => 9]);
             }
             return [
                 'success' => true,

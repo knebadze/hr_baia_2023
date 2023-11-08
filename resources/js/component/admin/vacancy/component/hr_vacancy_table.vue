@@ -12,23 +12,24 @@
     >
     <template #item-operation="item">
         <div class="operation-wrapper">
-            <div class="dropdown">
+            <table_cog :item="item" :key="item.id"></table_cog>
+            <!-- <div class="dropdown">
                 <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-cog"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                    <a v-if="item.status.id != 4 && item.status.id != 5" class="dropdown-item" href="#" @click="openModal(item)">რეoდაქტირება</a>
                     <a v-if="item.status.id != 4 && item.status.id != 5" class="dropdown-item" href="#" @click="vacancyUpdateModal(item)">რედაქტირება</a>
                     <a v-if="item.status.id != 3 && item.status.id != 4 && item.status.id != 5" class="dropdown-item" href="#" @click="statusChange(item)">სტატუსის შეცვლა</a>
                     <a v-if="item.status.id == 2" class="dropdown-item" :href="personalSelectionUrl+'/'+item.id" >კადრების შერჩევა</a>
                     <a v-if="item.status.id > 1" class="dropdown-item" :href="vacancyPersonalUrl+'/'+item.id" >შერჩეული კადრები</a>
                     <a v-if="item.hr_id == hr_id" class="dropdown-item" href="#" @click="vacancyReminderModal(item)">შეხსენება</a>
-                    <!-- <a v-if="item.hr_id == hr_id" class="dropdown-item" href="#" @click="vacancyDepositModal(item)">დეპოზიტი</a> -->
                     <a v-if="item.hr_id == hr_id &&  item.status.id != 4 && item.status.id != 5 " class="dropdown-item" :href="vacancyDepositUrl+'/'+item.id" >დეპოზიტი</a>
                     <a v-if="item.status.id == 4 || item.status.id == 5" class="dropdown-item" href="#"  @click="vacancyRepeat(item)">გამეორება</a>
                     <a v-if="item.status.id !== 3 && item.status.id !== 4 && item.status.id !== 5" class="dropdown-item" href="#" @click="carryInHead(item)">აპინვა </a>
                     <a class="dropdown-item" href="#" @click="vacancyHistoryModal(item.id)">ისტორია</a>
                 </div>
-            </div>
+            </div> -->
         </div>
 
     </template>
@@ -265,6 +266,12 @@
     <vacancyReminder :visible="reminderModelShow" :item="item"></vacancyReminder>
     <vacancyRepeat :visible="repeatModelShow" :item="item"></vacancyRepeat>
     <redactedHistory :visible="historyModelShow" :vacancyId="vacancyId"></redactedHistory>
+    <component
+        :is="modalComponent"
+        v-if="modalComponent"
+        :visible="showModal"
+        :id="modalData"
+    ></component>
 </template>
 <script>
 import { ref, computed } from "vue";
@@ -282,6 +289,7 @@ import vacancyDeposit from "../../../hr/modal/vacancyDeposit.vue";
 import vacancyReminder from "../modal/vacancyReminder.vue";
 import vacancyRepeat from "../../../hr/modal/vacancyRepeat.vue";
 import redactedHistory from "../../../hr/modal/redactedHistory.vue"
+import table_cog from "./table_cog.vue";
 export default {
     components: {
         Slider,
@@ -291,7 +299,8 @@ export default {
         vacancyReminder,
         vacancyRepeat,
         redactedHistory,
-        Switch
+        Switch,
+        table_cog
     },
     props:{
         data: Object,
@@ -324,6 +333,9 @@ export default {
         let myVacancy = ref(false)
         let cla = ref(props.classificatory)
 
+        const modalComponent = ref(null)
+        const showModal = ref(false)
+        const modalData = ref(null)
 
         const headers = ref([
             { text: "id", value: "code" },
@@ -338,45 +350,8 @@ export default {
         ]);
         let data = ref(props.data)
 
-        // cla = ref(props.data.classificatory)
         const items = ref(data)
-        // ref(makeData(props.data.vacancy));
-        // console.log(makeData(props.data.vacancy));
-        // function makeData(params) {
-        //     var arr = []
-        //     // console.log('params',params);
-        //     params.forEach(element => {
-        //         console.log('element.get_vacancy_driving_license.length',element.vacancy_driving_license.length);
-        //         // var data = {
-        //         //     'id': element.code,
-        //         //     'category':element.category.name_ka,
-        //         //     'schedule':element.work_schedule.name_ka,
-        //         //     'employer':element.employer.name_ka,
-        //         //     'number':element.employer.number,
-        //         //     'status':element.status.name_ka,
-        //         //     'payment':element.payment,
-        //         //     'startDate':element.start_date,
-        //         //     'workDay':element.additional_schedule_ka,
-        //         //     'vacancy_for_who_need':element.vacancy_for_who_need,
-        //         //     'title': element.title_ka,
-        //         //     'created_at':moment(element.created_at).format("YYYY-MM-DD HH:mm"),
-        //         //     'updated_at':moment(element.updated_at).format("YYYY-MM-DD HH:mm"),
-        //         //     'comment':element.category,
-        //         //     'go_vacation':element.go_vacation,
-        //         //     'stay_night': element.stay_night,
-        //         //     'work_additional_hours': element.work_additional_hours,
-        //         //     'interview_date':element.interview_date,
-        //         //     'interview_place':element.interview_place.name_ka,
-        //         //     'term':element.term.name_ka,
-        //         //     'benefit': element.vacancy_benefit,
-        //         //     'duty': element.vacancy_duty,
-        //         //     'demand':element.demand,
-        //         //     'characteristic':element.characteristic,
-        //         // }
-        //         // arr.push(data)
-        //     });
-        //     return arr
-        // }
+
         const bodyRowClassNameFunction = ( item, number) => {
             if (item.hr_id == hr_id.value) return 'my-vacancy-row';
             return '';
@@ -391,6 +366,7 @@ export default {
         const choseSchedule = ref('ყველა');
         const chosePayment = ref([50, 3000]);
         const choseId = ref('');
+
         const filterOptions = computed(()=> {
             const filterOptionsArray =  [];
             if (choseStatus.value !== 'ყველა') {
@@ -438,15 +414,15 @@ export default {
 
 
 
-        function myVacancySwitch(){
+        const myVacancySwitch = () =>{
             if (!myVacancy.value) {
                data.value =  _.sortBy(_.filter(props.data.vacancy, function(o) { return o.hr_id == hr_id.value; }), [function(o) { return o.start_date; }]);
             }else{
                 data.value = props.data.vacancy
             }
-        }
+        };
 
-        function find(m){
+        const find = (m) =>{
             (m.created_at_from || m.created_at_to)?m['created_at'] = [m.created_at_from, m.created_at_to]:'';
             (m.start_date_from || m.start_date_to)?m['start_date'] = [m.start_date_from, m.start_date_to]:'';
             (m.interview_date_from || m.interview_date_to)?m['interview_date'] = [m.interview_date_from, m.interview_date_to]:''
@@ -477,88 +453,36 @@ export default {
                 // handle error
                 console.log(error);
             })
-        }
-
-        // onBeforeMount(async () => {
-        //     try {
-        //         const response = await axios.post('/get_vacancy_filter_classificatory');
-        //         cla.value = response.data;
-        //     } catch (error) {
-        //         console.error(error);
-        //     }
-        // });
-        return {
-            headers,
-            items,
-            itemsSelected,
-            showStatusFilter,
-            choseStatus,
-            showCategoryFilter,
-            choseCategory,
-            showScheduleFilter,
-            choseSchedule,
-            showPaymentFilter,
-            chosePayment,
-            showIdFilter,
-            choseId,
-            filterOptions,
-
-            statusChangeModal,
-            statusItem,
-            updateModal,
-            item,
-            vacancyId,
-            depositModal,
-            depositItem,
-            selectionPersonalModalShow,
-            reminderModelShow,
-            repeatModelShow,
-            historyModelShow,
-            personalSelectionUrl,
-            vacancyPersonalUrl,
-            vacancyDepositUrl,
-
-            colspan,
-            hr_id,
-            myVacancy,
-            myVacancySwitch,
-            bodyRowClassNameFunction,
-            m,
-            cla,
-            find
-
-            // statusChange
         };
-    },
-    methods:{
-        statusChange(item) {
-            this.statusChangeModal = !this.statusChangeModal
-            this.statusItem = item
-        },
-        vacancyUpdateModal(item) {
-            this.updateModal = !this.updateModal
-            this.item = item
-        },
-        vacancyDepositModal(item) {
+
+        const statusChange = (item) => {
+            statusChangeModal.value = !statusChangeModal.value
+            statusItem.value = item
+        };
+        const vacancyUpdateModal = (item) =>{
+            updateModal.value = !updateModal.value
+            item.value = item
+        };
+        const vacancyDepositModal = (item) =>{
             this.depositModal = !this.depositModal
             this.depositItem = item.deposit
-        },
-        selectionPersonalModal(item){
+        };
+        const selectionPersonalModal = (item) =>{
             this.selectionPersonalModalShow = !this.selectionPersonalModalShow
-        },
-        vacancyReminderModal(item){
+        };
+        const vacancyReminderModal = (item) =>{
             this.reminderModelShow = !this.reminderModelShow
             this.item = item
-        },
-        vacancyRepeat(item){
+        };
+        const vacancyRepeat = (item) =>{
             this.repeatModelShow = !this.repeatModelShow
             this.item = item
-        },
-        vacancyHistoryModal(id){
+        };
+        const vacancyHistoryModal = (id) =>{
             this.historyModelShow = !this.historyModelShow
             this.vacancyId = id
-        },
-        carryInHead(item){
+        };
+        const carryInHead = (item) =>{
             let editedFields = {
                 'carry_in_head_date': item.carry_in_head_date,
             }
@@ -598,9 +522,55 @@ export default {
                     return
                 }
             });
-        },
+        }
 
-    }
+        return {
+            headers,
+            items,
+            itemsSelected,
+            showStatusFilter,
+            choseStatus,
+            showCategoryFilter,
+            choseCategory,
+            showScheduleFilter,
+            choseSchedule,
+            showPaymentFilter,
+            chosePayment,
+            showIdFilter,
+            choseId,
+            filterOptions,
+
+            statusChangeModal,
+            statusItem,
+            updateModal,
+            item,
+            vacancyId,
+            depositModal,
+            depositItem,
+            selectionPersonalModalShow,
+            reminderModelShow,
+            repeatModelShow,
+            historyModelShow,
+            personalSelectionUrl,
+            vacancyPersonalUrl,
+            vacancyDepositUrl,
+
+            colspan,
+            hr_id,
+            myVacancy,
+            myVacancySwitch,
+            bodyRowClassNameFunction,
+            m,
+            cla,
+            find,
+
+            statusChange,
+
+            modalComponent,
+            showModal,
+            modalData
+        };
+    },
 }
 </script>
 <style >

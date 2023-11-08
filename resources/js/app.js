@@ -26,6 +26,7 @@ import * as Vue3FormWizard  from '../../node_modules/vue3-form-wizard/dist/vue3-
 // import Vue3FormWizard from 'vue3-form-wizard'
 import 'vue3-form-wizard/dist/style.css'
 
+
 window.I18n = I18n;
 window.toast = toast
 // window.swal = VueSweetalert2

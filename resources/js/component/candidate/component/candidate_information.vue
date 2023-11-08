@@ -302,7 +302,7 @@
                         <div class="form-group city-outer-bx has-feedback">
                             <label>{{ $t('lang.user_profile_page_additional_height') }}</label>
                             <div class="ls-inputicon-box">
-                                <input class="form-control" @input="height(m.height)" v-model="m.height" type="number" placeholder="165" @blur="v.height.$touch">
+                                <input class="form-control" @input="height(m.height)" v-model="m.height" min="140" max="240" type="number" placeholder="165" @blur="v.height.$touch">
                                 <!-- <i class="fs-input-icon fa fa-arrows-alt-v" aria-hidden="true"></i> -->
                                 <span v-if="send && !v.height.numeric.$response" style='color:red'>* </span>
                             </div>
@@ -468,10 +468,9 @@ export default {
         const updateButton = () =>v.value.$invalid ? false: true
 
         const height = (item) =>{
-
             const numberAsString = item.toString();
             if (numberAsString.length == 3) {
-                m_height = item
+
                 if (item < 140) {
                     m.value.height = 140
                     toast.error("მინიმალური სიმაღლე არ უნდა იყოს 140 ზე ნაკლები", {
@@ -479,9 +478,10 @@ export default {
                         autoClose: 1000,
                     });
                 }
-                if (item > 210) {
-                    m.value.height = 210
+                if (item > 220) {
+                    m.value.height = 220
                 }
+                m_height = m.value.height
             }else if(numberAsString.length > 3){
                 m.value.height = m_height
             }
@@ -491,7 +491,7 @@ export default {
 
             const numberAsString = item.toString();
             if (numberAsString.length == 3) {
-                m_weight = item
+
                 if (item < 40) {
                     m.value.weight = 40
                     toast.error("მინიმალური წონა არ უნდა იყოს 40 ზე ნაკლები", {
@@ -502,6 +502,7 @@ export default {
                 if (item > 180) {
                     m.value.weight = 180
                 }
+                m_weight = m.value.weight
             }else if(numberAsString.length > 3){
                 m.value.weight = m_weight
             }

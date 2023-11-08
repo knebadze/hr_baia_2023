@@ -95,7 +95,7 @@
                 <div class="row" v-if="model.has_recommendation && model.has_recommendation.id == 2">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label><span class="text-danger">* </span>რეცომდაციის არ ქონის მიზეზი</label>
+                            <label><span class="text-danger">* </span>რეკომენდაციის არ ქონის მიზეზი</label>
                             <div class="ls-inputicon-box">
                                 <multiselect v-model="model.no_reason" :options="cla.noRecommendationReason" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="false" :allow-empty="false" @blur="v.no_reason.$touch">
                                     <template slot="singleLabel" slot-scope="{ option }"></template>

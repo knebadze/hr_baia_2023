@@ -47,7 +47,7 @@
                         <div class="form-group">
                             <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_work_salary_title') }}</label>
                             <div class="ls-inputicon-box">
-                                <input class="form-control" type="number" step="50" v-model="model.payment" @blur="v.payment.$touch" style='height:45px;'>
+                                <input class="form-control" type="number" step="50" v-model="model.payment" min="0" @blur="v.payment.$touch" style='height:45px;'>
                                 <span v-if="send && !v.payment.required.$response" style='color:red'>* </span>
                                 <span v-if="send && !v.payment.numeric.$response" style='color:red'>* </span>
                             </div>

@@ -30,7 +30,6 @@ export default {
         age: String,
     },
     setup(props, {emit}) {
-        console.log('props',props);
 
         const divClass = computed(() =>{
             let className = '';

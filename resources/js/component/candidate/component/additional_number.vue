@@ -5,8 +5,8 @@
         </div>
         <div class="panel-body wt-panel-body p-a20 m-b30 ">
             <div class="d-flex justify-content-between border border-info p-2 mb-2">
-                <span>შეგიძლიათ დაამატოთ 2 ნომერი</span>
-                <span>{{ m.length }} / 2</span>
+                <span>შეგიძლიათ დაამატოთ {{ limit }} ნომერი</span>
+                <span>{{ m.length }} / {{ limit }}</span>
             </div>
 
             <div class="row">
@@ -45,7 +45,7 @@
                             v-model="model.number"
                             placeholder="555666777"
                             onkeypress="return /[0-9]/i.test(event.key)"
-                            :disabled="m.length == 2"
+                            :disabled="m.length == limit"
                         >
                     </div>
                         <!-- <div class="input-group mb-3">
@@ -71,7 +71,7 @@
                                 placeholder="Select one"
                                 :searchable="true"
                                 :allow-empty="false"
-                                :disabled="m.length == 2"
+                                :disabled="m.length == limit"
                             >
                                 <template slot="singleLabel" slot-scope="{ option }"></template>
                             </multiselect>
@@ -80,14 +80,14 @@
 
                     </div>
                 </div>
-                <div class="col-lg-12 col-md-12" v-if="m.length != 2">
+                <div class="col-lg-12 col-md-12">
                     <div class="text-right ">
                         <button class="btn btn-success"
                             @click.prevent="add(selectedOption, model)"
                             title="Add Number"
                             data-bs-toggle="tooltip"
                             data-bs-placement="top"
-                            :disabled="send"
+                            :disabled="send || m.length == limit"
                         >{{ $t('lang.user_profile_page_foreign_lang_button_add_info') }}
                             <span class="fa fa-plus"></span>
                         </button>
@@ -136,6 +136,7 @@ export default {
         data: Object,
     },
     setup(props, { emit }) {
+        const limit = ref(3);
         const send = ref(false);
         const classificatory = props.data.cla
         const sort = () =>{
@@ -216,7 +217,14 @@ export default {
         };
 
         const validateAndEmit = () => {
-            const isFormValid = true;
+            if (m.value.length == 0) {
+                toast.error("აუცილებელია მინიმუმ ერთი ნომრის დამატება", {
+                        theme: 'colored',
+                        autoClose: 2000,
+                    });
+                    return
+            }
+            const isFormValid = m.value.length > 0 ? true : false;
             emit("validateAndEmit", isFormValid);
         }
 
@@ -287,7 +295,8 @@ export default {
             selectOption,
             myDiv,
             send,
-            remove
+            remove,
+            limit
 
         };
     },

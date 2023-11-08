@@ -67,7 +67,7 @@ class ResumeController extends Controller
                 'recommendation',
                 'generalWorkExperience',
                 'familyWorkExperience.noReason',
-                'familyWorkExperience.familyWorkDuty',
+                'familyWorkExperience.familyWorkDuty.category',
                 'characteristic',
                 'allergy',
                 'maritalStatus',

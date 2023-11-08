@@ -80,7 +80,7 @@
                             </div>
                         <div class="col-xl-4 col-lg-6 col-md-12">
                             <div class="form-group">
-                                <label><span class="text-danger">* </span>მისამართი</label>
+                                <label><span class="text-danger">* </span>დასახლების დასახელება</label>
                                 <div class="ls-inputicon-box">
                                     <input
                                         class="form-control"
@@ -559,6 +559,7 @@ import { useVuelidate } from '@vuelidate/core';
 import { required, numeric, maxLength, email } from '@vuelidate/validators';
 import Swal from 'sweetalert2';
 import moment from 'moment';
+
 export default {
     props: {
         data: Object,

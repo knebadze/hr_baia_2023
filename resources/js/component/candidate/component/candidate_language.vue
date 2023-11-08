@@ -4,6 +4,10 @@
             <h4 class="panel-tittle m-a0">{{ $t('lang.user_profile_page_foreign_lang_title') }}</h4>
         </div>
         <div class="panel-body wt-panel-body p-a20 m-b30 ">
+            <div class="d-flex justify-content-between border border-info p-2 mb-2">
+                <span>შეგიძლიათ დაამატოთ {{ limit }} უცხო ენა</span>
+                <span>{{ m.length }} / {{ limit }}</span>
+            </div>
             <p v-if="m.length == 0" class="text-danger">* {{ $t('პირველ რიგში მიუთით მშობლიური ენა') }}</p>
             <div class="row">
                 <div class="col-xl-6 col-lg-6 col-md-12">
@@ -19,6 +23,7 @@
                                 placeholder="Select one"
                                 :searchable="true"
                                 :allow-empty="false"
+                                :disabled="m.length == limit"
                             >
                                 <template slot="singleLabel" slot-scope="{ option }"></template>
                             </multiselect>
@@ -38,7 +43,7 @@
                                 placeholder="Select one"
                                 :searchable="true"
                                 :allow-empty="false"
-                                :disabled="m.length == 0"
+                                :disabled="m.length == 0 || m.length == limit"
                             >
                                 <template slot="singleLabel" slot-scope="{ option }"></template>
                             </multiselect>
@@ -52,7 +57,7 @@
                             title="დამატება"
                             data-bs-toggle="tooltip"
                             data-bs-placement="top"
-                            :disabled="send"
+                            :disabled="send || m.length == limit"
                         >{{ $t('lang.user_profile_page_foreign_lang_button_add_info') }}
                             <span class="fa fa-plus"></span>
                         </button>
@@ -105,6 +110,7 @@ export default {
         const getLang = computed(() => {
             return I18n.getSharedInstance().options.lang;
         });
+        const limit = ref(5);
         const send = ref(false);
         const cla = ref({...props.data.cla})
         const formData = props.data.model.get_language;
@@ -264,6 +270,7 @@ export default {
             getLang,
             validateAndEmit,
             send,
+            limit,
             remove
 
         };

@@ -82,7 +82,7 @@
                                     <div class="col-md-6">
                                         <div class="twm-s-detail-section">
                                             <div class="twm-title">მოქალაქეობა</div>
-                                            <span class="twm-s-info-discription">{{ data.citizenship.map(i => i.name_ka).join(', ') }}</span>
+                                            <span class="twm-s-info-discription">{{ data.citizenship.map(i => i[`name_${getLang}`]).join(', ') }}</span>
                                         </div>
                                     </div>
 
@@ -155,7 +155,7 @@
                                     <div class="col-md-6">
                                         <div class="twm-s-detail-section">
                                             <div class="twm-title">მახასიათებლები</div>
-                                            <span class="twm-s-info-discription">{{ data.characteristic.map(i => i.name_ka).join(', ') }}</span>
+                                            <span class="twm-s-info-discription">{{ data.characteristic.map(i => i[`name_${getLang}`]).join(', ') }}</span>
                                         </div>
                                     </div>
 
@@ -203,19 +203,19 @@
                                     <div class="col-md-6">
                                         <div class="twm-s-detail-section">
                                             <div class="twm-title">პროფესია</div>
-                                            <span class="twm-s-info-discription">{{ data.professions.map(i => i.name_ka).join(', ') }}</span>
+                                            <span class="twm-s-info-discription">{{ data.professions.map(i => i[`name_${getLang}`]).join(', ') }}</span>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="twm-s-detail-section">
                                             <div class="twm-title">სპეციალობა</div>
-                                            <span class="twm-s-info-discription">{{ data.specialty.map(i => i.name_ka).join(', ') }}</span>
+                                            <span class="twm-s-info-discription">{{ data.specialty.map(i => i[`name_${getLang}`]).join(', ') }}</span>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="twm-s-detail-section">
                                             <div class="twm-title">უცხო ენები</div>
-                                            <span class="twm-s-info-discription">{{ data.get_language.map(i => i.language.name_ka+ ' - '+ i.level.name_ka ).join(', ') }}</span>
+                                            <span class="twm-s-info-discription">{{ data.get_language.map(i => i.language[`name_${getLang}`]+ ' - '+ i.level[`name_${getLang}`] ).join(', ') }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -237,7 +237,7 @@
                                     <div class="col-md-6">
                                         <div class="twm-s-detail-section">
                                             <div class="twm-title">ალერგია</div>
-                                            <span  class="twm-s-info-discription">{{ data.allergy.map(i => i.name_ka).join(', ') }}</span>
+                                            <span  class="twm-s-info-discription">{{ data.allergy.map(i => i[`name_${getLang}`]).join(', ') }}</span>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -312,16 +312,16 @@
                                     </div>
                                 </div>
                             </div>
-                            <div v-if="data.generalWorkNoExperience && data.generalWorkNoExperience.experience == 2" class="col-md-12">
+                            <div v-if="data.general_work_experience && data.general_work_experience.experience == 2" class="col-md-12">
                                 <div  class="panel-body wt-panel-body p-a20 ">
                                     <div class="twm-panel-inner">
                                         <div class="twm-s-detail-section">
                                             <div class="twm-title">მიზეზი</div>
-                                            <span class="twm-s-info-discription">{{ data.generalWorkNoExperience.no_reason[`name_${getLang}`] }}</span>
+                                            <span class="twm-s-info-discription">{{ data.general_work_experience.no_reason[`name_${getLang}`] }}</span>
                                         </div>
                                         <div class="twm-s-detail-section">
                                             <div class="twm-title">დამატებითი ინფორმაცია</div>
-                                            <span class="twm-s-info-discription">{{ data.generalWorkNoExperience.no_reason_info }}</span>
+                                            <span class="twm-s-info-discription">{{ data.general_work_experience.no_reason_info }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -342,7 +342,7 @@
                                     <div class="col-md-6">
                                         <div class="twm-s-detail-section">
                                             <div class="twm-title">გრაფიკი</div>
-                                            <span class="twm-s-info-discription">{{ workInformation.get_work_schedule.map(i => i.work_schedule.name_ka).join(', ') }}</span>
+                                            <span class="twm-s-info-discription">{{ workInformation.get_work_schedule.map(i => i.work_schedule[`name_${getLang}`]).join(', ') }}</span>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -368,9 +368,9 @@
                             <h4 class="panel-tittle m-a0">ოჯახში მუშაობის გამოცდილება</h4>
 
                         </div>
-                        <div class="panel-body wt-panel-body p-a20 ">
+                        <div class="panel-body wt-panel-body p-a20 " >
                             <div class="twm-panel-inner">
-                                <div class="row">
+                                <div class="row" v-if="data.family_work_experience.experience == 1">
                                     <div class="col-md-6">
                                         <div class="twm-s-detail-section">
                                             <div class="twm-title">რამდენ ოჯახში გიმუშავით</div>
@@ -392,16 +392,26 @@
                                     <div class="col-md-6">
                                         <div class="twm-s-detail-section">
                                             <div class="twm-title">ოჯახში მუშაობდით</div>
-                                            <span v-for="(item, index) in data.familyWorkSkillCategory" :key="index" class="twm-s-info-discription">{{ item[`name_${getLang}`]+', ' }}</span>
+                                            <span  class="twm-s-info-discription">{{ familyWorkCategory }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" v-else>
+                                    <div class="col-md-12">
+                                        <div class="twm-s-detail-section">
+                                            <div class="twm-title">ოჯახში მუშაობის გამოცდილების არ ქონის მიზეზი</div>
+                                            <span class="twm-s-info-discription">{{ data.family_work_experience.no_reason[`name_${getLang}`] }}</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
 
                     <!--Key Skills-->
-                    <div class="panel panel-default mb-3">
+                    <div class="panel panel-default mb-3" v-if="data.family_work_experience.experience == 1">
                         <div class="panel-heading wt-panel-heading p-a20 panel-heading-with-btn ">
                             <h4 class="panel-tittle m-a0">ოჯახში მუშაობის დროს მევალებოდა</h4>
 
@@ -409,7 +419,7 @@
                         <div class="panel-body wt-panel-body p-a20 ">
                             <div class="tw-sidebar-tags-wrap">
                                 <div class="tagcloud">
-                                    <a v-for="item in data.family_work_experience.family_work_duty" href="javascript:void(0)">{{ item[`name_${getLang}`] }}</a>
+                                    <a v-for="item in data.family_work_experience.family_work_duty" href="javascript:void(0)">{{ item[`name_${getLang}`]  }}</a>
                                 </div>
                             </div>
                         </div>
@@ -511,6 +521,19 @@ export default {
                 return true
             }
             return false
+        },
+        familyWorkCategory(){
+            if(this.data.family_work_experience && this.data.family_work_experience.experience == 1){
+                const duties = this.data.family_work_experience.family_work_duty;
+
+                // Map the category names and get unique ones
+                const uniqueCategories = [...new Set(duties.map(i => i.category[`name_${this.getLang}`]))];
+
+                // Join the unique categories into a comma-separated string
+                const result = uniqueCategories.join(', ');
+
+                return result
+            }
         }
     },
     methods:{
