@@ -74,18 +74,24 @@ class SelectionPersonalController extends Controller
 
     public function find(CandidateFilters $filters)  {
         // dd($filters);
-        $candidate = Candidate::filter($filters)->whereNot('status_id', 12)->with([
-            'user', 'user.gender', 'specialty', 'nationality', 'religion', 'education', 'maritalStatus', 'citizenship',
-            'professions', 'characteristic', 'getLanguage.language', 'getLanguage.level', 'allergy', 'drivingLicense', 'generalWorkExperience', 'notice',
-            'familyWorkExperience.noReason','familyWorkExperience.familyWorkDuty', 'recommendation', 'getWorkInformation',
-            'getWorkInformation.category','getWorkInformation.currency', 'getWorkInformation.workSchedule', 'qualifyingCandidate', 'qualifyingCandidate.vacancy', 'status'
-        ])->get();
+        $candidate = Candidate::filter($filters)
+            ->whereIn('status_id', [9, 11, 14])
+            ->with([
+                'user', 'user.gender', 'specialty', 'nationality', 'religion', 'education', 'maritalStatus', 'citizenship',
+                'professions', 'characteristic', 'getLanguage.language', 'getLanguage.level', 'allergy', 'drivingLicense', 'generalWorkExperience', 'notice',
+                'familyWorkExperience.noReason','familyWorkExperience.familyWorkDuty', 'recommendation', 'getWorkInformation',
+                'getWorkInformation.category','getWorkInformation.currency', 'getWorkInformation.workSchedule', 'qualifyingCandidate', 'qualifyingCandidate.vacancy', 'status'
+            ])
+            ->get();
         // dd($candidate);
         return $candidate;
     }
 
     function addPersonalInfo(Request $request) {
-        $findCandidate['this_vacancy'] = QualifyingCandidate::where('candidate_id', $request->data['candidate_id'])->where('vacancy_id', $request->data['vacancy_id'])->with('qualifyingType')->first();
+        $findCandidate['this_vacancy'] = QualifyingCandidate::where('candidate_id', $request->data['candidate_id'])
+            ->where('vacancy_id', $request->data['vacancy_id'])
+            ->with('qualifyingType')
+            ->first();
         $busy = QualifyingCandidate::where('candidate_id', $request->data['candidate_id'])->whereIn('qualifying_type_id', [ 4, 5, 7])->with(['qualifyingType', 'vacancy.hr.user'])->get()->toArray();
         // ვპოულობ კანდიდატი თუ არის  'დამსაქმებლის მოწონებული', 'გამოსაცდელი ვადით', 'დასაქმდა' კატეგორიაში
         if (count($busy) == 0) {
@@ -94,7 +100,7 @@ class SelectionPersonalController extends Controller
         }else{
             $vacancyIdToCheck = $request->data['vacancy_id'];
             // თუ მოიძებნა ვამოწმებ იძებნება თუ არა აუტორიზებული hr ვაკანსიებში თუ იძებნება NULL ვაბრუნებ თუ არ იძებნება ვამოწმებ მოთხოვნილ
-            // ვაკანსიაზე უკვე ხომ არ არის დამტებული თუ არის NULL ვაბრუნებ თუ არა ვაბრუნებ ARRAY
+            // ვაკანსიაზე უკვე ხომ არ არის დამატებული თუ არის NULL ვაბრუნებ თუ არა ვაბრუნებ ARRAY
 
             $collection = collect($busy);
 

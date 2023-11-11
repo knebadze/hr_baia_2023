@@ -33,26 +33,14 @@
                     <hr>
                     <h6><i class="fa fa-list"></i> მომდევნო შეხსენება</h6>
                     <hr>
-                    <div class="row">
-                        <div v-for="(item, index) in data.history" :key="index" class="col-md-5 ml-1 border border-success">
-                            <p class=''><strong>შეხსენების თარიღი: </strong><span>{{ item.date }}</span></p>
-                            <p  class=''><strong>შეხსენების მიზეზი: </strong><span>{{ item.reason }}</span></p>
-                            <p class=''><strong>დამატების თარიღი: </strong><span>{{ changeFormat(item.created_at) }}</span></p>
-                        </div>
-                    </div>
+                    <reminder_table :items="data.next" :role_id="roleId"></reminder_table>
 
                 </div>
                 <div v-if="data.history.length > 0">
                     <hr>
                     <h6><i class="fa fa-list"></i> ისტორია</h6>
                     <hr>
-                    <div class="row">
-                        <div v-for="(item, index) in data.history" :key="index" class="col-md-5 ml-1 border border-danger">
-                            <p class=''><strong>შეხსენების თარიღი: </strong><span>{{ item.date }}</span></p>
-                            <p  class=''><strong>შეხსენების მიზეზი: </strong><span>{{ item.reason }}</span></p>
-                            <p class=''><strong>დამატების თარიღი: </strong><span>{{ changeFormat(item.created_at) }}</span></p>
-                        </div>
-                    </div>
+                    <reminder_table :items="data.history" :role_id="roleId"></reminder_table>
 
                 </div>
 
@@ -69,11 +57,17 @@
   <script>
   import { toast } from 'vue3-toastify';
   import 'vue3-toastify/dist/index.css';
-  import moment from 'moment'
+  import moment from 'moment';
+  import reminder_table from '../../reminder/component/reminder_table.vue';
   export default {
+        components:{
+            reminder_table
+        },
         props:{
             visible: Boolean,
-            item: Object
+            item: Object,
+            roleId:Number
+
         },
         data() {
             return {
@@ -94,8 +88,10 @@
         },
         methods:{
             async show(){
+                console.log(this.item);
                 try {
                     let result = await this.getClassificatory();
+                    console.log(result.data);
                     this.data = result.data
 
                     this.m = this.makeModel(this.item)
@@ -117,6 +113,7 @@
                 newItem.vacancy_id = item.id
                 newItem.date = null
                 newItem.reason = null
+                newItem.main = 0
 
                 return {...newItem}
             },

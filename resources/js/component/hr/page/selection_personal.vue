@@ -78,7 +78,7 @@
                                     <label>წონა</label>
                                     <div class="ls-inputicon-box mt-4">
                                         <!-- <input class="form-control" v-model="m.weight"  type="number" placeholder="75"> -->
-                                        <Slider v-model="m.weight" :min=40  :max=120 :step=10 class="slider"/>
+                                        <Slider v-model="m.weight" :min=40  :max=180 :step=10 class="slider"/>
                                     </div>
                                 </div>
                             </div>
@@ -238,7 +238,18 @@
                                 <div class="form-group">
                                     <label>კატეგორია</label>
                                     <div class="ls-inputicon-box">
-                                        <multiselect v-model="m.category"  :options="cla.category" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true"  label="name_ka" track-by="name_ka" :preselect-first="false" >
+                                        <multiselect
+                                            v-model="m.category"
+                                            :options="cla.category"
+                                            :multiple="true"
+                                            :close-on-select="false"
+                                            :clear-on-select="false"
+                                            :preserve-search="true"
+                                            label="name_ka"
+                                            track-by="name_ka"
+                                            :preselect-first="false"
+                                            disabled
+                                        >
                                             <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                                         </multiselect>
                                     </div>
@@ -385,10 +396,11 @@ export default {
         this.m.work_additional_hours = (this.data.vacancy.work_additional_hours == 1 )?true:''
         this.m.stay_night = (this.data.vacancy.stay_night == 1 )?true:''
         this.vacancy = {
-            'vacancy_id': this.data.vacancy.id,
-            'vacancy_code': this.data.vacancy.code,
-            'interview_place': this.data.vacancy.interview_place,
-            'interview_date': this.data.vacancy.interview_date
+            vacancy_id: this.data.vacancy.id,
+            vacancy_code: this.data.vacancy.code,
+            interview_place: this.data.vacancy.interview_place,
+            interview_date: this.data.vacancy.interview_date,
+            start_date: this.data.vacancy.start_date
         }
         this.modalData['vacancy'] = this.vacancy
     },
@@ -424,6 +436,7 @@ export default {
                 })
             .then(function (response) {
                 // handle success
+                console.log('response.data',response.data);
                 currentObj.candidate = response.data
                 currentObj.modalData['candidate'] = response.data
                 currentObj.tableKey++

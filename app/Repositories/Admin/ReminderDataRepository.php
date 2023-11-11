@@ -4,6 +4,7 @@ namespace App\Repositories\Admin;
 
 use Carbon\Carbon;
 use App\Models\VacancyReminder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class ReminderDataRepository
@@ -15,6 +16,7 @@ class ReminderDataRepository
         $reminder->hr_id = $hr_id;
         $reminder->date = $data['date'];
         $reminder->reason = $data['reason'];
+        $reminder->main = $data['main'];
         if (array_key_exists('active', $data)) {
             VacancyReminder::where('id', $data['id'])->update(['active' => $data['active']]);
         }
@@ -23,59 +25,31 @@ class ReminderDataRepository
     function admin()  {
         $data = [];
         $now = Carbon::now();
-        // $now->startOfWeek(); Start of the current week (Sunday)
-        // $now->endOfWeek(); End of the current week (Saturday)
-        $data['daily'] = VacancyReminder::orderBy('created_at', 'DESC')
-                        ->whereDate('date', Carbon::today())
-                        ->with(['vacancy', 'hr.user'])
-                        ->get();
-        $data['current'] = VacancyReminder::orderBy('date', 'ASC')
-                            ->where('active', 0)
-                            ->where(function ($query) use ($now) {
-                                $query->where('date', '>', $now)
-                                    ->orWhere(function ($query) use ($now) {
-                                        $query->whereDate('date', '=', $now)
-                                              ->whereTime('date', '>', $now);
-                                    });
-                            })
-                            ->with(['vacancy', 'hr.user'])
-                            ->get();
-        $data['weekly'] = VacancyReminder::orderBy('created_at', 'DESC')
-                            ->whereDate('date', '>=', $now->startOfWeek())
-                            ->whereDate('date', '<=', $now->endOfWeek())
-                            ->with(['vacancy', 'hr.user'])
-                            ->get();
+        $data = DB::table('vacancy_reminders as a')
+            ->orderBy('a.created_at', 'DESC')
+            ->whereDate('a.date', '>=', $now->startOfWeek())
+            ->whereDate('a.date', '<=', $now->endOfWeek())
+            ->join('vacancies as b', 'b.id', '=', 'a.vacancy_id')
+            ->join('hrs as c', 'c.id', '=', 'a.hr_id')
+            ->join('users as d', 'c.user_id', '=', 'd.id')
+            ->select('a.*',  'b.code as code', 'd.name_ka as hr_name')
+            ->get();
         return $data;
     }
 
     function hr()  {
         $data = [];
         $now = Carbon::now();
-        // $now->startOfWeek(); Start of the current week (Sunday)
-        // $now->endOfWeek(); End of the current week (Saturday)
-        $data['daily'] = VacancyReminder::orderBy('created_at', 'DESC')
-                        ->whereDate('date', Carbon::today())
-                        ->where('hr_id', Auth::user()->hr->id)
-                        ->with('vacancy')
-                        ->get();
-        $data['current'] = VacancyReminder::orderBy('date', 'ASC')
-                            ->where('active', 0)
-                            ->where(function ($query) use ($now) {
-                                $query->where('date', '>', $now)
-                                    ->orWhere(function ($query) use ($now) {
-                                        $query->whereDate('date', '=', $now)
-                                              ->whereTime('date', '>', $now);
-                                    });
-                            })
-                            ->where('hr_id', Auth::user()->hr->id)
-                            ->with('vacancy')
-                            ->get();
-        $data['weekly'] = VacancyReminder::orderBy('created_at', 'DESC')
-                            ->whereDate('date', '>=', $now->startOfWeek())
-                            ->whereDate('date', '<=', $now->endOfWeek())
-                            ->where('hr_id', Auth::user()->hr->id)
-                            ->with('vacancy')
-                            ->get();
+
+
+        $data = DB::table('vacancy_reminders as a')
+            ->orderBy('a.created_at', 'DESC')
+            ->whereDate('a.date', '>=', $now->startOfWeek())
+            ->whereDate('a.date', '<=', $now->endOfWeek())
+            ->where('a.hr_id', Auth::user()->hr->id)
+            ->join('vacancies as b', 'b.id', '=', 'a.vacancy_id')
+            ->select('a.*',  'b.code as code')
+            ->get();
         return $data;
     }
 }

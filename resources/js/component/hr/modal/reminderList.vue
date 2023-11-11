@@ -52,7 +52,7 @@
   import { toast } from 'vue3-toastify';
   import 'vue3-toastify/dist/index.css';
   import moment from 'moment'
-  import filledReminder from './filledReminder.vue';
+  import filledReminder from '../../admin/reminder/modal/filledReminder.vue';
   import vacancyFullInfoModal from '../../modal/vacancyFullInfoModal.vue';
     export default {
         components:{

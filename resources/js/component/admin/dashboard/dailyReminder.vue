@@ -21,6 +21,7 @@
                             <th v-if="role_id == 1">HR</th>
                             <th>შეხსენების მიზეზი</th>
                             <th>დრო</th>
+                            <th>ტიპი</th>
                             <th>სტატუსი</th>
                         </tr>
                     </thead>
@@ -31,6 +32,7 @@
                             <td v-if="role_id == 1">{{ item.hr.user.name_ka }}</td>
                             <td>{{ item.reason }}</td>
                             <td>{{ item.date }}</td>
+                            <td><span :class="item.main == 0 ?'badge badge-warning':'badge badge-danger'">{{ item.main == 0 ? 'ჩანაწერი': 'ძირითადი' }}</span></td>
                             <td>
                                 <span v-if="item.status == 0" class="badge badge-danger">გადაცილებული</span>
                                 <span v-if="item.status == 1" class="badge badge-warning">მიმდინარე</span>

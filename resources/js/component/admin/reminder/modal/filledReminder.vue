@@ -82,6 +82,7 @@
                 newItem.reason = null
                 newItem.active = 1
                 newItem.id = item.id
+                newItem.main = 1
 
                 return {...newItem}
             },

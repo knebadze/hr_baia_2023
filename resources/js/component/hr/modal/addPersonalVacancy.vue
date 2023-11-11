@@ -71,13 +71,13 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label> დაწყების თარიღი</label>
-                            <input class="form-control" v-model="m.start_date" type="date" >
+                            <input class="form-control" v-model="m.start_date" type="date" :min="startDateMin" :max="startDateMax">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label> დასრულების თარიღი </label>
-                            <input class="form-control" v-model="m.end_date" type="date" >
+                            <input class="form-control" v-model="m.end_date" type="date" :max="endDateMax">
                         </div>
                     </div>
                 </div>
@@ -103,6 +103,7 @@
   import { toast } from 'vue3-toastify';
   import 'vue3-toastify/dist/index.css';
   import vacancyFullInfoModal from '../../modal/vacancyFullInfoModal.vue';
+  import moment from 'moment'
   export default {
         components:{
             vacancyFullInfoModal
@@ -121,7 +122,10 @@
                 busy: null,
                 modalShow:false,
                 vacancy_id:null,
-                qualifyingType: []
+                qualifyingType: [],
+                startDateMin: null,
+                startDateMax: null,
+                endDateMax: null
             }
         },
         created(){
@@ -136,8 +140,8 @@
         methods:{
             async show(){
                 try {
-
                     let result = await this.getClassificatory();
+                    console.log('result', result.data);
                     this.cla = result.data.classificatory
                     this.qualifyingType = this.cla.qualifyingType.filter(item => item.id !== 6 && item.id !== 7);
                     this.info  = result.data.findCandidate
@@ -145,6 +149,12 @@
                     this.m = {...this.item}
                     this.m['type'] = (result.data.findCandidate && result.data.findCandidate.this_vacancy )?result.data.findCandidate.this_vacancy.qualifying_type:null
                     this.showConfirm = true
+                    const currentDate = moment();
+                    this.startDateMin = currentDate.format('YYYY-MM-DD');
+                    const startDateMoment = moment(this.m.start_date);
+                    const endDateMoment = moment(this.m.start_date);
+                    this.startDateMax = startDateMoment.subtract(1, 'weeks').format('YYYY-MM-DD');
+                    this.endDateMax = endDateMoment.subtract(1, 'days').format('YYYY-MM-DD');
 
                 } catch (error) {
                     console.log(error);

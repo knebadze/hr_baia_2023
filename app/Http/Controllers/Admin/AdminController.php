@@ -39,7 +39,7 @@ class AdminController extends Controller
                         ->withSuccess('Signed in');
         }
 
-       return redirect("admin")->withSuccess('Login details are not valid');
+       return redirect("ka/admin")->withSuccess('Login details are not valid');
    }
    public function dashboard()
    {

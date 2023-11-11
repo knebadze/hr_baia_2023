@@ -39,7 +39,7 @@
                         <div class="col-md-5">
                             <div class="form-group">
                                 <label> შეხსენების დრო </label>
-                                <input class="form-control" v-model="reminder.date" type="datetime-local" placeholder="" rows="3">
+                                <input class="form-control" v-model="reminder.date" type="datetime-local" placeholder="" rows="3" :max="maxDate">
                             </div>
                         </div>
                         <div class="col-md-7">
@@ -98,7 +98,8 @@
                 reminder:{},
                 showModal: false,
                 modalItem: null,
-                showDeleteReminderModal: false
+                showDeleteReminderModal: false,
+                maxDate: null
             }
         },
         created(){
@@ -118,6 +119,8 @@
                     this.m = this.makeModel(this.item)
                     this.cla = this.makeCla(this.item.status.id)
                     this.showConfirm = true
+                    this.maxDate = this.getMaxDate(this.item)
+                    console.log('this.maxDate',this.maxDate);
                 } catch (error) {
                     console.log(error);
                 }
@@ -134,6 +137,10 @@
                 newItem.status_change_reason = item.status_change_reason
 
                 return {...newItem}
+            },
+            getMaxDate(item){
+                console.log(item);
+                return moment(item.start_date).subtract(1, 'weeks').format('YYYY-MM-DD HH:mm');
             },
             makeCla(id){
                 let status = []

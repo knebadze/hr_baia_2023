@@ -309,7 +309,14 @@
                                 <div class="form-group">
                                     <label><span class="text-danger">* </span>{{ $t('lang.employer_add_job_when_need') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <input class="form-control" @input="startDate(m.vacancy.start_date)" v-model="m.vacancy.start_date" type="date" placeholder="" @blur="v.vacancy.start_date.$touch">
+                                        <input
+                                            class="form-control"
+                                            @input="startDate(m.vacancy.start_date)"
+                                            v-model="m.vacancy.start_date"
+                                            type="date"
+                                            :min="startDateMin"
+                                            placeholder=""
+                                            @blur="v.vacancy.start_date.$touch">
                                         <span v-if="send && !v.vacancy.start_date.required.$response" style='color:red'>* </span>
                                     </div>
                                 </div>
@@ -328,6 +335,7 @@
                                             :searchable="true"
                                             :allow-empty="false"
                                             @blur="v.vacancy.term_id.$touch"
+                                            :disabled="termDisable"
                                         >
                                             <template slot="singleLabel" slot-scope="{ option }"></template>
                                         </multiselect>
@@ -575,6 +583,9 @@ export default {
         const loader = ref(false);
         const send = ref(false);
         const cla = ref(_.cloneDeep(props.data.classificatory));
+        const termDisable = ref(false);
+        var currentDate = moment();
+        const startDateMin = ref(currentDate.add(1, 'days').format('YYYY-MM-DD'));
         cla.value.workSchedule = props.data.classificatory.workSchedule.filter(item => item.id !== 10 && item.id !== 11);
         const formData = {
             employer: {...props.data.model.employer},
@@ -593,7 +604,7 @@ export default {
         formData.employer.number_code = cla.value.numberCode.find(element => element.phonecode == 995);
         formData.vacancy.additional_schedule = formData.vacancy[`additional_schedule_${getLang.value}`];
         formData.vacancy.title = formData.vacancy[`title_${getLang.value}`];
-        formData.vacancy.payment = 800;
+        formData.vacancy.payment = 0;
         formData.vacancy['go_vacation'] = 0;
         formData.vacancy['stay_night'] = 0;
         formData.vacancy['work_additional_hours'] = 0;
@@ -699,6 +710,14 @@ export default {
 
                 let price = priceMap[newVal.id] || 0;
                 m.value.vacancy.payment = price;
+
+                if (newVal.id == 8) {
+                    m.value.vacancy.term_id = cla.value.term.find(element => element.id == 13);
+                    termDisable.value = true
+                }else{
+                    m.value.vacancy.term_id = ''
+                    termDisable.value = false
+                }
             }
         });
 
@@ -730,11 +749,6 @@ export default {
         const minAge = (item) =>{
 
             const numberAsString = item.toString();
-            if (numberAsString.length == 2) {
-                min_age = item
-            }else if(numberAsString.length > 2){
-                m.value.demand.min_age = min_age
-            }
             if (numberAsString.length == 2 && item < 18) {
                 m.value.demand.min_age = 18
                 toast.error("მინიმალური ასაკი არ უნდა იყოს 18 ზე ნაკლები", {
@@ -743,16 +757,16 @@ export default {
                 });
                 return
             }
+            if (numberAsString.length == 2) {
+                min_age = item
+            }else if(numberAsString.length > 2){
+                m.value.demand.min_age = min_age
+            }
+
         }
 
         const maxAge = (item) =>{
-
             const numberAsString = item.toString();
-            if (numberAsString.length == 2) {
-                max_age = item
-            }else if(numberAsString.length > 2){
-                m.value.demand.max_age = max_age
-            }
             if (numberAsString.length == 2 && item > 70) {
                 m.value.demand.max_age = 70
                 toast.error(`მაქსიმალური ასაკი არ უნდა იყოს 70 ზე მეტი`, {
@@ -761,6 +775,13 @@ export default {
                 });
                 return
             }
+
+            if (numberAsString.length == 2) {
+                max_age = item
+            }else if(numberAsString.length > 2){
+                m.value.demand.max_age = max_age
+            }
+
         }
 
         const add = (item) =>{
@@ -904,7 +925,9 @@ export default {
             localText,
             minDate,
             maxDate,
-            startDate
+            startDate,
+            termDisable,
+            startDateMin
 
         };
     },

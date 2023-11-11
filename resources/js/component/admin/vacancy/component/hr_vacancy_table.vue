@@ -10,171 +10,27 @@
         border-cell
         :filter-options="filterOptions"
     >
-    <template #item-operation="item">
-        <div class="operation-wrapper">
-            <table_cog :item="item" :key="item.id"></table_cog>
-            <!-- <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-cog"></i>
-                </button>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                    <a v-if="item.status.id != 4 && item.status.id != 5" class="dropdown-item" href="#" @click="openModal(item)">რეoდაქტირება</a>
-                    <a v-if="item.status.id != 4 && item.status.id != 5" class="dropdown-item" href="#" @click="vacancyUpdateModal(item)">რედაქტირება</a>
-                    <a v-if="item.status.id != 3 && item.status.id != 4 && item.status.id != 5" class="dropdown-item" href="#" @click="statusChange(item)">სტატუსის შეცვლა</a>
-                    <a v-if="item.status.id == 2" class="dropdown-item" :href="personalSelectionUrl+'/'+item.id" >კადრების შერჩევა</a>
-                    <a v-if="item.status.id > 1" class="dropdown-item" :href="vacancyPersonalUrl+'/'+item.id" >შერჩეული კადრები</a>
-                    <a v-if="item.hr_id == hr_id" class="dropdown-item" href="#" @click="vacancyReminderModal(item)">შეხსენება</a>
-                    <a v-if="item.hr_id == hr_id &&  item.status.id != 4 && item.status.id != 5 " class="dropdown-item" :href="vacancyDepositUrl+'/'+item.id" >დეპოზიტი</a>
-                    <a v-if="item.status.id == 4 || item.status.id == 5" class="dropdown-item" href="#"  @click="vacancyRepeat(item)">გამეორება</a>
-                    <a v-if="item.status.id !== 3 && item.status.id !== 4 && item.status.id !== 5" class="dropdown-item" href="#" @click="carryInHead(item)">აპინვა </a>
-                    <a class="dropdown-item" href="#" @click="vacancyHistoryModal(item.id)">ისტორია</a>
-                </div>
-            </div> -->
-        </div>
+        <template #item-operation="item">
+            <div class="operation-wrapper">
+                <table_cog :item="item" :key="item.id" :hr_id="hr_id" :roleId="roleId"></table_cog>
+            </div>
 
-    </template>
-    <template #item-category="item">
+        </template>
+        <template #item-category="item">
 
         <span :class="`badge bg-${item.category.color} p-1`" >{{ item.category.name_ka }}</span>
     </template>
-    <template #item-status="item">
+        <template #item-status="item">
 
         <span :class="`badge bg-${item.status.color} p-1`" >{{ item.status.name_ka }}</span>
     </template>
         <template #expand="item">
             <!-- {{ item }} -->
               <!-- /.card-header -->
-              <div class="card-body">
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <dl class="row">
-                                <dt class="col-sm-4">HR:</dt>
-                                <dd class="col-sm-8">{{ item.hr.user.name_ka }}</dd>
-                                <dt class="col-sm-4">სათაური:</dt>
-                                <dd class="col-sm-8">{{ item.title_ka }}</dd>
-                                <dt class="col-sm-4">სამუშაო დღეები:</dt>
-                                <dd class="col-sm-8">{{ item.additional_schedule_ka }}</dd>
-                                <div class="row col-12" v-if="item.vacancy_for_who_need.length > 0">
-                                    <dt class="col-sm-4">ვისთვის ესაჭიროება:</dt>
-                                    <dd class="col-sm-8"><span v-for="(i, index) in item.vacancy_for_who_need" :key="index">{{ i.name_ka+', ' }}</span> </dd>
-                                </div>
-                                <div class="row col-12" v-if="item.vacancy_benefit.length > 0">
-                                    <dt class="col-sm-4">ბენეფიტები:</dt>
-                                    <dd class="col-sm-8"><span v-for="(i, index) in item.vacancy_benefit" :key="index">{{ i.name_ka+', ' }}</span> </dd>
-                                </div>
-                                <div class="row col-12" v-if="item.stay_night == 1 || item.go_vacation == 1 || item.work_additional_hours == 1">
-                                    <dt class="col-sm-4">უნდა შეეძლოს:</dt>
-                                    <dd class="col-sm-8">
-                                        <span v-if="item.stay_night == 1"> ღამე დარჩენა, </span>
-                                        <span v-if="item.go_vacation  == 1"> არდადეგებზე გაყოლა, </span>
-                                        <span v-if="item.work_additional_hours == 1"> დამატებითი საათები მუშაობა, </span>
-                                    </dd>
-                                </div>
-
-                                <div class="row col-12" v-if="item.vacancy_duty.length > 0">
-                                    <dt class="col-sm-4">მოვალეობები:</dt>
-                                    <dd class="col-sm-8"><span v-for="(i, index) in item.vacancy_duty" :key="index" class="badge badge-primary">{{ i.name_ka+', ' }}</span> </dd>
-                                </div>
-                                <div class="row col-12" v-if="item.demand && item.demand.additional_name_ka">
-                                    <dt class="col-sm-4">დამატებითი მოვალეობები:</dt>
-                                    <dd class="col-sm-8">{{ item.demand.additional_name_ka }} </dd>
-                                </div>
-                                <div class="row col-12" v-if="item.vacancy_driving_license.length > 0">
-                                    <dt class="col-sm-4">მართვის მოწმობა:</dt>
-                                    <dd class="col-sm-8"><span v-for="(i, index) in item.vacancy_driving_license" :key="index" class="badge badge-primary">{{ i.name+', '}}</span> </dd>
-                                </div>
-                                <div class="row col-12" v-if="item.hr_id == hr_id && item.deposit">
-                                    <div class="row col-12 border-top">
-                                        <dt class="col-sm-4">კანდიდატისგან უნდა ჩაირიცხოს:</dt>
-                                        <dd class="col-sm-8"> {{ item.deposit.candidate_initial_amount }}</dd>
-                                    </div>
-                                    <div class="row col-12 border-top" v-if="item.deposit.must_be_enrolled_candidate_date">
-                                        <dt class="col-sm-4">კანდიდატისგან უნდა ჩაირიცხოს თარიღი:</dt>
-                                        <dd class="col-sm-8"> {{ item.deposit.must_be_enrolled_candidate_date }}</dd>
-                                    </div>
-                                    <div class="row col-12 border-top" v-if="item.deposit.enrolled_candidate">
-                                        <dt class="col-sm-4">კანდიდატისგან ჩაირიცხა:</dt>
-                                        <dd class="col-sm-8"> {{ item.deposit.enrolled_candidate }}</dd>
-                                    </div>
-                                    <div class="row col-12 border-top" v-if="item.deposit.enrolled_candidate_date">
-                                        <dt class="col-sm-4">კანდიდატისგან ჩაირიცხა თარიღი:</dt>
-                                        <dd class="col-sm-8"> {{ item.deposit.enrolled_candidate_date }}</dd>
-                                    </div>
-                                </div>
-
-                            </dl>
-                        </div>
-                        <div class="col-md-6">
-                            <dl class="row">
-                                <dt class="col-sm-4">დამატების თარიღი:</dt>
-                                <dd class="col-sm-8">{{ item.created_at }}</dd>
-                                <dt class="col-sm-4">განახლების თარიღი:</dt>
-                                <dd class="col-sm-8">{{ item.updated_at }}</dd>
-                                <div class="row col-12" v-if="item.interview_date">
-                                    <dt class="col-sm-4">გასაუბრების თარიღი:</dt>
-                                <dd class="col-sm-8">{{ item.interview_date }}</dd>
-                                </div>
-
-                                <div class="row col-12" v-if="item.interview_place">
-                                    <dt class="col-sm-4">გასაუბრების ადგილი:</dt>
-                                    <dd class="col-sm-8">{{ item.interview_place.name_ka }}</dd>
-                                </div>
-
-                                <div class="row col-12" v-if="item.term">
-                                    <dt class="col-sm-4">ვადა:</dt>
-                                    <dd class="col-sm-8">{{ item.term.name_ka }}</dd>
-                                </div>
-
-                                <div class="row col-12" v-if="item.demand">
-                                    <div class="row col-12" v-if="item.demand.education">
-                                        <dt class="col-sm-4">განათლება:</dt>
-                                        <dd class="col-sm-8">{{ item.demand.education.name_ka }} </dd>
-                                    </div>
-                                    <div class="row col-12" v-if="item.demand.specialty">
-                                        <dt class="col-sm-4">პროფესია:</dt>
-                                        <dd class="col-sm-8">{{ item.demand.specialty.name_ka }} </dd>
-                                    </div>
-                                    <div class="row col-12" v-if="item.demand.language">
-                                        <dt class="col-sm-4">უცხო ენა:</dt>
-                                        <dd class="col-sm-8">{{ item.demand.language.name_ka+' -' }} {{ (item.demand.language_level)?item.demand.language_level.name_ka:''}}</dd>
-                                    </div>
-                                    <div class="row col-12" v-if="item.demand.min_age || item.demand.max_age">
-                                        <dt class="col-sm-4">ასაკი:</dt>
-                                        <dd class="col-sm-8">{{ item.demand.min_age+' - '+ item.demand.max_age}}</dd>
-                                    </div>
-                                </div>
-
-                                <div class="row col-12" v-if="item.characteristic.length > 0">
-                                    <dt class="col-sm-4">მახასიათებლები:</dt>
-                                    <dd class="col-sm-8"><span v-for="(i, index) in item.characteristic" :key="index" >{{ i.name_ka+', ' }}</span> </dd>
-                                </div>
-                                <div class="row col-12" v-if="item.hr_id == hr_id && item.deposit">
-                                    <div class="row col-12 border-top">
-                                        <dt class="col-sm-4 ">დამსაქმებლისგან უნდა ჩაირიცხოს:</dt>
-                                        <dd class="col-sm-8"> {{ item.deposit.employer_initial_amount }}</dd>
-                                    </div>
-                                    <div class="row col-12 border-top" v-if="item.deposit.must_be_enrolled_employer_date">
-                                        <dt class="col-sm-4">დამსაქმებლისგან უნდა ჩაირიცხოს თარიღი:</dt>
-                                        <dd class="col-sm-8"> {{ item.deposit.must_be_enrolled_employer_date }}</dd>
-                                    </div>
-                                    <div class="row col-12 border-top" v-if="item.deposit.enrolled_employer">
-                                        <dt class="col-sm-4">დამსაქმებლისგან ჩაირიცხა:</dt>
-                                        <dd class="col-sm-8"> {{ item.deposit.enrolled_employer }}</dd>
-                                    </div>
-                                    <div class="row col-12 border-top" v-if="item.deposit.enrolled_employer_date">
-                                        <dt class="col-sm-4">დამსაქმებლისგან ჩაირიცხა თარიღი:</dt>
-                                        <dd class="col-sm-8"> {{ item.deposit.enrolled_employer_date }}</dd>
-                                    </div>
-                                </div>
-
-
-
-                            </dl>
-                        </div>
-                    </div>
-
+              <div class="card-header">
+                <expand_body :item="item" :hr_id="hr_id"/>
               </div>
+
               <!-- /.card-body -->
         </template>
         <template #header-status.name_ka="header">
@@ -260,69 +116,36 @@
         </template>
     </EasyDataTable>
     <!-- {{ statusChangeModal }} -->
-    <changeStatus :visible="statusChangeModal" :item="statusItem"></changeStatus>
-    <vacancyUpdate :visible="updateModal" :item="item"></vacancyUpdate>
-    <vacancyDeposit :visible="depositModal" :item="depositItem"></vacancyDeposit>
-    <vacancyReminder :visible="reminderModelShow" :item="item"></vacancyReminder>
-    <vacancyRepeat :visible="repeatModelShow" :item="item"></vacancyRepeat>
-    <redactedHistory :visible="historyModelShow" :vacancyId="vacancyId"></redactedHistory>
-    <component
-        :is="modalComponent"
-        v-if="modalComponent"
-        :visible="showModal"
-        :id="modalData"
-    ></component>
+
 </template>
 <script>
 import { ref, computed } from "vue";
 import moment from 'moment'
 import Slider from '@vueform/slider'
 import "@vueform/slider/themes/default.css";
-// import Switches from 'vue-switches';
 import Switch from '../../../inc/Switch.vue';
 import _ from 'lodash'
-
-// import { Header, Item, FilterOption } from "vue3-easy-data-table";
-import changeStatus from "../modal/changeStatus.vue";
-import vacancyUpdate from "../modal/vacancyUpdate.vue"
-import vacancyDeposit from "../../../hr/modal/vacancyDeposit.vue";
-import vacancyReminder from "../modal/vacancyReminder.vue";
-import vacancyRepeat from "../../../hr/modal/vacancyRepeat.vue";
-import redactedHistory from "../../../hr/modal/redactedHistory.vue"
 import table_cog from "./table_cog.vue";
+import expand_body from "./expand_body.vue";
 export default {
     components: {
         Slider,
-        changeStatus,
-        vacancyUpdate,
-        vacancyDeposit,
-        vacancyReminder,
-        vacancyRepeat,
-        redactedHistory,
         Switch,
-        table_cog
+        table_cog,
+        expand_body
     },
     props:{
         data: Object,
         hrId: Number,
         classificatory: Object,
+        roleId: Number
     },
 
     setup(props){
         console.log(props);
         var url = new URL( location.href)
         const itemsSelected = ref([]);
-        var personalSelectionUrl = ref(url.origin+'/admin/selection_personal')
-        var vacancyPersonalUrl = ref(url.origin+'/admin/vacancy_personal')
-        let vacancyDepositUrl = ref(url.origin+'/admin/vacancy_deposit')
 
-        var statusChangeModal = ref(false)
-        var updateModal = ref(false)
-        var depositModal = ref(false)
-        var selectionPersonalModalShow = ref(false)
-        let reminderModelShow = ref(false)
-        let repeatModelShow = ref(false)
-        let historyModelShow = ref(false)
         let vacancyId = ref(null)
         var statusItem = ref()
         var item = ref()
@@ -333,9 +156,6 @@ export default {
         let myVacancy = ref(false)
         let cla = ref(props.classificatory)
 
-        const modalComponent = ref(null)
-        const showModal = ref(false)
-        const modalData = ref(null)
 
         const headers = ref([
             { text: "id", value: "code" },
@@ -455,74 +275,8 @@ export default {
             })
         };
 
-        const statusChange = (item) => {
-            statusChangeModal.value = !statusChangeModal.value
-            statusItem.value = item
-        };
-        const vacancyUpdateModal = (item) =>{
-            updateModal.value = !updateModal.value
-            item.value = item
-        };
-        const vacancyDepositModal = (item) =>{
-            this.depositModal = !this.depositModal
-            this.depositItem = item.deposit
-        };
-        const selectionPersonalModal = (item) =>{
-            this.selectionPersonalModalShow = !this.selectionPersonalModalShow
-        };
-        const vacancyReminderModal = (item) =>{
-            this.reminderModelShow = !this.reminderModelShow
-            this.item = item
-        };
-        const vacancyRepeat = (item) =>{
-            this.repeatModelShow = !this.repeatModelShow
-            this.item = item
-        };
-        const vacancyHistoryModal = (id) =>{
-            this.historyModelShow = !this.historyModelShow
-            this.vacancyId = id
-        };
-        const carryInHead = (item) =>{
-            let editedFields = {
-                'carry_in_head_date': item.carry_in_head_date,
-            }
-            let currentObj = this
-            this.$swal({
-                title: 'ნამდვილად გსურთ ვაკანსიის თავში ატანა?',
-                //   showDenyButton: true,
-                cancelButtonText:'არა',
-                confirmButtonText: 'კი',
-                showCancelButton: true,
-            }).then((result) => {
-            /* Read more about isConfirmed, isDenied below */
-                if (result.isConfirmed) {
-                    axios.post('/carry_in_head_vacancy' ,{
-                        data: {'id':item.id, 'edit': editedFields},
-                    })
-                    .then(function (response) {
-                        if (response.status == 200) {
-                            toast.success("წარმატებით შესრულდა", {
-                                theme: 'colored',
-                                autoClose: 1000,
-                            });
-                            setTimeout(() => {
-                                document.location.reload();
-                            }, 2000);
-                        }
 
 
-
-                    })
-                    .catch(function (error) {
-                        // handle error
-                        console.log(error);
-                    })
-
-                } else if (result.isDenied) {
-                    return
-                }
-            });
-        }
 
         return {
             headers,
@@ -540,20 +294,9 @@ export default {
             choseId,
             filterOptions,
 
-            statusChangeModal,
-            statusItem,
-            updateModal,
+
             item,
             vacancyId,
-            depositModal,
-            depositItem,
-            selectionPersonalModalShow,
-            reminderModelShow,
-            repeatModelShow,
-            historyModelShow,
-            personalSelectionUrl,
-            vacancyPersonalUrl,
-            vacancyDepositUrl,
 
             colspan,
             hr_id,
@@ -564,11 +307,6 @@ export default {
             cla,
             find,
 
-            statusChange,
-
-            modalComponent,
-            showModal,
-            modalData
         };
     },
 }

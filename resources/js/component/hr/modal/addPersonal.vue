@@ -68,7 +68,7 @@
   <script>
   import { toast } from 'vue3-toastify';
   import 'vue3-toastify/dist/index.css';
-  import moment from 'moment'
+  
   export default {
         props:{
             visible: Boolean,

@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Services\Admin\ReminderService;
 use App\Filters\Reminder\ReminderFilters;
+use App\Models\Vacancy;
 
 class ReminderController extends Controller
 {
@@ -94,5 +95,30 @@ class ReminderController extends Controller
         return response()->json($data);
     }
 
+    function checkMainReminder(Request $request)  {
+        // dd($request->all());
+        $data = false;
+        if($request->stage == 0){
+            $vacancy = Vacancy::where('id', $request->vacancy_id)->where('status_id', 1)->exists();
+            // dd($vacancy);
+            $data = $vacancy ? false : true;
+        }
+
+        return response()->json($data);
+    }
+
+    function finishNote(Request $request) {
+        $response = false;
+        try {
+            if ($request->id) {
+                VacancyReminder::where('id', $request->id)->update(['active' => 1]);
+                $response = true;
+            }
+
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+        return response()->json($response);
+    }
 
 }

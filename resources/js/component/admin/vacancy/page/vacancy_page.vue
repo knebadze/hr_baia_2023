@@ -308,7 +308,7 @@
         <adminVacancyTable v-if="Object.keys(items).length > 0"  :data="items" :key="tableKey" :classificatory="tableCla"></adminVacancyTable>
     </div>
     <div v-else>
-        <hrVacancyTable v-if="Object.keys(items).length > 0"  :data="items" :hrId="hrId" :classificatory="tableCla"  :key="tableKey"></hrVacancyTable>
+        <hrVacancyTable v-if="Object.keys(items).length > 0"  :data="items" :hrId="hrId" :classificatory="tableCla" :roleId="roleId"  :key="tableKey"></hrVacancyTable>
     </div>
 
     <div class="mt-2">
