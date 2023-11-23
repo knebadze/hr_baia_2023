@@ -301,7 +301,11 @@ export default {
 
         }
         const confirmMethod = () => {
-
+            if (props.data.role_id != 3) {
+                let url = new URL( location.href)
+                window.location.replace(`${url.origin}/admin/candidate`);
+                return
+            }
             Swal.fire(
                 {
                     title: '<p>გილოცავთ თქვენ დაასრულეთ ინფორმაციის შევსება</p>',

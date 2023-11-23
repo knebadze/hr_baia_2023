@@ -22,6 +22,7 @@ class EndWorkService
         $this->vacancyRedactedRepository = new VacancyRedactedRepository;
     }
     function end($data)  {
+        // dd($data);
         // ვამოწმებ აქვს თუ არა წაშლის უფლება
         // თუ წაშლის მიზეზია "შემკვეს სურს ვაკანსიის შეწყვეტა" (15) მაშინ დასრულების დღეს ვააბდეითებ გასულ დღეზე და ვაკანსია გადამყავს ვადაგასულ სტატუსში
         // ვინახავ რედაქტირების ისტორიას
@@ -41,21 +42,33 @@ class EndWorkService
         }
         $redacted = [];
         if ($data['reason']['id'] == 15) {
-            QualifyingCandidate::where('id', $data['id'])->update(['success'=> 1, 'end_date' => $currentDate->copy()->subDay(1)->toDateString()]);
+            QualifyingCandidate::where('id', $data['id'])->update(['status_id'=> 1, 'end_date' => $currentDate->copy()->subDay(1)->toDateString()]);
             Vacancy::where('id', $find->vacancy_id)->update(['status_id' => 13]);
             $redacted['status'] = $findVacancy['status'];
             $this->vacancyRedactedRepository->save($findVacancy['id'], $redacted);
         }else{
 
-            QualifyingCandidate::where('id', $data['id'])->update(['end_date' => $currentDate->copy()->subDay(1)->toDateString()]);
-            Vacancy::where('id', $find->vacancy_id)->update(['status_id' => 2, 'carry_in_head_date' => Carbon::now()->toDateTimeString()]);
+            QualifyingCandidate::where('id', $data['id'])->update(['status_id'=> 2,'end_date' => $currentDate->copy()->subDay(1)->toDateString()]);
+            Vacancy::where('id', $find->vacancy_id)
+                ->update([
+                    'status_id' => 2,
+                    'carry_in_head_date' => Carbon::now()->toDateTimeString(),
+                    'start_date' => Carbon::now()->addWeek()
+                ]);
             $redacted['status'] = $findVacancy['status'];
             $redacted['carry_in_head_date'] = $findVacancy['carry_in_head_date'];
             $this->vacancyRedactedRepository->save($findVacancy['id'], $redacted);
+            $reminder = [
+                'vacancy_id' => $findVacancy['id'],
+                'hr_id' => $findVacancy['hr_id'],
+                'reason' => 'ვაკანსიაზე (ID: ' .$findVacancy['code']. ') '.$data['reason']['name_ka'].'დაიწყეთ ახალი კადრის მოძიება',
+                'date' => Carbon::now()->addDay(1)->toDateTimeString()
+            ];
+            $this->addReminder($reminder, 1);
 
         }
 
-        if (!QualifyingCandidate::where('candidate_id', $find->candidate_id)->whereDate('end_date', '>', Carbon::today())->exists()) {
+        if (!QualifyingCandidate::where('candidate_id', $find->candidate_id)->whereNull('status_id')->exists()) {
             Candidate::where('id', $find->candidate_id)->update(['status_id'=> 9]);
         }
 
@@ -78,5 +91,19 @@ class EndWorkService
         $reason->reason_info = $data['reason_info'];
         $reason->user_id = Auth::id();
         $reason->save();
+    }
+
+    function addReminder($data, $stage = null) {
+        VacancyReminder::where('vacancy_id', $data['vacancy_id'])->where('main', 1)->where('active', 0)->update(['active' => 1]);
+        $reminder = new VacancyReminder();
+        $reminder->vacancy_id = $data['vacancy_id'];
+        $reminder->hr_id = $data['hr_id'];
+        $reminder->main = 1;
+        if ($stage !== null) {
+            $reminder->main_stage_id = $stage;
+        }
+        $reminder->date = $data['date'];
+        $reminder->reason = $data['reason'];
+        $reminder->save();
     }
 }

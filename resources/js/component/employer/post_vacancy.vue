@@ -1,24 +1,38 @@
 <template lang="">
         <!-- LOADING AREA START ===== -->
-    <div v-if="loader" class="loading-area">
-        <div class="loading-box"></div>
-        <div class="loading-pic">
-            <div class="wrapper">
-                <div class="cssload-loader"></div>
-            </div>
-        </div>
-    </div>
+        <loading :active="loader"
+        :can-cancel="true"
+        color="#01ecd5"
+
+        :is-full-page="fullPage"/>
     <!-- LOADING AREA  END ====== -->
     <div class="panel panel-default">
         <div class="text-center">
-            <h3>დაამატე ახალი ვაკანსია ან გაიმეორე ძველი</h3>
+            <h3>{{ searchData ? 'გაიმეორე ვაკანსია':'დაამატე ახალი ვაკანსია ან გაიმეორე ძველი' }}</h3>
         </div>
+        <div v-if="searchData">
+            <div class="panel-heading wt-panel-heading p-a20">
+                <h4 class="panel-tittle m-a0">{{ ('გამეორების მიზეი') }}</h4>
+            </div>
+            <div class="panel-body wt-panel-body p-a20 m-b30 " >
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label><span class="text-danger">* </span> გამეორების მიზეზი</label>
+                        <div class="ls-inputicon-box">
+                            <textarea class="form-control" :class="(!m.repeat_reason)?'border border-danger':''" v-model="m.repeat_reason" type="text" placeholder="აუცილებლად შესავსები!!! ჩაწერეთ გამეორების მიზეზი" rows="3"></textarea>
+                            <!-- <span v-if="v$.m.candidate.personal_number.required.$invalid && v$.m.candidate.personal_number.$dirty" style='color:red'>* {{ v$.m.candidate.personal_number.required.$message}}</span> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="panel-heading wt-panel-heading p-a20">
             <h4 class="panel-tittle m-a0">{{ ('პირადი ინფორმაცია') }}</h4>
             <!-- <h4 class="panel-tittle m-a0">{{ $t('lang.employer_add_job_general_info') }}</h4> -->
             <small class="text-danger">* {{ $t('lang.employer_add_job_definitely_fields') }}</small>
         </div>
-            <div class="panel-body wt-panel-body p-a20 m-b30 ">
+            <div class="panel-body wt-panel-body p-a20 m-b30 " v-if="formData">
 
                     <div class="row">
                         <!--Job title-->
@@ -138,8 +152,8 @@
                                     <label><span class="text-danger">* </span>{{ $t('lang.employer_add_job_position') }}</label>
                                     <div class="ls-inputicon-box">
                                         <multiselect
-                                            :customClass="{ 'is-invalid': (m.vacancy.category_id == null || v.vacancy.category_id.$error) }"
-                                            v-model="m.vacancy.category_id"
+                                            :customClass="{ 'is-invalid': (m.vacancy.category == null || v.vacancy.category.$error) }"
+                                            v-model="m.vacancy.category"
                                             :options="cla.category"
                                             deselect-label="Can't remove this value"
                                             :track-by="`name_${getLang}`"
@@ -147,11 +161,11 @@
                                             placeholder="Select one"
                                             :searchable="true"
                                             :allow-empty="false"
-                                            @blur="v.vacancy.category_id.$touch"
+                                            @blur="v.vacancy.category.$touch"
                                         >
                                             <template slot="singleLabel" slot-scope="{ option }"></template>
                                         </multiselect>
-                                        <span v-if="send && !v.vacancy.category_id.required.$response" style='color:red'>* </span>
+                                        <span v-if="send && !v.vacancy.category.required.$response" style='color:red'>* </span>
                                     </div>
                                 </div>
                             </div>
@@ -179,7 +193,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-4 col-lg-6 col-md-12" v-if="m.vacancy.category_id.id == 7">
+                            <div class="col-xl-4 col-lg-6 col-md-12" v-if="m.vacancy.category && m.vacancy.category.id == 7">
                                 <div class="form-group">
                                     <label>მართვის მოწმობა </label>
                                     <div class="ls-inputicon-box">
@@ -204,7 +218,7 @@
                                     <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_work_schedule_title') }}</label>
                                     <div class="ls-inputicon-box">
                                         <multiselect
-                                            v-model="m.vacancy.work_schedule_id"
+                                            v-model="m.vacancy.work_schedule"
                                             :options="cla.workSchedule"
                                             deselect-label="Can't remove this value"
                                             :track-by="`name_${getLang}`"
@@ -212,11 +226,11 @@
                                             placeholder="Select one"
                                             :searchable="false"
                                             :allow-empty="false"
-                                            @blur="v.vacancy.work_schedule_id.$touch"
+                                            @blur="v.vacancy.work_schedule.$touch"
                                         >
                                             <template slot="singleLabel" slot-scope="{ option }"></template>
                                         </multiselect>
-                                        <span v-if="send && !v.vacancy.work_schedule_id.required.$response" style='color:red'>* </span>
+                                        <span v-if="send && !v.vacancy.work_schedule.required.$response" style='color:red'>* </span>
                                     </div>
                                 </div>
                             </div>
@@ -241,7 +255,7 @@
                                     <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_work_currency_title') }}</label>
                                     <div class="ls-inputicon-box">
                                         <multiselect
-                                            v-model="m.vacancy.currency_id"
+                                            v-model="m.vacancy.currency"
                                             :options="cla.currency"
                                             deselect-label="Can't remove this value"
                                             :track-by="`name_${getLang}`"
@@ -249,11 +263,11 @@
                                             placeholder="Select one"
                                             :searchable="false"
                                             :allow-empty="false"
-                                            @blur="v.vacancy.currency_id.$touch"
+                                            @blur="v.vacancy.currency.$touch"
                                         >
                                             <template slot="singleLabel" slot-scope="{ option }"></template>
                                         </multiselect>
-                                        <span v-if="send && !v.vacancy.currency_id.required.$response" style='color:red'>* </span>
+                                        <span v-if="send && !v.vacancy.currency.required.$response" style='color:red'>* </span>
                                     </div>
                                 </div>
                             </div>
@@ -262,7 +276,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label><span class="text-danger">* </span>{{ $t('lang.employer_add_job_jobs_day') }}</label>
-                                    <p><small v-if="m.vacancy.work_schedule_id" class='text-danger'>* სავალდებულოო სამუშაო დღეების მითითება!!! </small></p>
+                                    <p><small v-if="m.vacancy.work_schedule" class='text-danger'>* სავალდებულოო სამუშაო დღეების მითითება!!! </small></p>
 
                                     <div class="ls-inputicon-box">
                                         <textarea
@@ -283,7 +297,7 @@
                             <div class="panel-heading wt-panel-heading p-a20 my-3">
                                 <h4 class="panel-tittle m-a0"><i class="fa fa-suitcase"></i> დამატებით</h4>
                             </div>
-                            <div class="row mb-4" v-if="m.vacancy.category_id.id == 1 || m.vacancy.category_id.id == 2 || m.vacancy.category_id.id == 4">
+                            <div class="row mb-4" v-if="m.vacancy.category && (m.vacancy.category.id == 1 || m.vacancy.category.id == 2 || m.vacancy.category.id == 4)">
                                 <div class="col-xl-4 col-lg-6 col-md-12">
                                     <div class=" form-check">
                                         <input type="checkbox" class="form-check-input" id="exampleCheck1" value="1" v-model="m.vacancy.go_vacation">
@@ -326,7 +340,7 @@
                                     <label><span class="text-danger">* </span>{{ $t('lang.employer_add_job_how_long') }}</label>
                                     <div class="ls-inputicon-box">
                                         <multiselect
-                                            v-model="m.vacancy.term_id"
+                                            v-model="m.vacancy.term"
                                             :options="cla.term"
                                             deselect-label="Can't remove this value"
                                             :track-by="`name_${getLang}`"
@@ -334,12 +348,12 @@
                                             placeholder="Select one"
                                             :searchable="true"
                                             :allow-empty="false"
-                                            @blur="v.vacancy.term_id.$touch"
+                                            @blur="v.vacancy.term.$touch"
                                             :disabled="termDisable"
                                         >
                                             <template slot="singleLabel" slot-scope="{ option }"></template>
                                         </multiselect>
-                                        <span v-if="send && !v.vacancy.term_id.required.$response" style='color:red'>* </span>
+                                        <span v-if="send && !v.vacancy.term.required.$response" style='color:red'>* </span>
                                     </div>
                                 </div>
                             </div>
@@ -387,7 +401,16 @@
                                 <div class="form-group">
                                     <label>{{ $t('lang.employer_add_job_minimal_edu') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <multiselect v-model="m.demand.education_id" :options="cla.educations" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" :placeholder="$t('lang.employer_add_job_select')"  :searchable="true" :allow-empty="false">
+                                        <multiselect
+                                            v-model="m.demand.education"
+                                            :options="cla.educations"
+                                            deselect-label="Can't remove this value"
+                                            :track-by="`name_${getLang}`"
+                                            :label="`name_${getLang}`"
+                                            :placeholder="$t('lang.employer_add_job_select')"
+                                            :searchable="true"
+                                            :allow-empty="false"
+                                        >
                                             <template slot="singleLabel" slot-scope="{ option }"></template>
                                         </multiselect>
                                     </div>
@@ -397,7 +420,15 @@
                                 <div class="form-group">
                                     <label>{{ ('სპეციალობა') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <multiselect v-model="m.demand.specialty_id" :options="cla.specialties" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" :placeholder="$t('lang.employer_add_job_select')"  :searchable="true" :allow-empty="false">
+                                        <multiselect
+                                            v-model="m.demand.specialty"
+                                            :options="cla.specialties" deselect-label="Can't remove this value"
+                                            :track-by="`name_${getLang}`"
+                                            :label="`name_${getLang}`"
+                                            :placeholder="$t('lang.employer_add_job_select')"
+                                            :searchable="true"
+                                            :allow-empty="false"
+                                        >
                                             <template slot="singleLabel" slot-scope="{ option }"></template>
                                         </multiselect>
                                     </div>
@@ -408,7 +439,16 @@
                                 <div class="form-group">
                                     <label>{{ $t('lang.employer_add_job_preferred_foreign_language') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <multiselect v-model="m.demand.language_id" :options="cla.languages" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" :placeholder="$t('lang.employer_add_job_select')"  :searchable="true" :allow-empty="false">
+                                        <multiselect
+                                            v-model="m.demand.language"
+                                            :options="cla.languages"
+                                            deselect-label="Can't remove this value"
+                                            :track-by="`name_${getLang}`"
+                                            :label="`name_${getLang}`"
+                                            :placeholder="$t('lang.employer_add_job_select')"
+                                            :searchable="true"
+                                            :allow-empty="false"
+                                        >
                                             <template slot="singleLabel" slot-scope="{ option }"></template>
                                         </multiselect>
                                     </div>
@@ -419,7 +459,16 @@
                                 <div class="form-group">
                                     <label>{{ $t('lang.employer_add_job_foreign_language_level') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <multiselect v-model="m.demand.language_level_id" :options="cla.languageLevels" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" :placeholder="$t('lang.employer_add_job_select')"  :searchable="true" :allow-empty="false">
+                                        <multiselect
+                                            v-model="m.demand.language_level"
+                                            :options="cla.languageLevels"
+                                            deselect-label="Can't remove this value"
+                                            :track-by="`name_${getLang}`"
+                                            :label="`name_${getLang}`"
+                                            :placeholder="$t('lang.employer_add_job_select')"
+                                            :searchable="true"
+                                            :allow-empty="false"
+                                        >
                                             <template slot="singleLabel" slot-scope="{ option }"></template>
                                         </multiselect>
                                     </div>
@@ -430,7 +479,18 @@
                                 <div class="form-group">
                                     <label>{{ $t('lang.employer_add_job_general_character') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <multiselect v-model="m.characteristic"  :options="cla.characteristic" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" :placeholder="$t('lang.employer_add_job_select')" label="name_ka" track-by="name_ka" :preselect-first="false">
+                                        <multiselect
+                                            v-model="m.characteristic"
+                                            :options="cla.characteristic"
+                                            :multiple="true"
+                                            :close-on-select="false"
+                                            :clear-on-select="false"
+                                            :preserve-search="true"
+                                            :placeholder="$t('lang.employer_add_job_select')"
+                                            :label="`name_${getLang}`"
+                                            :track-by="`name_${getLang}`"
+                                            :preselect-first="false"
+                                        >
                                             <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                                         </multiselect>
                                     </div>
@@ -441,7 +501,18 @@
                                 <div class="form-group">
                                     <label>{{ $t('lang.employer_add_job_duties') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <multiselect v-model="m.duty"  :options="cla.duty" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" :placeholder="$t('lang.employer_add_job_select')" label="name_ka" track-by="name_ka" :preselect-first="false" >
+                                        <multiselect
+                                            v-model="m.duty"
+                                            :options="cla.duty"
+                                            :multiple="true"
+                                            :close-on-select="false"
+                                            :clear-on-select="false"
+                                            :preserve-search="true"
+                                            :placeholder="$t('lang.employer_add_job_select')"
+                                            :label="`name_${getLang}`"
+                                            :track-by="`name_${getLang}`"
+                                            :preselect-first="false"
+                                        >
                                             <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                                         </multiselect>
                                         <!-- <span v-if="v.m.familyWorkedSelected.required.$invalid && v.m.familyWorkedSelected.$dirty" style='color:red'>* {{ v.m.candidateFamilyWorkSkill.required.$message}}</span> -->
@@ -449,11 +520,22 @@
 
                                 </div>
                             </div>
-                            <div class="col-xl-4 col-lg-6 col-md-12" v-if="m.vacancy.category_id.id != 7">
+                            <div class="col-xl-4 col-lg-6 col-md-12" v-if="m.vacancy.category && m.vacancy.category.id != 7">
                                 <div class="form-group">
                                     <label>მართვის მოწმობა </label>
                                     <div class="ls-inputicon-box">
-                                        <multiselect v-model="m.driving_license"  :options="cla.drivingLicense" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" :placeholder="$t('lang.employer_add_job_select')" label="name" track-by="name" :preselect-first="false" >
+                                        <multiselect
+                                            v-model="m.driving_license"
+                                            :options="cla.drivingLicense"
+                                            :multiple="true"
+                                            :close-on-select="false"
+                                            :clear-on-select="false"
+                                            :preserve-search="true"
+                                            :placeholder="$t('lang.employer_add_job_select')"
+                                            label="name"
+                                            track-by="name"
+                                            :preselect-first="false"
+                                        >
                                             <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                                         </multiselect>
                                         <!-- <span v-if="v.m.familyWorkedSelected.required.$invalid && v.m.familyWorkedSelected.$dirty" style='color:red'>* {{ v.m.candidateFamilyWorkSkill.required.$message}}</span> -->
@@ -504,7 +586,16 @@
                                 <div class="form-group">
                                     <label>{{ $t('გასაუბრების ადგილი') }}</label>
                                     <div class="ls-inputicon-box">
-                                        <multiselect v-model="m.vacancy.interview_place_id" :options="cla.interviewPlace" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" :placeholder="$t('lang.employer_add_job_select')"  :searchable="true" :allow-empty="false">
+                                        <multiselect
+                                            v-model="m.vacancy.interview_place"
+                                            :options="cla.interviewPlace"
+                                            deselect-label="Can't remove this value"
+                                            :track-by="`name_${getLang}`"
+                                            :label="`name_${getLang}`"
+                                            :placeholder="$t('lang.employer_add_job_select')"
+                                            :searchable="true"
+                                            :allow-empty="false"
+                                        >
                                             <template slot="singleLabel" slot-scope="{ option }"></template>
                                         </multiselect>
                                     </div>
@@ -513,7 +604,7 @@
 
                             <div class="col-lg-12 col-md-12">
                                 <div class="text-left">
-                                    <button type="submit" @click.prevent="add(m)" class="site-button m-r5">{{ $t('lang.employer_add_job_button_add') }}</button>
+                                    <button type="submit" @click.prevent="add(m)" class="site-button m-r5">{{  searchData?'გამეორება':$t('lang.employer_add_job_button_add') }}</button>
                                 </div>
                             </div>
 
@@ -561,14 +652,20 @@
 </template>
 <script>
 import _ from 'lodash';
-import { ref, computed, watch, watchEffect } from 'vue';
+import { ref, computed, watch, toRefs  } from 'vue';
 import { I18n } from 'laravel-vue-i18n';
 import { useVuelidate } from '@vuelidate/core';
 import { required, numeric, maxLength, email } from '@vuelidate/validators';
 import Swal from 'sweetalert2';
 import moment from 'moment';
-
+ // Import component
+ import Loading from 'vue3-loading-overlay'
+    // Import stylesheet
+    import 'vue3-loading-overlay/dist/vue3-loading-overlay.css';
 export default {
+    components:{
+        Loading
+    },
     props: {
         data: Object,
     },
@@ -581,42 +678,86 @@ export default {
         let min_age, max_age = null;
         const workInformationSchedule = ref(null);
         const loader = ref(false);
+        const fullPage = ref(true);
         const send = ref(false);
         const cla = ref(_.cloneDeep(props.data.classificatory));
         const termDisable = ref(false);
         var currentDate = moment();
         const startDateMin = ref(currentDate.add(1, 'days').format('YYYY-MM-DD'));
         cla.value.workSchedule = props.data.classificatory.workSchedule.filter(item => item.id !== 10 && item.id !== 11);
-        const formData = {
-            employer: {...props.data.model.employer},
-            vacancy: {...props.data.model.vacancy},
-            demand: {...props.data.model.demand},
-            characteristic:[],
-            duty: [],
-            for_who_need: [],
-            benefit: [],
-            interviewDate:'',
-            interviewTime:'',
-        };
-        formData.employer.name = formData.employer[`name_${getLang.value}`];
-        formData.employer.address = formData.employer[`address_${getLang.value}`];
-        formData.employer.street = formData.employer[`street_${getLang.value}`];
-        formData.employer.number_code = cla.value.numberCode.find(element => element.phonecode == 995);
-        formData.vacancy.additional_schedule = formData.vacancy[`additional_schedule_${getLang.value}`];
-        formData.vacancy.title = formData.vacancy[`title_${getLang.value}`];
-        formData.vacancy.payment = 0;
-        formData.vacancy['go_vacation'] = 0;
-        formData.vacancy['stay_night'] = 0;
-        formData.vacancy['work_additional_hours'] = 0;
-        formData.lang = getLang;
+        let url = new URL( location.href)
+
+        // გამეორების დროს იგზავნება ობიექტი
+        const queryString = url.search;
+        const urlParams = new URLSearchParams(queryString);
+        const searchData = JSON.parse(decodeURIComponent(urlParams.get('data')));
+
+        const makeData = () => {
+            let obj ={};
+            if (searchData) {
+
+                obj = {
+                    employer: {...searchData.employer},
+                    vacancy: {...searchData},
+                    demand: {...searchData.demand},
+                    characteristic: searchData.characteristic,
+                    duty: searchData.vacancy_duty,
+                    for_who_need: searchData.vacancy_for_who_need,
+                    benefit: searchData.vacancy_benefit,
+                    driving_license: searchData.vacancy_driving_license,
+
+                    interviewDate:'',
+                    interviewTime:'',
+                }
+                obj.vacancy.start_date = null
+                obj.vacancy.go_vacation = obj.vacancy.go_vacation == 1?true:false
+                obj.vacancy.stay_night = obj.vacancy.stay_night == 1?true:false
+                obj.vacancy.work_additional_hours = obj.vacancy.work_additional_hours == 1?true:false
+                obj.demand.has_experience = obj.demand.has_experience == 1?true:false
+                obj.demand.has_recommendation = obj.demand.has_recommendation == 1?true:false
+                obj.repeat_reason = null
+
+            }else{
+                obj = {
+                    employer: {...props.data.model.employer},
+                    vacancy: {...props.data.model.vacancy},
+                    demand: {...props.data.model.demand, education: null, specialty: null, language: null, language_level:null},
+                    characteristic:[],
+                    duty: [],
+                    for_who_need: [],
+                    benefit: [],
+                    interviewDate:'',
+                    interviewTime:'',
+                };
+                obj.employer.number_code = cla.value.numberCode.find(element => element.phonecode == 995);
+                obj.vacancy.payment = 0;
+                obj.vacancy['go_vacation'] = 0;
+                obj.vacancy['stay_night'] = 0;
+                obj.vacancy['work_additional_hours'] = 0;
+                obj.getLang = getLang;
+                obj.number_code = cla.value.numberCode.find(element => element.phonecode == 995);
+                obj.vacancy.category = null
+                obj.repeat_reason = null
+                obj.vacancy.interview_place = null
+            }
+
+            obj.lang = getLang
+            obj.employer.name = obj.employer[`name_${getLang.value}`];
+            obj.employer.address = obj.employer[`address_${getLang.value}`];
+            obj.employer.street = obj.employer[`street_${getLang.value}`];
+            obj.vacancy.additional_schedule = obj.vacancy[`additional_schedule_${getLang.value}`];
+            obj.vacancy.title = obj.vacancy[`title_${getLang.value}`];
+            return {...obj}
+        }
+        const formData = makeData()
 
         const m = ref(formData)
 
+        console.log(m.value);
+        // formData.getLang = getLang;
+        // formData.number_code = cla.value.numberCode.find(element => element.phonecode == 995);
 
-        formData.getLang = getLang;
-        formData.number_code = cla.value.numberCode.find(element => element.phonecode == 995);
-
-        const benefitText = ref('');
+        const benefitText = ref((searchData)?searchData.vacancy_benefit.map(i => i.name_ka).join(', '):'');
         const  localText = () => {
             return  {
                 '1':{
@@ -667,7 +808,7 @@ export default {
 
             }
         };
-
+        // loader.value = false
         const rules = {
 
                 employer:{
@@ -678,19 +819,19 @@ export default {
                 },
                 vacancy:{
                     title: { required, maxLength:maxLength(50) },
-                    category_id: { required },
+                    category: { required },
                     payment: { required },
-                    currency_id: { required },
-                    work_schedule_id: { required },
+                    currency: { required },
+                    work_schedule: { required },
                     additional_schedule: { required },
                     start_date: { required },
-                    term_id: { required },
+                    term: { required },
                 },
                 for_who_need: { required }
 
         };
         const v = useVuelidate(rules, m);
-        const watchWorkSchedule = () => m.value.vacancy.work_schedule_id;
+        const watchWorkSchedule = () => m.value.vacancy.work_schedule;
         watch(watchWorkSchedule, (newVal) => {
 
             if (newVal != '') {
@@ -712,23 +853,22 @@ export default {
                 m.value.vacancy.payment = price;
 
                 if (newVal.id == 8) {
-                    m.value.vacancy.term_id = cla.value.term.find(element => element.id == 13);
+                    m.value.vacancy.term = cla.value.term.find(element => element.id == 13);
                     termDisable.value = true
                 }else{
-                    m.value.vacancy.term_id = ''
+                    m.value.vacancy.term = ''
                     termDisable.value = false
                 }
             }
         });
 
-        const watchCategory = () => m.value.vacancy.category_id;
+        const watchCategory = () => m.value.vacancy.category;
         watch(watchCategory, (newVal) => {
             cla.value.forWhoNeed = _.filter(props.data.classificatory.forWhoNeed, function(o) { return o.category_id == newVal.id; });
             cla.value.duty = _.filter(props.data.classificatory.duty, function(o) { return o.category_id == newVal.id; });
         });
 
         const startDate = (item) =>{
-            console.log('item', item);
             maxDate.value = item
         }
 
@@ -806,22 +946,23 @@ export default {
             //     sendFormData.append('file', file.value);
             // }
             // loader.value = true
+
             data.employer[`name_${getLang.value}`] = data.employer.name
             data.employer[`address_${getLang.value}`] = data.employer.address
             data.employer[`street_${getLang.value}`] = data.employer.street
             data.vacancy[`additional_schedule_${getLang.value}`] = data.vacancy.additional_schedule
             data.vacancy[`title_${getLang.value}`] = data.vacancy.title
-
+                console.log(data);
             v.value.$touch();
             if (!v.value.$invalid) {
                 let html =  `
-                    ${data.vacancy.start_date}_დან ${data.vacancy.term_id[`name_${getLang.value}`]},
+                    ${data.vacancy.start_date}_დან ${data.vacancy.term[`name_${getLang.value}`]},
                     ${(data.vacancy[`for_who_${getLang.value}`])?data.vacancy[`for_who_${getLang.value}`]:''}
-                    გვესაჭიროება ${data.vacancy.category_id[`name_${getLang.value}`]}.
+                    გვესაჭიროება ${data.vacancy.category[`name_${getLang.value}`]}.
                     მისამართი: ${data.employer[`address_${getLang.value}`]} ${data.employer[`street_${getLang.value}`]},
-                    გრაფიკი: ${data.vacancy.work_schedule_id[`name_${getLang.value}`]},
+                    გრაფიკი: ${data.vacancy.work_schedule[`name_${getLang.value}`]},
                     ${data.vacancy[`additional_schedule_${getLang.value}`]}.
-                    ანაზღაურება: ${data.vacancy.payment} ${data.vacancy.currency_id[`name_${getLang.value}`]}.
+                    ანაზღაურება: ${data.vacancy.payment} ${data.vacancy.currency[`name_${getLang.value}`]}.
                     მოვალეობები: ${data.duty.map(i => i[`name_${getLang.value}`]).join(', ')}
                 `;
                 Swal.fire({
@@ -847,6 +988,7 @@ export default {
 
 
             }else{
+                console.log('!v.value.', v.value.$error);
                 loader.value = false
                 toast.warning("აუცილებელია სავალდებულო ველები იყოს შევსებული", {
                     theme: 'colored',
@@ -856,6 +998,7 @@ export default {
         }
         const validateAndSubmit = (data) => {
             send.value = true
+            loader.value = true
             axios({
                 method: "post",
                 url: "/add_vacancy",
@@ -878,6 +1021,7 @@ export default {
             })
             .catch(function (error) {
                 // handle error
+                loader.value = false
                 console.log(error);
             })
         };
@@ -916,6 +1060,7 @@ export default {
             chooseNumberCode,
             handleFileChange,
             loader,
+            fullPage,
             workInformationSchedule,
             benefitText,
             addBenefit,
@@ -927,7 +1072,9 @@ export default {
             maxDate,
             startDate,
             termDisable,
-            startDateMin
+            startDateMin,
+            formData,
+            searchData
 
         };
     },

@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('repeat_histories', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('old_vacancy_id');
             $table->string('reason', 400);
             $table->unsignedBigInteger('new_vacancy_id');

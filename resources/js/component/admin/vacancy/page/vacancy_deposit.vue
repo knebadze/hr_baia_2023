@@ -17,7 +17,7 @@
                     <deposit_tab
                         :item="candidateModel"
                         :author="depositAuthor"
-                        :Enrollment ="candidateEnrollment"
+                        :enrollment ="candidateEnrollment"
                         :status="data.status"
                         :type="'candidate'"
                         @redacted="handleRedacted"
@@ -29,7 +29,7 @@
                     <deposit_tab
                         :item="employerModel"
                         :author="depositAuthor"
-                        :Enrollment ="employerEnrollment"
+                        :enrollment ="employerEnrollment"
                         :status="data.status"
                         :type="'employer'"
                         @redacted="handleRedacted"

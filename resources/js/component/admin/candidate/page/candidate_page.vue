@@ -381,7 +381,7 @@ import Paginate from 'vuejs-paginate-next';
 // import info_modal from '../modal/info_modal.vue'
 import Slider from '@vueform/slider'
 // import axios from 'axios';
-import candidate_table from '../component/candidate_table.vue';
+import candidate_table from '../component/table/candidate_table.vue';
 export default {
     components:{
         paginate: Paginate,

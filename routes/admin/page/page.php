@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\AdminCandidateController;
 use App\Http\Controllers\Admin\GlobalVariableController;
 use App\Http\Controllers\Hr\SelectionPersonalController;
 use App\Http\Controllers\Admin\RelevantVacancyController;
+use App\Http\Controllers\Admin\VacancyAttachedController;
 use App\Http\Controllers\Admin\Vacancy\VacancyDepositController;
 
 Route::prefix('admin')->group(function () {

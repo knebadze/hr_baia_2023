@@ -6,19 +6,23 @@ use App\Models\Vacancy;
 use App\Models\Employer;
 use App\Events\hrDailyJob;
 use App\Models\HrHasVacancy;
+use App\Models\RepeatHistory;
 use App\Models\VacancyDemand;
 use App\Models\GlobalVariable;
 use App\Models\VacancyDeposit;
 use Illuminate\Support\Carbon;
 use App\Models\VacancyReminder;
+use Illuminate\Support\Facades\Auth;
 
 class VacancyRepository{
     public function save($data)
     {
+        // $hr_id = $this->addHrId($data['employer']['name_ka'], $data['employer']['number']);
         // dd($data);
+        $employer = $this->addEmployer($data['employer']);
         $hr_id = $this->addHrId($data['employer']['name_ka'], $data['employer']['number']);
     // dd($hr_id);
-        $employer = $this->addEmployer($data['employer']);
+
 
 
         $vacancy = new Vacancy();
@@ -29,12 +33,12 @@ class VacancyRepository{
         $vacancy->title_en = $data['vacancy']['title_en'];
         $vacancy->title_ru = $data['vacancy']['title_ru'];
         $vacancy->slug = str()->slug($data['vacancy']['title_en']);
-        $vacancy->category_id = $data['vacancy']['category_id']['id'];
+        $vacancy->category_id = $data['vacancy']['category']['id'];
         $vacancy->status_id = 1;
 
         $vacancy->payment = $data['vacancy']['payment'];
-        $vacancy->currency_id = $data['vacancy']['currency_id']['id'];
-        $vacancy->work_schedule_id = $data['vacancy']['work_schedule_id']['id'];
+        $vacancy->currency_id = $data['vacancy']['currency']['id'];
+        $vacancy->work_schedule_id = $data['vacancy']['work_schedule']['id'];
         $vacancy->additional_schedule_ka = $data['vacancy']['additional_schedule_ka'];
         $vacancy->additional_schedule_en = $data['vacancy']['additional_schedule_en'];
         $vacancy->additional_schedule_ru = $data['vacancy']['additional_schedule_ru'];
@@ -42,14 +46,14 @@ class VacancyRepository{
         $vacancy->comment = $data['vacancy']['comment'];
         $dateTime = Carbon::createFromTimestamp(strtotime($data['interviewDate'] . $data['interviewTime']));
         $vacancy->interview_date = $dateTime;
-        $vacancy->interview_place_id = ($data['vacancy']['interview_place_id'])?$data['vacancy']['interview_place_id']['id']:null;
+        $vacancy->interview_place_id = ($data['vacancy']['interview_place'])?$data['vacancy']['interview_place']['id']:null;
 
 
         $vacancy->go_vacation = $data['vacancy']['go_vacation'];
         $vacancy->stay_night = $data['vacancy']['stay_night'];
         $vacancy->work_additional_hours = $data['vacancy']['work_additional_hours'];
         $vacancy->start_date = $data['vacancy']['start_date'];
-        $vacancy->term_id = $data['vacancy']['term_id']['id'];
+        $vacancy->term_id = $data['vacancy']['term']['id'];
         $vacancy->carry_in_head_date = Carbon::now()->toDateTimeString();
 
         $vacancy->save();
@@ -61,12 +65,13 @@ class VacancyRepository{
             $demand->vacancy_id = $vacancy->id;
             $demand->min_age = $data['demand']['min_age'];
             $demand->max_age = $data['demand']['max_age'];
-            $demand->education_id = ($data['demand']['education_id'])?$data['demand']['education_id']['id']:null;
+            $demand->education_id = ($data['demand']['education'])?$data['demand']['education']['id']:null;
+            $demand->specialty_id = ($data['demand']['specialty'])?$data['demand']['specialty']['id']:null;
             $demand->additional_duty_ka = $data['demand']['additional_duty_ka'];
             $demand->additional_duty_en = $data['demand']['additional_duty_en'];
             $demand->additional_duty_ru = $data['demand']['additional_duty_ru'];
-            $demand->language_id = ($data['demand']['language_id'])?$data['demand']['language_id']['id']:null;
-            $demand->language_level_id = ($data['demand']['language_level_id'])?$data['demand']['language_level_id']['id']:null;
+            $demand->language_id = ($data['demand']['language'])?$data['demand']['language']['id']:null;
+            $demand->language_level_id = ($data['demand']['language_level'])?$data['demand']['language_level']['id']:null;
             $demand->has_experience = ($data['demand']['has_experience'] == 1 )?$data['demand']['has_experience']:0;
             $demand->has_recommendation = ($data['demand']['has_recommendation'])?$data['demand']['has_recommendation']:0;
             $demand->save();
@@ -109,8 +114,12 @@ class VacancyRepository{
             return $carry;
         }, []);
         $vacancy->vacancyDuty()->sync($selectDutyId);
+        $data['repeat_reason'] = null;
+        if ($data['repeat_reason']) {
+            $this->addRepeat($data['vacancy']['id'], $vacancy->id, $data['repeat_reason']);
+        }
 
-        $reminder = $this->addReminder($vacancy->id, $vacancy->hr_id, $data['vacancy']['category_id'], $data['vacancy']['work_schedule_id'], $vacancy->start_date, $data['vacancy']['term_id']);
+        $reminder = $this->addReminder($vacancy->id, $vacancy->hr_id, $data['vacancy']['category'], $data['vacancy']['work_schedule'], $vacancy->start_date, $data['vacancy']['term']);
         return $vacancy->code;
 
 
@@ -143,32 +152,42 @@ class VacancyRepository{
     public function addHrId($name, $number)
     {
 
-
+        $hr_id = null;
         //თუ დამსაქმებელს აქვს უკვე გამოგზავნილი ვაკანსია ვპოულობ hr და ისევ მას ვაწერ ამ ვაკანისას
         //rewrite ვუცვლი რადგან ერთი წრე გამოტოვოს
-        $findEmployer =  Employer::where('name_ka', 'LIKE', $name.'%')
-            ->where('number', $number)
-            ->first();
+        $findEmployer =  Employer::where('number', $number)->first();
         if ($findEmployer) {
 
             $findAuthor = Vacancy::where('author_id', $findEmployer->id)->first();
             if ($findAuthor) {
                 $find = HrHasVacancy::where('hr_id', $findAuthor->hr_id)->first();
-                $find->update(['has_vacancy' => ($find->has_vacancy + 1)]);
+                $find->update(['has_vacancy' => 1]);
                 return $findAuthor->hr_id;
             }
 
         }
 
-        $hr_id = null;
+        // ვამოწმებ თუ ვინმეს გადაეწერა ვაკანსია და იმას ვისაც ყველაზე მეტი ვაკანსია აკლია ვაძლევ შემდეგ ვაკანსისას
+        // ვზრდი მინუსს increment
+        $findLessReWrite = HrHasVacancy::where('re_write', '<', 0)->where('is_active', 1)->orderBy('re_write', 'ASC')->first();
+        if ($findLessReWrite) {
+            $findLessReWrite->increment('re_write');
+            $findLessReWrite->update(['has_vacancy' => 1]);
+
+            return $findLessReWrite->hr_id;
+        }
+
+        // თუ ზედა ორი პუნქტი არ შესრულდა ვეძებ ვისაც არ მიუღია ამ წრეზე ვაკანსია
+
         $findNext = HrHasVacancy::orderBy('id', 'ASC')
             ->where('has_vacancy', 0)
             ->where('is_active', 1)
             ->first();
-
+        // dd($findNext);
+        // ბოლო აქტიური ეიჩარი ვინაა ამ წრეზე ვამოწმებ
         $lastHrId = HrHasVacancy::orderBy('hr_id', 'DESC')
-            ->where('is_active', 1)
             ->where('has_vacancy', 0)
+            ->where('is_active', 1)
             ->first();
 
         if ($findNext) {
@@ -196,6 +215,21 @@ class VacancyRepository{
 
     }
 
+    public function hrHasVacancyUpdate()
+    {
+        $all = HrHasVacancy::all();
+        foreach ($all as $key => $value) {
+            if ($value->re_write <= 1) {
+                HrHasVacancy::where('id', $value->id)->update(['has_vacancy'=> 0]);
+            }
+
+            if ($value->re_write > 0) {
+                $find = HrHasVacancy::where('id', $value->id)->first();
+                $find->update(['re_write'=> $find->re_write - 1]);
+            }
+        }
+
+    }
     function addReminder($vacancy_id, $hr_id, $category, $work_schedule, $start_date, $term ) {
         $currentDateTime = Carbon::now();
         $fivePM = Carbon::createFromTime(17, 0, 0, $currentDateTime->timezone);
@@ -215,18 +249,19 @@ class VacancyRepository{
         $reminder->date = $reminderDate;
         $reminder->reason = 'დაგემატა ახალი ვაკანსია. კატეგორია:'. $category['name_ka']. ', გრაფიკი: '. $work_schedule['name_ka']. ', კანდიდატის საჭიორების თარიღი: ' .$start_date. ', ვადა: '.$term['name_ka'].', შეცვალეთ სტატუსი!';
         $reminder->main = 1;
+        $reminder->main_stage_id = 1;
         $reminder->save();
     }
 
-    public function hrHasVacancyUpdate()
-    {
-        $all = HrHasVacancy::all();
-        foreach ($all as $key => $value) {
-            HrHasVacancy::where('id', $value->id)->update(['has_vacancy'=> ($value->has_vacancy - 1)]);
-        }
 
+    function addRepeat($old_id, $vacancy_id, $reason) {
+        $repeat = new RepeatHistory();
+        $repeat->user_id = Auth::id();
+        $repeat->old_vacancy_id = $old_id;
+        $repeat->new_vacancy_id = $vacancy_id;
+        $repeat->reason = $reason;
+        $repeat->save();
     }
-
     function dailyWorkEvent($hr_id) {
         event(new hrDailyJob($hr_id, 'has_vacancy'));
     }

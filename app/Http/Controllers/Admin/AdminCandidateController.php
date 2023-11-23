@@ -181,10 +181,11 @@ class AdminCandidateController extends Controller
     }
 
     function delete(Request $request)  {
+        // dd($request->id);
         $result = ['status' => 200];
 
         try {
-            $result = Candidate::where('id', $request->id)->delete();
+            Candidate::where('id', $request->id)->delete();
             $result['status'] = 200;
         } catch (Exception $e) {
             $result = [
@@ -192,7 +193,7 @@ class AdminCandidateController extends Controller
                 'error' => $e->getMessage()
             ];
         }
-        return response()->json($result, $result['status']);
+        return response()->json($result['status']);
     }
     function addCandidate() {
         $data = [];
@@ -202,15 +203,10 @@ class AdminCandidateController extends Controller
 
         //კლასიფიკატორები
 
-        $candidateClassificatoryArr = ['gender', 'nationality', 'religions','educations', 'maritalStatus', 'citizenship', 'professions',
-        'specialties', 'allergies', 'languages', 'languageLevels', 'workExperiences', 'notices', 'noExperienceReason', 'drivingLicense',
-        'numberCode', 'characteristic', 'numberOwner', 'yesNo', 'category', 'workSchedule', 'currency', 'recommendationFromWhom',
-        'noRecommendationReason', 'duty'];
+        $candidateClassificatoryArr = ['gender'];
         $classificatory = $this->classificatoryService->get($candidateClassificatoryArr);
-        $model = ['candidate_information' => $this->modelService->getUserModel(), 'work_information' => $this->modelService->getWorkInformationModel()];
 
         $data = [
-            'model' => $model,
             'classificatory' => $classificatory
         ];
         return view('admin.add_candidate', compact('data'));

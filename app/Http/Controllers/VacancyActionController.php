@@ -9,18 +9,26 @@ use Illuminate\Http\Request;
 use App\Services\VacancyRepeatService;
 use App\Services\VacancyUpdateService;
 use App\Filters\Vacancy\Admin\VacancyFullFilters;
+use App\Models\RepeatHistory;
 use App\Repositories\Vacancy\VacancyRedactedRepository;
+use App\Services\VacancyStatusService;
 
 class VacancyActionController extends Controller
 {
     private VacancyUpdateService $vacancyUpdateService;
     private VacancyRepeatService $vacancyRepeatService;
     private VacancyRedactedRepository $vacancyRedactedRepository;
-    public function __construct(VacancyUpdateService $vacancyUpdateService,VacancyRepeatService $vacancyRepeatService,VacancyRedactedRepository $vacancyRedactedRepository)
+    private VacancyStatusService $vacancyStatusService;
+    public function __construct(VacancyUpdateService $vacancyUpdateService,
+        VacancyRepeatService $vacancyRepeatService,
+        VacancyRedactedRepository $vacancyRedactedRepository,
+        VacancyStatusService $vacancyStatusService
+    )
     {
         $this->vacancyUpdateService = $vacancyUpdateService;
         $this->vacancyRepeatService = $vacancyRepeatService;
         $this->vacancyRedactedRepository = $vacancyRedactedRepository;
+        $this->vacancyStatusService = $vacancyStatusService;
     }
     public function update(Request $request) {
         dd($request->all());
@@ -46,7 +54,7 @@ class VacancyActionController extends Controller
         $result = ['status' => 200];
 
         try {
-            $result['data'] = $this->vacancyUpdateService->updateStatusData($data);
+            $result['data'] = $this->vacancyStatusService->service($data);
         } catch (Exception $e) {
             $result = [
                 'status' => 500,
@@ -103,12 +111,18 @@ class VacancyActionController extends Controller
 
     }
     function delete(Request $request)  {
-        $data = $request->data;
+
         $result = ['status' => 200];
 
         try {
-            Vacancy::where('id', $data['id'])->delete();
-            $result['data'] = [];
+            if($request->check){
+                $result['data'] = RepeatHistory::where('old_vacancy_id', $request->id)->exists();
+            }else{
+                RepeatHistory::where('old_vacancy_id', $request->id)->delete();
+                Vacancy::where('id', $request->id)->delete();
+                $result['data'] = [];
+            }
+
         } catch (Exception $e) {
             $result = [
                 'status' => 500,

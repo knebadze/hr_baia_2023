@@ -47,11 +47,15 @@ class UserProfileController extends Controller
 
         // ];
         $classificatory = $this->classificatoryService->get($candidateClassificatoryArr);
-        $model = $this->candidateModelService->findData();
+
+       
+        $user_id = request('user');
+        $model = $this->candidateModelService->findData(null, $user_id);
 
         $data = [
             'model' => $model,
-            'classificatory' => $classificatory
+            'classificatory' => $classificatory,
+            'role_id' => Auth::user()->role_id
         ];
 
         return view ('user/userProfile', compact('data'));

@@ -61,7 +61,7 @@
   <script>
   import { toast } from 'vue3-toastify';
   import 'vue3-toastify/dist/index.css';
-  import addPersonalVacancy from '../../../hr/modal/addPersonalVacancy.vue';
+  import addPersonalVacancy from '../../vacancy/modal/addPersonalVacancy.vue';
   export default {
         components:{
             addPersonalVacancy
@@ -123,7 +123,8 @@
                     'interview_date':item.interview_date,
                     'interview_place':item.interview_place,
                     'vacancy_code':item.code,
-                    'vacancy_id':item.id
+                    'vacancy_id':item.id,
+                    'start_date': item.start_date
                 }
                 // (this.vacancy)?this.vacancy:this.data.vacancy
                 // this.modalItem['candidate_id'] = (this.itemsSelected.length > 0)?this.itemsSelected.map(({ id }) => id):item.id

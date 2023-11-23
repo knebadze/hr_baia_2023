@@ -104,17 +104,7 @@ class VacancyUpdateService{
         $result = [$update, $history];
         return $result;
     }
-    public function updateStatusData($data) {
-        $history = [];
-        $update = $this->vacancyStatusUpdateRepository->updateStatus($data['model']);
-        if ($update['type'] == 's') {
 
-            $history = $this->vacancyRedactedRepository->save($data['model']['id'], $data['edit']);
-        }
-
-        $result = [$update, $history];
-        return $result;
-    }
 
     function updateHr($data) {
         // dd($data['model']['id']);

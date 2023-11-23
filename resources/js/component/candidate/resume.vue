@@ -294,34 +294,34 @@
 
                         </div>
                         <div class="row">
-                            <div v-for="(item, index) in data.general_work_experience" :key="index" class="col-md-6">
-                                <div  v-if="item.pivot.experience == 1" class="panel-body wt-panel-body p-a20">
+                            <div v-if="data.get_general_work_experience && data.get_general_work_experience[0].experience == 1" v-for="(item, index) in data.get_general_work_experience" :key="index" class="col-md-6">
+                                <div  v-if="item.experience == 1" class="panel-body wt-panel-body p-a20">
                                     <div class="twm-panel-inner">
                                         <div class="twm-s-detail-section">
                                             <div class="twm-title">პოზიცია</div>
-                                            <span class="twm-s-info-discription">{{ item.pivot.position }}</span>
+                                            <span class="twm-s-info-discription">{{ item.position }}</span>
                                         </div>
                                         <div class="twm-s-detail-section">
                                             <div class="twm-title">ობიექტი</div>
-                                            <span class="twm-s-info-discription">{{ item.pivot.object }}</span>
+                                            <span class="twm-s-info-discription">{{ item.object }}</span>
                                         </div>
                                         <div class="twm-s-detail-section">
                                             <div class="twm-title">ხანგრძლივობა</div>
-                                            <span class="twm-s-info-discription">{{ item[`name_${getLang}`] }}</span>
+                                            <span class="twm-s-info-discription">{{ item.work_experience[`name_${getLang}`] }}</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div v-if="data.general_work_experience && data.general_work_experience.experience == 2" class="col-md-12">
+                            <div v-else class="col-md-12">
                                 <div  class="panel-body wt-panel-body p-a20 ">
                                     <div class="twm-panel-inner">
                                         <div class="twm-s-detail-section">
-                                            <div class="twm-title">მიზეზი</div>
-                                            <span class="twm-s-info-discription">{{ data.general_work_experience.no_reason[`name_${getLang}`] }}</span>
+                                            <div class="twm-title">ზოგადი სამუშაო გამოცდილების არ ქონის მიზეზი</div>
+                                            <span class="twm-s-info-discription">{{ data.get_general_work_experience[0].no_reason[`name_${getLang}`] }}</span>
                                         </div>
-                                        <div class="twm-s-detail-section">
+                                        <div class="twm-s-detail-section" v-if="data.get_general_work_experience[0][`no_reason_info_${getLang}`]">
                                             <div class="twm-title">დამატებითი ინფორმაცია</div>
-                                            <span class="twm-s-info-discription">{{ data.general_work_experience.no_reason_info }}</span>
+                                            <span class="twm-s-info-discription">{{ data.get_general_work_experience[0][`no_reason_info_${getLang}`] }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -426,7 +426,7 @@
                     </div>
 
                     <!--recommendation-->
-                    <div class="panel panel-default mb-3">
+                    <div class="panel panel-default mb-3" v-if="data.recommendation.length > 0">
                         <div class="panel-heading wt-panel-heading p-a20 panel-heading-with-btn ">
                             <h4 class="panel-tittle m-a0">რეკომენდაცია</h4>
 
@@ -461,7 +461,7 @@
                         </div>
                     </div>
                     <!--notice-->
-                    <div class="panel panel-default mb-3">
+                    <div class="panel panel-default mb-3" v-if="data.get_notice.length > 0">
                         <div class="panel-heading wt-panel-heading p-a20 panel-heading-with-btn ">
                             <h4 class="panel-tittle m-a0">დოკუმენტები</h4>
 

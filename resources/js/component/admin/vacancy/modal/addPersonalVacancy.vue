@@ -27,7 +27,7 @@
                         <span>დარწმუნებული ხართ რომ მაინც გსურთ დაამატოთ ამ ვაკანსიაზეც?</span>
                     </div>
                 </div>
-                <div v-if="busy && !m.interview_place">
+                <div v-if="busy">
                     <p class="text-danger">ეს კანდიდატი უკვე ყავს ქვემოთ ჩამოთვლილ HR_ს (ებს) თავის აქტიურ ვაკანსიებში ჩასმული.
                     </p>
                         <h6>ინსტრუქცია</h6>
@@ -49,7 +49,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row" v-if="m.type && m.type.id == 3">
+                <div class="row" v-if="m.type && m.type.id == 4">
                     <div class=" col-md-6" >
                         <div class="form-group">
                             <label>გასაუბრების ადგილი</label>
@@ -77,7 +77,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label> დასრულების თარიღი </label>
-                            <input class="form-control" v-model="m.end_date" type="date" :max="endDateMax">
+                            <input class="form-control" v-model="m.end_date" type="date" :min='startDateMin' :max="endDateMax">
                         </div>
                     </div>
                 </div>
@@ -102,7 +102,7 @@
   <script>
   import { toast } from 'vue3-toastify';
   import 'vue3-toastify/dist/index.css';
-  import vacancyFullInfoModal from '../../modal/vacancyFullInfoModal.vue';
+  import vacancyFullInfoModal from '../../../modal/vacancyFullInfoModal.vue';
   import moment from 'moment'
   export default {
         components:{
@@ -139,21 +139,25 @@
         },
         methods:{
             async show(){
+                console.log('this.item', this.item,  new URL( location.href));
                 try {
                     let result = await this.getClassificatory();
                     console.log('result', result.data);
                     this.cla = result.data.classificatory
                     this.qualifyingType = this.cla.qualifyingType.filter(item => item.id !== 6 && item.id !== 7);
                     this.info  = result.data.findCandidate
+                    let filterQualifyingType = this.info && this.info.hasOwnProperty('this_vacancy') && this.info.this_vacancy ? this.cla.qualifyingType.filter(item => item.id >= this.info.this_vacancy.qualifying_type_id &&  item.id < 6) : this.qualifyingType
+                    this.qualifyingType = filterQualifyingType
                     this.busy = (result.data.busy != null)?{...result.data.busy}:null
                     this.m = {...this.item}
                     this.m['type'] = (result.data.findCandidate && result.data.findCandidate.this_vacancy )?result.data.findCandidate.this_vacancy.qualifying_type:null
+                    this.m.interview_place = !this.m.interview_place ? this.cla.interviewPlace.find( (o) => o.id == this.m.interview_place_id): this.m.interview_place
                     this.showConfirm = true
                     const currentDate = moment();
                     this.startDateMin = currentDate.format('YYYY-MM-DD');
                     const startDateMoment = moment(this.m.start_date);
                     const endDateMoment = moment(this.m.start_date);
-                    this.startDateMax = startDateMoment.subtract(1, 'weeks').format('YYYY-MM-DD');
+                    this.startDateMax = startDateMoment.subtract(5, 'days').format('YYYY-MM-DD');
                     this.endDateMax = endDateMoment.subtract(1, 'days').format('YYYY-MM-DD');
 
                 } catch (error) {
@@ -172,10 +176,12 @@
             },
 
             save(){
-
+                let data = this.rule(this.m)
+                // this.rule(this.m)
+                // return
                 let currentObj = this
                 axios.post('/add_vacancy_personal' ,{
-                    data: this.m,
+                    data: data,
                 })
                 .then(function (response) {
                     // handle success
@@ -199,6 +205,39 @@
                     console.log(error);
                 })
             },
+
+            rule(item){
+                if ( item.type.id == 5) {
+                    const start_date = moment(item.start_date).format('YYYY-MM-DD');
+                    const end_date = moment(item.end_date).format('YYYY-MM-DD');
+                    if (this.info.another_vacancy) {
+                        this.info.another_vacancy.forEach(element => {
+                            if (element.qualifying_type_id == 5) {
+                                let start = moment(element.start_date).format('YYYY-MM-DD');
+                                let end = moment(element.end_date).format('YYYY-MM-DD');
+                                if (moment(start_date).isBetween(start, end) || moment(end_date).isBetween(start, end)) {
+                                    // Do something if start_date or end_date is between start and end
+                                    toast.error("არჩეულ დღეებში კანდიდატი დაკავებულია", {
+                                        theme: 'colored',
+                                        autoClose: 1000,
+                                    });
+                                    return
+                                }
+                            }
+                            // else if (element.type.id == 3) {
+                            //     let interview_date = moment(item.interview_date).add(1, 'hours').format('YYYY-MM-DD HH');
+                            //     let min_interview_date = moment(element.interview_date).subtract(1, 'hours').format('YYYY-MM-DD HH');
+                            //     let max_interview_date = moment(element.interview_date).add(1, 'hours').format('YYYY-MM-DD HH');
+                            //     if (moment(interview_date).isBetween(min_interview_date, max_interview_date)) {
+
+                            //     }
+                            // }
+
+                        });
+                    }
+                }
+                return item
+            },
             update(){
 
                 let currentObj = this
@@ -212,7 +251,17 @@
                             theme: 'colored',
                             autoClose: 1000,
                         });
-                        currentObj.emitMessage(true)
+                        let url = new URL( location.href)
+                        const parts = url.pathname.split('/');
+                        const link = parts[parts.indexOf('admin') + 1];
+                        console.log(link, parts);
+                        if (link == 'selection_personal') {
+                            currentObj.emitMessage(false)
+                        }else{
+                            setTimeout(() => {
+                                document.location.reload();
+                            }, 1500);
+                        }
                         currentObj.hide()
                         // setTimeout(() => {
                         //     document.location.reload();
@@ -227,6 +276,7 @@
                     console.log(error);
                 })
             },
+
             deletePersonal(){
                 this.$swal(
                 {
@@ -249,7 +299,17 @@
                                     theme: 'colored',
                                     autoClose: 1000,
                                 });
-                                currentObj.emitMessage(false)
+                                let url = new URL( location.href)
+                                const parts = url.pathname.split('/');
+                                const link = parts[parts.indexOf('admin') + 1];
+                                console.log(link, parts);
+                                if (link == 'selection_personal') {
+                                    currentObj.emitMessage(false)
+                                }else{
+                                    setTimeout(() => {
+                                        document.location.reload();
+                                    }, 1500);
+                                }
                                 currentObj.hide()
                                 // setTimeout(() => {
                                 //     document.location.reload();
@@ -269,9 +329,11 @@
                     // }
                 })
             },
+
             emitMessage(bool) {
                 this.onMessageFromChildren(this.item.candidate_id, bool);
             },
+            
             openModal(id){
                 this.modalShow = !this.modalShow
                 this.vacancy_id = id

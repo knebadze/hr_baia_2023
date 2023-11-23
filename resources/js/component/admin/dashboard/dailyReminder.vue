@@ -12,7 +12,8 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-            <div class="table-responsive">
+            <reminder_table :items="items" :role_id="role_id" ></reminder_table>
+            <!-- <div class="table-responsive">
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -41,17 +42,15 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
+            </div> -->
         </div>
-        <vacancyFullInfoModal :visible="vacancyModelShow" :vacancyId="item"></vacancyFullInfoModal>
     </div>
 </template>
 <script>
-import moment from 'moment'
-import vacancyFullInfoModal from '../../modal/vacancyFullInfoModal.vue';
+import reminder_table from '../reminder/component/reminder_table.vue';
 export default {
     components:{
-        vacancyFullInfoModal
+        reminder_table
     },
     props:{
         data: Object,
@@ -59,46 +58,16 @@ export default {
     },
     data() {
         return {
-            vacancyModelShow: false,
-            item:null
+            item: []
         }
     },
     computed:{
-        items(){
-            const currentDateTime = moment();
-            let arr = []
-            this.data.forEach(element => {
-                let baseDateTime = element.date;
-                // Convert base time to a moment object
-                let baseTimeMoment = moment(baseDateTime, "YYYY-MM-DD HH:mm");
-                if (currentDateTime.isAfter(baseTimeMoment) ) {
-                    // Current time is greater than the base time
-                    if (element.active == 0) {
-                        element['status'] = 0
-                    } else {
-                        element['status'] = 2
-                    }
-                } else if (currentDateTime.isBefore(baseTimeMoment) ) {
-                    // Current time is less than the base time
-                    if (element.active == 0) {
-                        element['status'] = 1
-                    }else{
-                        element['status'] = 2
-                    }
-                } else{
-                }
-                arr.push(element)
-            });
-            return arr
-        }
     },
     created(){
+        console.log(this.data);
+        this.items = this.data
     },
     methods:{
-        vacancyModal(id){
-            this.vacancyModelShow = !this.vacancyModelShow
-            this.item = id
-        }
 
     }
 

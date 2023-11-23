@@ -18,6 +18,7 @@ class AddUserRepository
 {
     function save($data) {
         try {
+            // dd($data);
             $name_ka = $data['name_ka'];
             $name_en = GoogleTranslate::trans($data['name_ka'], 'en');
             $name_ru = GoogleTranslate::trans($data['name_ka'], 'ru');
@@ -45,7 +46,9 @@ class AddUserRepository
                 'password' => Hash::make($data['password']),
                 'lang' => 'ka',
             ]);
+            // dd($user);
             if ($user->wasRecentlyCreated) {
+
                 // User record was just created
                 // You can perform actions for a newly created user here
                 $registerLog = userRegisterLog::create([
@@ -53,13 +56,15 @@ class AddUserRepository
                     'user_id' => $user->id,
                     'type' => $data['type']['id'],
                 ]);
-
-                $this->dailyWorkEvent(Auth::user()->hr->id);
+                // dd('if');
+                // dd($data['type']);
+                Auth::user()->role_id == 2 && $this->dailyWorkEvent(Auth::user()->hr->id);
 
                 if (!$registerLog) {
                     $allModelsCreated = false;
                 }
                 $fee = null;
+
                 if ($data['type']['id'] == 1) {
                     $fee = RegistrationFee::create([
                         'user_id' => $user->id,
@@ -73,9 +78,9 @@ class AddUserRepository
                 }
 
                 // Check if RegistrationFee creation failed
-                if (!$fee) {
-                    $allModelsCreated = false;
-                }
+                // if (!$fee) {
+                //     $allModelsCreated = false;
+                // }
             } else {
                 // dd('update');
                 // User record already existed and was updated
@@ -85,8 +90,6 @@ class AddUserRepository
             if (!$user) {
                 $allModelsCreated = false;
             }
-
-
 
             // Check if at least one model creation failed
             if (!$allModelsCreated) {

@@ -59,17 +59,24 @@ class SelectionPersonalController extends Controller
     }
     function vacancyPersonal($id) {
 
-        $data = QualifyingCandidate::orderBy('qualifying_type_id', 'DESC')->where('vacancy_id', $id)->with([
-            'candidate.getWorkInformation.category','candidate.status', 'candidate.user', 'qualifyingType','vacancy.interviewPlace'
-        ])->paginate(25);
-        $classificatory = [
-            'category' => Category::all()->toArray(),
-            'status' => Status::where('status_type_id', 1)->get()->toArray(),
-            'qualifyingType' => QualifyingType::all()->toArray(),
-            'auth' => (Auth::user()->role_id == 1)?Auth::user():User::where('id', Auth::id())->with('hr')->first()
-        ];
+        $data = DB::table('qualifying_candidates as a')
+            ->orderBy('qualifying_type_id', 'DESC')
+            ->where('vacancy_id', $id)
+            ->join('candidates as b', 'a.candidate_id', 'b.id')
+            ->join('users as c', 'b.user_id', 'c.id')
+            ->join('qualifying_types as d', 'a.qualifying_type_id', 'd.id')
+            ->leftJoin('interview_places as e', 'a.interview_place_id', 'e.id')
+            ->join('vacancies as v', 'a.vacancy_id', 'v.id')
+            ->leftJoin('candidate_end_works as f', 'a.id', 'f.qualifying_candidate_id')
+            ->select('a.*', 'b.id as candidate_id', 'c.name_ka as candidate_name',
+            'd.name as qualifying_type', 'e.name_ka as interview_place',
+            'v.status_id as vacancy_status_id', 'v.code as vacancy_code', 'v.start_date as vacancy_start_date',
+            'v.interview_place_id as vacancy_interview_place_id', 'v.interview_date as vacancy_interview_date',
+            'v.hr_id as vacancy_hr_id', 'f.no_reason_id as end_work_reason_id', 'f.reason_info as end_work_reason' )
+            ->get();
+        $auth = (Auth::user()->role_id == 1)?Auth::user():User::where('id', Auth::id())->with('hr')->first();
         // dd($data);
-        return view('admin.vacancy_personal', compact('data', 'classificatory'));
+        return view('admin.vacancy_personal', compact('data', 'auth'));
     }
 
     public function find(CandidateFilters $filters)  {
@@ -90,9 +97,14 @@ class SelectionPersonalController extends Controller
     function addPersonalInfo(Request $request) {
         $findCandidate['this_vacancy'] = QualifyingCandidate::where('candidate_id', $request->data['candidate_id'])
             ->where('vacancy_id', $request->data['vacancy_id'])
+            ->whereNull('status_id')
             ->with('qualifyingType')
             ->first();
-        $busy = QualifyingCandidate::where('candidate_id', $request->data['candidate_id'])->whereIn('qualifying_type_id', [ 4, 5, 7])->with(['qualifyingType', 'vacancy.hr.user'])->get()->toArray();
+        $busy = QualifyingCandidate::where('candidate_id', $request->data['candidate_id'])
+            ->whereIn('qualifying_type_id', [ 4, 5, 7])
+            ->whereNull('status_id')
+            ->with(['qualifyingType', 'vacancy.hr.user'])
+            ->get()->toArray();
         // ვპოულობ კანდიდატი თუ არის  'დამსაქმებლის მოწონებული', 'გამოსაცდელი ვადით', 'დასაქმდა' კატეგორიაში
         if (count($busy) == 0) {
             // თუ არ მოიძებნა ვაბრუნებ NULL
@@ -240,18 +252,23 @@ class SelectionPersonalController extends Controller
     }
 
     function getScheduleInfo(Request $request)  {
-        // dd($request->data);
-        $data = [];
-        $find = QualifyingCandidate::where('id', $request->data)->first();
+        $data = $request->data;
+        $result = [];
+        if ($data['candidate_id']) {
+            $find = QualifyingCandidate::where('candidate_id', $data['candidate_id'])->where('qualifying_type_id', 7)->whereNull('status_id')->first();
+        }else{
+            $find = QualifyingCandidate::Where('id', $data['id'])->whereNull('status_id')->first();
+        }
+
         $vacancy = Vacancy::where('id', $find->vacancy_id)
             ->with('workSchedule')
             ->select('additional_schedule_ka', 'work_schedule_id', 'code')
             ->first()
             ->toArray();
-        $data['vacancy'] = $vacancy;
-        $data['schedule'] = $find->workDay;
+        $result['vacancy'] = $vacancy;
+        $result['schedule'] = $find->workDay;
         // dd($find->workDay);
-        return response()->json($data);
+        return response()->json($result);
     }
 
     function getWorkDayInfo(Request $request)  {

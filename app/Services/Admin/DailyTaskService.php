@@ -18,7 +18,7 @@ class DailyTaskService
         // ვააბდეითებ success, vacancy->status_id, candidate->status_id
         // ვაკანსიაა ვადაგასულია, სამუშაო გრაფიკი წაშლილია, კანდიდატი თავისუფალი თუ სხვა აქტიურ ვაკანსიაზე არაა დასაქმებული
         $quality = QualifyingCandidate::whereIn('qualifying_type_id', [5, 6, 7])
-            ->where('success', null)
+            ->whereNull('status_id')
             ->whereDate('end_date', '<', Carbon::today())
             ->get();
 
@@ -28,7 +28,7 @@ class DailyTaskService
             $vacancy_ids = collect($quality)->pluck('vacancy_id')->toArray();
             $candidate_ids = collect($quality)->pluck('candidate_id')->toArray();
 
-            QualifyingCandidate::whereIn('id', $ids)->update(['success' => 1]);
+            QualifyingCandidate::whereIn('id', $ids)->update(['status_id' => 1]);
             WorkDay::whereIn('qualifying_candidate_id', $ids)->delete();
 
 
@@ -48,7 +48,7 @@ class DailyTaskService
 
 
         $find = QualifyingCandidate::where('qualifying_type_id', 7)
-            ->where('success', null)
+            ->whereNull('status_id')
             ->whereDate('start_date', '<=', Carbon::today())
             ->whereDate('end_date', '>', Carbon::today())
             ->get();

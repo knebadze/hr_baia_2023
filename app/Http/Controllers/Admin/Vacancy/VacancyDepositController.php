@@ -75,6 +75,7 @@ class VacancyDepositController extends Controller
     }
 
     function updateDate(Request $request) {
+        // dd($request->id);
         $result = ['status' => 200];
 
         try {

@@ -35,7 +35,7 @@
         },
         props:{
             visible: Boolean,
-            item: Number
+            item: Object
         },
 
         data() {

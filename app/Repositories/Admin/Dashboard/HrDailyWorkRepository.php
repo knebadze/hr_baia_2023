@@ -18,9 +18,18 @@ class HrDailyWorkRepository
                 ->first();
 
         // Retrieve the next record after the last uploaded record
-        $nextRecord = HrHasVacancy::where('is_active', 1)
+        $nextRecord = null;
+        $find = HrHasVacancy::where('is_active', 1)
+            ->where('re_write', '<', 0)
+            ->orderBy('re_write', 'ASC')
+            ->first();
+        if ($find) {
+            $nextRecord = $find;
+        }else{
+            $nextRecord = HrHasVacancy::where('is_active', 1)
             ->where('has_vacancy', 0)
             ->first();
+        }
 
         $noActive = HrHasVacancy::where('is_active', 0)
             // ->where('has_vacancy', 0)

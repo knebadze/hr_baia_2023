@@ -3,14 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use Exception;
+use App\Models\Vacancy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Models\VacancyReminder;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Services\Admin\ReminderService;
 use App\Filters\Reminder\ReminderFilters;
-use App\Models\Vacancy;
 
 class ReminderController extends Controller
 {
@@ -75,11 +76,13 @@ class ReminderController extends Controller
     }
 
     function hrReminderInfo()  {
-        $vacancyReminder = VacancyReminder::orderBy('date', 'ASC')
-                ->where('hr_id', Auth::user()->hr->id)
-                ->where('active', 0)
-                ->where('date', '>=', Carbon::now()->toDateTimeString())
-                ->with('vacancy')
+        $vacancyReminder = DB::table('vacancy_reminders as a')
+                ->orderBy('a.date', 'ASC')
+                ->where('a.hr_id', Auth::user()->hr->id)
+                ->where('a.active', 0)
+                ->where('a.date', '>=', Carbon::now()->toDateTimeString())
+                ->join('vacancies as b', 'b.id', '=', 'a.vacancy_id')
+                ->select('a.*',  'b.code as code')
                 ->get();
         $data = [];
         $currentDateTime = Carbon::now();
@@ -98,10 +101,11 @@ class ReminderController extends Controller
     function checkMainReminder(Request $request)  {
         // dd($request->all());
         $data = false;
-        if($request->stage == 0){
-            $vacancy = Vacancy::where('id', $request->vacancy_id)->where('status_id', 1)->exists();
+        // stage == 0 ვამოწმებ სტატუს არის თუ არაა წარმოიებაში
+        if($request->stage == 1){
+            $vacancy = Vacancy::where('id', $request->vacancy_id)->where('status_id', 2)->exists();
             // dd($vacancy);
-            $data = $vacancy ? false : true;
+            $data = $vacancy;
         }
 
         return response()->json($data);

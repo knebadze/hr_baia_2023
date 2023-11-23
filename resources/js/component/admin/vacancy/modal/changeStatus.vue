@@ -1,6 +1,6 @@
 <template lang="">
     <!-- Modal -->
-    <div v-if="showConfirm" class="modal fade show" tabindex="-1"  role="dialog" aria-labelledby="exampleModalCenterTitle" id="modalMap"  aria-hidden="true" style="display:block">
+    <div v-if="showConfirm && data" class="modal fade show" tabindex="-1"  role="dialog" aria-labelledby="exampleModalCenterTitle" id="modalMap"  aria-hidden="true" style="display:block">
           <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
               <div class="modal-content">
               <div class="modal-header">
@@ -21,7 +21,7 @@
                 <div class="col-md-12" v-if="m.status.id == 7">
                     <div class="form-group">
                         <label> სადამდე </label>
-                        <input class="form-control" v-model="m.suspended_date" type="date" placeholder="" rows="3">
+                        <input class="form-control" v-model="m.suspended_date" type="date" placeholder="" :min="minData" rows="3">
                     </div>
                 </div>
                 <div class="col-md-12" v-if="m.status.id == 5 || m.status.id == 7">
@@ -36,19 +36,12 @@
                     <h6><i class="fa fa-hourglass-start"></i> შეხსენება</h6>
                     <hr>
                     <div class="row">
-                        <div class="col-md-5">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <label> შეხსენების დრო </label>
-                                <input class="form-control" v-model="reminder.date" type="datetime-local" placeholder="" rows="3" :max="maxDate">
+                                <input class="form-control" v-model="reminder.date" type="datetime-local" placeholder="" rows="3" :min="minData" :max="maxDate">
                             </div>
                         </div>
-                        <div class="col-md-7">
-                            <div class="form-group">
-                                <label> შეხსენების მიზეზი </label>
-                                <textarea class="form-control" v-model="reminder.reason" type="text" placeholder="" rows="3"></textarea>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
                 <div v-if="data.history.length > 0">
@@ -71,112 +64,137 @@
               </div>
           </div>
       </div>
-      <addPersonalWasEmployed :visible="showModal" :item="modalItem"></addPersonalWasEmployed>
-      <deleteReminder :visible="showDeleteReminderModal" :item="modalItem"> </deleteReminder>
+      <addPersonalWasEmployed :visible="showModal" :item="modalItem" @emitSave="handlerWasEmployed"/>
   </template>
     <script>
     import { toast } from 'vue3-toastify';
     import 'vue3-toastify/dist/index.css';
     import moment from 'moment'
+    import { ref, computed, watch, onMounted } from 'vue'
     import addPersonalWasEmployed from './addPersonalWasEmployed.vue'
-    import deleteReminder from './deleteReminder.vue'
     export default {
         components:{
-            addPersonalWasEmployed,
-            deleteReminder
+            addPersonalWasEmployed
         },
         props:{
             visible: Boolean,
             item: Object
         },
-        data() {
-            return {
-                showConfirm: false,
-                data: {},
-                m: null,
-                cla:null,
-                reminder:{},
-                showModal: false,
-                modalItem: null,
-                showDeleteReminderModal: false,
-                maxDate: null
-            }
-        },
-        created(){
-            // this.showConfirm = this.visible
-        },
-        computed:{
-            getLang(){
-                return I18n.getSharedInstance().options.lang
-            },
-        },
-        methods:{
-            async show(){
-                try {
-                    let result = await this.getClassificatory();
-                    this.data = result.data
+        setup(props) {
 
-                    this.m = this.makeModel(this.item)
-                    this.cla = this.makeCla(this.item.status.id)
-                    this.showConfirm = true
-                    this.maxDate = this.getMaxDate(this.item)
-                    console.log('this.maxDate',this.maxDate);
+            const getLang = computed(() => {
+                return I18n.getSharedInstance().options.lang;
+            });
+            const showConfirm = ref(false);
+            const data = ref({});
+            const m = ref({});
+            const cla = ref(null);
+            const reminder = ref({});
+            const maxDate = ref( null);
+            const minData = ref( null);
+            const currentDate = moment();
+            const showModal = ref(false);
+            const modalItem = ref(null);
+
+            const show = async () => {
+                try {
+                    let result = await getClassificatory();
+                    data.value = result.data
+                    m.value = makeModel(props.item)
+                    cla.value = makeCla(props.item.status.id)
+                    maxDate.value = getMaxDate(props.item)
+                    minData.value = currentDate.format('YYYY-MM-DD HH:mm')
+                    showConfirm.value = true
                 } catch (error) {
                     console.log(error);
                 }
 
-            },
-            hide(){
-                this.showConfirm = false
-            },
+            };
 
-            makeModel(item){
-                var newItem = {}
+            const hide = () => {
+                showConfirm.value = false
+            };
+
+            const  getClassificatory = () => {
+                return axios.post('/get_status_change_info' ,{
+                      data: props.item.id,
+                  })
+
+            };
+
+            const  makeModel = (item) => {
+                let newItem = {}
                 newItem.id = item.id
                 newItem.status = item.status
                 newItem.status_change_reason = item.status_change_reason
 
                 return {...newItem}
-            },
-            getMaxDate(item){
-                console.log(item);
-                return moment(item.start_date).subtract(1, 'weeks').format('YYYY-MM-DD HH:mm');
-            },
-            makeCla(id){
-                let status = []
-                if (id == 1) {
-                    status = this.data.status.filter(item => item.id != id && item.id != 3 && item.id != 4 &&  item.id != 13);
-                }else if(id == 2){
-                    status = this.data.status.filter(item => item.id != id && item.id != 4 &&  item.id != 13);
-                }else if(id == 3){
-                    status = this.data.status.filter(item => item.id != id && item.id != 1 && item.id != 2 && item.id != 5 &&  item.id != 6 && item.id != 7 && item.id != 13);
-                }
-                // if (id != 3) {
-                //     status = this.data.status.filter(item => item.id != id && item.id != 3 && item.id != 4 &&  item.id != 13);
-                // }
-                if (this.data.role_id == 2) {
-                    if(id == 3 ){
-                        status = this.data.status.filter(item => item.id == 4);
-                    }
-                }
+            };
 
+            const getMaxDate = (item) => {
+                return moment(item.start_date).subtract(1, 'weeks').format('YYYY-MM-DD HH:mm');
+            };
+
+            const makeCla = (id) => {
+                let status = []
+                const excludeMap = {
+                    1: [3],
+                    2: [2],
+                    3: [2, 3, 5, 6, 7],
+                    6: [ 3 ],
+                    7: [ 3 ]
+                };
+
+                if (excludeMap.hasOwnProperty(id)) {
+                    status = data.value.status.filter(item => !excludeMap[id].includes(item.id));
+                }
 
                 return status
-            },
-            save(){
-                // return
-                if (this.m.status.id == 6) {
-                    this.m['reminder'] = this.reminder
+            };
+
+            const forItem = (item) => {
+                let editedFields = {}
+                for (const field in item) {
+                    if ( item[field] !== props.item[field] ) {
+                            editedFields[field] = props.item[field]
+                    }
                 }
-                //შეხსენების წაშლა იხსნება მოდალი სადაც ჩამონათვალია
-                // if (this.m.status.id == 4  || this.m.status.id == 5) {
-                //     this.reminderInfo(this.m.id)
-                // }
+                return editedFields
+            };
+
+            const statusInput = () => m.value.status;
+            watch(statusInput, (newVal) => {
+                if (newVal.id == 7) {
+                    const dateInThreeWeeks = currentDate.clone().add(3, 'weeks');
+                    minData.value = dateInThreeWeeks.format('YYYY-MM-DD')
+                }
+                if (newVal.id == 3) {
+                    openModal()
+                }
+
+            });
+
+            const openModal = () =>{
+                showModal.value = !showModal.value
+                modalItem.value = props.item
+            };
+
+            const handlerWasEmployed = (item = false) =>{
+                if (item) {
+                    save()
+                }
+
+            }
+
+            const save = () =>{
                 // return
-                var editedFields = this.forItem(this.m)
-                let currentObj = this
+                if (m.value.status.id == 6) {
+                    m.value['reminder'] = reminder.value
+                }
+
+                let editedFields = forItem(m.value)
                 axios.post('/update_vacancy_status' ,{
-                    data: {'model':this.m, 'edit': editedFields},
+                    data: {'model':m.value, 'edit': editedFields},
                 })
                 .then(function (response) {
                     // handle success
@@ -194,90 +212,48 @@
                             theme: 'colored',
                             autoClose: 1000,
                         });
-                        if(response.data.data[0].message !== "ამ სტატუსის მისანიჭებლად აუცილებელია ვაკანსიის თანხა იყოს ჩარიცხული სრულად")
-                        {
-                            currentObj.openModal()
-                        }
 
 
                     }
-
-
 
                 })
                 .catch(function (error) {
                     // handle error
                     console.log(error);
                 })
-            },
-            getClassificatory(){
-                return axios.post('/get_status_change_info' ,{
-                      data: this.item.id,
-                  })
+            };
 
-            },
-            reminderInfo(id){
-                let currentObj = this
-                axios.post('/get_reminder_info' ,{
-                    data: id,
-                })
-                .then(function (response) {
-                    // handle success
-                    if (response.data || response.data.next.length > 0) {
-                        currentObj.openDeleteReminderModal(response.data.next)
-                    }
-                    // if (response.status == 200 && response.data.data[0].type == 's') {
-
-                    //     toast.success(response.data.data[0].message, {
-                    //         theme: 'colored',
-                    //         autoClose: 1000,
-                    //     });
-                    //     setTimeout(() => {
-                    //         document.location.reload();
-                    //     }, 2000);
-                    // }else if(response.status == 200 && response.data.data[0].type == 'e'){
-                    //     toast.error(response.data.data[0].message, {
-                    //         theme: 'colored',
-                    //         autoClose: 1000,
-                    //     });
-                    //     currentObj.openModal()
-
-                    // }
-
-                })
-                .catch(function (error) {
-                    // handle error
-                    console.log(error);
-                })
-            },
-            forItem(item){
-                var editedFields = {}
-                for (const field in item) {
-                    if ( item[field] !== this.item[field] ) {
-                            editedFields[field] = this.item[field]
-                    }
-                }
-                return editedFields
-            },
-            changeFormat(time){
+            const changeFormat = (time) => {
                 return moment(time).format("YYYY-MM-DD HH:mm")
-            },
-            openModal(){
-                this.showModal = !this.showModal
-                this.modalItem = this.item
-            },
-            openDeleteReminderModal(item){
-                this.showDeleteReminderModal = !this.showDeleteReminderModal
-                this.modalItem = item
-            }
+            };
 
+
+            return {
+                showConfirm,
+                m,
+                cla,
+                data,
+                reminder,
+                maxDate,
+                minData,
+
+                show,
+                hide,
+                save,
+                changeFormat,
+                getLang,
+
+                showModal,
+                modalItem,
+                handlerWasEmployed
+            }
         },
         watch:{
             visible: function(){
                 this.show()
-            },
+            }
         }
-  }
+    }
   </script>
   <style lang="">
 

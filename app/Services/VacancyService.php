@@ -115,10 +115,11 @@ class VacancyService{
         return $result;
     }
     function rule($data){
+        // dd($data);
         if (Employer::where('number', $data['employer']['number'])->exists()) {
 
             $employer = Employer::where('number', $data['employer']['number'])->first();
-            if (Vacancy::where('author_id', $employer->id)->whereNotIn('status_id', [5, 13])->exists() && Vacancy::where('author_id', $employer->id)->whereNotIn('status_id', [5, 13])->where('category_id', $data['vacancy']['category_id']['id'])->exists()) {
+            if (Vacancy::where('author_id', $employer->id)->whereNotIn('status_id', [5, 13])->exists() && Vacancy::where('author_id', $employer->id)->whereNotIn('status_id', [5, 13])->where('category_id', $data['vacancy']['category']['id'])->exists()) {
                 return ['type'=> 'e', 'message' => 'თქვენ არ გაქვთ ამ კატეგორიის ვაკანსიის დამატების უფლება!!!'];
             }
         }

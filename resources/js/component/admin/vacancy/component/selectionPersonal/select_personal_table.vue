@@ -26,12 +26,13 @@
         </div>
 
         <div v-if="!itemsSelectedButton">
-            <button class="btn btn-info btn-sm" @click="showModal(item)" :disabled="(item.status_id == 10)?true:false">
+            <table_cog :item="item" @emitOpenModal="handlerOpenModal"/>
+            <!-- <button class="btn btn-info btn-sm" @click="showModal(item)" :disabled="(item.status_id == 10)?true:false">
                 <i class="fa fa-plus"></i> დამატება
             </button>
             <button class="btn btn-success btn-sm ml-1" @click="showModal(item)" >
                 <i class="fa fa-envelope"></i> sms
-            </button>
+            </button> -->
         </div>
 
       </div>
@@ -39,168 +40,7 @@
         <template #expand="item">
             <!-- {{ item }} -->
               <!-- /.card-header -->
-              <div class="card-body">
-                    <div class="row d-flex justify-content-center">
-                        <img :src="'/images/user-avatar/'+item.user.avatar" alt="#" style="height:100px">
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <dl class="row">
-                                <dt class="col-sm-4">მისამართი:</dt>
-                                <dd class="col-sm-8">{{ item.address_ka }}</dd>
-                                <dt class="col-sm-4">ეროვნება:</dt>
-                                <dd class="col-sm-8">{{ item.nationality.name_ka }}</dd>
-                                <dt class="col-sm-4">მოქალაქეობა:</dt>
-                                <dd class="col-sm-8"><span v-for="(i, index) in item.citizenship" :key="index">{{ i.name_ka+', ' }}</span> </dd>
-                                <dt class="col-sm-4">რელიგია:</dt>
-                                <dd class="col-sm-8">{{ item.religion.name_ka }}</dd>
-                                <dt class="col-sm-4">განათლება:</dt>
-                                <dd class="col-sm-8">{{ item.education.name_ka }}</dd>
-                                <dt class="col-sm-4">პროფესია:</dt>
-                                <dd class="col-sm-8"><span v-for="(i, index) in item.professions" :key="index">{{ i.name_ka+', ' }}</span> </dd>
-                                <dt class="col-sm-4">სპეციალობა:</dt>
-                                <dd class="col-sm-8"><span v-for="(i, index) in item.specialty" :key="index">{{ i.name_ka+', ' }}</span> </dd>
-                                <dt class="col-sm-4">უცხო ენა:</dt>
-                                <dd class="col-sm-8"><span v-for="(i, index) in item.get_language" :key="index">{{ i.language.name_ka+ ' - '+i.level.name_ka+', ' }}</span> </dd>
-                                <dt class="col-sm-4">ალერგია:</dt>
-                                <dd class="col-sm-8"><span v-for="(i, index) in item.allergy" :key="index">{{ i.name_ka+', ' }}</span> </dd>
-                                <div class="row col-12" v-if="item.medical_info_ka">
-                                    <dt class="col-sm-4">სამედიცინო ინფორმაცია:</dt>
-                                    <dd class="col-sm-8">{{ item.medical_info_ka }} </dd>
-                                </div>
-                                <div class="row col-12" v-if="item.driving_license">
-                                    <dt class="col-sm-4">მართვის მოწმობა:</dt>
-                                    <dd class="col-sm-8"><span v-for="(i, index) in item.driving_license" :key="index">{{ i.name+', ' }}</span> </dd>
-                                </div>
-                            </dl>
-                        </div>
-                        <div class="col-md-6">
-                            <dl class="row">
-                                <dt class="col-sm-4">მაილი:</dt>
-                                <dd class="col-sm-8">{{ item.user.email }}</dd>
-                                <dt class="col-sm-4">დაბადების თარიღი:</dt>
-                                <dd class="col-sm-8">{{ item.user.date_of_birth }}</dd>
-                                <dt class="col-sm-4">სიმაღლე:</dt>
-                                <dd class="col-sm-8">{{ item.height }}</dd>
-                                <dt class="col-sm-4">წონა:</dt>
-                                <dd class="col-sm-8">{{ item.weight }}</dd>
-                                <dt class="col-sm-4">სქესი:</dt>
-                                <dd class="col-sm-8">{{ item.user.gender.name_ka }}</dd>
-                                <dt class="col-sm-4">ოჯახური მდგომარეობა:</dt>
-                                <dd class="col-sm-8">{{ item.marital_status.name_ka }}</dd>
-                                <div class="row col-12" v-if="item.children">
-                                    <dt class="col-sm-4">შვილების რაოდენობა:</dt>
-                                    <dd class="col-sm-8">{{ item.children }} </dd>
-                                </div>
-                                <div class="row col-12" v-if="item.children_age">
-                                    <dt class="col-sm-4">შვილებისა ასაკი:</dt>
-                                    <dd class="col-sm-8">{{ item.children_age }} </dd>
-                                </div>
-                                <div class="row col-12" v-if="item.spouse">
-                                    <dt class="col-sm-4">მეუღლე:</dt>
-                                    <dd class="col-sm-8">{{ item.spouse }} </dd>
-                                </div>
-                                <dt class="col-sm-4">ნასამართლეობა:</dt>
-                                <dd class="col-sm-8">{{ (item.convection == 0)?'არა':'კი' }}</dd>
-                                <dt class="col-sm-4">მწეველი:</dt>
-                                <dd class="col-sm-8">{{ (item.smoke == 0)?'არა':'კი' }}</dd>
-                                <dt class="col-sm-4">იმუშავებს საზღვარგარეთ:</dt>
-                                <dd class="col-sm-8">{{ (item.work_abroad == 0)?'არა':'კი' }}</dd>
-
-                            </dl>
-                        </div>
-                        <div class="col-md-12 ">
-                            <hr>
-                            <h6>უნდა დასაქმება</h6>
-                            <hr>
-                            <div class="row">
-                                <div v-for="(i, index) in item.get_work_information" :key="index" class="col-md-6">
-                                    <dl class="row border">
-                                        <dt class="col-sm-4">კატეგორია:</dt>
-                                        <dd class="col-sm-8"> {{ i.category.name_ka }}</dd>
-                                        <dt class="col-sm-4">სამუშაო გრაფიკი:</dt>
-                                        <dd class="col-sm-8"><span v-for="(x, index) in i.work_schedule" :key="index" >{{ x.name_ka+', ' }}</span> </dd>
-                                        <div class="row col-12" v-if="i.additional_schedule_ka">
-                                            <dt class="col-sm-4">დამატებითი გრაფიკი:</dt>
-                                            <dd class="col-sm-8">{{ i.additional_schedule_ka }} </dd>
-                                        </div>
-                                        <dt class="col-sm-4">ანაზღაურება:</dt>
-                                        <dd class="col-sm-8"> {{ i.payment +' '+ i.currency.icon }}</dd>
-                                        <dt class="col-sm-4">ღამე დარჩენა:</dt>
-                                        <dd class="col-sm-8">{{ (i.stay_night == 0)?'არა':'კი' }}</dd>
-                                        <dt class="col-sm-4">არდადეგებზე გაყოლა:</dt>
-                                        <dd class="col-sm-8">{{ (i.go_vacation == 0)?'არა':'კი' }}</dd>
-                                        <dt class="col-sm-4">დამატებითი საათები მუშაობა:</dt>
-                                        <dd class="col-sm-8">{{ (i.work_additional_hours == 0)?'არა':'კი' }}</dd>
-                                    </dl>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-12 ">
-                            <hr>
-                            <h6>ოჯახში მუშაობის გამოცდილება</h6>
-                            <hr>
-                            <div class='row'>
-                                <div v-if="item.family_work_experience.experience == 1" class="col-md-12">
-                                    <dl class="row border" >
-                                        <dt class="col-sm-4">რამდენ ოჯახში:</dt>
-                                        <dd class="col-sm-8"> {{ item.family_work_experience.families_worked_count }}</dd>
-                                        <dt class="col-sm-4">ყველაზე ხანგრძლივად:</dt>
-                                        <dd class="col-sm-8"> {{ item.family_work_experience.longest.name_ka }}</dd>
-                                        <dt class="col-sm-4">სტაჟი სულ:</dt>
-                                        <dd class="col-sm-8"> {{ item.family_work_experience.work_experience.name_ka }}</dd>
-
-                                    </dl>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12 ">
-                            <hr>
-                            <h6>ზოგადი სამუშაო გამოცდილება</h6>
-                            <hr>
-                            <div class='row'>
-                                <div v-for="(i, index) in item.general_work_experience" :key="index" class="col-md-6">
-                                    <dl class="row border">
-                                        <dt class="col-sm-4">ობიექტი :</dt>
-                                        <dd class="col-sm-8"> {{ i.pivot.object_ka }}</dd>
-                                        <dt class="col-sm-4">პოზიცია:</dt>
-                                        <dd class="col-sm-8"> {{ i.pivot.position_ka }}</dd>
-                                        <dt class="col-sm-4">სტაჟი:</dt>
-                                        <dd class="col-sm-8"> {{ i.name_ka }}</dd>
-
-                                    </dl>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12 ">
-                            <hr>
-                            <h6>რეკომენდაცია</h6>
-                            <hr>
-                            <div class='row'>
-                                <div v-for="(i, index) in item.recommendation" :key="index" class="col-md-6">
-                                    <dl class="row border">
-                                        <dt class="col-sm-4">სახელი გვარი :</dt>
-                                        <dd class="col-sm-8"> {{ i.pivot.name_ka }}</dd>
-                                        <dt class="col-sm-4">ნომერი:</dt>
-                                        <dd class="col-sm-8"> {{ i.pivot.number }}</dd>
-                                        <!-- <dt class="col-sm-4">სტაჟი:</dt>
-                                        <dd class="col-sm-8"> {{ i.name_ka }}</dd> -->
-
-                                    </dl>
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </div>
-
-
-
-
-
-              </div>
+             <expand_body :item="item" />
               <!-- /.card-body -->
         </template>
         <!-- <template #header-status.name_ka="header">
@@ -285,22 +125,25 @@
             </div>
         </template> -->
     </EasyDataTable>
+    <addPersonalVacancy  :visible="showAddPersonalModal" :item="modalItem" :onMessageFromChildren="handleMessageFromChildren"></addPersonalVacancy>
 
-     <addPersonalVacancy  :visible="showAddPersonalModal" :item="modalItem" :onMessageFromChildren="handleMessageFromChildren"></addPersonalVacancy>
 </template>
 <script>
 import { ref, computed } from "vue";
 import moment from 'moment'
 import Slider from '@vueform/slider'
 import "@vueform/slider/themes/default.css";
-import addPersonalVacancy from "../modal/addPersonalVacancy.vue";
 import _ from 'lodash'
-// import { Header, Item, FilterOption } from "vue3-easy-data-table";
+import table_cog from "./table_cog.vue";
+import expand_body from "../../../candidate/component/table/expand_body.vue";
+import addPersonalVacancy from "../../modal/addPersonalVacancy.vue";
 
 export default {
     components: {
       Slider,
-      addPersonalVacancy,
+      table_cog,
+      expand_body,
+      addPersonalVacancy
     },
     props:{
         data: Object,
@@ -313,6 +156,9 @@ export default {
         let itemsSelectedButton = ref(false)
         let showAddPersonalModal = ref(false)
         let badgeClass = ref(false)
+        const vacancyData = () =>{
+            return (props.vacancy)?props.vacancy:props.data.vacancy
+        }
         // let statusChangeModal = ref(false)
         let modalItem = ref()
 
@@ -347,9 +193,9 @@ export default {
                 return 'was-employed'
             }else if (!find && _.find(item.qualifying_candidate, function(o) { return o.qualifying_type_id == 5 && o.vacancy.status == 2})) {
                 return 'probationary-period'
-            }else if (!find && _.find(item.qualifying_candidate, function(o) { return o.qualifying_type_id == 4 && o.vacancy.status == 2})) {
-                return 'employer-approved'
             }else if (!find && _.find(item.qualifying_candidate, function(o) { return o.qualifying_type_id == 3 && o.vacancy.status == 2})) {
+                return 'employer-approved'
+            }else if (!find && _.find(item.qualifying_candidate, function(o) { return o.qualifying_type_id == 4 && o.vacancy.status == 2})) {
                 return 'interviewer'
             }
         };
@@ -357,7 +203,18 @@ export default {
         function handleMessageFromChildren(id, message) {
             badgeClass.value = message
             items.value[_.findIndex(items.value, function(o) { return o.id == id })].badgeClass = badgeClass.value
+        };
+
+        const showModal = (item) => {
+           showAddPersonalModal.value = !showAddPersonalModal.value
+            modalItem.value = vacancyData()
+            modalItem.value['candidate_id'] = (itemsSelected.value.length > 0)?itemsSelected.value.map(({ id }) => id):item.id
         }
+
+        const handlerOpenModal = (item) =>{
+            showModal(item)
+        };
+
         // console.log('itemsSelected.value.length',itemsSelected.value.length);
         // if (itemsSelected.value.length > 0) {
         //     console.log('itemsSelected.value.length',itemsSelected.value.length);
@@ -445,15 +302,11 @@ export default {
             modalItem,
             badgeClass,
             bodyRowClassNameFunction,
-            handleMessageFromChildren
+            handleMessageFromChildren,
+            handlerOpenModal
         };
     },
     methods:{
-        showModal(item){
-            this.showAddPersonalModal = !this.showAddPersonalModal
-            this.modalItem = (this.vacancy)?this.vacancy:this.data.vacancy
-            this.modalItem['candidate_id'] = (this.itemsSelected.length > 0)?this.itemsSelected.map(({ id }) => id):item.id
-        },
         // handleMessageFromChildren(id, message) {
         //     this.badgeClass = message
         //     _.find(item.qualifying_candidate, function(o) { return o.qualifying_type_id == 5 && o.vacancy.status == 2})

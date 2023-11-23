@@ -104,6 +104,7 @@ class CandidateInfoController extends Controller
 
         return response()->json($result, $result['status']);
     }
+
     function updateCandidateRecommendation(Request $request){
         $data['data'] = json_decode($request->input('data'));
         if ($request->hasFile('file')) {
@@ -122,6 +123,7 @@ class CandidateInfoController extends Controller
 
         return response()->json($result, $result['status']);
     }
+    
     function deleteCandidateRecommendation(Request $request) {
         $id = $request->data;
         // dd(CandidateRecommendation::where('id',$id)->first());

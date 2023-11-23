@@ -80,7 +80,7 @@ class ClassificatoryService
                 'hr' => User::where('role_id', 2)->with('hr')->get()->toArray(),
             ];
         });
-       
+
         $result = array_intersect_key($classificatory, array_flip($arr));
         return $result;
     }

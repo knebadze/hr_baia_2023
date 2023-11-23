@@ -28,7 +28,7 @@
             <!-- {{ item }} -->
               <!-- /.card-header -->
               <div class="card-header">
-                <expand_body :item="item" :hr_id="hr_id"/>
+                <expand_body :item="item" :hr_id="hr_id" :roleId="roleId"/>
               </div>
 
               <!-- /.card-body -->
@@ -123,7 +123,7 @@ import { ref, computed } from "vue";
 import moment from 'moment'
 import Slider from '@vueform/slider'
 import "@vueform/slider/themes/default.css";
-import Switch from '../../../inc/Switch.vue';
+import Switch from '../../../../inc/Switch.vue';
 import _ from 'lodash'
 import table_cog from "./table_cog.vue";
 import expand_body from "./expand_body.vue";

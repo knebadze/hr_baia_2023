@@ -33,10 +33,13 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a @if(Route::currentRouteName() === 'admin.vacancy') class="nav-link active" @else class="nav-link" @endif href="{{ route('admin.vacancy', App()->getLocale()) }}">
+                <a @if(Route::currentRouteName() === 'admin.vacancy' ||
+                        Route::currentRouteName() === 'vacancy.personal' ||
+                            Route::currentRouteName() === 'admin.vacancy.deposit' ||
+                                Route::currentRouteName() === 'selection.personal') class="nav-link active" @else class="nav-link" @endif href="{{ route('admin.vacancy', App()->getLocale()) }}">
                     <i class="nav-icon fa fa-list"></i>
                     <p>
-                        ვაკანსიები
+                        ვაკანსიები 
                     </p>
                 </a>
             </li>

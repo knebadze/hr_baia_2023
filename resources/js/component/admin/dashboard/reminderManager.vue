@@ -6,7 +6,7 @@
 <script>
 import axios from 'axios';
 import moment from 'moment'
-import  reminderList from '../modal/reminderList.vue'
+import  reminderList from '../reminder/modal/reminderList.vue'
 export default {
     components:{
         reminderList

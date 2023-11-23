@@ -29,7 +29,7 @@
   export default {
         props:{
             visible: Boolean,
-            vacancyId: Object
+            candidate_id: Number
         },
         data() {
             return {

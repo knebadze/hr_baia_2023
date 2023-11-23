@@ -160,7 +160,7 @@ class UserModelRepository
                 ];
                 $candidate = array_merge(array_fill_keys($candidateColumns, ''), $defaultValues);
             }
-            dd($cacheDuration);
+            // dd($cacheDuration);
             // Fetch user data and handle the caching
             $user = Cache::remember('user_data_' . $auth_id, $cacheDuration, function () use ($auth_id) {
                 if (Auth::user()->role_id != 3) {
@@ -357,7 +357,7 @@ class UserModelRepository
         return ['getWorkInformation' => $getWorkInformation, 'workInformation' => $workInformation];
     }
 
-      
+
     private function fetchCandidateRecommendation($auth_id, $hasCandidate, $candidate)
     {
         $candidateRecommendation = [];

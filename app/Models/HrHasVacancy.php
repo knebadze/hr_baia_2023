@@ -11,7 +11,7 @@ class HrHasVacancy extends Model
     protected $fillable = [
         'hr_id',
         'has_vacancy',
-        'rewrite',
+        're_write',
         'is_active',
     ];
     public function hr()
@@ -24,5 +24,5 @@ class HrHasVacancy extends Model
         return $this->hr();
     }
 
-    
+
 }

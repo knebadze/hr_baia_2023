@@ -229,7 +229,7 @@ export default {
             this.moveModalShow = !this.moveModalShow
         },
         scheduleModal(id){
-            this.item = id
+            this.item = {id: id, candidate_id: null}
             this.scheduleModalShow = !this.scheduleModalShow
         }
 

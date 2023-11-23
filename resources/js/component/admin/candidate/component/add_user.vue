@@ -133,9 +133,11 @@ export default {
                         theme: 'colored',
                         autoClose: 1000,
                     });
-                    setTimeout(() => {
-                        document.location.reload();
-                    }, 1500);
+                    let url = new URL( location.href)
+                    window.location.replace(`${url.origin}/ka/user/userProfile?user=${response.data.data.id}`);
+                    // setTimeout(() => {
+                    //     document.location.reload();
+                    // }, 1500);
                 }
             })
             .catch(function (error) {

@@ -11,7 +11,8 @@
                 <div>
                     <p class="text-danger">გადაცილებამდე დარჩა ნახევარი საათზე ნაკლები გთხოვთ დაუყოვნებლივ შეასრულოთ შეხსენების მიზეზი!!!</p>
                 </div>
-                <div class="table-responsive">
+                <reminder_table :items="items" :role_id="2" ></reminder_table>
+                <!-- <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead>
                             <tr>
@@ -34,7 +35,7 @@
                             </tr>
                         </tbody>
                     </table>
-                </div>
+                </div> -->
 
 
               </div>
@@ -52,12 +53,14 @@
   import { toast } from 'vue3-toastify';
   import 'vue3-toastify/dist/index.css';
   import moment from 'moment'
-  import filledReminder from '../../admin/reminder/modal/filledReminder.vue';
-  import vacancyFullInfoModal from '../../modal/vacancyFullInfoModal.vue';
+  import filledReminder from './filledReminder.vue';
+  import vacancyFullInfoModal from '../../../modal/vacancyFullInfoModal.vue';
+  import reminder_table from '../component/reminder_table.vue';
     export default {
         components:{
             filledReminder,
-            vacancyFullInfoModal
+            vacancyFullInfoModal,
+            reminder_table
         },
         props:{
             visible: Boolean,
@@ -80,6 +83,7 @@
         },
         methods:{
             show(){
+                console.log(this.items);
                 this.showConfirm = true
 
             },

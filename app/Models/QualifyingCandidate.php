@@ -16,7 +16,7 @@ class QualifyingCandidate extends Model
         'employer_answer',
         'interview_date',
         'interview_place_id',
-        'success',
+        'status_id',
         'start_date',
         'end_date'
     ];
@@ -36,5 +36,9 @@ class QualifyingCandidate extends Model
     public function workDay()
     {
         return $this->belongsTo(WorkDay::class, 'id', 'qualifying_candidate_id');
+    }
+    public function interviewPlace()
+    {
+        return $this->belongsTo(InterviewPlace::class);
     }
 }

@@ -77,7 +77,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class=" col-md-12 d-flex justify-content-end">
+                    <div class=" col-md-12 d-flex justify-content-start">
                         <button  type="button" class="btn btn-info" @click.prevent="find()" ><i class="fa fa-search"></i> ძებნა</button>
                     </div>
                 </div>
@@ -233,7 +233,6 @@
                 }
             },
             save(){
-
                 if (!this.m.candidate_id ) {
                     toast.error("შესანახად აირჩიეთ კანდიდატი", {
                         theme: 'colored',
@@ -263,6 +262,7 @@
                             theme: 'colored',
                             autoClose: 1000,
                         });
+                        currentObj.$emit('emitSave', true)
                         currentObj.hide()
                         // setTimeout(() => {
                         //     document.location.reload();

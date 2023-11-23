@@ -36,7 +36,7 @@
 
               </div>
               <div class="modal-footer">
-                  <button type="button" class="btn btn-success" @click.prevent="save()" ><i class=""></i>შენახვა</button>
+                  <button type="button" class="btn btn-success" @click.prevent="save()" ><i class=""></i>გაგზავნა</button>
               </div>
               </div>
           </div>

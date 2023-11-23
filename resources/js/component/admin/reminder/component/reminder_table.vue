@@ -73,6 +73,7 @@ export default {
         role_id: Number
     },
     setup(props) {
+        console.log(props.role_id);
         const tableData = computed(() =>{
             for (let i = 0; i < props.items.length; i++) {
                 // Access the element to update in each object

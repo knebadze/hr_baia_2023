@@ -27,6 +27,8 @@ import * as Vue3FormWizard  from '../../node_modules/vue3-form-wizard/dist/vue3-
 import 'vue3-form-wizard/dist/style.css'
 
 
+
+
 window.I18n = I18n;
 window.toast = toast
 // window.swal = VueSweetalert2
@@ -59,7 +61,7 @@ const importComponents = async () => {
       reminderManager,
 
       modalManager,
-      hrTable,
+      hrPage,
       dailyReminder,
       dailyWork,
       popularVacancy,
@@ -72,7 +74,7 @@ const importComponents = async () => {
       vacancyDeposit,
       vacancyAttached,
       relevantVacancy,
-      adminVacancyTable,
+    //   adminVacancyTable,
       employerPage,
 
       enrolledPage,
@@ -103,12 +105,12 @@ const importComponents = async () => {
       import('./component/employer/my_vacancy.vue'),
       import('./component/employer/show_update_vacancy.vue'),
 
-      import('./component/hr/page/selection_personal.vue'),
+      import('./component/admin/vacancy/page/selection_personal.vue'),
       import('./component/admin/vacancy/page/vacancy_personal.vue'),
-      import('./component/hr/component/reminderManager.vue'),
+      import('./component/admin/dashboard/reminderManager.vue'),
 
       import('./component/modal/modalManager.vue'),
-      import('./component/admin/hr/hr_table.vue'),
+      import('./component/admin/hr/page/hr_page.vue'),
       import('./component/admin/dashboard/dailyReminder.vue'),
       import('./component/admin/dashboard/hr_daily_work.vue'),
       import('./component/admin/dashboard/popular_vacancy.vue'),
@@ -121,7 +123,7 @@ const importComponents = async () => {
       import('./component/admin/vacancy/page/vacancy_deposit.vue'),
       import('./component/admin/candidate/page/vacancy_attached.vue'),
       import('./component/admin/candidate/page/relevant_vacancy.vue'),
-      import('./component/admin/vacancy/component/admin_vacancy_table.vue'),
+    //   import('./component/admin/vacancy/component/admin_vacancy_table.vue'),
       import('./component/admin/employer/page/employer_page.vue'),
       import('./component/admin/enrollment/page/enrolled_page.vue'),
       import('./component/admin/enrollment/page/must_be_enrolled_page.vue'),
@@ -166,7 +168,7 @@ const importComponents = async () => {
     app.component('modal-manager', modalManager.default);
 
     //____________________ADMIN COMPONENT_____________
-    app.component('hr-table', hrTable.default)
+    app.component('hr-page', hrPage.default)
     // app.component('candidate-table', candidateTable)
     // dashboard
     app.component('daily-reminder',dailyReminder.default)
@@ -181,7 +183,7 @@ const importComponents = async () => {
     app.component('vacancy-deposit', vacancyDeposit.default)
     app.component('vacancy-attached', vacancyAttached.default)
     app.component('relevant-vacancy', relevantVacancy.default)
-    app.component('admin-vacancy-table', adminVacancyTable.default)
+    // app.component('admin-vacancy-table', adminVacancyTable.default)
 
     app.component('employer-page', employerPage.default)
 

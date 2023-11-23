@@ -11,9 +11,12 @@ class MoveEndDateService
 {
     function move($data) {
         $find = QualifyingCandidate::where('id', $data['id'])->first();
-        $findWorkSchedule = WorkDay::where('qualifying_candidate_id', $find->id)->first();
+        if ($find->qualifying_type_id == 7) {
+            $findWorkSchedule = WorkDay::where('qualifying_candidate_id', $find->id)->first();
 
-        $this->workDay($find->id, $find->vacancy->work_schedule_id, $find->start_date, $data['end_date'], json_decode($findWorkSchedule->week_day));
+            $this->workDay($find->id, $find->vacancy->work_schedule_id, $find->start_date, $data['end_date'], json_decode($findWorkSchedule->week_day));
+        }
+
         $result = $find->update(['end_date' => $data['end_date']]);
 
         return $result;
@@ -49,6 +52,7 @@ class MoveEndDateService
         }elseif ($work_schedule_id == 8) {
             $weekendDates[] = $start_date;
         }
+        // dd($startDate, $later, $weekendDates, $work_schedule_id);
         $findWorkSchedule = WorkDay::where('id', $id)->update(['work_day' => json_encode($weekendDates)]);
     }
 }

@@ -7,15 +7,6 @@
                 <button type="submit" class="btn btn-primary" @click="openAddModal()">
                     <i class="fas fa-plus"></i> დამატება
                 </button>
-            <!-- <div class="input-group input-group-sm" style="width: 150px;">
-                <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                <div class="input-group-append">
-                <button type="submit" class="btn btn-default">
-                    <i class="fas fa-search"></i>
-                </button>
-                </div>
-            </div> -->
             </div>
         </div>
         <!-- /.card-header -->
@@ -55,9 +46,9 @@
     <view_and_update :visible="showViewModal" :data="viewData"></view_and_update>
 </template>
 <script>
-import add_hr from './modal/add_hr.vue';
-import Switch from '../../inc/Switch.vue'
-import view_and_update from './modal/view_and_update.vue';
+import add_hr from '../modal/add_hr.vue';
+import Switch from '../../../inc/Switch.vue'
+import view_and_update from '../modal/view_and_update.vue';
 import _ from 'lodash';
 export default {
     components:{

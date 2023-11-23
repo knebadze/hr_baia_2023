@@ -39,7 +39,7 @@
                     <dt class="col-sm-4">მართვის მოწმობა:</dt>
                     <dd class="col-sm-8"><span v-for="(i, index) in item.vacancy_driving_license" :key="index" class="badge badge-primary">{{ i.name+', '}}</span> </dd>
                 </div>
-                <div class="row col-12" v-if="item.hr_id == hr_id && item.deposit">
+                <div class="row col-12" v-if="(item.hr_id == hr_id || roleId == 1) && item.deposit">
                     <div class="row col-12 border-top">
                         <dt class="col-sm-4">კანდიდატისგან უნდა ჩაირიცხოს:</dt>
                         <dd class="col-sm-8"> {{ item.deposit.candidate_initial_amount }}</dd>
@@ -104,7 +104,7 @@
                     <dt class="col-sm-4">მახასიათებლები:</dt>
                     <dd class="col-sm-8"><span>{{ item.characteristic.map(i => i.name_ka).join(', ')  }}</span> </dd>
                 </div>
-                <div class="row col-12" v-if="item.hr_id == hr_id && item.deposit">
+                <div class="row col-12" v-if="(item.hr_id == hr_id || roleId == 1) && item.deposit">
                     <div class="row col-12 border-top">
                         <dt class="col-sm-4 ">დამსაქმებლისგან უნდა ჩაირიცხოს:</dt>
                         <dd class="col-sm-8"> {{ item.deposit.employer_initial_amount }}</dd>
@@ -135,7 +135,8 @@
 export default {
     props:{
         item: Object,
-        hr_id: Number
+        hr_id: Number,
+        roleId: Number
     },
     setup(props) {
 

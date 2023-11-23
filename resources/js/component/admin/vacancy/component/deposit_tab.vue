@@ -37,7 +37,7 @@
                 </div>
                 <div class="col-md-12" >
                     <button v-if="hasDeposit" type="button" class="btn btn-success float-right" @click.prevent="emitSave" ><i class=""></i>შენახვა</button>
-                    <button v-else  type="button" class="btn btn-success float-right" @click.prevent="emitRedacted" ><i class=""></i>რედაქტირება</button>
+                    <button v-else  type="button" class="btn btn-success float-right" @click.prevent="emitRedacted" :disabled="enrollment"><i class=""></i>რედაქტირება</button>
                 </div>
                 <div class="row col-md-12" v-if="status == 3 &&  m.must_be_enrolled != null">
                     <div class=" col-md-12 border-top border-bottom"><h5 class="mt-2 text-danger text-center">მიმდინარე ჩარიცხვა</h5></div>
@@ -118,6 +118,7 @@ export default {
                 // return
             }
         });
+
         const emitRedacted = () => {
             if (m.value.initial_amount && m.value.must_be_enrolled_date) {
                 emit('redacted', m.value, props.type); // Pass the updated model as the event payload
@@ -129,13 +130,14 @@ export default {
             }
 
         };
+
         const emitSave = () => {
             if (m.value.initial_amount && m.value.must_be_enrolled_date) {
                 emit('save', m.value, props.type); // Pass the updated model as the event payload
             }else{
                 toast.error("აუცილებელია ყველა პარამეტრის შევსება", {
                     theme: 'colored',
-                    autoClose: 1000,
+                    autoClose: 1000,enrollment
                 });
             }
         };
@@ -173,7 +175,11 @@ export default {
                     showLoaderOnConfirm: true,
                     preConfirm: () => {
                         const date = document.getElementById('swal-input').value;
-                        return axios.post('/deposit_date_update?id=' + model.id + '&type=' + props.type == 'candidate'?1:2 + '&date=' + date)
+                        return axios.post('/deposit_date_update', {
+                                id: model.id,
+                                type: props.type === 'candidate' ? 1 : 2,
+                                date: date,
+                        })
                         .then(response => {
                             return response.data;
                         })
@@ -210,7 +216,12 @@ export default {
 
         const emitSend = (model) => {
             emit('send', model);
-        }
+        };
+
+        const checkEnrolment = computed(() =>{
+            console.log(props.enrollment);
+        });
+        console.log(checkEnrolment.value);
 
         return {
             m,
@@ -222,7 +233,8 @@ export default {
             emitSave,
             handleFileChange,
             counting,
-            emitSend
+            emitSend,
+            checkEnrolment
 
         }
     }

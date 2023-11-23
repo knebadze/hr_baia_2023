@@ -16,7 +16,7 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-            <hr-table :data='@json($hr)'></hr-table>
+            <hr-page :data='@json($data)'></hr-page>
 
         </div>
     </section>

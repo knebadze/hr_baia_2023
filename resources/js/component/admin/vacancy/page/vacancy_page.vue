@@ -302,14 +302,8 @@
         <div class="my-2 d-flex justify-content-end">
             <button type="button" class="btn btn-success" @click="addVacancy()"><i class="fa fa-plus"></i> ვაკანსისი დამატება</button>
         </div>
-    <!-- /.container-fluid -->
-    <!-- {{ (Object.keys(items).length > 0)?items[0].id:'' }} -->
-    <div v-if="roleId == 1">
-        <adminVacancyTable v-if="Object.keys(items).length > 0"  :data="items" :key="tableKey" :classificatory="tableCla"></adminVacancyTable>
-    </div>
-    <div v-else>
-        <hrVacancyTable v-if="Object.keys(items).length > 0"  :data="items" :hrId="hrId" :classificatory="tableCla" :roleId="roleId"  :key="tableKey"></hrVacancyTable>
-    </div>
+        <vacancy_table v-if="Object.keys(items).length > 0"  :data="items" :hrId="hrId" :classificatory="tableCla" :roleId="roleId"  :key="tableKey"></vacancy_table>
+
 
     <div class="mt-2">
         <paginate
@@ -330,19 +324,17 @@
 </template>
 <script>
 import Slider from '@vueform/slider'
-import adminVacancyTable from '../component/admin_vacancy_table.vue'
-import hrVacancyTable from '../component/hr_vacancy_table.vue'
 import Paginate from 'vuejs-paginate-next';
 import axios from 'axios'
 import Switch from '../../../inc/Switch.vue';
+import vacancy_table from '../component/table/vacancy_table.vue';
 // import Loading from 'vue-loading-overlay';
 export default {
     components:{
         Slider,
-        adminVacancyTable,
-        hrVacancyTable,
         Paginate,
-        Switch
+        Switch,
+        vacancy_table
         // Loading
     },
     props:{

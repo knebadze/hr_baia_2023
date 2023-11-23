@@ -17,19 +17,32 @@ use App\Models\QualifyingCandidate;
 class AddVacancyPersonalRepository
 {
     function add($data) {
-        // dd($data);
+        // dd($data['start_date']);
         $qualifying = new QualifyingCandidate();
         $qualifying->vacancy_id = $data['vacancy_id'];
         $qualifying->qualifying_type_id = $data['type']['id'];
         $qualifying->candidate_id = $data['candidate_id'];
-        if ($data['type']['id'] == 3) {
+        if ($data['type']['id'] == 4) {
             $qualifying->interview_date = $data['interview_date'];
             $qualifying->interview_place_id = $data['interview_place']['id'];
+            $reminderText = 'კანდიდატი (ID: '.$data['candidate_id'].') შევიდა გასაუბრებაზე, უნდა გადავამოწმო როგორ ჩაიარა გასაუბრებამ';
+            $carbonDate = Carbon::parse($data['interview_date']);
+            $modifiedDate = $carbonDate->addHour();
+            $reminderData = $modifiedDate->format('Y-m-d H:i:s');
+            $this->addReminder($data['vacancy_id'], $reminderData, $reminderText );
         }
         if ($data['type']['id'] == 5) {
             $qualifying->start_date = $data['start_date'];
             $qualifying->end_date = $data['end_date'];
-            $this->addReminder($data['vacancy_id'], $data['start_date'], 'კანდიდატი შევიდა გამოსაცდელი ვადით, უნდა გადავამოწმო იმყოფება თუ არაა სამუშაო ადგილზე');
+            $reminderText = 'კანდიდატი (ID: '.$data['candidate_id']. ')შევიდა გამოსაცდელი ვადით, უნდა გადავამოწმო იმყოფება თუ არაა სამუშაო ადგილზე';
+            $reminderData = $data['start_date'];
+
+            // Create a Carbon instance from the date
+            $reminderDataCarbon = Carbon::parse($reminderData);
+
+            // Set the time to '12:00:00'
+            $reminderDataCarbon->setTime(12, 0, 0);
+            $this->addReminder($data['vacancy_id'], $reminderDataCarbon, $reminderText);
             $this->changeCandidateStatus($data['candidate_id'], $data['type']['id']);
             $this->dailyWorkEvent($data['vacancy_id']);
         }
@@ -57,14 +70,28 @@ class AddVacancyPersonalRepository
     function update($data) {
         $qualifying = QualifyingCandidate::where('candidate_id', $data['candidate_id'])->where('vacancy_id', $data['vacancy_id'])->first();
         $qualifying->qualifying_type_id = $data['type']['id'];
+        $qualifying->status_id = null;
         if ($data['type']['id'] == 3) {
             $qualifying->interview_date = $data['interview_date'];
             $qualifying->interview_place_id = $data['interview_place']['id'];
+            $reminderText = 'კანდიდატი (ID: '.$data['candidate_id'].') შევიდა გასაუბრებაზე, უნდა გადავამოწმო როგორ ჩაიარა გასაუბრებამ';
+            $carbonDate = Carbon::parse($data['interview_date']);
+            $modifiedDate = $carbonDate->addHour();
+            $reminderData = $modifiedDate->format('Y-m-d H:i:s');
+            $this->addReminder($data['vacancy_id'], $reminderData, $reminderText );
         }
         if ($data['type']['id'] == 5) {
             $qualifying->start_date = $data['start_date'];
             $qualifying->end_date = $data['end_date'];
-            $this->addReminder($data['vacancy_id'], $data['start_date'], 'კანდიდატი შევიდა გამოსაცდელი ვადით, უნდა გადავამოწმო იმყოფება თუ არაა სამუშაო ადგილზე');
+            $reminderText = 'კანდიდატი (ID: '.$data['candidate_id']. ')შევიდა გამოსაცდელი ვადით, უნდა გადავამოწმო იმყოფება თუ არაა სამუშაო ადგილზე';
+            $reminderData = $data['start_date'];
+
+            // Create a Carbon instance from the date
+            $reminderDataCarbon = Carbon::parse($reminderData);
+
+            // Set the time to '12:00:00'
+            $reminderDataCarbon->setTime(12, 0, 0);
+            $this->addReminder($data['vacancy_id'], $reminderDataCarbon, $reminderText);
             $this->changeCandidateStatus($data['candidate_id'], $data['type']['id']);
             $this->dailyWorkEvent($data['vacancy_id']);
         }
@@ -110,7 +137,8 @@ class AddVacancyPersonalRepository
             [
                 'qualifying_type_id' => $data['employ_type']['id'],
                 'start_date' => $data['vacancy']['start_date'],
-                'end_date' => $end_date
+                'end_date' => $end_date,
+                'status_id' => null,
             ]
         );
         $this->changeCandidateStatus($data['candidate_id'], $data['employ_type']['id']);
@@ -118,11 +146,12 @@ class AddVacancyPersonalRepository
         if ($data['employ_type']['id'] == 7) {
             $this->workDay($qualifying->id, $data['vacancy']['work_schedule_id'], $data['vacancy']['start_date'], $data['vacancy']['term'], $data['week_day']);
         }
-        if ($data['employ_type']['id'] == 7 || $data['employ_type']['id'] == 6) {
-            $endDate = Carbon::parse($end_date);
-            $endDate = $endDate->subDay(2)->toDateString();
-            $this->addReminder($data['vacancy']['id'], $endDate, 'ვაკნსიას ეწურება ვადა!!! უნდა დავურეკო დამკვეთს');
-        }
+        $this->employedDailyWorkEvent($data['vacancy']['id']);
+        // if ($data['employ_type']['id'] == 7 || $data['employ_type']['id'] == 6) {
+        //     $endDate = Carbon::parse($end_date);
+        //     $endDate = $endDate->subDay(2)->toDateString();
+        //     $this->addReminder($data['vacancy']['id'], $endDate, 'ვაკნსიას ეწურება ვადა!!! უნდა დავურეკო დამკვეთს');
+        // }
         return $qualifying;
     }
 
@@ -251,12 +280,12 @@ class AddVacancyPersonalRepository
         return $end_date;
     }
 
-    function addReminder($vacancy_id, $start_date, $text) {
+    function addReminder($vacancy_id, $date, $text) {
         $find = Vacancy::where('id',$vacancy_id)->first();
         $reminder = new VacancyReminder();
         $reminder->vacancy_id = $vacancy_id;
         $reminder->hr_id = $find->hr_id;
-        $reminder->date = $start_date.' 10:00:00';
+        $reminder->date = $date;
         $reminder->reason = $text;
         $reminder->save();
     }
@@ -264,5 +293,10 @@ class AddVacancyPersonalRepository
     function dailyWorkEvent($vacancy_id) {
         $vacancy = Vacancy::where('id', $vacancy_id)->first();
         event(new hrDailyJob($vacancy->hr_id, 'has_probationary_period'));
+    }
+
+    function employedDailyWorkEvent($vacancy_id) {
+        $vacancy = Vacancy::where('id', $vacancy_id)->first();
+        event(new hrDailyJob($vacancy->hr_id, 'employed'));
     }
 }

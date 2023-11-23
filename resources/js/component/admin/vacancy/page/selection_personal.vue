@@ -350,7 +350,7 @@
 </template>
 <script>
 import Slider from '@vueform/slider'
-import select_personal_table from '../component/select_personal_table.vue'
+import select_personal_table from '../component/selectionPersonal/select_personal_table.vue'
 
 export default {
     components: {
@@ -398,6 +398,7 @@ export default {
         this.vacancy = {
             vacancy_id: this.data.vacancy.id,
             vacancy_code: this.data.vacancy.code,
+            interview_place_id: this.data.vacancy.interview_place_id,
             interview_place: this.data.vacancy.interview_place,
             interview_date: this.data.vacancy.interview_date,
             start_date: this.data.vacancy.start_date

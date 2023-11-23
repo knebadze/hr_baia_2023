@@ -5,7 +5,6 @@ use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\CandidateInfoController;
 use App\Http\Controllers\Admin\AdminCandidateController;
 use App\Http\Controllers\Admin\RegistrationFeeController;
-use App\Http\Controllers\Candidate\WorkInformationController;
 
 
 //C
