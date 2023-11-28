@@ -135,7 +135,7 @@ import Slider from '@vueform/slider'
 import "@vueform/slider/themes/default.css";
 import _ from 'lodash'
 import table_cog from "./table_cog.vue";
-import expand_body from "../../../candidate/component/table/expand_body.vue";
+import expand_body from "../../../candidate/component/candidate/expand_body.vue";
 import addPersonalVacancy from "../../modal/addPersonalVacancy.vue";
 
 export default {

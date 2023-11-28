@@ -81,7 +81,7 @@
                     </div>
 
                     <div class="twm-bnr-right-carousel">
-                        
+
                         <div class="owl-carousel twm-h1-bnr-carousal">
                             <div class="item">
                               <div class="slide-img">
@@ -321,10 +321,10 @@
 
                     <div class="section-content">
 
-                        <div class="owl-carousel twm-testimonial-1-carousel owl-btn-bottom-center ">
-
+                        {{-- <div class="owl-carousel twm-testimonial-1-carousel owl-btn-bottom-center "> --}}
+                            <testimonial-carousel :data='@json($data['testimonial'])'></testimonial-carousel>
                             <!-- COLUMNS 1 -->
-                            <div class="item ">
+                            {{-- <div class="item ">
                                 <div class="twm-testimonial-1">
                                     <div class="twm-testimonial-1-content">
                                         <div class="twm-testi-media">
@@ -343,10 +343,10 @@
 
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <!-- COLUMNS 2 -->
-                            <div class="item ">
+                            {{-- <div class="item ">
                                 <div class="twm-testimonial-1">
                                     <div class="twm-testimonial-1-content">
                                         <div class="twm-testi-media">
@@ -365,10 +365,10 @@
 
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <!-- COLUMNS 3 -->
-                            <div class="item ">
+                            {{-- <div class="item ">
                                 <div class="twm-testimonial-1">
                                     <div class="twm-testimonial-1-content">
                                         <div class="twm-testi-media">
@@ -387,10 +387,10 @@
 
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
 
-                        </div>
+                        {{-- </div> --}}
 
                     </div>
                 </div>

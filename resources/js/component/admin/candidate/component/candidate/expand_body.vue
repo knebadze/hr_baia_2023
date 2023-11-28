@@ -1,12 +1,31 @@
 <template lang="">
      <div class="card-body">
-        <div class="row d-flex justify-content-center">
-            <img :src="'/images/user-avatar/'+item.user.avatar" alt="#" style="height:100px">
+        <div class="row d-flex justify-content-between">
+            <div>
+                <img :src="'/images/user-avatar/'+item.user.avatar" alt="#" style="height:100px">
+            </div>
+
+            <div>
+                <p><i class="fa fa-user mr-1"></i>{{ item.user.name_ka }}</p>
+                <p><i class="fa fa-user mr-1"></i>{{ item.age }}</p>
+                <p><i class="fa fa-phone mr-1"></i>{{ item.user.number }}</p>
+            </div>
+
+            <div>
+                <p :class="`rounded-top bg-${item.status.color} `">{{ item.status.name_ka }}</p>
+                <p :class="(item.registration_fee == 0)?'rounded-top bg-warning ':'rounded-top bg-success '" >{{ (item.registration_fee == 0)?'გადასახდელი':'გადახდილი' }}</p>
+                <!-- <p>{{ item.created_at }}</p> -->
+                <span class="text-primary" v-for="(i, index) in item.get_work_information" :key="index" ><u style="cursor: pointer;" @click="openInfoModal('category', item.get_work_information[index])">{{ i.category.name_ka+', ' }}</u></span>
+            </div>
+
         </div>
+
             <hr>
             <div class="row">
                 <div class="col-md-6">
                     <dl class="row">
+                        <dt class="col-sm-4">ID:</dt>
+                        <dd class="col-sm-8">{{ item.id }}</dd>
                         <div class="row col-12" v-if="item.user.register_log">
                             <dt class="col-sm-4">რეგისტრაციის ტიპი:</dt>
                             <dd class="col-sm-8">{{ (item.user.register_log.type == 1)?'ფასიანი რეგისტრაცია':'უფასო რეგისტრაცია' }} </dd>
@@ -99,10 +118,13 @@ export default {
         item: Object,
     },
     setup(props) {
+        console.log(props.item);
         const modalType = ref(null);
         const modalItem = ref(null);
         const showInfoModal = ref(false)
+
         const openInfoModal =(type, item) =>{
+            console.log(item);
             modalType.value = type
             modalItem.value = item
             showInfoModal.value = !showInfoModal.value

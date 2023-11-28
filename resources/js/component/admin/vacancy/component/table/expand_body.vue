@@ -1,6 +1,39 @@
 <template lang="">
-<!-- <div class="card-body"> -->
+<div class="card-body">
+    <div class="row ">
+        <div class="col-md-4">
+            <dl class="row">
+                <dt class="col-sm-4">ID:</dt>
+                <dd class="col-sm-8">{{ item.code }}</dd>
+                <dt class="col-sm-4">კატეგორია:</dt>
+                <dd class="col-sm-8"><span :class="`badge bg-${item.category.color} p-1`" >{{ item.category.name_ka }}</span></dd>
+                <dt class="col-sm-4">გრაფიკი:</dt>
+                <dd class="col-sm-8">{{ item.work_schedule.name_ka }}</dd>
+            </dl>
+        </div>
 
+        <div class="col-md-4">
+            <dl class="row">
+                <dt class="col-sm-4">დამსაქმებელი:</dt>
+                <dd class="col-sm-8">{{ item.employer.name_ka }}</dd>
+                <dt class="col-sm-4">ნომერი:</dt>
+                <dd class="col-sm-8">{{ item.employer.number }}</dd>
+                <dt class="col-sm-4">სტატუსი:</dt>
+                <dd class="col-sm-8"><span :class="`badge bg-${item.status.color} p-1`" >{{ item.status.name_ka }}</span></dd>
+            </dl>
+        </div>
+        <div class="col-md-4">
+            <dl class="row">
+                <dt class="col-sm-4">ანაზღაურება:</dt>
+                <dd class="col-sm-8">{{ `${item.payment} - ${item.currency.icon}` }}</dd>
+                <dt class="col-sm-4">საჭიროება:</dt>
+                <dd class="col-sm-8">{{ item.start_date }}</dd>
+            </dl>
+        </div>
+
+    </div>
+
+            <hr>
     <div class="row">
         <div class="col-md-6">
             <dl class="row">
@@ -29,7 +62,7 @@
 
                 <div class="row col-12" v-if="item.vacancy_duty.length > 0">
                     <dt class="col-sm-4">მოვალეობები:</dt>
-                    <dd class="col-sm-8"><span v-for="(i, index) in item.vacancy_duty" :key="index" class="badge badge-primary">{{ i.name_ka+', ' }}</span> </dd>
+                    <dd class="col-sm-8"><span>{{ item.vacancy_duty.map(i => i.name_ka).join(', ') }}</span> </dd>
                 </div>
                 <div class="row col-12" v-if="item.demand && item.demand.additional_name_ka">
                     <dt class="col-sm-4">დამატებითი მოვალეობები:</dt>
@@ -129,7 +162,7 @@
         </div>
     </div>
 
-<!-- </div> -->
+</div>
 </template>
 <script>
 export default {

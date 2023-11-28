@@ -3,8 +3,9 @@
 namespace App\Services;
 
 use App\Models\Vacancy;
-use App\Models\Candidate;
 use App\Models\Category;
+use App\Models\Candidate;
+use App\Models\Testimonial;
 use App\Models\WorkSchedule;
 use Illuminate\Support\Facades\DB;
 
@@ -41,6 +42,9 @@ class WelcomeService
             ->get()->toArray();
         $categoriesWithCandidates['type'] = 'candidate';
         $result['categoriesWithCandidates'] = $categoriesWithCandidates;
+
+        $testimonial = Testimonial::where('is_active', 1)->get()->toArray();
+        $result['testimonial'] = $testimonial;
 
         $popularCategories = DB::table('categories')
             ->select('categories.*', DB::raw('COUNT(CASE WHEN vacancies.status_id != 5 THEN vacancies.id ELSE NULL END)  as vacancy_count'))

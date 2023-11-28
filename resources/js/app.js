@@ -83,7 +83,10 @@ const importComponents = async () => {
       oldSalaryPage,
 
       busyCandidate,
-      categoryCarousel
+      categoryCarousel,
+      testimonialCarousel,
+
+      testimonialPage
 
       // ... Other component imports ...
     ] = await Promise.all([
@@ -132,7 +135,10 @@ const importComponents = async () => {
 
       import('./component/page/busy_candidate.vue'),
 
-      import('./component/welcome/category_carousel.vue')
+      import('./component/welcome/category_carousel.vue'),
+      import('./component/welcome/testimonial_carousel.vue'),
+
+      import('./component/admin/testimonial/page/testimonial_page.vue')
 
 
       // ... Other dynamic imports ...
@@ -196,6 +202,9 @@ const importComponents = async () => {
     // __________________PAGE_____________
     app.component('busy-candidate', busyCandidate.default)
     app.component('category-carousel', categoryCarousel.default)
+    app.component('testimonial-carousel', testimonialCarousel.default)
+
+    app.component('testimonial-page', testimonialPage.default)
 
 
     app.component('multiselect', Multiselect)

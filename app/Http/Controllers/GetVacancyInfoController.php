@@ -54,8 +54,10 @@ class GetVacancyInfoController extends Controller
             'employer.numberCode','deposit','hr.user', 'vacancyDrivingLicense'
             ])->first();
 
-        $hr_id = (Auth::user()->role_id == 2)?Auth::user()->hr->id:null;
-        $data = ['vacancy' => $vacancy, 'hr_id' => $hr_id];
+        $role_id = Auth::user()->role_id;
+        $hr_id = ($role_id == 2)?Auth::user()->hr->id:null;
+
+        $data = ['vacancy' => $vacancy, 'hr_id' => $hr_id, 'role_id' => $role_id];
 
         return response()->json($data);
     }

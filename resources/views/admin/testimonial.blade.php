@@ -5,8 +5,11 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">მიბმული ვაკანსიები</h1>
+          <h1 class="m-0">testimonial</h1>
+
         </div><!-- /.col -->
+        {{-- <div class="col-md-6 d-flex justify-content-end">
+        </div> --}}
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
     <hr>
@@ -17,7 +20,7 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-            <vacancy-attached :data='@json($data)' :auth='@json($auth)'></vacancy-attached>
+            <testimonial-page :data='@json($testimonial)'></testimonial-page>
         </div>
     </section>
 @endsection

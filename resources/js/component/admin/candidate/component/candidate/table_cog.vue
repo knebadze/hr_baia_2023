@@ -12,7 +12,7 @@
             <a class="dropdown-item" :href="relevantUrl+'/'+item.id">შესაბამისი ვაკანსიები</a>
             <a v-if="item.status_id == 11 || item.status_id == 14" class="dropdown-item" href="#" @click="scheduleModal(item.id)">გრაფიკი</a>
             <a v-if="item.user.register_log && item.user.register_log.creator_id == hrId && item.registration_fee != 1" href="#" class="dropdown-item" @click="enrolled(item.user)">ჩარიცხა</a>
-            <a v-if="!item.user.register_log &&  item.registration_fee != 1" href="#" class="dropdown-item" @click="enrolled(item.user)">ჩარიცხა</a>
+            <a v-if="!item.user.register_log &&  item.registration_fee != 1 && item.status_id != 12" href="#" class="dropdown-item" @click="enrolled(item.user)">ჩარიცხა</a>
             <a class="dropdown-item" href="#"  @click="pdf(item)">ჩამოტვირთვა</a>
             <a class="dropdown-item" href="#" @click="openSendMessageModal(item)">სმს</a>
             <a v-if="item.status_id == 9" class="dropdown-item" href="#" @click="blackListModal(item.id)">შავ სიაში დამატება</a>

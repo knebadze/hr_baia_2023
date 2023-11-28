@@ -27,9 +27,9 @@
         <template #expand="item">
             <!-- {{ item }} -->
               <!-- /.card-header -->
-              <div class="card-header">
+              <!-- <div class="card-header"> -->
                 <expand_body :item="item" :hr_id="hr_id" :roleId="roleId"/>
-              </div>
+              <!-- </div> -->
 
               <!-- /.card-body -->
         </template>

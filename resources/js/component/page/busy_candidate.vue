@@ -99,7 +99,7 @@ import moment from 'moment'
 import "@vueform/slider/themes/default.css";
 import _ from 'lodash'
 import vacancyFullInfoModal from '../modal/vacancyFullInfoModal.vue'
-import candidateFullInfoModal from '../modal/candidateFullInfoModal.vue'
+import candidateFullInfoModal from '../admin/candidate/modal/candidateFullInfoModal.vue'
 export default {
     components: {
     //   Slider,

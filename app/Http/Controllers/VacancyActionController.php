@@ -105,7 +105,7 @@ class VacancyActionController extends Controller
         $vacancy = Vacancy::filter($filters)->orderby('carry_in_head_date', 'DESC')->with([
             'vacancyDuty', 'vacancyBenefit', 'vacancyForWhoNeed', 'characteristic', 'employer', 'currency','category', 'status',
             'workSchedule', 'vacancyInterest', 'interviewPlace','term', 'demand', 'demand.language', 'demand.education', 'demand.languageLevel','demand.specialty',
-            'employer.numberCode','deposit','hr.user'
+            'employer.numberCode','deposit','hr.user', 'vacancyDrivingLicense'
             ])->paginate(25);
             return response()->json($vacancy);
 

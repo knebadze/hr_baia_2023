@@ -55,7 +55,7 @@ export default {
             const noteObj = {
                 type: 'note',
                 title:'ჩანიშვნები',
-                header: ['ID', 'სახელი გვარი', 'ტიპი', 'დამატების თარიღი', 'მოქმედება'],
+                header: ['ID', 'შემკვეთი', 'ტიპი', 'დამატების თარიღი', 'მოქმედება'],
                 data: noteData
             };
             noteData.length > 0 && data.push(noteObj);

@@ -5,10 +5,11 @@
         :headers="headers"
         :items="items"
         table-class-name="customize-table"
-        :body-row-class-name="bodyRowClassNameFunction"
+
         border-cell
         :filter-options="filterOptions"
     >
+    <!-- :body-row-class-name="bodyRowClassNameFunction" -->
     <template #item-category="item">
         <span class="text-primary" v-for="(i, index) in item.get_work_information" :key="index" ><u style="cursor: pointer;" @click="openInfoModal('category', item.get_work_information[index])">{{ i.category.name_ka+', ' }}</u></span>
     </template>

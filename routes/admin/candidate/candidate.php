@@ -21,6 +21,7 @@ Route::post('find_candidate_model', [CandidateInfoController::class, 'findModel'
 Route::post('candidate_work_info_data', [AdminCandidateController::class, 'workInfoData']);
 Route::post('candidate_family_work_info_data', [AdminCandidateController::class, 'familyWorkInfoData']);
 Route::post('get_candidate_additional_number', [AdminCandidateController::class, 'additionalNumberInfo']);
+Route::post('get_candidate_full_info', [AdminCandidateController::class, 'getFullInfo']);
 
 // U
 Route::post('update_candidate_recommendation', [CandidateInfoController::class, 'updateCandidateRecommendation']);

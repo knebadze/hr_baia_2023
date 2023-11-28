@@ -168,3 +168,6 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::get('/candidate_full_pdf', [PdfController::class, 'candidateFull']);
     Route::get('/candidate_partial_pdf', [PdfController::class, 'candidatePartial']);
 
+    // _________________TESTIMONIAL_______________________
+    include('admin/testimonial/testimonial.php');
+

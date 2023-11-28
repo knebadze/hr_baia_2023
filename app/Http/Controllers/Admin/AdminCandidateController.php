@@ -36,7 +36,6 @@ class AdminCandidateController extends Controller
                     'user.gender',
                     'user.registerLog',
                     'user.registerFee',
-                    // 'workInformation',
                     'getWorkInformation.category',
                     'getWorkInformation.currency',
                     'getWorkInformation.getWorkSchedule.workSchedule',
@@ -218,5 +217,41 @@ class AdminCandidateController extends Controller
         return response()->json($data);
     }
 
+    function getFullInfo(Request $request)  {
+        // dd($request->all());
+        $candidate = Candidate::where('id', $request->data)->with(
+            [
+                'user.gender',
+                'user.registerLog',
+                'user.registerFee',
+                // 'workInformation',
+                'getWorkInformation.category',
+                'getWorkInformation.currency',
+                'getWorkInformation.getWorkSchedule.workSchedule',
+                'nationality',
+                'citizenship',
+                'religion',
+                'education',
+                'getLanguage.language',
+                'getLanguage.level',
+                'professions',
+                'specialty',
+                'recommendation',
+                'generalWorkExperience',
+                'familyWorkExperience.noReason',
+                'familyWorkExperience.familyWorkDuty',
+                'characteristic',
+                'allergy',
+                'maritalStatus',
+                'drivingLicense',
+                'status'
+            ])->first()->toArray();
+            $data = [
+                'candidate' => $candidate,
+                'role_id' => Auth::user()->role_id,
+                'hr_id' => Auth::id(),
+            ];
+        return response()->json($data);
+    }
 
 }

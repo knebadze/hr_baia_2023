@@ -34,7 +34,11 @@
             </li>
 
             <li class="nav-item">
-                <a href="#" @if(Route::currentRouteName() === 'admin.hr' || Route::currentRouteName() === 'admin.employer' || Route::currentRouteName() === 'admin.candidate') class="nav-link active" @else class="nav-link" @endif>
+                <a href="#" @if(Route::currentRouteName() === 'admin.hr' ||
+                                    Route::currentRouteName() === 'admin.employer' ||
+                                        Route::currentRouteName() === 'admin.candidate' ||
+                                            Route::currentRouteName() === 'admin.vacancy.attached' ||
+                                                Route::currentRouteName() === 'admin.relevant.vacancy') class="nav-link active" @else class="nav-link" @endif>
                     <i class="nav-icon fas fa-copy"></i>
                     <p>
                         Users
@@ -110,6 +114,14 @@
                     <i class="nav-icon fa fa-globe"></i>
                     <p>
                         ცვლადები
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a @if(Route::currentRouteName() === 'admin.testimonial') class="nav-link active" @else class="nav-link" @endif href="{{ route('admin.testimonial', App()->getLocale()) }}">
+                    <i class="nav-icon fa fa-star"></i>
+                    <p>
+                        testimonial
                     </p>
                 </a>
             </li>

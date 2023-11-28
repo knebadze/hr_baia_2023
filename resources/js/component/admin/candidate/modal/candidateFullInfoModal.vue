@@ -4,16 +4,11 @@
         <div class="modal-dialog modal-dialog-centered modal-xl " role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title" id="exampleModalLongTitle"><i class="fa fa-credit-card"></i> დეპოზიტი</h6>
+                    <h6 class="modal-title" id="exampleModalLongTitle"><i class="fa fa-user"></i> კანდიდატის ინფორმაცია</h6>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="hide()">X</button>
                 </div>
                 <div class="modal-body">
-
-                    <div class=" p-a20 my-3">
-                        <h6 class=" m-a0">დამსაქმებელი </h6>
-                    </div>
-                    <hr>
-                    <hr>
+                    <expand_body :item="candidate"/>
                 </div>
                 <div class="modal-footer">
                         <button type="button" class="btn btn-secondary mr-3" @click="hide()" ><i class=""></i>გაუქმება</button>
@@ -26,7 +21,11 @@
   <script>
   import { toast } from 'vue3-toastify';
   import 'vue3-toastify/dist/index.css';
+  import expand_body from '../component/candidate/expand_body.vue';
   export default {
+    components:{
+        expand_body,
+    },
         props:{
             visible: Boolean,
             candidate_id: Number
@@ -34,6 +33,9 @@
         data() {
             return {
                 showConfirm: false,
+                candidate: null,
+                role_id: null,
+                hrId: null
 
             }
         },
@@ -46,9 +48,31 @@
             },
         },
         methods:{
-            show(){
-                this.showConfirm = true
+            async show(){
+                try {
+                    let result = await this.getClassificatory();
+                    console.log('result.data',result.data);
+                    this.candidate = result.data.candidate
+                    this.candidate.age = this.age(result.data.candidate.date_of_birth)
+                    this.role_id = result.data.role_id
+                    this.hrId = result.data.hr_id
+                    this.showConfirm = true
+                } catch (error) {
+                    console.log(error);
+                }
 
+            },
+            getClassificatory(){
+                return axios.post('/get_candidate_full_info' ,{
+                      data: this.candidate_id,
+                  })
+
+            },
+            age(date_of_birth){
+                var dob = new Date(date_of_birth)
+                var diff_ms = Date.now() - dob.getTime();
+                var age_dt = new Date(diff_ms);
+                return Math.abs(age_dt.getUTCFullYear() - 1970);
             },
             hide(){
                 this.showConfirm = false

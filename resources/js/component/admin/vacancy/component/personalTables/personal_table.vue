@@ -38,7 +38,7 @@
 import { ref } from 'vue';
 import moment from 'moment'
 import table_cog from './table_cog.vue';
-import candidateFullInfoModalVue from '../../../../modal/candidateFullInfoModal.vue';
+import candidateFullInfoModalVue from '../../../candidate/modal/candidateFullInfoModal.vue';
 import end_work_info from '../../modal/end_work_info.vue';
 export default {
     components:{
