@@ -4,23 +4,7 @@
     <div class="container">
 
         <!-- NEWS LETTER SECTION START -->
-        <div class="ftr-nw-content">
-            <div class="row">
-                <div class="col-md-5">
-                    <div class="ftr-nw-title">
-                        {{ __('lang.footer_subscribe_first_text') }}
-                    </div>
-                </div>
-                <div class="col-md-7">
-                    <form>
-                        <div class="ftr-nw-form">
-                            <input name="news-letter" class="form-control" placeholder="{{ __('lang.footer_subscribe_form_placeholder') }}" type="text">
-                            <button class="ftr-nw-subcribe-btn">{{ __('lang.footer_subscribe_button') }}</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+        <subscribe-input></subscribe-input>
         <!-- NEWS LETTER SECTION END -->
         <!-- FOOTER BLOCKES START -->
         <div class="footer-top">

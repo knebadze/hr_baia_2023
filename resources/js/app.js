@@ -74,6 +74,7 @@ const importComponents = async () => {
       vacancyDeposit,
       vacancyAttached,
       relevantVacancy,
+      vacancyTable,
     //   adminVacancyTable,
       employerPage,
 
@@ -85,6 +86,7 @@ const importComponents = async () => {
       busyCandidate,
       categoryCarousel,
       testimonialCarousel,
+      subscribeInput,
 
       testimonialPage
 
@@ -126,6 +128,7 @@ const importComponents = async () => {
       import('./component/admin/vacancy/page/vacancy_deposit.vue'),
       import('./component/admin/candidate/page/vacancy_attached.vue'),
       import('./component/admin/candidate/page/relevant_vacancy.vue'),
+      import('./component/admin/vacancy/component/table/vacancy_table.vue'),
     //   import('./component/admin/vacancy/component/admin_vacancy_table.vue'),
       import('./component/admin/employer/page/employer_page.vue'),
       import('./component/admin/enrollment/page/enrolled_page.vue'),
@@ -137,6 +140,7 @@ const importComponents = async () => {
 
       import('./component/welcome/category_carousel.vue'),
       import('./component/welcome/testimonial_carousel.vue'),
+      import('./component/welcome/subscribe_input.vue'),
 
       import('./component/admin/testimonial/page/testimonial_page.vue')
 
@@ -189,6 +193,7 @@ const importComponents = async () => {
     app.component('vacancy-deposit', vacancyDeposit.default)
     app.component('vacancy-attached', vacancyAttached.default)
     app.component('relevant-vacancy', relevantVacancy.default)
+    app.component('vacancy-table', vacancyTable.default)
     // app.component('admin-vacancy-table', adminVacancyTable.default)
 
     app.component('employer-page', employerPage.default)
@@ -203,6 +208,7 @@ const importComponents = async () => {
     app.component('busy-candidate', busyCandidate.default)
     app.component('category-carousel', categoryCarousel.default)
     app.component('testimonial-carousel', testimonialCarousel.default)
+    app.component('subscribe-input', subscribeInput.default)
 
     app.component('testimonial-page', testimonialPage.default)
 

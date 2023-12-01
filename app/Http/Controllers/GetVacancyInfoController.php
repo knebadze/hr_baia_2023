@@ -47,13 +47,12 @@ class GetVacancyInfoController extends Controller
 
 
     function getVacancyFullInfo(Request $request)  {
-
         $vacancy = Vacancy::where('id', $request->data)->with([
             'vacancyDuty', 'vacancyBenefit', 'vacancyForWhoNeed', 'characteristic', 'employer', 'currency','category', 'status',
             'workSchedule', 'vacancyInterest', 'interviewPlace','term', 'demand', 'demand.language', 'demand.education', 'demand.languageLevel','demand.specialty',
             'employer.numberCode','deposit','hr.user', 'vacancyDrivingLicense'
             ])->first();
-
+            
         $role_id = Auth::user()->role_id;
         $hr_id = ($role_id == 2)?Auth::user()->hr->id:null;
 

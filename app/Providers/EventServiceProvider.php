@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Listeners\HrJob;
 use App\Events\hrDailyJob;
+use App\Events\SmsNotificationEvent;
+use App\Listeners\SendSmsNotificationListener;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -22,6 +24,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         hrDailyJob::class => [
             HrJob::class,
+        ],
+        SmsNotificationEvent::class => [
+            SendSmsNotificationListener::class,
         ]
     ];
 

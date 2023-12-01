@@ -1,6 +1,7 @@
 <template lang="">
     <div>
-        <h5><i class="fa fa-table"></i> ცხრილი</h5>
+        <h5><i class="fa fa-table"></i> ცხრილი </h5>
+        <p>მიმდინარე ჩარიცხვების დაწყების თარიღი: {{ date }}</p>
         <hr>
     </div>
 
@@ -81,7 +82,7 @@
 <script>
 
 import moment from 'moment'
-import vacancyFullInfoModal from '../../../modal/vacancyFullInfoModal.vue';
+import vacancyFullInfoModal from '../../vacancy/modal/vacancyFullInfoModal.vue';
 import candidateFullInfoModal from '../../candidate/modal/candidateFullInfoModal.vue';
 import update_enrolled from '../modal/update_enrolled.vue'
 export default {
@@ -92,7 +93,8 @@ export default {
     },
     props:{
         items: Object,
-        role_id: Number
+        role_id: Number,
+        start_date: String
     },
     data() {
         return {
@@ -100,7 +102,8 @@ export default {
             vacancyModal:false,
             updateModal:false,
             modalId:null,
-            item:{}
+            item:{},
+            date: null
         }
     },
     computed:{
@@ -111,6 +114,7 @@ export default {
             // Access the element to update in each object
             this.items[i].created_at = moment(this.items[i].created_at).format("YYYY-MM-DD HH:mm");
         }
+        this.date = moment(this.start_date).format("YYYY-MM-DD HH:mm");
     },
     methods: {
         fullModal(item){

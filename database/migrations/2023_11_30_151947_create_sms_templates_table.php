@@ -13,8 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('hr_work_logs', function (Blueprint $table) {
+        Schema::create('sms_templates', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->text('template_ka');
+            $table->text('template_ka_lt');
+            $table->text('template_en');
+            $table->text('template_ru');
             $table->timestamps();
         });
     }
@@ -26,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hr_work_logs');
+        Schema::dropIfExists('sms_templates');
     }
 };

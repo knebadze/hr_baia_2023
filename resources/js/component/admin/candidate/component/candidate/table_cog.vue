@@ -122,14 +122,10 @@ export default {
         const candidateDelete = (id) =>{
             Swal.fire({
                 title: 'ნამდვილად გსურთ წაშლა?',
-                // html:'ცვლილება ავტომატურად მოხსნის კანდიდატს ვაკანის დასაქმებული სტატუსიდან',
-                //   showDenyButton: true,
                 cancelButtonText:'არა',
                 confirmButtonText: 'კი',
                 showCancelButton: true,
             }).then((result) => {
-            /* Read more about isConfirmed, isDenied below */
-            // return
                 if (result.isConfirmed) {
                     axios({
                         method: "post",

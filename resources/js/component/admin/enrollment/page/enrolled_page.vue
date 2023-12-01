@@ -192,7 +192,7 @@
             </div>
             <!-- ./col -->
         </div>
-        <enrolled_table :items="items" :role_id="role_id"></enrolled_table>
+        <enrolled_table :items="items" :role_id="role_id" :start_date="data.start_date"></enrolled_table>
 
 
     <div class="mt-2">
@@ -277,6 +277,7 @@ export default {
 
     },
     created() {
+        console.log(this.data);
         this.getData()
         // this.role_id = this.data.role_id
         let arr = [

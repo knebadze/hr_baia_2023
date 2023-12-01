@@ -55,7 +55,7 @@ class TestimonialController extends Controller
     function IsActiveUpdate(Request $request) {
         // dd($request->is_active);
         try {
-            $result = Testimonial::where('id', $request->id)->update(['is_active' => $request->is_active]);
+            $result = Testimonial::where('id', $request->id)->update(['active' => $request->active]);
         } catch (\Throwable $th) {
             //throw $th;
         }
@@ -71,6 +71,18 @@ class TestimonialController extends Controller
         // dd($data);
         try {
             $result = $this->testimonialService->update($data);
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+        return response()->json($result);
+    }
+
+    function delete(Request $request) {
+
+       $data = $request->id;
+        // dd($data);
+        try {
+            $result = $this->testimonialService->delete($data);
         } catch (\Throwable $th) {
             //throw $th;
         }

@@ -34,7 +34,7 @@
     </div>
 </template>
 <script>
-import { ref, computed, nextTick  } from "vue";
+import { ref } from "vue";
 // import { markRaw } from 'vue';
 import vacancyUpdate from "../../modal/vacancyUpdate.vue"
 import changeStatus from "../../modal/changeStatus.vue";

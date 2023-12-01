@@ -108,8 +108,9 @@
 
 
             for (let i = 0; i < data.length; i++) {
-                const date = moment(data[i].created_at); // Set locale to Georgian
-                data[i].created_at_formatted = date.format("YYYY-MM-DD HH:mm");
+                const date = moment(data[i].created_at);
+                const start_date =  moment(data[i].created_at)// Set locale to Georgian
+                data[i].created_at = start_date.format("YYYY-MM-DD HH:mm");
 
                 // Get the English month name
                 const englishMonthName = date.format('MMMM');

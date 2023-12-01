@@ -107,7 +107,7 @@ import moment from 'moment'
 import _ from 'lodash';
 import axios from 'axios'
 import Paginate from 'vuejs-paginate-next';
-import vacancyFullInfoModal from '../../../modal/vacancyFullInfoModal.vue';
+import vacancyFullInfoModal from '../../vacancy/modal/vacancyFullInfoModal.vue';
 export default {
     components:{
         Paginate,

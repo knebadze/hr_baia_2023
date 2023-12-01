@@ -18,6 +18,7 @@ class EnrollmentAgreeRepository
 {
     function agree($data) {
         // dd($data);
+
         try {
             $enrollment = Enrollment::where('id', $data['id'])->first();
             $enrollment->update([
@@ -26,7 +27,8 @@ class EnrollmentAgreeRepository
             if ($data['enrollment_type'] == 2) {
                 //ვაკანსიის ჩარიცხვა
                 $updateVacancyDeposit = $this->updateVacancyDeposit($data['vacancy_id'], $data['who_is_counting'], $data['type'], $data['money']);
-                ($updateVacancyDeposit)?$this->checkVacancy($data['vacancy_id']):'';
+                // dd('$hello');
+                $updateVacancyDeposit && $this->checkVacancy($data['vacancy_id']);
                 $this->dailyWorkEvent($data['author_id'], 'v');
 
 
@@ -41,6 +43,7 @@ class EnrollmentAgreeRepository
             return $enrollment;
         } catch (\Throwable $th) {
             //throw $th;
+            dd($th);
             throw new \Exception("An error occurred during enrollment agreement: " . $th->getMessage(), 500);
         }
 
@@ -82,6 +85,7 @@ class EnrollmentAgreeRepository
                 }
             }
         } catch (\Throwable $th) {
+            dd($th);
             throw new \Exception("An error occurred during enrollment agreement: " . $th->getMessage(), 500);
             return false;
         }

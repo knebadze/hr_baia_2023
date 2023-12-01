@@ -101,7 +101,7 @@
                     <div class="col-xl-6 col-lg-6 col-md-12">
                         <div class="form-group">
                             <div class="form-check">
-                            <input class="form-check-input" v-model="m.is_active" type="checkbox" id="isActiveCheckbox">
+                            <input class="form-check-input" v-model="m.active" type="checkbox" id="isActiveCheckbox">
                             <label class="form-check-label" for="isActiveCheckbox"><span class="text-danger">*</span> აქტიურია</label>
                             </div>
                         </div>
@@ -129,9 +129,9 @@ export default {
     },
     setup(props) {
         const showConfirm = ref(false);
-        const m = ref({});
-        props.item && (m.value = props.item)
-        m.value.is_active = false
+        const m = ref(null);
+        m.value = props.item ? { ...props.item }: {};
+        // m.value.active = false
         const getLang = computed(() => {
             return I18n.getSharedInstance().options.lang;
         });
@@ -203,7 +203,11 @@ export default {
                         theme: 'colored',
                         autoClose: 1000,
                     });
-                    hide()
+                    hide();
+                    setTimeout(() => {
+                        document.location.reload();
+                    }, 1500);
+
                 }
             })
             .catch(function (error) {
@@ -237,6 +241,10 @@ export default {
                         autoClose: 1000,
                     });
                     hide()
+                    setTimeout(() => {
+                        document.location.reload();
+                    }, 1500);
+
                 }
             })
             .catch(function (error) {

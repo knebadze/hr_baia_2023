@@ -54,7 +54,7 @@
   import 'vue3-toastify/dist/index.css';
   import moment from 'moment'
   import filledReminder from './filledReminder.vue';
-  import vacancyFullInfoModal from '../../../modal/vacancyFullInfoModal.vue';
+  import vacancyFullInfoModal from '../../vacancy/modal/vacancyFullInfoModal.vue';
   import reminder_table from '../component/reminder_table.vue';
     export default {
         components:{

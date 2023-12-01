@@ -2,9 +2,10 @@
 
 namespace App\Services\Admin;
 
-use App\Repositories\Enrollment\EnrollmentAgreeRepository;
+use App\Models\Vacancy;
 use App\Repositories\Enrollment\EnrollmentRepository;
 use App\Repositories\Enrollment\EnrollmentPageRepository;
+use App\Repositories\Enrollment\EnrollmentAgreeRepository;
 use App\Repositories\Enrollment\EnrollmentUpdateRepository;
 
 class EnrollmentService
@@ -22,10 +23,11 @@ class EnrollmentService
     }
     function save($type, $data) {
         try {
+            $vacancy = Vacancy::where('id', $data['data']->vacancy_id)->first();
             if ($type == 'vacancy') {
-                $result = $this->enrollmentRepository->vacancy($data);
+                $result = $this->enrollmentRepository->vacancy($data, $vacancy);
             }else if ($type == 'register') {
-                $result = $this->enrollmentRepository->register($data);
+                $result = $this->enrollmentRepository->register($data, $vacancy);
             }
 
             return $result;
@@ -59,6 +61,7 @@ class EnrollmentService
             $result = $this->enrollmentAgreeRepository->agree($data);
             return $result;
         } catch (\Exception $e) {
+            dd($e);
             throw new \Exception("An error occurred during enrollment agreement: " . $e->getMessage(), 500);
         }
     }

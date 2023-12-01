@@ -6,11 +6,15 @@ use App\Models\Vacancy;
 use App\Models\Employer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Services\ClassificatoryService;
 use App\Filters\Employer\EmployerFilters;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class EmployerController extends Controller
 {
+
+
     function index() {
         $data = Employer::orderBy('id', 'DESC')->paginate(25)->toArray();
         return view('admin.employer', compact('data'));
@@ -63,6 +67,7 @@ class EmployerController extends Controller
     }
 
     function attached($id) {
+        $data = [];
         $data = Vacancy::orderBy('carry_in_head_date', 'DESC')
             ->where('author_id', $id)
             ->with([
@@ -72,6 +77,15 @@ class EmployerController extends Controller
                 ])
             ->get();
 
+        // $classificatoryArr = ['workSchedule'];
+        // $classificatoryService = new ClassificatoryService();
+        // $classificatory = $classificatoryService->get($classificatoryArr);
+        // $role_id = Auth::user()->role_id;
+        // $hr_id = $role_id == 2 ? Auth::user()->hr->id : null;
+
+
+        // $data = [ 'roleId' => $role_id, 'hrId' => $hr_id, 'vacancy' => $vacancy];
+        //         dd($data);
         return view( 'admin.employer_vacancy', compact('data'));
     }
 

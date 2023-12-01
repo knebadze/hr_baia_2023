@@ -10,12 +10,12 @@ use Illuminate\Support\Facades\Auth;
 
 class EnrollmentRepository
 {
-    function vacancy($data) {
-        $vacancy = Vacancy::where('id', $data['data']->vacancy_id)->first();
+    function vacancy($data, $vacancy) {
+
         $bonus_percent = $vacancy->hr->bonus_percent;
         $enrollment = new Enrollment();
         $enrollment->enrollment_type = 2;
-        $enrollment->author_id  = Auth::id();
+        $enrollment->author_id  = $vacancy->hr_id;
         $enrollment->vacancy_id = $data['data']->vacancy_id;
         $enrollment->who_is_counting = $data['data']->who_is_counting;
         $enrollment->type = $data['data']->type;
@@ -34,13 +34,13 @@ class EnrollmentRepository
         return $enrollment;
     }
 
-    function register($data) {
+    function register($data, $vacancy) {
         $user = User::where('id', $data['data']->user_id)->first();
         $paidBonus = GlobalVariable::where('name', 'paid registration')->first();
         $candidate_id = $user->candidate->id;
         $enrollment = new Enrollment();
         $enrollment->enrollment_type = 1;
-        $enrollment->author_id  = Auth::id();
+        $enrollment->author_id  = $vacancy->hr_id;
         $enrollment->candidate_id = $candidate_id;
         $enrollment->type = $data['data']->type;
         $enrollment->name = $data['data']->name;

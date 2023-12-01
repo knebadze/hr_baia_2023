@@ -41,7 +41,7 @@ import { ref } from 'vue';
 import moment from 'moment'
 // import table_cog from './table_cog.vue';
 import table_cog from '../../../vacancy/component/personalTables/table_cog.vue';
-import vacancyFullInfoModal from '../../../../modal/vacancyFullInfoModal.vue';
+import vacancyFullInfoModal from '../../../vacancy/modal/vacancyFullInfoModal.vue';
 import end_work_info from '../../modal/end_work_modal.vue';
 export default {
   components:{

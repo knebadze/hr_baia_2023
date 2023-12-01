@@ -24,11 +24,12 @@ class ReminderService
         return $result;
     }
     function add($data) {
+        // dd($data);
         $auth = Auth::user();
         if ($auth->role_id == 2) {
             $hr_id = Auth::user()->hr->id;
         }else{
-            $vacancy = Vacancy::where('id', $data['vacancy_id'])->select('id')->first();
+            $vacancy = Vacancy::where('id', $data['vacancy_id'])->select('id', 'hr_id')->first();
             $hr_id = $vacancy->hr_id;
         }
         $result = $this->reminderDataRepository->addReminder($data, $hr_id);

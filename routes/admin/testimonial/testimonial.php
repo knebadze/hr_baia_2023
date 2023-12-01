@@ -13,6 +13,6 @@ Route::post('translate_testimonial', [TestimonialController::class, 'translate']
 Route::post('testimonial_is_active_update', [TestimonialController::class, 'IsActiveUpdate']);
 Route::post('update_testimonial', [TestimonialController::class, 'update']);
 // D
-
+Route::post('delete_testimonial', [TestimonialController::class, 'delete']);
 
 // F

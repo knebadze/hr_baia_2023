@@ -20,7 +20,7 @@ class Testimonial extends Model
         'text_en',
         'text_ru',
         'image_path',
-        'is_active',
+        'active',
     ];
 
 }

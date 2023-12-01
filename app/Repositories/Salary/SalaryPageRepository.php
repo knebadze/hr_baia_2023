@@ -19,8 +19,6 @@ class SalaryPageRepository
             })->when(Auth::user()->role_id === 1, function ($query) {
                 return $query->whereNUll('disbursement_date');
             })
-            // ->whereNUll('disbursement_date')
-
             ->orderBy('full_salary', 'DESC')
             ->With('hr.user')
             ->get()->toArray();
@@ -55,7 +53,7 @@ class SalaryPageRepository
         //     ->count();
         // dd(Carbon::parse($salary->created_at)->startOfDay()->toDateTimeString());
         $enrollment_total = Enrollment::where('agree', 1)
-            ->whereDate('created_at', '>=', Carbon::parse($salary->created_at)->startOfDay()->toDateTimeString())
+            ->where('created_at', '>=', $salary->created_at)
             ->sum('money');
 
         return ['enrollment_total' => $enrollment_total];

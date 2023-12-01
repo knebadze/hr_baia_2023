@@ -82,7 +82,7 @@
 </template>
 <script>
 import moment from 'moment'
-import vacancyFullInfoModal from '../../../modal/vacancyFullInfoModal.vue';
+import vacancyFullInfoModal from '../../vacancy/modal/vacancyFullInfoModal.vue';
 import candidateFullInfoModal from '../../candidate/modal/candidateFullInfoModal.vue';
 // import update_enrolled from '../modal/update_enrolled.vue'
 export default {

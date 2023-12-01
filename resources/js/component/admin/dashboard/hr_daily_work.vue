@@ -61,7 +61,7 @@
 </template>
 <script>
 import moment from 'moment'
-import vacancyFullInfoModal from '../../modal/vacancyFullInfoModal.vue';
+import vacancyFullInfoModal from '../vacancy/modal/vacancyFullInfoModal.vue';
 export default {
     components:{
         vacancyFullInfoModal

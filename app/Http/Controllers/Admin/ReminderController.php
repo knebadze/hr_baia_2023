@@ -108,6 +108,11 @@ class ReminderController extends Controller
             $data = $vacancy;
         }
 
+        if($request->stage == 2){
+            $data = true;
+        }
+
+
         return response()->json($data);
     }
 

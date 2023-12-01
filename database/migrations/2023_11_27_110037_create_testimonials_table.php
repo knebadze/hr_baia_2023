@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('text_en', 500);
             $table->string('text_ru', 500);
             $table->string('image_path', 500)->nullable();
-            $table->smallInteger('is_active')->default(0);
+            $table->smallInteger('active')->default(0);
             $table->timestamps();
         });
     }

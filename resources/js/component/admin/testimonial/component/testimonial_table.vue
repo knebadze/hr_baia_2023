@@ -20,7 +20,7 @@
                 <td>{{ item.text_ka.slice(0, 50) }}...</td>
                 <td>{{ item.created_at }}</td>
                 <td>
-                    <Switch  :checked="item.is_active" label="" @click.self="isActiveUpdate(item)"/>
+                    <Switch  :checked="item.active" label="" @click.self="isActiveUpdate(item)"/>
                 </td>
 
                 <td>
@@ -46,13 +46,13 @@ export default {
     },
     setup(props) {
         const tableItems = ref(props.items)
-        console.log(tableItems.value[0].is_active  );
+        console.log(tableItems.value[0].active  );
         console.log('tableItems', props.items);
         for (let i = 0; i < props.items.length; i++) {
             // Access the element to update in each object
             tableItems.value[i].created_at = moment(tableItems.value[i].created_at).format("YYYY-MM-DD HH:mm");
             // console.log(tableItems.value[i].is_active == 1 );
-            // tableItems.value[i].is_active = tableItems.value[i].is_active == 1 ? true : false
+            tableItems.value[i].active = tableItems.value[i].active == 1 ? true : false
         };
 
         const isActiveUpdate = (item) =>{
@@ -61,7 +61,7 @@ export default {
             axios({
                 method: "post",
                 url: "/testimonial_is_active_update",
-                data: {'id': item.id,  'is_active': item.is_active? 0: 1},
+                data: {'id': item.id,  'active': item.active? 0: 1},
 
             })
             .then(function (response) {
@@ -72,6 +72,7 @@ export default {
                         theme: 'colored',
                         autoClose: 1000,
                     });
+                    
                     // alert()
 
                 }

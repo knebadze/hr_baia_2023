@@ -18,7 +18,7 @@ class TestimonialRepository
             $filePath = $this->uploadImage($data['file']);
             $testimonial->image_path = $filePath;
         }else{
-            $testimonial->image_path = 'testimonial/default.jpg';
+            $testimonial->image_path = 'testimonial/default.png';
         }
         $testimonial->save();
 
@@ -41,10 +41,28 @@ class TestimonialRepository
         $testimonial->update();
     }
 
+    function delete($id) {
+        $testimonial = Testimonial::find($id);
+
+        if (!$testimonial) {
+            // Handle case where testimonial with given ID is not found
+            return null;
+        }
+
+        // Delete the associated image
+        $this->deleteImage($testimonial->image_path);
+
+        // Delete the testimonial
+        $testimonial->delete();
+
+        return true;
+    }
+
     protected function fillTestimonial(Testimonial $testimonial, $item)
     {
+
         $testimonial->fullName_ka = $item->fullName_ka;
-        $testimonial->fullName_en = $item->fullName_en; // Fixed typo in property name
+        $testimonial->fullName_en = $item->fullName_en;
         $testimonial->fullName_ru = $item->fullName_ru;
         $testimonial->profession_ka = $item->profession_ka;
         $testimonial->profession_en = $item->profession_en;
@@ -52,13 +70,14 @@ class TestimonialRepository
         $testimonial->text_ka = $item->text_ka;
         $testimonial->text_en = $item->text_en;
         $testimonial->text_ru = $item->text_ru;
-        $testimonial->is_active = $item->is_active;
+        $testimonial->active = $item->active ?? 0;
     }
 
     protected function uploadImage(UploadedFile $file)
     {
         return $file->store('testimonial', 'public');
     }
+
 
     protected function deleteImage($filePath)
     {

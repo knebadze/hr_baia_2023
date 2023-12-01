@@ -102,7 +102,7 @@
   <script>
   import { toast } from 'vue3-toastify';
   import 'vue3-toastify/dist/index.css';
-  import vacancyFullInfoModal from '../../../modal/vacancyFullInfoModal.vue';
+  import vacancyFullInfoModal from '../modal/vacancyFullInfoModal.vue';
   import moment from 'moment'
   export default {
         components:{
@@ -333,7 +333,7 @@
             emitMessage(bool) {
                 this.onMessageFromChildren(this.item.candidate_id, bool);
             },
-            
+
             openModal(id){
                 this.modalShow = !this.modalShow
                 this.vacancy_id = id

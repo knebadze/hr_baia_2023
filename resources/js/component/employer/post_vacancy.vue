@@ -999,6 +999,7 @@ export default {
         const validateAndSubmit = (data) => {
             send.value = true
             loader.value = true
+            const csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
             axios({
                 method: "post",
                 url: "/add_vacancy",

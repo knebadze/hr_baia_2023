@@ -16,7 +16,7 @@
                 <tbody>
                     <tr v-for="(item, index) in tableData" :key="index">
                         <td>{{ index + 1 }}.</td>
-                        <td><u class="text-primary" @click="vacancyModal(item_id)">{{ item.code }}</u> </td>
+                        <td><u class="text-primary" @click="vacancyModal(item.vacancy_id)">{{ item.code }}</u> </td>
                         <td v-if="role_id == 1">{{ item.hr_name}}</td>
                         <td>{{ item.reason }}</td>
                         <td>{{ item.date }}</td>
@@ -58,7 +58,7 @@
 <script>
 
 import filledReminder from '../modal/filledReminder.vue'
-import vacancyFullInfoModal from '../../../modal/vacancyFullInfoModal.vue'
+import vacancyFullInfoModal from '../../vacancy/modal/vacancyFullInfoModal.vue'
 import reminderEdit from '../modal/reminder_edit.vue'
 import { ref, computed } from 'vue';
 import moment from 'moment'

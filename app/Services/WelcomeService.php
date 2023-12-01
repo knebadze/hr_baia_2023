@@ -43,7 +43,7 @@ class WelcomeService
         $categoriesWithCandidates['type'] = 'candidate';
         $result['categoriesWithCandidates'] = $categoriesWithCandidates;
 
-        $testimonial = Testimonial::where('is_active', 1)->get()->toArray();
+        $testimonial = Testimonial::where('active', 1)->get()->toArray();
         $result['testimonial'] = $testimonial;
 
         $popularCategories = DB::table('categories')

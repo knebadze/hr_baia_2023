@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\FaqController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MainController;
@@ -11,7 +12,6 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\PricesController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\VacancyController;
-use App\Http\Controllers\FaqController;
 
 
 use App\Http\Controllers\Admin\PdfController;
@@ -25,14 +25,15 @@ use App\Http\Controllers\Auth\SocialController;
 use App\Http\Controllers\MapvacancieController;
 use App\Http\Controllers\User\ResumeController;
 
+use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\BusyCandidateController;
-use App\Http\Controllers\Admin\BlackListController;
 
+use App\Http\Controllers\Admin\BlackListController;
 use App\Http\Controllers\User\PostVacancyController;
+
 use App\Http\Controllers\User\UserProfileController;
 
 use App\Http\Controllers\Auth\ChangePasswordController;
-
 use App\Http\Controllers\Employer\EmployerInfoController;
 use App\Http\Controllers\Candidate\WorkInformationController;
 
@@ -170,5 +171,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
 
     // _________________TESTIMONIAL_______________________
     include('admin/testimonial/testimonial.php');
-    
+
+    Route::post('/subscribe', [SubscriptionController::class, 'subscribe'])->name('subscribe');
+
 

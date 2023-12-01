@@ -42,4 +42,10 @@ class TestimonialService {
         $result = $this->testimonialRepository->update($data);
         return $result;
     }
+
+    function delete($data) {
+        // dd($data);
+        $result = $this->testimonialRepository->delete($data);
+        return $result;
+    }
 }

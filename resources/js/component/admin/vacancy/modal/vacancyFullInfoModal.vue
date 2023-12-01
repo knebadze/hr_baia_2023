@@ -23,7 +23,7 @@
   <script>
   import { toast } from 'vue3-toastify';
   import 'vue3-toastify/dist/index.css';
-    import expand_body from '../admin/vacancy/component/table/expand_body.vue';
+    import expand_body from '../component/table/expand_body.vue';
   export default {
     components:{
         expand_body
@@ -52,6 +52,8 @@
             async show(){
                 try {
                     let result = await this.getInfo();
+                    console.log(this.vacancyId);
+                    console.log(result);
                     this.item = result.data.vacancy
                     this.hr_id = result.data.hr_id
                     this.roleId = result.data.role_id

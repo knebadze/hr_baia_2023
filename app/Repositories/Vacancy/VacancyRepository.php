@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Vacancy;
 
+use App\Models\Hr;
 use App\Models\Vacancy;
 use App\Models\Employer;
 use App\Events\hrDailyJob;
@@ -12,18 +13,15 @@ use App\Models\GlobalVariable;
 use App\Models\VacancyDeposit;
 use Illuminate\Support\Carbon;
 use App\Models\VacancyReminder;
+use App\Events\SmsNotificationEvent;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 
 class VacancyRepository{
     public function save($data)
     {
-        // $hr_id = $this->addHrId($data['employer']['name_ka'], $data['employer']['number']);
-        // dd($data);
         $employer = $this->addEmployer($data['employer']);
-        $hr_id = $this->addHrId($data['employer']['name_ka'], $data['employer']['number']);
-    // dd($hr_id);
-
-
+        $hr_id = $this->addHrId( $data['employer']['number'] );
 
         $vacancy = new Vacancy();
         $vacancy->code = random_int(100000, 999999999);
@@ -120,6 +118,8 @@ class VacancyRepository{
         }
 
         $reminder = $this->addReminder($vacancy->id, $vacancy->hr_id, $data['vacancy']['category'], $data['vacancy']['work_schedule'], $vacancy->start_date, $data['vacancy']['term']);
+        $smsData = ['code' => $vacancy->code, 'category' => $data['vacancy']['category']['name_ka'], 'number' => $data['employer']['number'], 'hr_id' => $hr_id];
+        $this->sendSms($smsData);
         return $vacancy->code;
 
 
@@ -149,7 +149,7 @@ class VacancyRepository{
         return $employer;
     }
 
-    public function addHrId($name, $number)
+    public function addHrId($number)
     {
 
         $hr_id = null;
@@ -264,5 +264,13 @@ class VacancyRepository{
     }
     function dailyWorkEvent($hr_id) {
         event(new hrDailyJob($hr_id, 'has_vacancy'));
+    }
+
+    function sendSms($data)
+    {
+        $hr = Hr::where('id', $data['hr_id'])->first();
+        $HData = ['name' => $hr->user->name_ka, 'number' => $hr->user->number];
+        event(new SmsNotificationEvent($HData, 'add_vacancy_send_employer'));
+        event(new SmsNotificationEvent($data, 'add_vacancy_send_hr'));
     }
 }

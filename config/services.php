@@ -42,4 +42,12 @@ return [
         'redirect' => env('FACEBOOK_REDIRECT'),
     ],
 
+    'smsservicege' => [
+        'username' => env('SMSSERVICEGE_USERNAME'),
+        'password' => env('SMSSERVICEGE_PASSWORD'),
+        'client_id' => env('SMSSERVICEGE_CLIENT_ID'),
+        'service_id' => env('SMSSERVICEGE_SERVICE_ID'),
+        'api_url' => env('SMSSERVICEGE_API_URL'),
+    ],
+
 ];

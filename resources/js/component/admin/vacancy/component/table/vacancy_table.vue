@@ -12,7 +12,7 @@
     >
         <template #item-operation="item">
             <div class="operation-wrapper">
-                <table_cog :item="item" :key="item.id" :hr_id="hr_id" :roleId="roleId"></table_cog>
+                <table_cog :item="item" :key="item.id" :hr_id="hr_id" :roleId="role_id"></table_cog>
             </div>
 
         </template>
@@ -28,7 +28,7 @@
             <!-- {{ item }} -->
               <!-- /.card-header -->
               <!-- <div class="card-header"> -->
-                <expand_body :item="item" :hr_id="hr_id" :roleId="roleId"/>
+                <expand_body :item="item" :hr_id="hr_id" :roleId="role_id"/>
               <!-- </div> -->
 
               <!-- /.card-body -->
@@ -155,7 +155,7 @@ export default {
         let hr_id = ref(props.hrId)
         let myVacancy = ref(false)
         let cla = ref(props.classificatory)
-
+        const role_id = ref(props.roleId ? props.roleId : 1)
 
         const headers = ref([
             { text: "id", value: "code" },
@@ -306,6 +306,7 @@ export default {
             m,
             cla,
             find,
+            role_id
 
         };
     },
