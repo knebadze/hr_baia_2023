@@ -125,6 +125,14 @@
                     </p>
                 </a>
             </li>
+            <li class="nav-item">
+                <a @if(Route::currentRouteName() === 'admin.sms.template') class="nav-link active" @else class="nav-link" @endif href="{{ route('admin.sms.template', App()->getLocale()) }}">
+                    <i class="nav-icon fa fa-envelope"></i>
+                    <p>
+                        SMS შაბლონი
+                    </p>
+                </a>
+            </li>
             <hr>
             <li class="nav-item mt-3">
                 <a

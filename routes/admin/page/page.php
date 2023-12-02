@@ -1,17 +1,19 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SmsPageControlle;
 use App\Http\Controllers\Admin\HrController;
 use App\Http\Controllers\Admin\SalaryController;
+use App\Http\Controllers\Admin\SmsPageController;
 use App\Http\Controllers\Admin\EmployerController;
 use App\Http\Controllers\Admin\ReminderController;
 use App\Http\Controllers\Admin\EnrollmentController;
+use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\AdminVacancyController;
 use App\Http\Controllers\Admin\AdminCandidateController;
 use App\Http\Controllers\Admin\GlobalVariableController;
 use App\Http\Controllers\Hr\SelectionPersonalController;
 use App\Http\Controllers\Admin\RelevantVacancyController;
-use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\VacancyAttachedController;
 use App\Http\Controllers\Admin\Vacancy\VacancyDepositController;
 
@@ -64,6 +66,9 @@ Route::prefix('admin')->group(function () {
     Route::get('vacancy_personal/{id?}', [SelectionPersonalController::class, 'vacancyPersonal'])
         ->name('vacancy.personal');
 
-        Route::get('testimonial', [TestimonialController::class, 'index'])
+    Route::get('testimonial', [TestimonialController::class, 'index'])
         ->name('admin.testimonial');
+
+    Route::get('sms_template', [SmsPageController::class, 'index'])
+        ->name('admin.sms.template');
 });

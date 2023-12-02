@@ -128,7 +128,6 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
 
     include('admin/page/page.php');
 
-
     Route::get('hr/busy_candidate', [BusyCandidateController::class, 'index'])->name('busy.candidate');
     // Route::get('hr/candidate', [BusyCandidateController::class, 'index'])->name('busy.candidate');
 
