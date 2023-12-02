@@ -99,21 +99,31 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-xl-6 col-lg-6 col-md-12">
-                                                    <div class="form-group mb-3">
-                                                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="{{ __('lang.modal_registration_password') }}" >
 
+
+                                                <div class="col-xl-6 col-lg-6 col-md-12">
+
+                                                    <div class="form-group mb-3">
+                                                        <div class="input-group">
+                                                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="{{ __('lang.modal_registration_password') }}">
+                                                            {{-- <div class="input-group-append">
+                                                                <span class="input-group-text" id="togglePassword">
+                                                                    <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                                                                </span>
+                                                            </div> --}}
+                                                        </div>
                                                         @error('password')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
                                                             </span>
                                                         @enderror
                                                     </div>
-
                                                 </div>
                                                 <div class="col-xl-6 col-lg-6 col-md-12">
                                                     <div class="form-group mb-3">
-                                                        <input id="password-confirm" type="password" class="form-control @error('password_confirmation') is-invalid @enderror"  name="password_confirmation" required autocomplete="new-password" placeholder="{{ __('გაიმეორეთ პაროლი') }}">
+                                                        <div class="input-group">
+                                                            <input id="password-confirm" type="password" class="form-control @error('password_confirmation') is-invalid @enderror"  name="password_confirmation" required autocomplete="new-password" placeholder="{{ __('გაიმეორეთ პაროლი') }}">
+                                                        </div>
                                                     </div>
                                                 </div>
 
@@ -121,7 +131,13 @@
                                                     <div class="form-group">
                                                         <label>{{ __('lang.modal_registration_birth_date') }}</label>
                                                         <div class="ls-inputicon-box">
-                                                            <input class="form-control @error('number') is-invalid @enderror" id="date_of_birth" name="date_of_birth" type="date" placeholder="mm/dd/yyyy">
+                                                            <input class="form-control @error('date_of_birth') is-invalid @enderror" id="date_of_birth" name="date_of_birth" value="{{ old('date_of_birth') }}" type="date" placeholder="mm/dd/yyyy">
+
+                                                            @error('date_of_birth')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
                                                         </div>
                                                     </div>
                                                 </div>
@@ -129,14 +145,18 @@
                                                 <div class="col-xl-6 col-lg-6 col-md-12" >
                                                     <p>{{ __('lang.modal_registration_gender') }}</p>
                                                     <div class="form-check form-check-inline">
-                                                        <input type="radio" name="gender_id" value="1" class="form-check-input" id="exampleradio1">
+                                                        <input type="radio" name="gender_id" value="1" class="form-check-input @error('gender_id') is-invalid @enderror" id="exampleradio1">
                                                         <label class="form-check-label" for="exampleradio1">{{ __('lang.modal_registration_gender_male') }}</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
-                                                        <input type="radio" name="gender_id" value="2" class="form-check-input" id="exampleradio2">
+                                                        <input type="radio" name="gender_id" value="2" class="form-check-input @error('gender_id') is-invalid @enderror" id="exampleradio2">
                                                         <label class="form-check-label" for="exampleradio2">{{ __('lang.modal_registration_gender_female') }}</label>
                                                     </div>
-
+                                                    @error('gender_id')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
                                                 </div>
                                                 <hr>
 
@@ -214,5 +234,6 @@
 
     </div>
     <!-- CONTENT END -->
+
 
 @endsection

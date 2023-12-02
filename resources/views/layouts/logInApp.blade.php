@@ -59,7 +59,15 @@
   <script  src="{{ asset('js/lc_lightbox.lite.js') }}" ></script><!-- IMAGE POPUP -->
   <script  src="{{ asset('js/bootstrap-select.min.js') }}"></script><!-- Form js -->
   <script  src="{{ asset('js/custom.js') }}"></script><!-- CUSTOM FUCTIONS  -->
-
+  <script>
+    document.getElementById("togglePassword").addEventListener("click", function() {
+        var passwordInput = document.getElementById("password");
+        var type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+        passwordInput.setAttribute("type", type);
+        this.querySelector("i").classList.toggle("fa-eye");
+        this.querySelector("i").classList.toggle("fa-eye-slash");
+    });
+    </script>
 
 
 </body>

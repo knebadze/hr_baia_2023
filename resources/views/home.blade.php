@@ -45,7 +45,7 @@
                     <!--Filter Short By-->
                     <div class="twm-right-section-panel site-bg-gray">
                         <div class="wt-admin-right-page-header">
-                            <h2>{{ Auth::user()->name_ka }} <p style="color: red">სხვა ენები ბაზიდან არ მოაქვს</p></h2>
+                            <h2>{{ Auth::user()->{'name_' . app()->getLocale()} }} </h2>
                             {{-- <p>IT Contractor</p> --}}
                         </div>
                         @if (Auth::user()->candidate)

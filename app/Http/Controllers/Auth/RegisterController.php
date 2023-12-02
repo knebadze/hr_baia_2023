@@ -59,6 +59,7 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'agree' => ['required'],
             'date_of_birth' => ['required', 'date', 'before:-18 years'],
+            'gender_id' => ['required']
         ],
         [
             'name_ka.required' => 'სახელი და გვარის შევსება სავალდებულოა',
@@ -73,7 +74,8 @@ class RegisterController extends Controller
             'password.confirmed' => 'პაროლის არასწორია',
             'agree.required' => 'საიტზე რეგისტრაციისთვი სავალდებულოა ეთანხმებოდეთ წესებს და პირობებს',
             'date_of_birth.required' => 'შევსება სავალდებულოა',
-            'date_of_birth.before:-18 years' => 'თქვენ არ ხართ სრულწლოვანი',
+            'date_of_birth.before' => 'თქვენ არ ხართ სრულწლოვანი',
+            'gender_id.required' => 'შევსება სავალდებულოა',
         ]);
     }
 
