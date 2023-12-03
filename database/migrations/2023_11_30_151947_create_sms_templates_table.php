@@ -16,10 +16,12 @@ return new class extends Migration
         Schema::create('sms_templates', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('description');
             $table->text('template_ka');
-            $table->text('template_ka_lt');
-            $table->text('template_en');
-            $table->text('template_ru');
+            $table->text('template_ka_lt')->nullable();
+            $table->text('template_en')->nullable();
+            $table->text('template_ru')->nullable();
+            $table->string('active', 5);
             $table->timestamps();
         });
     }

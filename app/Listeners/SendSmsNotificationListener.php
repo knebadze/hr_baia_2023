@@ -69,7 +69,7 @@ class SendSmsNotificationListener implements ShouldQueue
 
     protected function buildReplacementArray($data, $dynamicParams)
     {
-        dd($dynamicParams);
+        
         $replacementArray = [];
 
 

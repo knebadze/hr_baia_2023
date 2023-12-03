@@ -29,6 +29,7 @@ use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\BusyCandidateController;
 
 use App\Http\Controllers\Admin\BlackListController;
+use App\Http\Controllers\Admin\SmsPageController;
 use App\Http\Controllers\User\PostVacancyController;
 
 use App\Http\Controllers\User\UserProfileController;
@@ -172,5 +173,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     include('admin/testimonial/testimonial.php');
 
     Route::post('/subscribe', [SubscriptionController::class, 'subscribe'])->name('subscribe');
+    Route::post('/sms_template_update', [SmsPageController::class, 'update']);
+
 
 

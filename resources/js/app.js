@@ -88,7 +88,8 @@ const importComponents = async () => {
       testimonialCarousel,
       subscribeInput,
 
-      testimonialPage
+      testimonialPage,
+      smsTemplate
 
       // ... Other component imports ...
     ] = await Promise.all([
@@ -142,7 +143,8 @@ const importComponents = async () => {
       import('./component/welcome/testimonial_carousel.vue'),
       import('./component/welcome/subscribe_input.vue'),
 
-      import('./component/admin/testimonial/page/testimonial_page.vue')
+      import('./component/admin/testimonial/page/testimonial_page.vue'),
+      import('./component/admin/sms_template/page/sms_template.vue'),
 
 
       // ... Other dynamic imports ...
@@ -211,6 +213,7 @@ const importComponents = async () => {
     app.component('subscribe-input', subscribeInput.default)
 
     app.component('testimonial-page', testimonialPage.default)
+    app.component('sms-template', smsTemplate.default)
 
 
     app.component('multiselect', Multiselect)

@@ -71,7 +71,7 @@ class RegisterController extends Controller
             'number.unique' => 'ნომერი უკვე გამოყენებულია',
             'password.required' => 'პაროლის შევსება სავალდებულოა',
             'password.min' => 'პაროლი უნდა შედგებოდეს მინიმუმ 8 სიმბოლოსგან',
-            'password.confirmed' => 'პაროლის არასწორია',
+            'password.confirmed' => 'პაროლი არასწორია',
             'agree.required' => 'საიტზე რეგისტრაციისთვი სავალდებულოა ეთანხმებოდეთ წესებს და პირობებს',
             'date_of_birth.required' => 'შევსება სავალდებულოა',
             'date_of_birth.before' => 'თქვენ არ ხართ სრულწლოვანი',
