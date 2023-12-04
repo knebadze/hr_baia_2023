@@ -14,6 +14,12 @@ body {
     font-family: mtavruli !important;
 }
 
+/* PSSWD */
+.hiddenPsswd {
+  border: none;
+  background: white;
+}
+
 /* Prices Page */
 
 .termsPrices h4 {

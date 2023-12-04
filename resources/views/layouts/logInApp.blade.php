@@ -69,6 +69,16 @@
     });
     </script>
 
+<script>
+    document.getElementById("confirmPassword").addEventListener("click", function() {
+        var passwordInput = document.getElementById("password-confirm");
+        var type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+        passwordInput.setAttribute("type", type);
+        this.querySelector("i").classList.toggle("fa-eye");
+        this.querySelector("i").classList.toggle("fa-eye-slash");
+    });
+    </script>
+
 
 </body>
 
