@@ -68,6 +68,7 @@
         this.querySelector("i").classList.toggle("fa-eye-slash");
     });
     </script>
+    {{-- hgdf --}}
 
 <script>
     document.getElementById("confirmPassword").addEventListener("click", function() {
