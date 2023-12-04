@@ -50,7 +50,7 @@ const importComponents = async () => {
       candidateDetail,
 
       employerProfile,
-      postVacancy,
+      postVacancyPage,
       vacancyList,
       vacancyDetail,
       myVacancy,
@@ -105,7 +105,7 @@ const importComponents = async () => {
       import('./component/candidate/candidate_detail.vue'),
 
       import('./component/employer/employer_profile.vue'),
-      import('./component/employer/post_vacancy.vue'),
+      import('./component/employer/page/post_vacancy_page.vue'),
       import('./component/employer/vacancy_list.vue'),
       import('./component/employer/vacancy_detail.vue'),
       import('./component/employer/my_vacancy.vue'),
@@ -165,7 +165,7 @@ const importComponents = async () => {
 
     //employer
     app.component('employer-profile', employerProfile.default);
-    app.component('post-vacancy', postVacancy.default);
+    app.component('post-vacancy-page', postVacancyPage.default);
     app.component('vacancy-list', vacancyList.default);
     app.component('vacancy-detail', vacancyDetail.default);
     app.component('my-vacancy', myVacancy.default);
