@@ -9,6 +9,8 @@ use App\Http\Controllers\Admin\RelevantVacancyController;
 use App\Http\Controllers\Admin\VacancyAttachedController;
 
 // C
+
+Route::post('send_add_vacancy_validate_sms', [PostVacancyController::class, 'verifyNumber']);
 Route::post('add_vacancy', [PostVacancyController::class, 'store']);
 Route::post('repeat_vacancy', [VacancyActionController::class, 'repeat']);
 

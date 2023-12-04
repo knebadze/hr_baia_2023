@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Services\VacancyUpdateService;
 use Illuminate\Support\Facades\Schema;
 use App\Services\ClassificatoryService;
+use App\Services\SmsService;
 
 class PostVacancyController extends Controller
 {
@@ -45,6 +46,17 @@ class PostVacancyController extends Controller
             'classificatory' => $classificatory
         ];
         return view('post_job', compact('data'));
+    }
+
+    function verifyNumber(Request $request) {
+        $data = $request->model;
+        // dd($data);
+        $sendSms = new SmsService();
+        $randomNumber = rand(10000, 99999);
+        $check = $this->vacancyService->checkNumber($data);
+        $sendSms->sendSms($data['number'], 'verify code:'.$randomNumber);
+        $result = ['check' => $check, 'randomNumber' => $randomNumber];
+        return response()->json($result);
     }
 
     public function store(Request $request)

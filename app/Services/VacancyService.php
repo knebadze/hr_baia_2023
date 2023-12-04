@@ -103,6 +103,17 @@ class VacancyService{
         return $data;
     }
 
+    function checkNumber($data) {
+        $employer = Employer::where('number', $data['number'])->first();
+        $vacancy = [];
+        if ($employer) {
+            $vacancy = Vacancy::where('author_id', $employer->id)->with(['hr.user', 'category', 'status', 'employer'])->orderBy('id', 'DESC')->get();
+        }
+
+        return $vacancy;
+
+    }
+
     public function saveData($data)
     {
         $result = $this->rule($data);
@@ -114,6 +125,7 @@ class VacancyService{
         $result = $this->vacancyRepository->save($trData);
         return $result;
     }
+
     function rule($data){
         // dd($data);
         if (Employer::where('number', $data['employer']['number'])->exists()) {
@@ -124,6 +136,7 @@ class VacancyService{
             }
         }
     }
+
     public function Find($code)
     {
         $result = $this->findVacancyRepository->data($code);
