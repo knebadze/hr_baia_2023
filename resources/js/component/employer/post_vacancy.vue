@@ -1,10 +1,12 @@
 <template lang="">
         <!-- LOADING AREA START ===== -->
-        <loading :active="loader"
-        :can-cancel="true"
-        color="#01ecd5"
+        <loading
+            :active="loader"
+            :can-cancel="true"
+            color="#01ecd5"
 
-        :is-full-page="fullPage"/>
+            :is-full-page="fullPage"
+        />
     <!-- LOADING AREA  END ====== -->
     <div class="panel panel-default">
         <div class="text-center">
@@ -614,7 +616,7 @@
                     </div>
             </div>
             <hr>
-            <div class="row text-center border border-info py-4">
+            <!-- <div class="row text-center border border-info py-4">
                 <div class="col-lg-12 col-md-12 mb-4">
                     <div class="twm-error-content">
                         <h4 class="twm-error-title2 site-text-primary">ძველი ვაკანისის გამეორება</h4>
@@ -627,7 +629,7 @@
                             <form>
                                 <div class="row">
 
-                                    <!--Location-->
+
                                     <div class="form-group  col-md-9">
                                         <label>{{ ('ტელეფონის ნომერი') }}</label>
                                         <div class="twm-inputicon-box">
@@ -637,7 +639,7 @@
                                     </div>
 
 
-                                    <!--Find job btn-->
+
                                     <div class="form-group col-xl-3 col-lg-6 col-md-6">
                                         <button type="button" class="site-button" >{{ $t('lang.welcome_leftside_bar_search_job_location_job_search') }}</button>
                                     </div>
@@ -647,7 +649,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
 </template>
 <script>
