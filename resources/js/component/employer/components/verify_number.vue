@@ -1,8 +1,9 @@
 <template lang="">
+    <div class="container-fluid">
     <div class="main">
         <div class="row parent">
             <div class="col-md-12 text-center">
-                <h1>text</h1>
+                <h1 style="padding-bottom: 2%; padding-top: 2%;">text</h1>
             </div>
             <div class="col-xl-6 col-lg-8 col-md-12">
                 <div class="form-group">
@@ -12,19 +13,18 @@
                     <ul class="dropdown-menu" style=" overflow: hidden; overflow-y: auto; max-height: calc(100vh - 550px);">
                         <li v-for="item in cla" @click="chooseNumberCode(item)"><a class="dropdown-item"><span :class="`fi fi-${item.iso.toLowerCase()}`"></span>+{{ item.phonecode }}</a></li>
                     </ul>
-                        <input
+                        <input 
                             type="text"
                             class="form-control"
                             :class="(m.number == null )?'is-invalid':''"
                             v-model="m.number"
                             placeholder="555666777"
-                            onkeypress="return /[0-9]/i.test(event.key)"
-                        >
+                            onkeypress="return /[0-9]/i.test(event.key)">
                     </div>
                 </div>
             </div>
 
-            <div class="col-xl-6 col-lg-4 col-md-12">
+            <div class="numberSendButton">
                 <button class="btn btn-primary" @click="send">send</button>
             </div>
 
@@ -33,13 +33,13 @@
                     <div class="input-group mt-3">
                         <CodeInput
                             :fields="5"
-                            :fieldWidth="56"
-                            :fieldHeight="56"
+                            :fieldWidth="32"
+                            :fieldHeight="32"
                             :required="true"
                             @change="onChange"
                             @complete="onComplete"
                         />
-                        <p class="mr-2">
+                        <p class="mr-2 countDownSeconds" style="">
                             {{ countdown }}
                         </p>
                     </div>
@@ -48,7 +48,7 @@
             </div>
         </div>
     </div>
-
+</div>
 </template>
 <script>
 import { ref, defineComponent } from 'vue';
@@ -200,8 +200,8 @@ export default defineComponent({
 })
 </script>
 <style scoped>
-.main{
-    background-image: url('/storage/app/public/images/candidate-bg2.jpg') ;
+.main {
+    background-image: url('/public/public/images/candidates/candidate-bg2.jpg');
     background-position: center;
     background-repeat: no-repeat;
     width: 100%;
@@ -210,13 +210,24 @@ export default defineComponent({
     position: relative;
   }
 
-    .parent{
+    .parent {
         background-color: rgb(255, 255, 255);
         position: absolute;
-        padding: 60px 0;
+        /* padding: 60px 0; */
         left: 10%;
         top: 30%;
         width: 80%;
+    }
+
+    .countDownSeconds {
+        padding: 0.3%;
+        border-radius: 15px;
+        border-style: solid;
+        background-color: rgb(2,117,216,0.1);
+        border-color: rgb(2,117,216,0.9);
+        border-width: 1px;
+        margin-top: 16px; 
+        margin-left: 1% !important;
 
     }
 </style>
