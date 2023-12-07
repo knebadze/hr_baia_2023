@@ -17,7 +17,7 @@ use App\Http\Controllers\Admin\RelevantVacancyController;
 use App\Http\Controllers\Admin\VacancyAttachedController;
 use App\Http\Controllers\Admin\Vacancy\VacancyDepositController;
 
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware(['auth.adminRedirect'])->group(function () {
     Route::get('candidate_update/{id?}', [AdminCandidateController::class, 'edit'])
         ->name('admin.candidate.update');
 

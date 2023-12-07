@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Vacancy;
 use App\Models\Enrollment;
 use App\Models\GlobalVariable;
+use App\Events\SmsNotificationEvent;
 use Illuminate\Support\Facades\Auth;
 
 class EnrollmentRepository
@@ -30,7 +31,7 @@ class EnrollmentRepository
             $enrollment->file_path = $filePath;
         }
         $enrollment->save();
-
+       
         return $enrollment;
     }
 
@@ -58,6 +59,11 @@ class EnrollmentRepository
         }
         $enrollment->save();
         return $enrollment;
+    }
+
+    function sendSms($data, $name)
+    {
+        event(new SmsNotificationEvent($data, $name));
     }
 
 }

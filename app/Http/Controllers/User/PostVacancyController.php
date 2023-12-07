@@ -69,9 +69,9 @@ class PostVacancyController extends Controller
         foreach ($data['type'] as $key => $value) {
             $info = [];
             if ($value == 'try_add_vacancy_again_send_employer') {
-                $info = ['name' => $data['data']['hr_name'], 'number' => $data['data']['hr_number']];
+                $info = ['name' => $data['data']['hr_name'], 'number' => $data['data']['hr_number'], 'to' => $data['data']['employer_number']];
             }else if ($value == 'try_add_vacancy_again_send_hr'){
-                $info = ['name' => $data['data']['employer_name'], 'number' => $data['data']['employer_number']];
+                $info = ['name' => $data['data']['employer_name'], 'number' => $data['data']['employer_number'], 'to' => $data['data']['hr_number']];
             }
 
             event(new SmsNotificationEvent($info, $value));

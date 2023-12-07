@@ -9,6 +9,7 @@ use App\Models\VacancyDeposit;
 use App\Models\RegistrationFee;
 use App\Models\VacancyReminder;
 use App\Models\QualifyingCandidate;
+use App\Events\SmsNotificationEvent;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
@@ -67,7 +68,11 @@ class VacancyStatusUpdateRepository
             $deposit->must_be_enrolled_candidate = (int)$vacancy->payment / 2;
             $deposit->candidate_initial_amount =(int)$vacancy->payment / 2;
             $deposit->save();
+
+        }else{
+            $deposit = VacancyDeposit::where('vacancy_id', $vacancy_id)->first();
         }
+        return $deposit;
     }
 
     function updateQualifying($vacancy_id)  {
@@ -77,29 +82,9 @@ class VacancyStatusUpdateRepository
     }
 
 
-    function sendSms($phoneNumber, $message)
+    function sendSms($data)
     {
-        $response = Http::post(config('services.smsservicege.api_url'), [
-            'username' => config('services.smsservicege.username'),
-            'password' => config('services.smsservicege.password'),
-            'client_id' => config('services.smsservicege.client_id'),
-            'service_id' => config('services.smsservicege.service_id'),
-            'to' => $phoneNumber,
-            'text' => $message,
-        ]);
-
-        // Handle the response as needed
-        $responseData = $response->json();
-
-        // Check the response status and take appropriate actions
-        if ($response->successful()) {
-            // SMS sent successfully
-            // Access additional data using $responseData array
-        } else {
-            // Handle the error
-            $error = $responseData['error'] ?? 'Unknown error';
-            // Log or return the error message
-        }
+        event(new SmsNotificationEvent($data, 'vacancy_production_status_employer'));
     }
 
 

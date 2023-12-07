@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Vacancy;
 use App\Models\QualifyingCandidate;
+use App\Events\SmsNotificationEvent;
 use Illuminate\Support\Facades\Auth;
 
 class InterestCandidateService
@@ -15,6 +16,7 @@ class InterestCandidateService
             $result = $this->check($data['id']);
         }else{
             $result = $this->add($data['id']);
+
         }
         return $result;
     }
@@ -39,7 +41,15 @@ class InterestCandidateService
         $qualifying->qualifying_type_id = 2;
         $qualifying->candidate_id = Auth::user()->candidate->id;
         $qualifying->save();
-
+        
+        $this->sendSms($id);
         return ['type' => 's', 'qualifying' => $qualifying];
     }
+
+    function sendSms($data)
+    {
+        event(new SmsNotificationEvent(['to' => auth()->user()->number], 'interested_candidate'));
+        // event(new SmsNotificationEvent($data, 'interested_candidate_hr'));
+    }
+
 }

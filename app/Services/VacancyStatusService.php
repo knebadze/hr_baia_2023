@@ -62,7 +62,9 @@ class VacancyStatusService
 
     // Separate methods for handling each status
     private function handleStatus2($model, $vacancy) {
-        $this->vacancyStatusUpdateRepository->addDeposit($model['id']);
+        $deposit = $this->vacancyStatusUpdateRepository->addDeposit($model['id']);
+        $smsData =  ['to' => $vacancy->employer->number, 'employer_enroll' => $deposit->employer_initial_amount, 'candidate_enroll' => $deposit->candidate_initial_amount];
+        $this->vacancyStatusUpdateRepository->sendSms($smsData);
     }
 
     private function handleStatus3($model, $vacancy) {

@@ -269,7 +269,8 @@ class VacancyRepository{
     function sendSms($data)
     {
         $hr = Hr::where('id', $data['hr_id'])->first();
-        $HData = ['name' => $hr->user->name_ka, 'number' => $hr->user->number];
+        $HData = ['name' => $hr->user->name_ka, 'number' => $hr->user->number, 'to' => $data['number']];
+        $data['to'] = $hr->user->number;
         event(new SmsNotificationEvent($HData, 'add_vacancy_send_employer'));
         event(new SmsNotificationEvent($data, 'add_vacancy_send_hr'));
     }

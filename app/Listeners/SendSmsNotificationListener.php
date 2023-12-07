@@ -50,7 +50,7 @@ class SendSmsNotificationListener implements ShouldQueue
 
 
         // Send SMS using your SMS service
-        $this->smsService->sendSms($data['number'], $smsMessage);
+        $this->smsService->sendSms($data['to'], $smsMessage);
     }
 
     protected function getSmsTemplate($type)
@@ -69,7 +69,7 @@ class SendSmsNotificationListener implements ShouldQueue
 
     protected function buildReplacementArray($data, $dynamicParams)
     {
-        
+
         $replacementArray = [];
 
 

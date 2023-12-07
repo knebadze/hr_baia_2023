@@ -110,13 +110,16 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
         Route::get('/home', [HomeController::class, 'index'])->name('home');
 
         //______________________ADMIN PAGE_____________________________
-        Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+        Route::get('admin', [AdminController::class, 'index'])->name('admin');
+        Route::get('admin_verify', [AdminController::class, 'verifyPage'])->name('admin.verify');
+
         Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
     });
 
     //admin Route
     Route::post('/admin_login', [AdminController::class, 'login'])->name('admin.login');
+    Route::post('/admin/verify', [AdminController::class, 'verifyCode'])->name('admin.verify.code');
 
 
     Auth::routes();

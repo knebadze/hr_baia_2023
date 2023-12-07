@@ -478,21 +478,17 @@ export default {
                             title: '<p>თქვენი სამუშაო კატეგორია არ შეესაბამება ვაკანსიის კატეგორიას!!!</p>',
                             icon: 'info',
                             html:
-                                'დარწმუნებული ხართ რომ გსურთ ამ ვაკანსიით დაინტერესება?',
+                                'აუცილებელია დაამატოთ შესაფერისი სამუშაო კატეგორია',
                             showCloseButton: true,
                             showCancelButton: true,
-                            showDenyButton: true,
+                            showDenyButton: false,
                             focusConfirm: false,
-                            confirmButtonText: 'კი',
-                            denyButtonText: 'კატეგორიის დამატება',
+                            confirmButtonText: 'კატეგორიის დამატება',
                             cancelButtonText:'გაუქმება'
                         }).then((result) => {
                             /* Read more about isConfirmed, isDenied below */
                             if (result.isConfirmed) {
-                                currentObj.checkInterest = true
-                                currentObj.sendInterestAxios(item)
-                            }else if (result.isDenied) {
-                                window.location.replace(`/${currentObj.getLang}/user/work_information`)
+                                window.location.replace(`/${currentObj.getLang}/user/userProfile?stage=7`)
                             }
                         })
                     }else if(response.data.data.type == 's'){

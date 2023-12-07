@@ -26,31 +26,24 @@ class UserProfileController extends Controller
     {
         $data = [];
 
-        // $auth = Auth::user();
-        // $user = User::where('id', $auth->id)->with('gender')->first();
-
-        //კლასიფიკატორები
-
-
         $candidateClassificatoryArr = ['gender', 'nationality', 'religions','educations', 'maritalStatus', 'citizenship', 'professions',
         'specialties', 'allergies', 'languages', 'languageLevels', 'workExperiences', 'notices', 'noExperienceReason', 'drivingLicense',
         'numberCode', 'characteristic', 'numberOwner', 'yesNo', 'category', 'workSchedule','currency', 'recommendationFromWhom', 'noRecommendationReason',
         'duty', ];
-        // $candidateClassificatoryArr = [
-        //     ['gender'],
-        //     ['allergies', 'characteristic', 'citizenship', 'professions', 'specialties', 'nationality', 'religions','educations', 'maritalStatus'],
-        //     [],
-        //     ['languages', 'languageLevels'],
-        //     ['numberOwner', 'numberCode'],
-        //     ['yesNo', 'noExperienceReason', 'workExperiences'],
-        //     ['category', 'workSchedule','currency'],
-
-        // ];
         $classificatory = $this->classificatoryService->get($candidateClassificatoryArr);
+        $stage = null;
 
-       
+        $currentUrl = url()->full();
+        $parsedUrl = parse_url($currentUrl);
+        if ($parsedUrl['query']) {
+            $parts = explode('=', $parsedUrl['query']);
+            $stage = $parts[1];
+        }
+
+        // dd($currentUrl, $parsedUrl);
         $user_id = request('user');
-        $model = $this->candidateModelService->findData(null, $user_id);
+
+        $model = $this->candidateModelService->findData($stage, $user_id);
 
         $data = [
             'model' => $model,
