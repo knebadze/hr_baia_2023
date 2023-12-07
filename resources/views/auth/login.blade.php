@@ -25,7 +25,7 @@
                         <div class="twm-log-reg-form-wrap">
                             <div class="twm-log-reg-logo-head">
                                 <a href="index.html">
-                                    <img src="images/logo-dark.png" alt="" class="logo">
+                                    <img src="/images/logo-baia.png" alt="" class="logo">
                                 </a>
                             </div>
 

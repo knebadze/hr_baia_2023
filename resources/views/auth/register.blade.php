@@ -29,7 +29,7 @@
                             <div class="twm-log-reg-inner">
                                 <div class="twm-log-reg-head">
                                     <div class="twm-log-reg-logo">
-                                        <span class="log-reg-form-title">{{ __('lang.modal_registration_title') }}</span>
+                                        <span class="log-reg-form-title">{{ trans('lang.modal_registration_title') }}</span>
                                     </div>
                                 </div>
                                 <div class="twm-tabs-style-2">
