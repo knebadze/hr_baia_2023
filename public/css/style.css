@@ -18,6 +18,12 @@ body {
 .hiddenPsswd {
   border: none;
   background: white;
+
+  
+}
+
+.psswdInputBlock {
+  height: 10px !important;
 }
 
 /* Prices Page */
