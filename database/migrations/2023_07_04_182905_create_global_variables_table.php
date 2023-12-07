@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('global_variables', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('description');
             $table->string('meaning');
             $table->timestamps();
         });

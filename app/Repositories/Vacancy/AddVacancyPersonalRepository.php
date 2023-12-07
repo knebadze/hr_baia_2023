@@ -181,7 +181,7 @@ class AddVacancyPersonalRepository
                 $creator_id = $vacancy->hr->user->id;
             }
             // if (RegistrationFee::where('user_id', $candidate->user->id)->exists()) {
-                $paidBonus = GlobalVariable::where('name', 'paid registration')->first();
+                $paidBonus = GlobalVariable::where('name', 'paid_registration')->first();
                 $date = Carbon::now()->addDays(7)->toDateString();
                 $fee = RegistrationFee::create([
                     'user_id' => $candidate->user->id,

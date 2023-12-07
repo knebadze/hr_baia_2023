@@ -16,22 +16,18 @@ use App\Services\VacancyStatusService;
 class VacancyActionController extends Controller
 {
     private VacancyUpdateService $vacancyUpdateService;
-    private VacancyRepeatService $vacancyRepeatService;
     private VacancyRedactedRepository $vacancyRedactedRepository;
     private VacancyStatusService $vacancyStatusService;
     public function __construct(VacancyUpdateService $vacancyUpdateService,
-        VacancyRepeatService $vacancyRepeatService,
         VacancyRedactedRepository $vacancyRedactedRepository,
         VacancyStatusService $vacancyStatusService
     )
     {
         $this->vacancyUpdateService = $vacancyUpdateService;
-        $this->vacancyRepeatService = $vacancyRepeatService;
         $this->vacancyRedactedRepository = $vacancyRedactedRepository;
         $this->vacancyStatusService = $vacancyStatusService;
     }
     public function update(Request $request) {
-        dd($request->all());
         $data = $request->data;
         $result = ['status' => 200];
 
@@ -66,21 +62,7 @@ class VacancyActionController extends Controller
     }
 
 
-    function repeat(Request $request) {
-        $data = $request->data;
-        $result = ['status' => 200];
 
-        try {
-            $result['data'] = $this->vacancyRepeatService->repeat($data);
-        } catch (Exception $e) {
-            $result = [
-                'status' => 500,
-                'error' => $e->getMessage()
-            ];
-        }
-
-        return response()->json($result, $result['status']);
-    }
 
     function carryInHead(Request $request){
         $data = $request->data;

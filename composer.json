@@ -8,7 +8,7 @@
         "php": "^8.0.2",
         "astrotomic/laravel-translatable": "^11.11",
         "barryvdh/laravel-dompdf": "^2.0",
-        "guzzlehttp/guzzle": "^7.2",
+        "guzzlehttp/guzzle": "^7.8",
         "kirschbaum-development/eloquent-power-joins": "^3.0",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",

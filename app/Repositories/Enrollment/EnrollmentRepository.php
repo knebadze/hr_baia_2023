@@ -36,7 +36,7 @@ class EnrollmentRepository
 
     function register($data, $vacancy) {
         $user = User::where('id', $data['data']->user_id)->first();
-        $paidBonus = GlobalVariable::where('name', 'paid registration')->first();
+        $paidBonus = GlobalVariable::where('name', 'paid_registration')->first();
         $candidate_id = $user->candidate->id;
         $enrollment = new Enrollment();
         $enrollment->enrollment_type = 1;

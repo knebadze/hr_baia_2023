@@ -49,7 +49,6 @@ const importComponents = async () => {
       candidateList,
       candidateDetail,
 
-      employerProfile,
       postVacancyPage,
       vacancyList,
       vacancyDetail,
@@ -89,7 +88,8 @@ const importComponents = async () => {
       subscribeInput,
 
       testimonialPage,
-      smsTemplate
+      smsTemplate,
+      globalVariablePage
 
       // ... Other component imports ...
     ] = await Promise.all([
@@ -104,7 +104,6 @@ const importComponents = async () => {
       import('./component/candidate/candidate_list.vue'),
       import('./component/candidate/candidate_detail.vue'),
 
-      import('./component/employer/employer_profile.vue'),
       import('./component/employer/page/post_vacancy_page.vue'),
       import('./component/employer/vacancy_list.vue'),
       import('./component/employer/vacancy_detail.vue'),
@@ -145,6 +144,7 @@ const importComponents = async () => {
 
       import('./component/admin/testimonial/page/testimonial_page.vue'),
       import('./component/admin/sms_template/page/sms_template.vue'),
+      import('./component/admin/global_variable/page/global_variable_page.vue')
 
 
       // ... Other dynamic imports ...
@@ -164,7 +164,6 @@ const importComponents = async () => {
     app.component('candidate-detail', candidateDetail.default);
 
     //employer
-    app.component('employer-profile', employerProfile.default);
     app.component('post-vacancy-page', postVacancyPage.default);
     app.component('vacancy-list', vacancyList.default);
     app.component('vacancy-detail', vacancyDetail.default);
@@ -214,6 +213,7 @@ const importComponents = async () => {
 
     app.component('testimonial-page', testimonialPage.default)
     app.component('sms-template', smsTemplate.default)
+    app.component('global-variable', globalVariablePage.default)
 
 
     app.component('multiselect', Multiselect)

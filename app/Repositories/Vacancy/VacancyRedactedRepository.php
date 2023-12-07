@@ -9,6 +9,7 @@ use App\Models\VacancyRedactedHistory;
 class VacancyRedactedRepository
 {
     public function save($vacancy_id, $data) {
+        // dd($data);
         $user_id = Auth::id();
         foreach ($data as $key => $value) {
             $history = new VacancyRedactedHistory();

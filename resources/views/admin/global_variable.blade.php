@@ -20,7 +20,7 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-            
+            <global-variable :data='@json($data)'></global-variable>
         </div>
     </section>
 @endsection

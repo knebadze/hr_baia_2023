@@ -175,5 +175,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('/subscribe', [SubscriptionController::class, 'subscribe'])->name('subscribe');
     Route::post('/sms_template_update', [SmsPageController::class, 'update']);
 
+    include('admin/global_variable/variable.php');
+
 
 

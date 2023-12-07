@@ -10,7 +10,7 @@
     <!-- LOADING AREA  END ====== -->
     <div class="panel panel-default">
         <div class="text-center">
-            <h3>{{ searchData ? 'გაიმეორე ვაკანსია':'დაამატე ახალი ვაკანსია ან გაიმეორე ძველი' }}</h3>
+            <h3>{{ searchData ? 'გაიმეორე ვაკანსია':'დაამატე ახალი ვაკანსია' }}</h3>
         </div>
         <div v-if="searchData">
             <div class="panel-heading wt-panel-heading p-a20">
@@ -38,7 +38,7 @@
 
                     <div class="row">
                         <!--Job title-->
-                        <div class="col-xl-4 col-lg-6 col-md-12">
+                        <div class="col-xl-6 col-lg-6 col-md-12">
                             <div class="form-group">
                                 <label><span class="text-danger">* </span>სახელი გვარი</label>
                                 <div class="ls-inputicon-box">
@@ -55,7 +55,7 @@
                             </div>
                         </div>
                         <!--Job title-->
-                        <div class="col-xl-4 col-lg-6 col-md-12">
+                        <div class="col-xl-6 col-lg-6 col-md-12">
                             <div class="form-group">
                                 <label>მაილი</label>
                                 <div class="ls-inputicon-box">
@@ -72,7 +72,7 @@
                             </div>
                         </div>
 
-                        <div class="col-xl-4 col-lg-6 col-md-12">
+                        <!-- <div class="col-xl-4 col-lg-6 col-md-12">
                                 <div class="form-group">
                                     <label><span class="text-danger">* </span>{{ ('ტელეფონის ნომერი') }}</label>
                                     <div class="input-group mb-3">
@@ -93,8 +93,8 @@
                                         <span v-if="send && !v.employer.number.numeric.$response" style='color:red'>* </span>
                                     </div>
                                 </div>
-                            </div>
-                        <div class="col-xl-4 col-lg-6 col-md-12">
+                            </div> -->
+                        <div class="col-xl-6 col-lg-6 col-md-12">
                             <div class="form-group">
                                 <label><span class="text-danger">* </span>დასახლების დასახელება</label>
                                 <div class="ls-inputicon-box">
@@ -110,7 +110,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-4 col-lg-6 col-md-12">
+                        <div class="col-xl-6 col-lg-6 col-md-12">
                             <div class="form-group">
                                 <label>ქუჩა</label>
                                 <div class="ls-inputicon-box">
@@ -130,7 +130,7 @@
                         </div>
                         <!-- <div class="panel-body wt-panel-body p-a20 m-b30 "></div> -->
                             <!--Job title-->
-                            <div class="col-xl-4 col-lg-6 col-md-12">
+                            <!-- <div class="col-xl-4 col-lg-6 col-md-12">
                                 <div class="form-group">
                                     <label><span class="text-danger">* </span>{{ $t('lang.employer_add_job_vacancy_name') }}</label>
                                     <div class="ls-inputicon-box">
@@ -146,7 +146,7 @@
                                         <span v-if="send && !v.vacancy.title.maxLength.$response" style='color:red'>* </span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <!--Job Category-->
                             <div class="col-xl-4 col-lg-6 col-md-12">
@@ -672,6 +672,7 @@ export default {
         data: Object,
     },
     setup(props) {
+        console.log(props.data);
         const getLang = computed(() => {
             return I18n.getSharedInstance().options.lang;
         });
@@ -687,6 +688,7 @@ export default {
         var currentDate = moment();
         const startDateMin = ref(currentDate.add(1, 'days').format('YYYY-MM-DD'));
         cla.value.workSchedule = props.data.classificatory.workSchedule.filter(item => item.id !== 10 && item.id !== 11);
+
         let url = new URL( location.href)
 
         // გამეორების დროს იგზავნება ობიექტი
@@ -694,65 +696,7 @@ export default {
         const urlParams = new URLSearchParams(queryString);
         const searchData = JSON.parse(decodeURIComponent(urlParams.get('data')));
 
-        const makeData = () => {
-            let obj ={};
-            if (searchData) {
-
-                obj = {
-                    employer: {...searchData.employer},
-                    vacancy: {...searchData},
-                    demand: {...searchData.demand},
-                    characteristic: searchData.characteristic,
-                    duty: searchData.vacancy_duty,
-                    for_who_need: searchData.vacancy_for_who_need,
-                    benefit: searchData.vacancy_benefit,
-                    driving_license: searchData.vacancy_driving_license,
-
-                    interviewDate:'',
-                    interviewTime:'',
-                }
-                obj.vacancy.start_date = null
-                obj.vacancy.go_vacation = obj.vacancy.go_vacation == 1?true:false
-                obj.vacancy.stay_night = obj.vacancy.stay_night == 1?true:false
-                obj.vacancy.work_additional_hours = obj.vacancy.work_additional_hours == 1?true:false
-                obj.demand.has_experience = obj.demand.has_experience == 1?true:false
-                obj.demand.has_recommendation = obj.demand.has_recommendation == 1?true:false
-                obj.repeat_reason = null
-
-            }else{
-                obj = {
-                    employer: {...props.data.model.employer},
-                    vacancy: {...props.data.model.vacancy},
-                    demand: {...props.data.model.demand, education: null, specialty: null, language: null, language_level:null},
-                    characteristic:[],
-                    duty: [],
-                    for_who_need: [],
-                    benefit: [],
-                    interviewDate:'',
-                    interviewTime:'',
-                };
-                obj.employer.number_code = cla.value.numberCode.find(element => element.phonecode == 995);
-                obj.vacancy.payment = 0;
-                obj.vacancy['go_vacation'] = 0;
-                obj.vacancy['stay_night'] = 0;
-                obj.vacancy['work_additional_hours'] = 0;
-                obj.getLang = getLang;
-                obj.number_code = cla.value.numberCode.find(element => element.phonecode == 995);
-                obj.vacancy.category = null
-                obj.repeat_reason = null
-                obj.vacancy.interview_place = null
-            }
-
-            obj.lang = getLang
-            obj.employer.name = obj.employer[`name_${getLang.value}`];
-            obj.employer.address = obj.employer[`address_${getLang.value}`];
-            obj.employer.street = obj.employer[`street_${getLang.value}`];
-            obj.vacancy.additional_schedule = obj.vacancy[`additional_schedule_${getLang.value}`];
-            obj.vacancy.title = obj.vacancy[`title_${getLang.value}`];
-            return {...obj}
-        }
-        const formData = makeData()
-
+        const formData = {...props.data.model}
         const m = ref(formData)
 
         console.log(m.value);
@@ -773,37 +717,37 @@ export default {
                     ru:'',
                 },
                 '3':{
-                    ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
+                    ka:'ორშაბათი_დან პარასკევის ჩათლით, 08:00_დან 13:00_მდე',
                     en:'',
                     ru:'',
                 },
                 '4':{
-                    ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
+                    ka:'ორშაბათი_დან პარასკევის ჩათლით, 13:00_დან 17:00_მდე',
                     en:'',
                     ru:'',
                 },
                 '5':{
-                    ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
+                    ka:'ორშაბათი_დან პარასკევის ჩათლით, 21:00_დან 07:00_მდე',
                     en:'',
                     ru:'',
                 },
                 '6':{
-                    ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
+                    ka:'შაბათი და კვირა, 09:00_დან 18:00_მდე',
                     en:'',
                     ru:'',
                 },
                 '7':{
-                    ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
+                    ka:'ორშაბათი, ოთხშაბათი, პარასკევი, 09:00_დან 18:00_მდე',
                     en:'',
                     ru:'',
                 },
                 '8':{
-                    ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
+                    ka:'ხვალ, 09:00_დან 18:00_მდე',
                     en:'',
                     ru:'',
                 },
                 '9':{
-                    ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
+                    ka:'ორშაბათი, ხუთშაბათი, შაბათი, 09:00_დან 18:00_მდე',
                     en:'',
                     ru:'',
                 },
@@ -815,12 +759,12 @@ export default {
 
                 employer:{
                     name: { required },
-                    number: { required, numeric },
+                    // number: { required, numeric },
                     address: { required },
                     email: { email }
                 },
                 vacancy:{
-                    title: { required, maxLength:maxLength(50) },
+                    // title: { required, maxLength:maxLength(50) },
                     category: { required },
                     payment: { required },
                     currency: { required },

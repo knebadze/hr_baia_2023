@@ -3,14 +3,15 @@
 namespace App\Http\Controllers\User;
 
 use Exception;
+use App\Services\SmsService;
 use Illuminate\Http\Request;
 use App\Services\VacancyService;
+use App\Events\SmsNotificationEvent;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Services\VacancyUpdateService;
 use Illuminate\Support\Facades\Schema;
 use App\Services\ClassificatoryService;
-use App\Services\SmsService;
 
 class PostVacancyController extends Controller
 {
@@ -51,14 +52,33 @@ class PostVacancyController extends Controller
     function verifyNumber(Request $request) {
         $data = $request->model;
         // dd($data);
-        $sendSms = new SmsService();
-        $randomNumber = rand(10000, 99999);
+        $randomNumber = null;
+        if ($data['number_code']['iso'] == "GE" && strlen($data['number']) == 9) {
+            $sendSms = new SmsService();
+            $randomNumber = rand(10000, 99999);
+            $sendSms->sendSms($data['number'], 'verify code:'.$randomNumber);
+        }
         $check = $this->vacancyService->checkNumber($data);
-        $sendSms->sendSms($data['number'], 'verify code:'.$randomNumber);
         $result = ['check' => $check, 'randomNumber' => $randomNumber];
         return response()->json($result);
     }
 
+    function sendSms(Request $request){
+        // dd($request->model);
+        $data = $request->model;
+        foreach ($data['type'] as $key => $value) {
+            $info = [];
+            if ($value == 'try_add_vacancy_again_send_employer') {
+                $info = ['name' => $data['data']['hr_name'], 'number' => $data['data']['hr_number']];
+            }else if ($value == 'try_add_vacancy_again_send_hr'){
+                $info = ['name' => $data['data']['employer_name'], 'number' => $data['data']['employer_number']];
+            }
+
+            event(new SmsNotificationEvent($info, $value));
+        }
+        return response()->json();
+
+    }
     public function store(Request $request)
     {
 

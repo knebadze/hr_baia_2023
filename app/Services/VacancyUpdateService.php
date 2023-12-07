@@ -92,6 +92,7 @@ class VacancyUpdateService{
     public function updateData($data) {
         $lang = $data['model']['lang'];
         $trData = $this->translate($lang, $data['model']);
+
         $update = $this->vacancyUpdateRepository->update($trData);
         $history = $this->vacancyRedactedRepository->save($data['model']['id'], $data['edit']);
         $result = [$update, $history];

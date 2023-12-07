@@ -12,7 +12,6 @@ use App\Http\Controllers\Admin\VacancyAttachedController;
 
 Route::post('send_add_vacancy_validate_sms', [PostVacancyController::class, 'verifyNumber']);
 Route::post('add_vacancy', [PostVacancyController::class, 'store']);
-Route::post('repeat_vacancy', [VacancyActionController::class, 'repeat']);
 
 // R
 Route::post('/get_classificatory', [GetVacancyInfoController::class, 'getClassificatory']);
@@ -38,6 +37,9 @@ Route::post('delete_vacancy', [VacancyActionController::class, 'delete']);
 // F
 Route::post('vacancy_filter', [VacancyController::class, 'filter']);
 Route::post('admin_vacancy_filter', [VacancyActionController::class, 'filter']);
+
+// SMS
+Route::post('send_sms_add_vacancy', [PostVacancyController::class, 'sendSms']);
 
 
 include('deposit.php');

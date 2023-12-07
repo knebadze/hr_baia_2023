@@ -30,6 +30,7 @@ class HrController extends Controller
         $data['hasVacancyControl'] = $hasVacancyControl;
         return view('admin.hr', compact('data'));
     }
+    
     public function store(Request $request)
     {
         $data = $request->all();
