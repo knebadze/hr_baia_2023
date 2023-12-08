@@ -21,7 +21,7 @@
                     <div class="col-xl-5 col-lg-6 col-md-7">
                         <div class="twm-log-reg-form-wrap">
                             <div class="twm-log-reg-logo-head">
-                                <a href="index.html">
+                                <a href="{{ url ('/') }}">
                                     <img src="/images/logo-baia.png" alt="" class="logo">
                                 </a>
                             </div>
@@ -103,11 +103,11 @@
                                                     <div class="form-group mb-3">
                                                         <div class="input-group">
                                                             <input id="password" type="password" class="form-control psswdInputBlock @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="{{ __('lang.modal_registration_password') }}">
-                                                            <div class="input-group-append">
+
                                                                 <span class="input-group-text hiddenPsswd" id="togglePassword">
                                                                     <i class="fa fa-eye-slash" aria-hidden="true"></i>
                                                                 </span>
-                                                            </div>
+
                                                         </div>
                                                         @error('password')
                                                             <span class="invalid-feedback" role="alert">
@@ -120,11 +120,11 @@
                                                     <div class="form-group mb-3">
                                                         <div class="input-group">
                                                             <input id="password-confirm" type="password" class="form-control psswdInputBlock @error('password_confirmation') is-invalid @enderror"  name="password_confirmation" required autocomplete="new-password" placeholder="{{ __('გაიმეორეთ პაროლი') }}">
-                                                            <div class="input-group-append">
+
                                                                 <span class="input-group-text hiddenPsswd" id="confirmPassword">
                                                                     <i class="fa fa-eye-slash" aria-hidden="true"></i>
                                                                 </span>
-                                                            </div>
+ 
                                                         </div>
                                                     </div>
                                                 </div>

@@ -24,7 +24,7 @@
                     <div class="col-xl-4 col-lg-6 col-md-7">
                         <div class="twm-log-reg-form-wrap">
                             <div class="twm-log-reg-logo-head">
-                                <a href="index.html">
+                                <a href="{{ url ('/') }}">
                                     <img src="/images/logo-baia.png" alt="" class="logo">
                                 </a>
                             </div>
@@ -55,8 +55,24 @@
 
                                             <div class="col-lg-12">
                                                 <div class="form-group mb-3">
+                                                    <div class="input-group">
                                                     <input id="logInPassword" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="{{ __('lang.modal_login_password') }}">
 
+                                                            <span class="input-group-text hiddenPsswd" id="togglePassword">
+                                                                <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                                                            </span>
+
+                                                    </div>
+                                                    <script>
+                                                        document.getElementById("togglePassword").addEventListener("click", function() {
+                                                            var passwordInput = document.getElementById("logInPassword");
+                                                            var type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+                                                            passwordInput.setAttribute("type", type);
+                                                            this.querySelector("i").classList.toggle("fa-eye");
+                                                            this.querySelector("i").classList.toggle("fa-eye-slash");
+                                                        });
+                                                    </script>
+                                                    
                                                     @error('password')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
