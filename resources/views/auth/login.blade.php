@@ -24,7 +24,7 @@
                     <div class="col-xl-4 col-lg-6 col-md-7">
                         <div class="twm-log-reg-form-wrap">
                             <div class="twm-log-reg-logo-head">
-                                <a href="index.html">
+                                <a href="{{ url ('/') }}">
                                     <img src="/images/logo-baia.png" alt="" class="logo">
                                 </a>
                             </div>
