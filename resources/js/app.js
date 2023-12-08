@@ -50,7 +50,7 @@ const importComponents = async () => {
       candidateDetail,
 
       postVacancyPage,
-      vacancyList,
+      vacancyListPage,
       vacancyDetail,
       myVacancy,
       showUpdateVacancy,
@@ -105,7 +105,7 @@ const importComponents = async () => {
       import('./component/candidate/candidate_detail.vue'),
 
       import('./component/employer/page/post_vacancy_page.vue'),
-      import('./component/employer/vacancy_list.vue'),
+      import('./component/employer/page/vacancy_list_page.vue'),
       import('./component/employer/vacancy_detail.vue'),
       import('./component/employer/my_vacancy.vue'),
       import('./component/employer/show_update_vacancy.vue'),
@@ -154,47 +154,47 @@ const importComponents = async () => {
 
     //___________________USER COMPONENT_____________________
     //user
-    app.component('upload-avatar', uploadAvatar.default)
-    app.component('change-password', changePassword.default)
+    app.component('upload-avatar', uploadAvatar.default);
+    app.component('change-password', changePassword.default);
     //candidate
-    app.component('candidate-profile', candidateProfile.default)
-    app.component('candidate-work-information', candidateWorkInformation.default)
+    app.component('candidate-profile', candidateProfile.default);
+    app.component('candidate-work-information', candidateWorkInformation.default);
     app.component('resume-vue', resume.default);
     app.component('candidate-list', candidateList.default);
     app.component('candidate-detail', candidateDetail.default);
 
     //employer
     app.component('post-vacancy-page', postVacancyPage.default);
-    app.component('vacancy-list', vacancyList.default);
+    app.component('vacancy-list-page', vacancyListPage.default);
     app.component('vacancy-detail', vacancyDetail.default);
     app.component('my-vacancy', myVacancy.default);
     app.component('show-update-vacancy', showUpdateVacancy.default);
 
     // HR
 
-    app.component('selection-personal', selectionPersonal.default)
-    app.component('vacancy-personal', vacancyPersonal.default)
-    app.component('reminder-manager', reminderManager.default)
+    app.component('selection-personal', selectionPersonal.default);
+    app.component('vacancy-personal', vacancyPersonal.default);
+    app.component('reminder-manager', reminderManager.default);
     //modal
     app.component('modal-manager', modalManager.default);
 
     //____________________ADMIN COMPONENT_____________
-    app.component('hr-page', hrPage.default)
+    app.component('hr-page', hrPage.default);
     // app.component('candidate-table', candidateTable)
     // dashboard
-    app.component('daily-reminder',dailyReminder.default)
-    app.component('daily-work',dailyWork.default)
-    app.component('popular-vacancy',popularVacancy.default)
+    app.component('daily-reminder',dailyReminder.default);
+    app.component('daily-work',dailyWork.default);
+    app.component('popular-vacancy',popularVacancy.default);
     // page
-    app.component('candidate-page', candidatePage.default)
-    app.component('candidate-update', candidateUpdate.default)
-    app.component('add-candidate', addCandidate.default)
-    app.component('reminder-page', reminderPage.default)
-    app.component('vacancy-page', vacancyPage.default)
-    app.component('vacancy-deposit', vacancyDeposit.default)
-    app.component('vacancy-attached', vacancyAttached.default)
-    app.component('relevant-vacancy', relevantVacancy.default)
-    app.component('vacancy-table', vacancyTable.default)
+    app.component('candidate-page', candidatePage.default);
+    app.component('candidate-update', candidateUpdate.default);
+    app.component('add-candidate', addCandidate.default);
+    app.component('reminder-page', reminderPage.default);
+    app.component('vacancy-page', vacancyPage.default);
+    app.component('vacancy-deposit', vacancyDeposit.default);
+    app.component('vacancy-attached', vacancyAttached.default);
+    app.component('relevant-vacancy', relevantVacancy.default);
+    app.component('vacancy-table', vacancyTable.default);
     // app.component('admin-vacancy-table', adminVacancyTable.default)
 
     app.component('employer-page', employerPage.default)
