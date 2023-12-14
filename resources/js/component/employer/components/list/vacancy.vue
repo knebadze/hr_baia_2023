@@ -138,7 +138,7 @@ export default {
         };
 
         const sendInterestAxios = (item) =>{
-
+            console.log(item);
             axios({
                 method: "post",
                 url: '/interest_vacancy',
@@ -163,7 +163,8 @@ export default {
                         }).then((result) => {
                             /* Read more about isConfirmed, isDenied below */
                             if (result.isConfirmed) {
-                                window.location.replace(`/${getLang.value}/user/userProfile?stage=7`)
+                                // !!!!!!!!!!!!!!!!!!!!!!!!!!!აქ შეიძლება ჩაშენდეს ავტომატური დამატების სერვისი!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                                window.location.replace(`/${getLang.value}/user/userProfile?stage=6`)
                             }
                         })
                     }else if(response.data.data.type == 's'){

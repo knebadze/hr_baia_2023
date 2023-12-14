@@ -13,6 +13,7 @@ use App\Models\RegistrationFee;
 use App\Models\userRegisterLog;
 use App\Models\VacancyReminder;
 use App\Models\QualifyingCandidate;
+use App\Events\SmsNotificationEvent;
 
 class AddVacancyPersonalRepository
 {
@@ -117,6 +118,7 @@ class AddVacancyPersonalRepository
 
         return $qualifying;
     }
+
     function delete($data) {
         if (gettype($data['candidate_id']) == 'array') {
             $qualifying = QualifyingCandidate::whereIn('candidate_id', $data['candidate_id'])->where('vacancy_id', $data['vacancy_id'])->delete();
@@ -298,5 +300,10 @@ class AddVacancyPersonalRepository
     function employedDailyWorkEvent($vacancy_id) {
         $vacancy = Vacancy::where('id', $vacancy_id)->first();
         event(new hrDailyJob($vacancy->hr_id, 'employed'));
+    }
+
+    function sendSms($data, $name)
+    {
+        event(new SmsNotificationEvent($data, $name));
     }
 }

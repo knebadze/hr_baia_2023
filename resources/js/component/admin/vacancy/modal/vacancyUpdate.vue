@@ -33,8 +33,12 @@
                             </div>
                         </div>
                         <div class="col-6">
-                            <label for="exampleInputEmail1">მისამართი</label>
+                            <label for="exampleInputEmail1">დასახლების დასახელება</label>
                             <input class="form-control" v-model="m[`address_${getLang}`]" type="text" >
+                        </div>
+                        <div class="col-6">
+                            <label for="exampleInputEmail1">ქუჩა</label>
+                            <input class="form-control" v-model="m[`street_${getLang}`]" type="text" >
                         </div>
                     </div>
                     <div class=" p-a20 my-3">
@@ -50,7 +54,17 @@
                         <div class="col-4">
                             <label >კატეგორია</label>
                             <div class="ls-inputicon-box">
-                                <multiselect  v-model="m.category" :options="cla.category" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" placeholder="Select one"  :searchable="true" :allow-empty="false">
+                                <multiselect
+                                    v-model="m.category"
+                                    :options="cla.category"
+                                    deselect-label="Can't remove this value"
+                                    :track-by="`name_${getLang}`"
+                                    :label="`name_${getLang}`"
+                                    placeholder="Select one"
+                                    :searchable="true"
+                                    :allow-empty="false"
+                                    disabled
+                                >
                                     <template slot="singleLabel" slot-scope="{ option }"></template>
                                 </multiselect>
                             </div>
@@ -364,42 +378,39 @@
 
             },
             makeModel(item){
-                this.numberCode.phonecode = item.employer.number_code.phonecode
-                item.number_code = item.employer.number_code
-                this.numberCode.iso = item.employer.number_code.iso
-                item.employer_id = item.employer.id
-                item.name_ka = item.employer.name_ka
-                item.name_en = item.employer.name_en
-                item.name_ru = item.employer.name_ru
-                item.email = item.employer.email
-                item.number = item.employer.number
-                item.address_ka = item.employer.address_ka
-                item.address_en = item.employer.address_en
-                item.address_ru = item.employer.address_ru
-                if (item.stay_night == 1) {
-                    item.stay_night = true
-                }
-                if (item.go_vacation == 1) {
-                    item.go_vacation = true
-                }
-                if (item.work_additional_hours == 1) {
-                    item.work_additional_hours = true
-                }
-                item.demand_id = item.demand.id
-                item.min_age = item.demand.min_age
-                item.max_age = item.demand.max_age
-                item.education = item.demand.education
-                item.specialty = item.demand.specialty
-                item.language = item.demand.language
-                item.language_level = item.demand.language_level
-                item.additional_duty_ka = item.demand.additional_duty_ka
-                item.additional_duty_en = item.demand.additional_duty_en
-                item.additional_duty_ru = item.demand.additional_duty_ru
-                var splitData = item.interview_date.split(" ")
-                item.interviewDate = splitData[0]
-                item.interviewTime = splitData[1]
-                item.lang = this.getLang
-                return {...item}
+                let [datePart, timePart] = item.interview_date.split(' ');
+                const { id: employer_id, ...employerWithoutId } = item.employer;
+                const { id: demand_id , ...demandWithoutId } = item.demand;
+                const data = {
+                    ...employerWithoutId,
+                    ...item,
+                    ...demandWithoutId,
+                    characteristic:item.characteristic,
+                    vacancy_duty: item.vacancy_duty,
+                    vacancy_for_who_need: item.vacancy_for_who_need,
+                    vacancy_benefit: item.vacancy_benefit,
+                    interviewDate:datePart,
+                    interviewTime:timePart,
+                    driving_license: item.vacancy_driving_license
+                };
+                data.employer_id = employer_id
+                data.demand_id = demand_id
+
+                data.name = data[`name_${this.getLang}`];
+                data.address = data[`address_${this.getLang}`];
+                data.street = data[`street_${this.getLang}`];
+
+                data.additional_schedule = data[`additional_schedule_${this.getLang}`];
+                data.title = data[`title_${this.getLang}`];
+                data.go_vacation = data.go_vacation == 0 ? false : true;
+                data.stay_night = data.stay_night == 0 ? false : true;
+                data.work_additional_hours = data.work_additional_hours == 0 ? false : true;
+
+                data.has_experience = data.has_experience == 0 ? false : true;
+                data.has_recommendation = data.has_recommendation == 0 ? false : true;
+
+                data.lang = this.getLang
+                return {...data}
             },
             chooseNumberCode(item){
 
@@ -430,6 +441,8 @@
                     return;
                 }
                 var editedFields = this.forItem(this.m)
+                console.log('editedFields', editedFields);
+                // return
                 let currentObj = this
                 this.$swal({
                     title: 'ნამდვილად გსურთ ვაკანსიის რედაქტირება?',

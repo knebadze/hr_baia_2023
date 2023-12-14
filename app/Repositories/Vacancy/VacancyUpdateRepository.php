@@ -57,7 +57,7 @@ class VacancyUpdateRepository
             // $demand->language_id = $data['language']['id'];
             // $demand->language_level_id = $data['language_level']['id'];
             // $demand->update();
-            $demand = VacancyDemand::findOrFail($data['demand']['id']);
+            $demand = VacancyDemand::findOrFail($data['demand_id']);
             $demand->min_age = $data['demand']['min_age'];
             $demand->max_age = $data['demand']['max_age'];
             $demand->education_id = ($data['demand']['education'])?$data['demand']['education']['id']:null;
@@ -71,16 +71,16 @@ class VacancyUpdateRepository
             $demand->has_recommendation = ($data['demand']['has_recommendation'])?$data['demand']['has_recommendation']:0;
         }
 
-        $employer = Employer::findOrFail($data['employer']['id']);
-        $employer->name_ka = $data['employer']['name_ka'];
-        $employer->name_en = $data['employer']['name_en'];
-        $employer->name_ru = $data['employer']['name_ru'];
-        $employer->address_ka = $data['employer']['address_ka'];
-        $employer->address_en = $data['employer']['address_en'];
-        $employer->address_ru = $data['employer']['address_ru'];
-        $employer->number = $data['employer']['number'];
-        $employer->number_code_id = $data['employer']['number_code']['id'];
-        $employer->email = $data['employer']['email'];
+        $employer = Employer::findOrFail($data['employer_id']);
+        $employer->name_ka = $data['name_ka'];
+        $employer->name_en = $data['name_en'];
+        $employer->name_ru = $data['name_ru'];
+        $employer->address_ka = $data['address_ka'];
+        $employer->address_en = $data['address_en'];
+        $employer->address_ru = $data['address_ru'];
+        $employer->number = $data['number'];
+        $employer->number_code_id = $data['number_code']['id'];
+        $employer->email = $data['email'];
         $employer->update();
         // dd($data);
         // $findDeposit = VacancyDeposit::where('vacancy_id', $data['id'])->first();

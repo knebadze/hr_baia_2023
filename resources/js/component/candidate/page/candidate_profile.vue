@@ -10,7 +10,7 @@
                 </tab-content>
 
             </form-wizard> -->
-            <form-wizard color="#094899"  step-size="xs" :start-index="startIndex">
+            <form-wizard color="#094899"  step-size="xs" :start-index="Number(startIndex)">
                 <!-- Access WizardStep Component directly with all props  -->
                 <template v-slot:step="props">
                     <wizard-step

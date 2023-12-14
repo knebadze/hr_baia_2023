@@ -24,14 +24,14 @@ class VacancyUpdateService{
     public function translate($lang, $data)
     {
         if ($lang == 'ka') {
-            $data['employer']['name_en'] = GoogleTranslate::trans($data['employer']['name_ka'], 'en');
-            $data['employer']['name_ru']  = GoogleTranslate::trans($data['employer']['name_ka'], 'ru');
+            $data['name_en'] = GoogleTranslate::trans($data['name_ka'], 'en');
+            $data['name_ru']  = GoogleTranslate::trans($data['name_ka'], 'ru');
 
-            $data['employer']['address_en'] = GoogleTranslate::trans($data['employer']['address_ka'], 'en');
-            $data['employer']['address_ru']  = GoogleTranslate::trans($data['employer']['address_ka'], 'ru');
-            if ($data['employer']['street_ka']) {
-                $data['employer']['street_en'] = GoogleTranslate::trans($data['employer']['street_ka'], 'en');
-                $data['employer']['street_ru']  = GoogleTranslate::trans($data['employer']['street_ka'], 'ru');
+            $data['address_en'] = GoogleTranslate::trans($data['address_ka'], 'en');
+            $data['address_ru']  = GoogleTranslate::trans($data['address_ka'], 'ru');
+            if ($data['street_ka']) {
+                $data['street_en'] = GoogleTranslate::trans($data['street_ka'], 'en');
+                $data['street_ru']  = GoogleTranslate::trans($data['street_ka'], 'ru');
             }
 
 
@@ -52,15 +52,15 @@ class VacancyUpdateService{
 
 
         }elseif ($lang == 'en') {
-            $data['employer']['name_ka'] = GoogleTranslate::trans($data['employer']['name_en'], 'ka');
-            $data['employer']['name_ru']  = GoogleTranslate::trans($data['employer']['name_en'], 'ru');
+            $data['name_ka'] = GoogleTranslate::trans($data['name_en'], 'ka');
+            $data['name_ru']  = GoogleTranslate::trans($data['name_en'], 'ru');
 
-            $data['employer']['address_ka'] = GoogleTranslate::trans($data['employer']['address_en'], 'ka');
-            $data['employer']['address_ru']  = GoogleTranslate::trans($data['employer']['address_en'], 'ru');
+            $data['address_ka'] = GoogleTranslate::trans($data['address_en'], 'ka');
+            $data['address_ru']  = GoogleTranslate::trans($data['address_en'], 'ru');
 
-            if ($data['employer']['street_en']) {
-                $data['employer']['street_ka'] = GoogleTranslate::trans($data['employer']['street_en'], 'ka');
-                $data['employer']['street_ru']  = GoogleTranslate::trans($data['employer']['street_en'], 'ru');
+            if ($data['street_en']) {
+                $data['street_ka'] = GoogleTranslate::trans($data['street_en'], 'ka');
+                $data['street_ru']  = GoogleTranslate::trans($data['street_en'], 'ru');
             }
 
 
@@ -81,15 +81,15 @@ class VacancyUpdateService{
 
 
         }elseif ($lang == 'ru') {
-            $data['employer']['name_ka'] = GoogleTranslate::trans($data['employer']['name_ru'], 'ka');
-            $data['employer']['name_en']  = GoogleTranslate::trans($data['employer']['name_ru'], 'en');
+            $data['name_ka'] = GoogleTranslate::trans($data['name_ru'], 'ka');
+            $data['name_en']  = GoogleTranslate::trans($data['name_ru'], 'en');
 
-            $data['employer']['address_ka'] = GoogleTranslate::trans($data['employer']['address_ru'], 'ka');
-            $data['employer']['address_en']  = GoogleTranslate::trans($data['employer']['address_ru'], 'en');
+            $data['address_ka'] = GoogleTranslate::trans($data['address_ru'], 'ka');
+            $data['address_en']  = GoogleTranslate::trans($data['address_ru'], 'en');
 
-            if ($data['employer']['street_ru']) {
-                $data['employer']['street_ka'] = GoogleTranslate::trans($data['employer']['street_ru'], 'ka');
-                $data['employer']['street_en']  = GoogleTranslate::trans($data['employer']['street_ru'], 'en');
+            if ($data['street_ru']) {
+                $data['street_ka'] = GoogleTranslate::trans($data['street_ru'], 'ka');
+                $data['street_en']  = GoogleTranslate::trans($data['street_ru'], 'en');
             }
 
             if ($data['title_ru']) {
@@ -112,7 +112,7 @@ class VacancyUpdateService{
         return $data;
     }
     public function updateData($data) {
-        dd($data);
+        // dd($data);
         $lang = $data['model']['lang'];
         $trData = $this->translate($lang, $data['model']);
 
