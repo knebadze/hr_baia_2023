@@ -9,7 +9,7 @@
 import { ref, computed } from 'vue';
 import _ from 'lodash';
 import verify_number from '../components/verify_number.vue';
-import post_vacancy from '../components/post_vacancy.vue';
+import post_vacancy from '../components/post_vacancy/post_vacancy.vue';
 export default {
     components:{
         verify_number,

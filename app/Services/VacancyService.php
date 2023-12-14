@@ -143,9 +143,9 @@ class VacancyService{
         }
     }
 
-    public function Find($code)
+    public function Find($number)
     {
-        $result = $this->findVacancyRepository->data($code);
+        $result = $this->findVacancyRepository->data($number);
         return $result;
     }
 

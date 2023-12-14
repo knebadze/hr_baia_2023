@@ -47,7 +47,7 @@
                             <h4 class="twm-s-title">ოჯახში მუშაობის გამოცდილება</h4>
                             <div class="twm-timing-list-wrap">
                                 <div class="twm-timing-list">
-                                    <div class="twm-time-list-discription">
+                                    <div v-if="data.family_work_experience.experience == 1" class="twm-time-list-discription">
                                         <p>მიმუშავია {{ data.family_work_experience.families_worked_count }} ოჯახში.
                                             {{ (category.length > 1)?'პოზიციებზე:':'პოზიციაზე' }} <b v-for="(item, index) in category" :key="index">{{ item }}</b>,
                                            მაქვს ოჯახში მუშაობის სტაჟი: {{ data.family_work_experience.work_experience[`name_${getLang}`] }}, აქედან ყველაზე ხანგრძლივად ერთ ოჯახში მუშაობის სტაჟი: {{ data.family_work_experience.longest[`name_${getLang}`] }}.
@@ -57,19 +57,22 @@
                                             მევალებოდა: {{ data.family_work_experience.get_family_work_duty.map(i => i.duty[`name_${getLang}`]).join(', ') }}
                                         </p>
                                     </div>
+                                    <p v-else-if="data.family_work_experience.experience == 2">არ ქონის მიზეზი: {{ data.family_work_experience.no_reason[`name_${getLang}`] }}</p>
                                 </div>
 
                             </div>
                             <h4 class="twm-s-title">ზოგადი სამუშაო გამოცდილება</h4>
                             <div class="twm-timing-list-wrap">
 
-                                <div class="twm-timing-list" v-for="(item, index) in data.general_work_experience" :key="index">
+                                <div v-if="data.general_work_experience.length > 0" class="twm-timing-list" v-for="(item, index) in data.general_work_experience" :key="index">
                                     <div class="twm-time-list-date">{{ item[`name_${getLang}`] }}</div>
                                     <div class="twm-time-list-title">{{ item.pivot[`object_${getLang}`] }}</div>
                                     <div class="twm-time-list-position">{{ item.pivot[`position_${getLang}`] }}</div>
                                     <hr>
                                 </div>
+                                <p >არ ქონის მიზეზი: </p>
                             </div>
+
                         </div>
 
                     </div>
@@ -80,8 +83,8 @@
                             <div class="twm-s-map mb-5">
                                 <h4 class="section-head-small mb-4">Location</h4>
                                 <div class="twm-s-map-iframe">
-                                    <location_map :markerPosition="[data.longitude, data.latitude]"></location_map>
-                                    <!-- <iframe height="270" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3304.8534521658976!2d-118.2533646842856!3d34.073270780600225!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c6fd9829c6f3%3A0x6ecd11bcf4b0c23a!2s1363%20Sunset%20Blvd%2C%20Los%20Angeles%2C%20CA%2090026%2C%20USA!5e0!3m2!1sen!2sin!4v1620815366832!5m2!1sen!2sin"></iframe> -->
+                                    <location_map :markerPosition="mapData" />
+
                                 </div>
                             </div>
                             <div class="twm-s-info-wrap mb-5">
@@ -90,11 +93,6 @@
                                 <div class="twm-s-info">
 
                                     <ul>
-                                        <!-- <li>
-                                            <div class="twm-s-info-inner">
-                                                <button type="button" class="btn btn-info">Info</button>
-                                            </div>
-                                        </li> -->
                                         <li>
                                             <div class="twm-s-info-inner">
                                                 <i class="fas fa-venus-mars"></i>
@@ -110,7 +108,6 @@
                                             </div>
                                         </li>
 
-
                                         <li>
                                             <div class="twm-s-info-inner">
                                                 <i class="fas fa-user-plus"></i>
@@ -118,6 +115,7 @@
                                                 <div class="twm-s-info-discription">{{ data.citizenship.map(i => i[`name_${getLang}`]).join(', ') }}</div>
                                             </div>
                                         </li>
+
                                         <li>
                                             <div class="twm-s-info-inner">
                                                 <i class="fas fa-cross"></i>
@@ -160,13 +158,6 @@
                                                 <div class="twm-s-info-discription">{{ (data.recommendation == 0)?'არა':'კი' }}</div>
                                             </div>
                                         </li>
-                                        <li>
-                                            <!-- <div class="twm-s-info-inner">
-                                                <i class="fas fa-file"></i>
-                                                <span class="twm-title">მახასიათებლები</span>
-                                                <div class="twm-s-info-discription">{{ data.characteristic.map(i => i[`name_${getLang}`]).join(', ') }}</div>
-                                            </div> -->
-                                        </li>
                                     </ul>
 
                                 </div>
@@ -181,7 +172,7 @@
                 </div>
 
             </div>
-
+            <like_dont_like_candidate v-if="showButton" :id="data.qualifying_candidate[0].id"/>
         </div>
 
     </div>
@@ -189,36 +180,45 @@
 <script>
 import _ from 'lodash'
 import location_map from '../map/location_map.vue'
+import { ref, computed } from 'vue';
+import like_dont_like_candidate from '../employer/components/like_dont_like_candidate.vue';
 export default {
     components:{
-        location_map
+        location_map,
+        like_dont_like_candidate
     },
     props:{
         data:Object
     },
-    data() {
-        return {
-            backgroundImage: '/images/candidates/candidate-bg.jpg',
-
-        }
-    },
-    created(){
-        // this.categoryName
-    },
-    computed:{
-        getLang(){
-            return I18n.getSharedInstance().options.lang
-        },
-        category(){
-            var duty = this.data.family_work_experience.get_family_work_duty
-            var arr = duty.map(i => i.duty.category[`name_${this.getLang}`])
+    setup(props) {
+        console.log(props.data);
+        const getLang = computed(() => {
+            return I18n.getSharedInstance().options.lang;
+        });
+        const backgroundImage = ref('/images/candidates/candidate-bg.jpg');
+        const category = computed(() =>{
+            let duty = props.data.family_work_experience.get_family_work_duty
+            var arr = duty.map(i => i.duty.category[`name_${getLang.value}`])
             return _.uniq(arr)
-        }
-    },
-    methods: {
+        });
+        const mapData = [props.data.longitude, props.data.latitude]
 
-    },
-    mounted() {
+
+        const showButton = computed(() => {
+            let url = new URL(location.href)
+            let pathName = url.pathname;
+            let extractedPart = pathName.match(/\/employer\/photo_questionnaire/);
+            return extractedPart ? extractedPart[0] : null;
+            
+        });
+
+        return {
+            backgroundImage,
+            getLang,
+            category,
+            mapData,
+            showButton
+        }
     },
 }
 </script>

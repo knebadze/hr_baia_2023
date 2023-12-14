@@ -31,18 +31,19 @@ class UserProfileController extends Controller
         'numberCode', 'characteristic', 'numberOwner', 'yesNo', 'category', 'workSchedule','currency', 'recommendationFromWhom', 'noRecommendationReason',
         'duty', ];
         $classificatory = $this->classificatoryService->get($candidateClassificatoryArr);
-        $stage = null;
+        // $stage = null;
 
-        $currentUrl = url()->full();
-        $parsedUrl = parse_url($currentUrl);
-        if ($parsedUrl['query']) {
-            $parts = explode('=', $parsedUrl['query']);
-            $stage = $parts[1];
-        }
+        // $currentUrl = url()->full();
+        // $parsedUrl = parse_url($currentUrl);
+        // if ($parsedUrl['query']) {
+        //     $parts = explode('=', $parsedUrl['query']);
+        //     $stage = $parts[1];
+        // }
 
         // dd($currentUrl, $parsedUrl);
         $user_id = request('user');
-
+        $stage = request('stage');
+        // dd($stage, $user_id, $parsedUrl);
         $model = $this->candidateModelService->findData($stage, $user_id);
 
         $data = [

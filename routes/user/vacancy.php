@@ -8,6 +8,7 @@ use App\Http\Controllers\MyVacancyController;
 Route::post('/interest_vacancy', [VacancyController::class, 'interest']);
 
 // R
+Route::post('/check_and_verify_number', [MyVacancyController::class, 'checkAndVerify']);
 Route::post('/find_my_vacancy', [MyVacancyController::class, 'find']);
 Route::post('/get_interest_data', [MyVacancyController::class, 'getInterestData']);
 

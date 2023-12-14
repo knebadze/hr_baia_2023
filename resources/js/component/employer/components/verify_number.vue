@@ -33,8 +33,8 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col-xl-12 col-lg-12 col-md-12 " v-if="showVerifyCodeInput">
+            <verify_code_div :visible="showVerifyCodeInput" :verifyNumber="verifyNumber" @sendParentAction="handlerAction"/>
+            <!-- <div class="col-xl-12 col-lg-12 col-md-12 " v-if="showVerifyCodeInput">
                 <hr>
                 <div class="text-center">
                     <p>შეიყვანეთ ვერიფიკაციის კოდი</p>
@@ -55,18 +55,20 @@
                     </div>
                     <p class="text-danger" v-if="showError">კოდი არასწორია!</p>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
 </template>
 <script>
 import { ref, defineComponent } from 'vue';
-import CodeInput from "./CodeInput.vue";
+// import CodeInput from "./CodeInput.vue";
 import Swal from 'sweetalert2';
+import verify_code_div from './verify_code_div.vue';
 export default defineComponent({
     components:{
-        CodeInput
+        // CodeInput,
+        verify_code_div
     },
     props:{
         cla: Object
@@ -102,8 +104,8 @@ export default defineComponent({
                     verifyNumber.value = response.data.randomNumber
                     checkNumberData.value = response.data.check
                     if (verifyNumber.value !== null) {
-                        showVerifyCodeInput.value = true
-                        setupTimeout(response.data)
+                        showVerifyCodeInput.value = !showVerifyCodeInput.value
+                        // setupTimeout()
                     }
 
                     console.log(response.data);
@@ -117,21 +119,15 @@ export default defineComponent({
 
 
         }
-        const countdown = ref(60)
-        const setupTimeout = ()=> {
-            const intervalId = setInterval(() => {
-                countdown.value --;
-                if (countdown.value <= 0) {
-                // clearInterval(intervalId);
-                    showVerifyCodeInput.value = false;
-                    // document.location.reload();
-                }
-            }, 1000);
-            // setTimeout(() => {
-            //     showVerifyCodeInput.value = false;
-            //     document.location.reload();
-            // }, 60000); // 1 minutes in milliseconds
-        };
+        // const countdown = ref(60)
+        // const setupTimeout = ()=> {
+        //     const intervalId = setInterval(() => {
+        //         countdown.value --;
+        //         if (countdown.value <= 0) {
+        //             showVerifyCodeInput.value = false;
+        //         }
+        //     }, 1000);
+        // };
 
         const sendSms = (item) =>{
             axios({
@@ -154,7 +150,7 @@ export default defineComponent({
                 console.log(error);
             })
         }
-        const verifyFull = ref(false)
+        // const verifyFull = ref(false)
 
         const getSwal = () => {
             let postVacancyData = {
@@ -197,12 +193,11 @@ export default defineComponent({
                         }else if (result.isDenied) {
                             sendSms({
                                 data: {
-                                    hr_number: hr.number,
-                                    hr_name: hr.name_ka,
-                                    employer_number: employer.number,
-                                    employer_name: employer.name_ka
+                                    to: hr.number,
+                                    number: employer.number,
+                                    name: employer.name_ka
                                 },
-                                type: ['try_add_vacancy_again_send_employer', 'try_add_vacancy_again_send_hr']
+                                type: 'employer_want_call_you_hr'
                             })
                             return
                         }
@@ -272,37 +267,42 @@ export default defineComponent({
 
         };
 
-        const onChange = (v) =>{
-            showError.value = false
-            if (v.length == 5) {
-                if (v == verifyNumber.value) {
-                    getSwal()
-                } else {
-                    showError.value = true
-                }
-
-
-            }
+        const handlerAction = () =>{
+            getSwal()
         }
+        // const onChange = (v) =>{
+        //     showError.value = false
+        //     if (v.length == 5) {
+        //         if (v == verifyNumber.value) {
+        //             getSwal()
+        //         } else {
+        //             showError.value = true
+        //         }
+
+
+        //     }
+        // }
 
 
 
-        const onComplete = (v) =>{
+        // const onComplete = (v) =>{
 
-            if (v) {
-                console.log("onComplete ", v);
-                verifyFull.value = !verifyFull.value
-            }
-        }
+        //     if (v) {
+        //         console.log("onComplete ", v);
+        //         verifyFull.value = !verifyFull.value
+        //     }
+        // }
         return {
             m,
             chooseNumberCode,
             send,
             showVerifyCodeInput,
-            onChange,
-            onComplete,
-            showError,
-            countdown
+            handlerAction,
+            verifyNumber
+            // onChange,
+            // onComplete,
+            // showError,
+            // countdown
         }
     }
 })
@@ -327,15 +327,5 @@ export default defineComponent({
         width: 80%;
     }
 
-    .countDownSeconds {
-        padding: 0.3%;
-        border-radius: 15px;
-        border-style: solid;
-        background-color: rgb(2,117,216,0.1);
-        border-color: rgb(2,117,216,0.9);
-        border-width: 1px;
-        margin-top: 16px;
-        margin-left: 1% !important;
 
-    }
 </style>

@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MyprofileController;
+use App\Http\Controllers\User\ResumeController;
+use App\Http\Controllers\Auth\ChangePasswordController;
 
 // C
 Route::post('upload_avatar', [MyprofileController::class, 'store']);

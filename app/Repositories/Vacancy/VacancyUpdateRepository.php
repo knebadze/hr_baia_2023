@@ -12,7 +12,7 @@ class VacancyUpdateRepository
 {
 
     public function update($data){
-
+        // dd($data);
         $id = $data['id'];
         $vacancy = Vacancy::findOrFail($id);
         $vacancy->title_ka = $data['title_ka'];
@@ -121,7 +121,7 @@ class VacancyUpdateRepository
     }
 
     function updateDeposit($data) {
-        dd($data);
+        // dd($data);
         $deposit = VacancyDeposit::findOrFail($data['id']);
         if ($deposit->employer_initial_amount != $data['employer_initial_amount']) {
             if ($deposit->employer_initial_amount > $data['employer_initial_amount']) {

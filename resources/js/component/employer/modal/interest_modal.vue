@@ -28,12 +28,12 @@
                                     <p class="twm-candidate-address"><i class="feather-map-pin"></i>{{ item[`address_${getLang}`] }}</p>
                                     <i class="fa fa-clock"> 11:23</i>
                                     </div>
-
-                                    <div class="twm-left-info mt-3" v-if="item.employer_answer == null">
+                                    <like_dont_like_candidate v-if="item.employer_answer == null" :id="item.id" @newData="handlerNewData"/>
+                                    <!-- <div class="twm-left-info mt-3" v-if="item.employer_answer == null">
                                         <button type="button" class="btn btn-danger" @click="doNotLike(item.id)"> <i class="fa fa-thumbs-down"></i> არ მომწონს</button>
                                         <button type="button" class="btn btn-success" @click="like(item.id)"> <i class="fa fa-thumbs-up"></i> მომწონს</button>
 
-                                    </div>
+                                    </div> -->
                                     <div class="twm-left-info mt-3" v-if="item.employer_answer == 0">
                                         <span><i class="text-danger fa fa-thumbs-down" style="font-size:25px"></i></span>
                                     </div>
@@ -56,8 +56,11 @@
   </div>
 </template>
 <script>
-
+import like_dont_like_candidate from '../components/like_dont_like_candidate.vue'
 export default {
+    components:{
+        like_dont_like_candidate
+    },
   props:{
       visible: Boolean,
       id: Number
@@ -115,78 +118,13 @@ export default {
         gotoDetail(id){
             window.open(this.detailUrl+'/'+id);
         },
-        doNotLike(id){
-            let currentObj = this
-            this.$swal({
-                title: 'დარწმუნებული ხართ რომ ეს კანდიდატი არ მოგწონთ?',
-                showDenyButton: true,
-                showCancelButton: false,
-                confirmButtonText: 'დიახ',
-                denyButtonText: `არა`,
-            }).then((result) => {
-                /* Read more about isConfirmed, isDenied below */
-                if (result.isConfirmed) {
-                    axios({
-                        method: "post",
-                        url: '/do_not_like_candidate',
-                        data: {'id': id},
-
-                    })
-                    .then(function (response) {
-                        if (response.status == 200) {
-                            var index = currentObj.interest.findIndex(object => {
-                                return object.id === id;
-                            });
-                            currentObj.interest[index]['employer_answer'] = 0
-                        }
-
-                    })
-                    .catch(function (error) {
-                        // handle error
-                        console.log(error);
-                    })
-                } else if (result.isDenied) {
-
-                }
-            })
-
-        },
-        like(id){
-            let currentObj = this
-            this.$swal({
-                title: 'დარწმუნებული ხართ რომ ეს კანდიდატი მოგწონთ და გსურთ მასთან გასაუბრების დანიშვნა?',
-                showDenyButton: true,
-                showCancelButton: false,
-                confirmButtonText: 'დიახ',
-                denyButtonText: `არა`,
-            }).then((result) => {
-                /* Read more about isConfirmed, isDenied below */
-                if (result.isConfirmed) {
-                    axios({
-                        method: "post",
-                        url: '/like_candidate',
-                        data: {'id': id},
-
-                    })
-                    .then(function (response) {
-                        if (response.status == 200) {
-                            var index = currentObj.interest.findIndex(object => {
-                                return object.id === id;
-                            });
-                            currentObj.interest[index]['employer_answer'] = 1
-                        }
-
-                    })
-                    .catch(function (error) {
-                        // handle error
-                        console.log(error);
-                    })
-
-                } else if (result.isDenied) {
-
-                }
-            })
+        handlerNewData(id, answer){
+            let index = this.interest.findIndex(object => {
+                return object.id === id;
+            });
+            this.interest[index]['employer_answer'] = answer
         }
+        
   },
   watch:{
       visible: function(){

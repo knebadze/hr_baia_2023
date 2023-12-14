@@ -107,8 +107,8 @@ const importComponents = async () => {
       import('./component/employer/page/post_vacancy_page.vue'),
       import('./component/employer/page/vacancy_list_page.vue'),
       import('./component/employer/vacancy_detail.vue'),
-      import('./component/employer/my_vacancy.vue'),
-      import('./component/employer/show_update_vacancy.vue'),
+      import('./component/employer/page/my_vacancy.vue'),
+      import('./component/employer/page/show_update_vacancy.vue'),
 
       import('./component/admin/vacancy/page/selection_personal.vue'),
       import('./component/admin/vacancy/page/vacancy_personal.vue'),

@@ -1,15 +1,5 @@
 <template lang="">
-    <!-- LOADING AREA START ===== -->
-<div v-if="loader" class="loading-area">
-    <div class="loading-box"></div>
-    <div class="loading-pic">
-        <div class="wrapper">
-            <div class="cssload-loader"></div>
-        </div>
-    </div>
-</div>
-<!-- LOADING AREA  END ====== -->
-<div class="panel panel-default">
+    <div class="panel panel-default">
     <div class="text-center">
         <h3>თქვენი ვაკანსია</h3>
     </div>
@@ -114,32 +104,14 @@
                     </div>
                     <!-- <div class="panel-body wt-panel-body p-a20 m-b30 "></div> -->
                         <!--Job title-->
-                        <div class="col-xl-4 col-lg-6 col-md-12">
-                            <div class="form-group">
-                                <label><span class="text-danger">* </span>{{ $t('lang.employer_add_job_vacancy_name') }}</label>
-                                <div class="ls-inputicon-box">
-                                    <input
-                                        class="form-control"
-                                        :class="(m.title == null || v.title.$error)?'is-invalid':''"
-                                        v-model="m.title"
-                                        type="text"
-                                        :placeholder="$t('lang.employer_add_job_vacancy_name_placeholder')"
-                                        @blur="v.title.$touch"
-                                    >
-                                    <span v-if="send && !v.title.required.$response" style='color:red'>* </span>
-                                    <span v-if="send && !v.title.maxLength.$response" style='color:red'>* </span>
-                                </div>
-                            </div>
-                        </div>
-
                         <!--Job Category-->
                         <div class="col-xl-4 col-lg-6 col-md-12">
                             <div class="form-group">
                                 <label><span class="text-danger">* </span>{{ $t('lang.employer_add_job_position') }}</label>
                                 <div class="ls-inputicon-box">
                                     <multiselect
-                                        :customClass="{ 'is-invalid': (m.category_id == null || v.category_id.$error) }"
-                                        v-model="m.category_id"
+                                        :customClass="{ 'is-invalid': (m.category == null || v.category.$error) }"
+                                        v-model="m.category"
                                         :options="cla.category"
                                         deselect-label="Can't remove this value"
                                         :track-by="`name_${getLang}`"
@@ -147,12 +119,12 @@
                                         placeholder="Select one"
                                         :searchable="true"
                                         :allow-empty="false"
-                                        @blur="v.category_id.$touch"
+                                        @blur="v.category.$touch"
                                         :disabled="true"
                                     >
                                         <template slot="singleLabel" slot-scope="{ option }"></template>
                                     </multiselect>
-                                    <span v-if="send && !v.category_id.required.$response" style='color:red'>* </span>
+                                    <span v-if="send && !v.category.required.$response" style='color:red'>* </span>
                                 </div>
                             </div>
                         </div>
@@ -180,7 +152,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-4 col-lg-6 col-md-12" v-if="m.category_id.id == 7">
+                        <div class="col-xl-4 col-lg-6 col-md-12" v-if="m.category.id == 7">
                             <div class="form-group">
                                 <label>მართვის მოწმობა </label>
                                 <div class="ls-inputicon-box">
@@ -205,7 +177,7 @@
                                 <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_work_schedule_title') }}</label>
                                 <div class="ls-inputicon-box">
                                     <multiselect
-                                        v-model="m.work_schedule_id"
+                                        v-model="m.work_schedule"
                                         :options="cla.workSchedule"
                                         deselect-label="Can't remove this value"
                                         :track-by="`name_${getLang}`"
@@ -213,11 +185,11 @@
                                         placeholder="Select one"
                                         :searchable="false"
                                         :allow-empty="false"
-                                        @blur="v.work_schedule_id.$touch"
+                                        @blur="v.work_schedule.$touch"
                                     >
                                         <template slot="singleLabel" slot-scope="{ option }"></template>
                                     </multiselect>
-                                    <span v-if="send && !v.work_schedule_id.required.$response" style='color:red'>* </span>
+                                    <span v-if="send && !v.work_schedule.required.$response" style='color:red'>* </span>
                                 </div>
                             </div>
                         </div>
@@ -242,7 +214,7 @@
                                 <label><span class="text-danger">* </span>{{ $t('lang.user_profile_page_work_currency_title') }}</label>
                                 <div class="ls-inputicon-box">
                                     <multiselect
-                                        v-model="m.currency_id"
+                                        v-model="m.currency"
                                         :options="cla.currency"
                                         deselect-label="Can't remove this value"
                                         :track-by="`name_${getLang}`"
@@ -250,11 +222,11 @@
                                         placeholder="Select one"
                                         :searchable="false"
                                         :allow-empty="false"
-                                        @blur="v.currency_id.$touch"
+                                        @blur="v.currency.$touch"
                                     >
                                         <template slot="singleLabel" slot-scope="{ option }"></template>
                                     </multiselect>
-                                    <span v-if="send && !v.currency_id.required.$response" style='color:red'>* </span>
+                                    <span v-if="send && !v.currency.required.$response" style='color:red'>* </span>
                                 </div>
                             </div>
                         </div>
@@ -263,7 +235,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label><span class="text-danger">* </span>{{ $t('lang.employer_add_job_jobs_day') }}</label>
-                                <p><small v-if="m.work_schedule_id" class='text-danger'>* სავალდებულოო სამუშაო დღეების მითითება!!! </small></p>
+                                <p><small v-if="m.work_schedule" class='text-danger'>* სავალდებულოო სამუშაო დღეების მითითება!!! </small></p>
 
                                 <div class="ls-inputicon-box">
                                     <textarea
@@ -284,7 +256,7 @@
                         <div class="panel-heading wt-panel-heading p-a20 my-3">
                             <h4 class="panel-tittle m-a0"><i class="fa fa-suitcase"></i> დამატებით</h4>
                         </div>
-                        <div class="row mb-4" v-if="m.category_id.id == 1 || m.category_id.id == 2 || m.category_id.id == 4">
+                        <div class="row mb-4" v-if="m.category.id == 1 || m.category.id == 2 || m.category.id == 4">
                             <div class="col-xl-4 col-lg-6 col-md-12">
                                 <div class=" form-check">
                                     <input type="checkbox" class="form-check-input" id="exampleCheck1" value="1" v-model="m.go_vacation">
@@ -320,7 +292,7 @@
                                 <label><span class="text-danger">* </span>{{ $t('lang.employer_add_job_how_long') }}</label>
                                 <div class="ls-inputicon-box">
                                     <multiselect
-                                        v-model="m.term_id"
+                                        v-model="m.term"
                                         :options="cla.term"
                                         deselect-label="Can't remove this value"
                                         :track-by="`name_${getLang}`"
@@ -328,11 +300,11 @@
                                         placeholder="Select one"
                                         :searchable="true"
                                         :allow-empty="false"
-                                        @blur="v.term_id.$touch"
+                                        @blur="v.term.$touch"
                                     >
                                         <template slot="singleLabel" slot-scope="{ option }"></template>
                                     </multiselect>
-                                    <span v-if="send && !v.term_id.required.$response" style='color:red'>* </span>
+                                    <span v-if="send && !v.term.required.$response" style='color:red'>* </span>
                                 </div>
                             </div>
                         </div>
@@ -380,7 +352,7 @@
                             <div class="form-group">
                                 <label>{{ $t('lang.employer_add_job_minimal_edu') }}</label>
                                 <div class="ls-inputicon-box">
-                                    <multiselect v-model="m.education_id" :options="cla.educations" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" :placeholder="$t('lang.employer_add_job_select')"  :searchable="true" :allow-empty="false">
+                                    <multiselect v-model="m.education" :options="cla.educations" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" :placeholder="$t('lang.employer_add_job_select')"  :searchable="true" :allow-empty="false">
                                         <template slot="singleLabel" slot-scope="{ option }"></template>
                                     </multiselect>
                                 </div>
@@ -390,7 +362,7 @@
                             <div class="form-group">
                                 <label>{{ ('სპეციალობა') }}</label>
                                 <div class="ls-inputicon-box">
-                                    <multiselect v-model="m.specialty_id" :options="cla.specialties" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" :placeholder="$t('lang.employer_add_job_select')"  :searchable="true" :allow-empty="false">
+                                    <multiselect v-model="m.specialty" :options="cla.specialties" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" :placeholder="$t('lang.employer_add_job_select')"  :searchable="true" :allow-empty="false">
                                         <template slot="singleLabel" slot-scope="{ option }"></template>
                                     </multiselect>
                                 </div>
@@ -401,7 +373,7 @@
                             <div class="form-group">
                                 <label>{{ $t('lang.employer_add_job_preferred_foreign_language') }}</label>
                                 <div class="ls-inputicon-box">
-                                    <multiselect v-model="m.language_id" :options="cla.languages" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" :placeholder="$t('lang.employer_add_job_select')"  :searchable="true" :allow-empty="false">
+                                    <multiselect v-model="m.language" :options="cla.languages" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" :placeholder="$t('lang.employer_add_job_select')"  :searchable="true" :allow-empty="false">
                                         <template slot="singleLabel" slot-scope="{ option }"></template>
                                     </multiselect>
                                 </div>
@@ -412,7 +384,7 @@
                             <div class="form-group">
                                 <label>{{ $t('lang.employer_add_job_foreign_language_level') }}</label>
                                 <div class="ls-inputicon-box">
-                                    <multiselect v-model="m.language_level_id" :options="cla.languageLevels" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" :placeholder="$t('lang.employer_add_job_select')"  :searchable="true" :allow-empty="false">
+                                    <multiselect v-model="m.language_level" :options="cla.languageLevels" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" :placeholder="$t('lang.employer_add_job_select')"  :searchable="true" :allow-empty="false">
                                         <template slot="singleLabel" slot-scope="{ option }"></template>
                                     </multiselect>
                                 </div>
@@ -442,7 +414,7 @@
 
                             </div>
                         </div>
-                        <div class="col-xl-4 col-lg-6 col-md-12" v-if="m.category_id.id != 7">
+                        <div class="col-xl-4 col-lg-6 col-md-12" v-if="m.category.id != 7">
                             <div class="form-group">
                                 <label>მართვის მოწმობა </label>
                                 <div class="ls-inputicon-box">
@@ -497,7 +469,7 @@
                             <div class="form-group">
                                 <label>{{ $t('გასაუბრების ადგილი') }}</label>
                                 <div class="ls-inputicon-box">
-                                    <multiselect v-model="m.interview_place_id" :options="cla.interviewPlace" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" :placeholder="$t('lang.employer_add_job_select')"  :searchable="true" :allow-empty="false">
+                                    <multiselect v-model="m.interview_place" :options="cla.interviewPlace" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" :placeholder="$t('lang.employer_add_job_select')"  :searchable="true" :allow-empty="false">
                                         <template slot="singleLabel" slot-scope="{ option }"></template>
                                     </multiselect>
                                 </div>
@@ -506,409 +478,404 @@
 
                         <div class="col-lg-12 col-md-12">
                             <div class="text-left">
-                                <button type="submit" @click.prevent="add(m)" class="site-button m-r5">{{ $t('რედაქტირება') }}</button>
+                                <button type="submit" @click.prevent="update(m)" class="site-button m-r5">{{ $t('რედაქტირება') }}</button>
                             </div>
                         </div>
-
-
-
-
                 </div>
         </div>
     </div>
 </template>
 <script>
 import _ from 'lodash';
-import { ref, computed, watch, watchEffect } from 'vue';
+import { reactive, ref, computed, watch, isProxy } from 'vue';
 import { I18n } from 'laravel-vue-i18n';
 import { useVuelidate } from '@vuelidate/core';
 import { required, numeric, maxLength, email } from '@vuelidate/validators';
 import Swal from 'sweetalert2';
 import moment from 'moment';
 export default {
-props: {
-    data: Object,
-},
-setup(props) {
-    const getLang = computed(() => {
-        return I18n.getSharedInstance().options.lang;
-    });
-    const minDate = computed(() => moment().format('YYYY-MM-DD'));
-    const maxDate = ref(null);
-    let min_age, max_age = null;
-    const workInformationSchedule = ref(null);
-    const loader = ref(false);
-    const send = ref(false);
-    const cla = ref(_.cloneDeep(props.data.classificatory));
-    cla.value.workSchedule = props.data.classificatory.workSchedule.filter(item => item.id !== 10 && item.id !== 11);
-    console.log('props.data',props.data);
-    const vacancy = {...props.data.model.vacancy}
-    const formData = () => {
-        let [datePart, timePart] = vacancy.interview_date.split(' ');
-        const data = {
-            ...vacancy.employer,
-            ...vacancy,
-            ...vacancy.demand,
-            characteristic:vacancy.characteristic,
-            vacancy_duty: vacancy.vacancy_duty,
-            vacancy_for_who_need: vacancy.vacancy_for_who_need,
-            vacancy_benefit: vacancy.vacancy_benefit,
-            interviewDate:datePart,
-            interviewTime:timePart,
-            driving_license: vacancy.vacancy_driving_license
-        };
-        data.name = data[`name_${getLang.value}`];
-        data.address = data[`address_${getLang.value}`];
-        data.street = data[`street_${getLang.value}`];
-        data.number_code = cla.value.numberCode.find(element => element.phonecode == 995);
+    props:{
+        item: Object,
+        cla: Object
+    },
+    emits:['emitUpdateData'],
+    setup(props, {emit}) {
+        const getLang = computed(() => {
+            return I18n.getSharedInstance().options.lang;
+        });
+        const minDate = computed(() => moment().format('YYYY-MM-DD'));
+        const maxDate = ref(null);
+        let min_age, max_age = null;
+        const workInformationSchedule = ref(null);
+        const editedFields = ref([]);
+        // const loader = ref(false);
+        const send = ref(false);
+        // const cla = ref(_.cloneDeep(props.data.classificatory));
+        // cla.value.workSchedule = props.data.classificatory.workSchedule.filter(item => item.id !== 10 && item.id !== 11);
+        // console.log('props.data',props.data);
+        const vacancy = {...props.item.model.vacancy}
 
-        data.additional_schedule = data[`additional_schedule_${getLang.value}`];
-        data.title = data[`title_${getLang.value}`];
-        data.category_id = data.category
-        data.work_schedule_id = data.work_schedule
-        data.currency_id = data.currency
-        data.term_id = data.term
-        data.interview_place_id = data.interview_place
-        data.go_vacation = data.go_vacation == 0 ? false : true;
-        data.stay_night = data.stay_night == 0 ? false : true;
-        data.work_additional_hours = data.work_additional_hours == 0 ? false : true;
-
-        data.education_id = data.education
-        data.language_id = data.language
-        data.language_level_id = data.language_level
-        data.specialty_id = data.specialty
-        data.has_experience = data.has_experience == 0 ? false : true;
-        data.has_recommendation = data.has_recommendation == 0 ? false : true;
-
-
-        data.lang = getLang.value;
-        data.getLang = getLang.value;
-        data.number_code = cla.value.numberCode.find(element => element.phonecode == 995);
-
-        return data;
-    }
-
-    const model = {...formData()}
-    console.log('hello');
-    const m = ref(model)
-
-
-
-
-    const benefitText = ref(vacancy.vacancy_benefit ? vacancy.vacancy_benefit.map(i => i[`name_${getLang.value}`]).join(', '): '');
-    const  localText = () => {
-        return  {
-            '1':{
-                ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
-                en:'',
-                ru:'',
-            },
-            '2':{
-                ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
-                en:'',
-                ru:'',
-            },
-            '3':{
-                ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
-                en:'',
-                ru:'',
-            },
-            '4':{
-                ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
-                en:'',
-                ru:'',
-            },
-            '5':{
-                ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
-                en:'',
-                ru:'',
-            },
-            '6':{
-                ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
-                en:'',
-                ru:'',
-            },
-            '7':{
-                ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
-                en:'',
-                ru:'',
-            },
-            '8':{
-                ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
-                en:'',
-                ru:'',
-            },
-            '9':{
-                ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
-                en:'',
-                ru:'',
-            },
-
-        }
-    };
-
-    const rules = {
-                name: { required },
-                number: { required, numeric },
-                address: { required },
-                email: { email },
-                title: { required, maxLength:maxLength(50) },
-                category_id: { required },
-                payment: { required },
-                currency_id: { required },
-                work_schedule_id: { required },
-                additional_schedule: { required },
-                start_date: { required },
-                term_id: { required },
-            vacancy_for_who_need: { required }
-
-    };
-    const v = useVuelidate(rules, m);
-    const watchWorkSchedule = () => m.value.work_schedule_id;
-    watch(watchWorkSchedule, (newVal) => {
-
-        if (newVal != '') {
-            m.value.additional_schedule = localText()[`${newVal.id}`][`${getLang.value}`]
-            const priceMap = {
-                1: 1100,
-                2: 1300,
-                3: 500,
-                4: 500,
-                5: 900,
-                6: 500,
-                7: 700,
-                8: 50,
-                9: 600,
-                // Add more cases as needed
+        const formData = () => {
+            let [datePart, timePart] = vacancy.interview_date.split(' ');
+            const { id: employer_id, ...employerWithoutId } = vacancy.employer;
+            const { id: demand_id , ...demandWithoutId } = vacancy.demand;
+            const data = {
+                ...employerWithoutId,
+                ...vacancy,
+                ...demandWithoutId,
+                characteristic:vacancy.characteristic,
+                vacancy_duty: vacancy.vacancy_duty,
+                vacancy_for_who_need: vacancy.vacancy_for_who_need,
+                vacancy_benefit: vacancy.vacancy_benefit,
+                interviewDate:datePart,
+                interviewTime:timePart,
+                driving_license: vacancy.vacancy_driving_license
             };
+            data.employer_id = employer_id
+            data.demand_id = demand_id
 
-            let price = priceMap[newVal.id] || 0;
-            m.payment = price;
+            data.name = data[`name_${getLang.value}`];
+            data.address = data[`address_${getLang.value}`];
+            data.street = data[`street_${getLang.value}`];
+
+            data.additional_schedule = data[`additional_schedule_${getLang.value}`];
+            data.title = data[`title_${getLang.value}`];
+            data.go_vacation = data.go_vacation == 0 ? false : true;
+            data.stay_night = data.stay_night == 0 ? false : true;
+            data.work_additional_hours = data.work_additional_hours == 0 ? false : true;
+
+            data.has_experience = data.has_experience == 0 ? false : true;
+            data.has_recommendation = data.has_recommendation == 0 ? false : true;
+
+
+            data.lang = getLang.value;
+            data.getLang = getLang.value;
+
+            return data;
         }
-    });
 
-    const watchCategory = () => m.value.category_id;
-    watch(watchCategory, (newVal) => {
-        cla.value.forWhoNeed = _.filter(props.data.classificatory.forWhoNeed, function(o) { return o.category_id == newVal.id; });
-        cla.value.duty = _.filter(props.data.classificatory.duty, function(o) { return o.category_id == newVal.id; });
-    });
+        const model = reactive({...formData()})
+        console.log('model', model);
+        const m = ref({...model})
+        console.log('m', m.value);
 
-    const startDate = (item) =>{
-        console.log('item', item);
-        maxDate.value = item
-    }
-
-    const chooseNumberCode = (item) =>{
-        model.value.number_code = item
-    };
-    const handleFileChange = (event) => {
-        file.value = event.target.files[0];
-        model.value.file_name = file.value.name
-    };
-    const addBenefit = (item) => {
-        if (!m.value.benefit.some((benefit) => benefit.id == item.id)) {
-            m.value.benefit.push(item)
-           benefitText.value += `${item[`name_${getLang.value}`]}, `;
-        }
-    };
-
-    const minAge = (item) =>{
-
-        const numberAsString = item.toString();
-        if (numberAsString.length == 2) {
-            min_age = item
-        }else if(numberAsString.length > 2){
-            m.value.demand.min_age = min_age
-        }
-        if (numberAsString.length == 2 && item < 18) {
-            m.value.demand.min_age = 18
-            toast.error("მინიმალური ასაკი არ უნდა იყოს 18 ზე ნაკლები", {
-                theme: 'colored',
-                autoClose: 1000,
-            });
-            return
-        }
-    }
-
-    const maxAge = (item) =>{
-
-        const numberAsString = item.toString();
-        if (numberAsString.length == 2) {
-            max_age = item
-        }else if(numberAsString.length > 2){
-            m.value.demand.max_age = max_age
-        }
-        if (numberAsString.length == 2 && item > 70) {
-            m.value.demand.max_age = 70
-            toast.error(`მაქსიმალური ასაკი არ უნდა იყოს 70 ზე მეტი`, {
-                theme: 'colored',
-                autoClose: 1000,
-            });
-            return
-        }
-    }
-
-    const forItem = (item) => {
-        var editedFields = {};
-        for (const field in item) {
-            const rawValue = item[field]; // Extract the raw value from a ref
-
-            if (rawValue !== model[field]) {
-                console.log('rawValue', rawValue);
-                console.log('model[field]', model[field]);
-                // return
-                editedFields[field] = rawValue;
+        const isReactiveProxy = (obj) => {
+            if (isProxy(obj)) {
+                return true;
             }
-        }
-        console.log('item',item);
-        console.log('editedFields',editedFields);
-        return
-        return editedFields;
-    };
 
-    const add = (item) =>{
-        let data = JSON.parse(JSON.stringify(item))
-        // if (file.value != null && file.value.type !== 'application/pdf') {
-        //     toast.error("გთხოვთ ფაილი ატვირთეთ pdf ფორმატში", {
-        //         theme: 'colored',
-        //         autoClose: 1000,
-        //     });
-        //     return
-        // }
-        // if (data.has_recommendation.id == 1) {
-        //     data[`name_${getLang.value}`] = data.name;
-        //     data[`position_${getLang.value}`] = data.position;
-        // }else{
-        //     data[`no_reason_info_${getLang}`] = data.no_reason_info;
-        // }
-        // data.candidate_id = props.data.candidate_id
-        // const sendFormData = new FormData();
-        // sendFormData.append('data', JSON.stringify(data))
-        // if (file.value) {
-        //     sendFormData.append('file', file.value);
-        // }
+            if (typeof obj !== 'object' || obj === null) {
+                return false;
+            }
 
-        // loader.value = true
-        data[`name_${getLang.value}`] = data.name
-        data[`address_${getLang.value}`] = data.address
-        data[`street_${getLang.value}`] = data.street
-        data[`additional_schedule_${getLang.value}`] = data.additional_schedule
-        data[`title_${getLang.value}`] = data.title
-
-        v.value.$touch();
-        if (!v.value.$invalid) {
-            let editedFields = forItem(data)
-            let html =  `
-                ${data.start_date}_დან ${data.term_id[`name_${getLang.value}`]},
-                ${(data[`for_who_${getLang.value}`])?data[`for_who_${getLang.value}`]:''}
-                გვესაჭიროება ${data.category_id[`name_${getLang.value}`]}.
-                მისამართი: ${data[`address_${getLang.value}`]} ${data[`street_${getLang.value}`]},
-                გრაფიკი: ${data.work_schedule_id[`name_${getLang.value}`]},
-                ${data[`additional_schedule_${getLang.value}`]}.
-                ანაზღაურება: ${data.payment} ${data.currency_id[`name_${getLang.value}`]}.
-                მოვალეობები: ${data.vacancy_duty.map(i => i[`name_${getLang.value}`]).join(', ')}
-            `;
-            Swal.fire({
-                title: '<p>თქვენი ვაკანსია</p>',
-                // icon: 'info',
-                html:html,
-                showCloseButton: true,
-                showCancelButton: false,
-                focusConfirm: false,
-                confirmButtonText: 'დამატება',
-                // icon: 'success',
-                customClass: {
-                    confirmButton: 'btn btn-success',
-                    cancelButton: 'btn btn-danger',
-                },
-                width: '60%'
-            }).then((result) => {
-                /* Read more about isConfirmed, isDenied below */
-                if (result.isConfirmed) {
-
-                    validateAndSubmit(data, editedFields)
+            for (const key in obj) {
+                if (isReactiveProxy(obj[key])) {
+                    return true;
                 }
-            })
+            }
+
+            return false;
+        };
+        const rawValue = ref(null)
+        const forItem = (item, re = false) => {
+            let repeat = re
+            var editedFields = {};
+            for (const field in item) {
+                // console.log(item[field], isReactiveProxy(item[field]));
+                isReactiveProxy(item[field]) ? forItem(item[field], true) : ''
+                if (!repeat) {
+                    rawValue.value = item[field];
+                }
 
 
-        }else{
-            loader.value = false
-            toast.warning("აუცილებელია სავალდებულო ველები იყოს შევსებული", {
-                theme: 'colored',
-                autoClose: 2000,
-            });
+                 // Extract the raw value from a ref
+                // console.log(item[field], model[field]);
+                if (item[field] !==  model[field]) {
+                    // return
+                    // console.log(field, rawValue.value);
+                    editedFields[field] = rawValue.value;
+                }
+            }
+            repeat = false
+            return editedFields;
+        };
+        // const rawValue = typeof item[field] === 'object'? item[field]['id'] : item[field]; // Extract the raw value from a ref
+
+        //         if (rawValue !== typeof model[field] === 'object'?model[field]['id']:model[field]) {
+        //             // return
+        //             editedFields[field] = item[field];
+        //         }
+        watch(m.value, (newValues, oldValues) => {
+            // Do something when form fields change
+            // console.log('newValues', newValues);
+            // console.log('forItem(newValues);', forItem(newValues));
+
+            // const changedFields = Object.keys(newValues).filter((key) => {
+            //     // console.log(key, newValues[key], model[key]);
+            //     return newValues[key] !== model[key]});
+            // console.log('changedFields', changedFields);
+            // editedFields.value = changedFields;
+
+        }, { deep: true });
+
+        const benefitText = ref(vacancy.vacancy_benefit ? vacancy.vacancy_benefit.map(i => i[`name_${getLang.value}`]).join(', '): '');
+        const  localText = () => {
+            return  {
+                '1':{
+                    ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
+                    en:'',
+                    ru:'',
+                },
+                '2':{
+                    ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
+                    en:'',
+                    ru:'',
+                },
+                '3':{
+                    ka:'ორშაბათი_დან პარასკევის ჩათლით, 08:00_დან 13:00_მდე',
+                    en:'',
+                    ru:'',
+                },
+                '4':{
+                    ka:'ორშაბათი_დან პარასკევის ჩათლით, 13:00_დან 17:00_მდე',
+                    en:'',
+                    ru:'',
+                },
+                '5':{
+                    ka:'ორშაბათი_დან პარასკევის ჩათლით, 21:00_დან 07:00_მდე',
+                    en:'',
+                    ru:'',
+                },
+                '6':{
+                    ka:'შაბათი და კვირა, 09:00_დან 18:00_მდე',
+                    en:'',
+                    ru:'',
+                },
+                '7':{
+                    ka:'ორშაბათი, ოთხშაბათი, პარასკევი, 09:00_დან 18:00_მდე',
+                    en:'',
+                    ru:'',
+                },
+                '8':{
+                    ka:'ხვალ, 09:00_დან 18:00_მდე',
+                    en:'',
+                    ru:'',
+                },
+                '9':{
+                    ka:'ორშაბათი, ხუთშაბათი, შაბათი, 09:00_დან 18:00_მდე',
+                    en:'',
+                    ru:'',
+                },
+
+            }
+        };
+
+        const rules = {
+                    name: { required },
+                    number: { required, numeric },
+                    address: { required },
+                    email: { email },
+                    category: { required },
+                    payment: { required },
+                    currency: { required },
+                    work_schedule: { required },
+                    additional_schedule: { required },
+                    start_date: { required },
+                    term: { required },
+                vacancy_for_who_need: { required }
+
+        };
+        const v = useVuelidate(rules, m);
+        const watchWorkSchedule = () => m.value.work_schedule_id;
+        watch(watchWorkSchedule, (newVal) => {
+
+            if (newVal != '') {
+                m.value.additional_schedule = localText()[`${newVal.id}`][`${getLang.value}`]
+                const priceMap = {
+                    1: 1100,
+                    2: 1300,
+                    3: 500,
+                    4: 500,
+                    5: 900,
+                    6: 500,
+                    7: 700,
+                    8: 50,
+                    9: 600,
+                    // Add more cases as needed
+                };
+
+                let price = priceMap[newVal.id] || 0;
+                m.payment = price;
+            }
+        });
+
+        const watchCategory = () => m.value.category_id;
+        watch(watchCategory, (newVal) => {
+            cla.value.forWhoNeed = _.filter(props.cla.forWhoNeed, function(o) { return o.category_id == newVal.id; });
+            cla.value.duty = _.filter(props.cla.duty, function(o) { return o.category_id == newVal.id; });
+        });
+
+        const startDate = (item) =>{
+            console.log('item', item);
+            maxDate.value = item
         }
-    }
 
-    const validateAndSubmit = (data, editedFields) => {
-        send.value = true
-        let edit = {...editedFields}
-        axios.post('/update_vacancy' ,{
-            data: {'model':data, 'edit': edit},
-        })
-        .then(function (response) {
-            if (response.status == 200) {
-                toast.success("წარმატებით დარედაქტირდა", {
+        const chooseNumberCode = (item) =>{
+            model.value.number_code = item
+        };
+
+        const handleFileChange = (event) => {
+            file.value = event.target.files[0];
+            model.value.file_name = file.value.name
+        };
+
+        const addBenefit = (item) => {
+            if (!m.value.vacancy_benefit.some((benefit) => benefit.id == item.id)) {
+                m.value.vacancy_benefit.push(item)
+            benefitText.value += `${item[`name_${getLang.value}`]}, `;
+            }
+        };
+
+        const minAge = (item) =>{
+
+            const numberAsString = item.toString();
+            if (numberAsString.length == 2) {
+                min_age = item
+            }else if(numberAsString.length > 2){
+                m.value.demand.min_age = min_age
+            }
+            if (numberAsString.length == 2 && item < 18) {
+                m.value.demand.min_age = 18
+                toast.error("მინიმალური ასაკი არ უნდა იყოს 18 ზე ნაკლები", {
                     theme: 'colored',
                     autoClose: 1000,
                 });
-                loader.value = false
-                showAlert()
+                return
             }
-        })
-        .catch(function (error) {
-            // handle error
-            console.log(error);
-        })
-    };
-    const showAlert = () => {
-        //let html =  `ეწვიეთ ლინკს სადაც შეგიძლიათ მიიღოთ ინფორმაცია თქვენი ვაკანსიის შესახებ, თქვენი ტელეფონის ნომრის გამოყენებით`;
-        Swal.fire({
-                    title: '<strong>ვაკანსია წარმატებით დარედაქტირდა</strong>',
-                    icon: 'success',
-                    html:'',
+        }
 
-                    showCloseButton: false,
-                    confirmButtonText: 'მთავარზე დაბრუნება',
+        const maxAge = (item) =>{
+
+            const numberAsString = item.toString();
+            if (numberAsString.length == 2) {
+                max_age = item
+            }else if(numberAsString.length > 2){
+                m.value.demand.max_age = max_age
+            }
+            if (numberAsString.length == 2 && item > 70) {
+                m.value.demand.max_age = 70
+                toast.error(`მაქსიმალური ასაკი არ უნდა იყოს 70 ზე მეტი`, {
+                    theme: 'colored',
+                    autoClose: 1000,
+                });
+                return
+            }
+        }
+
+
+        const update = (item) => {
+            console.log('forItem(newValues);', forItem(item));
+            send.value = true
+            let data = JSON.parse(JSON.stringify(item))
+            // if (file.value != null && file.value.type !== 'application/pdf') {
+            //     toast.error("გთხოვთ ფაილი ატვირთეთ pdf ფორმატში", {
+            //         theme: 'colored',
+            //         autoClose: 1000,
+            //     });
+            //     return
+            // }
+            // if (data.has_recommendation.id == 1) {
+            //     data[`name_${getLang.value}`] = data.name;
+            //     data[`position_${getLang.value}`] = data.position;
+            // }else{
+            //     data[`no_reason_info_${getLang}`] = data.no_reason_info;
+            // }
+            // data.candidate_id = props.data.candidate_id
+            // const sendFormData = new FormData();
+            // sendFormData.append('data', JSON.stringify(data))
+            // if (file.value) {
+            //     sendFormData.append('file', file.value);
+            // }
+
+            // loader.value = true
+            data[`name_${getLang.value}`] = data.name
+            data[`address_${getLang.value}`] = data.address
+            data[`street_${getLang.value}`] = data.street
+            data[`additional_schedule_${getLang.value}`] = data.additional_schedule
+
+            v.value.$touch();
+            if (!v.value.$invalid) {
+                let editedFields =  forItem(item)
+                let html =  `
+                    ${data.start_date}_დან ${data.term[`name_${getLang.value}`]},
+                    ${(data[`for_who_${getLang.value}`])?data[`for_who_${getLang.value}`]:''}
+                    გვესაჭიროება ${data.category[`name_${getLang.value}`]}.
+                    მისამართი: ${data[`address_${getLang.value}`]} ${data[`street_${getLang.value}`]},
+                    გრაფიკი: ${data.work_schedule[`name_${getLang.value}`]},
+                    ${data[`additional_schedule_${getLang.value}`]}.
+                    ანაზღაურება: ${data.payment} ${data.currency[`name_${getLang.value}`]}.
+                    მოვალეობები: ${data.vacancy_duty.map(i => i[`name_${getLang.value}`]).join(', ')}
+                `;
+                Swal.fire({
+                    title: '<p>თქვენი ვაკანსია</p>',
+                    // icon: 'info',
+                    html:html,
+                    showCloseButton: true,
                     showCancelButton: false,
                     focusConfirm: false,
+                    confirmButtonText: 'რედაქტირება',
+                    // icon: 'success',
+                    customClass: {
+                        confirmButton: 'btn btn-success',
+                        cancelButton: 'btn btn-danger',
+                    },
+                    width: '60%'
                 }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
                     if (result.isConfirmed) {
-                        window.history.back();
 
+                        emit('emitUpdateData', {model:data, edit:{...editedFields}})
+                        // validateAndSubmit(data, editedFields)
                     }
-
+                    send.value = false
                 })
+
+
+            }else{
+                send.value = false
+                toast.warning("აუცილებელია სავალდებულო ველები იყოს შევსებული", {
+                    theme: 'colored',
+                    autoClose: 2000,
+                });
+            }
+        };
+
+        return {
+            m,
+            // cla,
+            v,
+            // validateAndSubmit,
+            getLang,
+            chooseNumberCode,
+            handleFileChange,
+            // loader,
+            workInformationSchedule,
+            benefitText,
+            addBenefit,
+            send,
+            minAge,
+            maxAge,
+            localText,
+            minDate,
+            maxDate,
+            startDate,
+
+            update
+
     };
 
-    return {
-        m,
-        cla,
-        v,
-        validateAndSubmit,
-        add,
-        getLang,
-        chooseNumberCode,
-        handleFileChange,
-        loader,
-        workInformationSchedule,
-        benefitText,
-        addBenefit,
-        send,
-        minAge,
-        maxAge,
-        localText,
-        minDate,
-        maxDate,
-        startDate
-
-    };
-},
-methods: {
-
-
-},
-};
+    }
+}
 </script>
 <style lang="">
 

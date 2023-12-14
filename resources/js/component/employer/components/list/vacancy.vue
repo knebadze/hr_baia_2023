@@ -149,7 +149,7 @@ export default {
                 if (response.data.status == 200) {
                     let text;
                     if(response.data.data.type == 'w'){
-                        currentObj.$swal({
+                        Swal.fire({
                             title: '<p>თქვენი სამუშაო კატეგორია არ შეესაბამება ვაკანსიის კატეგორიას!!!</p>',
                             icon: 'info',
                             html:
@@ -163,15 +163,32 @@ export default {
                         }).then((result) => {
                             /* Read more about isConfirmed, isDenied below */
                             if (result.isConfirmed) {
-                                window.location.replace(`/${currentObj.getLang}/user/userProfile?stage=7`)
+                                window.location.replace(`/${getLang.value}/user/userProfile?stage=7`)
                             }
                         })
                     }else if(response.data.data.type == 's'){
-                        toast.success('თქვენ გააგზავნეთ დაინტერესება ვაკანისაზე', {
-                            theme: 'colored',
-                            autoClose: 1000,
-                        });
-                        var find = currentObj.vacancy.find(element => element.id == item.id);
+                        Swal.fire({
+                            title: '<strong>თქვენი დაინტერესება მიღებულია</strong>',
+                            icon: 'success',
+                            html:'შემკვეთს გადაეგზავნება თქვენი ფოტოანკეტა, მოხდება მასთან თქვენი კანდიდატურის განხილვა და მისი მხრიდანაც დაინტერესების შემთხვევაში გაგასაუბრებთ შემკვეთს',
+
+                            showCloseButton: true,
+                            // confirmButtonText: 'მთავარზე დაბრუნება',
+                            showCancelButton: false,
+                            focusConfirm: false,
+                        }).then((result) => {
+                            // if (result.isConfirmed) {
+                            //     let url = new URL( location.href)
+                            //     if (props.data.model.role_id == 3) {
+                            //         window.location.replace(`${url.origin}/ka`);
+                            //     }else{
+                            //         window.location.replace( `${url.origin}/admin/vacancy?ka`);
+                            //     }
+
+                            // }
+
+                        })
+                        var find = props.items.find(element => element.id == item.id);
                         find.vacancy_interest.push(response.data.data.qualifying)
                     }
                 }

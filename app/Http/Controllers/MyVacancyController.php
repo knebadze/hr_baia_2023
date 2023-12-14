@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
-
 use Exception;
 use App\Models\Vacancy;
+use App\Models\Employer;
+use App\Models\Candidate;
+use App\Services\SmsService;
 use Illuminate\Http\Request;
 use App\Services\VacancyService;
 use Illuminate\Support\Facades\DB;
 use App\Models\QualifyingCandidate;
+use App\Events\SmsNotificationEvent;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Services\ClassificatoryService;
 
 class MyVacancyController extends Controller
@@ -28,12 +32,33 @@ class MyVacancyController extends Controller
         return view ('my_vacancy');
     }
 
+    function checkAndVerify(Request $request){
+        $exists = Employer::where('number', $request->number)->whereHas('vacancy', function ($query) {
+            return $query->whereNotIn('status_id', [4, 5, 13]);
+        })->exists();
+        if ($exists) {
+            $randomNumber = null;
+            $employer = Employer::where('number', $request->number)->first();
+            if ($employer->number_code_id == 79 && strlen($request->number) == 9) {
+                $sendSms = new SmsService();
+                $randomNumber = rand(10000, 99999);
+                $sendSms->sendSms($request->number, 'verify code:'.$randomNumber);
+            }
+            $result = ['type' => 's','randomNumber' => $randomNumber];
+        }else{
+            $result = ['type' => 'e'];
+        }
+
+        return response()->json($result);
+    }
+
     public function find(Request $request)
     {
-        $code = $request->code;
+        $number = $request->number;
 
         try {
-            $result = $this->vacancyService->find($code);
+            $result = $this->vacancyService->find($number);
+            // dd($result);
         } catch (Exception $e) {
             $result = [
                 'status' => 500,
@@ -47,6 +72,61 @@ class MyVacancyController extends Controller
     }
 
 
+    function questionnaire($local, $code) {
+        $decodedCode = decrypt($code);
+
+        $parts = explode("-", $decodedCode);
+
+        list($employer_number, $vacancy_code, $candidate_id) = $parts;
+        $vacancy = Vacancy::where('code', $vacancy_code)->first();
+        // If you want to verify the decoded code matches the original, you can check the hash
+        $exists = Employer::where('number', $employer_number)
+            ->whereHas('vacancy', function ($query) use ($vacancy_code) {
+                $query->whereIn('code', [$vacancy_code]);
+            })
+            ->exists()
+            &&
+            QualifyingCandidate::where('candidate_id', $candidate_id)
+            ->whereHas('vacancy', function ($query) use ($vacancy_code) {
+                $query->whereIn('code', [$vacancy_code]);
+            })
+            ->exists();
+        if ($exists) {
+            // dd($candidate_id);
+            $data = Candidate::where('id', $candidate_id)
+                ->with([
+                    'user.gender',
+                    'getWorkInformation.category',
+                    'getWorkInformation.currency',
+                    'getWorkInformation.getWorkSchedule.workSchedule',
+                    'nationality',
+                    'citizenship',
+                    'religion',
+                    'education',
+                    'getLanguage.language',
+                    'getLanguage.level',
+                    'professions',
+                    'specialty',
+                    'recommendation',
+                    'generalWorkExperience',
+                    'familyWorkExperience.noReason',
+                    'familyWorkExperience.getFamilyWorkDuty.duty.category',
+                    'characteristic',
+                    'allergy',
+                    'maritalStatus',
+                    'drivingLicense',
+                    'status',
+                    'qualifyingCandidate' => function ($query) use ($vacancy) {
+                        // Add a condition for the qualifyingCandidate relationship
+                        $query->where('vacancy_id', $vacancy->id);
+                    },
+                ])->first();
+            return view ('employer.photo_questionnaire', compact('data'));
+        } else {
+            return response()->view('404', [], 404);
+        }
+
+    }
 
     public function getInterestData(Request $request)
     {
@@ -69,16 +149,15 @@ class MyVacancyController extends Controller
     {
 
         try {
-            QualifyingCandidate::where('id', $request['id'])->update(['employer_answer' => 0]);
-            $result = '';
+            $qualifying = QualifyingCandidate::where('id', $request['id'])->first();
+            $result = $qualifying->update(['employer_answer' => 0]);
+            $this->sendSms($qualifying);
         } catch (Exception $e) {
             $result = [
                 'status' => 500,
                 'error' => $e->getMessage()
             ];
         }
-
-
 
         return response()->json($result);
     }
@@ -88,15 +167,16 @@ class MyVacancyController extends Controller
     public function like(Request $request)
     {
         try {
-            QualifyingCandidate::where('id', $request['id'])->update(['employer_answer' => 1, 'qualifying_type_id' => 4]);
-
-            $result = '';
+            $qualifying = QualifyingCandidate::where('id', $request['id'])->first();
+            $result = $qualifying->update(['employer_answer' => 1, 'qualifying_type_id' => 3]);
+            $this->sendSms($qualifying);
         } catch (Exception $e) {
             $result = [
                 'status' => 500,
                 'error' => $e->getMessage()
             ];
         }
+        return response()->json($result);
     }
 
     function show($lang, $id) {
@@ -110,16 +190,6 @@ class MyVacancyController extends Controller
             ->first()->toArray();
         //     // dd($vacancy);
         $auth = Auth::user();
-
-        // $vacancy = Vacancy::where('code', $id)
-        //     ->with([
-        //         'vacancyDuty', 'vacancyBenefit', 'vacancyForWhoNeed', 'characteristic','currency','category', 'status',
-        //         'workSchedule', 'vacancyInterest', 'interviewPlace','term', 'demand.education',
-        //         'employer.numberCode', 'hr.user'
-        //     ])
-        //     ->first();
-        // $employer = $vacancy->employer;
-        // $demand = $vacancy->demand;
 
         $classificatoryArr = ['category', 'currency', 'workSchedule', 'educations', 'characteristic', 'duty',
         'languages', 'languageLevels', 'interviewPlace', 'term', 'benefit','forWhoNeed', 'numberCode', 'specialties', 'drivingLicense'];
@@ -135,5 +205,14 @@ class MyVacancyController extends Controller
         ];
 
         return view('show_vacancy', ['data' => $data]);
+    }
+
+    function sendSms($data) {
+        $answer = $data->employer_answer == 1 ? 'მოიწონა': 'არ მოიწონა';
+        $candidateSmsData = ['to' => $data->candidate->user->number, 'code' => $data->vacancy->code, 'answer' => $answer];
+        $hrSmsData = ['to' => $data->vacancy->hr->user->number, 'code' => $data->vacancy->code, 'id' => $data->candidate_id, 'name' => $data->candidate->user->name_ka, 'answer' => $answer];
+
+        $data->employer_answer == 1 && event(new SmsNotificationEvent($candidateSmsData, 'employer_answer_candidate'));
+        event(new SmsNotificationEvent($hrSmsData, 'employer_answer_hr'));
     }
 }
