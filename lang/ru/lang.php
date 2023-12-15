@@ -79,8 +79,8 @@ return [
     'menu_log_in' => 'Авторизоваться',
     // ----------------------------------------------------------------------------------------------------
     // Welcome Lang Page
-    'welcome_leftside_bar_one' => 'With Us', 
-    'welcome_leftside_bar_two' => 'It\'s a real job',
+    'welcome_leftside_bar_one' => 'У нас есть', 
+    'welcome_leftside_bar_two' => 'реальная работа',
 
     'welcome_leftside_bar_firstword_one' => 'Работа здесь',
     'welcome_leftside_bar_firstword_two' => 'найдется',
@@ -97,6 +97,7 @@ return [
 
     'welcome_leftside_bar_search_job_location_job' => 'местоположение',
         'welcome_leftside_bar_search_job_location_job_search' => 'Поиск',
+    'welcome_leftside_bar_search_job_location_job_search_button' => 'Поиск',
 
     'welcome_leftside_bar_popular' => 'Популярный',
     // ----------------------------------------------------------------------------------------------------
@@ -107,6 +108,10 @@ return [
     'welcome_middle_leftblock_small_text' => 'С рабочими категориями',
     'welcome_middle_leftblock_big_text' => 'Выберите нужную категорию',
     'welcome_middle_submit' => 'Все категории',
+
+    'welcome_middle_leftblock_small_text_candidate' => 'С категориями кандидатов',
+    'welcome_middle_leftblock_big_text_candidate' => 'Выберите нужную категорию',
+    'welcome_middle_submit_candidate' => 'Все кандидаты',
 
     // 'welcome_middle_uploadresume_block' => 'Все еще не можете найти подходящую работу? Загрузите свое резюме / CV.',
     // 'welcome_middle_uploadresume_button' => 'Загрузите резюме',
@@ -344,6 +349,12 @@ return [
     'employer_jobs_page_tooltip_view' => 'Просмотр вакансий',
     'employer_jobs_page_tooltip_reminder' => 'Напоминание',
     'employer_jobs_page_tooltip_del' => 'удалить',
+
+    // My Vacancy Page
+    'my_vacancy_title' => 'Получить информацию о вашей вакансии',
+    'my_vacancy_title_small' => 'Используйте номер телефона, указанный в вашей вакансии',
+    'my_vacancy_search_label' => 'номер телефона',
+    'my_vacancy_search_placeholder' => 'пример: 555321065',
 
     // Candidates Us Lang Page
     'candidate_page_big_title' => 'Кандидаты',

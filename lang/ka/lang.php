@@ -346,6 +346,12 @@ return [
     'employer_jobs_page_tooltip_reminder' => 'შეხსენება',
     'employer_jobs_page_tooltip_del' => 'წაშლა',
 
+    // My Vacancy Page
+    'my_vacancy_title' => 'მიიღეთ ინფორმაციაა თქვენს ვაკანსიაზე',
+    'my_vacancy_title_small' => 'გამოიყენეთ თქვენის მიერ ვაკანსიაში მითითებული ტელეფონის ნომერი',
+    'my_vacancy_search_label' => 'ტელეფონის ნომერი',
+    'my_vacancy_search_placeholder' => 'მაგ:555321065',
+
     // Candidates Us Lang Page
     'candidate_page_big_title' => 'კანდიდატები',
     'candidate_page_small_title_first' => 'მთავარი',
