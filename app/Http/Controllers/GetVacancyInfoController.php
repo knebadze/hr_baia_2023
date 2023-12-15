@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
 use App\Models\Status;
 use App\Models\Vacancy;
 use Illuminate\Http\Request;
-use App\Models\VacancyReminder;
-use App\Models\QualifyingCandidate;
-use App\Models\QualifyingType;
 use Illuminate\Support\Facades\Auth;
 use App\Models\VacancyRedactedHistory;
 use App\Services\ClassificatoryService;
@@ -52,7 +48,7 @@ class GetVacancyInfoController extends Controller
             'workSchedule', 'vacancyInterest', 'interviewPlace','term', 'demand', 'demand.language', 'demand.education', 'demand.languageLevel','demand.specialty',
             'employer.numberCode','deposit','hr.user', 'vacancyDrivingLicense'
             ])->first();
-            
+
         $role_id = Auth::user()->role_id;
         $hr_id = ($role_id == 2)?Auth::user()->hr->id:null;
 

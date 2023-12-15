@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\gender;
 use App\Models\Candidate;
 use Illuminate\Http\Request;
-use App\Models\Language_level;
-use App\Models\WorkInformation;
 use App\Services\ClassificatoryService;
 use App\Filters\Candidate\CandidateFilters;
 
@@ -28,10 +25,6 @@ class CandidateController extends Controller
             ->paginate(25)->toArray();
             $classificatoryArr = ['category', 'workSchedule'];
             $classificatory = $this->classificatoryService->get($classificatoryArr);
-        // foreach ($candidate as $key => $value) {
-        //     $ids[] = $value['id'];
-        // }
-        // $workInformation = WorkInformation::whereIn('candidate_id', $ids)->with(['category', 'currency', 'workSchedule'])->get()->toArray();
         $data = [
             'candidate' => $candidate,
             'classificatory' => $classificatory

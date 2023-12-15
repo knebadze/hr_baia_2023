@@ -16,12 +16,10 @@ use App\Services\InterestCandidateService;
 class VacancyController extends Controller
 {
     private ClassificatoryService $classificatoryService;
-    private VacancyService $vacancyService;
     private InterestCandidateService $interestCandidateService;
-    public function __construct(ClassificatoryService $classificatoryService, VacancyService $vacancyService, InterestCandidateService $interestCandidateService)
+    public function __construct(ClassificatoryService $classificatoryService, InterestCandidateService $interestCandidateService)
     {
         $this->classificatoryService = $classificatoryService;
-        $this->vacancyService = $vacancyService;
         $this->interestCandidateService = $interestCandidateService;
     }
 

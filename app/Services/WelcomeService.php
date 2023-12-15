@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Models\Vacancy;
 use App\Models\Category;
-use App\Models\Candidate;
 use App\Models\Testimonial;
 use App\Models\WorkSchedule;
 use Illuminate\Support\Facades\DB;

@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\Hr;
 use App\Models\Duty;
 use App\Models\Term;
 use App\Models\User;
@@ -26,7 +25,6 @@ use App\Models\Profession;
 use App\Models\Citizenship;
 use App\Models\Nationality;
 use App\Models\NumberOwner;
-use Illuminate\Support\Arr;
 use App\Models\WorkSchedule;
 
 use App\Models\MaritalStatus;

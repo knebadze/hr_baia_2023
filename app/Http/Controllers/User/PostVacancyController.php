@@ -9,7 +9,6 @@ use App\Services\VacancyService;
 use App\Events\SmsNotificationEvent;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use App\Services\VacancyUpdateService;
 use Illuminate\Support\Facades\Schema;
 use App\Services\ClassificatoryService;
 
@@ -17,12 +16,10 @@ class PostVacancyController extends Controller
 {
 
     private VacancyService $vacancyService;
-    private VacancyUpdateService $vacancyUpdateService;
     private ClassificatoryService $classificatoryService;
-    public function __construct(VacancyService $vacancyService, ClassificatoryService $classificatoryService, VacancyUpdateService $vacancyUpdateService)
+    public function __construct(VacancyService $vacancyService, ClassificatoryService $classificatoryService)
     {
         $this->vacancyService = $vacancyService;
-        $this->vacancyUpdateService = $vacancyUpdateService;
         $this->classificatoryService = $classificatoryService;
     }
     public function index()

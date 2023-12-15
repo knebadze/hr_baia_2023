@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Models\User;
-use App\Services\ModelService;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Services\ClassificatoryService;
@@ -13,12 +11,10 @@ class UserProfileController extends Controller
 {
 
     private ClassificatoryService $classificatoryService;
-    private ModelService $modelService;
     private CandidateModelService $candidateModelService;
-    public function __construct(ClassificatoryService $classificatoryService, ModelService $modelService, CandidateModelService $candidateModelService)
+    public function __construct(ClassificatoryService $classificatoryService, CandidateModelService $candidateModelService)
     {
         $this->classificatoryService = $classificatoryService;
-        $this->modelService = $modelService;
         $this->candidateModelService = $candidateModelService;
     }
 
@@ -31,19 +27,9 @@ class UserProfileController extends Controller
         'numberCode', 'characteristic', 'numberOwner', 'yesNo', 'category', 'workSchedule','currency', 'recommendationFromWhom', 'noRecommendationReason',
         'duty', ];
         $classificatory = $this->classificatoryService->get($candidateClassificatoryArr);
-        // $stage = null;
 
-        // $currentUrl = url()->full();
-        // $parsedUrl = parse_url($currentUrl);
-        // if ($parsedUrl['query']) {
-        //     $parts = explode('=', $parsedUrl['query']);
-        //     $stage = $parts[1];
-        // }
-
-        // dd($currentUrl, $parsedUrl);
         $user_id = request('user');
         $stage = request('stage');
-        // dd($stage, $user_id, $parsedUrl);
         $model = $this->candidateModelService->findData($stage, $user_id);
 
         $data = [

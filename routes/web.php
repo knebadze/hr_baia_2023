@@ -13,10 +13,6 @@ use App\Http\Controllers\PricesController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\VacancyController;
 
-
-use App\Http\Controllers\Api\PathController;
-
-
 use App\Http\Controllers\Admin\PdfController;
 
 use App\Http\Controllers\CandidateController;
@@ -37,7 +33,6 @@ use App\Http\Controllers\User\PostVacancyController;
 use App\Http\Controllers\User\UserProfileController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Employer\EmployerInfoController;
-use App\Http\Controllers\Candidate\WorkInformationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -85,8 +80,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
         // Account Pages
         Route::get('/user/userProfile/{id?}', [UserProfileController::class, 'index'])->name('userProfile');
 
-        Route::get('/user/work_information', [WorkInformationController::class, 'index'])->name('work_information');
-        // Route::get('/user/work_information_detail/{id}', [WorkInformationController::class, 'show'])->name('work.information.detail');
+
 
         // My Rezume
         Route::get('/user/myrezume', [ResumeController::class, 'index'])->name('myrezume');
@@ -183,8 +177,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
 
     include('admin/global_variable/variable.php');
 
-    include('API/api.php');
-    // Route::post('/store-path' , [PathController::class, 'store']);
+    include('Api/api.php');
 
 
 

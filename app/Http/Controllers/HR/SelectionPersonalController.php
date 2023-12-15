@@ -5,13 +5,9 @@ namespace App\Http\Controllers\Hr;
 use Exception;
 use Carbon\Carbon;
 use App\Models\User;
-use App\Models\gender;
-use App\Models\Status;
 use App\Models\Vacancy;
-use App\Models\Category;
 use App\Models\NoReason;
 use App\Models\Candidate;
-use App\Models\Education;
 use Illuminate\Http\Request;
 use App\Models\InterviewPlace;
 use App\Models\QualifyingType;
@@ -19,10 +15,8 @@ use Illuminate\Support\Facades\DB;
 use App\Models\QualifyingCandidate;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use App\Services\Admin\EndWorkService;
 use App\Services\ClassificatoryService;
 use App\Filters\Candidate\CandidateFilters;
-use App\Models\WorkDay;
 use App\Services\AddVacancyPersonalService;
 use App\Services\Admin\MoveEndDateService;
 
@@ -30,13 +24,11 @@ class SelectionPersonalController extends Controller
 {
     private ClassificatoryService $classificatoryService;
     private AddVacancyPersonalService $addVacancyPersonalService;
-    private EndWorkService $endWorkService;
     private MoveEndDateService $moveEndDateService;
-    public function __construct(ClassificatoryService $classificatoryService, AddVacancyPersonalService $addVacancyPersonalService, EndWorkService $endWorkService, MoveEndDateService $moveEndDateService)
+    public function __construct(ClassificatoryService $classificatoryService, AddVacancyPersonalService $addVacancyPersonalService,  MoveEndDateService $moveEndDateService)
     {
         $this->classificatoryService = $classificatoryService;
         $this->addVacancyPersonalService = $addVacancyPersonalService;
-        $this->endWorkService = $endWorkService;
         $this->moveEndDateService = $moveEndDateService;
     }
     public function index($id)  {

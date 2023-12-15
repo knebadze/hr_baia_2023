@@ -44,29 +44,17 @@
                                 </ul>
                             </div>
                         </div>
-                        @php
-                            use App\Services\ClassificatoryService;
-                            $service = new ClassificatoryService();
-                            $category = $service->get(['category'])['category'];
-                            // dd($category);
-                        @endphp
+
+
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="widget widget_services ftr-list-center">
                                 <h3 class="widget-title">{{ __('lang.footer_by_category') }}</h3>
                                 <ul>
+                                    {{-- Loop through each category item --}}
                                     @foreach ($category as $item)
-                                        <li><a href="#">{{ $item['name_ka']}}</a></li>
+                                        <li><a href="#">{{ $item['name_'. app()->getLocale()] }}</a></li>
                                     @endforeach
 
-                                    {{-- <li><a href="#">ადმინისტრატორები</a></li>
-                                    <li><a href="#">მზარეულის დამხმარე</a></li>
-                                    <li><a href="#">იურისტები / ადვოკატები</a></li>
-                                    <li><a href="#">ძიძა</a></li>
-                                    <li><a href="#">სომელიე</a></li>
-                                    <li><a href="#">ჭურჭლის მრეცხავი</a></li>
-                                    <li><a href="#">მენეჯერი</a></li>
-                                    <li><a href="#">მძღოლი</a></li>
-                                    <li><a href="#">რეპეტიტორი</a></li> --}}
                                 </ul>
                             </div>
                         </div>

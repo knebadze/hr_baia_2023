@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\Candidate;
 use App\Repositories\Vacancy\AddVacancyPersonalRepository;
 
 class AddVacancyPersonalService

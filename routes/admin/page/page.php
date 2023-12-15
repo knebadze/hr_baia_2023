@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\SmsPageControlle;
 use App\Http\Controllers\Admin\HrController;
 use App\Http\Controllers\Admin\SalaryController;
 use App\Http\Controllers\Admin\SmsPageController;

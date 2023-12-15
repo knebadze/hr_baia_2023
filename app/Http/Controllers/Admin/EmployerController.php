@@ -6,8 +6,6 @@ use App\Models\Vacancy;
 use App\Models\Employer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use App\Services\ClassificatoryService;
 use App\Filters\Employer\EmployerFilters;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 

@@ -6,7 +6,6 @@ use Exception;
 use App\Models\User;
 use App\Models\Candidate;
 use Illuminate\Http\Request;
-use App\Services\ModelService;
 use App\Models\WorkInformation;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -14,7 +13,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Services\ClassificatoryService;
 use App\Filters\Candidate\CandidateFilters;
 use App\Models\Additional_number;
-use App\Models\Enrollment;
 use App\Services\Admin\CandidateUpdateService;
 
 class AdminCandidateController extends Controller
@@ -22,12 +20,10 @@ class AdminCandidateController extends Controller
 
     private ClassificatoryService $classificatoryService;
     private CandidateUpdateService $candidateUpdateService;
-    private ModelService $modelService;
-    public function __construct(ClassificatoryService $classificatoryService, CandidateUpdateService $candidateUpdateService, ModelService $modelService)
+    public function __construct(ClassificatoryService $classificatoryService, CandidateUpdateService $candidateUpdateService)
     {
         $this->classificatoryService = $classificatoryService;
         $this->candidateUpdateService = $candidateUpdateService;
-        $this->modelService = $modelService;
     }
     public function index()
     {

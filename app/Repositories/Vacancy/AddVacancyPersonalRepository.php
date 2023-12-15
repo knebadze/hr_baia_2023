@@ -7,7 +7,6 @@ use App\Models\Vacancy;
 use App\Models\WorkDay;
 use App\Models\Candidate;
 use App\Events\hrDailyJob;
-use Illuminate\Queue\Worker;
 use App\Models\GlobalVariable;
 use App\Models\RegistrationFee;
 use App\Models\userRegisterLog;

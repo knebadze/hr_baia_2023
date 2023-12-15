@@ -6,7 +6,6 @@ use Exception;
 use Carbon\Carbon;
 use App\Models\Vacancy;
 use Illuminate\Http\Request;
-use App\Services\VacancyRepeatService;
 use App\Services\VacancyUpdateService;
 use App\Filters\Vacancy\Admin\VacancyFullFilters;
 use App\Models\RepeatHistory;

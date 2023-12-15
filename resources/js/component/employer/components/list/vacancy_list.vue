@@ -12,7 +12,7 @@
                         <div class="twm-left-content col-md-8">
                             <!-- class="twm-mid-content" -->
                             <!-- <a href="job-detail.html" class="twm-job-title"> -->
-                                <h4> {{ item[`title_${getLang}`] }}<span class="twm-job-post-duration" style="color: green;"> /{{ item.timeAgo }}</span></h4>
+                                <h4> {{ item[`title_${getLang}`] }}<span class="twm-job-post-duration" style="color: green;"> /{{ getTimeAgo(item.created_at) }}</span></h4>
                             <!-- </a> -->
                             <p class="twm-job-address">{{ item.author[`address_${getLang}`].split(/\s+/).slice(0, 2).join(" ") }}. <span v-for="(i, ind) in item.vacancy_for_who_need" :key="ind">{{  i[`name_${getLang}`]}}</span>.</p>
 
@@ -43,8 +43,9 @@
 </template>
 <script>
 import { ref, computed } from 'vue';
-import Swal from 'sweetalert2';
 import interest_button from '../interest_button.vue';
+import moment from 'moment';
+import 'moment/locale/ru';
 export default {
     components:{
         interest_button
@@ -58,7 +59,7 @@ export default {
             return I18n.getSharedInstance().options.lang;
         });
 
-
+        moment.locale('ru');
         let url = new URL( location.href);
         const detailUrl = ref(url.origin+'/'+getLang.value+'/job_detail');
         // const checkInterest = ref(false);
@@ -179,6 +180,31 @@ export default {
         //     })
         // };
 
+        const getTimeAgo = (created_at) => {
+            const time = moment(created_at);
+            const now = moment();
+            const diff = now.diff(time);
+
+            if (diff < 60000) { // less than 1 minute
+                return 'now';
+            } else if (diff < 3600000) { // less than 1 hour
+                const minutes = moment.duration(diff).asMinutes();
+                return `${Math.round(minutes)} წუთის წინ`;
+            } else if (diff < 86400000) { // less than 24 hours
+                const hours = moment.duration(diff).asHours();
+                return `${Math.round(hours)} საათის წინ`;
+            } else if (diff < 172800000) { // less than 48 hours
+                return 'გუშინ';
+            } else if (diff < 604800000) { // less than 7 days (1 week)
+                const days = moment.duration(diff).asDays();
+                return `${Math.round(days)} დღiს წინ`;
+            } else {
+                return time.format('D MMMM');
+            }
+        };
+        // const created_at = ref('2023-01-01T12:34:56.789Z');
+        // const timeAgo = computed(() => getTimeAgo(created_at.value));
+        // console.log(timeAgo.value);
         const handlerUpdateData = (id, response) =>{
             let find = props.items.find(element => element.id == id);
             find.vacancy_interest.push(response.data.qualifying)
@@ -186,7 +212,8 @@ export default {
         return {
             getLang,
             detailUrl,
-            handlerUpdateData
+            handlerUpdateData,
+            getTimeAgo
             // interest
         }
     }

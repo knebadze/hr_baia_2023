@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use Exception;
-use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\CandidateNotice;
-use App\Models\userRegisterLog;
 use App\Models\WorkInformation;
 use App\Models\Additional_number;
 use App\Models\CandidateLanguage;
@@ -123,7 +121,7 @@ class CandidateInfoController extends Controller
 
         return response()->json($result, $result['status']);
     }
-    
+
     function deleteCandidateRecommendation(Request $request) {
         $id = $request->data;
         // dd(CandidateRecommendation::where('id',$id)->first());

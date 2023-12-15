@@ -9,11 +9,9 @@ use App\Models\Candidate;
 use App\Services\SmsService;
 use Illuminate\Http\Request;
 use App\Services\VacancyService;
-use Illuminate\Support\Facades\DB;
 use App\Models\QualifyingCandidate;
 use App\Events\SmsNotificationEvent;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use App\Services\ClassificatoryService;
 
 class MyVacancyController extends Controller

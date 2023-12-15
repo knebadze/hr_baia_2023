@@ -10,7 +10,6 @@ use App\Models\QualifyingCandidate;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Services\Admin\EndWorkService;
-// use App\Services\ClassificatoryService;
 
 class VacancyAttachedController extends Controller
 {

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\SmsTemplate;
 use Illuminate\Http\Request;
-use LDAP\Result;
 
 class SmsPageController extends Controller
 {

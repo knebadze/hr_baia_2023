@@ -4,7 +4,6 @@ namespace App\Services\CandidateModel;
 
 use App\Models\Candidate;
 use App\Models\CandidateNotice;
-use Illuminate\Support\Facades\Schema;
 
 class Notice
 {
