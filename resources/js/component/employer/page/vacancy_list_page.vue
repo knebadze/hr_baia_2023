@@ -6,7 +6,34 @@
             <div class="row">
                 <vacancy_user_filter :cla="data.classificatory" @emitFilterData="handleFilterData"></vacancy_user_filter>
                 <div class="col-lg-8 col-md-12">
-                    <vacancy :items="vacancy" :auth="auth"></vacancy>
+                     <!--Filter Short By-->
+                    <div class="product-filter-wrap d-flex justify-content-between align-items-center m-b30">
+                        <span class="woocommerce-result-count-left">{{ $t('lang.individual_vacancies_page_middle_first_title') }} {{ count }} </span>
+                        <!-- <button class="btn btn-primary">ჩემი დაინტერესებული</button> -->
+                        <!-- <form class="woocommerce-ordering twm-filter-select" method="get">
+                            <span class="woocommerce-result-count">{{ $t('lang.individual_vacancies_page_middle_title_sort') }}</span>
+                            <select class="wt-select-bar-2 selectpicker" data-live-search="true" data-bv-field="size">
+                                <option>{{ $t('lang.individual_vacancies_page_middle_latest') }}</option>
+                                <option>{{ $t('lang.individual_vacancies_page_middle_free_schedule') }}</option>
+                                <option>{{ $t('lang.individual_vacancies_page_middle_full_time') }}</option>
+                                <option>{{ $t('lang.individual_vacancies_page_middle_intership') }}</option>
+                                <option>{{ $t('lang.individual_vacancies_page_middle_half_time') }}</option>
+                                <option>{{ $t('lang.individual_vacancies_page_middle_temporary') }}</option>
+                            </select>
+                            <select class="wt-select-bar-2 selectpicker" data-live-search="true" data-bv-field="size">
+                                <option>{{ $t('lang.individual_vacancies_page_middle_show_me_10') }}</option>
+                                <option>{{ $t('lang.individual_vacancies_page_middle_show_me_20') }}</option>
+                                <option>{{ $t('lang.individual_vacancies_page_middle_show_me_30') }}</option>
+                                <option>{{ $t('lang.individual_vacancies_page_middle_show_me_40') }}</option>
+                                <option>{{ $t('lang.individual_vacancies_page_middle_show_me_50') }}</option>
+                                <option>{{ $t('lang.individual_vacancies_page_middle_show_me_60') }}</option>
+                            </select>
+                        </form> -->
+
+                    </div>
+
+                    <vacancy_list :items="vacancy" :auth="auth"></vacancy_list>
+
                     <div class="pagination-outer">
                         <div class="pagination-style1">
                             <paginate
@@ -37,12 +64,12 @@ import _ from 'lodash'
 import { ref, computed } from 'vue';
 
 import vacancy_user_filter from '../components/list/vacancy_user_filter.vue';
-import vacancy from '../components/list/vacancy_list.vue';
+import vacancy_list from '../components/list/vacancy_list.vue';
 export default {
     components:{
         vacancy_user_filter,
         Paginate,
-        vacancy
+        vacancy_list
     },
     props:{
         data:Object
@@ -56,6 +83,11 @@ export default {
         const vacancy = ref(null)
         const staticVacancy = ref(null)
         const auth = ref(null)
+
+        const count = computed(() => {
+            return vacancy.value.length;
+        });
+
 
         const firstData = () =>{
 
@@ -110,6 +142,7 @@ export default {
             vacancy,
             staticVacancy,
             auth,
+            count,
             handleFilterData,
             getData
         }

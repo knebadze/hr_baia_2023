@@ -63,7 +63,7 @@ const importComponents = async () => {
       hrPage,
       dailyReminder,
       dailyWork,
-      popularVacancy,
+
 
       candidatePage,
       candidateUpdate,
@@ -86,6 +86,7 @@ const importComponents = async () => {
       categoryCarousel,
       testimonialCarousel,
       subscribeInput,
+      popularVacancy,
 
       testimonialPage,
       smsTemplate,
@@ -118,7 +119,7 @@ const importComponents = async () => {
       import('./component/admin/hr/page/hr_page.vue'),
       import('./component/admin/dashboard/dailyReminder.vue'),
       import('./component/admin/dashboard/hr_daily_work.vue'),
-      import('./component/admin/dashboard/popular_vacancy.vue'),
+
 
       import('./component/admin/candidate/page/candidate_page.vue'),
       import('./component/admin/candidate/page/candidate_update_page.vue'),
@@ -141,6 +142,7 @@ const importComponents = async () => {
       import('./component/welcome/category_carousel.vue'),
       import('./component/welcome/testimonial_carousel.vue'),
       import('./component/welcome/subscribe_input.vue'),
+      import('./component/welcome/popular_vacancy.vue'),
 
       import('./component/admin/testimonial/page/testimonial_page.vue'),
       import('./component/admin/sms_template/page/sms_template.vue'),
@@ -184,7 +186,7 @@ const importComponents = async () => {
     // dashboard
     app.component('daily-reminder',dailyReminder.default);
     app.component('daily-work',dailyWork.default);
-    app.component('popular-vacancy',popularVacancy.default);
+
     // page
     app.component('candidate-page', candidatePage.default);
     app.component('candidate-update', candidateUpdate.default);
@@ -210,6 +212,7 @@ const importComponents = async () => {
     app.component('category-carousel', categoryCarousel.default)
     app.component('testimonial-carousel', testimonialCarousel.default)
     app.component('subscribe-input', subscribeInput.default)
+    app.component('popular-vacancy',popularVacancy.default);
 
     app.component('testimonial-page', testimonialPage.default)
     app.component('sms-template', smsTemplate.default)
