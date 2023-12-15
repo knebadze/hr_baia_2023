@@ -96,6 +96,7 @@ return [
 
     'welcome_leftside_bar_search_job_location_job' => 'Location',
         'welcome_leftside_bar_search_job_location_job_search' => 'Search',
+    'welcome_leftside_bar_search_job_location_job_search_button' => 'Search',
 
     'welcome_leftside_bar_popular' => 'Popular',
     // ----------------------------------------------------------------------------------------------------
@@ -343,6 +344,12 @@ return [
     'employer_jobs_page_tooltip_view' => 'Job View',
     'employer_jobs_page_tooltip_reminder' => 'Reminder',
     'employer_jobs_page_tooltip_del' => 'delete',
+
+    // My Vacancy Page
+    'my_vacancy_title' => 'Get information about your vacancy',
+    'my_vacancy_title_small' => 'Use the phone number specified in your vacancy',
+    'my_vacancy_search_label' => 'phone number',
+    'my_vacancy_search_placeholder' => 'example:555321065',
 
     // Candidates Us Lang Page
     'candidate_page_big_title' => 'Candidates',

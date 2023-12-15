@@ -1,10 +1,11 @@
 <template lang="">
+    {{ $t('lang.user_profile_page_category_title') }}
     <div class="twm-error-wrap">
         <div class="row">
             <div class="col-lg-12 col-md-12 mb-4">
                 <div class="twm-error-content">
-                    <h4 class="twm-error-title2 site-text-primary">მიიღეთ ინფორმაციაა თქვენს ვაკანსიაზე</h4>
-                    <p>გამოიყენეთ თქვენის მიერ ვაკანსიაში მითითებული ტელეფონის ნომერი.</p>
+                    <h4 class="twm-error-title2 site-text-primary">{{ $t('lang.my_vacancy_title') }}</h4>
+                    <p>{{ $t('lang.my_vacancy_title_small') }}</p>
                 </div>
             </div>
             <div class="col-lg-12 col-md-12">
@@ -15,9 +16,9 @@
 
                                 <!--Location-->
                                 <div class="form-group  col-md-9">
-                                    <label>{{ ('ტელეფონის ნომერი') }}</label>
+                                    <label>{{ $t('lang.my_vacancy_search_label') }}</label>
                                     <div class="twm-inputicon-box">
-                                        <input v-model="number" type="text"  required class="form-control" :placeholder=" $t('მაგ:555321065')" onkeypress="return /[0-9]/i.test(event.key)">
+                                        <input v-model="number" type="text"  required class="form-control" :placeholder=" $t('lang.my_vacancy_search_placeholder')" onkeypress="return /[0-9]/i.test(event.key)">
 
                                     </div>
                                 </div>
