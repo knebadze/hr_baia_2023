@@ -51,16 +51,8 @@ class InterestCandidateService
     {
         $vacancy = Vacancy::where('id', $id)->first();
         $hrSmsData = ['to' => $vacancy->hr->user->number, 'code' => $vacancy->code, 'name' => Auth::user()->name_ka, 'id' => Auth::user()->candidate->id];
-        // $currentUrl = url()->current();
-        // $parsedUrl = parse_url($currentUrl);
 
-        // // Create the base URL
-        // $baseUrl = $parsedUrl['scheme'] . '://' . $parsedUrl['host'].':'.$parsedUrl['port'];
         $code = $vacancy->employer->number.'-'.$vacancy->code.'-'.Auth::user()->candidate->id;
-        // $hashedCode = bcrypt($code);
-
-        // // Encode the hashed code
-        // $encodedCode = base64_encode($hashedCode);
         $encryptedCode = encrypt($code);
         $employerSmsData = ['to' => $vacancy->employer->number, 'link' =>route('candidate.photo.questionnaire', ['locale' => App::getLocale(), 'code' => $encryptedCode])];
 

@@ -43,7 +43,7 @@
 
                                             <div class="col-lg-12">
                                                 <div class="form-group mb-3">
-                                                    <input id="emailOrPhone" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="{{ __('lang.modal_login_email_or_number') }}">
+                                                    <input id="emailOrPhone" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="{{ __('599555000') }}">
 
                                                     @error('email')
                                                         <span class="invalid-feedback" role="alert">
@@ -72,7 +72,7 @@
                                                             this.querySelector("i").classList.toggle("fa-eye-slash");
                                                         });
                                                     </script>
-                                                    
+
                                                     @error('password')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>

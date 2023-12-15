@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -40,15 +41,16 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    // protected function authenticated(Request $request, $user)
-    // {
-    //     return true;
-    // }
+    protected function authenticated(Request $request, $user)
+    {
+        $d = app()->getLocale().'/home';
+        $storedPathName = $request->session()->pull('storedPathName', $d );
+
+
+        return redirect($storedPathName ?? RouteServiceProvider::HOME);
+    }
+
     public function redirectTo(){
-        return url()->previous();
-        // if (request()->has('previous')) {
-        //     $this->redirectTo = request()->get('previous');
-        // }
-        // return $this->redirectTo ?? '/defaultPath';
+        return session('storedPathName') ?? RouteServiceProvider::HOME;
     }
 }

@@ -37,7 +37,7 @@ import _ from 'lodash'
 import { ref, computed } from 'vue';
 
 import vacancy_user_filter from '../components/list/vacancy_user_filter.vue';
-import vacancy from '../components/list/vacancy.vue';
+import vacancy from '../components/list/vacancy_list.vue';
 export default {
     components:{
         vacancy_user_filter,

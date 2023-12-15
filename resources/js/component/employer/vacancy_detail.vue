@@ -38,22 +38,10 @@
                                             </div>
 
                                             <div class="twm-job-self-bottom">
-                                                <button v-if=" !data.staticVacancy" class="site-button" @click="interest(vacancy)">
+                                                <interest_button v-if=" !data.staticVacancy" :item="vacancy" :auth="auth" @emitReceiveChild="handlerUpdateData"/>
+                                                <!-- <button v-if=" !data.staticVacancy" class="site-button" @click="interest(vacancy)">
                                                     დაინტერესება
-                                                </button>
-                                                <!-- // @auth()
-                                                //     @if (count(vacancy.vacancyInterest) && $statusThisVacancy)
-                                                //     @else
-                                                //         <form method="post" action="/interest_vacancy" enctype="multipart/form-data">
-                                                //             {{ csrf_field() }}
-                                                //             <input type="hidden" name="id" value="{{ vacancy.id }}">
-                                                //             <button class="site-button" type="submit" >
-                                                //                 დაინტერესება
-                                                //             </button>
-                                                //         </form>
-                                                //     @endif
-
-                                                // @endauth -->
+                                                </button> -->
 
                                             </div>
                                         </div>
@@ -408,8 +396,12 @@
     <!-- //  OUR BLOG END -->
 </template>
 <script>
-  import moment from 'moment'
+  import moment from 'moment';
+  import interest_button from './components/interest_button.vue'
 export default {
+    components:{
+        interest_button
+    },
     props:{
         data: Object
     },
@@ -417,7 +409,7 @@ export default {
         return {
             vacancy:{},
             auth:null,
-            checkInterest: false
+            // checkInterest: false
         }
     },
     computed:{
@@ -432,108 +424,10 @@ export default {
         this.vacancy.start_date = moment(this.data.vacancy.start_date).format("YYYY-MM-DD")
     },
     methods: {
-        interest(item){
-            if (this.auth != null ) {
-                if (this.auth.role_id != 3) {
-                    toast.error("თქვენ არ გაქვთ დაინტერესების უფლება", {
-                        theme: 'colored',
-                        autoClose: 1000,
-                    });
-                    return
-                }else if(this.auth.role_id == 3  ){
-                    if (this.auth.candidate.status_id == 8) {
-                        toast.error("თქვენ ჯერ არ გაქვთ დაინტერესების უფლება, გთხოვთ შეავსოთ ინფორმაცია", {
-                            theme: 'colored',
-                            autoClose: 1000,
-                        });
-                        return
-                    } else if(this.auth.candidate.status_id == 10) {
-                        toast.error("არ გაქვთ დაინტერესების უფლება, თქვენ უკვე დასაქმებული ხართ", {
-                            theme: 'colored',
-                            autoClose: 1000,
-                        });
-                        return
-                    }
-
-                }else if(this.auth.role_id == 3){
-
-                }
-                // return
-                this.sendInterestAxios(item)
-
-            }else{
-                this.$swal(
-                    {
-                        title: '<p>დაინტერესებამდე სავალდებულოა გაიაროთ ავტორიზაცია!!!</p>',
-                        icon: 'info',
-                        html:
-                            'თუ ჯერ არ ხართ რეგისტრირებული გთხოვთ დარეგისტრირდეთ',
-                        showCloseButton: true,
-                        showCancelButton: false,
-                        showDenyButton: true,
-                        focusConfirm: false,
-                        confirmButtonText: 'რეგისტრაცია',
-                        denyButtonText: 'შესვლა',
-                    }).then((result) => {
-                    /* Read more about isConfirmed, isDenied below */
-                    if (result.isConfirmed) {
-                        window.location.replace(`/${this.getLang}/user/work_information`)
-                    }else if (result.isDenied) {
-                        alert()
-                    }
-                })
-            }
-        },
-        sendInterestAxios(item){
-            let currentObj = this
-
-            axios({
-                method: "post",
-                url: '/interest_vacancy',
-                data: {'id': item.id, 'check': this.checkInterest},
-
-            })
-            .then(function (response) {
-                if (response.data.status == 200) {
-                    let text;
-                    if(response.data.data.type == 'w'){
-                        currentObj.$swal({
-                            title: '<p>თქვენი სამუშაო კატეგორია არ შეესაბამება ვაკანსიის კატეგორიას!!!</p>',
-                            icon: 'info',
-                            html:
-                                'დარწმუნებული ხართ რომ გსურთ ამ ვაკანსიით დაინტერესება?',
-                            showCloseButton: true,
-                            showCancelButton: true,
-                            showDenyButton: true,
-                            focusConfirm: false,
-                            confirmButtonText: 'კი',
-                            denyButtonText: 'კატეგორიის დამატება',
-                            cancelButtonText:'გაუქმება'
-                        }).then((result) => {
-                            /* Read more about isConfirmed, isDenied below */
-                            if (result.isConfirmed) {
-                                currentObj.checkInterest = true
-                                currentObj.sendInterestAxios(item)
-                            }else if (result.isDenied) {
-                                window.location.replace(`/${currentObj.getLang}/user/work_information`)
-                            }
-                        })
-                    }else if(response.data.data.type == 's'){
-                        toast.success('თქვენ გააგზავნეთ დაინტერესება ვაკანისაზე', {
-                            theme: 'colored',
-                            autoClose: 1000,
-                        });
-                        var find = currentObj.vacancy.find(element => element.id == item.id);
-                        find.vacancy_interest.push(response.data.data.qualifying)
-                    }
-                }
-
-            })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
-            })
+        handlerUpdateData(id, response){
+            this.vacancy.vacancy_interest.push(response.data.qualifying)
         }
+        
     },
 }
 </script>

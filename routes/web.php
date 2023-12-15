@@ -14,26 +14,27 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\VacancyController;
 
 
+use App\Http\Controllers\Api\PathController;
+
+
 use App\Http\Controllers\Admin\PdfController;
 
-
 use App\Http\Controllers\CandidateController;
-
 use App\Http\Controllers\MyVacancyController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Auth\SocialController;
 use App\Http\Controllers\MapvacancieController;
+
 use App\Http\Controllers\User\ResumeController;
-
 use App\Http\Controllers\SubscriptionController;
-use App\Http\Controllers\BusyCandidateController;
 
-use App\Http\Controllers\Admin\BlackListController;
 use App\Http\Controllers\Admin\SmsPageController;
+use App\Http\Controllers\BusyCandidateController;
+use App\Http\Controllers\Admin\BlackListController;
+
 use App\Http\Controllers\User\PostVacancyController;
 
 use App\Http\Controllers\User\UserProfileController;
-
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Employer\EmployerInfoController;
 use App\Http\Controllers\Candidate\WorkInformationController;
@@ -116,6 +117,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
 
         Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
+
     });
 
     //admin Route
@@ -180,6 +182,9 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('/sms_template_update', [SmsPageController::class, 'update']);
 
     include('admin/global_variable/variable.php');
+
+    include('API/api.php');
+    // Route::post('/store-path' , [PathController::class, 'store']);
 
 
 

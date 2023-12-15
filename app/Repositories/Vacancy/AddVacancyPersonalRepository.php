@@ -13,6 +13,7 @@ use App\Models\RegistrationFee;
 use App\Models\userRegisterLog;
 use App\Models\VacancyReminder;
 use App\Models\QualifyingCandidate;
+use Illuminate\Support\Facades\App;
 use App\Events\SmsNotificationEvent;
 
 class AddVacancyPersonalRepository
@@ -48,6 +49,9 @@ class AddVacancyPersonalRepository
             $this->dailyWorkEvent($data['vacancy_id']);
         }
         $qualifying->save();
+
+        $this->sendSms($qualifying);
+
         return $qualifying;
     }
 
@@ -97,6 +101,7 @@ class AddVacancyPersonalRepository
             $this->dailyWorkEvent($data['vacancy_id']);
         }
         $qualifying->update();
+        $this->sendSms($qualifying);
         return $qualifying;
     }
 
@@ -302,8 +307,18 @@ class AddVacancyPersonalRepository
         event(new hrDailyJob($vacancy->hr_id, 'employed'));
     }
 
-    function sendSms($data, $name)
+    function sendSms($qualifying)
     {
+        if ($qualifying->qualifying_type_id == 1) {
+            $data = ['to' => $qualifying->candidate->user->number, 'category' => $qualifying->vacancy->category->name_ka, 'number' => $qualifying->vacancy->hr->user->number, 'link' =>route('job.detail', ['locale' => App::getLocale(), 'id' => $qualifying->vacancy->id, 'slug' => $qualifying->vacancy->slug])];
+            $name = 'will_think_candidate';
+        } elseif($qualifying->qualifying_type_id == 2) {
+            $name = 'interested_candidate_employer';
+
+            $code = $qualifying->vacancy->employer->number.'-'.$qualifying->vacancy->code.'-'.$qualifying->candidate->id;
+            $encryptedCode = encrypt($code);
+            $data = ['to' => $qualifying->vacancy->employer->number, 'link' =>route('candidate.photo.questionnaire', ['locale' => App::getLocale(), 'code' => $encryptedCode])];
+        }
         event(new SmsNotificationEvent($data, $name));
     }
 }

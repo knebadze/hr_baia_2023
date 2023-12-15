@@ -82,6 +82,7 @@ class VacancyController extends Controller
         return false;
     }
     public function show($lang, $id, $slug) {
+        // dd($lang, $id, $slug);
         $vacancy = Vacancy::where('id', $id)
             ->with([
                 'author',
@@ -97,7 +98,8 @@ class VacancyController extends Controller
                 'vacancyDuty'
                 ])
             ->first();
-        $findCandidate = (Auth::check())?QualifyingCandidate::where('vacancy_id', $vacancy->id)->where('candidate_id', Auth::user()->candidate->id)->first():null;
+            // dd(Auth::check());
+        $findCandidate = (Auth::check() && Auth::user()->role_id == 3)?QualifyingCandidate::where('vacancy_id', $vacancy->id)->where('candidate_id', Auth::user()->candidate->id)->first():null;
         $statusThisVacancy = ($findCandidate)?$findCandidate->qualifyingType:null;
         $auth = User::where('id', Auth::id())->with('candidate')->first();
         $data = ['vacancy' => $vacancy, 'statusThisVacancy' => $statusThisVacancy, 'applicants' => count($vacancy->vacancyInterest), 'auth' => $auth];
@@ -150,7 +152,7 @@ class VacancyController extends Controller
 
     }
 
-    
+
 
 
 }
