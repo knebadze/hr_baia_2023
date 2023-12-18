@@ -38,6 +38,7 @@ class PdfController extends Controller
                 'drivingLicense',
                 'status'
             ])->first()->toArray();
+            // dd($data['user']['name_ka']);
         $pdf = PDF::loadView('pdf.candidate_full', $data);
 
         // Return a downloadable PDF response
