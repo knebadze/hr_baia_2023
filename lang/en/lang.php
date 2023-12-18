@@ -137,6 +137,11 @@ return [
 
     // Testimonial Block
     'welcome_middle_testimonial_block_head_text' => 'Satisfied Customers',
+    // ----------------------------------------------------------------------------------------------------
+    // Current vacancies
+    'welcome_current_vacancies_title' => 'Current Vacancies',
+    'welcome_popular_vacancies_title' => 'Popular Vacancies',
+    'welcome_current_vacancies_button' => 'see all',
 
     // ----------------------------------------------------------------------------------------------------
     // Family Vacancies Lang Page
@@ -646,5 +651,31 @@ return [
     'employer_add_job_additional_duties' => 'Additional duties',
     'employer_add_job_button_add' => 'Add',
     'employer_add_job_select' => 'select', 
+
+    // Prices Page
+    'conditions_for_the_candidate' => 'Conditions for the candidate',
+    'conditions_for_the_candidate_modal' => '🌹Our conditions are as follows: half of the first month\'s salary will be deducted 
+                                            after you receive this salary, and registration is paid and costs 30 GEL, and registration 
+                                            is necessary in order to offer you vacancies from us.',
+
+    'conditions_for_the_employer' => 'Conditions for the employer',
+    'conditions_for_the_employer_modal' => '🌹We will offer you the maximum possible
+                                            4-5 candidates matched according to their age, place of residence,
+                                            Be it education, foreign language skills or anything else you require
+                                            With the parameters and proper information, we will talk to you at our office.
+                                            With you in the family or remotely as it is more comfortable for you and any of them
+                                            In case of approval and successful completion of the 1-week trial period, you pay us
+                                            Only 10% of your nominated monthly salary as a recruitment fee,
+                                            What is included within 1 year if the cadre left the job for reasons independent of him
+                                            because or resign yourself - we will replace you with another alternative candidate 3 times for free,
+                                            And the employed candidate pays 50% of the first month\'s salary, whichever amount
+                                            The obligation to provide the presentation falls on you, so to speak "It\'s out of your hands"
+                                            This amount is with him and when the end of the month comes, you give half to him/the candidate, about which of course
+                                            The candidates themselves are informed and agree.',
+
+    'prices_text_descr' => 'We will focus your attention on
+                            that the agency does not limit Amatui\'s activity fee,
+                            This is based on today\'s total market value,
+                            Both family and all other personnel in the field of activity listed above',
     
 ];

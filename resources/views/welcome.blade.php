@@ -257,9 +257,9 @@
             <!-- TITLE START-->
             <div class="section-head center wt-small-separator-outer">
                 <div class="wt-small-separator site-text-primary">
-                   <div>მიმდინარე ვაკანსიები</div>
+                   <div>{{ __('lang.welcome_current_vacancies_title') }}</div>
                 </div>
-                <h2 class="wt-title">პოპულარული ვაკანსიები</h2>
+                <h2 class="wt-title">{{ __('lang.welcome_popular_vacancies_title') }}</h2>
             </div>
             <!-- TITLE END-->
 
@@ -290,7 +290,7 @@
 
                    </ul>
                    <div class="text-center m-b30">
-                        <a href="job-list.html" class=" site-button">ყველას ნახვა</a>
+                        <a href="job-list.html" class=" site-button">{{ __('lang.welcome_current_vacancies_button') }}</a>
                    </div>
                </div>
             </div>
