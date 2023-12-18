@@ -91,9 +91,9 @@ export default {
             }).then((result) => {
                 if (result.isConfirmed) {
 
-                    window.location.href = `/candidate_full_pdf?data=${item}`
+                    window.location.href = `/candidate_full_pdf?data=${item.id}`
                 } else if (result.isDismissed) {
-                    window.location.href = `/candidate_partial_pdf?data=${item}`
+                    window.location.href = `/candidate_partial_pdf?data=${item.id}`
                 }
             })
         };

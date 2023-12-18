@@ -315,7 +315,7 @@ class AddVacancyPersonalRepository
         $hr_number = $qualifying->vacancy->hr->user->number;
         $candidate_name = $qualifying->candidate->user->name_ka;
         $candidate_number = $qualifying->candidate->user->number;
-        
+
         switch ($qualifying->qualifying_type_id) {
             case 1:
                 $notificationType = 'will_think_candidate';
@@ -365,7 +365,7 @@ class AddVacancyPersonalRepository
                 event(new SmsNotificationEvent($data, $notificationType));
 
                 // Additional logic for case 5
-                $notificationType = 'interview_period_employer';
+                $notificationType = 'probation_period_employer';
                 $data = [
                     'to' => $employer_number,
                     'name' => $employer_name,

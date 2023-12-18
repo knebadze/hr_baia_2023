@@ -18,6 +18,9 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
         $schedule->command('update:candidate-status')
             ->dailyAt('02:00'); // Adjust the time as needed
+
+        $schedule->command('send:send-daily-sms')
+            ->dailyAt('16:00');
     }
 
     /**
