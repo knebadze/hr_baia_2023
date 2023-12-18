@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 class PdfController extends Controller
 {
     function candidateFull(Request $request)  {
-        dd($request->data);
+        // dd($request->data);
         // $pdf = PDF::loadView('pdf.view', $request->data);
         $data = Candidate::where('id', $request->data)->with(
             [
@@ -37,7 +37,7 @@ class PdfController extends Controller
                 'maritalStatus',
                 'drivingLicense',
                 'status'
-            ])->first();
+            ])->first()->toArray();
         $pdf = PDF::loadView('pdf.candidate_full', $data);
 
         // Return a downloadable PDF response
@@ -72,7 +72,7 @@ class PdfController extends Controller
                 'maritalStatus',
                 'drivingLicense',
                 'status'
-            ])->first();
+            ])->first()->toArray();
         $pdf = PDF::loadView('pdf.candidate_partial', $data);
 
         // Return a downloadable PDF response

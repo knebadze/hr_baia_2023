@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{ $title }}</title>
+    <title>123</title>
 </head>
 <body>
-    <h1>{{ $title }}</h1>
-    <p>{{ $content }}</p>
+    <h1>{{ $candidate['gender'] }}</h1>
+
+    <p>123</p>
 </body>
 </html>
