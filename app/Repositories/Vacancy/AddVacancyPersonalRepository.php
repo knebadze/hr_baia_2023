@@ -308,16 +308,80 @@ class AddVacancyPersonalRepository
 
     function sendSms($qualifying)
     {
-        if ($qualifying->qualifying_type_id == 1) {
-            $data = ['to' => $qualifying->candidate->user->number, 'category' => $qualifying->vacancy->category->name_ka, 'number' => $qualifying->vacancy->hr->user->number, 'link' =>route('job.detail', ['locale' => App::getLocale(), 'id' => $qualifying->vacancy->id, 'slug' => $qualifying->vacancy->slug])];
-            $name = 'will_think_candidate';
-        } elseif($qualifying->qualifying_type_id == 2) {
-            $name = 'interested_candidate_employer';
+        $data = []; // Common data
+        $employer_name = $qualifying->vacancy->employer->name_ka;
+        $employer_number = $qualifying->vacancy->employer->number;
+        $hr_name = $qualifying->vacancy->hr->user->name_ka;
+        $hr_number = $qualifying->vacancy->hr->user->number;
+        $candidate_name = $qualifying->candidate->user->name_ka;
+        $candidate_number = $qualifying->candidate->user->number;
+        
+        switch ($qualifying->qualifying_type_id) {
+            case 1:
+                $notificationType = 'will_think_candidate';
+                $data = [
+                    'to' => $candidate_number,
+                    'category' => $qualifying->vacancy->category->name_ka,
+                    'number' => $hr_number,
+                    'link' => route('job.detail', [
+                        'locale' => App::getLocale(),
+                        'id' => $qualifying->vacancy->id,
+                        'slug' => $qualifying->vacancy->slug,
+                    ]),
+                ];
+                break;
 
-            $code = $qualifying->vacancy->employer->number.'-'.$qualifying->vacancy->code.'-'.$qualifying->candidate->id;
-            $encryptedCode = encrypt($code);
-            $data = ['to' => $qualifying->vacancy->employer->number, 'link' =>route('candidate.photo.questionnaire', ['locale' => App::getLocale(), 'code' => $encryptedCode])];
+            case 2:
+                $notificationType = 'interested_candidate_employer';
+                $code = $employer_number . '-' . $qualifying->vacancy->code . '-' . $qualifying->candidate->id;
+                $encryptedCode = encrypt($code);
+                $data = [
+                    'to' => $employer_number,
+                    'link' => route('candidate.photo.questionnaire', [
+                        'locale' => App::getLocale(),
+                        'code' => $encryptedCode,
+                    ]),
+                ];
+                break;
+
+            case 4:
+                $notificationType = 'interview_period_employer';
+                $data = [
+                    'to' => $employer_number,
+                    'name' => $employer_name,
+                    'hName' => $hr_name,
+                    'number' => $hr_number,
+                ];
+                break;
+
+            case 5:
+                $notificationType = 'probation_period_candidate';
+                $data = [
+                    'to' => $candidate_number,
+                    'name' => $candidate_name,
+                    'hName' => $hr_name,
+                    'number' => $hr_number,
+                ];
+                event(new SmsNotificationEvent($data, $notificationType));
+
+                // Additional logic for case 5
+                $notificationType = 'interview_period_employer';
+                $data = [
+                    'to' => $employer_number,
+                    'name' => $employer_name,
+                    'hName' => $hr_name,
+                    'number' => $hr_number,
+                ];
+                break;
+
+            // Additional cases can be added as needed
+
+            default:
+                // Handle the default case if needed
+                break;
         }
-        event(new SmsNotificationEvent($data, $name));
+
+        event(new SmsNotificationEvent($data, $notificationType));
     }
+
 }

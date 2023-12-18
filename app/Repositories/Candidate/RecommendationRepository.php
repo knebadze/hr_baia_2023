@@ -4,6 +4,7 @@ namespace App\Repositories\Candidate;
 
 use App\Models\User;
 use App\Models\Candidate;
+use App\Events\SmsNotificationEvent;
 use Illuminate\Support\Facades\Auth;
 use App\Models\CandidateRecommendation;
 use Illuminate\Support\Facades\Storage;
@@ -129,6 +130,7 @@ class RecommendationRepository
             }
             $recommendation->number_code_id = $data['data']->number_code->id;
             $recommendation->number = $data['data']->number;
+
             if (isset($data['file'])) {
                 Storage::disk('public')->delete($data['data']->file);
                 $filePath = $data['file']->store('user_documentation', 'public');
@@ -136,6 +138,10 @@ class RecommendationRepository
             if (isset($filePath)) {
                 $recommendation->file_path = $filePath;
                 $recommendation->file_name = $data['data']->file_name;
+            }
+            if ($data['data']->number_code->iso == "GE" && strlen($data['data']->number) == 9 ) {
+                $smsData = ['to' => $data['data']->number, 'name' => $data['data']->name_ka];
+                $this->sendSms($smsData);
             }
         }else{
             if (CandidateRecommendation::where('candidate_id', $candidate_id)->exists() && CandidateRecommendation::where('candidate_id', $candidate_id)->where('recommendation', 1)->exists()) {
@@ -163,6 +169,12 @@ class RecommendationRepository
                 'updated_at' => now()
             ]);
         }
+    }
+
+    function sendSms($data)
+    {
+
+        event(new SmsNotificationEvent($data, 'recommendation'));
     }
 
 }
