@@ -38,7 +38,7 @@ class PdfController extends Controller
                 'drivingLicense',
                 'status'
             ])->first()->toArray();
-            // dd($data['user']['name_ka']);
+            dd($data);
         $pdf = PDF::loadView('pdf.candidate_full', $data);
 
         // Return a downloadable PDF response
@@ -74,6 +74,7 @@ class PdfController extends Controller
                 'drivingLicense',
                 'status'
             ])->first()->toArray();
+            dd($data);
         $pdf = PDF::loadView('pdf.candidate_partial', $data);
 
         // Return a downloadable PDF response
