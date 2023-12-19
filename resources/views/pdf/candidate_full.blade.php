@@ -1,97 +1,210 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>123</title>
+    <title>კანდიდატის სრული მონაცემები</title>
 </head>
 <body>
+
+    <table class="w-full">
+        <tr>
+            <td class="w-half">
+                <h1 style="text-align: center;">კანდიდატის სრული CV</h1>
+            </td>
+        </tr>
+    </table>
+
+    <hr>
+ 
+    <div class="margin-top">
+        <table class="products">
+
+            <tr>
+                <th>სახელი:</th>
+                <th>ქვეყანა:</th>
+                <th>მოქალაქეობა:</th>
+            </tr>
+            <tr class="items">
+                <td class="bigText">
+                    {{ $user['name_ka'] }}
+                </td>
+                <td class="bigText">
+                    {{ $user['nationality_ka'] }}
+                </td>
+                <td class="bigText">
+                    {{ $user['name_ru'] }}
+                </td>
+            </tr>
+            <tr>
+                <th>ქალაქი:</th>
+                <th>ეროვნება:</th>
+                <th>სქესი:</th>
+            </tr>
+            <tr class="items">
+                <td class="bigText">
+                    {{ $user['name_ka'] }}
+                </td>
+                <td class="bigText">
+                    {{ $user['name_en'] }}
+                </td>
+                <td class="bigText">
+                    {{ $user['name_ru'] }}
+                </td>
+            </tr>
+
+            <tr>
+                <th>რელიგია:</th>
+                <th>გამათლება:</th>
+                <th>პროფესია:</th>
+            </tr>
+            <tr class="items">
+                <td class="bigText">
+                    {{ $user['name_ka'] }}
+                </td>
+                <td class="bigText">
+                    {{ $user['name_en'] }}
+                </td>
+                <td class="bigText">
+                    {{ $user['name_ru'] }}
+                </td>
+            </tr>
+
+            <tr>
+                <th>სპეციალობა:</th>
+                <th>ზოგადი მახასიათებლები:</th>
+                <th>ოჯახური მდგომარეობა:</th>
+            </tr>
+            <tr class="items">
+                <td class="bigText">
+                    {{ $user['name_ka'] }}
+                </td>
+                <td class="bigText">
+                    {{ $user['name_en'] }}
+                </td>
+                <td class="bigText">
+                    {{ $user['name_ru'] }}
+                </td>
+            </tr>
+
+            <tr>
+                <th>მართვის მოწმობა:</th>
+                <th>ალერგია:</th>
+                <th>ოპერაცია ან ქრონიკული დაავადება:</th>
+            </tr>
+            <tr class="items">
+                <td class="bigText">
+                    {{ $user['name_ka'] }}
+                </td>
+                <td class="bigText">
+                    {{ $user['name_en'] }}
+                </td>
+                <td class="bigText">
+                    {{ $user['name_ru'] }}
+                </td>
+            </tr>
+
+            <tr>
+                <th>დასახლების დასახელება (უბანი):</th>
+                <th>უცხო ენა:</th>
+                <th>სამუშაო გამოცდილება:</th>
+            </tr>
+            <tr class="items">
+                <td class="bigText">
+                    {{ $user['name_ka'] }}
+                </td>
+                <td class="bigText">
+                    {{ $user['name_en'] }}
+                </td>
+                <td class="bigText">
+                    {{ $user['name_ru'] }}
+                </td>
+            </tr>
+
+            <tr>
+                <th>კატეგორია და გრაფიკი:</th>
+                <th>ოჯახში მუშაობის გამოცდილება:</th>
+                <th>რეკომენდაცია:</th>
+            </tr>
+            <tr class="items">
+                <td class="bigText">
+                    {{ $user['name_ka'] }}
+                </td>
+                <td class="bigText">
+                    {{ $user['name_en'] }}
+                </td>
+                <td class="bigText">
+                    {{ $user['name_ru'] }}
+                </td>
+            </tr>
+
+        </table>
+    </div>
+ 
+    <hr>
+
+    <div class="footer margin-top">
+        <div>პატივისცემით</div>
+        <div>&copy; hrbaia.ge</div>
+    </div>
+
+{{-- ---------------- --}}
+
+
+
+{{-- CSS --}}
 <style>
     body { font-family: DejaVu Sans, sans-serif; }
 
     .name {
         text-align: center;
     }
+    h4 {
+    margin: 0;
+}
+
+.bigText {
+    text-align: center;
+}
+.w-full {
+    width: 100%;
+}
+
+.w-half {
+    width: 50%;
+}
+.margin-top {
+    margin-top: 1.25rem;
+}
+.footer {
+    font-size: 0.875rem;
+    padding: 1rem;
+    background-color: rgb(241 245 249);
+}
+table {
+    width: 100%;
+    border-spacing: 0;
+}
+table.products {
+    font-size: 0.875rem;
+}
+table.products tr {
+    background-color: rgb(96 165 250);
+}
+table.products th {
+    color: #ffffff;
+    padding: 0.5rem;
+}
+table tr.items {
+    background-color: rgb(241 245 249);
+}
+table tr.items td {
+    padding: 0.5rem;
+}
+.total {
+    text-align: right;
+    margin-top: 1rem;
+    font-size: 0.875rem;
+}
 </style>
-
-                <h1 style="text-align: center;">კანდიდატის სრული CV</h1>
-                <hr>
-
-                <table>
-
-                    <thead>
-                        <tr>
-                            <th><h3>სახელი</h3></th>
-                            <th><h3>Name</h3></th>
-                            <th><h3>имя</h3></th>
-                        </tr>
-                    </thead>
-
-                    <tbody class="name">
-                        <tr>
-                            <td>{{ $user['name_ka'] }}</td>
-                            <td>{{ $user['name_en'] }}</td>
-                            <td>{{ $user['name_ru'] }}</td>
-                        </tr>
-  
-                    </tbody>
-                </table>
-
-                <p>Birth Date</p>
-
-                <p>Sex</p>
-
-                <p>Nationality</p>
-
-                <p>Cityzenship</p>
-
-                <p>Education</p>
-
-                <p>Profession</p>
-
-                <p>Specialty</p>
-
-                <p>General characteristics</p>
-
-                <p>Marital status</p>
-
-                <p>Driving license</p>
-
-                <p>აAllergy</p>
-
-            <div class="col-md-6">
-                <p>Surgery or chronic illness</p>
-            </div>
-
-            <div class="col-md-6">
-                <p>City</p>
-            </div>
-
-            <div class="col-md-6">
-                <p>District</p>
-            </div>
-
-            <div class="col-md-6">
-                <p>Foreign languages</p>
-            </div>
-
-            <div class="col-md-6">
-                <p>General work experience</p>
-                <p>work experience</p>
-                <p>Seniority</p> {{-- სტაჟი --}}
-                <p>Position</p>
-            </div>
-
-            <div class="col-md-6">
-                <p>Family work experience</p>
-                <p>How many families have you worked with?</p>
-                <p>Seniority</p> {{-- სტაჟი --}}
-                <p>for the longest time</p>
-            </div>
-
-            <div class="col-md-6">
-                <p>Recommendation</p>
-            </div>
-
-
 
 
 </body>
