@@ -179,7 +179,7 @@
     <hr>
 
     <div class="footer margin-top">
-        <div>პატივისცემით &copy; hrbaia.ge <a class="interested" href="#">დავინტერესდი</a></div>
+        <div>პატივისცემით &copy; hrbaia.ge <a class="interested" href="https://hrbaia.ge/ka">დავინტერესდი</a></div>
     </div>
 
 {{-- ---------------- --}}
