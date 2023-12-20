@@ -10,7 +10,7 @@
                 <h2 style="text-align: center;">კანდიდატის არასრული მონაცემები</h2>
             </td>
             <td class="w-half">
-                <img src="images/background/test.png" alt="" width="200" />
+                <img src="{{ asset('images/background/test.png' . $nutsitem->image) }}" alt="" width="200" />
             </td>
         </tr>
     </table>
