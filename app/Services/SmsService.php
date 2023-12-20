@@ -16,7 +16,9 @@ class  SmsService
         $text = $message;
 
         $generatedUrl = "{$apiUrl}?username={$username}&password={$password}&client_id={$client_id}&service_id={$service_id}&to=+995{$to}&text={$text}&utf=8";
-        $response = Http::get($generatedUrl);
+        $response = Http::withHeaders([
+            'Custom-Header' => 'mDwJD@ejqs',
+        ])->get($generatedUrl);
         // $encodedMessage = urlencode($message);
 
         // // dd($encodedMessage);
