@@ -10,7 +10,7 @@
                 <h2 style="text-align: center;">კანდიდატის არასრული მონაცემები</h2>
             </td>
             <td class="w-half">
-                {{-- <img src="{{ asset('images/user-avatar/'.$user['avatar']) }}" alt="" width="200" /> --}}
+              <img src="{{ public_path('images/user-avatar/' . $user['avatar']) }}" alt="" width="200">
             </td>
         </tr>
     </table>
@@ -186,7 +186,7 @@
         <tr>
           <td>ოჯახში მუშაობის გამოცდილება</td>
           @if ($family_work_experience && $family_work_experience['experience'] == 1)
-            <td class="rightText" style="color: red">
+            <td class="rightText">
                 მიმუშავია {{ $family_work_experience['families_worked_count'] }} ოჯახში <br>
                 სტაჟი (ჯამში): {{ $family_work_experience['work_experience']['name_ka'] }} <br>
                 ყველაზე ხანგრძლივად: {{ $family_work_experience['longest']['name_ka'] }} <br>

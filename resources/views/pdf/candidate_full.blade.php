@@ -11,8 +11,7 @@
                 <h2 style="text-align: center;">კანდიდატის სრული მონაცემები</h2>
             </td>
             <td class="w-half">
-                {{-- <img src="{{ asset('images/background/test.png') }}" alt="" width="200" /> --}}
-                <img src="images/background/test.png" alt="" width="200" />
+              <img src="{{ public_path('images/user-avatar/' . $user['avatar']) }}" alt="" width="200">
             </td>
         </tr>
     </table>
@@ -49,6 +48,12 @@
           <tr>
             <td>პირადი ნომერი</td>
             <td class="rightText">{{ $personal_number }} </td>
+          </tr>
+          <tr>
+            <td>მოქალაქეობა</td>
+            <td class="rightText">
+              {{ implode(', ', array_column($citizenship, 'name_ka')) }}
+            </td>
           </tr>
           <tr>
             <td>ეროვნება</td>
@@ -165,12 +170,12 @@
             @endforeach
           </td>
         </tr>
-          <tr>
-            <td>დამატებითი ნომრები</td>
-            <td class="rightText" style="color: red">
-                NaN
-            </td>
-          </tr>
+        {{-- <tr>
+          <td>დამატებითი ნომრები</td>
+          <td class="rightText">
+              NaN
+          </td>
+        </tr> --}}
         <tr>
           <td>ზოგადი სამუშაო გამოცდილება</td>
           <td class="rightText">
@@ -193,15 +198,22 @@
 
           </td>
         </tr>
-        <tr>
-          <td>ოჯახში მუშაობის გამოცდილება</td>
-          <td class="rightText" style="color: red"> NaN
-              {{-- მიმუშავია {{ $family_work_experience['families_worked_count'] }} ოჯახში <br>
+        <td>ოჯახში მუშაობის გამოცდილება</td>
+        @if ($family_work_experience && $family_work_experience['experience'] == 1)
+          <td class="rightText">
+              მიმუშავია {{ $family_work_experience['families_worked_count'] }} ოჯახში <br>
               სტაჟი (ჯამში): {{ $family_work_experience['work_experience']['name_ka'] }} <br>
               ყველაზე ხანგრძლივად: {{ $family_work_experience['longest']['name_ka'] }} <br>
-              მეევალებოდა: {{ $family_work_experience['family_work_duty'][0]['name_ka'] }} --}}
+
+              მეევალებოდა: {{ implode(', ', array_column($family_work_experience['family_work_duty'], 'name_ka')) }}
           </td>
-        </tr>
+        @else
+          <td>
+              არ აქვს
+          </td>
+        @endif
+
+      </tr>
         <tr>
           <td>რეკომენდაცია</td>
           <td class="rightText">
