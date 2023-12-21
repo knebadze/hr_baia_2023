@@ -67,6 +67,7 @@ class Kernel extends HttpKernel
         'lang' => \App\Http\Middleware\ChangeLanguage::class,
         'checkRole' => \App\Http\Middleware\CheckRole::class,
         'auth.adminRedirect' => \App\Http\Middleware\AdminRedirectIfAuthenticated::class,
+        'csrf.custom' => \App\Http\Middleware\VerifyCsrfTokenCustom::class,
         // 'setLang' => \App\Http\Middleware\SetLanguage::class,
     ];
 }

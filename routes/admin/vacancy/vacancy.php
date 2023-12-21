@@ -39,7 +39,7 @@ Route::post('vacancy_filter', [VacancyController::class, 'filter']);
 Route::post('admin_vacancy_filter', [VacancyActionController::class, 'filter']);
 
 // SMS
-Route::post('send_sms_add_vacancy', [PostVacancyController::class, 'sendSms']);
+Route::post('send_sms_add_vacancy', [PostVacancyController::class, 'sendSms'])->middleware('csrf.custom');
 
 
 include('deposit.php');

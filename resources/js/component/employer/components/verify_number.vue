@@ -130,10 +130,14 @@ export default defineComponent({
         // };
 
         const sendSms = (item) =>{
+            // const csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
             axios({
                 method: "post",
                 url: "/send_sms_add_vacancy",
                 data:{model: item},
+                // headers: {
+                //     'X-CSRF-TOKEN': csrfToken,
+                // },
 
             })
             .then(function (response) {
