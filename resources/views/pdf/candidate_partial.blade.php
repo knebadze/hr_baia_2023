@@ -10,7 +10,7 @@
                 <h2 style="text-align: center;">კანდიდატის არასრული მონაცემები</h2>
             </td>
             <td class="w-half">
-                {{-- <img src="{{ asset('images/background/test.png' . $nutsitem->image) }}" alt="" width="200" /> --}}
+                {{-- <img src="{{ asset('images/user-avatar/'.$user['avatar']) }}" alt="" width="200" /> --}}
             </td>
         </tr>
     </table>
@@ -30,20 +30,18 @@
               {{ $user['date_of_birth'] }}
           </td>
         </tr>
-        <tr>
+        {{-- <tr>
           <td>ქვეყანა</td>
           <td class="rightText">
               @foreach ($citizenship as $item)
                   {{ $citizenship[0]['name_ka'] }}
               @endforeach
           </td>
-        </tr>
+        </tr> --}}
         <tr>
           <td>მოქალაქეობა</td>
           <td class="rightText">
-              @foreach ($citizenship as $item)
-                  {{ $citizenship[0]['name_ka'] }}
-              @endforeach
+            {{ implode(', ', array_column($citizenship, 'name_ka')) }}
           </td>
         </tr>
         <tr>
@@ -75,19 +73,19 @@
         <tr>
           <td>პროფესია</td>
           <td class="rightText">
-              {{ $professions[0]['name_ka'] }}
+            {{ implode(', ', array_column($professions, 'name_ka')) }}
           </td>
         </tr>
         <tr>
           <td>სპეციალობა</td>
           <td class="rightText">
-              {{ $specialty[0]['name_ka'] }}
+            {{ implode(', ', array_column($specialty, 'name_ka')) }}
           </td>
         </tr>
         <tr>
           <td>ზოგადი მახასიათებლები</td>
           <td class="rightText">
-              {{ $characteristic[0]['name_ka'] }}
+              {{ implode(', ', array_column($characteristic, 'name_ka')) }}
           </td>
         </tr>
         <tr>
@@ -118,9 +116,10 @@
           <td>მართვის მოწმობა</td>
           @if ($driving_license)
             <td class="rightText">
-                @foreach ($driving_license as $item)
+                {{ implode(', ', array_column($driving_license, 'name_ka')) }}
+                {{-- @foreach ($driving_license as $item)
                     <span>{{ $item['name'] }}</span>
-                @endforeach
+                @endforeach --}}
 
             </td>
           @else
@@ -133,7 +132,7 @@
         <tr>
           <td>ალერგია</td>
           <td class="rightText">
-              {{ $allergy[0]['name_ka'] }}
+              {{  implode(', ', array_column($allergy, 'name_ka')) }}
           </td>
         </tr>
         <tr>
@@ -160,11 +159,16 @@
         <tr>
           <td>ზოგადი სამუშაო გამოცდილება</td>
           <td class="rightText">
-            @foreach ($general_work_experience as $item)
-              <p>სამუშაო გამოცდილება: {{ $item['name_ka'] }} <br>
-                პოზიცია: {{ $item['pivot']['position_ka'] }} <br>
-                ობიექტი: {{ $item['pivot']['object_ka'] }}</p>
-            @endforeach
+            @if ($general_work_experience)
+                @foreach ($general_work_experience as $item)
+                    <p>სამუშაო გამოცდილება: {{ $item['name_ka'] }} <br>
+                    პოზიცია: {{ $item['pivot']['position_ka'] }} <br>
+                    ობიექტი: {{ $item['pivot']['object_ka'] }}</p>
+                 @endforeach
+            @else
+                არ აქვს
+            @endif
+
           </td>
         </tr>
         <tr>
@@ -174,26 +178,36 @@
               კატეგორია: {{ $item['category']['name_ka'] }} <br>
               სამუშაო გრაფიკი: {{ $item['get_work_schedule'][0]['work_schedule']['name_ka'] }} <br>
               ანაზღაურება: {{ $item['payment'] }} <br>
-              ვალიუტა: {{ $item['currency']['name_ka']}}      
+              ვალიუტა: {{ $item['currency']['name_ka']}}
             @endforeach
 
           </td>
         </tr>
         <tr>
           <td>ოჯახში მუშაობის გამოცდილება</td>
-          <td class="rightText" style="color: red">NaN
-              {{-- მიმუშავია {{ $family_work_experience['families_worked_count'] }} ოჯახში <br>
-              სტაჟი (ჯამში): {{ $family_work_experience['work_experience']['name_ka'] }} <br>
-              ყველაზე ხანგრძლივად: {{ $family_work_experience['longest']['name_ka'] }} <br>
-              მეევალებოდა: {{ $family_work_experience['family_work_duty'][0]['name_ka'] }} --}}
-          </td>
+          @if ($family_work_experience && $family_work_experience['experience'] == 1)
+            <td class="rightText" style="color: red">
+                მიმუშავია {{ $family_work_experience['families_worked_count'] }} ოჯახში <br>
+                სტაჟი (ჯამში): {{ $family_work_experience['work_experience']['name_ka'] }} <br>
+                ყველაზე ხანგრძლივად: {{ $family_work_experience['longest']['name_ka'] }} <br>
+
+                მეევალებოდა: {{ implode(', ', array_column($family_work_experience['family_work_duty'], 'name_ka')) }}
+            </td>
+          @else
+            <td>
+                არ აქვს
+            </td>
+          @endif
+
         </tr>
         <tr>
           <td>რეკომენდაცია</td>
           <td class="rightText">
-            @foreach ($recommendation as $item)
-                {{ $item['name_ka'] }}
-            @endforeach
+            @if ($recommendation)
+                აქვს
+            @else
+                არ აქვს
+            @endif
           </td>
         </tr>
     </table>

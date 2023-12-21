@@ -14,18 +14,18 @@ class  SmsService
         $service_id = config('services.smsservicege.service_id');
         $to = $phone_number;
         $encodedMessage = urlencode($message);
-        $opts = [
-            'http' => [
-                'method' => 'GET',
-                'header' => "mDwJD@ejqs",
-            ],
-        ];
-        $context = stream_context_create($opts);
-        $generatedUrl = "{$apiUrl}?username={$username}&password={$password}&client_id={$client_id}&service_id={$service_id}&to=+995{$to}&text={$encodedMessage}&utf=8";
-        dd($generatedUrl);
-        $file = file_get_contents($generatedUrl,
-		false, $context);
-        dd($file);
+        // $opts = [
+        //     'http' => [
+        //         'method' => 'GET',
+        //         'header' => "mDwJD@ejqs",
+        //     ],
+        // ];
+        // $context = stream_context_create($opts);
+        // $generatedUrl = "{$apiUrl}?username={$username}&password={$password}&client_id={$client_id}&service_id={$service_id}&to=+995{$to}&text={$encodedMessage}&utf=8";
+        // dd($generatedUrl);
+        // $file = file_get_contents($generatedUrl,
+		// false, $context);
+        // dd($file);
 
 
         $generatedUrl = "{$apiUrl}?username={$username}&password={$password}&client_id={$client_id}&service_id={$service_id}&to=+995{$to}&text={$encodedMessage}&utf=8";
