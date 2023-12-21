@@ -184,7 +184,7 @@
           </td>
         </tr>
         <tr>
-          <td>ოჯახში მუშაობის გამოცდილება</td>
+          <td>ოჯახში მუშაობის გამოცდილება:</td>
           @if ($family_work_experience && $family_work_experience['experience'] == 1)
             <td class="rightText">
                 მიმუშავია {{ $family_work_experience['families_worked_count'] }} ოჯახში <br>
