@@ -49,12 +49,12 @@
             <td>პირადი ნომერი</td>
             <td class="rightText">{{ $personal_number }} </td>
           </tr>
-          <tr>
-            <td>მოქალაქეობა</td>
-            <td class="rightText">
-              {{ implode(', ', array_column($citizenship, 'name_ka')) }}
-            </td>
-          </tr>
+        <tr>
+          <td>მოქალაქეობა</td>
+          <td class="rightText">
+            {{ implode(', ', array_column($citizenship, 'name_ka')) }}
+          </td>
+        </tr>
           <tr>
             <td>ეროვნება</td>
             <td class="rightText">{{ $nationality['name_ka'] }}</td>

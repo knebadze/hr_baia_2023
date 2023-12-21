@@ -191,7 +191,7 @@
                 სტაჟი (ჯამში): {{ $family_work_experience['work_experience']['name_ka'] }} <br>
                 ყველაზე ხანგრძლივად: {{ $family_work_experience['longest']['name_ka'] }} <br>
 
-                მეევალებოდა: {{ implode(', ', array_column($family_work_experience['family_work_duty'], 'name_ka')) }}
+                მევალებოდა: {{ implode(', ', array_column($family_work_experience['family_work_duty'], 'name_ka')) }}
             </td>
           @else
             <td>
