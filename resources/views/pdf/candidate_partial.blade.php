@@ -39,7 +39,7 @@
           </td>
         </tr>
         <tr>
-          <td>მოქალაქეობა:</td>
+          <td>მოქალაქეობა</td>
           <td class="rightText">
               @foreach ($citizenship as $item)
                   {{ $citizenship[0]['name_ka'] }}
@@ -47,13 +47,13 @@
           </td>
         </tr>
         <tr>
-          <td>ქალაქი:</td>
+          <td>ქალაქი</td>
           <td class="rightText">
               {{ $address_ka }}
           </td>
         </tr>
         <tr>
-          <td>ეროვნება:</td>
+          <td>ეროვნება</td>
           <td class="rightText">{{ $nationality['name_ka'] }}</td>
         </tr>
         <tr>
@@ -63,7 +63,7 @@
           </td>
         </tr>
         <tr>
-          <td>სქესი:</td>
+          <td>სქესი</td>
           <td class="rightText">{{ $user['gender']['name_ka'] }} </td>
         </tr>
         <tr>
@@ -155,43 +155,45 @@
             @foreach ($get_language as $item)
                 <p>{{ $item['language']['name_ka'].' - '.$item['level']['name_ka'] }}</p>
             @endforeach
-
-            {{-- {{ $get_language[0]['language']['name_ka'] }}<br>
-            {{ $get_language[0]['level']['name_ka'] }} --}}
           </td>
         </tr>
         <tr>
           <td>ზოგადი სამუშაო გამოცდილება</td>
           <td class="rightText">
-            {{-- სამუშაო გამოცდილება: {{ $general_work_experience[0]['name_ka'] }} <br>
-            პოზიცია: {{ $general_work_experience[0]['pivot']['position_ka'] }} <br>
-            ობიექტი: {{ $general_work_experience[0]['pivot']['object_ka'] }} --}}
+            @foreach ($general_work_experience as $item)
+              <p>სამუშაო გამოცდილება: {{ $item['name_ka'] }} <br>
+                პოზიცია: {{ $item['pivot']['position_ka'] }} <br>
+                ობიექტი: {{ $item['pivot']['object_ka'] }}</p>
+            @endforeach
           </td>
         </tr>
         <tr>
           <td>კატეგორია და გრაფიკი</td>
           <td class="rightText">
-              {{-- კატეგორია: {{ $get_work_information[0]['category']['name_ka'] }} <br>
-              სამუშაო გრაფიკი: {{ $get_work_information[0]['get_work_schedule'][0]['work_schedule']['name_ka'] }} <br>
-              ანაზღაურება: {{ $get_work_information[0]['payment'] }} <br>
-              ვალიუტა: {{ $get_work_information[0]['currency']['name_ka']}} --}}
+            @foreach ($get_work_information as $item)
+              კატეგორია: {{ $item['category']['name_ka'] }} <br>
+              სამუშაო გრაფიკი: {{ $item['get_work_schedule'][0]['work_schedule']['name_ka'] }} <br>
+              ანაზღაურება: {{ $item['payment'] }} <br>
+              ვალიუტა: {{ $item['currency']['name_ka']}}      
+            @endforeach
+
           </td>
         </tr>
         <tr>
-            <td>ოჯახში მუშაობის გამოცდილება</td>
-            <td class="rightText">
-                {{-- {{  }} <br> --}}
-                {{-- მიმუშავია {{ $family_work_experience['families_worked_count'] }} ოჯახში <br>
-                სტაჟი (ჯამში): {{ $family_work_experience['work_experience']['name_ka'] }} <br>
-                ყველაზე ხანგრძლივად: {{ $family_work_experience['longest']['name_ka'] }} <br> --}}
-                {{-- ოჯახში ვმუშაობდი:  <br> --}}
-                {{-- მეევალებოდა: {{ $family_work_experience['family_work_duty'][0]['name_ka'] }} --}}
-            </td>
+          <td>ოჯახში მუშაობის გამოცდილება</td>
+          <td class="rightText" style="color: red">NaN
+              {{-- მიმუშავია {{ $family_work_experience['families_worked_count'] }} ოჯახში <br>
+              სტაჟი (ჯამში): {{ $family_work_experience['work_experience']['name_ka'] }} <br>
+              ყველაზე ხანგრძლივად: {{ $family_work_experience['longest']['name_ka'] }} <br>
+              მეევალებოდა: {{ $family_work_experience['family_work_duty'][0]['name_ka'] }} --}}
+          </td>
         </tr>
         <tr>
           <td>რეკომენდაცია</td>
           <td class="rightText">
-              {{-- {{ $recommendation[0]['name_ka'] }} --}}
+            @foreach ($recommendation as $item)
+                {{ $item['name_ka'] }}
+            @endforeach
           </td>
         </tr>
     </table>
