@@ -93,7 +93,7 @@ export default {
             return  (_.sumBy(this.data.data, item => (item.hr_bonus_from_vacancy)) + _.sumBy(this.data.data, item => (item.hr_bonus_from_registration))).toFixed(2);
         },
         total_supplement() {
-            return  _.sumBy(this.data.data, item => (item.supplement));
+            return  _.sumBy(this.data.data, item => (item.supplement)).toFixed(2);
         }
     },
     created() {

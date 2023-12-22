@@ -33,17 +33,19 @@
 
         <div class="container">
             <div class="row">
+                @if (Auth::user()->role_id == 3)
+                    <div class="col-xl-3 col-lg-4 col-md-12 rightSidebar m-b30">
 
-                <div class="col-xl-3 col-lg-4 col-md-12 rightSidebar m-b30">
-
-                    <div class="side-bar-st-1">
+                        <div class="side-bar-st-1">
 
 
 
-                        @include('inc.user.nav')
+                            @include('inc.user.nav')
 
+                        </div>
                     </div>
-                </div>
+                @endif
+
                     <candidate-profile :data='@json($data)'></candidate-profile>
 
 

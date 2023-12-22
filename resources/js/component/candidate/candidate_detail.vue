@@ -70,7 +70,7 @@
                                     <div class="twm-time-list-position">{{ item.pivot[`position_${getLang}`] }}</div>
                                     <hr>
                                 </div>
-                                <p >არ ქონის მიზეზი: </p>
+                                <p v-else>არ ქონის მიზეზი: </p>
                             </div>
 
                         </div>
@@ -209,7 +209,7 @@ export default {
             let pathName = url.pathname;
             let extractedPart = pathName.match(/\/employer\/photo_questionnaire/);
             return extractedPart ? extractedPart[0] : null;
-            
+
         });
 
         return {

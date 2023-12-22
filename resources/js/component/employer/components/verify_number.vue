@@ -135,9 +135,9 @@ export default defineComponent({
                 method: "post",
                 url: "/send_sms_add_vacancy",
                 data:{model: item},
-                // headers: {
-                //     'X-CSRF-TOKEN': csrfToken,
-                // },
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                },
 
             })
             .then(function (response) {

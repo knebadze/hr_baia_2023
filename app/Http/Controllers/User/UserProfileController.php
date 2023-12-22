@@ -29,6 +29,7 @@ class UserProfileController extends Controller
         $classificatory = $this->classificatoryService->get($candidateClassificatoryArr);
 
         $user_id = request('user');
+        // dd($user_id);
         $stage = request('stage');
         $model = $this->candidateModelService->findData($stage, $user_id);
 

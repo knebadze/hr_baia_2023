@@ -20,7 +20,7 @@ class MyprofileController extends Controller
     public function store(Request $request)
     {
         $user = User::where('id', Auth::id())->first();
-        if ($user->avatar) {
+        if ($user->avatar && ($user->avatar != 'default_male.jpg' || $user->avatar != 'default_female.jpg')) {
             File::delete(public_path('images/user-avatar/'.$user->avatar));
 
         }
@@ -43,7 +43,7 @@ class MyprofileController extends Controller
         //
     }
 
-    
+
 
     public function destroy($id)
     {

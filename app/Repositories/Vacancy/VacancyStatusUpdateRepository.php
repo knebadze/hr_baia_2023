@@ -18,6 +18,12 @@ class VacancyStatusUpdateRepository
 
     function update($data)  {
         try {
+            if ($data['status']['id'] == 3) {
+                $candidate = QualifyingCandidate::where('vacancy_id', $data['id'])->whereIn('qualifying_type_id', [6, 7])->exists();
+                if (!$candidate) {
+                    return ['type' => 'w', 'message' => 'აუცილებელია ვაკანსიას ყავდეს დასაქმებული კანდიდატი'];
+                }
+            }
             Vacancy::where('id', $data['id'])->update(['status_id' => $data['status']['id'], 'status_change_reason' => $data['status_change_reason']]);
             return ['type' => 's', 'message' => 'სტატუსი წარმატებით შეიცვალა'];
         } catch (\Throwable $th) {

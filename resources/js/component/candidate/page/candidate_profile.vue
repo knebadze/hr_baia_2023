@@ -1,5 +1,5 @@
 <template lang="">
-     <div class="col-xl-9 col-lg-8 col-md-12 m-b30 employerPageBorder">
+     <div class=" m-b30 employerPageBorder" :class="data.role_id == 3? 'col-xl-9 col-lg-8 col-md-12':'col-xl-12 col-lg-12 col-md-12'">
         <!--Filter Short By-->
         <div class="twm-right-section-panel site-bg-gray">
             <!-- <form-wizard @on-complete="onComplete"

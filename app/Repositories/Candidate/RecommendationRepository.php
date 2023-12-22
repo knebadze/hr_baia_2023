@@ -50,6 +50,7 @@ class RecommendationRepository
             $lang = (isset($data['data']->lang))?$data['data']->lang:'ka';
             $data = $this->translate($lang, $data);
             $candidate_id = $data['data']->candidate_id ? $data['data']->candidate_id :Auth::user()->candidate->id;
+            $candidate = Candidate::where('id', $candidate_id)->first();
             $recommendation = new CandidateRecommendation();
             $recommendation->candidate_id = $candidate_id;
             $recommendation->recommendation = $data['data']->has_recommendation->id;
@@ -74,6 +75,10 @@ class RecommendationRepository
                 if (isset($filePath)) {
                     $recommendation->file_path = $filePath;
                     $recommendation->file_name = $data['data']->file_name;
+                }
+                if ($data['data']->number_code->iso == "GE" && strlen($data['data']->number) == 9 ) {
+                    $smsData = ['to' => $data['data']->number, 'name' => $candidate->user->name_ka];
+                    $this->sendSms($smsData);
                 }
             }else{
                 if (CandidateRecommendation::where('candidate_id', $candidate_id)->exists() && CandidateRecommendation::where('candidate_id', $candidate_id)->where('recommendation', 1)->exists()) {
@@ -139,10 +144,10 @@ class RecommendationRepository
                 $recommendation->file_path = $filePath;
                 $recommendation->file_name = $data['data']->file_name;
             }
-            if ($data['data']->number_code->iso == "GE" && strlen($data['data']->number) == 9 ) {
-                $smsData = ['to' => $data['data']->number, 'name' => $data['data']->name_ka];
-                $this->sendSms($smsData);
-            }
+            // if ($data['data']->number_code->iso == "GE" && strlen($data['data']->number) == 9 ) {
+            //     $smsData = ['to' => $data['data']->number, 'name' => $data['data']->name_ka];
+            //     $this->sendSms($smsData);
+            // }
         }else{
             if (CandidateRecommendation::where('candidate_id', $candidate_id)->exists() && CandidateRecommendation::where('candidate_id', $candidate_id)->where('recommendation', 1)->exists()) {
                 CandidateRecommendation::where('candidate_id', $candidate_id)->delete();

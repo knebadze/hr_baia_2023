@@ -247,7 +247,7 @@ class VacancyRepository{
         $reminder->vacancy_id = $vacancy_id;
         $reminder->hr_id = $hr_id;
         $reminder->date = $reminderDate;
-        $reminder->reason = 'დაგემატა ახალი ვაკანსია. კატეგორია:'. $category['name_ka']. ', გრაფიკი: '. $work_schedule['name_ka']. ', კანდიდატის საჭიორების თარიღი: ' .$start_date. ', ვადა: '.$term['name_ka'].', შეცვალეთ სტატუსი!';
+        $reminder->reason = 'დაგემატა ახალი ვაკანსია. კატეგორია:'. $category['name_ka']. ', გრაფიკი: '. $work_schedule['name_ka']. ', კანდიდატის საჭიორების თარიღი: ' .$start_date. ', ვადა: '.$term['name_ka'].',შეავსეთ სათაური და შეცვალეთ სტატუსი!';
         $reminder->main = 1;
         $reminder->main_stage_id = 1;
         $reminder->save();

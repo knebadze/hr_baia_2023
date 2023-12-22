@@ -9,10 +9,21 @@
               </div>
               <div class="modal-body ">
                 <div class="col-xl-12 col-lg-12 col-md-12">
+                    <p v-if="!item.title_en" class="text-center text-danger"><strong>შეავსეთ ვაკანსიის სათაური!!! </strong></p>
                     <div class="form-group">
                         <label>{{ $t('სტატუსი') }}</label>
                         <div class="ls-inputicon-box">
-                            <multiselect v-model="m.status" :options="cla" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" :placeholder="$t('lang.employer_add_job_select')"  :searchable="true" :allow-empty="false">
+                            <multiselect
+                                v-model="m.status"
+                                :options="cla"
+                                deselect-label="Can't remove this value"
+                                :track-by="`name_${getLang}`"
+                                :label="`name_${getLang}`"
+                                :placeholder="$t('lang.employer_add_job_select')"
+                                :searchable="true"
+                                :allow-empty="false"
+                                :disabled="!item.title_en"
+                            >
                                 <template slot="singleLabel" slot-scope="{ option }"></template>
                             </multiselect>
                         </div>
@@ -213,6 +224,13 @@
                             autoClose: 1000,
                         });
 
+
+                    }else if(response.status == 200 && response.data.data[0].type == 'w'){
+                        toast.error(response.data.data[0].message, {
+                            theme: 'colored',
+                            autoClose: 1000,
+                        });
+                        openModal()
 
                     }
 

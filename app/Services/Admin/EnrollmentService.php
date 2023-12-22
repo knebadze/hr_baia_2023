@@ -25,6 +25,7 @@ class EnrollmentService
         $this->enrollmentAgreeRepository = new EnrollmentAgreeRepository;
     }
     function save($type, $data) {
+        // dd($data['data']);
         try {
             $vacancy = Vacancy::where('id', $data['data']->vacancy_id)->first();
             if ($type == 'vacancy') {
@@ -94,7 +95,7 @@ class EnrollmentService
             $hr = Hr::where('id', $data['author_id'])->first();
             // Create the base URL
             $baseUrl = $parsedUrl['scheme'] . '://' . $parsedUrl['host'].':'.$parsedUrl['port'];
-            $smsData = ['to' => $hr->number, 'money' => $data['money'], 'code'=> $data['code'], 'url' => $baseUrl.'/admin/enrollment'];
+            $smsData = ['to' => $hr->user->number, 'money' => $data['money'], 'code'=> $data['code'], 'url' => $baseUrl.'/admin/enrollment'];
             $this->enrollmentRepository->sendSms($smsData, 'confirmed_enrollment_hr');
             return $result;
         } catch (\Exception $e) {

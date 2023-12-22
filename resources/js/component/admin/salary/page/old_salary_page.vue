@@ -163,13 +163,14 @@ export default {
     },
     computed:{
         total_salary(){
-            return  _.sumBy(this.items, item => (item.full_salary));
+            return  _.sumBy(this.items, item => (item.full_salary)).toFixed(2);
         },
         total_hr_bonus(){
-            return  _.sumBy(this.items, item => (item.hr_bonus_from_vacancy)) + _.sumBy(this.items, item => (item.hr_bonus_from_registration));
+            let sum = _.sumBy(this.items, item => (item.hr_bonus_from_vacancy)) + _.sumBy(this.items, item => (item.hr_bonus_from_registration));
+            return  sum.toFixed(2);
         },
         total_supplement() {
-            return  _.sumBy(this.items, item => (item.supplement));
+            return  _.sumBy(this.items, item => (item.supplement)).toFixed(2);
         },
         // currentMonth(){
         //     return Number(moment().format('M') - 1);

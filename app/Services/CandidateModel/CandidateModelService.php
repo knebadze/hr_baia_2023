@@ -21,6 +21,7 @@ class CandidateModelService
 
     ];
     function findData($setStage = null, $user_id = null, $candidate_id = null) {
+        // dd($user_id);
         $userId = $user_id ? $user_id : Auth::id();
         $stage = $setStage !== null ? $setStage : $this->checkStage($userId);
         $filterInstance = new $this->filters[$stage];

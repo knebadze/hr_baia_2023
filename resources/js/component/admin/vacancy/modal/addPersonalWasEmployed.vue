@@ -233,7 +233,7 @@
                 }
             },
             save(){
-                if (!this.m.candidate_id ) {
+                if (!this.m.candidate_id && !this.m.employ_type) {
                     toast.error("შესანახად აირჩიეთ კანდიდატი", {
                         theme: 'colored',
                         autoClose: 1000,

@@ -74,6 +74,7 @@ export default {
 
             componentItem.value = props.data.register
             componentItem.value.name = depositAuthor.value
+            componentItem.value.vacancy_id = model.value.vacancy_id
         }
         props.data.register?registerEnrollment():null
         const candidateModel = computed(() => {
