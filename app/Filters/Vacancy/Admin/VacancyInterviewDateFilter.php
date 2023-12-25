@@ -4,7 +4,7 @@ namespace App\Filters\Vacancy\Admin;
 
 use Carbon\Carbon;
 
-class vacancyInterviewDateFilter
+class VacancyInterviewDateFilter
 {
     function __invoke($query, $request)
     {

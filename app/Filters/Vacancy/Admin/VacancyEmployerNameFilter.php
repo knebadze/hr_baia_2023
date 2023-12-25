@@ -2,7 +2,7 @@
 
 namespace App\Filters\Vacancy\Admin;
 
-class vacancyEmployerNameFilter
+class VacancyEmployerNameFilter
 {
     function __invoke($query, $request)
     {

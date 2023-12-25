@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use PharIo\Manifest\Author;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Vacancy extends Model
+class Vacancy extends Model implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
     use HasFactory;
     protected $fillable = [
         'code ',

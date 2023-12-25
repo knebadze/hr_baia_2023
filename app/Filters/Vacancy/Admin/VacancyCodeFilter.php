@@ -2,11 +2,10 @@
 
 namespace App\Filters\Vacancy\Admin;
 
-class vacancyCodeFilter
+class VacancyCodeFilter
 {
-    function __invoke($query, $request)
+    public function __invoke($query, $request)
     {
         return $query->where('code', $request);
-
     }
 }

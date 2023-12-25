@@ -5,11 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 // use Kirschbaum\PowerJoins\PowerJoins;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Employer extends Model
+class Employer extends Model implements Auditable
 {
 
     // use PowerJoins;
+
+    use HasFactory;
+    use \OwenIt\Auditing\Auditable;
+
     protected $fillable = [
         'id',
         'name_ka',
@@ -29,7 +34,6 @@ class Employer extends Model
         'map_link',
         'fb_link',
     ];
-    use HasFactory;
 
     public function vacancy()
     {
