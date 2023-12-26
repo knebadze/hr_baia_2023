@@ -171,9 +171,9 @@ return [
 
     'individual_vacancies_page_leftside_sallary' => 'ანაზღაურება',
         'individual_vacancies_page_leftside_sallary_any' => 'ნებისმიერი',
-        'individual_vacancies_page_leftside_sallary_from_500' => '500 ₾-დან',
-        'individual_vacancies_page_leftside_sallary_from_700' => '700 ₾-დან',
-        'individual_vacancies_page_leftside_sallary_from_900' => '900 ₾-დან',
+        'individual_vacancies_page_leftside_sallary_from_500' => '1000 ₾-დან',
+        'individual_vacancies_page_leftside_sallary_from_700' => '1500 ₾-დან',
+        'individual_vacancies_page_leftside_sallary_from_900' => '1800 ₾-დან',
         'individual_vacancies_page_leftside_sallary_other' => 'სხვა',
 
     'individual_vacancies_page_leftside_shedulde' => 'გრაფიკი',

@@ -334,11 +334,11 @@
                                             </div>
                                         </li>
                                         <li>
-                                            <div class="twm-s-info-inner">
+                                            <!-- <div class="twm-s-info-inner">
                                                 <i class="fas fa-venus-mars"></i>
                                                 <span class="twm-title">ასაკი</span>
                                                 <div class="twm-s-info-discription">{{ (vacancy.demand.min_age)?vacancy.demand.min_age:'18' }} - {{ (vacancy.demand.max_age)?vacancy.demand.max_age:'60' }}</div>
-                                            </div>
+                                            </div> -->
                                         </li>
                                         <li>
                                             <div class="twm-s-info-inner">
@@ -349,12 +349,11 @@
                                             </div>
                                         </li>
                                         <li>
-                                            <div class="twm-s-info-inner">
-
+                                            <!-- <div class="twm-s-info-inner">
                                                 <i class="fas fa-phone"></i>
                                                 <span class="twm-title">ნომერი</span>
                                                 <div class="twm-s-info-discription">{{ vacancy.hr.user.number }}</div>
-                                            </div>
+                                            </div> -->
                                         </li>
 
                                     </ul>

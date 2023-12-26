@@ -168,9 +168,9 @@ return [
 
     'individual_vacancies_page_leftside_sallary' => 'Sallary',
         'individual_vacancies_page_leftside_sallary_any' => 'Any',
-        'individual_vacancies_page_leftside_sallary_from_500' => 'From 500₾',
-        'individual_vacancies_page_leftside_sallary_from_700' => 'From 700₾',
-        'individual_vacancies_page_leftside_sallary_from_900' => 'From 900₾',
+        'individual_vacancies_page_leftside_sallary_from_500' => 'From 1000₾',
+        'individual_vacancies_page_leftside_sallary_from_700' => 'From 1500₾',
+        'individual_vacancies_page_leftside_sallary_from_900' => 'From 1800₾',
         'individual_vacancies_page_leftside_sallary_other' => 'Other',
 
     'individual_vacancies_page_leftside_shedulde' => 'Shedulde',
