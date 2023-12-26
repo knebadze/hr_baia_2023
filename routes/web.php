@@ -25,7 +25,6 @@ use App\Http\Controllers\User\ResumeController;
 use App\Http\Controllers\SubscriptionController;
 
 use App\Http\Controllers\Admin\SmsPageController;
-use App\Http\Controllers\BusyCandidateController;
 use App\Http\Controllers\Admin\BlackListController;
 
 use App\Http\Controllers\User\PostVacancyController;
@@ -127,9 +126,6 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     // Define a route group for admin-related routes
 
     include('admin/page/page.php');
-
-    Route::get('hr/busy_candidate', [BusyCandidateController::class, 'index'])->name('busy.candidate');
-    // Route::get('hr/candidate', [BusyCandidateController::class, 'index'])->name('busy.candidate');
 
     //_______________________USER REQUEST_____________________________
     include('user/user.php');

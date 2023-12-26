@@ -65,7 +65,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'lang' => \App\Http\Middleware\ChangeLanguage::class,
-        'checkRole' => \App\Http\Middleware\CheckRole::class,
+        'role' => \App\Http\Middleware\CheckRole::class,
         'auth.adminRedirect' => \App\Http\Middleware\AdminRedirectIfAuthenticated::class,
         'csrf.custom' => \App\Http\Middleware\VerifyCsrfTokenCustom::class,
         // 'setLang' => \App\Http\Middleware\SetLanguage::class,
