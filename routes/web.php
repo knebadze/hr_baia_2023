@@ -58,6 +58,8 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
         Route::get('/', [MainController::class, 'index'])->name('welcome');
 
             Route::get('/job', [VacancyController::class, 'index'])->name('job');
+            //Job Detail
+            Route::get('/job_detail/{id?}/{slug?}', [VacancyController::class, 'show'])->name('job.detail');
             Route::get('/my_vacancy', [MyVacancyController::class, 'index'])->name('my.vacancy');
             Route::get('/employer/photo_questionnaire/{code?}', [MyVacancyController::class, 'questionnaire'])->name('candidate.photo.questionnaire');
             Route::get('/job_search/{category_id?}/{work_schedule_id?}/{address?}', [VacancyController::class, 'search'])->name('job.search');
@@ -87,9 +89,6 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
 
         //Post Job
         Route::get('/post_job', [PostVacancyController::class, 'index'])->name('post.job');
-
-        //Job Detail
-        Route::get('/job_detail/{id?}/{slug?}', [VacancyController::class, 'show'])->name('job.detail');
 
         // Faq Page
         Route::get('/faq', [FaqController::class, 'index'])->name('faq');

@@ -14,25 +14,25 @@
             <!-- /.card-header -->
             <div class="card-body">
                 <div class='row'>
-                    <div class="col-xl-3 col-lg-6 col-md-12">
+                    <div class="col-xl-4 col-lg-6 col-md-12">
                         <div class=" form-check">
                             <input type="checkbox" class="form-check-input" id="exampleCheck1" value="1" v-model="payment" @input="paymentEvent(payment)">
                             <label class="form-check-label" for="exampleCheck1">ანაზღაურება</label>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-6 col-md-12">
+                    <div class="col-xl-4 col-lg-6 col-md-12">
                         <div class=" form-check">
                             <input type="checkbox" class="form-check-input" id="exampleCheck2" value="1" v-model="work_schedule" @input="workScheduleEvent(work_schedule)">
                             <label class="form-check-label" for="exampleCheck2">გრაფიკი</label>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-6 col-md-12">
+                    <!-- <div class="col-xl-3 col-lg-6 col-md-12">
                         <div class=" form-check">
                             <input type="checkbox" class="form-check-input" id="exampleCheck3" value="1" v-model="category" @input="categoryEvent(category)">
                             <label class="form-check-label" for="exampleCheck3">კატეგორია</label>
                         </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-6 col-md-12">
+                    </div> -->
+                    <div class="col-xl-4 col-lg-6 col-md-12">
                         <div class=" form-check">
                             <input type="checkbox" class="form-check-input" id="exampleCheck4" value="1" v-model="address" @input="addressEvent(address)">
                             <label class="form-check-label" for="exampleCheck4">ქალაქი, უბანი</label>
@@ -53,39 +53,7 @@
             </div>
             <!-- /.card-body -->
         </div>
-        <div>
-            <table class="table twm-table table-striped table-border">
-                <thead>
-                    <tr>
-                    <th>ID</th>
-                    <th>შემკვეთი</th>
-                    <th>კატეგორია</th>
-                    <th>სტატუსი</th>
-                    <!-- <th>ტიპი</th> -->
-                    <th>დამატების თარიღი</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr v-if="items.length > 0" v-for="(item, index) in items" :key="index">
-                    <td><u class="text-primary" @click="openModal(item.id)">{{ item.code }}</u></td>
-                    <td>{{ item.employer.name_ka }}</td>
-                    <td>{{ item.category.name_ka }}</td>
-                    <td>{{ item.status.name_ka }}</td>
-                    <!-- <td>{{ item.qualifying_type.name }}</td> -->
-                    <td>{{ item.created_at }}</td>
-                    <!-- <td>
-                        <button class="btn btn-info" @click="showModal(item)" title="დამატება" >
-                            <i class="fa fa-plus"></i>
-                        </button>
-                    </td> -->
-                    </tr>
-                    <tr v-else>
-                        <td colspan='5' class="text-center"> ვაკანსია არ მოიძებნა!!!</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <relevant_vacancy_table :items="items"></relevant_vacancy_table>
         <div class="mt-2">
             <paginate
                 v-model="pagination.current_page"
@@ -107,11 +75,12 @@ import moment from 'moment'
 import _ from 'lodash';
 import axios from 'axios'
 import Paginate from 'vuejs-paginate-next';
-import vacancyFullInfoModal from '../../vacancy/modal/vacancyFullInfoModal.vue';
+
+import relevant_vacancy_table from '../component/relevant/relevant_vacancy_table.vue';
 export default {
     components:{
         Paginate,
-        vacancyFullInfoModal
+        relevant_vacancy_table
     },
     props:{
         data:Object,
@@ -130,8 +99,7 @@ export default {
             address: true,
             hrs:[],
             // getDataType:'first_data',
-            modalShow: false,
-            vacancy_id: null
+
         }
     },
     computed:{
@@ -140,10 +108,12 @@ export default {
     created() {
         // this.m.id = this.data
         // this.getData()
-        this.m.payment = this.data.candidate.get_work_information.map(item => item.payment);
-        this.m.work_schedule = this.data.candidate.get_work_information.flatMap(item => item.get_work_schedule.map(schedule => schedule.work_schedule_id));
-        this.m.category = this.data.candidate.get_work_information.map(item => item.category_id);
-        this.m.address = this.data.candidate.address_ka
+        const { candidate } = this.data;
+        console.log(candidate);
+        this.m.payment = candidate.get_work_information.map(item => item.payment);
+        this.m.work_schedule = candidate.get_work_information.flatMap(item => item.get_work_schedule.map(schedule => schedule.work_schedule_id));
+        this.m.category = candidate.get_work_information.map(item => item.category_id);
+        this.m.address = candidate.address_ka
 
 
     },
@@ -166,7 +136,7 @@ export default {
 
                 })
             .then((response)=> {
-                // console.log('response.data',response.data.data);
+                console.log('response.data',response.data.data);
                 this.pagination = {
                     'current_page':response.data.current_page,
                     'last_page': response.data.last_page
@@ -213,10 +183,7 @@ export default {
                 this.m.address = this.data.candidate.address_ka
             }
         },
-        openModal(id){
-            this.modalShow = !this.modalShow
-            this.vacancy_id = id
-        }
+        
 
     },
     watch:{

@@ -348,9 +348,34 @@ class AddVacancyPersonalRepository
                 $notificationType = 'interview_period_employer';
                 $data = [
                     'to' => $employer_number,
-                    'name' => $employer_name,
-                    'hName' => $hr_name,
+                    'dateTime' => $qualifying->interview_date,
+                    'place' => $qualifying->interviewPlace,
+                    'cName' => $candidate_name,
+                    'cNumber' => $candidate_number,
+                    'name' => $hr_name,
                     'number' => $hr_number,
+                    'link' => route('candidate-detail', [
+                        'locale' => App::getLocale(),
+                        'id' => $qualifying->candidate->id,
+                    ])
+                ];
+                event(new SmsNotificationEvent($data, $notificationType));
+                $data = [];
+
+                $notificationType = 'interview_period_candidate';
+                $data = [
+                    'to' => $candidate_number,
+                    'dateTime' => $qualifying->interview_date,
+                    'place' => $qualifying->interviewPlace,
+                    'eName' => $employer_name,
+                    'eNumber' => $employer_number,
+                    'name' => $hr_name,
+                    'number' => $hr_number,
+                    'link' => route('job.detail', [
+                        'locale' => App::getLocale(),
+                        'id' => $qualifying->vacancy->id,
+                        'slug' => $qualifying->vacancy->slug
+                    ])
                 ];
                 break;
 
@@ -363,7 +388,7 @@ class AddVacancyPersonalRepository
                     'number' => $hr_number,
                 ];
                 event(new SmsNotificationEvent($data, $notificationType));
-
+                $data = [];
                 // Additional logic for case 5
                 $notificationType = 'probation_period_employer';
                 $data = [
