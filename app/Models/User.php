@@ -36,6 +36,8 @@ class User extends Authenticatable
         'status',
         'lang',
         'password',
+        'verify_code',
+        'verify_code_date'
     ];
 
     /**

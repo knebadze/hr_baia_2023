@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\DailyTask;
 use App\Services\SmsService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Crypt;
 use App\Services\Admin\DailyTaskService;
 use App\Services\Admin\DashboardService;
 
@@ -32,24 +35,21 @@ class AdminController extends Controller
                 'password' => 'required',
             ]);
 
-            $credentials = [
-                'number' => $request->input('number'),
-                'password' => $request->input('password'),
-            ];
-            if (Auth::attempt($credentials)) {
+            $user = User::where('number', $request->input('number'))->whereNot('role_id', 3)->first();
+
+            if ($user) {
+               $checkPass = Hash::check($request->input('password'), $user->password);
+            }
+
+
+            if ($checkPass) {
                 $sendSms = new SmsService();
                 $verificationCode = rand(10000, 99999);
 
-
-                // Store the verification code in the user's session
-                $sessionKey = 'verification_code_' . auth()->user()->id;
-                session([
-                    $sessionKey => $verificationCode,
-                    $sessionKey . '_time' => now(),
-                ]);
+                $user->update(['verify_code' => $verificationCode, 'verify_code_date' => now()]);
                 $sendSms->sendSms($request->input('number'), 'verify code:'.$verificationCode);
 
-                return redirect('ka/admin_verify');
+                return redirect('ka/admin_verify?number='.$request->input('number'));
             }
 
         return redirect("ka/admin")->withSuccess('ინფორმაცია არასწორია');
@@ -57,7 +57,8 @@ class AdminController extends Controller
 
     function verifyPage()
     {
-        return view('admin_verify');
+        $number = request('number');
+        return view('admin_verify', compact('number'));
     }
 
     public function verifyCode(Request $request)
@@ -67,27 +68,26 @@ class AdminController extends Controller
         ]);
 
         $enteredCode = $request->input('verification_code');
-        $userId = auth()->user()->id;
-        $sessionKey = 'verification_code_' . $userId;
-        $sessionKeyTime = $sessionKey . '_time';
+        $number = $request->input('number');
+        $user = User::where('number', $number)->whereNot('role_id', 3)->first();
+        $code = $user->verify_code;
 
         // Check if the verification code has expired (2 minutes timeout)
-        if (now()->diffInMinutes(session($sessionKeyTime)) > 2) {
-            // Clear the verification code and timestamp from the session
-            $request->session()->forget([$sessionKey, $sessionKeyTime]);
+        if (now()->diffInMinutes(session($user->verify_code_date)) > 2) {
 
             return back()->withErrors(['verification_code' => 'კოდი ვადაგასულია.']);
         }
+        if ($enteredCode == $code) {
 
-        if ($enteredCode == session($sessionKey)) {
-            // Clear the verification code and timestamp from the session
-            $request->session()->forget([$sessionKey, $sessionKeyTime]);
-            // Redirect to the intended dashboard
-            if (DailyTask::whereDate('date', '!=', Carbon::today())->exists()) {
+            if (Auth::loginUsingId($user->id)) {
+                 // Redirect to the intended dashboard
+                if (DailyTask::whereDate('date', '!=', Carbon::today())->exists()) {
                     $this->dailyTaskService->task();
                 }
             return redirect()->intended('ka/admin/dashboard')
                     ->withSuccess('Signed in');
+            }
+
         }
 
         // Incorrect verification code

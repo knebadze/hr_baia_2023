@@ -132,18 +132,18 @@ class VacancyRepository{
         $employer = Employer::updateOrCreate(
             ['number' => $data['number']],
             [
-                'name_ka' => $data['name_ka'],
-                'name_en' => $data['name_en'],
-                'name_ru' => $data['name_ru'],
-                'address_ka' => $data['address_ka'],
-                'address_en' => $data['address_en'],
-                'address_ru' => $data['address_ru'],
-                'street_ka' => $data['street_ka'],
-                'street_en' => $data['street_en'],
-                'street_ru' => $data['street_ru'],
-                'email' => $data['email'],
-                'number_code_id' => $data['number_code']['id']
-
+                'name_ka' => $data['name_ka'] ?? null,
+                'name_en' => $data['name_en'] ?? null,
+                'name_ru' => $data['name_ru'] ?? null,
+                'address_ka' => $data['address_ka'] ?? null,
+                'address_en' => $data['address_en'] ?? null,
+                'address_ru' => $data['address_ru'] ?? null,
+                'street_ka' => $data['street_ka'] ?? null,
+                'street_en' => $data['street_en'] ?? null,
+                'street_ru' => $data['street_ru'] ?? null,
+                'email' => $data['email'] ?? null,
+                'number_code_id' => $data['number_code']['id'],
+                'verify_code' => $data['verify_code'],
             ]
         );
         return $employer;

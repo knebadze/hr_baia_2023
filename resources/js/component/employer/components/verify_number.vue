@@ -33,7 +33,7 @@
                     </div>
                 </div>
             </div>
-            <verify_code_div :visible="showVerifyCodeInput" :verifyNumber="verifyNumber" @sendParentAction="handlerAction"/>
+            <verify_code_div :visible="showVerifyCodeInput" :item="checkData"  @sendParentAction="handlerAction"/>
             <!-- <div class="col-xl-12 col-lg-12 col-md-12 " v-if="showVerifyCodeInput">
                 <hr>
                 <div class="text-center">
@@ -80,6 +80,7 @@ export default defineComponent({
         const verifyNumber = ref(null)
         const checkNumberData = ref(null)
         const showError = ref(false)
+        const checkData = ref(null);
         m.value.number_code = props.cla.find(item => item.id == 79)
         const chooseNumberCode = (item) =>{
             model.value.number_code = item
@@ -89,6 +90,10 @@ export default defineComponent({
 
 
         const send = () =>{
+            checkData.value = {
+                type: "employer",
+                number: m.value.number
+            }
             axios({
                 method: "post",
                 url: "/send_add_vacancy_validate_sms",
@@ -101,12 +106,9 @@ export default defineComponent({
                         theme: 'colored',
                         autoClose: 2000,
                     });
-                    verifyNumber.value = response.data.randomNumber
-                    checkNumberData.value = response.data.check
-                    if (verifyNumber.value !== null) {
-                        showVerifyCodeInput.value = !showVerifyCodeInput.value
-                        // setupTimeout()
-                    }
+                    // verifyNumber.value = response.data.randomNumber
+                    checkNumberData.value = response.data
+                    showVerifyCodeInput.value = !showVerifyCodeInput.value
 
                     console.log(response.data);
                 }
@@ -119,15 +121,6 @@ export default defineComponent({
 
 
         }
-        // const countdown = ref(60)
-        // const setupTimeout = ()=> {
-        //     const intervalId = setInterval(() => {
-        //         countdown.value --;
-        //         if (countdown.value <= 0) {
-        //             showVerifyCodeInput.value = false;
-        //         }
-        //     }, 1000);
-        // };
 
         const sendSms = (item) =>{
             // const csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
@@ -135,9 +128,9 @@ export default defineComponent({
                 method: "post",
                 url: "/send_sms_add_vacancy",
                 data:{model: item},
-                headers: {
-                    'X-CSRF-TOKEN': csrfToken,
-                },
+                // headers: {
+                //     'X-CSRF-TOKEN': csrfToken,
+                // },
 
             })
             .then(function (response) {
@@ -162,16 +155,18 @@ export default defineComponent({
                 employer: m.value,
                 used_category: null
             };
+            console.log(checkNumberData.value.length,'checkNumberData.value.length',checkNumberData.value);
             if (checkNumberData.value.length > 0) {
 
-                let activeVacancy = checkNumberData.value.some((x) => x.status_id == 1 || x.status_id == 2 || x.status_id == 3 );
-                let closeVacancy = checkNumberData.value.some((x) => x.status_id == 6 || x.status_id == 7 );
+                let activeVacancy = checkNumberData.value.filter((x) => x.status_id == 1 || x.status_id == 2 || x.status_id == 3 );
+                let closeVacancy = checkNumberData.value.some((x) => x.status_id > 3 );
                 let hr = checkNumberData.value[0].hr.user;
                 let employer = checkNumberData.value[0].employer;
                 postVacancyData.employer = employer;
-                if (activeVacancy) {
-                    let filter = checkNumberData.value.filter((x) => x.status_id == 1 || x.status_id == 2 || x.status_id == 3 );
-                    postVacancyData.used_category = filter.map(i => i.category_id)
+                if (activeVacancy.length > 0) {
+                    console.log('if');
+                    // let filter = checkNumberData.value.filter((x) => x.status_id == 1 || x.status_id == 2 || x.status_id == 3 );
+                    postVacancyData.used_category = activeVacancy.map(i => i.category_id)
                     let html = `თქვენ უკვე გემსახურებათ HR: ${hr.name_ka}.
                         თუ ნამდვილად გსურთ ახალი ვაკანსიის დამატებას დააწექით ღილაკს "დამატება",
                         თუ მიმდინარე ვაკანსიაზე გსურთ ინფორმაცია დააწექით ღილაკს "შეხსენება"`
@@ -207,6 +202,7 @@ export default defineComponent({
                         }
                     })
                 }else if(closeVacancy){
+                    console.log('else if');
                     let html = `
                         <div>
                             <h3>თქვენ უკვე გქონდათ ჩვენთან განთავსებული ვაკანსია,</h3>
@@ -265,6 +261,8 @@ export default defineComponent({
                     },
                     });
                 }
+                console.log('else', postVacancyData);
+                // emit('verifyEmit', postVacancyData)
             }else{
                 emit('verifyEmit', postVacancyData)
             }
@@ -274,39 +272,14 @@ export default defineComponent({
         const handlerAction = () =>{
             getSwal()
         }
-        // const onChange = (v) =>{
-        //     showError.value = false
-        //     if (v.length == 5) {
-        //         if (v == verifyNumber.value) {
-        //             getSwal()
-        //         } else {
-        //             showError.value = true
-        //         }
 
-
-        //     }
-        // }
-
-
-
-        // const onComplete = (v) =>{
-
-        //     if (v) {
-        //         console.log("onComplete ", v);
-        //         verifyFull.value = !verifyFull.value
-        //     }
-        // }
         return {
             m,
             chooseNumberCode,
             send,
             showVerifyCodeInput,
             handlerAction,
-            verifyNumber
-            // onChange,
-            // onComplete,
-            // showError,
-            // countdown
+            checkData
         }
     }
 })

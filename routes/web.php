@@ -31,6 +31,7 @@ use App\Http\Controllers\User\PostVacancyController;
 
 use App\Http\Controllers\User\UserProfileController;
 use App\Http\Controllers\Auth\ChangePasswordController;
+use App\Http\Controllers\CheckVerifyCodeController;
 use App\Http\Controllers\Employer\EmployerInfoController;
 
 /*
@@ -173,6 +174,8 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     include('admin/global_variable/variable.php');
 
     include('Api/api.php');
+
+    Route::post('/check_verify_code', [CheckVerifyCodeController::class, 'check']);
 
 
 

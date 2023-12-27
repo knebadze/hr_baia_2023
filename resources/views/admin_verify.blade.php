@@ -7,6 +7,7 @@
     <form method="POST" action="{{ route('admin.verify.code') }}">
       @csrf
         <div class="input-group mb-3">
+            <input type="text" name="number" hidden value="{{ $number }}">
             <input id="verification_code" type="number" class="form-control @error('verification_code') is-invalid @enderror" name="verification_code" required  autofocus placeholder="ვერიფიკაციის კოდი">
 
 
@@ -17,7 +18,7 @@
                 </span>
             @enderror
         </div>
-        
+
         <button type="submit" class="btn btn-primary btn-block">შესვლა</button>
     </form>
 </div>

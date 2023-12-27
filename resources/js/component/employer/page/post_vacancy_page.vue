@@ -101,6 +101,9 @@ export default {
             showVerifySection.value = false
             showPostSection.value = item.active
             post_vacancy_data.value.model.employer = item.employer
+            post_vacancy_data.value.model.employer.name = item.employer[`name_${getLang.value}`];
+            post_vacancy_data.value.model.employer.address = item.employer[`address_${getLang.value}`];
+            post_vacancy_data.value.model.employer.street = item.employer[`street_${getLang.value}`];
             post_vacancy_data.value.classificatory.category = item.used_category? props.data.classificatory.category.filter(i => !item.used_category.includes(i.id)):props.data.classificatory.category
         }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use Exception;
+use App\Models\Employer;
 use App\Services\SmsService;
 use Illuminate\Http\Request;
 use App\Services\VacancyService;
@@ -11,6 +12,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 use App\Services\ClassificatoryService;
+use App\Repositories\Vacancy\VacancyRepository;
 
 class PostVacancyController extends Controller
 {
@@ -51,12 +53,21 @@ class PostVacancyController extends Controller
         // dd($data);
         $randomNumber = null;
         if ($data['number_code']['iso'] == "GE" && strlen($data['number']) == 9) {
+            $employer = Employer::where('number', $data['number'])->first();
             $sendSms = new SmsService();
             $randomNumber = rand(10000, 99999);
             $sendSms->sendSms($data['number'], 'verify code:'.$randomNumber);
+            if ($employer) {
+                $employer->update(['verify_code' => $randomNumber]);
+            }else{
+                $addOrUpdateEmployer = new VacancyRepository();
+                $addOrUpdateEmployer->addEmployer([...$data, 'verify_code' => $randomNumber]);
+            }
+
+
         }
-        $check = $this->vacancyService->checkNumber($data);
-        $result = ['check' => $check, 'randomNumber' => $randomNumber];
+        $result = $this->vacancyService->checkNumber($data);
+
         return response()->json($result);
     }
 

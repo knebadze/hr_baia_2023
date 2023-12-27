@@ -32,7 +32,7 @@ export default {
     emits:['sendParentAction'],
     props:{
         visible: Boolean,
-        verifyNumber: Number
+        item: Object,
     },
     setup(props, { emit }) {
         const showDiv = ref(false)
@@ -64,15 +64,36 @@ export default {
         const onChange = (v) =>{
             showError.value = false
             if (v.length == 5) {
-                if (v == props.verifyNumber) {
-                    emit('sendParentAction')
-                } else {
-                    showError.value = true
-                }
-
-
+                check(v)
             }
         };
+
+        const check = (v) =>{
+            let data = { code: v, ...props.item }
+            console.log(data);
+            axios({
+                method: "post",
+                url: "/check_verify_code",
+                data: data,
+
+            })
+            .then(function (response) {
+                if (response.status == 200) {
+                    if (response.data) {
+                        emit('sendParentAction')
+                    } else {
+                        showError.value = true
+                    }
+
+                    console.log(response.data);
+                }
+            })
+            .catch(function (error) {
+                // handle error
+
+                console.log(error);
+            })
+        }
 
         const onComplete = (v) =>{
 

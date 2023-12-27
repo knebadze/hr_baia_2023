@@ -33,6 +33,7 @@ class Employer extends Model implements Auditable
         'longitude',
         'map_link',
         'fb_link',
+        'verify_code'
     ];
 
     public function vacancy()
