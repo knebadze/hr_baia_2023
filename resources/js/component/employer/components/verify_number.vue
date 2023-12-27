@@ -261,8 +261,6 @@ export default defineComponent({
                     },
                     });
                 }
-                console.log('else', postVacancyData);
-                // emit('verifyEmit', postVacancyData)
             }else{
                 emit('verifyEmit', postVacancyData)
             }
