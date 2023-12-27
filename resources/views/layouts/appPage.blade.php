@@ -50,11 +50,9 @@
     <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
 
 
-     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-
-
-     {{-- <link rel="stylesheet" href="{{asset('build/assets/app-a8b8d38a.css') }}">
-  <link rel="stylesheet" href="{{asset('build/assets/app-74b23952.css') }}"> --}}
+    <link rel="stylesheet" href="{{asset('build/assets/app-17decf63.css') }}">
+    <link rel="stylesheet" href="{{asset('build/assets/app-74b23952.css') }}">
+    {{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
 
 
 </head>
@@ -140,8 +138,7 @@
   {{-- <script  src="{{ asset('js/register_form.js') }}"></script><!-- MY ADD JS  --> --}}
     {{-- <script  src="{{ asset('js/register_form.js') }}"></script><!-- MY ADD JS  --> --}}
 
-    {{-- <script type="module" src="{{ asset('build/assets/app-4ed993c7.js') }}"></script>
-    <script type="module" src="{{ asset('build/assets/app-c56146c4.js') }}"></script> --}}
-
+    <script type="module" src="{{ asset('build/assets/app-4ed993c7.js') }}"></script>
+    <script type="module" src="{{ asset('build/assets/app-e7f7b8ff.js') }}"></script>
 </body>
 </html>
