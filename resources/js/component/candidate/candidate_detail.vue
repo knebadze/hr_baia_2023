@@ -81,7 +81,7 @@
                         <div class="side-bar-2">
 
                             <div class="twm-s-map mb-5">
-                                <h4 class="section-head-small mb-4">Location</h4>
+                                <!-- <h4 class="section-head-small mb-4">Location</h4> -->
                                 <div class="twm-s-map-iframe">
                                     <location_map :markerPosition="mapData" />
 

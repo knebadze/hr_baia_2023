@@ -169,9 +169,9 @@ return [
 
     'individual_vacancies_page_leftside_sallary' => 'Зарплата',
         'individual_vacancies_page_leftside_sallary_any' => 'Любой',
-        'individual_vacancies_page_leftside_sallary_from_500' => 'От 500₾',
-        'individual_vacancies_page_leftside_sallary_from_700' => 'От 700₾',
-        'individual_vacancies_page_leftside_sallary_from_900' => 'От 900₾',
+        'individual_vacancies_page_leftside_sallary_from_500' => 'От 1000₾',
+        'individual_vacancies_page_leftside_sallary_from_700' => 'От 1500₾',
+        'individual_vacancies_page_leftside_sallary_from_900' => 'От 1800₾',
         'individual_vacancies_page_leftside_sallary_other' => 'Другое',
 
     'individual_vacancies_page_leftside_shedulde' => 'Расписание',
