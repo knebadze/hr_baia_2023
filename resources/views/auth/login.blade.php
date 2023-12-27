@@ -2,7 +2,10 @@
 
 @section('content')
 
-
+{{-- @php
+    $language = request()->query()['locale'];
+    dd($language);
+@endphp --}}
        <!-- CONTENT START -->
        <div class="page-content">
 

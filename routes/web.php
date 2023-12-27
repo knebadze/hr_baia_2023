@@ -52,7 +52,7 @@ Route::get('', function() {
 Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}'], ],
        function()
     {
-
+        Auth::routes();
         Route::get('/prices', [PricesController::class, 'index'])->name('prices');
 
         Route::get('/', [MainController::class, 'index'])->name('welcome');
@@ -118,7 +118,6 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('/admin/verify', [AdminController::class, 'verifyCode'])->name('admin.verify.code');
 
 
-    Auth::routes();
 
     Route::get('auth/{provider}/redirect', [SocialController::class, 'redirect'])->name('auth.social.redirect');
     Route::get('auth/{provider}/callback', [SocialController::class, 'callback'])->name('auth.social.callback');
