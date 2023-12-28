@@ -14,7 +14,7 @@
                     <div class="col-xl-7 col-lg-6 col-md-5 twm-log-reg-media-wrap">
                         <div class="twm-log-reg-media">
                             <div class="twm-l-media">
-                                <img src="images/login-bg.png" alt="">
+                                <img src="{{ asset('images/login-bg.png') }}" alt="">
                             </div>
                         </div>
                     </div>
@@ -22,7 +22,7 @@
                         <div class="twm-log-reg-form-wrap">
                             <div class="twm-log-reg-logo-head">
                                 <a href="{{ url ('/') }}">
-                                    <img src="/images/logo-baia.png" alt="" class="logo">
+                                    <img src="{{ asset('/images/logo-baia.png') }}" alt="" class="logo">
                                 </a>
                             </div>
 
@@ -124,7 +124,7 @@
                                                                 <span class="input-group-text hiddenPsswd" id="confirmPassword">
                                                                     <i class="fa fa-eye-slash" aria-hidden="true"></i>
                                                                 </span>
- 
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -208,7 +208,7 @@
                                                 <form action="{{ route('auth.social.redirect', 'google') }}" method="GET">
                                                     @csrf
                                                     <button type="submit" class="log_with_google">
-                                                        <img src="images/google-icon.png" alt="">
+                                                        <img src="{{ asset('images/google-icon.png') }}" alt="">
                                                         Continue with Google
                                                     </button>
                                                 </form>
