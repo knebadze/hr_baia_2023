@@ -110,9 +110,9 @@
               </td>
             </tr>
             @endif
-  
+
           @endif
-  
+
           <tr>
             <td>მართვის მოწმობა</td>
             @if ($driving_license)
@@ -120,14 +120,14 @@
                   @foreach ($driving_license as $item)
                       <span>{{ $item['name'] }}</span>
                   @endforeach
-  
+
               </td>
             @else
               <td class="rightText">
                   {{ __('არ აქვს') }}
               </td>
             @endif
-  
+
           </tr>
           <tr>
             <td>ალერგია</td>
@@ -152,7 +152,7 @@
             <td>სოციალური ქსელი</td>
             <td class="rightText">
                 facebook: {{ $fb_link }}  <br>
-                YouTube: {{ $youtube_link }} 
+                YouTube: {{ $youtube_link }}
             </td>
           </tr>
           <tr>
@@ -193,7 +193,7 @@
               კატეგორია: {{ $item['category']['name_ka'] }} <br>
               სამუშაო გრაფიკი: {{ $item['get_work_schedule'][0]['work_schedule']['name_ka'] }} <br>
               ანაზღაურება: {{ $item['payment'] }} <br>
-              ვალიუტა: {{ $item['currency']['name_ka']}}      
+              ვალიუტა: {{ $item['currency']['name_ka']}}
             @endforeach
 
           </td>
@@ -231,7 +231,7 @@
 
     <div class="footer margin-top">
         <div>პატივისცემით &copy; hrbaia.ge <a class="interested" href="https://hrbaia.ge/ka">დავინტერესდი</a></div>
-    </div> 
+    </div>
 
 
 {{-- CSS --}}
@@ -243,7 +243,7 @@
 	  border-collapse: collapse;
 	  width: 100%;
 	}
-	
+
 	td, th {
 	  border: 1px solid #dddddd;
 	  text-align: left;
@@ -253,7 +253,7 @@
     .rightText {
         text-align: right;
     }
-	
+
 	tr:nth-child(even) {
 	  background-color: #dddddd;
 	}

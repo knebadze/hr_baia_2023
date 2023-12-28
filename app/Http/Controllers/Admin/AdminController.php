@@ -36,7 +36,7 @@ class AdminController extends Controller
             ]);
 
             $user = User::where('number', $request->input('number'))->whereNot('role_id', 3)->first();
-
+            $checkPass = null;
             if ($user) {
                $checkPass = Hash::check($request->input('password'), $user->password);
             }
@@ -52,7 +52,7 @@ class AdminController extends Controller
                 return redirect('ka/admin_verify?number='.$request->input('number'));
             }
 
-        return redirect("ka/admin")->withSuccess('ინფორმაცია არასწორია');
+        return redirect("ka/admin")->withErrors(['number'=>'ინფორმაცია არასწორია']);
     }
 
     function verifyPage()
