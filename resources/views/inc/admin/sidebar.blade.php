@@ -136,7 +136,7 @@
             <hr>
             <li class="nav-item mt-3">
                 <a
-                    href="{{ route('logout') }}"
+                    href="{{ route('logout', App()->getLocale()) }}"
                     class="nav-link btn btn-danger text-white"
                     onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();"
@@ -144,7 +144,7 @@
                     <i class="nav-icon fa fa-arrow-left"></i>
                     <p>გასვლა</p>
                 </a>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                <form id="logout-form" action="{{ route('logout', App()->getLocale()) }}" method="POST" class="d-none">
                     @csrf
                 </form>
             </li>

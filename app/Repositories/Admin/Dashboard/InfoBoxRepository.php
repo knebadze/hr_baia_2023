@@ -24,7 +24,7 @@ class InfoBoxRepository
             })
             ->whereIn('status_id', [3,4,13])
             ->count();
-        $data['success'] = round(( $successVacancy / $data['vacancyCount'] ) * 100, 2);
+        $data['success'] = $successVacancy > 0 ? round(( $successVacancy / $data['vacancyCount'] ) * 100, 2): 0;
         // dd( $data, $successVacancy );
         return $data;
     }

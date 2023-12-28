@@ -46,6 +46,6 @@ class HrDailyWorkRepository
             ->join('users as c', 'b.user_id', '=', 'c.id')
             ->select('a.*', 'c.name_ka')
             ->get()->toArray();
-        return ['lastRecord' => $lastRecord->hr->user->name_ka, 'nextRecord' => $nextRecord->hr->user->name_ka, 'dailyWork' => $dailyWork, 'noActive' => $noActive];
+        return ['lastRecord' => $lastRecord ? $lastRecord->hr->user->name_ka : '', 'nextRecord' => $nextRecord? $nextRecord->hr->user->name_ka: '', 'dailyWork' => $dailyWork, 'noActive' => $noActive];
     }
 }
