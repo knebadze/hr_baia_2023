@@ -34,7 +34,8 @@ class SalaryPageRepository
             ->orderBy('created_at', 'DESC')
             ->With('hr.user')
             ->get()->toArray();
-        $data['old']['info'] = $this->oldInfo($data['old']['data']);
+            // dd($data['old']['data']);
+        $data['old']['info'] = $data['old']['data'] ?$this->oldInfo($data['old']['data']) :[];
             // dd($data);
         return $data;
     }
@@ -52,9 +53,9 @@ class SalaryPageRepository
         //     ->where('updated_at', '>=', Carbon::parse($salary->created_at)->startOfDay()->toDateTimeString())
         //     ->count();
         // dd(Carbon::parse($salary->created_at)->startOfDay()->toDateTimeString());
-        $enrollment_total = Enrollment::where('agree', 1)
+        $enrollment_total = $salary?Enrollment::where('agree', 1)
             ->where('created_at', '>=', $salary->created_at)
-            ->sum('money');
+            ->sum('money'):0;
 
         return ['enrollment_total' => $enrollment_total];
     }
