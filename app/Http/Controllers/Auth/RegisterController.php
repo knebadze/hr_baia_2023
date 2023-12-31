@@ -112,6 +112,7 @@ class RegisterController extends Controller
         // dd();
         // GoogleTranslate::trans($data['name_ka'])
         $user = User::create([
+            'role_id' => 3,
             'name_ka' => $name_ka,
             'name_en' => $name_en,
             'name_ru' => $name_ru,

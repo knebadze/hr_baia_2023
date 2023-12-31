@@ -189,6 +189,8 @@ export default {
             formData.append('inside_number',model.inside_number)
             formData.append('fb_link',model.fb_link)
             formData.append('password',model.password)
+            formData.append('bonus_percent',model.bonus_percent)
+            formData.append('fixed_salary',model.fixed_salary)
             if (this.avatar != null) {
                 formData.append('avatar', this.avatar);
             }else{
@@ -226,6 +228,17 @@ export default {
     }
 }
 </script>
-<style lang="">
+<style scoped>
+  .modal-body{
+      height: 250px;
+      overflow-y: auto;
+  }
 
+  @media (min-height: 500px) {
+      .modal-body { height: 400px; }
+  }
+
+  @media (min-height: 800px) {
+      .modal-body { height: 700px;  }
+  }
 </style>

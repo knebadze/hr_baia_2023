@@ -7,13 +7,15 @@ use App\Models\HrHasVacancy;
 use App\Models\Salary;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use PhpParser\Node\Stmt\TryCatch;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class HrRepository
 {
    public function store($data)
    {
-
+    // dd($data);
+    try {
         $hrUser = new User();
         $hrUser->role_id = 2;
         $hrUser->name_ka = $data['name'];
@@ -47,8 +49,8 @@ class HrRepository
         $hr->person_number = $data['person_number'];
         $hr->mobile = $data['mobile'];
         $hr->inside_number = $data['inside_number'];
-        $hr->mobile = $data['bonus_percent'];
-        $hr->mobile = $data['fixed_salary'];
+        $hr->bonus_percent = $data['bonus_percent'];
+        $hr->fixed_salary = $data['fixed_salary'];
         $hr->fb_link = $data['fb_link'];
         $hr->save();
 
@@ -59,6 +61,11 @@ class HrRepository
         $hr_has_vacancy->hr_id = $hr->id;
         $hr_has_vacancy->save();
         return User::where('id', $hrUser->id)->with('hr')->first();
+    } catch (\Throwable $th) {
+        //throw $th;
+        dd($th);
+    }
+
    }
 
    public function update($data)
