@@ -157,7 +157,7 @@ export default defineComponent({
             };
             console.log(checkNumberData.value.length,'checkNumberData.value.length',checkNumberData.value);
             if (checkNumberData.value.length > 0) {
-
+                console.log('checkNumberData.value', checkNumberData.value);
                 let activeVacancy = checkNumberData.value.filter((x) => x.status_id == 1 || x.status_id == 2 || x.status_id == 3 );
                 let closeVacancy = checkNumberData.value.some((x) => x.status_id > 3 );
                 let hr = checkNumberData.value[0].hr.user;

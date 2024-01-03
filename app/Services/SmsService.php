@@ -14,7 +14,9 @@ class  SmsService
         $service_id = config('services.smsservicege.service_id');
         $to = $phone_number;
         $encodedMessage = urlencode($message);
-
+        // dd($message);
+        // $pr = 'hei'.$message;
+        // print($pr);
 
 
         $generatedUrl = "{$apiUrl}?username={$username}&password={$password}&client_id={$client_id}&service_id={$service_id}&to=+995{$to}&text={$encodedMessage}&utf=8";
