@@ -143,7 +143,7 @@ class VacancyRepository{
                 'street_ru' => $data['street_ru'] ?? null,
                 'email' => $data['email'] ?? null,
                 'number_code_id' => $data['number_code']['id'],
-                'verify_code' => $data['verify_code'],
+                // 'verify_code' => $data['verify_code'],
             ]
         );
         return $employer;

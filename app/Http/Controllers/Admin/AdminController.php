@@ -50,6 +50,8 @@ class AdminController extends Controller
                 $sendSms->sendSms($request->input('number'), 'verify code:'.$verificationCode);
 
                 return redirect('ka/admin_verify?number='.$request->input('number'));
+            }else{
+                return redirect("ka/admin")->withErrors(['password'=>'პაროლი არასწორია']);
             }
 
         return redirect("ka/admin")->withErrors(['number'=>'ინფორმაცია არასწორია']);
