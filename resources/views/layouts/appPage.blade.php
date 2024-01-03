@@ -139,6 +139,6 @@
     {{-- <script  src="{{ asset('js/register_form.js') }}"></script><!-- MY ADD JS  --> --}}
 
     <script type="module" src="{{ asset('build/assets/app-4ed993c7.js') }}"></script>
-    <script type="module" src="{{ asset('build/assets/app-433baf7e.js') }}"></script>
+    <script type="module" src="{{ asset('build/assets/app-6205d15e.js') }}"></script>
 </body>
 </html>
