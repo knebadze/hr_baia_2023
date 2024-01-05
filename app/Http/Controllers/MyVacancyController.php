@@ -190,8 +190,9 @@ class MyVacancyController extends Controller
         $auth = Auth::user();
 
         $classificatoryArr = ['category', 'currency', 'workSchedule', 'educations', 'characteristic', 'duty',
-        'languages', 'languageLevels', 'interviewPlace', 'term', 'benefit','forWhoNeed', 'numberCode', 'specialties', 'drivingLicense'];
+        'languages', 'languageLevels', 'interviewPlace', 'term', 'benefit','forWhoNeed', 'numberCode', 'vacancy_profession', 'drivingLicense'];
         $classificatory = $this->classificatoryService->get($classificatoryArr);
+        $classificatory['specialties'] = $classificatory['vacancy_profession'];
         $data = [
             'model' => [
                 // 'employer' => $employer,

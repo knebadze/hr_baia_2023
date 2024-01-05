@@ -420,7 +420,7 @@
                             </div>
                             <div class="col-xl-4 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                    <label>{{ ('სპეციალობა') }}</label>
+                                    <label>{{ ('პროფესია') }}</label>
                                     <div class="ls-inputicon-box">
                                         <multiselect
                                             v-model="m.demand.specialty"

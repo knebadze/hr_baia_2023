@@ -3,11 +3,12 @@
 namespace App\Repositories\Admin;
 
 use App\Models\Hr;
-use App\Models\HrHasVacancy;
-use App\Models\Salary;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
+use App\Models\Salary;
+use App\Models\HrHasVacancy;
 use PhpParser\Node\Stmt\TryCatch;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class HrRepository
@@ -16,6 +17,33 @@ class HrRepository
    {
     // dd($data);
     try {
+        $validate = Validator::make($data, [
+            'name_ka' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'number' => ['required', 'size:9', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'agree' => ['required'],
+            'date_of_birth' => ['required', 'date', 'before:-18 years'],
+            'gender_id' => ['required']
+        ],
+        [
+            'name_ka.required' => 'სახელი და გვარის შევსება სავალდებულოა',
+            'email.required' => 'იმეილის შევსება სავალდებულოა',
+            'email.email' => 'იმეილი აუცილებლად უნდა შეიცავდეს "@" სიმბოლოს',
+            'email.unique' => 'იმეილი უკვე გამოყენებულია',
+            'number.required' => 'ნომრის შევსება სავალდებულოა',
+            'number.size' => 'ნომრის უნდა შეიცავდეს 9 ციფრს',
+            'number.unique' => 'ნომერი უკვე გამოყენებულია',
+            'password.required' => 'პაროლის შევსება სავალდებულოა',
+            'password.min' => 'პაროლი უნდა შედგებოდეს მინიმუმ 8 სიმბოლოსგან',
+            'password.confirmed' => 'პაროლი არასწორია',
+            'agree.required' => 'საიტზე რეგისტრაციისთვი სავალდებულოა ეთანხმებოდეთ წესებს და პირობებს',
+            'date_of_birth.required' => 'შევსება სავალდებულოა',
+            'date_of_birth.before' => 'თქვენ არ ხართ სრულწლოვანი',
+            'gender_id.required' => 'შევსება სავალდებულოა',
+        ]);
+        dd($validate);
+        
         $hrUser = new User();
         $hrUser->role_id = 2;
         $hrUser->name_ka = $data['name'];

@@ -48,7 +48,9 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td v-for="(item, index) in color" :key="index"> <div :style="{ 'background-color': item, 'height': '20px', 'width': '20px',  }"></div></td>
+                    <td v-for="(item, index) in color" :key="index"> <div :style="{ 'background-color': item, 'height': '20px', 'width': '20px',  }"></div>
+                        <p>{{ index == 'other'? 'სხვა' :index == 'is_no_active'?'არა აქტიური':index == 'has_vacancy'?'მიიღო ვაკანსია':index == 'is_in_line'?'რიგშია':'' }}</p>
+                    </td>
                 </tr>
 
             </tfoot>

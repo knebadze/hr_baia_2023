@@ -19,16 +19,17 @@ class AdminVacancyController extends Controller
     }
     public function index()
     {
-        
+
         $vacancy = Vacancy::orderBy('carry_in_head_date', 'DESC')->with([
             'vacancyDuty', 'vacancyBenefit', 'vacancyForWhoNeed', 'characteristic', 'employer', 'currency','category', 'status',
             'workSchedule', 'vacancyInterest', 'interviewPlace','term', 'demand', 'demand.language', 'demand.education', 'demand.languageLevel','demand.specialty',
             'employer.numberCode','deposit','hr.user', 'vacancyDrivingLicense'
             ])->paginate(25);
 
-        $classificatoryArr = ['currency', 'workSchedule', 'educations', 'characteristic', 'educations','specialties','drivingLicense',
-        'category', 'forWhoNeed', 'term', 'benefit','specialties', 'languages', 'languageLevels', 'duty', 'interviewPlace', 'status', 'hr'];
+        $classificatoryArr = ['currency', 'workSchedule', 'educations', 'characteristic', 'educations','vacancy_profession','drivingLicense',
+        'category', 'forWhoNeed', 'term', 'benefit', 'languages', 'languageLevels', 'duty', 'interviewPlace', 'status', 'hr'];
         $classificatory = $this->classificatoryService->get($classificatoryArr);
+        $classificatory['specialties'] = $classificatory['vacancy_profession'];
         $role_id = Auth::user()->role_id;
         if (Auth::user()->role_id == 1) {
             $data = ['classificatory' => $classificatory, 'roleId' => $role_id, 'vacancy' => $vacancy];

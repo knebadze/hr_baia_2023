@@ -76,6 +76,7 @@ class ClassificatoryService
                 'status' => Status::where('status_type_id', 1)->get()->toArray(),
                 'candidateStatus' => Status::where('status_type_id', 2)->get()->toArray(),
                 'hr' => User::where('role_id', 2)->with('hr')->get()->toArray(),
+                'vacancy_profession' => Profession::all()->toArray(),
             ];
         });
 
