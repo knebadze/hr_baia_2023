@@ -10,15 +10,14 @@ use App\Events\hrDailyJob;
 use App\Models\HrHasVacancy;
 use App\Models\RepeatHistory;
 use App\Models\VacancyDemand;
-use App\Models\GlobalVariable;
-use App\Models\VacancyDeposit;
 use Illuminate\Support\Carbon;
 use App\Models\VacancyReminder;
+use App\Traits\HrHasVacancyTrait;
 use App\Events\SmsNotificationEvent;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Http;
 
 class VacancyRepository{
+    use HrHasVacancyTrait;
     public function save($data)
     {
         $employer = $this->addEmployer($data['employer']);
@@ -271,8 +270,9 @@ class VacancyRepository{
         $hr = Hr::where('id', $data['hr_id'])->first();
         $HData = ['name' => $hr->user->name_ka, 'number' => $hr->user->number, 'to' => $data['number']];
         $data['to'] = $hr->user->number;
-        $admin = User::where('id', 76)->first();
-        $adminData = ['to' => $admin->number, 'code' => $data['code'], 'hr1' => $hr->user->name_ka, 'hr2' => 'hr2'];
+        $admin = User::where('id', 2)->first();
+        $getHasVacancyControl = $this->getHasVacancyControl();
+        $adminData = ['to' => $admin->number, 'code' => $data['code'], 'hr1' => $hr->user->name_ka, 'hr2' => $getHasVacancyControl['is_in_line']->hr_name];
         event(new SmsNotificationEvent($HData, 'add_vacancy_send_employer'));
         event(new SmsNotificationEvent($data, 'add_vacancy_send_hr'));
         event(new SmsNotificationEvent($adminData, 'add_vacancy_send_admin'));

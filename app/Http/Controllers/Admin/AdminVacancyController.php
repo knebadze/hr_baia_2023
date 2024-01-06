@@ -24,7 +24,10 @@ class AdminVacancyController extends Controller
             'vacancyDuty', 'vacancyBenefit', 'vacancyForWhoNeed', 'characteristic', 'employer', 'currency','category', 'status',
             'workSchedule', 'vacancyInterest', 'interviewPlace','term', 'demand', 'demand.language', 'demand.education', 'demand.languageLevel','demand.specialty',
             'employer.numberCode','deposit','hr.user', 'vacancyDrivingLicense'
-            ])->paginate(25);
+            ])
+            ->when(Auth::user()->role_id != 1, function ($query) {
+                $query->where('hr_id', '=', Auth::user()->hr->id);
+            })->paginate(25);
 
         $classificatoryArr = ['currency', 'workSchedule', 'educations', 'characteristic', 'educations','vacancy_profession','drivingLicense',
         'category', 'forWhoNeed', 'term', 'benefit', 'languages', 'languageLevels', 'duty', 'interviewPlace', 'status', 'hr'];

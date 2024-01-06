@@ -6,13 +6,12 @@
         :headers="headers"
         :items="items"
         table-class-name="customize-table"
-        :body-row-class-name="bodyRowClassNameFunction"
         border-cell
         :filter-options="filterOptions"
     >
         <template #item-operation="item">
             <div class="operation-wrapper">
-                <table_cog :item="item" :key="item.id" :hr_id="hr_id" :roleId="role_id"></table_cog>
+                <table_cog :item="item" :key="item.id"  :roleId="role_id"></table_cog>
             </div>
 
         </template>
@@ -153,7 +152,7 @@ export default {
         let m = ref({'payment': [50, 4000], 'age':[18, 65]})
         let colspan = ref('hide')
         let hr_id = ref(props.hrId)
-        let myVacancy = ref(false)
+        // let myVacancy = ref(false)
         let cla = ref(props.classificatory)
         const role_id = ref(props.roleId ? props.roleId : 1)
 
@@ -172,10 +171,10 @@ export default {
 
         const items = ref(data)
 
-        const bodyRowClassNameFunction = ( item, number) => {
-            if (item.hr_id == hr_id.value) return 'my-vacancy-row';
-            return '';
-        };
+        // const bodyRowClassNameFunction = ( item, number) => {
+        //     if (item.hr_id == hr_id.value) return 'my-vacancy-row';
+        //     return '';
+        // };
         const showStatusFilter = ref(false);
         const showCategoryFilter = ref(false);
         const showScheduleFilter = ref(false);
@@ -234,13 +233,13 @@ export default {
 
 
 
-        const myVacancySwitch = () =>{
-            if (!myVacancy.value) {
-               data.value =  _.sortBy(_.filter(props.data.vacancy, function(o) { return o.hr_id == hr_id.value; }), [function(o) { return o.start_date; }]);
-            }else{
-                data.value = props.data.vacancy
-            }
-        };
+        // const myVacancySwitch = () =>{
+        //     if (!myVacancy.value) {
+        //        data.value =  _.sortBy(_.filter(props.data.vacancy, function(o) { return o.hr_id == hr_id.value; }), [function(o) { return o.start_date; }]);
+        //     }else{
+        //         data.value = props.data.vacancy
+        //     }
+        // };
 
         const find = (m) =>{
             (m.created_at_from || m.created_at_to)?m['created_at'] = [m.created_at_from, m.created_at_to]:'';
@@ -300,9 +299,9 @@ export default {
 
             colspan,
             hr_id,
-            myVacancy,
-            myVacancySwitch,
-            bodyRowClassNameFunction,
+            // myVacancy,
+            // myVacancySwitch,
+            // bodyRowClassNameFunction,
             m,
             cla,
             find,
@@ -313,10 +312,10 @@ export default {
 }
 </script>
 <style >
-    .my-vacancy-row  {
+    /* .my-vacancy-row  {
         --easy-table-body-row-background-color: #f8b1b1;
         --easy-table-body-row-font-color: #070707;
-    }
+    } */
     .customize-table {
         --easy-table-border: 1px solid #445269;
         --easy-table-header-font-size: 18px;

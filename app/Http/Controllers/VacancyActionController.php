@@ -6,11 +6,12 @@ use Exception;
 use Carbon\Carbon;
 use App\Models\Vacancy;
 use Illuminate\Http\Request;
+use App\Models\RepeatHistory;
+use Illuminate\Support\Facades\Auth;
+use App\Services\VacancyStatusService;
 use App\Services\VacancyUpdateService;
 use App\Filters\Vacancy\Admin\VacancyFullFilters;
-use App\Models\RepeatHistory;
 use App\Repositories\Vacancy\VacancyRedactedRepository;
-use App\Services\VacancyStatusService;
 
 class VacancyActionController extends Controller
 {
@@ -87,7 +88,9 @@ class VacancyActionController extends Controller
             'vacancyDuty', 'vacancyBenefit', 'vacancyForWhoNeed', 'characteristic', 'employer', 'currency','category', 'status',
             'workSchedule', 'vacancyInterest', 'interviewPlace','term', 'demand', 'demand.language', 'demand.education', 'demand.languageLevel','demand.specialty',
             'employer.numberCode','deposit','hr.user', 'vacancyDrivingLicense'
-            ])->paginate(25);
+            ])->when(Auth::user()->role_id != 1, function ($query) {
+                $query->where('hr_id', '=', Auth::user()->hr->id);
+            })->paginate(25);
             return response()->json($vacancy);
 
     }

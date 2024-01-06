@@ -49,7 +49,7 @@
             <tfoot>
                 <tr>
                     <td v-for="(item, index) in color" :key="index"> <div :style="{ 'background-color': item, 'height': '20px', 'width': '20px',  }"></div>
-                        <p>{{ index == 'other'? 'სხვა' :index == 'is_no_active'?'არა აქტიური':index == 'has_vacancy'?'მიიღო ვაკანსია':index == 'is_in_line'?'რიგშია':'' }}</p>
+                        <p>{{ index == 'other'? 'სხვა' :index == 'is_no_active'?'არა აქტიური':index == 'has_vacancy'?'მიიღო ვაკანსია':index == 'is_in_line'?'რიგშია':'გადაეწერა' }}</p>
                     </td>
                 </tr>
 
@@ -77,6 +77,7 @@ export default {
         });
         const tableData = computed(() => {
             let smallestObject = _.minBy(_.filter(data.value, { 'is_active': 1 }), 're_write');
+            console.log('smallestObject0', smallestObject);
             let smallestObjectWithHasZero = _.chain(data.value)
             .filter({ has_vacancy: 0, is_active: 1 })
             .minBy('id')

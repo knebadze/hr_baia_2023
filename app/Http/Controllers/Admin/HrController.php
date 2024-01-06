@@ -23,7 +23,7 @@ class HrController extends Controller
     public function index()
     {
         $hr = User::orderBy('id', 'DESC')->where('role_id', 2)->with('hr')->get();
-        $hasVacancyControl = $this->getHasVacancyControl();
+        $hasVacancyControl = $this->getHasVacancyControl()['hasVacancyControl'];
         $data["hr"] = $hr;
         $data['hasVacancyControl'] = $hasVacancyControl;
         return view('admin.hr', compact('data'));
