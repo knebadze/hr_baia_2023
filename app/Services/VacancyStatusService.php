@@ -86,6 +86,9 @@ class VacancyStatusService
         $this->vacancyStatusUpdateRepository->deleteReminder($vacancy->id);
         $this->vacancyStatusUpdateRepository->deleteDeposit($vacancy->id);
         $this->vacancyStatusUpdateRepository->updateQualifying($vacancy->id);
+
+        $smsData =  ['to' => $vacancy->employer->number, 'reason' => $model['reason_for_cancel']['name_ka']];
+        $this->vacancyStatusUpdateRepository->sendSms($smsData, 'vacancy_canceled_employer');
     }
 
     private function handleStatus6($model, $vacancy) {

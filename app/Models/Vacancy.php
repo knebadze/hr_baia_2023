@@ -40,6 +40,7 @@ class Vacancy extends Model implements Auditable
         'interview_place_id',
         'view',
         'photo',
+        'reason_for_cancel_id'
     ];
     // protected $appends = ['timeAgo'];
     public function vacancyDuty()
@@ -111,6 +112,10 @@ class Vacancy extends Model implements Auditable
     {
         return $this->belongsTo(Term::class);
     }
+    public function qualifyingCandidate()
+    {
+        return $this->hasMany(QualifyingCandidate::class, 'vacancy_id', 'id');
+    }
 
     public function vacancyInterest()
     {
@@ -119,6 +124,10 @@ class Vacancy extends Model implements Auditable
     public function deposit()
     {
         return $this->belongsTo(VacancyDeposit::class, 'id', 'vacancy_id');
+    }
+    public function reasonForCancel()
+    {
+        return $this->belongsTo(ReasonForCancel::class, 'reason_for_cancel_id', 'id');
     }
 
 

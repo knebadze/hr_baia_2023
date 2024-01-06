@@ -78,8 +78,12 @@ class DailyTaskService
 
                 $vacancyLess = Vacancy::whereIn('status_id', [1, 2, 6, 7])->whereDate('start_date', '<', Carbon::today())->get();
                 if (count($vacancyLess)) {
+                    $reason_for_cancel_id = 34;
                     foreach ($vacancyLess as $key => $value) {
-                        Vacancy::where('id', $value->id)->update(['status_id' => 5, 'status_change_reason' => 'გაუქმდა დაწყების თარიღის დროს ('.$value->start_date.') სტატუსის ('.$value->status->name_ka. ') გამო'  ]);
+                        if($value->qualifyingCandidate){
+                            $reason_for_cancel_id = 33;
+                        }
+                        Vacancy::where('id', $value->id)->update(['status_id' => 5, 'status_change_reason' => 'გაუქმდა დაწყების თარიღის დროს ('.$value->start_date.') სტატუსის ('.$value->status->name_ka. ') გამო', 'reason_for_cancel_id' => $reason_for_cancel_id ]);
                     }
                 }
 

@@ -191,6 +191,16 @@ export default {
         data:Object
     },
     setup(props) {
+        const item = ref(props.data)
+        const spliceName = (item) =>{
+            let nameParts = item.split(' ');
+
+            return nameParts[0];
+        };
+        item.value.user.name_ka = spliceName(item.value.user.name_ka);
+        item.value.user.name_en = spliceName(item.value.user.name_en);
+        item.value.user.name_ru = spliceName(item.value.user.name_ru);
+
         console.log(props.data);
         const getLang = computed(() => {
             return I18n.getSharedInstance().options.lang;
@@ -217,7 +227,8 @@ export default {
             getLang,
             category,
             mapData,
-            showButton
+            showButton,
+            item
         }
     },
 }

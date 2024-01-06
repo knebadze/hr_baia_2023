@@ -24,7 +24,7 @@ class VacancyStatusUpdateRepository
                     return ['type' => 'w', 'message' => 'აუცილებელია ვაკანსიას ყავდეს დასაქმებული კანდიდატი'];
                 }
             }
-            Vacancy::where('id', $data['id'])->update(['status_id' => $data['status']['id'], 'status_change_reason' => $data['status_change_reason']]);
+            Vacancy::where('id', $data['id'])->update(['status_id' => $data['status']['id'], 'status_change_reason' => $data['status_change_reason'], 'reason_for_cancel_id' => $data['reason_for_cancel']['id']??null]);
             return ['type' => 's', 'message' => 'სტატუსი წარმატებით შეიცვალა'];
         } catch (\Throwable $th) {
             throw $th;
@@ -88,9 +88,9 @@ class VacancyStatusUpdateRepository
     }
 
 
-    function sendSms($data)
+    function sendSms($data, $type = 'vacancy_production_status_employer')
     {
-        event(new SmsNotificationEvent($data, 'vacancy_production_status_employer'));
+        event(new SmsNotificationEvent($data, $type));
     }
 
 

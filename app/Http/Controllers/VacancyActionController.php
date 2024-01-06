@@ -87,7 +87,7 @@ class VacancyActionController extends Controller
         $vacancy = Vacancy::filter($filters)->orderby('carry_in_head_date', 'DESC')->with([
             'vacancyDuty', 'vacancyBenefit', 'vacancyForWhoNeed', 'characteristic', 'employer', 'currency','category', 'status',
             'workSchedule', 'vacancyInterest', 'interviewPlace','term', 'demand', 'demand.language', 'demand.education', 'demand.languageLevel','demand.specialty',
-            'employer.numberCode','deposit','hr.user', 'vacancyDrivingLicense'
+            'employer.numberCode','deposit','hr.user', 'vacancyDrivingLicense', 'reasonForCancel'
             ])->when(Auth::user()->role_id != 1, function ($query) {
                 $query->where('hr_id', '=', Auth::user()->hr->id);
             })->paginate(25);

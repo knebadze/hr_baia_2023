@@ -31,6 +31,10 @@
                 <dd class="col-sm-8">{{ `${item.payment} - ${item.currency.icon}` }}</dd>
                 <dt class="col-sm-4">საჭიროება:</dt>
                 <dd class="col-sm-8">{{ item.start_date }}</dd>
+                <div class="col-md-12" v-if="item.status.id == 5">
+                    <dt class="col-sm-4">მიზეზი:</dt>
+                    <dd class="col-sm-8">{{ item.reason_for_cancel.name_ka }}</dd>
+                </div>
             </dl>
         </div>
 

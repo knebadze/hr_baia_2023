@@ -329,13 +329,20 @@ export default {
                 'last_page': this.data.candidate.last_page
             };
             this.candidate = this.data.candidate.data;
-            // for (let i = 0; i < this.candidate.length; i++) {
-            //     // Access the element to update in each object
-            //     this.candidate[i].created_at = moment(this.candidate[i].created_at).format("YYYY-MM-DD");
-            // }
+            for (let i = 0; i < this.candidate.length; i++) {
+                // Access the element to update in each object
+                this.candidate[i].user.name_ka = this.spliceName(this.candidate[i].user.name_ka);
+                this.candidate[i].user.name_en = this.spliceName(this.candidate[i].user.name_en);
+                this.candidate[i].user.name_ru = this.spliceName(this.candidate[i].user.name_ru);
+            }
 
             this.staticItems = this.data.candidate.data;
             this.auth = this.data.auth;
+        },
+        spliceName(item){
+            let nameParts = item.split(' ');
+
+            return nameParts[0];
         },
         filter(newVal){
             let currentObj = this;

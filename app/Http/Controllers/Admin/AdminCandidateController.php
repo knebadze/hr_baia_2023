@@ -51,7 +51,8 @@ class AdminCandidateController extends Controller
                     'allergy',
                     'maritalStatus',
                     'drivingLicense',
-                    'status'
+                    'status',
+
                 ])->paginate(25)->toArray();
 
                 $candidateClassificatoryArr = [
@@ -96,7 +97,7 @@ class AdminCandidateController extends Controller
                 'allergy',
                 'maritalStatus',
                 'drivingLicense',
-                'status'
+                'status',
             ])->paginate(25)->toArray();
     }
 
@@ -240,7 +241,7 @@ class AdminCandidateController extends Controller
                 'allergy',
                 'maritalStatus',
                 'drivingLicense',
-                'status'
+                'status',
             ])->first()->toArray();
             $data = [
                 'candidate' => $candidate,
