@@ -2593,7 +2593,7 @@
   },
   "resources/js/component/admin/employer/page/employer_page.css": {
     "file": "assets/employer_page-7eb73a33.css",
-    "src": "resources/js/component/page/busy_candidate.css"
+    "src": "resources/js/component/admin/salary/page/monthly_salary_page.css"
   },
   "resources/js/component/admin/employer/page/employer_page.vue": {
     "css": [
@@ -2710,7 +2710,7 @@
   },
   "resources/js/component/admin/salary/page/monthly_salary_page.css": {
     "file": "assets/employer_page-7eb73a33.css",
-    "src": "resources/js/component/page/busy_candidate.css"
+    "src": "resources/js/component/admin/salary/page/monthly_salary_page.css"
   },
   "resources/js/component/admin/salary/page/monthly_salary_page.vue": {
     "css": [
@@ -3078,7 +3078,7 @@
   },
   "resources/js/component/page/busy_candidate.css": {
     "file": "assets/employer_page-7eb73a33.css",
-    "src": "resources/js/component/page/busy_candidate.css"
+    "src": "resources/js/component/admin/salary/page/monthly_salary_page.css"
   },
   "resources/js/component/page/busy_candidate.vue": {
     "css": [
