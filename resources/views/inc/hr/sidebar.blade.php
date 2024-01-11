@@ -1,6 +1,6 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="{{ route('admin.dashboard', App()->getLocale()) }}" class="brand-link">
       <img src="{{ asset('admin/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">AdminLTE 3</span>
     </a>
@@ -79,7 +79,7 @@
             </li>
             <li class="nav-item mt-3">
                 <a
-                    href="{{ route('logout') }}"
+                    href="{{ route('logout', App()->getLocale()) }}"
                     class="nav-link btn btn-danger text-white"
                     onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();"
@@ -87,7 +87,7 @@
                     <i class="nav-icon fa fa-arrow-left"></i>
                     <p>გასვლა</p>
                 </a>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                <form id="logout-form" action="{{ route('logout', App()->getLocale()) }}" method="POST" class="d-none">
                     @csrf
                 </form>
             </li>

@@ -33,6 +33,7 @@ use App\Models\InterviewPlace;
 use App\Models\Language_level;
 use App\Models\Work_experience;
 use App\Models\GeneralCharacteristic;
+use App\Models\ReasonForCancel;
 use Illuminate\Support\Facades\Cache;
 use App\Models\RecommendationFromWhom;
 
@@ -76,6 +77,8 @@ class ClassificatoryService
                 'status' => Status::where('status_type_id', 1)->get()->toArray(),
                 'candidateStatus' => Status::where('status_type_id', 2)->get()->toArray(),
                 'hr' => User::where('role_id', 2)->with('hr')->get()->toArray(),
+                'vacancy_profession' => Profession::all()->toArray(),
+                'reasonForCancel' => ReasonForCancel::all()->toArray(),
             ];
         });
 

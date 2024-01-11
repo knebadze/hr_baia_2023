@@ -82,7 +82,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="exampleInputEmail1"><span class="text-danger">* </span>კორპორატიული ნომერი</label>
-                            <input type="text" class="form-control" id="exampleInputEmail5" v-model="model.k_mobile" placeholder="კორპორატიული ნომერი" minlength="9">
+                            <input type="text" class="form-control" id="exampleInputEmail5" v-model="model.number" placeholder="კორპორატიული ნომერი" minlength="9">
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -138,7 +138,7 @@ export default {
                 'date_of_birth':'',
                 'gender':'',
                 'person_number':'',
-                'k_mobile':'',
+                'number':'',
                 'inside_number':'',
                 'fb_link':'',
                 'password':''
@@ -183,12 +183,14 @@ export default {
             formData.append('email',model.email)
             formData.append('mobile',model.mobile)
             formData.append('date_of_birth',model.date_of_birth)
-            formData.append('gender',model.gender)
+            formData.append('gender_id',model.gender)
             formData.append('person_number',model.person_number)
-            formData.append('k_mobile',model.k_mobile)
+            formData.append('number',model.number)
             formData.append('inside_number',model.inside_number)
             formData.append('fb_link',model.fb_link)
             formData.append('password',model.password)
+            formData.append('bonus_percent',model.bonus_percent)
+            formData.append('fixed_salary',model.fixed_salary)
             if (this.avatar != null) {
                 formData.append('avatar', this.avatar);
             }else{
@@ -200,16 +202,34 @@ export default {
             axios.post('/add_hr', formData, config)
             .then(function (response) {
                 // handle success
+                console.log('response', response.data.original);
+                // return
                 if (response.status == 200) {
                     // currentObj.candidate_id = response.data.data;
-                    currentObj.hide()
-                    toast.success("ინფორმაცია წარმატებით შეინახა", {
-                        theme: 'colored',
-                        autoClose: 1000,
-                    });
-                    setTimeout(() => {
-                        document.location.reload();
-                    }, 1500);
+
+                    if (response.data.original && Object.keys(response.data.original.errors).length > 0) {
+                        console.log('if');
+                        let message = 'ინფორმაცია არასწორია';
+                        if(response.data.original.errors.number){
+                            message = response.data.original.errors.number[0]
+                        }
+                        toast.error(message, {
+                            theme: 'colored',
+                            autoClose: 1000,
+                        });
+                        return
+                    }else{
+                        console.log('else');
+                        currentObj.hide()
+                        toast.success("ინფორმაცია წარმატებით შეინახა", {
+                            theme: 'colored',
+                            autoClose: 1000,
+                        });
+                        setTimeout(() => {
+                            document.location.reload();
+                        }, 1500);
+                    }
+
                     // // alert()
 
                 }
@@ -226,6 +246,17 @@ export default {
     }
 }
 </script>
-<style lang="">
+<style scoped>
+  .modal-body{
+      height: 250px;
+      overflow-y: auto;
+  }
 
+  @media (min-height: 500px) {
+      .modal-body { height: 400px; }
+  }
+
+  @media (min-height: 800px) {
+      .modal-body { height: 700px;  }
+  }
 </style>

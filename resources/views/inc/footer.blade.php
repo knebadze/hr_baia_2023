@@ -52,7 +52,7 @@
                                 <ul>
                                     {{-- Loop through each category item --}}
                                     @foreach ($category as $item)
-                                        <li><a href="#">{{ $item['name_'. app()->getLocale()] }}</a></li>
+                                        <li><a href="{{ route('job.search', ['category_id' => $item['id'], 'locale' => App()->getLocale()]) }}">{{ $item['name_'. app()->getLocale()] }}</a></li>
                                     @endforeach
 
                                 </ul>

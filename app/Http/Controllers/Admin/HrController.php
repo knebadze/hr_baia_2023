@@ -7,12 +7,14 @@ use App\Models\User;
 use App\Models\HrHasVacancy;
 use Illuminate\Http\Request;
 use App\Services\Admin\HrService;
+use App\Traits\HrHasVacancyTrait;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class HrController extends Controller
 {
     protected $hrService;
+    use HrHasVacancyTrait;
 
     public function __construct(HrService $hrService)
     {
@@ -21,16 +23,12 @@ class HrController extends Controller
     public function index()
     {
         $hr = User::orderBy('id', 'DESC')->where('role_id', 2)->with('hr')->get();
-        $hasVacancyControl = DB::table('hr_has_vacancies as a')->orderBy('a.id', 'DESC')
-            ->join('hrs as b', 'a.hr_id', 'b.id')
-            ->join('users as c', 'b.user_id', 'c.id')
-            ->select('a.*', 'c.name_ka as hr_name')
-            ->get();
+        $hasVacancyControl = $this->getHasVacancyControl()['hasVacancyControl'];
         $data["hr"] = $hr;
         $data['hasVacancyControl'] = $hasVacancyControl;
         return view('admin.hr', compact('data'));
     }
-    
+
     public function store(Request $request)
     {
         $data = $request->all();

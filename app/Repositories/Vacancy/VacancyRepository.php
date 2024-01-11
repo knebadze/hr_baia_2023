@@ -3,21 +3,21 @@
 namespace App\Repositories\Vacancy;
 
 use App\Models\Hr;
+use App\Models\User;
 use App\Models\Vacancy;
 use App\Models\Employer;
 use App\Events\hrDailyJob;
 use App\Models\HrHasVacancy;
 use App\Models\RepeatHistory;
 use App\Models\VacancyDemand;
-use App\Models\GlobalVariable;
-use App\Models\VacancyDeposit;
 use Illuminate\Support\Carbon;
 use App\Models\VacancyReminder;
+use App\Traits\HrHasVacancyTrait;
 use App\Events\SmsNotificationEvent;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Http;
 
 class VacancyRepository{
+    use HrHasVacancyTrait;
     public function save($data)
     {
         $employer = $this->addEmployer($data['employer']);
@@ -64,7 +64,7 @@ class VacancyRepository{
             $demand->min_age = $data['demand']['min_age'];
             $demand->max_age = $data['demand']['max_age'];
             $demand->education_id = ($data['demand']['education'])?$data['demand']['education']['id']:null;
-            $demand->specialty_id = ($data['demand']['specialty'])?$data['demand']['specialty']['id']:null;
+            $demand->profession_id = ($data['demand']['specialty'])?$data['demand']['specialty']['id']:null;
             $demand->additional_duty_ka = $data['demand']['additional_duty_ka'];
             $demand->additional_duty_en = $data['demand']['additional_duty_en'];
             $demand->additional_duty_ru = $data['demand']['additional_duty_ru'];
@@ -128,9 +128,9 @@ class VacancyRepository{
 
     public function addEmployer($data)
     {
-
+        // dd($data);
         $employer = Employer::updateOrCreate(
-            ['number' => $data['number']],
+            ['number' => $data['number'], 'number_code_id' => array_key_exists('number_code', $data)? $data['number_code']['id']:$data['number_code_id']],
             [
                 'name_ka' => $data['name_ka'] ?? null,
                 'name_en' => $data['name_en'] ?? null,
@@ -141,9 +141,8 @@ class VacancyRepository{
                 'street_ka' => $data['street_ka'] ?? null,
                 'street_en' => $data['street_en'] ?? null,
                 'street_ru' => $data['street_ru'] ?? null,
-                'email' => $data['email'] ?? null,
-                'number_code_id' => $data['number_code']['id'],
-                'verify_code' => $data['verify_code'],
+                'email' => $data['email'] ?? null
+                // 'verify_code' => $data['verify_code'],
             ]
         );
         return $employer;
@@ -271,7 +270,11 @@ class VacancyRepository{
         $hr = Hr::where('id', $data['hr_id'])->first();
         $HData = ['name' => $hr->user->name_ka, 'number' => $hr->user->number, 'to' => $data['number']];
         $data['to'] = $hr->user->number;
+        $admin = User::where('id', 2)->first();
+        $getHasVacancyControl = $this->getHasVacancyControl();
+        $adminData = ['to' => $admin->number, 'code' => $data['code'], 'hr1' => $hr->user->name_ka, 'hr2' => $getHasVacancyControl['is_in_line']->hr_name];
         event(new SmsNotificationEvent($HData, 'add_vacancy_send_employer'));
         event(new SmsNotificationEvent($data, 'add_vacancy_send_hr'));
+        event(new SmsNotificationEvent($adminData, 'add_vacancy_send_admin'));
     }
 }

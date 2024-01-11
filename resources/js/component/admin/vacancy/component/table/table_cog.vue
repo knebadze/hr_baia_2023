@@ -9,10 +9,10 @@
                 <a v-if="item.status.id != 3 && item.status.id != 4 && item.status.id != 5 && item.status.id != 13" class="dropdown-item" href="#" @click="openModal(item, 2)">სტატუსის შეცვლა</a>
                 <a v-if="item.status.id == 2" class="dropdown-item" :href="personalSelectionUrl+'/'+item.id" >კადრების შერჩევა</a>
                 <a v-if="item.status.id > 1" class="dropdown-item" :href="vacancyPersonalUrl+'/'+item.id" >შერჩეული კადრები</a>
-                <a v-if="item.hr_id == hr_id &&  item.status.id != 4 && item.status.id != 5  && item.status.id != 13" class="dropdown-item" href="#" @click="openModal(item, 3)">შეხსენება</a>
-                <a v-else-if="item.status.id != 4 && item.status.id != 5  && item.status.id != 13" class="dropdown-item" href="#" @click="openModal(item, 3)">შეხსენება</a>
-                <a v-if="item.hr_id == hr_id &&  item.status.id != 4 && item.status.id != 5  && item.status.id != 13" class="dropdown-item" :href="vacancyDepositUrl+'/'+item.id" >დეპოზიტი</a>
-                <a v-else-if="item.status.id != 4 && item.status.id != 5 && item.status.id != 13" class="dropdown-item" :href="vacancyDepositUrl+'/'+item.id" >დეპოზიტი</a>
+                <a v-if="item.status.id != 4 && item.status.id != 5  && item.status.id != 13" class="dropdown-item" href="#" @click="openModal(item, 3)">შეხსენება</a>
+                <!-- <a v-else-if="item.status.id != 4 && item.status.id != 5  && item.status.id != 13" class="dropdown-item" href="#" @click="openModal(item, 3)">შეხსენება</a> -->
+                <a v-if="item.status.id != 4 && item.status.id != 5  && item.status.id != 13" class="dropdown-item" :href="vacancyDepositUrl+'/'+item.id" >დეპოზიტი</a>
+                <!-- <a v-else-if="item.status.id != 4 && item.status.id != 5 && item.status.id != 13" class="dropdown-item" :href="vacancyDepositUrl+'/'+item.id" >დეპოზიტი</a> -->
                 <a v-if="item.status.id == 13 || item.status.id == 5" class="dropdown-item" href="#"  @click="openModal(item, 4)">გამეორება</a>
                 <a v-if="item.status.id !== 3 && item.status.id !== 4 && item.status.id !== 5 && item.status.id !== 13" class="dropdown-item" href="#" @click="carryInHead(item)">აპინვა </a>
                 <a class="dropdown-item" href="#" @click="openModal(item, 5)">ისტორია</a>
@@ -53,7 +53,7 @@ export default {
     },
     props:{
         item: Object,
-        hr_id: Number,
+        // hr_id: Number,
         roleId: Number
     },
     setup(props) {

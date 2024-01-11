@@ -34,9 +34,10 @@ class GetVacancyInfoController extends Controller
     }
 
     public function statusChangeInfo(Request $request) {
-
+        $classificatory = $this->classificatoryService->get(['reasonForCancel']);
+        // dd($classificatory);
         $history = VacancyRedactedHistory::where('vacancy_id', $request->data)->where('column_name', 'status')->get();
-        $data = ['history' => $history, 'status' => Status::whereNotIn('id', [1, 4, 13])->where('status_type_id', 1)->get()->toArray(), 'role_id' => Auth::user()->role_id];
+        $data = ['history' => $history, 'status' => Status::whereNotIn('id', [1, 4, 13])->where('status_type_id', 1)->get()->toArray(), 'role_id' => Auth::user()->role_id, 'reasonForCancel' => $classificatory['reasonForCancel']];
         return response()->json($data);
     }
 

@@ -15,10 +15,14 @@ class VacancyDemand extends Model implements Auditable
         'min_age ',
         'max_age',
         'education_id ',
+        'profession_id',
         'language_id',
+        'language_level_id',
         'additional_duty_ka',
         'additional_duty_en',
         'additional_duty_ru',
+        'has_experience',
+        'has_recommendation',
     ];
 
     public function language()
@@ -35,6 +39,6 @@ class VacancyDemand extends Model implements Auditable
     }
     public function specialty()
     {
-        return $this->belongsTo(Specialty::class, 'specialty_id');
+        return $this->belongsTo(Profession::class, 'profession_id');
     }
 }

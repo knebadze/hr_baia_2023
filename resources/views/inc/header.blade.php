@@ -103,13 +103,13 @@
 
                         </div>
                         <div class="twm-nav-btn-left">
-                            <a class="twm-nav-sign-up" data-bs-toggle="modal" href="{{ route('logout') }}" role="button"
+                            <a class="twm-nav-sign-up" data-bs-toggle="modal" href="{{ route('logout' , App()->getLocale()) }}" role="button"
                             onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();">
                                 <i class="feather-log-out"></i>
                                 {{ __('lang.user_page_log_out') }}
                             </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            <form id="logout-form" action="{{ route('logout' , App()->getLocale()) }}" method="POST" class="d-none">
                                 @csrf
                             </form>
                         </div>

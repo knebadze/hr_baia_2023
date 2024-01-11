@@ -51,7 +51,7 @@
                 </table>
             </div>
         </div>
-        <div class="card-footer d-flex justify-content-between">
+        <div class="card-footer d-flex justify-content-between" v-if="role_id == 1">
             <p class="text-success"><strong>ვაკანსია მიიღო: {{ data.lastRecord }}</strong></p>
             <p class="text-warning"><strong>რიგშია: {{ data.nextRecord }}</strong> </p>
             <p class="text-danger"><strong>არააქტიური: {{ data.noActive.length > 0?data.noActive.map(i => i.hr.user.name_ka).join(', '):'არცერთი' }}</strong> </p>

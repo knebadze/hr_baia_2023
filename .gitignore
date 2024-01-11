@@ -17,5 +17,5 @@ yarn-error.log
 /.idea
 /.vscode
 
-/resourse/views/layouts/app.blade.php
-/resourse/views/layouts/appPage.blade.php
+# /resourse/views/layouts/app.blade.php
+# /resourse/views/layouts/appPage.blade.php

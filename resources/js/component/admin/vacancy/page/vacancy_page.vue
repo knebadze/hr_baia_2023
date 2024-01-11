@@ -388,7 +388,7 @@ export default {
                     'current_page':this.data.vacancy.current_page,
                     'last_page': this.data.vacancy.last_page
                 }
-                // console.log('this.data.classificatory',this.data.classificatory.workSchedule);
+                console.log('this.data.vacancy',this.data.vacancy.data);
             this.items = this.data.vacancy.data
 
         },

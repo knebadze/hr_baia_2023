@@ -297,11 +297,15 @@ export default {
         },
 
         async firstData() {
-            this.pagination = {
-                'current_page': this.data.items.current_page,
-                'last_page': this.data.items.last_page
-            };
-            this.items = this.data.items.data;
+            if(this.data.items){
+                this.items = this.data.items.data;
+                this.pagination = {
+                    'current_page': this.data.items.current_page,
+                    'last_page': this.data.items.last_page
+                };
+            }
+
+
         },
         filterMeth(type,m){
             this.getDataType = type

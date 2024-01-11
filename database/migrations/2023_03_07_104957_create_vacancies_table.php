@@ -42,6 +42,7 @@ return new class extends Migration
             $table->foreignId('interview_place_id')->nullable()->constrained();
             $table->integer('view')->default(0);
             $table->dateTime('carry_in_head_date');
+            $table->foreignId('reason_for_cancel_id')->nullable()->constrained();
             $table->timestamps();
             $table->foreign('author_id')
             ->references('id')->on('employers')->onUpdate('cascade')->onDelete('cascade');

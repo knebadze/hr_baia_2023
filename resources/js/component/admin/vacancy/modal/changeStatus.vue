@@ -29,13 +29,32 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="col-xl-12 col-lg-12 col-md-12" v-if="m.status.id == 5">
+                    <div class="form-group">
+                        <label>აირჩიე გაუქმების მიზეზი</label>
+                        <div class="ls-inputicon-box">
+                            <multiselect
+                                v-model="m.reason_for_cancel"
+                                :options="reasonForCancel"
+                                deselect-label="Can't remove this value"
+                                :track-by="`name_${getLang}`"
+                                :label="`name_${getLang}`"
+                                :searchable="true"
+                                :allow-empty="false"
+                            >
+                                <template slot="singleLabel" slot-scope="{ option }"></template>
+                            </multiselect>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-md-12" v-if="m.status.id == 7">
                     <div class="form-group">
                         <label> სადამდე </label>
                         <input class="form-control" v-model="m.suspended_date" type="date" placeholder="" :min="minData" rows="3">
                     </div>
                 </div>
-                <div class="col-md-12" v-if="m.status.id == 5 || m.status.id == 7">
+                <div class="col-md-12" v-if=" m.status.id == 7">
                     <div class="form-group">
                         <label> სტატუსის შეცვლის მიზეზი </label>
                         <textarea class="form-control" v-model="m.status_change_reason" type="text" placeholder="" rows="3"></textarea>
@@ -106,13 +125,16 @@
             const currentDate = moment();
             const showModal = ref(false);
             const modalItem = ref(null);
+            const reasonForCancel = ref(null)
 
             const show = async () => {
                 try {
                     let result = await getClassificatory();
                     data.value = result.data
+                    console.log('result.data',result.data);
                     m.value = makeModel(props.item)
                     cla.value = makeCla(props.item.status.id)
+                    reasonForCancel.value = result.data.reasonForCancel.filter((o) => (o.id != 33 && o.id != 34) )
                     maxDate.value = getMaxDate(props.item)
                     minData.value = currentDate.format('YYYY-MM-DD HH:mm')
                     showConfirm.value = true
@@ -138,7 +160,7 @@
                 newItem.id = item.id
                 newItem.status = item.status
                 newItem.status_change_reason = item.status_change_reason
-
+                newItem.reason_for_cancel = null
                 return {...newItem}
             };
 
@@ -198,6 +220,7 @@
             }
 
             const save = () =>{
+                console.log(m.value);
                 // return
                 if (m.value.status.id == 6) {
                     m.value['reminder'] = reminder.value
@@ -263,7 +286,8 @@
 
                 showModal,
                 modalItem,
-                handlerWasEmployed
+                handlerWasEmployed,
+                reasonForCancel
             }
         },
         watch:{

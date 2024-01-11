@@ -61,7 +61,7 @@
 </div>
 </template>
 <script>
-import { ref, defineComponent } from 'vue';
+import { ref, defineComponent, computed } from 'vue';
 // import CodeInput from "./CodeInput.vue";
 import Swal from 'sweetalert2';
 import verify_code_div from './verify_code_div.vue';
@@ -86,6 +86,9 @@ export default defineComponent({
             model.value.number_code = item
         };
 
+        const getLang = computed(() => {
+            return I18n.getSharedInstance().options.lang;
+        });
 
 
 
@@ -136,9 +139,9 @@ export default defineComponent({
             .then(function (response) {
                 if (response.status == 200) {
 
-                    console.log(response.data);
-                    let url = new URL( location.href)
-                    window.location.replace(`${url.origin}/ka`);
+                    // console.log(response.data);
+                    // let url = new URL( location.href)
+                    // window.location.replace(`${url.origin}/ka`);
                 }
             })
             .catch(function (error) {
@@ -157,7 +160,7 @@ export default defineComponent({
             };
             console.log(checkNumberData.value.length,'checkNumberData.value.length',checkNumberData.value);
             if (checkNumberData.value.length > 0) {
-
+                console.log('checkNumberData.value', checkNumberData.value);
                 let activeVacancy = checkNumberData.value.filter((x) => x.status_id == 1 || x.status_id == 2 || x.status_id == 3 );
                 let closeVacancy = checkNumberData.value.some((x) => x.status_id > 3 );
                 let hr = checkNumberData.value[0].hr.user;
@@ -198,6 +201,8 @@ export default defineComponent({
                                 },
                                 type: 'employer_want_call_you_hr'
                             })
+                            let url = new URL( location.href)
+                            window.location.replace( `${url.origin}/${getLang.value}/candidate`);
                             return
                         }
                     })
@@ -250,6 +255,8 @@ export default defineComponent({
                                 }
                             );
                             Swal.close();
+                                let url = new URL( location.href)
+                                window.location.replace(`${url.origin}/ka`);
                         });
 
                         redoBtn.addEventListener('click', () => {

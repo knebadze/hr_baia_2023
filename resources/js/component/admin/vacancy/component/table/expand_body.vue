@@ -16,8 +16,11 @@
             <dl class="row">
                 <dt class="col-sm-4">დამსაქმებელი:</dt>
                 <dd class="col-sm-8">{{ item.employer.name_ka }}</dd>
-                <dt class="col-sm-4">ნომერი:</dt>
-                <dd class="col-sm-8">{{ item.employer.number }}</dd>
+                <div class="row col-12" v-if="item.hr_id == hr_id || roleId == 1">
+                    <dt class="col-sm-4">ნომერი:</dt>
+                    <dd class="col-sm-8">{{ item.employer.number }}</dd>
+                </div>
+
                 <dt class="col-sm-4">სტატუსი:</dt>
                 <dd class="col-sm-8"><span :class="`badge bg-${item.status.color} p-1`" >{{ item.status.name_ka }}</span></dd>
             </dl>
@@ -28,6 +31,10 @@
                 <dd class="col-sm-8">{{ `${item.payment} - ${item.currency.icon}` }}</dd>
                 <dt class="col-sm-4">საჭიროება:</dt>
                 <dd class="col-sm-8">{{ item.start_date }}</dd>
+                <div class="col-md-12" v-if="item.status.id == 5">
+                    <dt class="col-sm-4">მიზეზი:</dt>
+                    <dd class="col-sm-8">{{ item.reason_for_cancel.name_ka }}</dd>
+                </div>
             </dl>
         </div>
 

@@ -68,6 +68,7 @@ class EnrollmentService
     }
     function pageData(){
         try {
+            // dd($this->enrollmentPageRepository->data());
             $result = $this->enrollmentPageRepository->data();
             return $result;
         } catch (\Exception $e) {
