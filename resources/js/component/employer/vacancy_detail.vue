@@ -18,7 +18,6 @@
                                             <div class="twm-jobs-category green"><span class="twm-bg-green">New</span></div>
                                         </div>
 
-
                                         <div class="twm-mid-content">
 
                                             <div class="twm-media">
@@ -69,35 +68,6 @@
                                     </li>
                             </ul>
 
-                            <!-- // <h4 class="twm-s-title">პასუხისმგებლობა:</h4>
-                            // <ul class="description-list-2">
-                            //     <li>
-                            //         <i class="feather-check"></i>
-                            //         შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს
-                            //     </li>
-                            //     <li>
-                            //         <i class="feather-check"></i>
-                            //         შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს
-                            //     </li>
-                            //     <li>
-                            //         <i class="feather-check"></i>
-                            //         შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს
-                            //     </li>
-                            //     <li>
-                            //         <i class="feather-check"></i>
-                            //         შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს
-                            //     </li>
-                            //     <li>
-                            //         <i class="feather-check"></i>
-                            //         შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს
-                            //     </li>
-                            //     <li>
-                            //         <i class="feather-check"></i>
-                            //         შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს
-                            //     </li>
-
-                            // </ul> -->
-
                             <h4 class="twm-s-title">გაზიარება</h4>
                             <div class="twm-social-tags">
                                 <a href="#" class="fb-clr">Facebook</a>
@@ -119,119 +89,6 @@
 
                                     <div class="col-lg-6 col-md-12">
                                         <h4 class="twm-s-title">ჩვენი სურათები</h4>
-                                        <!-- <div class="tw-sidebar-gallery">
-                                            <ul>
-                                                <li>
-                                                    <div class="tw-service-gallery-thumb">
-                                                        <a class="elem" href="/images/gallery/pic1.jpg" title="Title 1" data-lcl-author="" data-lcl-thumb="images/gallery/thumb/pic1.jpg">
-                                                            <img src="/images/gallery/thumb/pic1.jpg" alt="">
-                                                            <i class="fa fa-file-image"></i>
-                                                        </a>
-                                                    </div>
-                                                </li>
-
-                                                <li>
-                                                    <div class="tw-service-gallery-thumb">
-                                                        <a class="elem" href="/images/gallery/pic2.jpg" title="Title 2" data-lcl-author="" data-lcl-thumb="images/gallery/thumb/pic2.jpg">
-                                                            <img src="/images/gallery/thumb/pic2.jpg" alt="">
-                                                            <i class="fa fa-file-image"></i>
-                                                        </a>
-                                                    </div>
-                                                </li>
-
-                                                <li>
-                                                    <div class="tw-service-gallery-thumb ">
-                                                        <a class="elem" href="/images/gallery/pic3.jpg" title="Title 3"  data-lcl-author="" data-lcl-thumb="/images/gallery/thumb/pic3.jpg">
-                                                            <img src="/images/gallery/thumb/pic3.jpg" alt="">
-                                                            <i class="fa fa-file-image"></i>
-                                                        </a>
-                                                    </div>
-                                                </li>
-
-                                                <li>
-                                                    <div class="tw-service-gallery-thumb">
-                                                        <a class="elem" href="/images/gallery/pic4.jpg" title="Title 4"  data-lcl-author="" data-lcl-thumb="/images/gallery/thumb/pic4.jpg">
-                                                            <img src="/images/gallery/thumb/pic4.jpg" alt="">
-                                                            <i class="fa fa-file-image"></i>
-                                                        </a>
-                                                    </div>
-                                                </li>
-
-                                                <li>
-                                                    <div class="tw-service-gallery-thumb">
-                                                        <a class="elem" href="/images/gallery/pic5.jpg" title="Title 5"  data-lcl-author="" data-lcl-thumb="/images/gallery/thumb/pic5.jpg">
-                                                            <img src="/images/gallery/thumb/pic5.jpg" alt="">
-                                                            <i class="fa fa-file-image"></i>
-                                                        </a>
-                                                    </div>
-                                                </li>
-
-                                                <li>
-                                                    <div class="tw-service-gallery-thumb">
-                                                        <a class="elem" href="/images/gallery/pic6.jpg" title="Title 6"  data-lcl-author="" data-lcl-thumb="/images/gallery/thumb/pic6.jpg">
-                                                            <img src="/images/gallery/thumb/pic6.jpg" alt="">
-                                                            <i class="fa fa-file-image"></i>
-                                                        </a>
-                                                    </div>
-                                                </li>
-
-                                                <li>
-                                                    <div class="tw-service-gallery-thumb">
-                                                        <a class="elem" href="/images/gallery/pic7.jpg" title="Title 7" data-lcl-author="" data-lcl-thumb="/images/gallery/thumb/pic1.jpg">
-                                                            <img src="/images/gallery/thumb/pic7.jpg" alt="">
-                                                            <i class="fa fa-file-image"></i>
-                                                        </a>
-                                                    </div>
-                                                </li>
-
-                                                <li>
-                                                    <div class="tw-service-gallery-thumb">
-                                                        <a class="elem" href="/images/gallery/pic8.jpg" title="Title 8" data-lcl-author="" data-lcl-thumb="/images/gallery/thumb/pic2.jpg">
-                                                            <img src="/images/gallery/thumb/pic8.jpg" alt="">
-                                                            <i class="fa fa-file-image"></i>
-                                                        </a>
-                                                    </div>
-                                                </li>
-
-                                                <li>
-                                                    <div class="tw-service-gallery-thumb ">
-                                                        <a class="elem" href="images/gallery/pic9.jpg" title="Title 9"  data-lcl-author="" data-lcl-thumb="/images/gallery/thumb/pic3.jpg">
-                                                            <img src="/images/gallery/thumb/pic9.jpg" alt="">
-                                                            <i class="fa fa-file-image"></i>
-                                                        </a>
-                                                    </div>
-                                                </li>
-
-                                                <li>
-                                                    <div class="tw-service-gallery-thumb">
-                                                        <a class="elem" href="/images/gallery/pic10.jpg" title="Title 10"  data-lcl-author="" data-lcl-thumb="/images/gallery/thumb/pic4.jpg">
-                                                            <img src="/images/gallery/thumb/pic10.jpg" alt="">
-                                                            <i class="fa fa-file-image"></i>
-                                                        </a>
-                                                    </div>
-                                                </li>
-
-                                                <li>
-                                                    <div class="tw-service-gallery-thumb">
-                                                        <a class="elem" href="/images/gallery/pic11.jpg" title="Title 11"  data-lcl-author="" data-lcl-thumb="/images/gallery/thumb/pic5.jpg">
-                                                            <img src="/images/gallery/thumb/pic11.jpg" alt="">
-                                                            <i class="fa fa-file-image"></i>
-                                                        </a>
-                                                    </div>
-                                                </li>
-
-                                                <li>
-                                                    <div class="tw-service-gallery-thumb">
-                                                        <a class="elem" href="/images/gallery/pic12.jpg" title="Title 12"  data-lcl-author="" data-lcl-thumb="/images/gallery/thumb/pic6.jpg">
-                                                            <img src="/images/gallery/thumb/pic12.jpg" alt="">
-                                                            <i class="fa fa-file-image"></i>
-                                                        </a>
-                                                    </div>
-                                                </li>
-
-                                            </ul>
-
-                                        </div> -->
                                     </div>
                                     <div class="col-lg-6 col-md-12">
                                         <h4 class="twm-s-title">ვიდეო</h4>
