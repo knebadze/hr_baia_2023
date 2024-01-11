@@ -169,7 +169,8 @@ export default defineComponent({
                 if (activeVacancy.length > 0) {
                     console.log('if');
                     // let filter = checkNumberData.value.filter((x) => x.status_id == 1 || x.status_id == 2 || x.status_id == 3 );
-                    postVacancyData.used_category = activeVacancy.map(i => i.category_id)
+                    const activeVacancyIds = activeVacancy.map(i => i.category_id)
+                    postVacancyData.used_category = activeVacancyIds;
                     let html = `თქვენ უკვე გემსახურებათ HR: ${hr.name_ka}.
                         თუ ნამდვილად გსურთ ახალი ვაკანსიის დამატებას დააწექით ღილაკს "დამატება",
                         თუ მიმდინარე ვაკანსიაზე გსურთ ინფორმაცია დააწექით ღილაკს "შეხსენება"`
@@ -202,7 +203,7 @@ export default defineComponent({
                                 type: 'employer_want_call_you_hr'
                             })
                             let url = new URL( location.href)
-                            window.location.replace( `${url.origin}/${getLang.value}/candidate`);
+                            window.location.replace( `${url.origin}/${getLang.value}/candidate_search/[${activeVacancyIds}]`);
                             return
                         }
                     })
@@ -256,7 +257,7 @@ export default defineComponent({
                             );
                             Swal.close();
                                 let url = new URL( location.href)
-                                window.location.replace(`${url.origin}/ka`);
+                                window.location.replace(`${url.origin}/${getLang.value}/candidate`);
                         });
 
                         redoBtn.addEventListener('click', () => {

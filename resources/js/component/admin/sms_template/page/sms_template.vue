@@ -44,7 +44,8 @@ export default {
     props:{
         data: Object
     },
-    setup() {
+    setup(props) {
+        console.log('props.data',props.data);
         const childComponents = ref({});
 
         const handleUpdate = (formData) => {
@@ -72,7 +73,7 @@ export default {
                                     theme: 'colored',
                                     autoClose: 1000,
                                 });
-                               
+
                             } else {
                                 // Handle the case where the update failed
                                 toast.error('შეცდომა: შეუძლებელია განახლება', {

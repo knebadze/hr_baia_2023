@@ -898,19 +898,21 @@ export default {
             data.employer[`street_${getLang.value}`] = data.employer.street
             data.vacancy[`additional_schedule_${getLang.value}`] = data.vacancy.additional_schedule
             data.vacancy[`title_${getLang.value}`] = data.vacancy.title
-                console.log(data);
+                console.log('data',data);
             v.value.$touch();
             if (!v.value.$invalid) {
+
                 let html =  `
                     ${data.vacancy.start_date}_დან ${data.vacancy.term[`name_${getLang.value}`]},
-                    ${(data.vacancy[`for_who_${getLang.value}`])?data.vacancy[`for_who_${getLang.value}`]:''}
+                    ${(data.for_who_need)?data.for_who_need.map(i => i[`name_${getLang.value}`]).join(' და '):''} _სთვის
                     გვესაჭიროება ${data.vacancy.category[`name_${getLang.value}`]}.
                     მისამართი: ${data.employer[`address_${getLang.value}`]} ${data.employer[`street_${getLang.value}`]},
                     გრაფიკი: ${data.vacancy.work_schedule[`name_${getLang.value}`]},
                     ${data.vacancy[`additional_schedule_${getLang.value}`]}.
                     ანაზღაურება: ${data.vacancy.payment} ${data.vacancy.currency[`name_${getLang.value}`]}.
-                    მოვალეობები: ${data.duty.map(i => i[`name_${getLang.value}`]).join(', ')}
+
                 `;
+                // მოვალეობები: ${data.duty.map(i => i[`name_${getLang.value}`]).join(', ')}
                 Swal.fire({
                     title: '<p>თქვენი ვაკანსია</p>',
                     // icon: 'info',
@@ -963,7 +965,9 @@ export default {
                     }
                     loader.value = false
                     m.value = formData
-                    showAlert()
+                    showAlert(response.data.data.category_id)
+
+
                 }
             })
             .catch(function (error) {
@@ -972,7 +976,7 @@ export default {
                 console.log(error);
             })
         };
-        const showAlert = () => {
+        const showAlert = (id) => {
             //let html =  `ეწვიეთ ლინკს სადაც შეგიძლიათ მიიღოთ ინფორმაცია თქვენი ვაკანსიის შესახებ, თქვენი ტელეფონის ნომრის გამოყენებით`;
             Swal.fire({
                         title: '<strong>ვაკანსია წარმატებით დაემატა</strong>',
@@ -987,7 +991,7 @@ export default {
                         if (result.isConfirmed) {
                             let url = new URL( location.href)
                             if (props.data.model.role_id == 3) {
-                                window.location.replace(`${url.origin}/ka`);
+                                window.location.replace(`${url.origin}/${getLang.value}/candidate_search/[${id}]`);
                             }else{
                                 window.location.replace( `${url.origin}/admin/vacancy?ka`);
                             }

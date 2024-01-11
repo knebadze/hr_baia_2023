@@ -4,7 +4,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label for="exampleFormControlTextarea1">ka</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" v-model="item.template_ka" maxlength="70"></textarea>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" v-model="m.template_ka" ></textarea>
                 <div class="character-count">{{ characterCountKa }}/70</div>
             </div>
         </div>
@@ -87,6 +87,7 @@ export default defineComponent({
 
         const submitForm = () => {
             // Perform form submission and emit the updated data
+            console.log('m.value0', m.value);
             emit("formEmit", m.value);
         }
 

@@ -43,18 +43,16 @@ class InterestCandidateService
         $qualifying->candidate_id = Auth::user()->candidate->id;
         $qualifying->save();
 
-        $this->sendSms($id);
+        $this->sendSms($id, $qualifying->id);
         return ['type' => 's', 'qualifying' => $qualifying];
     }
 
-    function sendSms($id)
+    function sendSms($id, $qualifying_id = null)
     {
         $vacancy = Vacancy::where('id', $id)->first();
         $hrSmsData = ['to' => $vacancy->hr->user->number, 'code' => $vacancy->code, 'name' => Auth::user()->name_ka, 'id' => Auth::user()->candidate->id];
 
-        $code = $vacancy->employer->number.'-'.$vacancy->code.'-'.Auth::user()->candidate->id;
-        $encryptedCode = encrypt($code);
-        $employerSmsData = ['to' => $vacancy->employer->number, 'link' =>route('candidate.photo.questionnaire', ['locale' => App::getLocale(), 'code' => $encryptedCode])];
+        $employerSmsData = ['to' => $vacancy->employer->number, 'link' =>route('candidate.photo.questionnaire', ['locale' => App::getLocale(), 'id' => $qualifying_id])];
 
         event(new SmsNotificationEvent($employerSmsData, 'interested_candidate_employer'));
 

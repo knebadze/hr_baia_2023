@@ -120,7 +120,7 @@ class VacancyRepository{
         $reminder = $this->addReminder($vacancy->id, $vacancy->hr_id, $data['vacancy']['category'], $data['vacancy']['work_schedule'], $vacancy->start_date, $data['vacancy']['term']);
         $smsData = ['code' => $vacancy->code, 'category' => $data['vacancy']['category']['name_ka'], 'number' => $data['employer']['number'], 'hr_id' => $hr_id];
         $this->sendSms($smsData);
-        return $vacancy->code;
+        return $vacancy;
 
 
     }
@@ -270,7 +270,7 @@ class VacancyRepository{
         $hr = Hr::where('id', $data['hr_id'])->first();
         $HData = ['name' => $hr->user->name_ka, 'number' => $hr->user->number, 'to' => $data['number']];
         $data['to'] = $hr->user->number;
-        $admin = User::where('id', 2)->first();
+        $admin = User::where('id',76)->first();
         $getHasVacancyControl = $this->getHasVacancyControl();
         $adminData = ['to' => $admin->number, 'code' => $data['code'], 'hr1' => $hr->user->name_ka, 'hr2' => $getHasVacancyControl['is_in_line']->hr_name];
         event(new SmsNotificationEvent($HData, 'add_vacancy_send_employer'));

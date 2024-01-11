@@ -9,7 +9,7 @@
                     </div>
                     <div class="twm-content">
                         <div class="twm-jobs-available text-nowrap">{{ slide.count+ ' '+text  }} </div>
-                        <a :href="detailUrl+'/'+slide.id">{{ slide[`name_${getLang}`] }}</a>
+                        <a :href="`${detailUrl}/${JSON.stringify([slide.id])}`">{{ slide[`name_${getLang}`] }}</a>
                     </div>
                 </div>
             </div>

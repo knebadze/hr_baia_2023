@@ -61,6 +61,7 @@ export default {
                 sendInterestAxios(item)
 
             }else{
+                let url = new URL( location.href)
                 Swal.fire(
                     {
                         title: '<p>დაინტერესებამდე სავალდებულოა გაიაროთ ავტორიზაცია!!!</p>',
@@ -76,10 +77,10 @@ export default {
                     }).then((result) => {
                     /* Read more about isConfirmed, isDenied below */
                     if (result.isConfirmed) {
-                        window.location.replace(`/register?${getLang.value}`)
+                        window.location.replace(`${url.origin}/${getLang.value}/register`)
                     }else if (result.isDenied) {
                         addStorage()
-                        window.location.replace(`/login?${getLang.value}`)
+                        window.location.replace(`${url.origin}/${getLang.value}/login`)
                     }
                 })
             }

@@ -75,17 +75,24 @@ class CandidateController extends Controller
     }
 
     function search($lang, $category_id) {
+
+        $ids = json_decode($category_id);
+        // dd($ids);
         $candidate = Candidate::orderBy('id', 'DESC')
             ->whereNotIn('status_id', [8, 12])
-            ->whereHas('getWorkInformation', function ($query) use($category_id) {
-                return $query->where('category_id', $category_id);
+            ->whereHas('getWorkInformation', function ($query) use($ids) {
+                return $query->whereIn('category_id', $ids);
             })
             ->with(['user', 'workInformation'])
-            ->get()->toArray();
-
+            ->paginate(25)->toArray();
+            $classificatoryArr = ['category', 'workSchedule'];
+            $classificatory = $this->classificatoryService->get($classificatoryArr);
+            // dd($candidate);
             $data = [
                 'candidate' => $candidate,
+                'classificatory' => $classificatory
             ];
+
             return view ('candidate_search', compact('data'));
     }
 

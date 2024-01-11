@@ -103,10 +103,10 @@ class RegisterController extends Controller
             $name_en = GoogleTranslate::trans($data['name_ru'], 'en');
             $name_ru = $data['name_ru'];
         }
-         if ($data['gender_id'] == 1) {
-           $avatar = 'default_male.jpg';
-        }else{
-            $avatar = 'default_female.jpg';
+        if ($data['gender_id'] == 1) {
+            $defaultAvatar = 'default_male.jpg';
+        } else {
+            $defaultAvatar = 'default_female.jpg';
         }
 
         // dd();
@@ -119,11 +119,13 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'date_of_birth' => $data['date_of_birth'],
             'gender_id' => $data['gender_id'],
-            'avatar' => $avatar,
+            'avatar' => $defaultAvatar,
             'number' => $data['number'],
             'password' => Hash::make($data['password']),
             'lang' => $lang,
         ]);
+        // $user->addMedia($defaultAvatar)
+        //     ->toMediaCollection('user_avatar');
         // return view('user.userProfile' );
         return $user;
     }

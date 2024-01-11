@@ -70,28 +70,13 @@ class MyVacancyController extends Controller
     }
 
 
-    function questionnaire($local, $code) {
-        $decodedCode = decrypt($code);
+    function questionnaire($local, $id) {
+        $qualifying = QualifyingCandidate::where('id', $id)->where('qualifying_type_id', 2)->first();
 
-        $parts = explode("-", $decodedCode);
 
-        list($employer_number, $vacancy_code, $candidate_id) = $parts;
-        $vacancy = Vacancy::where('code', $vacancy_code)->first();
-        // If you want to verify the decoded code matches the original, you can check the hash
-        $exists = Employer::where('number', $employer_number)
-            ->whereHas('vacancy', function ($query) use ($vacancy_code) {
-                $query->whereIn('code', [$vacancy_code]);
-            })
-            ->exists()
-            &&
-            QualifyingCandidate::where('candidate_id', $candidate_id)
-            ->whereHas('vacancy', function ($query) use ($vacancy_code) {
-                $query->whereIn('code', [$vacancy_code]);
-            })
-            ->exists();
-        if ($exists) {
+        if ($qualifying) {
             // dd($candidate_id);
-            $data = Candidate::where('id', $candidate_id)
+            $data = Candidate::where('id', $qualifying->candidate_id)
                 ->with([
                     'user.gender',
                     'getWorkInformation.category',
@@ -114,9 +99,9 @@ class MyVacancyController extends Controller
                     'maritalStatus',
                     'drivingLicense',
                     'status',
-                    'qualifyingCandidate' => function ($query) use ($vacancy) {
+                    'qualifyingCandidate' => function ($query) use ($qualifying) {
                         // Add a condition for the qualifyingCandidate relationship
-                        $query->where('vacancy_id', $vacancy->id);
+                        $query->where('vacancy_id', $qualifying->vacancy->id);
                     },
                 ])->first();
             return view ('employer.photo_questionnaire', compact('data'));

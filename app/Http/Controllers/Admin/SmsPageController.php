@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\SmsTemplate;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
 
 class SmsPageController extends Controller
 {
@@ -23,6 +24,10 @@ class SmsPageController extends Controller
         $template->template_ru = $model['template_ru'];
         $template->active = $model['active'];
         $template->update();
+
+        // Clear the cache for all_sms_templates
+        $cacheKey = 'all_sms_templates';
+        Cache::forget($cacheKey);
         return response()->json($template);
     }
 }

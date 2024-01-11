@@ -4,14 +4,18 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Laravel\Sanctum\HasApiTokens;
+// use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
+// implements HasMedia
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    // InteractsWithMedia
 
     /**
      * The attributes that are mass assignable.
