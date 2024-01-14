@@ -19,7 +19,7 @@ export default {
         return {
             avatar: null,
             img: null,
-            path: '/images/user-avatar/',
+            path: '/storage/',
             src: null
         }
     },
@@ -30,9 +30,9 @@ export default {
         photo(){
             // this.avatar =
             if (this.img != null) {
-                return '/images/user-avatar/'+this.img;
+                return '/storage/'+this.img;
             }
-            return '/images/user-avatar/'+this.auth.avatar;
+            return '/storage/'+this.auth.avatar;
         }
     },
     methods:{

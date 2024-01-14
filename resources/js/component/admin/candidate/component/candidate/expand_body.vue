@@ -2,7 +2,7 @@
      <div class="card-body">
         <div class="row d-flex justify-content-between">
             <div>
-                <img :src="'/images/user-avatar/'+item.user.avatar" alt="#" style="height:100px">
+                <img :src="'/storage/'+item.user.avatar" alt="#" style="height:100px">
             </div>
 
             <div>

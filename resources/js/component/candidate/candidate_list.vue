@@ -222,7 +222,7 @@
                                  <div class="twm-candidates-grid-style1 mb-5" style="background-color: #fdfff5;">
                                      <div class="twm-media" >
                                          <div class="twm-media-pic">
-                                            <img :src="'/images/user-avatar/'+item.user.avatar" alt="#">
+                                            <img :src="'/storage/'+item.user.avatar" alt="#">
                                          </div>
                                          <!-- <div class="twm-candidates-tag"><span>გამორჩეული</span></div> -->
                                      </div>
