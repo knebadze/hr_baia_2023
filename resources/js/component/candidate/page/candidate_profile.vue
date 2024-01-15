@@ -1,4 +1,5 @@
 <template lang="">
+    <Upload_avatar v-if="role_id != 3 && stepIndex == 0" :auth="componentData.model" :key="stepIndex"></Upload_avatar>
      <div class=" m-b30 employerPageBorder" :class="data.role_id == 3? 'col-xl-9 col-lg-8 col-md-12':'col-xl-12 col-lg-12 col-md-12'">
         <!--Filter Short By-->
         <div class="twm-right-section-panel site-bg-gray">
@@ -140,6 +141,7 @@
     import family_work_experience from '../component/family_work_experience.vue'
     import candidate_recommendation from '../component/candidate_recommendation.vue'
     import Swal from 'sweetalert2';
+    import Upload_avatar from '../../user/upload_avatar.vue';
 export default {
     // emits: ['validateAndEmit'],
     components:{
@@ -152,15 +154,18 @@ export default {
         candidate_notice,
         work_information,
         family_work_experience,
-        candidate_recommendation
+        candidate_recommendation,
+        Upload_avatar
     },
     props: {
         data: Object,
+        role_id: Number
     },
     setup(props) {
         const getLang = computed(() => {
             return I18n.getSharedInstance().options.lang;
         });
+        console.log(props.data.model);
         const stepComponents = computed(() => {
             return [
                 { component:'main_info', icon: 'fa fa-user' },
@@ -280,7 +285,7 @@ export default {
                 let index = setIndex !== null? setIndex :state.value == 1 ? stepIndex.value + 1 : stepIndex.value - 1;
 
                 let find = await findModel(index);
-
+                console.log('find', find);
                 changeComponent(find.data.data);
 
                 if (setIndex === null) {

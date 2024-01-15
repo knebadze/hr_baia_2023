@@ -132,49 +132,7 @@ methods:{
     hide(){
         this.showConfirm = false
     },
-    // getWorkInfo(id, category_id){
-    //     let currentObj = this;
 
-    //     console.log('id', id);
-    //     axios({
-    //         method: "post",
-    //         url: "/candidate_work_info_data",
-    //         data: {"id":id, 'category_id':category_id},
-
-    //     })
-    //     .then(function (response) {
-    //         // handle success
-    //         console.log('response.data',response.data);
-    //         currentObj.workInfo = response.data
-
-    //     })
-    //     .catch(function (error) {
-    //         // handle error
-    //         console.log(error);
-    //     })
-    // },
-    // getFamilyWorkInfo(id){
-    //     let currentObj = this;
-
-    //     console.log('id', id);
-    //     axios({
-    //         method: "post",
-    //         url: "/candidate_family_work_info_data",
-    //         data: {"id":id},
-
-    //     })
-    //     .then(function (response) {
-    //         // handle success
-    //         console.log('response.data',response.data);
-    //         let category = [...new Set( _.map(response.data, 'category'))]
-    //         currentObj.familyWorkSkill = {'category': category, 'skill':_.map(response.data, 'skill')}
-
-    //     })
-    //     .catch(function (error) {
-    //         // handle error
-    //         console.log(error);
-    //     })
-    // }
 
 },
 watch:{

@@ -104,9 +104,9 @@ class RegisterController extends Controller
             $name_ru = $data['name_ru'];
         }
         if ($data['gender_id'] == 1) {
-            $defaultAvatar = 'user_avatar/kB1TbCAm6HHw0BzJZEmEFB8IR0NZCdxZF9bOEHpv.jpg';
+            $defaultAvatar = 'user_avatar/default_male.jpg';
         } else {
-            $defaultAvatar = 'user_avatar/hL1pnPeKu9z9a7jUP81TcNxTfcf9l2YGzMwh31G0.jpg';
+            $defaultAvatar = 'user_avatar/default_female.jpg';
         }
 
         // dd();

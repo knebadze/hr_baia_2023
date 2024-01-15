@@ -99,7 +99,7 @@
                        <input type="text" class="form-control" id="exampleInputEmail8" v-model="model.fb_link" placeholder="Facebook ლინკი">
                    </div>
                </div>
-               <img :src="getImgUrl(data.avatar)" alt="" style="height:200px; width:200px">
+               <img :src="`/storage/${data.avatar}`" alt="" style="height:200px; width:200px">
                <div class="col-md-6">
                    <div class="form-group">
                        <label for="exampleInputFile">განაახლე სურათი</label>
@@ -169,12 +169,7 @@ methods:{
    hide(){
       this.showConfirm = false
    },
-   getImgUrl(pic){
-    if (pic) {
-        return '/images/hr/'+pic
-    }
-
-   },
+   
    generatePassword() {
        let result = "";
        let characters =

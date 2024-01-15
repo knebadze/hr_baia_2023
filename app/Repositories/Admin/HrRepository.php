@@ -59,17 +59,15 @@ class HrRepository
         $hrUser->password = Hash::make($data['password']);
 
         if ($data['avatar']) {
-            $upload_path = public_path('images/hr');
-
-            $file_name = $data['avatar']->getClientOriginalName();
-            $generated_new_name = time() . '.' .$file_name;
-            $data['avatar']->move($upload_path, $generated_new_name);
-            $hrUser->avatar = $generated_new_name;
+            $filePath = $data['avatar']->store('hr_avatar', 'public');
+            if (isset($filePath)) {
+                $hrUser->avatar = $filePath;
+            }
         }else{
             if ($data['gender_id'] == 1) {
-                $hrUser->avatar = 'default_male.jpg';
+                $hrUser->avatar = 'hr_avatar/default_male.jpg';
             }else{
-                $hrUser->avatar = 'default_female.jpg';
+                $hrUser->avatar = 'hr_avatar/default_female.jpg';
             }
         }
 

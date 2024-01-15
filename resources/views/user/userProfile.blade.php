@@ -46,7 +46,7 @@
                     </div>
                 @endif
 
-                    <candidate-profile :data='@json($data)'></candidate-profile>
+                    <candidate-profile :data='@json($data)' :role_id='@json(Auth::user()->role_id)'></candidate-profile>
 
 
             </div>

@@ -23,9 +23,9 @@ class AddUserRepository
             $name_en = GoogleTranslate::trans($data['name_ka'], 'en');
             $name_ru = GoogleTranslate::trans($data['name_ka'], 'ru');
             if ($data['gender']['id'] == 1) {
-                $avatar = 'default_male.jpg';
+                $avatar = 'user_avatar/default_male.jpg';
             } else {
-                $avatar = 'default_female.jpg';
+                $avatar = 'user_avatar/default_female.jpg';
             }
 
             // Initialize a flag to track success/failure
