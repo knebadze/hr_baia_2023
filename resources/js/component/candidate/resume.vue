@@ -496,7 +496,6 @@ export default {
         }
     },
     created(){
-        console.log(this.data);
         this.addLanguageLevel
         if(this.data.get_work_information.length > 0){
             this.chooseResume(this.data.get_work_information[0])

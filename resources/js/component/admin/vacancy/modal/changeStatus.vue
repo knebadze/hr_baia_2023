@@ -131,7 +131,6 @@
                 try {
                     let result = await getClassificatory();
                     data.value = result.data
-                    console.log('result.data',result.data);
                     m.value = makeModel(props.item)
                     cla.value = makeCla(props.item.status.id)
                     reasonForCancel.value = result.data.reasonForCancel.filter((o) => (o.id != 33 && o.id != 34) )
@@ -220,7 +219,6 @@
             }
 
             const save = () =>{
-                console.log(m.value);
                 // return
                 if (m.value.status.id == 6) {
                     m.value['reminder'] = reminder.value

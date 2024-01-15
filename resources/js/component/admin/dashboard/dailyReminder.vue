@@ -64,7 +64,6 @@ export default {
     computed:{
     },
     created(){
-        console.log(this.data);
         this.items = this.data
     },
     methods:{

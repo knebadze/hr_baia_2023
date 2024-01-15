@@ -70,7 +70,6 @@ export default {
 
         const check = (v) =>{
             let data = { code: v, ...props.item }
-            console.log(data);
             axios({
                 method: "post",
                 url: "/check_verify_code",
@@ -85,7 +84,6 @@ export default {
                         showError.value = true
                     }
 
-                    console.log(response.data);
                 }
             })
             .catch(function (error) {
@@ -98,7 +96,6 @@ export default {
         const onComplete = (v) =>{
 
             if (v) {
-                console.log("onComplete ", v);
                 verifyFull.value = !verifyFull.value
             }
         };

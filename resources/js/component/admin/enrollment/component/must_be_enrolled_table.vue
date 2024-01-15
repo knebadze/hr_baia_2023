@@ -159,7 +159,6 @@ export default {
 
                     })
                     .then(function (response) {
-                        // console.log(response.data);
                         if (response.status == 200) {
                             toast.success('წარმატებით შესრულდა', {
                                 theme: 'colored',

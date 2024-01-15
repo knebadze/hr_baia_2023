@@ -66,7 +66,6 @@ export default {
             };
             modalItem.value = obj
         };
-        console.log('props.item',props.item);
 
         const moveModal = (item) => {
             modalItem.value = {...item}

@@ -52,8 +52,6 @@
             async show(){
                 try {
                     let result = await this.getInfo();
-                    console.log(this.vacancyId);
-                    console.log(result);
                     this.item = result.data.vacancy
                     this.hr_id = result.data.hr_id
                     this.roleId = result.data.role_id

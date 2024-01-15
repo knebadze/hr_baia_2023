@@ -141,7 +141,6 @@ export default {
     },
 
     setup(props){
-        console.log(props);
         var url = new URL( location.href)
         const itemsSelected = ref([]);
 

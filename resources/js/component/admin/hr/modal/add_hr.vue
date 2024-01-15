@@ -202,13 +202,11 @@ export default {
             axios.post('/add_hr', formData, config)
             .then(function (response) {
                 // handle success
-                console.log('response', response.data.original);
                 // return
                 if (response.status == 200) {
                     // currentObj.candidate_id = response.data.data;
 
                     if (response.data.original && Object.keys(response.data.original.errors).length > 0) {
-                        console.log('if');
                         let message = 'ინფორმაცია არასწორია';
                         if(response.data.original.errors.number){
                             message = response.data.original.errors.number[0]
@@ -219,7 +217,6 @@ export default {
                         });
                         return
                     }else{
-                        console.log('else');
                         currentObj.hide()
                         toast.success("ინფორმაცია წარმატებით შეინახა", {
                             theme: 'colored',

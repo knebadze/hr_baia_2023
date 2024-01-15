@@ -24,7 +24,6 @@ export default {
             // Make an API call to store data in Laravel
             axios.post('/store_path', { pathName })
             .then(response => {
-                // console.log('response',response);
                 // Handle success if needed
             })
             .catch(error => {
@@ -87,7 +86,6 @@ export default {
         };
 
         const sendInterestAxios = (item) =>{
-            console.log(item);
             axios({
                 method: "post",
                 url: '/interest_vacancy',

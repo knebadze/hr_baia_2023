@@ -73,7 +73,6 @@ export default {
         role_id: Number
     },
     setup(props) {
-        console.log(props.role_id);
         const tableData = computed(() =>{
             for (let i = 0; i < props.items.length; i++) {
                 // Access the element to update in each object
@@ -113,7 +112,6 @@ export default {
 
             })
             .then(function (response) {
-                // console.log(response.data);
                 if (response.status == 200) {
                     if (response.data) {
                         remainderShow(item.id, item.vacancy_id)
@@ -155,7 +153,6 @@ export default {
 
             })
             .then(function (response) {
-                // console.log(response.data);
                 if (response.status == 200) {
                     if (response.data) {
                         toast.success("წარმატებით შესრულდა", {

@@ -672,7 +672,6 @@ export default {
         data: Object,
     },
     setup(props) {
-        console.log(props.data);
         const getLang = computed(() => {
             return I18n.getSharedInstance().options.lang;
         });
@@ -699,7 +698,6 @@ export default {
         const formData = {...props.data.model}
         const m = ref(formData)
 
-        console.log(m.value);
         // formData.getLang = getLang;
         // formData.number_code = cla.value.numberCode.find(element => element.phonecode == 995);
 
@@ -898,7 +896,6 @@ export default {
             data.employer[`street_${getLang.value}`] = data.employer.street
             data.vacancy[`additional_schedule_${getLang.value}`] = data.vacancy.additional_schedule
             data.vacancy[`title_${getLang.value}`] = data.vacancy.title
-                console.log('data',data);
             v.value.$touch();
             if (!v.value.$invalid) {
 
@@ -936,7 +933,6 @@ export default {
 
 
             }else{
-                console.log('!v.value.', v.value.$error);
                 loader.value = false
                 toast.warning("აუცილებელია სავალდებულო ველები იყოს შევსებული", {
                     theme: 'colored',

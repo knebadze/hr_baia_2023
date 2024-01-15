@@ -512,7 +512,7 @@ export default {
         const send = ref(false);
         // const cla = ref(_.cloneDeep(props.data.classificatory));
         // cla.value.workSchedule = props.data.classificatory.workSchedule.filter(item => item.id !== 10 && item.id !== 11);
-        // console.log('props.data',props.data);
+
         const vacancy = {...props.item.model.vacancy}
 
         const formData = () => {
@@ -555,9 +555,7 @@ export default {
         }
 
         const model = reactive({...formData()})
-        console.log('model', model);
         const m = ref({...model})
-        console.log('m', m.value);
 
         const isReactiveProxy = (obj) => {
             if (isProxy(obj)) {
@@ -581,7 +579,6 @@ export default {
             let repeat = re
             var editedFields = {};
             for (const field in item) {
-                // console.log(item[field], isReactiveProxy(item[field]));
                 isReactiveProxy(item[field]) ? forItem(item[field], true) : ''
                 if (!repeat) {
                     rawValue.value = item[field];
@@ -589,10 +586,7 @@ export default {
 
 
                  // Extract the raw value from a ref
-                // console.log(item[field], model[field]);
                 if (item[field] !==  model[field]) {
-                    // return
-                    // console.log(field, rawValue.value);
                     editedFields[field] = rawValue.value;
                 }
             }
@@ -607,13 +601,9 @@ export default {
         //         }
         watch(m.value, (newValues, oldValues) => {
             // Do something when form fields change
-            // console.log('newValues', newValues);
-            // console.log('forItem(newValues);', forItem(newValues));
 
             // const changedFields = Object.keys(newValues).filter((key) => {
-            //     // console.log(key, newValues[key], model[key]);
             //     return newValues[key] !== model[key]});
-            // console.log('changedFields', changedFields);
             // editedFields.value = changedFields;
 
         }, { deep: true });

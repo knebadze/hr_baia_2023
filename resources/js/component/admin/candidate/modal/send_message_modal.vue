@@ -111,7 +111,6 @@
 
                         })
                         .then(function (response) {
-                            // console.log(response.data);
                             if (response.data.status == 200) {
 
                                 toast.success('წარმატებით განახლდა', {

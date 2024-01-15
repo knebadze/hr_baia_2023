@@ -180,10 +180,8 @@
                 return this.column[item]
             },
             oldValue(item){
-                // console.log('old',item);
                 if (item && item[0]) {
                     let str = ''
-                    // console.log('if', item);
                     item.forEach(element => {
                         if (_.has(element, 'name_ka')) {
                             return str += element.name_ka + '; '
@@ -193,7 +191,6 @@
                     });
                     return str
                 }else if(item){
-                    // console.log('else', item);
                     if (_.has(item, 'name_ka')) {
                         return item.name_ka
                     }else if(_.has(item, 'name')){

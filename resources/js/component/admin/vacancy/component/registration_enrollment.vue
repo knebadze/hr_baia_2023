@@ -104,7 +104,6 @@ export default {
             let result = await this.getInfo();
             this.registerInfo = (result.data == '')?null:result.data?result.data:null;
             this.showConfirm = true
-            console.log('...this.item', this.item);
             this.m = {...this.item}
             // this.min = this.item.end_date;
 

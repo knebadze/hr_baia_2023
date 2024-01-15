@@ -112,8 +112,6 @@ export default defineComponent({
                     // verifyNumber.value = response.data.randomNumber
                     checkNumberData.value = response.data
                     showVerifyCodeInput.value = !showVerifyCodeInput.value
-
-                    console.log(response.data);
                 }
             })
             .catch(function (error) {
@@ -139,7 +137,6 @@ export default defineComponent({
             .then(function (response) {
                 if (response.status == 200) {
 
-                    // console.log(response.data);
                     // let url = new URL( location.href)
                     // window.location.replace(`${url.origin}/ka`);
                 }
@@ -158,16 +155,14 @@ export default defineComponent({
                 employer: m.value,
                 used_category: null
             };
-            console.log(checkNumberData.value.length,'checkNumberData.value.length',checkNumberData.value);
+
             if (checkNumberData.value.length > 0) {
-                console.log('checkNumberData.value', checkNumberData.value);
                 let activeVacancy = checkNumberData.value.filter((x) => x.status_id == 1 || x.status_id == 2 || x.status_id == 3 );
                 let closeVacancy = checkNumberData.value.some((x) => x.status_id > 3 );
                 let hr = checkNumberData.value[0].hr.user;
                 let employer = checkNumberData.value[0].employer;
                 postVacancyData.employer = employer;
                 if (activeVacancy.length > 0) {
-                    console.log('if');
                     // let filter = checkNumberData.value.filter((x) => x.status_id == 1 || x.status_id == 2 || x.status_id == 3 );
                     const activeVacancyIds = activeVacancy.map(i => i.category_id)
                     postVacancyData.used_category = activeVacancyIds;
@@ -208,7 +203,6 @@ export default defineComponent({
                         }
                     })
                 }else if(closeVacancy){
-                    console.log('else if');
                     let html = `
                         <div>
                             <h3>თქვენ უკვე გქონდათ ჩვენთან განთავსებული ვაკანსია,</h3>

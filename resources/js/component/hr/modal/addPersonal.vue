@@ -68,7 +68,7 @@
   <script>
   import { toast } from 'vue3-toastify';
   import 'vue3-toastify/dist/index.css';
-  
+
   export default {
         props:{
             visible: Boolean,
@@ -93,17 +93,7 @@
         methods:{
             // async
             show(){
-                // try {
-                //     let result = await this.getClassificatory();
-                //     console.log('result', result.data);
-                //     this.data = result.data
-
-                //     this.m = this.makeModel(this.item)
-                //     console.log(this.m);
-                    this.showConfirm = true
-                // } catch (error) {
-                //     console.log(error);
-                // }
+                this.showConfirm = true
 
             },
             hide(){

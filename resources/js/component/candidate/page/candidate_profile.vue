@@ -165,7 +165,6 @@ export default {
         const getLang = computed(() => {
             return I18n.getSharedInstance().options.lang;
         });
-        console.log(props.data.model);
         const stepComponents = computed(() => {
             return [
                 { component:'main_info', icon: 'fa fa-user' },
@@ -259,7 +258,6 @@ export default {
                     data: {stage: step, user_id: userId.value, candidate_id: candidate_id },
                 })
             } catch (error) {
-                console.log('error', error);
                 console.error(error);
                 throw error; // Rethrow the error to be caught in the caller (nextStep)
             }
@@ -285,7 +283,6 @@ export default {
                 let index = setIndex !== null? setIndex :state.value == 1 ? stepIndex.value + 1 : stepIndex.value - 1;
 
                 let find = await findModel(index);
-                console.log('find', find);
                 changeComponent(find.data.data);
 
                 if (setIndex === null) {

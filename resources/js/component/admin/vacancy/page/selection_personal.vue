@@ -408,7 +408,6 @@ export default {
     methods:{
 
         find(){
-            console.log(this.m);
             // Initialize a new object to store the filtered properties
             const filteredObject = {};
 
@@ -437,7 +436,6 @@ export default {
                 })
             .then(function (response) {
                 // handle success
-                console.log('response.data',response.data);
                 currentObj.candidate = response.data
                 currentObj.modalData['candidate'] = response.data
                 currentObj.tableKey++

@@ -46,7 +46,6 @@ export default {
         item: Object
     },
     setup(props) {
-        console.log(props.item);
         const showConfirm = ref(false);
         let m = ref();
         // m.value.active = false

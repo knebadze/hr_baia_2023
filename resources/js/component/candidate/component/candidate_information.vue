@@ -413,7 +413,6 @@ export default {
         data: Object,
     },
     setup(props, { emit }) {
-        console.log(props.data);
         const getLang = computed(() => {
             return I18n.getSharedInstance().options.lang;
         });

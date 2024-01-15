@@ -323,7 +323,6 @@ export default {
             }
         },
         firstData(){
-            console.log('this.data0', this.data);
             this.pagination = {
                 'current_page': this.data.candidate.current_page,
                 'last_page': this.data.candidate.last_page

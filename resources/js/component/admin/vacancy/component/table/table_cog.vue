@@ -57,7 +57,6 @@ export default {
         roleId: Number
     },
     setup(props) {
-        // console.log(props.item);
         const modalComponent = ref(null);
         const showUpdateModal = ref(false);
         const showStatusModal = ref(false);
@@ -152,7 +151,6 @@ export default {
                         data: {id: id, check: true},
 
                     });
-                    console.log('response',response);
                     if (!response.status == 200) {
                         return Swal.showValidationMessage(`
                         ${JSON.stringify(await response.error)}

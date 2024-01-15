@@ -218,10 +218,6 @@ export default {
             emit('send', model);
         };
 
-        const checkEnrolment = computed(() =>{
-            console.log(props.enrollment);
-        });
-        console.log(checkEnrolment.value);
 
         return {
             m,
@@ -234,7 +230,6 @@ export default {
             handleFileChange,
             counting,
             emitSend,
-            checkEnrolment
 
         }
     }

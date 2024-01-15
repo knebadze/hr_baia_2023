@@ -54,7 +54,6 @@ export default {
       auth: Object
   },
   setup(props) {
-    console.log('tenms', props.items);
       const data = ref(props.items.data);
       const type = ref(props.items.type);
       for (let i = 0; i < data.value.length; i++) {
@@ -79,7 +78,6 @@ export default {
           if (!item.end_work_reason_id) {
               return
           }
-           console.log(item, ';;');
           showEndWorkInfoModal.value = !showEndWorkInfoModal.value
           modalItem.value = {
               end_work_reason_id: item.end_work_reason_id,

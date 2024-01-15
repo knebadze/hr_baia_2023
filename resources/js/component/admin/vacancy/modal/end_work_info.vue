@@ -28,7 +28,6 @@ export default {
     },
     methods: {
         show(){
-            console.log('hello', this.item);
             this.showConfirm = true
         },
         hide(){
@@ -37,7 +36,6 @@ export default {
     },
     watch:{
         visible: function(){
-            console.log('hello');
             this.show()
         }
     }

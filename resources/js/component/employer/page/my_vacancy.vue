@@ -76,7 +76,6 @@ export default {
 
             })
             .then(function (response) {
-                console.log('response.data',response.data);
                 if (response.data.type == 's') {
                     showVerifyCodeInput.value = !showVerifyCodeInput.value
                     verifyNumber.value = response.data.randomNumber
@@ -109,7 +108,6 @@ export default {
         };
 
         const find = () =>{
-            console.log(number.value);
             axios({
                     method: "post",
                     url: '/find_my_vacancy',
@@ -117,7 +115,6 @@ export default {
 
                 })
                 .then(function (response) {
-                    console.log('response.data',response);
                     tableData.value = response.data
 
                 })
@@ -142,46 +139,7 @@ export default {
             tableData
         }
     },
-    // data() {
-    //     return {
-    //         search:null,
-    //         vacancy:null,
-    //         interest:null,
-    //         showInterestModal: false,
-    //         vacancyId:null
-    //     }
-    // },
-    // methods: {
-
-    //     find(){
-    //         let currentObj = this;
-    //         axios({
-    //                 method: "post",
-    //                 url: '/find_my_vacancy',
-    //                 data: {'code':this.search},
-
-    //             })
-    //             .then(function (response) {
-    //                 console.log('response.data',response.data);
-    //                 currentObj.vacancy = response.data.data.vacancy
-    //                 // currentObj.interest = response.data.interest
-
-    //             })
-    //             .catch(function (error) {
-    //                 // handle error
-    //                 console.log(error);
-    //             })
-    //     },
-    //     showInterest(id){
-    //         this.vacancyId = id
-    //         this.showInterestModal = !this.showInterestModal
-    //     },
-
-
-    // },
-    // mounted(){
-    // }
-
+    
 }
 </script>
 <style lang="">

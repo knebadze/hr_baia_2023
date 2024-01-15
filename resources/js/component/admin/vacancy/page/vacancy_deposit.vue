@@ -64,7 +64,6 @@ export default {
         const depositAuthor = ref(props.data.employer);
         const registerEnrollmentComponent = ref(null);
         const componentItem = ref(null);
-        console.log(props.data);
         const registerEnrollment =  async () =>{
             if (!registerEnrollmentComponent.value) {
 
@@ -206,8 +205,6 @@ export default {
             });
         };
         const handelSend = (formData) =>{
-            // console.log('formData',formData);
-            // return
             axios.post('/vacancy_enrollment', formData)
             .then(function (response) {
                 if (response.status == 200) {

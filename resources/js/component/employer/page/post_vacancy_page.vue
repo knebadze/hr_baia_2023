@@ -19,7 +19,6 @@ export default {
         data: Object,
     },
     setup(props) {
-        console.log(props.data);
         const getLang = computed(() => {
             return I18n.getSharedInstance().options.lang;
         });
@@ -97,7 +96,6 @@ export default {
         post_vacancy_data.value.model = makeData();
 
         const handlerVerify = (item) =>{
-            console.log('child', item);
             showVerifySection.value = false
             showPostSection.value = item.active
             post_vacancy_data.value.model.employer = item.employer

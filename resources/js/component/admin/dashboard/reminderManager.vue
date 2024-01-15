@@ -28,14 +28,6 @@ export default {
         axios.post('/hr_reminder_info' )
         .then((response)=> {
             this.data = response.data
-            // Get the current time
-            // const currentTime = moment();
-            // let baseTimeMoment = moment(response.data[0].date, "YYYY-MM-DD HH:mm");
-            // const differenceInMinutes = currentTime.diff(baseTimeMoment, 'minutes');
-
-            // if (differenceInMinutes >= -30) {
-            //     console.log('differenceInMinutes', differenceInMinutes);
-            // }
             if (Object.keys(this.data).length > 0) {
                 this.openModal(this.data)
             }

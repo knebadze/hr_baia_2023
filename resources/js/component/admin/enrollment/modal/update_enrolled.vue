@@ -81,17 +81,7 @@
                 this.showConfirm = true
                 this.m = this.item
                 this.m.type = this.cla.find((element) => element.id == this.item.type)
-                // try {
-                //     let result = await this.getClassificatory();
-                //     console.log('result', result.data);
-                //     this.cla = result.data.cla
-                //     this.check = result.data.check
-                //     this.m = this.item
-                //     // console.log(this.m);
-                //     this.showConfirm = true
-                // } catch (error) {
-                //     console.log(error);
-                // }
+
 
             },
             hide(){
@@ -124,7 +114,6 @@
 
                         })
                         .then(function (response) {
-                            // console.log(response.data);
                             if (response.status == 200) {
                                 toast.success('წარმატებით შესრულდა', {
                                     theme: 'colored',

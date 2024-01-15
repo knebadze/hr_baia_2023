@@ -83,7 +83,6 @@
         },
         methods:{
             show(){
-                console.log(this.items);
                 this.showConfirm = true
 
             },

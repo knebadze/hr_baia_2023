@@ -88,10 +88,8 @@
         },
         methods:{
             async show(){
-                console.log(this.item);
                 try {
                     let result = await this.getClassificatory();
-                    console.log(result.data);
                     this.data = result.data
 
                     this.m = this.makeModel(this.item)

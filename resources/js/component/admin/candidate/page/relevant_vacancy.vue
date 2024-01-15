@@ -109,7 +109,6 @@ export default {
         // this.m.id = this.data
         // this.getData()
         const { candidate } = this.data;
-        console.log(candidate);
         this.m.payment = candidate.get_work_information.map(item => item.payment);
         this.m.work_schedule = candidate.get_work_information.flatMap(item => item.get_work_schedule.map(schedule => schedule.work_schedule_id));
         this.m.category = candidate.get_work_information.map(item => item.category_id);
@@ -136,7 +135,6 @@ export default {
 
                 })
             .then((response)=> {
-                console.log('response.data',response.data.data);
                 this.pagination = {
                     'current_page':response.data.current_page,
                     'last_page': response.data.last_page
@@ -146,7 +144,6 @@ export default {
                     // Access the element to update in each object
                     this.items[i].created_at = moment(this.items[i].created_at).format("YYYY-MM-DD HH:mm");
                 }
-                // console.log('this.items', this.items);
             })
             .catch(function (error) {
                 console.log(error);
@@ -183,7 +180,7 @@ export default {
                 this.m.address = this.data.candidate.address_ka
             }
         },
-        
+
 
     },
     watch:{

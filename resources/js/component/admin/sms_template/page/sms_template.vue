@@ -45,12 +45,10 @@ export default {
         data: Object
     },
     setup(props) {
-        console.log('props.data',props.data);
         const childComponents = ref({});
 
         const handleUpdate = (formData) => {
             // Do something with the form data received from the child
-            console.log('formData',formData);
             Swal.fire({
                     title: 'ნამდვილად გსურთ რედაქტირება?',
                     // html:'ცვლილება ავტომატურად მოხსნის კანდიდატს ვაკანის დასაქმებული სტატუსიდან',

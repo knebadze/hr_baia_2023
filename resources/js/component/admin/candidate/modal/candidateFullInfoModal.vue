@@ -51,7 +51,6 @@
             async show(){
                 try {
                     let result = await this.getClassificatory();
-                    console.log('result.data',result.data);
                     this.candidate = result.data.candidate
                     this.candidate.age = this.age(result.data.candidate.date_of_birth)
                     this.role_id = result.data.role_id

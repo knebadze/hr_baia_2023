@@ -139,10 +139,8 @@
         },
         methods:{
             async show(){
-                console.log('this.item', this.item,  new URL( location.href));
                 try {
                     let result = await this.getClassificatory();
-                    console.log('result', result.data);
                     this.cla = result.data.classificatory
                     this.qualifyingType = this.cla.qualifyingType.filter(item => item.id !== 6 && item.id !== 7);
                     this.info  = result.data.findCandidate
@@ -254,7 +252,6 @@
                         let url = new URL( location.href)
                         const parts = url.pathname.split('/');
                         const link = parts[parts.indexOf('admin') + 1];
-                        console.log(link, parts);
                         if (link == 'selection_personal') {
                             currentObj.emitMessage(false)
                         }else{
@@ -302,7 +299,6 @@
                                 let url = new URL( location.href)
                                 const parts = url.pathname.split('/');
                                 const link = parts[parts.indexOf('admin') + 1];
-                                console.log(link, parts);
                                 if (link == 'selection_personal') {
                                     currentObj.emitMessage(false)
                                 }else{

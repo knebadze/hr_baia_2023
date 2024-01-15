@@ -51,17 +51,13 @@ export default {
                 }
             }
         },
-        
+
 
     },
     created() {
         // this.data.model.candidate_information.candidate.id = 4
     },
     methods: {
-        // childMessageReceived(item){
-        //     console.log('msg', item);
-        //     this.candidate_id = item
-        // }
         handleMessageFromChildren(item) {
         // Handle the emitted event
             this.candidate_id = item

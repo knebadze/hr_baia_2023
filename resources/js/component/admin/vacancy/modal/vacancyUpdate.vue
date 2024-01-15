@@ -441,7 +441,6 @@
                     return;
                 }
                 var editedFields = this.forItem(this.m)
-                console.log('editedFields', editedFields);
                 // return
                 let currentObj = this
                 this.$swal({

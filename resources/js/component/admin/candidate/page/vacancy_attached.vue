@@ -20,7 +20,6 @@ export default {
         auth: Object
     },
     setup(props) {
-        console.log('data', props.data);
         const items = ref(props.data)
 
         const tableConfig = computed(() => {

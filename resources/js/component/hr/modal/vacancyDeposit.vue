@@ -172,41 +172,21 @@
         },
         methods:{
             show(){
-                // try {
-                //     let result = await this.getClassificatory();
-                //     // console.log('result', result);
-                //     this.cla = result.data
-
-                    this.m = {...this.item}
-                    this.payment = {
-                        employer_payment:(this.m.enrolled_employer * this.m.employer_percent) / 100,
-                        candidate_payment:(this.m.enrolled_candidate * this.m.candidate_percent) / 100,
-                    }
-                //     // {...this.item}
-                //     // (this.m.stay_night == 1)? this.m.stay_night = true: this.m.stay_night = false
-                // this.m = this.makeModel(this.item)
-                    this.showConfirm = true
-                // } catch (error) {
-                //     console.log(error);
-                // }
+                this.m = {...this.item}
+                this.payment = {
+                    employer_payment:(this.m.enrolled_employer * this.m.employer_percent) / 100,
+                    candidate_payment:(this.m.enrolled_candidate * this.m.candidate_percent) / 100,
+                }
+                this.showConfirm = true
 
             },
             hide(){
                 this.showConfirm = false
             },
-            // getClassificatory(){
-            //     return axios.post('/get_classificatory' ,{
-            //         //   data: updateData,
-            //       })
-
-            // },
             makeModel(item){
 
                 return {...item}
             },
-            // save(){
-            //     this.forItem(this.m)
-            // },
             forItem(item){
                 var editedFields = {}
                 for (const field in item) {
@@ -234,7 +214,6 @@
                         })
                         .then(function (response) {
                             // handle success
-                            // console.log(response.data);
                             if (response.status == 200) {
                                 currentObj.hide()
                                 toast.success("წარმატებით დარედაქტირდა", {

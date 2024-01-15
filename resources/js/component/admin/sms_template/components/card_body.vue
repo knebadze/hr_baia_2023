@@ -87,7 +87,6 @@ export default defineComponent({
 
         const submitForm = () => {
             // Perform form submission and emit the updated data
-            console.log('m.value0', m.value);
             emit("formEmit", m.value);
         }
 

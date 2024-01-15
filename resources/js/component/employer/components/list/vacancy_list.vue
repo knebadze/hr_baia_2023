@@ -64,121 +64,7 @@ export default {
         const detailUrl = ref(url.origin+'/'+getLang.value+'/job_detail');
         // const checkInterest = ref(false);
 
-        // const interest = (item) =>{
-        //     if (props.auth != null ) {
-        //         if (props.auth.role_id != 3) {
-        //             toast.error("თქვენ არ გაქვთ დაინტერესების უფლება", {
-        //                 theme: 'colored',
-        //                 autoClose: 1000,
-        //             });
-        //             return
-        //         }else if(props.auth.role_id == 3  ){
-        //             if (props.auth.candidate.status_id == 8) {
-        //                 toast.error("თქვენ ჯერ არ გაქვთ დაინტერესების უფლება, გთხოვთ შეავსოთ ინფორმაცია", {
-        //                     theme: 'colored',
-        //                     autoClose: 1000,
-        //                 });
-        //                 return
-        //             } else if(props.auth.candidate.status_id == 10) {
-        //                 toast.error("არ გაქვთ დაინტერესების უფლება, თქვენ უკვე დასაქმებული ხართ", {
-        //                     theme: 'colored',
-        //                     autoClose: 1000,
-        //                 });
-        //                 return
-        //             }
 
-        //         }else if(props.auth.role_id == 3){
-
-        //         }
-        //         sendInterestAxios(item)
-
-        //     }else{
-        //         Swal.fire(
-        //             {
-        //                 title: '<p>დაინტერესებამდე სავალდებულოა გაიაროთ ავტორიზაცია!!!</p>',
-        //                 icon: 'info',
-        //                 html:
-        //                     'თუ ჯერ არ ხართ რეგისტრირებული გთხოვთ დარეგისტრირდეთ',
-        //                 showCloseButton: true,
-        //                 showCancelButton: false,
-        //                 showDenyButton: true,
-        //                 focusConfirm: false,
-        //                 confirmButtonText: 'რეგისტრაცია',
-        //                 denyButtonText: 'შესვლა',
-        //             }).then((result) => {
-        //             /* Read more about isConfirmed, isDenied below */
-        //             if (result.isConfirmed) {
-        //                 window.location.replace(`/register?${getLang.value}`)
-        //             }else if (result.isDenied) {
-        //                 window.location.replace(`/login?${getLang.value}`)
-        //             }
-        //         })
-        //     }
-        // };
-
-        // const sendInterestAxios = (item) =>{
-        //     console.log(item);
-        //     axios({
-        //         method: "post",
-        //         url: '/interest_vacancy',
-        //         data: {'id': item.id, 'check': checkInterest.value},
-
-        //     })
-        //     .then(function (response) {
-        //         if (response.data.status == 200) {
-        //             let text;
-        //             if(response.data.data.type == 'w'){
-        //                 Swal.fire({
-        //                     title: '<p>თქვენი სამუშაო კატეგორია არ შეესაბამება ვაკანსიის კატეგორიას!!!</p>',
-        //                     icon: 'info',
-        //                     html:
-        //                         'აუცილებელია დაამატოთ შესაფერისი სამუშაო კატეგორია',
-        //                     showCloseButton: true,
-        //                     showCancelButton: true,
-        //                     showDenyButton: false,
-        //                     focusConfirm: false,
-        //                     confirmButtonText: 'კატეგორიის დამატება',
-        //                     cancelButtonText:'გაუქმება'
-        //                 }).then((result) => {
-        //                     /* Read more about isConfirmed, isDenied below */
-        //                     if (result.isConfirmed) {
-        //                         // !!!!!!!!!!!!!!!!!!!!!!!!!!!აქ შეიძლება ჩაშენდეს ავტომატური დამატების სერვისი!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //                         window.location.replace(`/${getLang.value}/user/userProfile?stage=6`)
-        //                     }
-        //                 })
-        //             }else if(response.data.data.type == 's'){
-        //                 Swal.fire({
-        //                     title: '<strong>თქვენი დაინტერესება მიღებულია</strong>',
-        //                     icon: 'success',
-        //                     html:'შემკვეთს გადაეგზავნება თქვენი ფოტოანკეტა, მოხდება მასთან თქვენი კანდიდატურის განხილვა და მისი მხრიდანაც დაინტერესების შემთხვევაში გაგასაუბრებთ შემკვეთს',
-
-        //                     showCloseButton: true,
-        //                     // confirmButtonText: 'მთავარზე დაბრუნება',
-        //                     showCancelButton: false,
-        //                     focusConfirm: false,
-        //                 }).then((result) => {
-        //                     // if (result.isConfirmed) {
-        //                     //     let url = new URL( location.href)
-        //                     //     if (props.data.model.role_id == 3) {
-        //                     //         window.location.replace(`${url.origin}/ka`);
-        //                     //     }else{
-        //                     //         window.location.replace( `${url.origin}/admin/vacancy?ka`);
-        //                     //     }
-
-        //                     // }
-
-        //                 })
-        //                 var find = props.items.find(element => element.id == item.id);
-        //                 find.vacancy_interest.push(response.data.data.qualifying)
-        //             }
-        //         }
-
-        //     })
-        //     .catch(function (error) {
-        //         // handle error
-        //         console.log(error);
-        //     })
-        // };
 
         const getTimeAgo = (created_at) => {
             const time = moment(created_at);
@@ -204,7 +90,7 @@ export default {
         };
         // const created_at = ref('2023-01-01T12:34:56.789Z');
         // const timeAgo = computed(() => getTimeAgo(created_at.value));
-        // console.log(timeAgo.value);
+
         const handlerUpdateData = (id, response) =>{
             let find = props.items.find(element => element.id == id);
             find.vacancy_interest.push(response.data.qualifying)

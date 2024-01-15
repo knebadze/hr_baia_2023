@@ -76,7 +76,6 @@ export default {
             if (!item.end_work_reason_id) {
                 return
             }
-             console.log(item, ';;');
             showEndWorkInfoModal.value = !showEndWorkInfoModal.value
             modalItem.value = {
                 end_work_reason_id: item.end_work_reason_id,

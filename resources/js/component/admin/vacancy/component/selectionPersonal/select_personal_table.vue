@@ -27,12 +27,7 @@
 
         <div v-if="!itemsSelectedButton">
             <table_cog :item="item" @emitOpenModal="handlerOpenModal"/>
-            <!-- <button class="btn btn-info btn-sm" @click="showModal(item)" :disabled="(item.status_id == 10)?true:false">
-                <i class="fa fa-plus"></i> დამატება
-            </button>
-            <button class="btn btn-success btn-sm ml-1" @click="showModal(item)" >
-                <i class="fa fa-envelope"></i> sms
-            </button> -->
+          
         </div>
 
       </div>
@@ -43,87 +38,7 @@
              <expand_body :item="item" />
               <!-- /.card-body -->
         </template>
-        <!-- <template #header-status.name_ka="header">
-            <div class="filter-column">
-                <i class="fa fa-filter text-secondary" style="font-size:15px;" @click.stop="showStatusFilter=!showStatusFilter"></i>
-                {{ header.text }}
-                <div class="filter-menu filter-sport-menu" v-if="showStatusFilter">
-                <select
-                    class="favouriteSport-selector"
-                    v-model="choseStatus"
-                    name="favouriteSport"
-                >
-                    <option value="ყველა">
-                        ყველა
-                    </option>
-                    <option v-for="(item, index) in data.classificatory.status" :key="index" :value="item.name_ka">
-                        {{ item.name_ka }}
-                    </option>
 
-                </select>
-                </div>
-            </div>
-        </template>
-        <template #header-category.name_ka="header">
-            <div class="filter-column">
-                <i class="fa fa-filter text-secondary" style="font-size:15px;" @click.stop="showCategoryFilter=!showCategoryFilter"></i>
-                {{ header.text }}
-                <div class="filter-menu filter-sport-menu" v-if="showCategoryFilter">
-                <select
-                    class="favouriteSport-selector"
-                    v-model="choseCategory"
-                    name="favouriteSport"
-                >
-                    <option value="ყველა">
-                        ყველა
-                    </option>
-                    <option v-for="(item, index) in data.classificatory.category" :key="index" :value="item.name_ka">
-                        {{ item.name_ka }}
-                    </option>
-
-                </select>
-                </div>
-            </div>
-        </template>
-        <template #header-work_schedule.name_ka="header">
-            <div class="filter-column">
-                <i class="fa fa-filter text-secondary" style="font-size:15px;" @click.stop="showScheduleFilter=!showScheduleFilter"></i>
-                {{ header.text }}
-                <div class="filter-menu filter-sport-menu" v-if="showScheduleFilter">
-                <select
-                    class="favouriteSport-selector"
-                    v-model="choseSchedule"
-                    name="favouriteSport"
-                >
-                    <option value="ყველა">
-                        ყველა
-                    </option>
-                    <option v-for="(item, index) in data.classificatory.workSchedule" :key="index" :value="item.name_ka">
-                        {{ item.name_ka }}
-                    </option>
-
-                </select>
-                </div>
-            </div>
-        </template>
-        <template #header-payment="header">
-            <div class="filter-column">
-                <i class="fa fa-filter text-secondary" style="font-size:15px;" @click.stop="showPaymentFilter=!showPaymentFilter"></i>
-                {{ header.text }}
-                <div class="filter-menu filter-sport-menu my-2" v-if="showPaymentFilter">
-                    <Slider v-model="chosePayment" :max=3000 class="slider"/>
-                </div>
-            </div>
-        </template>
-        <template #header-id="header">
-            <div class="filter-column">
-                <i class="fa fa-filter text-secondary" style="font-size:15px;" @click.stop="showIdFilter=!showIdFilter"></i>
-                {{ header.text }}
-                <div class="filter-menu filter-sport-menu my-2" v-if="showIdFilter">
-                    <input v-model="choseId"/>
-                </div>
-            </div>
-        </template> -->
     </EasyDataTable>
     <addPersonalVacancy  :visible="showAddPersonalModal" :item="modalItem" :onMessageFromChildren="handleMessageFromChildren"></addPersonalVacancy>
 
@@ -215,86 +130,13 @@ export default {
             showModal(item)
         };
 
-        // console.log('itemsSelected.value.length',itemsSelected.value.length);
-        // if (itemsSelected.value.length > 0) {
-        //     console.log('itemsSelected.value.length',itemsSelected.value.length);
-        // }
-
-        // const showStatusFilter = ref(false);
-        // const showCategoryFilter = ref(false);
-        // const showScheduleFilter = ref(false);
-        // const showPaymentFilter = ref(false);
-        // const showIdFilter = ref(false);
-        // const choseStatus = ref('ყველა');
-        // const choseCategory = ref('ყველა');
-        // const choseSchedule = ref('ყველა');
-        // const chosePayment = ref([500, 1500]);
-        // const choseId = ref('');
-        // const filterOptions = computed(()=> {
-        //     const filterOptionsArray =  [];
-        //     if (choseStatus.value !== 'ყველა') {
-        //         filterOptionsArray.push({
-        //             field: 'status.name_ka',
-        //             comparison: '=',
-        //             criteria: choseStatus.value,
-        //         });
-        //     }
-        //     if (choseCategory.value !== 'ყველა') {
-        //         filterOptionsArray.push({
-        //             field: 'category.name_ka',
-        //             comparison: '=',
-        //             criteria: choseCategory.value,
-        //         });
-
-        //     }
-        //     if (choseSchedule.value !== 'ყველა') {
-        //         filterOptionsArray.push({
-        //             field: 'work_schedule.name_ka',
-        //             comparison: '=',
-        //             criteria: choseSchedule.value,
-        //         });
-
-        //     }
-        //     if (showPaymentFilter) {
-        //         filterOptionsArray.push({
-        //             field: 'payment',
-        //             comparison: 'between',
-        //             criteria: chosePayment.value,
-        //         });
-        //     }
-        //     if (choseId.value !== '') {
-        //         filterOptionsArray.push({
-        //             field: 'id',
-        //             comparison: '=',
-        //             criteria: choseId.value,
-        //         });
-
-        //     }
-
-        //     return filterOptionsArray;
-        // });
 
 
-        // var url = new URL( location.href)
-
-        // var personalSelectionUrl = ref(url.origin+'/admin/selection_personal')
-        // console.log(personalSelectionUrl);
 
 
         return {
             headers,
             items,
-            // showStatusFilter,
-            // choseStatus,
-            // showCategoryFilter,
-            // choseCategory,
-            // showScheduleFilter,
-            // choseSchedule,
-            // showPaymentFilter,
-            // chosePayment,
-            // showIdFilter,
-            // choseId,
-            // filterOptions,
             itemsSelected,
             itemsSelectedButton,
             // statusChangeModal,
@@ -307,10 +149,6 @@ export default {
         };
     },
     methods:{
-        // handleMessageFromChildren(id, message) {
-        //     this.badgeClass = message
-        //     _.find(item.qualifying_candidate, function(o) { return o.qualifying_type_id == 5 && o.vacancy.status == 2})
-        // },
     },
     watch:{
         itemsSelected: {

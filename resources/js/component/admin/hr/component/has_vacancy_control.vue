@@ -66,7 +66,6 @@ export default {
         items: Object
     },
     setup(props) {
-        console.log('props.items',props.items);
         const data = ref(props.items)
         const color = ref({
             other: '#ddeedf',
@@ -77,7 +76,6 @@ export default {
         });
         const tableData = computed(() => {
             let smallestObject = _.minBy(_.filter(data.value, { 'is_active': 1 }), 're_write');
-            console.log('smallestObject0', smallestObject);
             let smallestObjectWithHasZero = _.chain(data.value)
             .filter({ has_vacancy: 0, is_active: 1 })
             .minBy('id')

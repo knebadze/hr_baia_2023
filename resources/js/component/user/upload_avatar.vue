@@ -24,7 +24,6 @@ export default {
         }
     },
     created(){
-        console.log('this.auth', this.auth);
         this.src = this.path + this.auth.avatar
     },
     computed:{

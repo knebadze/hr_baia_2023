@@ -20,11 +20,9 @@ export default {
         const showButton = computed(() => {
             let pathName = url.pathname;
             let extractedPart = pathName.match(/\/employer\/photo_questionnaire/);
-            console.log(extractedPart);
             return extractedPart ? extractedPart[0] : null;
 
         })
-        console.log(showButton.value);
         const doNotLike = (id) =>{
             Swal.fire({
                 title: 'დარწმუნებული ხართ რომ ეს კანდიდატი არ მოგწონთ?',

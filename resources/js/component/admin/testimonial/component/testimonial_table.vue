@@ -46,17 +46,14 @@ export default {
     },
     setup(props) {
         const tableItems = ref(props.items)
-        console.log(tableItems.value[0].active  );
-        console.log('tableItems', props.items);
         for (let i = 0; i < props.items.length; i++) {
             // Access the element to update in each object
             tableItems.value[i].created_at = moment(tableItems.value[i].created_at).format("YYYY-MM-DD HH:mm");
-            // console.log(tableItems.value[i].is_active == 1 );
+
             tableItems.value[i].active = tableItems.value[i].active == 1 ? true : false
         };
 
         const isActiveUpdate = (item) =>{
-            console.log(item);
             // return
             axios({
                 method: "post",
@@ -72,7 +69,7 @@ export default {
                         theme: 'colored',
                         autoClose: 1000,
                     });
-                    
+
                     // alert()
 
                 }

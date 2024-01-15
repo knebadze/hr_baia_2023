@@ -93,60 +93,7 @@
             hide(){
                 this.showConfirm = false
             },
-            // save(){
-            //     if (!this.m.hasOwnProperty('reason') || !this.m.hasOwnProperty('reason_info')) {
-            //         toast.error('შევსება სავალდებულოა', {
-            //             theme: 'colored',
-            //             autoClose: 2000,
-            //         });
-            //         return
-            //     }
-            //     let currentObj = this
-            //     this.$swal({
-            //         title: 'ნამდვილად გსურთ სამუშაოს დასრულება?',
-            //         html:'ცვლილება ავტომატურად მოხსნის კანდიდატს ვაკანის დასაქმებული სტატუსიდან',
-            //         //   showDenyButton: true,
-            //         cancelButtonText:'არა',
-            //         confirmButtonText: 'კი',
-            //         showCancelButton: true,
-            //     }).then((result) => {
-            //     /* Read more about isConfirmed, isDenied below */
-            //     // return
-            //         if (result.isConfirmed) {
-            //             axios({
-            //                 method: "post",
-            //                 url: "/end_work",
-            //                 data: {'model': this.m},
-
-            //             })
-            //             .then(function (response) {
-            //                 // console.log(response.data);
-            //                 if (response.data.status == 200) {
-            //                     if (response.data.data.type == 'e') {
-            //                         toast.error(response.data.data.message, {
-            //                             theme: 'colored',
-            //                             autoClose: 2000,
-            //                         });
-            //                         currentObj.hide()
-            //                     }else{
-            //                         toast.success(response.data.data.message, {
-            //                             theme: 'colored',
-            //                             autoClose: 1000,
-            //                         });
-            //                     }
-
-            //                 }
-            //             })
-            //             .catch(function (error) {
-            //                 // handle error
-            //                 console.log(error);
-            //             })
-
-            //         } else if (result.isDenied) {
-            //             return
-            //         }
-            //     });
-            // },
+            
             getClassificatory(){
                 return axios.post('/get_schedule_info' ,{
                       data: this.item,

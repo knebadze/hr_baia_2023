@@ -163,49 +163,7 @@
                 this.showSendMessageModal = !this.showSendMessageModal
                 this.item = {'id': item.id, 'number': item.number}
             },
-            // candidateDelete(id){
-            //     let currentObj = this
-            //     this.$swal({
-            //         title: 'ნამდვილად გსურთ წაშლა?',
-            //         // html:'ცვლილება ავტომატურად მოხსნის კანდიდატს ვაკანის დასაქმებული სტატუსიდან',
-            //         //   showDenyButton: true,
-            //         cancelButtonText:'არა',
-            //         confirmButtonText: 'კი',
-            //         showCancelButton: true,
-            //     }).then((result) => {
-            //     /* Read more about isConfirmed, isDenied below */
-            //     // return
-            //         if (result.isConfirmed) {
-            //             axios({
-            //                 method: "post",
-            //                 url: "/delete_candidate",
-            //                 data: {'id': id},
 
-            //             })
-            //             .then(function (response) {
-            //                 // console.log(response.data);
-            //                 if (response.data.status == 200) {
-
-            //                     toast.success('წარმატებით წაიშალა', {
-            //                         theme: 'colored',
-            //                         autoClose: 1000,
-            //                     });
-            //                     setTimeout(() => {
-            //                         document.location.reload();
-            //                     }, 1500);
-
-            //                 }
-            //             })
-            //             .catch(function (error) {
-            //                 // handle error
-            //                 console.log(error);
-            //             })
-
-            //         } else if (result.isDenied) {
-            //             return
-            //         }
-            //     });
-            // }
 
         }
     }

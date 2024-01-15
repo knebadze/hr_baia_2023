@@ -37,7 +37,6 @@ export default {
         data: Object
     },
     setup(props) {
-        console.log(props.data);
         const showModal = ref(false);
         const modalData = ref(null)
         const openModal = (item) =>{

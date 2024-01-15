@@ -277,7 +277,6 @@ export default {
 
     },
     created() {
-        console.log(this.data);
         this.getData()
         // this.role_id = this.data.role_id
         let arr = [
@@ -336,13 +335,11 @@ export default {
                 data: m,
             })
             .then(function (response) {
-                // console.log('response.data', response.data);
                 currentObj.pagination = {
                     'current_page':response.data.current_page,
                     'last_page': response.data.last_page
                 }
                 currentObj.items = response.data.data
-                // console.log('this.items', currentObj.items);
 
 
 

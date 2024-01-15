@@ -97,7 +97,6 @@ export default {
     },
 
     mounted() {
-        // console.log('data', this.data);
     },
 
 }

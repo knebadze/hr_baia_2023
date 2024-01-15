@@ -89,25 +89,13 @@
                 this.showConfirm = true
                 this.m = {...this.item}
                 this.m.total_salary = Number(this.m.full_salary) + Number(this.m.supplement)
-                // this.m.type = this.cla.find((element) => element.id == this.item.type)
-                // try {
-                //     let result = await this.getClassificatory();
-                //     console.log('result', result.data);
-                //     this.cla = result.data.cla
-                //     this.check = result.data.check
-                //     this.m = this.item
-                //     // console.log(this.m);
-                //     this.showConfirm = true
-                // } catch (error) {
-                //     console.log(error);
-                // }
+
 
             },
             hide(){
                 this.showConfirm = false
             },
             supplement(item){
-                // console.log('item', item);
                 this.m.total_salary = Number(this.m.full_salary) + Number(this.m.supplement)
             },
             save(){

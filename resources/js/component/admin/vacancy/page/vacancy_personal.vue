@@ -62,7 +62,6 @@ export default {
 
             return  data;
         })
-        console.log(items.value);
 
         return {
             tableConfig
