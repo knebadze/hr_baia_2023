@@ -37,7 +37,7 @@ class SelectionPersonalController extends Controller
         $vacancy = Vacancy::where('id', $id)->with([
             'vacancyDuty', 'vacancyBenefit', 'vacancyForWhoNeed', 'characteristic', 'employer', 'currency','category', 'status',
             'workSchedule', 'vacancyInterest', 'interviewPlace','term', 'demand', 'demand.language', 'demand.education', 'demand.languageLevel','demand.specialty',
-            'employer.numberCode','deposit'
+            'employer.numberCode','deposit', 'getVacancyDrivingLicense.drivingLicense'
 
             ])->first();
 
@@ -157,6 +157,7 @@ class SelectionPersonalController extends Controller
 
     function addPersonal(Request $request) {
         $data = $request->data;
+
         $result = ['status' => 200];
 
         try {

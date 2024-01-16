@@ -375,6 +375,7 @@ export default {
 
     },
     created(){
+        console.log(this.data);
         this.cla = this.data.classificatory
         this.m.height = [150, 200]
         this.m.weight = [60, 90]
@@ -391,6 +392,8 @@ export default {
             this.m.age = [18, 80]
         }
 
+        this.m.drivingLicense = [this.data.vacancy.get_vacancy_driving_license.driving_license]
+        console.log(this.m.drivingLicense);
         this.m.characteristic = (this.data.vacancy.characteristic)?this.data.vacancy.characteristic:''
         this.m.go_vacation = (this.data.vacancy.go_vacation == 1 )?true:''
         this.m.work_additional_hours = (this.data.vacancy.work_additional_hours == 1 )?true:''

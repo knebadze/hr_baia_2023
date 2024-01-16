@@ -278,17 +278,17 @@
                                         <label class="form-check-label" for="exampleCheck5">რეკომენდაცია</label>
                                     </div>
                                 </div>
-                                <div class="col-xl-4 col-lg-6 col-md-12 mt-3" v-if="roleId == 2">
+                                <!-- <div class="col-xl-4 col-lg-6 col-md-12 mt-3" v-if="roleId == 2">
                                     <div class=" form-check">
                                         <input type="checkbox" class="form-check-input" id="exampleCheck6" value="true" v-model="m.hr">
                                         <label class="form-check-label" for="exampleCheck6">ჩემი ვაკანსიები</label>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
 
                         </div>
                         <div class="card-footer ">
-                            <button type="button" class="btn btn-primary" @click="endFilter()"><i class="fa fa-times"></i> ფილტრის გამორთვა</button>
+                            <!-- <button type="button" class="btn btn-primary" @click="endFilter()"><i class="fa fa-times"></i> ფილტრის გამორთვა</button> -->
                             <button type="button" class="btn btn-success float-right" @click="filterMeth( 'filter', m )"><i class="fa fa-search"></i> ძებნა</button>
                         </div>
                     </div>
@@ -299,11 +299,12 @@
 
             </div>
         </div>
+
         <div class="my-2 d-flex justify-content-end">
             <button type="button" class="btn btn-success" @click="addVacancy()"><i class="fa fa-plus"></i> ვაკანსისი დამატება</button>
         </div>
-        <vacancy_table v-if="Object.keys(items).length > 0"  :data="items" :hrId="hrId" :classificatory="tableCla" :roleId="roleId"  :key="tableKey"></vacancy_table>
-
+        <!-- <vacancy_table v-if=Object.keys(items).length != 0"/> -->
+        <vacancy_table v-if="Object.keys(items).length != 0"  :data="items" :hrId="hrId" :classificatory="tableCla" :roleId="roleId"  :key="tableKey" ></vacancy_table>
 
     <div class="mt-2">
         <paginate

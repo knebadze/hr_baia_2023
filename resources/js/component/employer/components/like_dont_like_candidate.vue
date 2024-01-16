@@ -43,7 +43,7 @@ export default {
                         if (response.status == 200) {
                             if (showButton.value) {
                                 let url = new URL(location.href)
-                                window.location.replace(`${url.origin}/ka`);
+                                window.location.replace(`${url.origin}/${getLang.value}/candidate_search/[${response.data.vacancy.category_id}]`);
                             }else{
                                 emit('newData', id, 0)
                             }
@@ -83,7 +83,7 @@ export default {
                     .then(function (response) {
                         if (response.status == 200) {
                             if (showButton.value) {
-                                window.location.replace(`${url.origin}/ka`);
+                                window.location.replace(`${url.origin}/${getLang.value}/candidate_search/[${response.data.vacancy.category_id}]`);
                             }else{
                                 emit('newData', id, 1)
                             }

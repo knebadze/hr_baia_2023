@@ -7,7 +7,7 @@
 <div class="page-content">
 
     <!--Banner Start-->
-    <div class="twm-home1-banner-section site-bg-gray bg-cover" style="background-image:url(images/main-slider/slider1/bg1.jpg)">
+    <div class="twm-home1-banner-section site-bg-gray bg-cover" style="background-image:url({{ asset('images/main-slider/slider1/bg1.jpg') }})">
 
         <div class="row">
             <!--Left Section-->
@@ -85,13 +85,13 @@
                         <div class="owl-carousel twm-h1-bnr-carousal">
                             <div class="item">
                               <div class="slide-img">
-                                <img src="images/main-slider/slider1/r-img1.png" alt="#">
+                                <img src="{{ asset('images/main-slider/slider1/r-img1.png') }}" alt="#">
                               </div>
                             </div>
                             <div class="item">
                               <div class="slide-img">
                                 {{-- <div class="slide-img"> --}}
-                                    <img src="images/main-slider/slider1/r-img2.png" alt="#">
+                                    <img src="{{ asset('images/main-slider/slider1/r-img2.png') }}" alt="#">
                                 {{-- </div> --}}
                               </div>
                             </div>
@@ -103,7 +103,7 @@
                             <!--icon-block-1-->
                             <div class="twm-bnr-blocks twm-bnr-blocks-position-1">
                                 <div class="twm-icon">
-                                    <img src="images/main-slider/slider1/icon-1.png" alt="">
+                                    <img src="{{ asset('images/main-slider/slider1/icon-1.png') }}" alt="">
                                 </div>
                                 <div class="twm-content">
                                     <div class="tw-count-number text-clr-sky">
@@ -117,7 +117,7 @@
                             <!--icon-block-2-->
                             <div class="twm-bnr-blocks twm-bnr-blocks-position-2">
                                 <div class="twm-icon">
-                                    <img src="images/main-slider/slider1/icon-2.png" alt="">
+                                    <img src="{{ asset('images/main-slider/slider1/icon-2.png') }}" alt="">
                                 </div>
                                 <div class="twm-content">
                                     <div class="tw-count-number text-clr-pink">
@@ -131,12 +131,12 @@
                             <!--icon-block-3-->
                             <div class="twm-bnr-blocks-3 twm-bnr-blocks-position-3">
                                 <div class="twm-pics">
-                                    <span><img src="images/main-slider/slider1/user/u-1.jpg" alt=""></span>
-                                    <span><img src="images/main-slider/slider1/user/u-2.jpg" alt=""></span>
-                                    <span><img src="images/main-slider/slider1/user/u-3.jpg" alt=""></span>
-                                    <span><img src="images/main-slider/slider1/user/u-4.jpg" alt=""></span>
-                                    <span><img src="images/main-slider/slider1/user/u-5.jpg" alt=""></span>
-                                    <span><img src="images/main-slider/slider1/user/u-6.jpg" alt=""></span>
+                                    <span><img src="{{ asset('images/main-slider/slider1/user/u-1.jpg') }}" alt=""></span>
+                                    <span><img src="{{ asset('images/main-slider/slider1/user/u-2.jpg') }}" alt=""></span>
+                                    <span><img src="{{ asset('images/main-slider/slider1/user/u-3.jpg') }}" alt=""></span>
+                                    <span><img src="{{ asset('images/main-slider/slider1/user/u-4.jpg') }}" alt=""></span>
+                                    <span><img src="{{ asset('images/main-slider/slider1/user/u-5.jpg') }}" alt=""></span>
+                                    <span><img src="{{ asset('images/main-slider/slider1/user/u-6.jpg') }}" alt=""></span>
                                 </div>
                                 <div class="twm-content">
                                     <div class="tw-count-number text-clr-green">
@@ -268,25 +268,7 @@
                <div class="twm-jobs-list-wrap">
                    <ul>
                     <popular-vacancy :items='@json($data['popularVacancy'])' :auth='@json($auth)'></popular-vacancy>
-                        {{-- <li>
-                            <div class="twm-jobs-list-style1 mb-5">
-                                <div class="twm-media">
-                                    <img src="images/jobs-company/pic1.jpg" alt="#">
-                                </div>
-                                <div class="twm-mid-content">
-                                    <a href="job-detail.html" class="twm-job-title">
-                                        <h4>Senior Web Designer , Developer  <span class="twm-job-post-duration">/ 1 days ago</span></h4>
-                                    </a>
-                                    <p class="twm-job-address">1363-1385 Sunset Blvd Los Angeles, CA 90026, USA</p>
-                                    <a href="https://themeforest.net/user/thewebmax/portfolio" class="twm-job-websites site-text-primary">https://thewebmax.com</a>
-                                </div>
-                                <div class="twm-right-content">
-                                    <div class="twm-jobs-category green"><span class="twm-bg-green">New</span></div>
-                                    <div class="twm-jobs-amount">$2500 <span>/ Month</span></div>
-                                    <a href="job-detail.html" class="twm-jobs-browse site-text-primary">Browse Job</a>
-                                </div>
-                            </div>
-                        </li> --}}
+                     
 
                    </ul>
                    <div class="text-center m-b30">
@@ -323,74 +305,6 @@
 
                         {{-- <div class="owl-carousel twm-testimonial-1-carousel owl-btn-bottom-center "> --}}
                             <testimonial-carousel :data='@json($data['testimonial'])'></testimonial-carousel>
-                            <!-- COLUMNS 1 -->
-                            {{-- <div class="item ">
-                                <div class="twm-testimonial-1">
-                                    <div class="twm-testimonial-1-content">
-                                        <div class="twm-testi-media">
-                                            <img src="images/testimonials/pic-1.png" alt="#">
-                                        </div>
-                                        <div class="twm-testi-content">
-                                            <div class="twm-quote">
-                                                <img src="images/quote-dark.png" alt="">
-                                            </div>
-                                            <div class="twm-testi-info">I just got a job that I applied for via careerfy! I used the site all the time during my job hunt.</div>
-                                            <div class="twm-testi-detail">
-                                                <div class="twm-testi-name">Nikola Tesla</div>
-                                                <div class="twm-testi-position">Accountant</div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div> --}}
-
-                            <!-- COLUMNS 2 -->
-                            {{-- <div class="item ">
-                                <div class="twm-testimonial-1">
-                                    <div class="twm-testimonial-1-content">
-                                        <div class="twm-testi-media">
-                                            <img src="images/testimonials/pic-2.png" alt="#">
-                                        </div>
-                                        <div class="twm-testi-content">
-                                            <div class="twm-quote">
-                                                <img src="images/quote-dark.png" alt="">
-                                            </div>
-                                            <div class="twm-testi-info">I just got a job that I applied for via careerfy! I used the site all the time during my job hunt.</div>
-                                            <div class="twm-testi-detail">
-                                                <div class="twm-testi-name">Nikola Tesla</div>
-                                                <div class="twm-testi-position">Accountant</div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div> --}}
-
-                            <!-- COLUMNS 3 -->
-                            {{-- <div class="item ">
-                                <div class="twm-testimonial-1">
-                                    <div class="twm-testimonial-1-content">
-                                        <div class="twm-testi-media">
-                                            <img src="images/testimonials/pic-3.png" alt="#">
-                                        </div>
-                                        <div class="twm-testi-content">
-                                            <div class="twm-quote">
-                                                <img src="images/quote-dark.png" alt="">
-                                            </div>
-                                            <div class="twm-testi-info">I just got a job that I applied for via careerfy! I used the site all the time during my job hunt.</div>
-                                            <div class="twm-testi-detail">
-                                                <div class="twm-testi-name">Nikola Tesla</div>
-                                                <div class="twm-testi-position">Accountant</div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div> --}}
-
-
-                        {{-- </div> --}}
 
                     </div>
                 </div>

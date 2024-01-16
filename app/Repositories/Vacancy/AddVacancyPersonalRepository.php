@@ -75,7 +75,7 @@ class AddVacancyPersonalRepository
         $qualifying = QualifyingCandidate::where('candidate_id', $data['candidate_id'])->where('vacancy_id', $data['vacancy_id'])->first();
         $qualifying->qualifying_type_id = $data['type']['id'];
         $qualifying->status_id = null;
-        if ($data['type']['id'] == 3) {
+        if ($data['type']['id'] == 4) {
             $qualifying->interview_date = $data['interview_date'];
             $qualifying->interview_place_id = $data['interview_place']['id'];
             $reminderText = 'კანდიდატი (ID: '.$data['candidate_id'].') შევიდა გასაუბრებაზე, უნდა გადავამოწმო როგორ ჩაიარა გასაუბრებამ';
@@ -349,9 +349,9 @@ class AddVacancyPersonalRepository
                 $data = [
                     'to' => $employer_number,
                     'dateTime' => $qualifying->interview_date,
-                    'place' => $qualifying->interviewPlace,
-                    'cName' => $candidate_name,
-                    'cNumber' => $candidate_number,
+                    'place' => $qualifying->interviewPlace->name_ka,
+                    'cName' => $qualifying->interview_place_id != 2?$candidate_name:'',
+                    'cNumber' => $qualifying->interview_place_id != 2?$candidate_number:'',
                     'name' => $hr_name,
                     'number' => $hr_number,
                     'link' => route('candidate-detail', [
@@ -366,9 +366,9 @@ class AddVacancyPersonalRepository
                 $data = [
                     'to' => $candidate_number,
                     'dateTime' => $qualifying->interview_date,
-                    'place' => $qualifying->interviewPlace,
-                    'eName' => $employer_name,
-                    'eNumber' => $employer_number,
+                    'place' => $qualifying->interviewPlace->name_ka,
+                    'eName' => $qualifying->interview_place_id != 2? $employer_name:'',
+                    'eNumber' => $qualifying->interview_place_id != 2?$employer_number:'',
                     'name' => $hr_name,
                     'number' => $hr_number,
                     'link' => route('job.detail', [

@@ -93,10 +93,10 @@ class EnrollmentService
             $result = $this->enrollmentAgreeRepository->agree($data);
             $currentUrl = url()->current();
             $parsedUrl = parse_url($currentUrl);
-            $hr = Hr::where('id', $data['author_id'])->first();
+            $user = User::where('id', $data['author_id'])->first();
             // Create the base URL
             $baseUrl = $parsedUrl['scheme'] . '://' . $parsedUrl['host'].':'.$parsedUrl['port'];
-            $smsData = ['to' => $hr->user->number, 'money' => $data['money'], 'code'=> $data['code'], 'url' => $baseUrl.'/admin/enrollment'];
+            $smsData = ['to' => $user->number, 'money' => $data['money'], 'code'=> $data['code'], 'url' => $baseUrl.'/admin/enrollment'];
             $this->enrollmentRepository->sendSms($smsData, 'confirmed_enrollment_hr');
             return $result;
         } catch (\Exception $e) {

@@ -10,7 +10,7 @@
                             </div>
                             <div class="twm-testi-content">
                                 <div class="twm-quote">
-                                    <img :src="localImage" alt="">
+                                    <img :src="`/storage/images/quote-dark.png`" alt="">
                                 </div>
                                 <div class="twm-testi-info">{{ slide[`text_${getLang}`] }}</div>
                                 <div class="twm-testi-detail">
@@ -70,9 +70,6 @@
                 snapAlign: 'center',
             }
         },
-        localImage(){
-            return 'storage/images/quote-dark.png'
-        }
     },
     created() {
         this.items = this.data;

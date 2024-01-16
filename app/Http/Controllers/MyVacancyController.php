@@ -40,9 +40,10 @@ class MyVacancyController extends Controller
             if ($employer->number_code_id == 79 && strlen($request->number) == 9) {
                 $sendSms = new SmsService();
                 $randomNumber = rand(10000, 99999);
+                $employer->update(['verify_code' => $randomNumber]);
                 $sendSms->sendSms($request->number, 'verify code:'.$randomNumber);
             }
-            $result = ['type' => 's','randomNumber' => $randomNumber];
+            $result = ['type' => 's'];
         }else{
             $result = ['type' => 'e'];
         }
@@ -132,8 +133,9 @@ class MyVacancyController extends Controller
     {
 
         try {
-            $qualifying = QualifyingCandidate::where('id', $request['id'])->first();
-            $result = $qualifying->update(['employer_answer' => 0]);
+            $qualifying = QualifyingCandidate::where('id', $request['id'])->with('vacancy')->first();
+            $qualifying->update(['employer_answer' => 0]);
+            $result = $qualifying;
             $this->sendSms($qualifying);
         } catch (Exception $e) {
             $result = [
@@ -150,8 +152,9 @@ class MyVacancyController extends Controller
     public function like(Request $request)
     {
         try {
-            $qualifying = QualifyingCandidate::where('id', $request['id'])->first();
-            $result = $qualifying->update(['employer_answer' => 1, 'qualifying_type_id' => 3]);
+            $qualifying = QualifyingCandidate::where('id', $request['id'])->with('vacancy')->first();
+            $qualifying->update(['employer_answer' => 1, 'qualifying_type_id' => 3]);
+            $result = $qualifying;
             $this->sendSms($qualifying);
         } catch (Exception $e) {
             $result = [

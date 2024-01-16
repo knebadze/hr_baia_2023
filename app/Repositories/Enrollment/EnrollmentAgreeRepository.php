@@ -138,6 +138,7 @@ class EnrollmentAgreeRepository
             }
             return $salary;
         } catch (\Throwable $th) {
+            dd($th);
             throw new \Exception("An error occurred during enrollment agreement: " . $th->getMessage(), 500);
         }
 

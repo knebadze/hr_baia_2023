@@ -17,7 +17,7 @@
                                         <!-- <div class="twm-candi-fee">$20 / Day</div> -->
                                         <h3 style="color: white">{{ data.status[`name_${getLang}`] }}</h3>
                                         <div class="twm-media">
-                                            <img :src="'/images/user-avatar/'+data.user.avatar" alt="#">
+                                            <img :src="`/storage/${data.user.avatar}`" alt="#">
                                         </div>
                                         <div class="twm-mid-content">
 

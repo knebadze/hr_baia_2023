@@ -33,7 +33,7 @@
                     </div>
                 </div>
             </div>
-            <verify_code_div :visible="showVerifyCodeInput" :verifyNumber="verifyNumber" @sendParentAction="handlerAction"/>
+            <verify_code_div :visible="showVerifyCodeInput" :item="checkAndVerifyData" @sendParentAction="handlerAction" :key="componentKey"/>
             <my_vacancy_table v-if="tableData" :items="tableData"/>
 
 
@@ -65,8 +65,9 @@ export default {
 
         const number = ref(null);
         const showVerifyCodeInput = ref(false);
-        const verifyNumber = ref(null);
         const tableData = ref(null);
+        let checkAndVerifyData = ref({});
+        const componentKey = ref(0);
 
         const verify = () =>{
             axios({
@@ -78,7 +79,6 @@ export default {
             .then(function (response) {
                 if (response.data.type == 's') {
                     showVerifyCodeInput.value = !showVerifyCodeInput.value
-                    verifyNumber.value = response.data.randomNumber
                 }else{
                     Swal.fire({
                         title: '<strong>თქვენ არ გაქვთ აქტიური ვაკანსია</strong>',
@@ -105,6 +105,12 @@ export default {
                 // handle error
                 console.log(error);
             })
+
+            checkAndVerifyData.value = {
+                type: "employer",
+                number: number.value
+            };
+            componentKey++
         };
 
         const find = () =>{
@@ -134,12 +140,12 @@ export default {
             number,
             verify,
             showVerifyCodeInput,
-            verifyNumber,
             handlerAction,
-            tableData
+            tableData,
+            checkAndVerifyData
         }
     },
-    
+
 }
 </script>
 <style lang="">
