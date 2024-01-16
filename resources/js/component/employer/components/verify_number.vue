@@ -286,7 +286,7 @@ export default defineComponent({
 </script>
 <style scoped>
 .main {
-    background-image: url('/public/public/images/candidates/candidate-bg2.jpg');
+    background-image: url('/public/images/candidates/candidate-bg2.jpg');
     background-position: center;
     background-repeat: no-repeat;
     width: 100%;

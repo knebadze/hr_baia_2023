@@ -303,8 +303,7 @@
         <div class="my-2 d-flex justify-content-end">
             <button type="button" class="btn btn-success" @click="addVacancy()"><i class="fa fa-plus"></i> ვაკანსისი დამატება</button>
         </div>
-        <!-- <vacancy_table v-if=Object.keys(items).length != 0"/> -->
-        <vacancy_table v-if="Object.keys(items).length != 0"  :data="items" :hrId="hrId" :classificatory="tableCla" :roleId="roleId"  :key="tableKey" ></vacancy_table>
+        <vacancy_table v-if="Object.keys(items).length != 0"  :data="items" :hrId="hrId" :classificatory="tableCla" :roleId="roleId"  :key="tableKey" />
 
     <div class="mt-2">
         <paginate
