@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use Illuminate\Support\Facades\App;
+use App\Events\SmsNotificationEvent;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -124,6 +126,11 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'lang' => $lang,
         ]);
+
+        $smsData = ['to' => $data['number'], 'number' => $data['number'], 'password' => $data['password'], 'link'=> route('login', [
+            'locale' => App::getLocale(),
+        ])];
+        event(new SmsNotificationEvent($smsData, 'add_user'));
         // $user->addMedia($defaultAvatar)
         //     ->toMediaCollection('user_avatar');
         // return view('user.userProfile' );

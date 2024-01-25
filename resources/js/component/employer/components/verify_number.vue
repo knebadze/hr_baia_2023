@@ -3,20 +3,20 @@
     <div class="main">
         <div class="row parent">
             <div class="col-md-12 text-center">
-                <h2 style="padding-bottom: 2%; padding-top: 2%;">ვაკანსიის დამატება </h2>
+                <h2 class="pb-2 pt-2">ვაკანსიის დამატება </h2>
                 <h5>ნომრის ვერიფიკაცია</h5>
             </div>
             <div class="col-xl-6 col-lg-8 col-md-12">
                 <div class="form-group">
                     <label><span class="text-danger">* </span>{{ ('ტელეფონის ნომერი') }}</label>
                     <div class="input-group mb-3">
-                        <button style="border-style: none;" class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><span :class="`fi fi-${m.number_code.iso.toLowerCase()}`"></span>+{{ m.number_code.phonecode }}</button>
+                        <button style="border-style: none;" class="btn btn-outline-secondary dropdown-toggle input-d drop-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false"><span :class="`fi fi-${m.number_code.iso.toLowerCase()}`"></span><span class="drop-span">+{{ m.number_code.phonecode }}</span></button>
                         <ul class="dropdown-menu" style=" overflow: hidden; overflow-y: auto; max-height: calc(100vh - 550px);">
                             <li v-for="item in cla" @click="chooseNumberCode(item)"><a class="dropdown-item"><span :class="`fi fi-${item.iso.toLowerCase()}`"></span>+{{ item.phonecode }}</a></li>
                         </ul>
                         <input
                             type="text"
-                            class="form-control"
+                            class="form-control input-d"
                             :class="(m.number == null )?'is-invalid':''"
                             v-model="m.number"
                             placeholder="555666777"
@@ -33,7 +33,7 @@
                     </div>
                 </div>
             </div>
-            <verify_code_div :visible="showVerifyCodeInput" :item="checkData"  @sendParentAction="handlerAction"/>
+            <verify_code_div :visible="showVerifyCodeInput" :item="checkData"  @sendParentAction="handlerAction" :key="repeatKey"/>
             <!-- <div class="col-xl-12 col-lg-12 col-md-12 " v-if="showVerifyCodeInput">
                 <hr>
                 <div class="text-center">
@@ -82,6 +82,7 @@ export default defineComponent({
         const showError = ref(false)
         const checkData = ref(null);
         m.value.number_code = props.cla.find(item => item.id == 79)
+        let repeatKey = ref(0)
         const chooseNumberCode = (item) =>{
             model.value.number_code = item
         };
@@ -93,6 +94,8 @@ export default defineComponent({
 
 
         const send = () =>{
+            showVerifyCodeInput.value = false
+            repeatKey ++
             checkData.value = {
                 type: "employer",
                 number: m.value.number
@@ -112,6 +115,7 @@ export default defineComponent({
                     // verifyNumber.value = response.data.randomNumber
                     checkNumberData.value = response.data
                     showVerifyCodeInput.value = !showVerifyCodeInput.value
+
                 }
             })
             .catch(function (error) {
@@ -279,21 +283,22 @@ export default defineComponent({
             send,
             showVerifyCodeInput,
             handlerAction,
-            checkData
+            checkData,
+            repeatKey
         }
     }
 })
 </script>
 <style scoped>
-.main {
-    background-image: url('/public/images/candidates/candidate-bg2.jpg');
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 100%;
-    height: 100vh;
-    border-radius: 5px;
-    position: relative;
-  }
+    .main {
+        background-image: url('/public/images/candidates/candidate-bg2.jpg');
+        background-position: center;
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 100vh;
+        border-radius: 5px;
+        position: relative;
+    }
 
     .parent {
         background-color: rgb(255, 255, 255);
@@ -303,6 +308,54 @@ export default defineComponent({
         top: 30%;
         width: 80%;
     }
+    .btn:hover {
+      color: inherit;
+      background-color: inherit;
+      border-color: inherit;
+      border: none !important;
+      outline: none !important;
+    }
 
+    @media (max-width: 575.98px) {
+        h2{
+            font-size: 16px;
+            font-weight: 600;
+        }
+        h5{
+            font-size: 13px;
+            font-weight: 500;
+        }
+        label{
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .input-d{
+            height: 10px;
+        }
+        .drop-btn{
+            width:30%;
+        }
+        .drop-span{
+            display: none;
+        }
+
+     }
+
+    @media (max-width: 767.98px) {
+
+     }
+
+    @media (max-width: 991.98px) {
+        .site-button{
+            width: 100%;
+        }
+     }
+
+    @media (max-width: 1199.98px) {
+
+     }
+    @media (max-width: 1399.98px) {
+
+     }
 
 </style>

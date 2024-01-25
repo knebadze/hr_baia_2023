@@ -1031,6 +1031,31 @@ export default {
     },
 };
 </script>
-<style lang="">
-
+<style scoped>
+    @media (max-width: 575.98px) {
+        h2{
+            font-size: 16px;
+            font-weight: 600;
+        }
+        h4{
+            font-size: 14px;
+            font-weight: 600;
+        }
+        label{
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .input-d{
+            height: 10px;
+        }
+        .drop-btn{
+            width:30%;
+        }
+        .drop-span{
+            display: none;
+        }
+        .site-button{
+            width: 100%;
+        }
+     }
 </style>

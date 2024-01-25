@@ -56,6 +56,7 @@ export default {
             if (newValue == true) {
                 showDiv.value = true
                 setupTimeout();
+                countdown.value = 60
             }else{
                 showDiv.value = false
             }

@@ -17,7 +17,7 @@
 
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-xl-8 col-lg-6 col-md-5 twm-log-reg-media-wrap">
+                    <div class="col-xl-8 col-lg-6 col-md-5 twm-log-reg-media-wrap d-none d-md-block">
                         <div class="twm-log-reg-media">
                             <div class="twm-l-media">
                                 <img src="{{ asset('images/login-bg.png') }}" alt="">
