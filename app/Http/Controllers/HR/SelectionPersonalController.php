@@ -120,7 +120,7 @@ class SelectionPersonalController extends Controller
             $coll = collect($filteredArray);
 
             $containsHrId = $coll->contains(function ($item, $key) {
-                return  $item['vacancy']['hr_id'] === Auth::user()->hr->id;
+                return  Auth::user()->role_id == 2 && $item['vacancy']['hr_id'] === Auth::user()->hr->id;
             });
 
             if ($containsHrId) {
