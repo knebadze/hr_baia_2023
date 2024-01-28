@@ -986,10 +986,11 @@ export default {
                     }).then((result) => {
                         if (result.isConfirmed) {
                             let url = new URL( location.href)
-                            if (props.data.model.role_id == 3) {
-                                window.location.replace(`${url.origin}/${getLang.value}/candidate_search/[${id}]`);
-                            }else{
+                            if (props.data.model.role_id == 1) {
                                 window.location.replace( `${url.origin}/admin/vacancy?ka`);
+
+                            }else{
+                                window.location.replace(`${url.origin}/${getLang.value}/candidate_search/[${id}]`);
                             }
 
                         }

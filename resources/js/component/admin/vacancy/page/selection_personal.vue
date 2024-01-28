@@ -392,7 +392,7 @@ export default {
             this.m.age = [18, 80]
         }
 
-        this.m.drivingLicense = [this.data.vacancy.get_vacancy_driving_license.driving_license]
+        this.m.drivingLicense = this.data.vacancy.get_vacancy_driving_license&&[this.data.vacancy.get_vacancy_driving_license.driving_license]
         console.log(this.m.drivingLicense);
         this.m.characteristic = (this.data.vacancy.characteristic)?this.data.vacancy.characteristic:''
         this.m.go_vacation = (this.data.vacancy.go_vacation == 1 )?true:''

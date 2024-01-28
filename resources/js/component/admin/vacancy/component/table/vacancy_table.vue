@@ -8,14 +8,15 @@
         table-class-name="customize-table"
         border-cell
         :filter-options="filterOptions"
+
     >
-        <template #item-operation="item">
-            <div class="operation-wrapper">
-                <table_cog :item="item" :key="item.id"  :roleId="role_id"></table_cog>
+        <template #item-operation="item" >
+            <div class="operation-wrapper" >
+                <table_cog :item="item" :key="item.id"  :roleId="role_id" ></table_cog>
             </div>
 
         </template>
-        <template #item-category="item">
+        <template #item-category="item" >
 
         <span :class="`badge bg-${item.category.color} p-1`" >{{ item.category.name_ka }}</span>
     </template>

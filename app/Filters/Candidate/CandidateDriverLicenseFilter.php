@@ -8,7 +8,7 @@ class CandidateDriverLicenseFilter
     {
         $ids = collect($request)->pluck('id')->toArray();
         $query->whereHas('drivingLicense', function ($query) use ( $ids ) {
-            return $query->whereIn('driver_license_id', $ids );
+            return $query->whereIn('driving_license_id', $ids );
         });
 
     }

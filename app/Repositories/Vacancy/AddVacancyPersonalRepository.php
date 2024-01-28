@@ -333,13 +333,11 @@ class AddVacancyPersonalRepository
 
             case 2:
                 $notificationType = 'interested_candidate_employer';
-                $code = $employer_number . '-' . $qualifying->vacancy->code . '-' . $qualifying->candidate->id;
-                $encryptedCode = encrypt($code);
                 $data = [
                     'to' => $employer_number,
                     'link' => route('candidate.photo.questionnaire', [
                         'locale' => App::getLocale(),
-                        'code' => $encryptedCode,
+                        'id' => $qualifying->id,
                     ]),
                 ];
                 break;
