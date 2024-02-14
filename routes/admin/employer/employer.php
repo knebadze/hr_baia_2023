@@ -6,7 +6,7 @@ use App\Http\Controllers\Admin\EmployerController;
 // C
 
 // R
-
+Route::get('fetch_employer', [EmployerController::class, 'fetch']);
 // U
 Route::post('employer_update', [EmployerController::class, 'update']);
 

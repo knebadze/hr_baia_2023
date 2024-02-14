@@ -176,7 +176,7 @@
 
                             <div class="col-xl-4 col-lg-6 col-md-12" >
                                 <div class="form-group">
-                                    <label><span class="text-danger">* </span>{{ ('ვისთვის გესაჭიროებათ?') }}</label>
+                                    <label><span class="text-danger">* </span>{{  $t(!m.vacancy.category ?'ვისთვის გესაჭიროებათ?': m.vacancy.category.id != 4 && m.vacancy.category.id != 6?'ვისთვის გესაჭიროებათ?':'ფართის მოცულობა') }}</label>
                                     <div class="ls-inputicon-box">
                                         <multiselect
                                             v-model="m.for_who_need"
@@ -693,15 +693,15 @@ export default {
         // გამეორების დროს იგზავნება ობიექტი
         const queryString = url.search;
         const urlParams = new URLSearchParams(queryString);
-        const searchData = JSON.parse(decodeURIComponent(urlParams.get('data')));
-
+        const searchData = props.data.model.vacancy.id;
         const formData = {...props.data.model}
         const m = ref(formData)
+        // console.log(m);
 
         // formData.getLang = getLang;
         // formData.number_code = cla.value.numberCode.find(element => element.phonecode == 995);
 
-        const benefitText = ref((searchData)?searchData.vacancy_benefit.map(i => i.name_ka).join(', '):'');
+        const benefitText = ref((m.value.benefit)?m.value.benefit.map(i => i.name_ka).join(', '):'');
         const  localText = () => {
             return  {
                 '1':{
@@ -710,7 +710,7 @@ export default {
                     ru:'',
                 },
                 '2':{
-                    ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
+                    ka:'ორშაბათიდან შაბათის ჩათვლით',
                     en:'',
                     ru:'',
                 },
@@ -896,6 +896,7 @@ export default {
             data.employer[`street_${getLang.value}`] = data.employer.street
             data.vacancy[`additional_schedule_${getLang.value}`] = data.vacancy.additional_schedule
             data.vacancy[`title_${getLang.value}`] = data.vacancy.title
+            data.lang = getLang.value
             v.value.$touch();
             if (!v.value.$invalid) {
 

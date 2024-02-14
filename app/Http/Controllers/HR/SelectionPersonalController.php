@@ -73,7 +73,7 @@ class SelectionPersonalController extends Controller
 
     public function find(CandidateFilters $filters)  {
         // dd($filters);
-        $candidate = Candidate::filter($filters)
+        return Candidate::filter($filters)
             ->whereIn('status_id', [9, 11, 14])
             ->with([
                 'user', 'user.gender', 'specialty', 'nationality', 'religion', 'education', 'maritalStatus', 'citizenship',
@@ -81,9 +81,7 @@ class SelectionPersonalController extends Controller
                 'familyWorkExperience.noReason','familyWorkExperience.familyWorkDuty', 'recommendation', 'getWorkInformation',
                 'getWorkInformation.category','getWorkInformation.currency', 'getWorkInformation.workSchedule', 'qualifyingCandidate', 'qualifyingCandidate.vacancy', 'status'
             ])
-            ->get();
-        // dd($candidate);
-        return $candidate;
+            ->paginate(20)->toArray();
     }
 
     function addPersonalInfo(Request $request) {

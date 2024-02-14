@@ -11,20 +11,16 @@ use Illuminate\Support\Facades\Auth;
 use App\Services\VacancyStatusService;
 use App\Services\VacancyUpdateService;
 use App\Filters\Vacancy\Admin\VacancyFullFilters;
-use App\Repositories\Vacancy\VacancyRedactedRepository;
 
 class VacancyActionController extends Controller
 {
     private VacancyUpdateService $vacancyUpdateService;
-    private VacancyRedactedRepository $vacancyRedactedRepository;
     private VacancyStatusService $vacancyStatusService;
     public function __construct(VacancyUpdateService $vacancyUpdateService,
-        VacancyRedactedRepository $vacancyRedactedRepository,
         VacancyStatusService $vacancyStatusService
     )
     {
         $this->vacancyUpdateService = $vacancyUpdateService;
-        $this->vacancyRedactedRepository = $vacancyRedactedRepository;
         $this->vacancyStatusService = $vacancyStatusService;
     }
     public function update(Request $request) {
@@ -32,7 +28,7 @@ class VacancyActionController extends Controller
         $result = ['status' => 200];
 
         try {
-            $result['data'] = $this->vacancyUpdateService->updateData($data);
+            $result['data'] = $this->vacancyUpdateService->updateData($data, $request->ip());
         } catch (Exception $e) {
             $result = [
                 'status' => 500,
@@ -69,8 +65,7 @@ class VacancyActionController extends Controller
         $result = ['status' => 200];
 
         try {
-            Vacancy::where('id', $data['id'])->update(['carry_in_head_date' => Carbon::now()->toDateTimeString()]);
-            $result['data'] = $this->vacancyRedactedRepository->save($data['id'], $data['edit']);
+            $result['data'] = Vacancy::where('id', $data['id'])->update(['carry_in_head_date' => Carbon::now()->toDateTimeString()]);
         } catch (Exception $e) {
             $result = [
                 'status' => 500,

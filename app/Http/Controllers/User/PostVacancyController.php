@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use Exception;
+use App\Models\Vacancy;
 use App\Models\Employer;
 use App\Services\SmsService;
 use Illuminate\Http\Request;
@@ -24,21 +25,32 @@ class PostVacancyController extends Controller
         $this->vacancyService = $vacancyService;
         $this->classificatoryService = $classificatoryService;
     }
-    public function index()
+    public function index($lang, $id, $code)
     {
         $auth = Auth::user();
 
+        if ($id && $code) {
+            $vacancy = Vacancy::where('id', $id)->where('code', $code)->with([
+                'vacancyDuty', 'vacancyBenefit', 'vacancyForWhoNeed', 'characteristic', 'employer', 'currency','category', 'status',
+                'workSchedule', 'vacancyInterest', 'interviewPlace','term', 'demand', 'demand.language', 'demand.education', 'demand.languageLevel','demand.specialty',
+                'employer.numberCode','deposit','hr.user', 'vacancyDrivingLicense', 'reasonForCancel'
+                ])->first();
+            $employer = $vacancy->employer;
+            $demand = $vacancy->demand;
+        }else{
+            $employer = array_map(function ($item) { return ""; }, array_flip(Schema::getColumnListing('employers')));
+            $vacancy = array_map(function ($item) { return ""; }, array_flip(Schema::getColumnListing('vacancies')));
+            $demand = array_map(function ($item) { return ""; }, array_flip(Schema::getColumnListing('vacancy_demands')));
+        }
 
-        $employer = array_map(function ($item) { return ""; }, array_flip(Schema::getColumnListing('employers')));
-        $vacancy = array_map(function ($item) { return ""; }, array_flip(Schema::getColumnListing('vacancies')));
-        $demand = array_map(function ($item) { return ""; }, array_flip(Schema::getColumnListing('vacancy_demands')));
+        // dd($demand);
+
 
         $classificatoryArr = ['category', 'currency', 'workSchedule', 'educations', 'characteristic', 'duty',
         'languages', 'languageLevels', 'interviewPlace', 'term', 'benefit','forWhoNeed', 'numberCode', 'drivingLicense', 'vacancy_profession'];
         $classificatory = $this->classificatoryService->get($classificatoryArr);
         $classificatory['specialties'] = $classificatory['vacancy_profession'];
         // dd($classificatory);
-
 
         $data = [
             'model' => [

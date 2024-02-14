@@ -1,6 +1,7 @@
 // app.js
 import('./bootstrap');
 import {createApp} from 'vue/dist/vue.esm-bundler'
+import { createPinia } from 'pinia';
 import { i18nVue, I18n } from 'laravel-vue-i18n'
 import axios from 'axios';
 
@@ -35,6 +36,7 @@ window.toast = toast
 
 
 const app = createApp({});
+const pinia = createPinia();
 // Dynamic imports
 const importComponents = async () => {
     const [
@@ -236,6 +238,7 @@ const importComponents = async () => {
     app.use(VueSweetalert2);
     app.use(withUUID);
     app.use(Vue3FormWizard.default)
+    app.use(pinia);
     app.mount('#app');
   })();
 

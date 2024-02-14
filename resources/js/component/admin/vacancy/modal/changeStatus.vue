@@ -80,8 +80,9 @@
                     <hr>
                     <div class="row">
                         <div v-for="(item, index) in data.history" :key="index" class="col-md-5 ml-1 border">
-                            <p v-if="item.column_name == 'status'" class=''><strong>შეცვლის თარიღი: </strong><span>{{ changeFormat(item.created_at) }}</span></p>
-                            <p v-if="item.column_name == 'status'"  class=''><strong>ძველი სტატუსი: </strong><span>{{ JSON.parse(item.old_value).name_ka }}</span></p>
+                            <p class=''><strong>შეცვლის თარიღი: </strong><span>{{ changeFormat(item.created_at) }}</span></p>
+                            <p class=''><strong>ცვლილება: </strong><span>{{ item.properties }}</span></p>
+                            <p class=''><strong>შეცვალა: </strong><span>{{ item.name_ka }}</span></p>
                         </div>
                     </div>
 
@@ -184,15 +185,6 @@
                 return status
             };
 
-            const forItem = (item) => {
-                let editedFields = {}
-                for (const field in item) {
-                    if ( item[field] !== props.item[field] ) {
-                            editedFields[field] = props.item[field]
-                    }
-                }
-                return editedFields
-            };
 
             const statusInput = () => m.value.status;
             watch(statusInput, (newVal) => {
@@ -224,30 +216,29 @@
                     m.value['reminder'] = reminder.value
                 }
 
-                let editedFields = forItem(m.value)
                 axios.post('/update_vacancy_status' ,{
-                    data: {'model':m.value, 'edit': editedFields},
+                    data: {'model':m.value},
                 })
                 .then(function (response) {
                     // handle success
-                    if (response.status == 200 && response.data.data[0].type == 's') {
+                    if (response.status == 200 && response.data.data.type == 's') {
 
-                        toast.success(response.data.data[0].message, {
+                        toast.success(response.data.data.message, {
                             theme: 'colored',
                             autoClose: 1000,
                         });
                         setTimeout(() => {
                             document.location.reload();
                         }, 2000);
-                    }else if(response.status == 200 && response.data.data[0].type == 'e'){
-                        toast.error(response.data.data[0].message, {
+                    }else if(response.status == 200 && response.data.data.type == 'e'){
+                        toast.error(response.data.data.message, {
                             theme: 'colored',
                             autoClose: 1000,
                         });
 
 
-                    }else if(response.status == 200 && response.data.data[0].type == 'w'){
-                        toast.error(response.data.data[0].message, {
+                    }else if(response.status == 200 && response.data.data.type == 'w'){
+                        toast.error(response.data.data.message, {
                             theme: 'colored',
                             autoClose: 1000,
                         });

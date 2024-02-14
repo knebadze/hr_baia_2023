@@ -9,20 +9,22 @@
               </div>
               <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="form-group">
                             <label> ნომერი</label>
                             <input class="form-control" v-model="m.number" type="text">
                         </div>
                     </div>
-                    <div class="col-xl-6 col-lg-6 col-md-12">
+                    <div class="col-xl-12 col-lg-12 col-md-12">
                         <div class="form-group">
                             <label>დამატებითი ნომერი</label>
-                            <div class="ls-inputicon-box">
-                                <select class="form-control" id="exampleFormControlSelect1" v-model="m.additional_number" @input="choseEvent()">
-                                    <option value="">არცერთი</option>
-                                    <option v-for="(item, index) in cla" :key="index" :value="item">{{ `${item.number_code.phonecode}-${item.number} - ( ${item.number_owner.name_ka})`}} </option>
-                                </select>
+                            <div class="ls-inputicon-box d-flex">
+                                <button class="mr-2" :class="{'btn btn-secondary': true}" v-for="(item, index) in cla" :key="index" @click="choseNumber(item)">
+                                    {{ `${item.number_code.phonecode}-${item.number} - (${item.number_owner.name_ka})`}}
+                                </button>
+                                <button :class="{'btn btn-primary': true}" @click="choseNumber('main')">
+                                    {{item.number}} - (ძირითადი)
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -58,7 +60,8 @@
                 m: {},
                 reminder:{},
                 cla: null,
-                min:null
+                min:null,
+                selectNumber:0
             }
         },
         created(){
@@ -73,8 +76,10 @@
             async show(){
                 try {
                     let result = await this.getClassificatory();
+                    console.log(result);
                     this.cla = result.data
-                    this.m = this.item
+                    console.log(this.item);
+                    this.m = {...this.item}
                     this.showConfirm = true
                 } catch (error) {
                 }
@@ -89,12 +94,17 @@
                   })
 
             },
-            choseEvent(){
+            choseNumber(item){
+                if (item === 'main') {
+                    this.m.number = this.item.number
+                }else{
+                    this.m.number = item.number
+                }
             },
             save(){
                 let currentObj = this
                 this.$swal({
-                    title: 'ნამდვილად გსურთ დასრულების თარიღის გადაწევა?',
+                    title: 'ნამდვილად გსურთ სმს გაგზავნა?',
                     // html:'ცვლილება ავტომატურად მოხსნის კანდიდატს ვაკანის დასაქმებული სტატუსიდან',
                     //   showDenyButton: true,
                     cancelButtonText:'არა',
@@ -106,18 +116,23 @@
                     if (result.isConfirmed) {
                         axios({
                             method: "post",
-                            url: "/move_end_date",
-                            data: {'model': this.m},
+                            url: "/send_sms_candidate",
+                            data:  this.m,
 
                         })
                         .then(function (response) {
-                            if (response.data.status == 200) {
+                            if (response.status == 200) {
 
-                                toast.success('წარმატებით განახლდა', {
+                                toast.success('წარმატებით გაიგზავნა', {
                                     theme: 'colored',
                                     autoClose: 1000,
                                 });
 
+                            }else{
+                                toast.error('ვერ გაიგზავნა', {
+                                    theme: 'colored',
+                                    autoClose: 1000,
+                                });
                             }
                         })
                         .catch(function (error) {
@@ -139,10 +154,6 @@
                     this.show()
                 },
             },
-            'm.additional_number': function(newVal, oldVal){
-                this.m.number = newVal.number
-
-            }
         }
   }
   </script>

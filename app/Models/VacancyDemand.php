@@ -4,17 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use OwenIt\Auditing\Contracts\Auditable;
-
-class VacancyDemand extends Model implements Auditable
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
+class VacancyDemand extends Model
 {
-    use HasFactory;
-    use \OwenIt\Auditing\Auditable;
+    use HasFactory, LogsActivity;
     protected $fillable = [
-        'vacancy_id ',
-        'min_age ',
+        'vacancy_id',
+        'min_age',
         'max_age',
-        'education_id ',
+        'education_id',
         'profession_id',
         'language_id',
         'language_level_id',
@@ -24,6 +23,15 @@ class VacancyDemand extends Model implements Auditable
         'has_experience',
         'has_recommendation',
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        $additionalArray  = ['language.name_ka', 'education.name_ka', 'languageLevel.name_ka', 'specialty.name_ka'];
+        $combinedArray = array_merge($this->fillable, $additionalArray);
+        $logOptions = LogOptions::defaults([])->logOnly($combinedArray)->logOnlyDirty();
+
+        return $logOptions;
+    }
 
     public function language()
     {

@@ -14,6 +14,7 @@ use App\Services\ClassificatoryService;
 use App\Filters\Candidate\CandidateFilters;
 use App\Models\Additional_number;
 use App\Services\Admin\CandidateUpdateService;
+use App\Services\SmsService;
 
 class AdminCandidateController extends Controller
 {
@@ -27,7 +28,25 @@ class AdminCandidateController extends Controller
     }
     public function index()
     {
-            $candidate = Candidate::orderBy('id', 'DESC')->with(
+
+
+                $candidateClassificatoryArr = [
+                    'gender', 'nationality', 'religions','educations', 'maritalStatus', 'citizenship', 'professions',
+                    'specialties', 'allergies', 'languages', 'languageLevels', 'workExperiences',  'drivingLicense','characteristic',
+                    'yesNo', 'category', 'workSchedule', 'candidateStatus', 'candidateStatus'
+                ];
+                $classificatory = $this->classificatoryService->get($candidateClassificatoryArr);
+                $data = [
+                    'classificatory' => $classificatory,
+                    'auth' => Auth::user()
+                ];
+        return view('admin.candidate', compact('data'));
+    }
+
+    function fetch(Request $request)  {
+        try {
+            // $perPage = $request->input('per_page', 20);
+            $data = Candidate::orderBy('id', 'DESC')->with(
                 [
                     'user.gender',
                     'user.registerLog',
@@ -53,23 +72,13 @@ class AdminCandidateController extends Controller
                     'drivingLicense',
                     'status',
 
-                ])->paginate(25)->toArray();
+                ])->paginate(20)->toArray();
+        } catch (\Throwable $th) {
+            throw $th;
+        }
 
-                $candidateClassificatoryArr = [
-                    'gender', 'nationality', 'religions','educations', 'maritalStatus', 'citizenship', 'professions',
-                    'specialties', 'allergies', 'languages', 'languageLevels', 'workExperiences',  'drivingLicense','characteristic',
-                    'yesNo', 'category', 'workSchedule', 'candidateStatus', 'candidateStatus'
-                ];
-                $classificatory = $this->classificatoryService->get($candidateClassificatoryArr);
-                $data = [
-                    'candidate' => $candidate,
-                    'classificatory' => $classificatory,
-                    'role_id' => Auth::user()->role_id,
-                    'hr_id' => Auth::id(),
-                ];
-        return view('admin.candidate', compact('data'));
+        return response()->json($data);
     }
-
 
     public function filter(CandidateFilters $filters)
     {
@@ -98,7 +107,7 @@ class AdminCandidateController extends Controller
                 'maritalStatus',
                 'drivingLicense',
                 'status',
-            ])->paginate(25)->toArray();
+            ])->paginate(20)->toArray();
     }
 
     public function workInfoData(Request $request)
@@ -251,4 +260,17 @@ class AdminCandidateController extends Controller
         return response()->json($data);
     }
 
+    function sendSms(Request $request) {
+        try {
+            $smsService = new SmsService();
+            $result = $smsService->sendSms($request->number, $request->text);
+        } catch (Exception $e) {
+            $result = [
+                'status' => 500,
+                'error' => $e->getMessage()
+            ];
+        }
+
+        return response()->json($result);
+    }
 }

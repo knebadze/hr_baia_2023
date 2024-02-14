@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminVacancyController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VacancyController;
 use App\Http\Controllers\VacancyActionController;
@@ -14,6 +15,7 @@ Route::post('send_add_vacancy_validate_sms', [PostVacancyController::class, 'ver
 Route::post('add_vacancy', [PostVacancyController::class, 'store']);
 
 // R
+Route::get('/get_vacancy', [AdminVacancyController::class, 'getData']);
 Route::post('/get_classificatory', [GetVacancyInfoController::class, 'getClassificatory']);
 Route::post('/get_vacancy_filter_classificatory', [GetVacancyInfoController::class, 'getVacancyFilterClassificatory']);
 Route::post('/get_status_change_info', [GetVacancyInfoController::class, 'statusChangeInfo']);

@@ -5,24 +5,20 @@ namespace App\Services;
 use App\Models\Vacancy;
 use App\Events\hrDailyJob;
 use Illuminate\Support\Carbon;
-use App\Repositories\Vacancy\VacancyRedactedRepository;
 use App\Repositories\Vacancy\VacancyStatusUpdateRepository;
 
 
 class VacancyStatusService
 {
-    protected VacancyRedactedRepository $vacancyRedactedRepository;
     protected VacancyStatusUpdateRepository $vacancyStatusUpdateRepository;
 
     public function __construct()
     {
-        $this->vacancyRedactedRepository = new VacancyRedactedRepository;
         $this->vacancyStatusUpdateRepository = new VacancyStatusUpdateRepository;
     }
 
     function service($data){
         // dd($data);
-        $history = [];
         $model = $data['model'];
         $update = $this->vacancyStatusUpdateRepository->update($model);
         $vacancy = Vacancy::where('id', $model['id'])->first();
@@ -51,10 +47,9 @@ class VacancyStatusService
             }
 
             // Save history after handling status updates
-            $history = $this->vacancyRedactedRepository->save($data['model']['id'], $data['edit']);
         }
 
-        $response = [$update, $history];
+        $response = $update;
         return $response;
 
 

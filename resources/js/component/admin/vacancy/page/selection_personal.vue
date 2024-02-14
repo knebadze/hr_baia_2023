@@ -346,14 +346,29 @@
     </div>
     <!-- /.container-fluid -->
     <select_personal_table v-if="candidate.length > 0" :data="modalData" :key="tableKey"></select_personal_table>
+    <div class="mt-2">
+            <paginate
+                v-model="pagination.current_page"
+                :page-count="pagination.last_page"
+                :page-range="3"
+                :margin-pages="2"
+                :click-handler="find"
+                :prev-text="'უკან'"
+                :next-text="'წინ'"
+                :container-class="'pagination'"
+                :page-class="'page-item'"
+            />
+        </div>
   </section>
 </template>
 <script>
 import Slider from '@vueform/slider'
 import select_personal_table from '../component/selectionPersonal/select_personal_table.vue'
+import paginate from 'vuejs-paginate-next';
 
 export default {
     components: {
+        paginate,
       Slider,
       select_personal_table
     },
@@ -369,6 +384,10 @@ export default {
             modalData:{},
             vacancy:null,
             tableKey: 0,
+            pagination:{
+                current_page: 1,
+                last_page: 2,
+            },
         }
     },
     computed:{
@@ -377,9 +396,9 @@ export default {
     created(){
         console.log(this.data);
         this.cla = this.data.classificatory
-        this.m.height = [150, 200]
-        this.m.weight = [60, 90]
-        this.m.payment = (this.data.vacancy.payment)?[this.data.vacancy.payment-200, this.data.vacancy.payment+200]:[500, 2000]
+        this.m.height = [140, 220]
+        this.m.weight = [40, 180]
+        this.m.payment = (this.data.vacancy.payment)?[this.data.vacancy.payment-300, this.data.vacancy.payment+300]:[100, 2000]
         this.m.category = this.data.vacancy.category
         this.m.work_schedule = this.data.vacancy.work_schedule
         if (this.data.vacancy.demand) {
@@ -389,11 +408,10 @@ export default {
             this.m.language = (this.data.vacancy.demand.language)?[this.data.vacancy.demand.language]:''
             this.m.language_level = (this.data.vacancy.demand.language_level)?[this.data.vacancy.demand.language_level]:''
         }else{
-            this.m.age = [18, 80]
+            this.m.age = [18, 100]
         }
 
-        this.m.drivingLicense = this.data.vacancy.get_vacancy_driving_license&&[this.data.vacancy.get_vacancy_driving_license.driving_license]
-        console.log(this.m.drivingLicense);
+        this.m.drivingLicense = this.data.vacancy.get_vacancy_driving_license.map((el) =>  el.driving_license)
         this.m.characteristic = (this.data.vacancy.characteristic)?this.data.vacancy.characteristic:''
         this.m.go_vacation = (this.data.vacancy.go_vacation == 1 )?true:''
         this.m.work_additional_hours = (this.data.vacancy.work_additional_hours == 1 )?true:''
@@ -431,16 +449,21 @@ export default {
             this.m = filteredObject;
             this.colspan = 'hide'
             let currentObj = this;
-            axios({
-                    method: "post",
-                    url: '/find_personal',
-                    data: this.m,
+            // axios({
+            //         method: "post",
+            //         url: '/find_personal',
+            //         data: this.m,
 
-                })
+            //     })
+            axios.post(`/find_personal?page=${this.pagination.current_page}`, this.m)
             .then(function (response) {
                 // handle success
-                currentObj.candidate = response.data
-                currentObj.modalData['candidate'] = response.data
+                currentObj.candidate = response.data.data
+                currentObj.modalData['candidate'] = response.data.data
+                currentObj.pagination = {
+                    'current_page':response.data.current_page,
+                    'last_page': response.data.last_page
+                }
                 currentObj.tableKey++
 
             })

@@ -81,7 +81,7 @@
         <!-- <div class="mb-2 d-flex justify-content-end">
             <a type="button" class="btn btn-success" :href="addCandidateUrl" title="კანდიდატის დამატება"><i class="fa fa-plus"></i> დაამატე კანდიდატი</a>
         </div> -->
-        <employer_table :data="employer" :role_id="data.role_id" :key="tableKey"></employer_table>
+        <employer_table :data="employer" :role_id="1" :key="tableKey"></employer_table>
         <div class="mt-2">
             <paginate
                 v-model="pagination.current_page"
@@ -118,7 +118,6 @@ export default {
         // candidate_table
     },
     props:{
-        data:Object,
     },
     data() {
         return {
@@ -142,7 +141,7 @@ export default {
         }
     },
     created(){
-        this.getData()
+
     },
     computed:{
         // addCandidateUrl(){
@@ -152,23 +151,27 @@ export default {
         // }
     },
     methods: {
-        getData(){
+        async getData(){
             if (this.getDataType == 'first_data') {
-                this.firstData()
+                await this.fetchData()
             } else if (this.getDataType == 'filter') {
                 this.filter(this.m)
             }
 
         },
-        firstData(){
-            this.employer = this.data.data
-            this.staticEmployer = this.data.data
+        async fetchData(){
+
+            const response = await axios.get(`/fetch_employer?page=${this.pagination.current_page}`);
+            console.log('response',response);
+            let data = response.data
+            this.employer = data.data
+            this.staticEmployer = data.data
             // this.cla = this.data.classificatory
             this.pagination = {
-                'current_page':this.data.current_page,
-                'last_page': this.data.last_page
+                'current_page':data.current_page,
+                'last_page': data.last_page
             }
-
+            this.tableKey++
         },
         filterMeth(type,m){
             this.getDataType = type
@@ -217,8 +220,8 @@ export default {
             this.tableKey++
         }
     },
-    mounted(){
-
+    async mounted(){
+        await this.getData()
     }
 }
 </script>

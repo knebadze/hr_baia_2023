@@ -8,6 +8,7 @@
         table-class-name="customize-table"
         border-cell
         :filter-options="filterOptions"
+        :hide-footer="true"
 
     >
         <template #item-operation="item" >

@@ -10,17 +10,10 @@ use App\Models\QualifyingCandidate;
 use App\Models\VacancyReminder;
 use App\Models\WorkDay;
 use Illuminate\Support\Facades\Auth;
-use App\Repositories\Vacancy\VacancyRedactedRepository;
 
 class EndWorkService
 {
 
-    protected VacancyRedactedRepository $vacancyRedactedRepository;
-    public function __construct()
-    {
-
-        $this->vacancyRedactedRepository = new VacancyRedactedRepository;
-    }
     function end($data)  {
         // dd($data);
         // ვამოწმებ აქვს თუ არა წაშლის უფლება
@@ -45,7 +38,6 @@ class EndWorkService
             QualifyingCandidate::where('id', $data['id'])->update(['status_id'=> 1, 'end_date' => $currentDate->copy()->subDay(1)->toDateString()]);
             Vacancy::where('id', $find->vacancy_id)->update(['status_id' => 13]);
             $redacted['status'] = $findVacancy['status'];
-            $this->vacancyRedactedRepository->save($findVacancy['id'], $redacted);
         }else{
 
             QualifyingCandidate::where('id', $data['id'])->update(['status_id'=> 2,'end_date' => $currentDate->copy()->subDay(1)->toDateString()]);
@@ -57,7 +49,6 @@ class EndWorkService
                 ]);
             $redacted['status'] = $findVacancy['status'];
             $redacted['carry_in_head_date'] = $findVacancy['carry_in_head_date'];
-            $this->vacancyRedactedRepository->save($findVacancy['id'], $redacted);
             $reminder = [
                 'vacancy_id' => $findVacancy['id'],
                 'hr_id' => $findVacancy['hr_id'],

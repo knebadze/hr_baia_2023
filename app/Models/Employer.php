@@ -4,16 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-// use Kirschbaum\PowerJoins\PowerJoins;
-use OwenIt\Auditing\Contracts\Auditable;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
-class Employer extends Model implements Auditable
+class Employer extends Model
 {
 
     // use PowerJoins;
 
-    use HasFactory;
-    use \OwenIt\Auditing\Auditable;
+    use HasFactory, LogsActivity;
 
     protected $fillable = [
         'id',
@@ -36,6 +35,13 @@ class Employer extends Model implements Auditable
         'verify_code'
     ];
 
+    public function getActivitylogOptions(): LogOptions
+    {
+        $logOptions = LogOptions::defaults([])->logFillable()->logOnlyDirty();
+
+        return $logOptions;
+    }
+    
     public function vacancy()
     {
         return $this->hasMany(vacancy::class, 'author_id', 'id');

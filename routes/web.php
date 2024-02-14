@@ -88,7 +88,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
         Route::get('/user/myrezume', [ResumeController::class, 'index'])->name('myrezume');
 
         //Post Job
-        Route::get('/post_job', [PostVacancyController::class, 'index'])->name('post.job');
+        Route::get('/post_job/{id?}/{code?}', [PostVacancyController::class, 'index'])->name('post.job');
 
         // Faq Page
         Route::get('/faq', [FaqController::class, 'index'])->name('faq');

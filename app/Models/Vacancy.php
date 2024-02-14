@@ -2,30 +2,29 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use OwenIt\Auditing\Contracts\Auditable;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Vacancy extends Model implements Auditable
+class Vacancy extends Model
 {
-    use \OwenIt\Auditing\Auditable;
-    use HasFactory;
+    use LogsActivity, HasFactory;
     protected $fillable = [
         'code ',
-        'uuid',
         'author_id',
         'hr_id',
         'title_ka',
         'title_en',
         'title_ru',
         'slug',
-        'category_id ',
-        'status_id ',
+        'category_id',
+        'status_id',
         'address_ka',
         'address_en',
         'address_ru',
         'payment',
-        'currency_id ',
+        'currency_id',
         'work_schedule_id',
         'additional_schedule_ka',
         'additional_schedule_en',
@@ -42,27 +41,98 @@ class Vacancy extends Model implements Auditable
         'photo',
         'reason_for_cancel_id'
     ];
-    // protected $appends = ['timeAgo'];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        $additionalArray  = ['category.name_ka', 'currency.name_ka', 'status.name_ka', 'workSchedule.name_ka', 'hr.user.name', 'term.name_ka', 'reasonForCancel.name_ka', 'interviewPlace.name_ka'];
+        $combinedArray = array_merge($this->fillable, $additionalArray);
+        $logOptions = LogOptions::defaults([])->logOnly($combinedArray)->logOnlyDirty();
+
+        return $logOptions;
+    }
+
+    // belongsToMany
     public function vacancyDuty()
     {
         return $this->belongsToMany(Duty::class, 'vacancy_candidate_duties');
     }
+    public function syncVacancyDuty($item)
+    {
+        $this->syncRelationship('vacancyDuty',  $item, 'duty');
+    }
+
     public function vacancyBenefit()
     {
         return $this->belongsToMany(Benefit::class, 'vacancy_benefits');
     }
+    public function syncVacancyBenefit($item)
+    {
+        $this->syncRelationship('vacancyBenefit', $item, 'benefit');
+    }
+
     public function vacancyDrivingLicense()
     {
         return $this->belongsToMany(DrivingLicense::class, 'vacancy_driving_licenses');
     }
-    public function getVacancyDrivingLicense()
+    public function syncVacancyDrivingLicense($item)
     {
-        return $this->belongsTo(VacancyDrivingLicense::class, 'id', 'vacancy_id');
+        $this->syncRelationship('vacancyDrivingLicense', $item, 'driving_license');
     }
+
     public function vacancyForWhoNeed()
     {
         return $this->belongsToMany(ForWhoNeed::class, 'for_who_vacancies');
     }
+    public function syncVacancyForWhoNeed($item)
+    {
+        $this->syncRelationship('vacancyForWhoNeed', $item, 'for_who_need');
+    }
+
+    public function characteristic()
+    {
+        return $this->belongsToMany(GeneralCharacteristic::class, 'vacancy_candidate_characteristics',  'vacancy_id', 'characteristic_id');
+    }
+    public function syncCharacteristic($item)
+    {
+        $this->syncRelationship('characteristic', $item, 'characteristic');
+    }
+
+    public function syncRelationship($relationship, $item, $type)
+    {
+        $beforeSync = $this->{$relationship}()->pluck("{$type}_id")->toArray();
+        $this->{$relationship}()->sync($item);
+        $afterSync = $this->{$relationship}()->pluck("{$type}_id")->toArray();
+        $this->syncActiveLog($beforeSync, $afterSync, $this, $type);
+    }
+
+
+
+    // sync active log
+
+    public function syncActiveLog($beforeSync, $afterSync, $that, $type)  {
+
+
+        $difference_old_to_new = array_diff($beforeSync, $afterSync);
+        $difference_new_to_old = array_diff($afterSync, $beforeSync);
+
+        $difference = array_merge($difference_old_to_new, $difference_new_to_old);
+        // dd($difference);
+        if (!empty($difference)) {
+            activity()
+                ->performedOn($that)
+                ->withProperties([
+                    'old' => $beforeSync,
+                    'attributes' => $afterSync,
+                ])
+                ->log('Sync_'.$type);
+        }
+    }
+
+    public function getVacancyDrivingLicense()
+    {
+        return $this->hasMany(VacancyDrivingLicense::class, 'vacancy_id', 'id');
+    }
+
     public function demand()
     {
         return $this->belongsTo(VacancyDemand::class, 'id', 'vacancy_id');
@@ -70,12 +140,9 @@ class Vacancy extends Model implements Auditable
 
     public function getCharacteristic()
     {
-        return $this->belongsTo(VacancyCandidateCharacteristic::class, 'id', 'vacancy_id');
+        return $this->hasMany(VacancyCandidateCharacteristic::class, 'vacancy_id', 'id');
     }
-    public function characteristic()
-    {
-        return $this->belongsToMany(GeneralCharacteristic::class, 'vacancy_candidate_characteristics',  'vacancy_id', 'characteristic_id');
-    }
+
     public function author()
     {
         return $this->belongsTo(Employer::class);

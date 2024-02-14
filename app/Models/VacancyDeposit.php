@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use OwenIt\Auditing\Contracts\Auditable;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
-class VacancyDeposit extends Model implements Auditable
+class VacancyDeposit extends Model
 {
-    use \OwenIt\Auditing\Auditable;
-    use HasFactory;
+    use HasFactory, LogsActivity;
     protected $fillable = [
         'vacancy_id',
         'candidate_initial_amount',
@@ -20,6 +20,13 @@ class VacancyDeposit extends Model implements Auditable
         'must_be_enrolled_candidate_date',
     ];
 
+    public function getActivitylogOptions(): LogOptions
+    {
+        
+        $logOptions = LogOptions::defaults([])->logFillable()->logOnlyDirty();
+
+        return $logOptions;
+    }
     public function vacancy()
     {
         return $this->hasOne(Vacancy::class);

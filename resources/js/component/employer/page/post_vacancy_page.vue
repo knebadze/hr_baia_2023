@@ -25,28 +25,30 @@ export default {
         const cla = ref(_.cloneDeep(props.data.classificatory));
         const showVerifySection = ref(true);
         const showPostSection = ref(false);
+        console.log(props.data);
         const post_vacancy_data = ref({...props.data})
 
         // გამეორების დროს იგზავნება ობიექტი
         const url = new URL( location.href)
         const queryString = url.search;
         const urlParams = new URLSearchParams(queryString);
-        const searchData = JSON.parse(decodeURIComponent(urlParams.get('data')));
+        const searchData = props.data.model.vacancy.id;
 
         const makeData = () => {
             let obj ={};
             if (searchData) {
                 showVerifySection.value = false
                 showPostSection.value = true
+                const {vacancy, employer, demand } = props.data.model;
                 obj = {
-                    employer: {...searchData.employer},
-                    vacancy: {...searchData},
-                    demand: {...searchData.demand},
-                    characteristic: searchData.characteristic,
-                    duty: searchData.vacancy_duty,
-                    for_who_need: searchData.vacancy_for_who_need,
-                    benefit: searchData.vacancy_benefit,
-                    driving_license: searchData.vacancy_driving_license,
+                    employer: {...employer},
+                    vacancy: {...vacancy},
+                    demand: {...demand},
+                    characteristic: vacancy.characteristic,
+                    duty: vacancy.vacancy_duty,
+                    for_who_need: vacancy.vacancy_for_who_need,
+                    benefit: vacancy.vacancy_benefit,
+                    driving_license: vacancy.vacancy_driving_license,
 
                     interviewDate:'',
                     interviewTime:'',
@@ -83,13 +85,14 @@ export default {
                 obj.vacancy.interview_place = null
             }
 
-            obj.lang = getLang
+            // obj.lang = getLang
             obj.employer.name = obj.employer[`name_${getLang.value}`];
             obj.employer.address = obj.employer[`address_${getLang.value}`];
             obj.employer.street = obj.employer[`street_${getLang.value}`];
             obj.vacancy.additional_schedule = obj.vacancy[`additional_schedule_${getLang.value}`];
             obj.vacancy.title = obj.vacancy[`title_${getLang.value}`];
             obj.vacancy.currency = cla.value.currency.find(e => e.id == 1)
+            obj.role_id = props.data.model.role_id
             return {...obj}
         };
 

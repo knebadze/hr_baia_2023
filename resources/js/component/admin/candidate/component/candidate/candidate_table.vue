@@ -1,11 +1,138 @@
+<script  setup>
+    import { ref, computed, defineProps, onMounted } from "vue";
+    import moment from 'moment'
+    import Slider from '@vueform/slider'
+    import "@vueform/slider/themes/default.css";
+    // import Switch from '../../inc/Switch.vue';
+    import _ from 'lodash'
+    import info_modal from '../../modal/info_modal.vue'
+    import table_cog from './table_cog.vue';
+    import expand_body from './expand_body.vue';
+
+    const props = defineProps({
+        data: Object,
+        role_id: Number,
+        hrId: Number
+    });
+
+    const itemsSelected = ref([]);
+
+    let showInfoModal = ref(false)
+    var modalItem = ref(null)
+    let modalType = ref('')
+
+    let cla = ref(null);
+    let hr_id = ref(props.hrId)
+
+    let blackListComponent = ref(null);
+    let sendMessageComponent = ref(null);
+    const headers = ref([
+        { text: "id", value: "id" },
+        { text: "სახელი გვარი", value: "user.name_ka" },
+        { text: "ნომერი", value: "user.number"},
+        { text: "ასაკი", value: "age", sortable: true},
+        { text: "კატეგორია", value: "category" },
+        { text: "სტატუსი", value: "status"},
+        { text: "გადასახადი", value: "registration_fee"},
+        { text: "დამატების თარიღი", value: "created_at", sortable: true},
+        { text: "Operation", value: "operation" },
+    ]);
+    const localData = ref(props.data);
+    const items = ref([])
+
+    onMounted(() => {
+        items.value = makeData(localData.value);
+    });
+    const makeData = (params)=> {
+        let arr = []
+
+        params.forEach(element => {
+            let map = element.get_work_information.map(item => item.category.name_ka)
+            element.category = map.toString()
+            element.age = age(element.user.date_of_birth)
+
+            arr.push(element)
+        });
+        return arr
+    }
+    const age = (date_of_birth) =>{
+        let dob = new Date(date_of_birth)
+        let diff_ms = Date.now() - dob.getTime();
+        let age_dt = new Date(diff_ms);
+        return Math.abs(age_dt.getUTCFullYear() - 1970);
+    }
+
+    const openInfoModal =(type, item) =>{
+            modalType.value = type
+            modalItem.value = item
+            showInfoModal.value = !showInfoModal.value
+        }
+
+        const showStatusFilter = ref(false);
+        const showCategoryFilter = ref(false);
+        const showScheduleFilter = ref(false);
+        const showPaymentFilter = ref(false);
+        const showIdFilter = ref(false);
+        const choseStatus = ref('ყველა');
+        const choseCategory = ref('ყველა');
+        const choseSchedule = ref('ყველა');
+        const chosePayment = ref([50, 3000]);
+        const choseId = ref('');
+        const filterOptions = computed(()=> {
+            const filterOptionsArray =  [];
+            // if (choseStatus.value !== 'ყველა') {
+            //     filterOptionsArray.push({
+            //         field: 'status.name_ka',
+            //         comparison: '=',
+            //         criteria: choseStatus.value,
+            //     });
+            // }
+            // if (choseCategory.value !== 'ყველა') {
+            //     filterOptionsArray.push({
+            //         field: 'category.name_ka',
+            //         comparison: '=',
+            //         criteria: choseCategory.value,
+            //     });
+
+            // }
+            // if (choseSchedule.value !== 'ყველა') {
+            //     filterOptionsArray.push({
+            //         field: 'work_schedule.name_ka',
+            //         comparison: '=',
+            //         criteria: choseSchedule.value,
+            //     });
+
+            // }
+            // if (showPaymentFilter) {
+            //     filterOptionsArray.push({
+            //         field: 'payment',
+            //         comparison: 'between',
+            //         criteria: chosePayment.value,
+            //     });
+            // }
+            // if (choseId.value !== '') {
+            //     filterOptionsArray.push({
+            //         field: 'id',
+            //         comparison: '=',
+            //         criteria: choseId.value,
+            //     });
+
+            // }
+
+            // return filterOptionsArray;
+        });
+        const bodyRowClassNameFunction = ( item, number) => {
+            if (item.user.register_log && item.user.register_log.creator_id == hr_id.value) return 'my-candidate-row';
+            return '';
+        };
+</script>
 <template lang="">
 <div>
     <EasyDataTable
-        v-model:items-selected="itemsSelected"
         :headers="headers"
         :items="items"
         table-class-name="customize-table"
-
+        :hide-footer="true"
         border-cell
         :filter-options="filterOptions"
     >
@@ -118,187 +245,7 @@
     <info_modal :visible="showInfoModal" :type="modalType" :items="modalItem" />
 </div>
 </template>
-<script>
 
-import { ref, computed } from "vue";
-import moment from 'moment'
-import Slider from '@vueform/slider'
-import "@vueform/slider/themes/default.css";
-// import Switch from '../../inc/Switch.vue';
-import _ from 'lodash'
-import info_modal from '../../modal/info_modal.vue'
-import table_cog from './table_cog.vue';
-import expand_body from './expand_body.vue';
-
-export default {
-    components: {
-        Slider,
-        info_modal,
-        table_cog,
-        expand_body
-    },
-    props:{
-        data: Object,
-        role_id: Number,
-        hrId: Number
-    },
-
-    setup(props){
-        const itemsSelected = ref([]);
-
-        let showInfoModal = ref(false)
-        var modalItem = ref(null)
-        let modalType = ref('')
-
-        let cla = ref(null);
-        let hr_id = ref(props.hrId)
-
-        let blackListComponent = ref(null);
-        let sendMessageComponent = ref(null);
-
-
-
-        const headers = ref([
-            { text: "id", value: "id" },
-            { text: "სახელი გვარი", value: "user.name_ka" },
-            { text: "ნომერი", value: "user.number"},
-            { text: "ასაკი", value: "age", sortable: true},
-            { text: "კატეგორია", value: "category" },
-            { text: "სტატუსი", value: "status"},
-            { text: "გადასახადი", value: "registration_fee"},
-            { text: "დამატების თარიღი", value: "created_at", sortable: true},
-            { text: "Operation", value: "operation" },
-        ]);
-        let data = makeData(props.data)
-
-        // cla = ref(props.data.classificatory)
-        const items = ref(data)
-
-
-        function makeData(params) {
-            var arr = []
-
-            params.forEach(element => {
-                let map = element.get_work_information.map(item => item.category.name_ka)
-                element.category = map.toString()
-                element.age = age(element.user.date_of_birth)
-
-                arr.push(element)
-            });
-            return arr
-        }
-        function age(date_of_birth){
-            var dob = new Date(date_of_birth)
-            var diff_ms = Date.now() - dob.getTime();
-            var age_dt = new Date(diff_ms);
-            return Math.abs(age_dt.getUTCFullYear() - 1970);
-        }
-
-        const openInfoModal =(type, item) =>{
-            modalType.value = type
-            modalItem.value = item
-            showInfoModal.value = !showInfoModal.value
-        }
-
-        const showStatusFilter = ref(false);
-        const showCategoryFilter = ref(false);
-        const showScheduleFilter = ref(false);
-        const showPaymentFilter = ref(false);
-        const showIdFilter = ref(false);
-        const choseStatus = ref('ყველა');
-        const choseCategory = ref('ყველა');
-        const choseSchedule = ref('ყველა');
-        const chosePayment = ref([50, 3000]);
-        const choseId = ref('');
-        const filterOptions = computed(()=> {
-            const filterOptionsArray =  [];
-            // if (choseStatus.value !== 'ყველა') {
-            //     filterOptionsArray.push({
-            //         field: 'status.name_ka',
-            //         comparison: '=',
-            //         criteria: choseStatus.value,
-            //     });
-            // }
-            // if (choseCategory.value !== 'ყველა') {
-            //     filterOptionsArray.push({
-            //         field: 'category.name_ka',
-            //         comparison: '=',
-            //         criteria: choseCategory.value,
-            //     });
-
-            // }
-            // if (choseSchedule.value !== 'ყველა') {
-            //     filterOptionsArray.push({
-            //         field: 'work_schedule.name_ka',
-            //         comparison: '=',
-            //         criteria: choseSchedule.value,
-            //     });
-
-            // }
-            // if (showPaymentFilter) {
-            //     filterOptionsArray.push({
-            //         field: 'payment',
-            //         comparison: 'between',
-            //         criteria: chosePayment.value,
-            //     });
-            // }
-            // if (choseId.value !== '') {
-            //     filterOptionsArray.push({
-            //         field: 'id',
-            //         comparison: '=',
-            //         criteria: choseId.value,
-            //     });
-
-            // }
-
-            // return filterOptionsArray;
-        });
-        const bodyRowClassNameFunction = ( item, number) => {
-            if (item.user.register_log && item.user.register_log.creator_id == hr_id.value) return 'my-candidate-row';
-            return '';
-        };
-
-
-
-        return {
-            headers,
-            items,
-            itemsSelected,
-            showStatusFilter,
-            choseStatus,
-            showCategoryFilter,
-            choseCategory,
-            showScheduleFilter,
-            choseSchedule,
-            showPaymentFilter,
-            chosePayment,
-            showIdFilter,
-            choseId,
-            filterOptions,
-
-            showInfoModal,
-
-            modalItem,
-            modalType,
-            openInfoModal,
-
-
-            cla,
-            find,
-            bodyRowClassNameFunction,
-
-            blackListComponent,
-            sendMessageComponent
-
-            // statusChange
-        };
-    },
-    methods:{
-
-
-    }
-}
-</script>
 <style >
     .my-candidate-row  {
         --easy-table-body-row-background-color: #f8b1b1;

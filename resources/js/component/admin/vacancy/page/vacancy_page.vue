@@ -303,7 +303,7 @@
         <div class="my-2 d-flex justify-content-end">
             <button type="button" class="btn btn-success" @click="addVacancy()"><i class="fa fa-plus"></i> ვაკანსისი დამატება</button>
         </div>
-        <vacancy_table v-if="Object.keys(items).length != 0"  :data="items" :hrId="hrId" :classificatory="tableCla" :roleId="roleId"  :key="tableKey" />
+        <vacancy_table v-if="shouldRenderTable"  :data="items" :hrId="hrId" :classificatory="tableCla" :roleId="roleId" :key="tableKey" />
 
     <div class="mt-2">
         <paginate
@@ -364,6 +364,9 @@ export default {
                 return Math.floor(Math.random() * (max - min + 1)) + min;
             }
             return getRandomInt(1, 2);
+        },
+        shouldRenderTable() {
+            return Object.keys(this.items).length !== 0;
         }
     },
     created() {
@@ -382,13 +385,22 @@ export default {
             }
 
         },
-        firstData(){
-
-            this.pagination = {
-                    'current_page':this.data.vacancy.current_page,
-                    'last_page': this.data.vacancy.last_page
+        async firstData() {
+            try {
+                const { data } = await axios.get(`/get_vacancy?page=${this.pagination.current_page}` )
+                if (data) {
+                    this.pagination = {
+                        'current_page':data.current_page,
+                        'last_page': data.last_page
+                    }
+                    this.items = data.data
+                    this.tableKey++
                 }
-            this.items = this.data.vacancy.data
+
+            } catch (error) {
+                console.log(error);
+            }
+
 
         },
         filterMeth(type,m){

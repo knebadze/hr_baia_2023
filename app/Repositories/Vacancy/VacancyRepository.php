@@ -42,7 +42,7 @@ class VacancyRepository{
         $vacancy->additional_schedule_ru = $data['vacancy']['additional_schedule_ru'];
 
         $vacancy->comment = $data['vacancy']['comment'];
-        $dateTime = Carbon::createFromTimestamp(strtotime($data['interviewDate'] . $data['interviewTime']));
+        $dateTime = $data['interviewDate'].' '.$data['interviewTime'];
         $vacancy->interview_date = $dateTime;
         $vacancy->interview_place_id = ($data['vacancy']['interview_place'])?$data['vacancy']['interview_place']['id']:null;
 

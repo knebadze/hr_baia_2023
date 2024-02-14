@@ -17,6 +17,7 @@ class VacancyStatusUpdateRepository
 {
 
     function update($data)  {
+        // dd($data['reason_for_cancel']['id']);
         try {
             if ($data['status']['id'] == 3) {
                 $candidate = QualifyingCandidate::where('vacancy_id', $data['id'])->whereIn('qualifying_type_id', [6, 7])->exists();
@@ -24,7 +25,11 @@ class VacancyStatusUpdateRepository
                     return ['type' => 'w', 'message' => 'აუცილებელია ვაკანსიას ყავდეს დასაქმებული კანდიდატი'];
                 }
             }
-            Vacancy::where('id', $data['id'])->update(['status_id' => $data['status']['id'], 'status_change_reason' => $data['status_change_reason'], 'reason_for_cancel_id' => $data['reason_for_cancel']['id']??null]);
+            $vacancy = Vacancy::where('id', $data['id'])->first();
+            $vacancy->status_id = $data['status']['id'];
+            $vacancy->status_change_reason = $data['status_change_reason'];
+            $vacancy->reason_for_cancel_id = $data['reason_for_cancel']?$data['reason_for_cancel']['id'] : null;
+            $vacancy->update();
             return ['type' => 's', 'message' => 'სტატუსი წარმატებით შეიცვალა'];
         } catch (\Throwable $th) {
             throw $th;

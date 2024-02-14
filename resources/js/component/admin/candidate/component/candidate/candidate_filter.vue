@@ -1,3 +1,78 @@
+<script setup>
+    import { ref, defineProps, defineEmits } from 'vue';
+    import Slider from '@vueform/slider';
+    import axios from 'axios';
+    import { toast } from 'vue3-toastify';
+    // Import other dependencies as needed
+
+    const props = defineProps(['cla']);
+    const emit = defineEmits();
+    // const { emit } = defineEmits(['emitFilterData']);
+
+    const m = ref({
+        age: [18, 80],
+        height: [140, 220],
+        weight: [40, 180],
+        payment: [50, 5000],
+    });
+
+    const colspanClass = ref('hide');
+    const isColspanVisible = ref(false);
+
+    const toggleCollapse = (item) => {
+        colspanClass.value = item == 'show' ? 'hide' : 'show';
+        isColspanVisible.value = !isColspanVisible.value;
+    };
+    
+    const filter = () => {
+        if (m.age && m.age[0] == 18 && m.age[1] == 80) {
+            delete m.age
+        }
+        if (m.height && m.height[0] == 140 && m.height[1] == 220) {
+            delete m.height
+        }
+        if (m.weight && m.weight[0] == 40 && m.weight[1] == 180) {
+            delete m.weight
+        }
+        if (m.payment && m.payment[0] == 50 && m.payment[1] == 5000) {
+            delete m.payment
+        }
+        for (let i = 0; i < Object.keys(m).length; i++) {
+            if (m[i] == '') {
+                delete m[i]
+            }
+
+        }
+        if (Object.keys(m).length == 0) {
+            toast.error('შეცვალეთ პარამეტრები', {
+                theme: 'colored',
+                autoClose: 1000,
+            });
+            return
+        }
+        toggleCollapse('show')
+        emit('emitFilterData', m.value);
+        // emitData(m.value)
+        // axios.post('/candidate_filter?page=' + 1, m.value)
+        //     .then((response) => {
+        //         console.log(response);
+        //     const obj = {
+        //         candidate: response.data.data,
+        //         pagination: {
+        //         current_page: response.data.current_page,
+        //         last_page: response.data.last_page,
+        //         },
+        //     };
+        //     emitData(obj);
+        // })
+        // .catch((error) => {
+        //     console.error(error);
+        // });
+    };
+
+
+
+</script>
 <template lang="">
      <div id="accordion" >
         <div class="card card-primary" >
@@ -346,95 +421,7 @@
         </div>
     </div>
 </template>
-<script>
-import { ref, watch } from 'vue'
-import Slider from '@vueform/slider';
-export default {
-    components:{
-        Slider
-    },
-    props:{
-        cla: Object,
-    },
-    emits:['emitFilterData'],
-    setup(props, { emit }) {
-        const m = ref({});
-        m.value.age = [18, 80];
-        m.value.height = [140, 220]
-        m.value.weight = [40, 180]
-        m.value.payment = [50, 5000]
-        const colspanClass = ref('hide');
-        const isColspanVisible = ref(false);
-        const toggleCollapse = (item) =>{
-            colspanClass.value = item == 'show' ? 'hide' : 'show'
-            isColspanVisible.value = !isColspanVisible.value
-        }
-        const filter = (m) => {
-            if (m.age && m.age[0] == 18 && m.age[1] == 80) {
-                delete m.age
-            }
-            if (m.height && m.height[0] == 140 && m.height[1] == 220) {
-                delete m.height
-            }
-            if (m.weight && m.weight[0] == 40 && m.weight[1] == 180) {
-                delete m.weight
-            }
-            if (m.payment && m.payment[0] == 50 && m.payment[1] == 5000) {
-                delete m.payment
-            }
-            for (let i = 0; i < Object.keys(m).length; i++) {
-                if (m[i] == '') {
-                    delete m[i]
-                }
 
-            }
-            if (Object.keys(m).length == 0) {
-                toast.error('შეცვალეთ პარამეტრები', {
-                    theme: 'colored',
-                    autoClose: 1000,
-                });
-                return
-            }
-            toggleCollapse('show')
-            axios({
-                    method: "post",
-                    url: '/candidate_filter?page=' + 1,
-                    data: m,
-
-                })
-            .then(function (response) {
-                // handle success
-                let obj = {
-                    candidate: response.data.data,
-                    pagination: {
-                        'current_page':response.data.current_page,
-                        'last_page': response.data.last_page
-                    }
-                }
-                emitData(obj)
-                // currentObj.modalData['candidate'] = response.data
-
-            })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
-            })
-        }
-        const emitData = (item) => {
-            emit('emitFilterData', item)
-        }
-
-        return {
-            m,
-            colspanClass,
-            toggleCollapse,
-            isColspanVisible,
-            filter,
-            emitData
-        }
-    }
-}
-</script>
 <style lang="">
 
 </style>

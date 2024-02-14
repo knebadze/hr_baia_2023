@@ -17,6 +17,7 @@ Route::post('add_candidate_file', [CandidateInfoController::class, 'addCandidate
 // Route::post('add_work_information', [WorkInformationController::class, 'store']);
 
 // R
+Route::get('fetch_candidate', [AdminCandidateController::class, 'fetch']);
 Route::post('find_candidate_model', [CandidateInfoController::class, 'findModel']);
 Route::post('candidate_work_info_data', [AdminCandidateController::class, 'workInfoData']);
 Route::post('candidate_family_work_info_data', [AdminCandidateController::class, 'familyWorkInfoData']);
@@ -39,3 +40,6 @@ Route::post('delete_candidate', [AdminCandidateController::class, 'delete']);
 
 Route::post('user_candidate_filter', [CandidateController::class, 'filter']);
 Route::post('candidate_filter', [AdminCandidateController::class, 'filter']);
+
+// S
+Route::post('send_sms_candidate', [AdminCandidateController::class, 'sendSms']);

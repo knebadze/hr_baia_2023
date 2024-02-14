@@ -26,7 +26,7 @@ class VacancyHrUpdateRepository
         $findOldHr->update(['has_vacancy' => 0, 're_write' => $findOldHr->re_write - 1 ]);
 
 
-        $this->createHistory($vacancy->id, $data['hr']['id'], $data['new_hr']['hr']['id']);
+
         $this->dailyWorkEvent($data['new_hr']['hr']['id']);
         $this->lesHasVacancy($data['hr']['id'], $vacancy->created_at);
         $this->moveReminder($data['id'], $data['new_hr']['hr']['id']);
@@ -39,20 +39,15 @@ class VacancyHrUpdateRepository
 
     public function lesHasVacancy($hr_id, $created_at) {
         $find = hrDailyWork::where('hr_id', $hr_id)->whereDate('created_at', $created_at)->first();
-        $find->update(['has_vacancy' => $find->has_vacancy - 1]);
+
+        if ($find) {
+            $find->decrement('has_vacancy', 1);
+        }
     }
 
     public function moveReminder($vacancy_id, $hr_id) {
         VacancyReminder::where('vacancy_id', $vacancy_id)->where('active', 0)->update(['hr_id' => $hr_id]);
     }
 
-    public function createHistory($vacancy_id, $old_hr_id, $new_hr_id) {
-        $history = new RewriteHistory();
-        $history->author_id = Auth::id();
-        $history->vacancy_id = $vacancy_id;
-        $history->old_hr_id = $old_hr_id;
-        $history->new_hr_id = $new_hr_id;
-        $history->save();
-    }
 
 }

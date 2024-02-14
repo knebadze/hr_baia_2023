@@ -18,13 +18,13 @@
                             <div class="ls-inputicon-box">
                                 <input
                                     class="form-control"
-                                    v-model="m.name"
-                                    :class="{ 'is-invalid': (m.name == null || v.name.$error) }"
+                                    v-model="m.employer.name"
+                                    :class="{ 'is-invalid': (m.employer.name == null || v.employer.name.$error) }"
                                     type="text"
                                     placeholder="Devid Smith"
-                                    @blur="v.name.$touch"
+                                    @blur="v.employer.name.$touch"
                                 >
-                                <span v-if="send && !v.name.required.$response" style='color:red'>* </span>
+                                <span v-if="send && !v.employer.name.required.$response" style='color:red'>* </span>
                             </div>
                         </div>
                     </div>
@@ -35,13 +35,13 @@
                             <div class="ls-inputicon-box">
                                 <input
                                     class="form-control"
-                                    :class="(m.email == null || v.email.$error)?'is-invalid':''"
-                                    v-model="m.email"
+                                    :class="(m.employer.email == null || v.employer.email.$error)?'is-invalid':''"
+                                    v-model="m.employer.email"
                                     type="email"
                                     placeholder="employer@gmail.com"
-                                    @blur="v.email.$touch"
+                                    @blur="v.employer.email.$touch"
                                 >
-                                <span v-if="send && !v.email.email.$response" style='color:red'>* </span>
+                                <span v-if="send && !v.employer.email.email.$response" style='color:red'>* </span>
                             </div>
                         </div>
                     </div>
@@ -50,21 +50,21 @@
                             <div class="form-group">
                                 <label><span class="text-danger">* </span>{{ ('ტელეფონის ნომერი') }}</label>
                                 <div class="input-group mb-3">
-                                <button style="border-style: none;" class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><span :class="`fi fi-${m.number_code.iso.toLowerCase()}`"></span>+{{ m.number_code.phonecode }}</button>
+                                <button style="border-style: none;" class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><span :class="`fi fi-${m.employer.number_code.iso.toLowerCase()}`"></span>+{{ m.employer.number_code.phonecode }}</button>
                                 <ul class="dropdown-menu" style=" overflow: hidden; overflow-y: auto; max-height: calc(100vh - 550px);">
                                     <li v-for="item in cla.numberCode" @click="chooseNumberCode(item)"><a class="dropdown-item"><span :class="`fi fi-${item.iso.toLowerCase()}`"></span>+{{ item.phonecode }}</a></li>
                                 </ul>
                                     <input
                                         type="text"
                                         class="form-control"
-                                        :class="(m.number == null || v.number.$error)?'is-invalid':''"
-                                        v-model="m.number"
+                                        :class="(m.employer.number == null || v.employer.number.$error)?'is-invalid':''"
+                                        v-model="m.employer.number"
                                         placeholder="555666777"
                                         onkeypress="return /[0-9]/i.test(event.key)"
-                                        @blur="v.number.$touch"
+                                        @blur="v.employer.number.$touch"
                                     >
-                                    <span v-if="send && !v.number.required.$response" style='color:red'>* </span>
-                                    <span v-if="send && !v.number.numeric.$response" style='color:red'>* </span>
+                                    <span v-if="send && !v.employer.number.required.$response" style='color:red'>* </span>
+                                    <span v-if="send && !v.employer.number.numeric.$response" style='color:red'>* </span>
                                 </div>
                             </div>
                         </div>
@@ -74,13 +74,13 @@
                             <div class="ls-inputicon-box">
                                 <input
                                     class="form-control"
-                                    :class="(m.address == null || v.address.$error)?'is-invalid':''"
-                                    v-model="m.address"
+                                    :class="(m.employer.address == null || v.employer.address.$error)?'is-invalid':''"
+                                    v-model="m.employer.address"
                                     type="text"
                                     placeholder="მაგ: თბილისი, სამგორი"
-                                    @blur="v.address.$touch"
+                                    @blur="v.employer.address.$touch"
                                 >
-                                <span v-if="send && !v.address.required.$response" style='color:red'>* </span>
+                                <span v-if="send && !v.employer.address.required.$response" style='color:red'>* </span>
                             </div>
                         </div>
                     </div>
@@ -90,7 +90,7 @@
                             <div class="ls-inputicon-box">
                                 <input
                                     class="form-control"
-                                    v-model="m.street"
+                                    v-model="m.employer.street"
                                     type="text"
                                     placeholder="მაგ: კახეთის გზატკეცილი 36 ბ"
                                 >
@@ -157,7 +157,7 @@
                                 <label>მართვის მოწმობა </label>
                                 <div class="ls-inputicon-box">
                                     <multiselect
-                                        v-model="m.driving_license"
+                                        v-model="m.vacancy_driving_license"
                                         :options="cla.drivingLicense"
                                         :multiple="true"
                                         :close-on-select="false"
@@ -335,7 +335,7 @@
                             <div class="form-group">
                                 <label>{{ $t('lang.employer_add_job_minimal_age') }}</label>
                                 <div class="ls-inputicon-box">
-                                    <input class="form-control" @input="minAge(m.min_age)" v-model="m.min_age" type="number" placeholder="18" min="18">
+                                    <input class="form-control" @input="minAge(m.demand.min_age)" v-model="m.demand.min_age" type="number" placeholder="18" min="18">
                                 </div>
                             </div>
                         </div>
@@ -343,7 +343,7 @@
                             <div class="form-group">
                                 <label>{{ $t('lang.employer_add_job_max_age') }}</label>
                                 <div class="ls-inputicon-box">
-                                    <input class="form-control" @input="maxAge(m.max_age)" v-model="m.max_age" type="number" placeholder="45" >
+                                    <input class="form-control" @input="maxAge(m.demand.max_age)" v-model="m.demand.max_age" type="number" placeholder="45" >
                                 </div>
                             </div>
                         </div>
@@ -352,7 +352,7 @@
                             <div class="form-group">
                                 <label>{{ $t('lang.employer_add_job_minimal_edu') }}</label>
                                 <div class="ls-inputicon-box">
-                                    <multiselect v-model="m.education" :options="cla.educations" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" :placeholder="$t('lang.employer_add_job_select')"  :searchable="true" :allow-empty="false">
+                                    <multiselect v-model="m.demand.education" :options="cla.educations" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" :placeholder="$t('lang.employer_add_job_select')"  :searchable="true" :allow-empty="false">
                                         <template slot="singleLabel" slot-scope="{ option }"></template>
                                     </multiselect>
                                 </div>
@@ -362,7 +362,7 @@
                             <div class="form-group">
                                 <label>{{ ('სპეციალობა') }}</label>
                                 <div class="ls-inputicon-box">
-                                    <multiselect v-model="m.specialty" :options="cla.specialties" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" :placeholder="$t('lang.employer_add_job_select')"  :searchable="true" :allow-empty="false">
+                                    <multiselect v-model="m.demand.specialty" :options="cla.specialties" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" :placeholder="$t('lang.employer_add_job_select')"  :searchable="true" :allow-empty="false">
                                         <template slot="singleLabel" slot-scope="{ option }"></template>
                                     </multiselect>
                                 </div>
@@ -373,7 +373,7 @@
                             <div class="form-group">
                                 <label>{{ $t('lang.employer_add_job_preferred_foreign_language') }}</label>
                                 <div class="ls-inputicon-box">
-                                    <multiselect v-model="m.language" :options="cla.languages" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" :placeholder="$t('lang.employer_add_job_select')"  :searchable="true" :allow-empty="false">
+                                    <multiselect v-model="m.demand.language" :options="cla.languages" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" :placeholder="$t('lang.employer_add_job_select')"  :searchable="true" :allow-empty="false">
                                         <template slot="singleLabel" slot-scope="{ option }"></template>
                                     </multiselect>
                                 </div>
@@ -384,7 +384,7 @@
                             <div class="form-group">
                                 <label>{{ $t('lang.employer_add_job_foreign_language_level') }}</label>
                                 <div class="ls-inputicon-box">
-                                    <multiselect v-model="m.language_level" :options="cla.languageLevels" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" :placeholder="$t('lang.employer_add_job_select')"  :searchable="true" :allow-empty="false">
+                                    <multiselect v-model="m.demand.language_level" :options="cla.languageLevels" deselect-label="Can't remove this value" :track-by="`name_${getLang}`" :label="`name_${getLang}`" :placeholder="$t('lang.employer_add_job_select')"  :searchable="true" :allow-empty="false">
                                         <template slot="singleLabel" slot-scope="{ option }"></template>
                                     </multiselect>
                                 </div>
@@ -418,7 +418,7 @@
                             <div class="form-group">
                                 <label>მართვის მოწმობა </label>
                                 <div class="ls-inputicon-box">
-                                    <multiselect v-model="m.driving_license"  :options="cla.drivingLicense" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" :placeholder="$t('lang.employer_add_job_select')" label="name" track-by="name" :preselect-first="false" >
+                                    <multiselect v-model="m.vacancy_driving_license"  :options="cla.drivingLicense" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" :placeholder="$t('lang.employer_add_job_select')" label="name" track-by="name" :preselect-first="false" >
                                         <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
                                     </multiselect>
                                     <!-- <span v-if="v.m.familyWorkedSelected.required.$invalid && v.m.familyWorkedSelected.$dirty" style='color:red'>* {{ v.m.candidateFamilyWorkSkill.required.$message}}</span> -->
@@ -430,18 +430,18 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>{{ $t('lang.employer_add_job_additional_duties') }}</label>
-                                <textarea class="form-control" v-model="m[`additional_duty_${getLang}`]" type="text" placeholder="" rows="3"></textarea>
+                                <textarea class="form-control" v-model="m.demand[`additional_duty_${getLang}`]" type="text" placeholder="" rows="3"></textarea>
                             </div>
                         </div>
                         <div class="col-xl-4 col-lg-6 col-md-12">
                                 <div class=" form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck4" value="1" v-model="m.has_experience">
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck4" value="1" v-model="m.demand.has_experience">
                                     <label class="form-check-label" for="exampleCheck4">გამოცდილების ქონა სავალდებულოა</label>
                                 </div>
                             </div>
                             <div class="col-xl-4 col-lg-6 col-md-12">
                                 <div class=" form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck5" value="1" v-model="m.has_recommendation">
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck5" value="1" v-model="m.demand.has_recommendation">
                                     <label class="form-check-label" for="exampleCheck5">რეკომენდაციის ქონა სავალდებულოა</label>
                                 </div>
                             </div>
@@ -517,36 +517,20 @@ export default {
 
         const formData = () => {
             let [datePart, timePart] = vacancy.interview_date.split(' ');
-            const { id: employer_id, ...employerWithoutId } = vacancy.employer;
-            const { id: demand_id , ...demandWithoutId } = vacancy.demand;
-            const data = {
-                ...employerWithoutId,
-                ...vacancy,
-                ...demandWithoutId,
-                characteristic:vacancy.characteristic,
-                vacancy_duty: vacancy.vacancy_duty,
-                vacancy_for_who_need: vacancy.vacancy_for_who_need,
-                vacancy_benefit: vacancy.vacancy_benefit,
-                interviewDate:datePart,
-                interviewTime:timePart,
-                driving_license: vacancy.vacancy_driving_license
-            };
-            data.employer_id = employer_id
-            data.demand_id = demand_id
-
-            data.name = data[`name_${getLang.value}`];
-            data.address = data[`address_${getLang.value}`];
-            data.street = data[`street_${getLang.value}`];
-
+            const data = vacancy
+            data.employer.name = data.employer[`name_${getLang.value}`];
+            data.employer.address = data.employer[`address_${getLang.value}`];
+            data.employer.street = data.employer[`street_${getLang.value}`];
             data.additional_schedule = data[`additional_schedule_${getLang.value}`];
-            data.title = data[`title_${getLang.value}`];
-            data.go_vacation = data.go_vacation == 0 ? false : true;
-            data.stay_night = data.stay_night == 0 ? false : true;
-            data.work_additional_hours = data.work_additional_hours == 0 ? false : true;
+            data.demand = !data.demand ? {vacancy_id: data.id}: data.demand;
+            data.interviewDate = datePart;
+            data.interviewTime = timePart;
+            data.go_vacation = Boolean(data.go_vacation);
+            data.stay_night = Boolean(data.stay_night);
+            data.work_additional_hours = Boolean(data.work_additional_hours);
 
-            data.has_experience = data.has_experience == 0 ? false : true;
-            data.has_recommendation = data.has_recommendation == 0 ? false : true;
-
+            data.demand.has_experience = Boolean(data.demand.has_experience);
+            data.demand.has_recommendation = Boolean(data.demand.has_recommendation);
 
             data.lang = getLang.value;
             data.getLang = getLang.value;
@@ -575,30 +559,7 @@ export default {
             return false;
         };
         const rawValue = ref(null)
-        const forItem = (item, re = false) => {
-            let repeat = re
-            var editedFields = {};
-            for (const field in item) {
-                isReactiveProxy(item[field]) ? forItem(item[field], true) : ''
-                if (!repeat) {
-                    rawValue.value = item[field];
-                }
 
-
-                 // Extract the raw value from a ref
-                if (item[field] !==  model[field]) {
-                    editedFields[field] = rawValue.value;
-                }
-            }
-            repeat = false
-            return editedFields;
-        };
-        // const rawValue = typeof item[field] === 'object'? item[field]['id'] : item[field]; // Extract the raw value from a ref
-
-        //         if (rawValue !== typeof model[field] === 'object'?model[field]['id']:model[field]) {
-        //             // return
-        //             editedFields[field] = item[field];
-        //         }
         watch(m.value, (newValues, oldValues) => {
             // Do something when form fields change
 
@@ -617,7 +578,7 @@ export default {
                     ru:'',
                 },
                 '2':{
-                    ka:'ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე',
+                    ka:'ორშაბათი_დან შაბათის ჩათლით',
                     en:'',
                     ru:'',
                 },
@@ -661,18 +622,21 @@ export default {
         };
 
         const rules = {
-                    name: { required },
-                    number: { required, numeric },
-                    address: { required },
-                    email: { email },
-                    category: { required },
-                    payment: { required },
-                    currency: { required },
-                    work_schedule: { required },
-                    additional_schedule: { required },
-                    start_date: { required },
-                    term: { required },
-                vacancy_for_who_need: { required }
+            employer:{
+                name: { required },
+                number: { required, numeric },
+                address: { required },
+                email: { email },
+            },
+
+            category: { required },
+            payment: { required },
+            currency: { required },
+            work_schedule: { required },
+            additional_schedule: { required },
+            start_date: { required },
+            term: { required },
+        vacancy_for_who_need: { required }
 
         };
         const v = useVuelidate(rules, m);
@@ -706,7 +670,6 @@ export default {
         });
 
         const startDate = (item) =>{
-            console.log('item', item);
             maxDate.value = item
         }
 
@@ -764,7 +727,6 @@ export default {
 
 
         const update = (item) => {
-            console.log('forItem(newValues);', forItem(item));
             send.value = true
             let data = JSON.parse(JSON.stringify(item))
             // if (file.value != null && file.value.type !== 'application/pdf') {
@@ -788,14 +750,14 @@ export default {
             // }
 
             // loader.value = true
-            data[`name_${getLang.value}`] = data.name
-            data[`address_${getLang.value}`] = data.address
-            data[`street_${getLang.value}`] = data.street
+            data.employer[`name_${getLang.value}`] = data.employer.name
+            data.employer[`address_${getLang.value}`] = data.employer.address
+            data.employer[`street_${getLang.value}`] = data.employer.street
             data[`additional_schedule_${getLang.value}`] = data.additional_schedule
 
             v.value.$touch();
             if (!v.value.$invalid) {
-                let editedFields =  forItem(item)
+                // let editedFields =  forItem(item)
                 let html =  `
                     ${data.start_date}_დან ${data.term[`name_${getLang.value}`]},
                     ${(data[`for_who_${getLang.value}`])?data[`for_who_${getLang.value}`]:''}
@@ -824,7 +786,7 @@ export default {
                     /* Read more about isConfirmed, isDenied below */
                     if (result.isConfirmed) {
 
-                        emit('emitUpdateData', {model:data, edit:{...editedFields}})
+                        emit('emitUpdateData', {model:data})
                         // validateAndSubmit(data, editedFields)
                     }
                     send.value = false

@@ -1,3 +1,59 @@
+
+<script setup>
+    import _ from 'lodash';
+    import paginate from 'vuejs-paginate-next';
+    import candidate_table from '../component/candidate/candidate_table.vue';
+    import candidate_filter from '../component/candidate/candidate_filter.vue';
+    import { useCandidateStore } from '../../../../store/candidateStore'
+    import { defineProps, computed, ref, onMounted, toRefs  } from 'vue';
+    // const candidateStore = useCandidateStore();
+    const { pagination, candidate } = toRefs(useCandidateStore());
+    const props = defineProps({
+        data: Object
+    });
+    const { classificatory:cla, auth } = props.data
+    const { role_id, id } = auth
+    const tableKey = ref(0)
+    const dataType = ref('first');
+    const filterParam = ref([]);
+    const addCandidateUrl = computed(() =>{
+        let url = new URL( location.href)
+        return url.origin+'/admin/add_candidate'
+    })
+
+    const getData = async (page) => {
+        if (dataType.value == 'filter') {
+            console.log('dataType.value',dataType.value);
+            await filterCandidates(page, filterParam.value)
+        }else{
+            try {
+                await useCandidateStore().fetchCandidates(page);
+                tableKey.value += 1;
+            } catch (error) {
+                console.error('Error fetching candidates:', error);
+            }
+        }
+
+    };
+
+    const filterCandidates = async (page, filterData) => {
+        try {
+            await useCandidateStore().filterCandidates(page, filterData);
+            tableKey.value += 1;
+        } catch (error) {
+            console.error('Error filtering candidates:', error);
+        }
+    };
+    const handlerEmitFilterData = (filterData) => {
+        dataType.value = 'filter'
+        filterParam.value = filterData
+        filterCandidates(1, filterData);
+    };
+    onMounted(async () => {
+        await getData();
+    });
+
+</script>
 <template lang="">
     <div>
         <candidate_filter :cla="cla" @emitFilterData="handlerEmitFilterData" />
@@ -5,8 +61,7 @@
         <div class="mb-2 d-flex justify-content-end">
             <a type="button" class="btn btn-success" :href="addCandidateUrl" title="კანდიდატის დამატება"><i class="fa fa-plus"></i> დაამატე კანდიდატი</a>
         </div>
-
-        <candidate_table :data="candidate" :role_id="data.role_id" :hrId="data.hr_id" :key="tableKey" />
+        <candidate_table v-if="candidate.length > 0" :data="candidate" :role_id="role_id" :hrId="id" :key="tableKey" />
 
         <div class="mt-2">
             <paginate
@@ -24,75 +79,7 @@
 
     </div>
 </template>
-<script>
-import _ from 'lodash';
-import Paginate from 'vuejs-paginate-next';
-import candidate_table from '../component/candidate/candidate_table.vue';
-import candidate_filter from '../component/candidate/candidate_filter.vue';
-export default {
-    components:{
-        paginate: Paginate,
-        candidate_table,
-        candidate_filter
-    },
-    props:{
-        data:Object,
-    },
-    data() {
-        return {
-            candidate:[],
-            pagination:{
-                current_page: 1,
-                last_page: 2,
-            },
-            getDataType:'first_data',
-            category:null,
-            modalData:{},
-            m:{},
-            cla: {},
-            tableKey: 0
 
-        }
-    },
-    created(){
-        this.getData()
-    },
-    computed:{
-        addCandidateUrl(){
-            let url = new URL( location.href)
-            return url.origin+'/admin/add_candidate'
-
-        }
-    },
-    methods: {
-        async getData(){
-            if (this.getDataType == 'first_data') {
-                await this.firstData()
-            }
-
-        },
-        async firstData(){
-            this.candidate = this.data.candidate.data
-            this.cla = this.data.classificatory
-            this.pagination = {
-                'current_page':this.data.candidate.current_page,
-                'last_page': this.data.candidate.last_page
-            }
-
-        },
-        handlerEmitFilterData(item){
-            this.getDataType = 'filter'
-            this.candidate = item.candidate
-            this.pagination = item.pagination
-            this.tableKey ++
-        },
-
-    },
-    mounted(){
-
-    }
-}
-</script>
 <style lang="">
 
 </style>

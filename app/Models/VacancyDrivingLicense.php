@@ -11,7 +11,7 @@ class VacancyDrivingLicense extends Model implements Auditable
     use HasFactory;
     use \OwenIt\Auditing\Auditable;
     protected $fillable = [
-        'vacancy_id ',
+        'vacancy_id',
         'driving_license_id',
     ];
     // public function vacancy()

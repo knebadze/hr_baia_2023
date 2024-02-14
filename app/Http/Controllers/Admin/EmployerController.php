@@ -14,15 +14,19 @@ class EmployerController extends Controller
 
 
     function index() {
-        $data = Employer::orderBy('id', 'DESC')->paginate(25)->toArray();
-        return view('admin.employer', compact('data'));
+
+        return view('admin.employer');
     }
 
+    function fetch() {
+        $data = Employer::orderBy('id', 'DESC')->paginate(20)->toArray();
+        return response()->json($data);
+    }
     function filter(EmployerFilters $filters) {
 
         return Employer::filter($filters)
             ->orderBy('id', 'DESC')
-            ->paginate(25)
+            ->paginate(20)
             ->toArray();
     }
     public function translate($data)

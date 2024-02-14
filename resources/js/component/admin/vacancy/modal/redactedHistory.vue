@@ -15,7 +15,7 @@
                     <hr> -->
                     <div class="border border-primary p-2">
                         <div class="row">
-                            <div class="col-xl-4 col-lg-6 col-md-12">
+                            <!-- <div class="col-xl-4 col-lg-6 col-md-12">
                                 <div class="form-group">
                                     <label>ველის სახელი</label>
                                     <div class="ls-inputicon-box">
@@ -25,8 +25,8 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-6 col-md-12">
+                            </div> -->
+                            <div class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
                                     <label>თარიღი (დან)</label>
                                     <div class="ls-inputicon-box">
@@ -34,7 +34,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-4 col-lg-6 col-md-12">
+                            <div class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
                                     <label>თარიღი (მდე)</label>
                                     <div class="ls-inputicon-box">
@@ -48,18 +48,26 @@
                         <table class="table table-hover text-wrap">
                         <thead>
                             <tr>
-                                <th>ველის სახელი</th>
+                                <th>დაარედაქტირა</th>
+                                <th>როლი</th>
+                                <th>დარედაქტირდა</th>
                                 <th >ძველი მნიშვნელობა</th>
-                                <th>HR</th>
-                                <th>რედაქტირების თარიღი</th>
+                                <th >ახალი მნიშვნელობა</th>
+                                <th>თარიღი</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr v-for="(item, index) in data" :key="index">
-                                <td>{{ item.column_name }}</td>
+                                <td>{{ item.name_ka ?? 'დამსაქმებელი' }}</td>
+                                <td>{{ item.role_id == 1? 'ადმინი' :item.role_id == 1? 'HR': 'დამსაქმებელი' }}</td>
+                                <td>{{ item.type }}</td>
+                                <td>{{ item.properties.old }}</td>
+                                <td>{{ item.properties.attributes }}</td>
+                                <td>{{ item.created_at }}</td>
+                                <!-- <td>{{ item.column_name }}</td>
                                 <td :class="(item.old_value == 'ცარიელი იყო')?'text-danger':''">{{ item.old_value }}</td>
                                 <td>{{ item.hr}}</td>
-                                <td>{{ item.created_at}}</td>
+                                <td>{{ item.created_at}}</td> -->
                             </tr>
                         </tbody>
                         </table>
@@ -89,46 +97,71 @@
                 data:{},
                 staticData:{},
                 column: {
-                    'name_ka': 'სახელი გვარი',
-                    'email': 'მაილი',
-                    'number': 'ნომერი',
-                    'number_code': 'ნომრის კოდი',
-                    'address_ka': 'მისამართი',
-                    'title_ka': 'სათაური',
-                    'vacancy_for_who_need': 'ვისთვის გესაჭიროებათ?',
-                    'category': 'კატეგორია',
-                    'work_schedule': 'გრაფიკი',
-                    'payment': 'ანაზღაურება',
-                    'currency': 'ვალუტა',
-                    'additional_schedule_ka': 'სამუშაო დღეები და საათები',
-                    'status': 'სტატუსი',
-                    'status_change_reason': 'სტატუსის შეცვლის მიზეზი',
-                    'go_vacation': 'არდადეგებზე გაყოლა',
-                    'stay_night': 'ღამე დარჩენა',
-                    'work_additional_hours': 'დამატებითი სათები მუშაობა',
-                    'start_date': 'დაწყების თარიღი',
-                    'term': 'ვადა',
-                    'vacancy_benefit': 'ბენეფიტები',
-                    'comment':'კომენტარი სააგენტოსთვის',
-                    'min_age': 'მინიმალური ასაკი',
-                    'max_age': 'მაქსიმალური ასაკი',
-                    'education': 'განათლება',
-                    'specialty': 'სპეციალობა',
-                    'language': 'უცხო ენა',
-                    'language_level': 'უცხო ენის ცოდნის დონე',
-                    'characteristic': 'მახასიათებლები',
-                    'vacancy_duty': 'მოვალეობები',
-                    'additional_duty_ka': 'მოვალეობები დამატებით',
-                    'interview_place': 'გასაუბრების ადგილი',
-                    'must_be_enrolled_employer': 'დამსაქმებლისგან უნდა ჩაირიცხოს',
-                    'must_be_enrolled_candidate': 'კანდიდატისგან უნდა ჩაირიცხოს',
-                    'must_be_enrolled_employer_date': 'დამსაქმებლისგან უნდა ჩაირიცხოს თარიღი',
-                    'must_be_enrolled_candidate_date': 'კანდიდატისგან უნდა ჩაირიცხოს თარიღი',
-                    'enrolled_candidate': 'კანდიდატისგან ჩაირიცხა',
-                    'enrolled_employer': 'დამსაქმებლისგან ჩაირიცხა',
-                    'enrolled_candidate_date': 'კანდიდატისგან თანხის ჩარიცხვის თარიღი',
-                    'enrolled_employer_date': 'დამსაქმებლისგან თანხის ჩარიცხვის თარიღი',
-                    'hr_bonus': 'ჰრ_ის ანაზღაურება'
+                    name_ka: 'სახელი გვარი KA',
+                    name_en: 'სახელი გვარი EN',
+                    name_ru: 'სახელი გვარი RU',
+                    email: 'მაილი',
+                    number: 'ნომერი',
+                    number_code: 'ნომრის კოდი',
+                    address_ka: 'მისამართი KA',
+                    address_en: 'მისამართი EN',
+                    address_ru: 'მისამართი RU',
+                    street_ka: 'ქუჩა KA',
+                    street_ka: 'ქუჩა EN',
+                    street_ka: 'ქუჩა RU',
+                    title_ka: 'სათაური KA',
+                    title_en: 'სათაური EN',
+                    title_ru: 'სათაური RU',
+                    vacancy_for_who_need: 'ვისთვის გესაჭიროებათ?',
+                    category_id: 'კატეგორია_id',
+                    work_schedule_id: 'გრაფიკი_id',
+                    payment: 'ანაზღაურება',
+                    currency_id: 'ვალუტა_id',
+                    additional_schedule_ka: 'სამუშაო დღეები და საათები KA',
+                    additional_schedule_en: 'სამუშაო დღეები და საათები EN',
+                    additional_schedule_ru: 'სამუშაო დღეები და საათები RU',
+                    status_id: 'სტატუსი_id',
+                    status_change_reason: 'სტატუსის შეცვლის მიზეზი',
+                    go_vacation: 'არდადეგებზე გაყოლა',
+                    stay_night: 'ღამე დარჩენა',
+                    work_additional_hours: 'დამატებითი სათები მუშაობა',
+                    start_date: 'დაწყების თარიღი',
+                    term_id: 'ვადა_id',
+                    vacancy_benefit: 'ბენეფიტები',
+                    comment:'კომენტარი სააგენტოსთვის',
+                    min_age: 'მინიმალური ასაკი',
+                    max_age: 'მაქსიმალური ასაკი',
+                    education_id: 'განათლება_id',
+                    specialty_id: 'სპეციალობა_id',
+                    language_id: 'უცხო ენა_id',
+                    language_level_id: 'უცხო ენის ცოდნის დონე_id',
+                    characteristic: 'მახასიათებლები',
+                    vacancy_duty: 'მოვალეობები',
+                    additional_duty_ka: 'მოვალეობები დამატებით',
+                    interview_place_id: 'გასაუბრების ადგილი_id',
+                    must_be_enrolled_employer: 'დამსაქმებლისგან ჩასარიცხი დარჩა',
+                    employer_initial_amount: 'დამსაქმებლისგან უნდა ჩაირიცხოს',
+                    must_be_enrolled_candidate: 'კანდიდატისგან ჩასარიცხი დარჩა',
+                    candidate_initial_amount: 'კანდიდატისგან უნდა ჩაირიცხოს',
+                    must_be_enrolled_employer_date: 'დამსაქმებლისგან უნდა ჩაირიცხოს თარიღი',
+                    must_be_enrolled_candidate_date: 'კანდიდატისგან უნდა ჩაირიცხოს თარიღი',
+                    enrolled_candidate: 'კანდიდატისგან ჩაირიცხა',
+                    enrolled_employer: 'დამსაქმებლისგან ჩაირიცხა',
+                    enrolled_candidate_date: 'კანდიდატისგან თანხის ჩარიცხვის თარიღი',
+                    enrolled_employer_date: 'დამსაქმებლისგან თანხის ჩარიცხვის თარიღი',
+                    hr_bonus: 'ჰრ_ის ანაზღაურება',
+                    interview_date: 'გასაუბრების თარიღი',
+                    "interviewPlace.name_ka": 'ინტერვიუს ადგილი',
+                    "currency.name_ka": 'ვალუტა',
+                    "term.name_ka": 'ვადა',
+                    "workSchedule.name_ka": 'გრაფიკი',
+                    "reasonForCancel.name_ka": 'გაუქმების მიზეზი',
+                    "hr.user.name": 'HR',
+                    "category.name_ka": 'კატეგორია',
+                    "language.name_ka": 'უცხო ენა',
+                    "languageLevel.name_ka": 'ცოდნის დონე',
+                    "education.name_ka": 'განათლება',
+                    "specialty.name_ka": 'პროფესია',
                 },
                 m:{}
             }
@@ -145,7 +178,10 @@
             async show(){
                 try {
                     let result = await this.getInfo();
+                    console.log(result.data);
+                    // return
                     this.data = this.makeData(result.data)
+
                     this.staticData = this.makeData(result.data)
                     this.showConfirm = true
                 } catch (error) {
@@ -162,47 +198,46 @@
                 this.showConfirm = false
             },
             makeData(item){
-                this.key('status')
-                let arr = []
-                let data = {}
-                item.forEach(value => {
-                    data = {
-                        'column_name': this.key(value.column_name),
-                        'old_value': (typeof JSON.parse(value.old_value) === 'object')?this.oldValue(JSON.parse(value.old_value)):JSON.parse(value.old_value),
-                        'created_at': moment(value.created_at).format("YYYY-MM-DD HH:mm"),
-                        'hr': value.name
-                    }
-                    arr.push(data)
-                });
-                return arr
-            },
-            key(item){
-                return this.column[item]
-            },
-            oldValue(item){
-                if (item && item[0]) {
-                    let str = ''
-                    item.forEach(element => {
-                        if (_.has(element, 'name_ka')) {
-                            return str += element.name_ka + '; '
-                        }else if(_.has(item, 'name')){
-                            return str += element.name + '; '
+                const descriptionTypeMap = {
+                    'Sync_driving_license': 'მართვის მოწმობა',
+                    'Sync_duty': 'მოვალეობა',
+                    'Sync_benefit': 'ბენეფიტები',
+                    'Sync_for_who_need': 'ვისთვის',
+                    'Sync_characteristic': 'მახასიათებელი'
+                };
+
+                const subjectTypeMap = {
+                    'App\\Models\\Vacancy': 'ვაკანსია',
+                    'App\\Models\\VacancyDeposit': 'დეპოზიტი',
+                    'App\\Models\\Employer': 'დამსაქმებელი',
+                    'App\\Models\\VacancyDemand': 'ინფორმაცია კადრზე'
+                };
+                const obj = (item) =>{
+                    // console.log('old',  item);
+                    let newItem = {};
+                    // let notFoundKeys = [];
+                    for (let key in item) {
+                        if (this.column.hasOwnProperty(key)) {
+                            newItem[this.column[key]] = item[key];
+                        } else {
+                            newItem[key] = item[key];
                         }
-                    });
-                    return str
-                }else if(item){
-                    if (_.has(item, 'name_ka')) {
-                        return item.name_ka
-                    }else if(_.has(item, 'name')){
-                        return item.name
-                    }else if(item.length == 0){
-                        return 'ცარიელი იყო'
-                    }else if(item == null){
-                        return 'ცარიელი იყო'
                     }
-                }else{
-                    return 'ცარიელი იყო'
+                    return newItem
                 }
+                for (let i = 0; i < item.length; i++) {
+                    const element = item[i];
+                    // Map element.subject_type to element.type
+                    element.type = subjectTypeMap[element.subject_type] || element.subject_type;
+
+                     // Map element.description to element.type
+                     element.type = descriptionTypeMap[element.description] || element.type;
+
+                    element.created_at = moment(element.created_at).format("YYYY-MM-DD HH:mm")
+                    element.properties.old = obj(element.properties.old)
+                    element.properties.attributes = obj(element.properties.attributes)
+                }
+                return item
             },
         },
         watch:{
@@ -224,7 +259,7 @@
                     this.data = this.staticData
                     return
                 }
-                let data = this.data
+                let data = {...this.staticData}
                 this.data =  _.filter(data, function(o) { return moment(o.created_at).format("YYYY-MM-DD") >= moment(newVal).format("YYYY-MM-DD"); });
             },
             'm.date_to':function(newVal, oldVal){
@@ -232,7 +267,7 @@
                     this.data = this.staticData
                     return
                 }
-                let data = this.data
+                let data = {...this.staticData}
                 this.data =  _.filter(data, function(o) { return moment(o.created_at).format("YYYY-MM-DD") <= moment(newVal).format("YYYY-MM-DD"); });
             }
         }

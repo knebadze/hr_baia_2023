@@ -5,6 +5,7 @@
             :items="items"
             table-class-name="customize-table"
             border-cell
+            :hide-footer="true"
         >
         <template #item-operation="item">
            <div class="operation-wrapper">

@@ -82,7 +82,7 @@ export default {
                 showReminderModal.value = !showReminderModal.value
             }else if(index == 4){
                 let url = new URL( location.href)
-                window.location.replace(`${url.origin}/ka/post_job?data=${encodeURIComponent(JSON.stringify(item))}`);
+                window.location.replace(`${url.origin}/ka/post_job/${item.id}/${item.code}`);
                 // showRepeatModal.value = !showRepeatModal.value
             }else if(index == 5){
                 showHistoryModal.value = !showHistoryModal.value

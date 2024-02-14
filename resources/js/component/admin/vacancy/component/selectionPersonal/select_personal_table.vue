@@ -12,6 +12,7 @@
         table-class-name="customize-table"
         :body-row-class-name="bodyRowClassNameFunction"
         border-cell
+        :hide-footer="true"
 
     >
     <template #item-status="item">
@@ -27,7 +28,7 @@
 
         <div v-if="!itemsSelectedButton">
             <table_cog :item="item" @emitOpenModal="handlerOpenModal"/>
-          
+
         </div>
 
       </div>

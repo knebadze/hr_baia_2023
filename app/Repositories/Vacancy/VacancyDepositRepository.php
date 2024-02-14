@@ -32,9 +32,12 @@ class VacancyDepositRepository
     }
 
     function update($data, $type){
-        // dd($type);
+        // dd($data);
         $deposit = VacancyDeposit::findOrFail($data['id']);
+        // კანდიდატის ჩარიცხვა
         if($type == 'candidate'){
+            // როცა ბაზიდან  მოსული ციფრი არ უდრის რედაქტირების დროს გამოგზავნილს
+            $mustCandidate = 0;
             if ($deposit->candidate_initial_amount != $data['initial_amount']) {
                 if ($deposit->candidate_initial_amount > $data['initial_amount']) {
                     $mustCandidate = $deposit->must_be_enrolled_candidate - ($deposit->candidate_initial_amount - $data['initial_amount']);

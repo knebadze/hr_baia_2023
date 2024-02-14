@@ -16,7 +16,7 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-            <employer-page :data='@json($data)'></employer-page>
+            <employer-page></employer-page>
 
         </div>
     </section>

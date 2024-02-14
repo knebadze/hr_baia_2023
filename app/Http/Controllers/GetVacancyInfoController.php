@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Benefit;
+use App\Models\DrivingLicense;
+use App\Models\Duty;
+use App\Models\ForWhoNeed;
+use App\Models\GeneralCharacteristic;
 use App\Models\Status;
 use App\Models\Vacancy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\VacancyRedactedHistory;
 use App\Services\ClassificatoryService;
+use Spatie\Activitylog\Models\Activity;
 
 class GetVacancyInfoController extends Controller
 {
@@ -20,9 +25,10 @@ class GetVacancyInfoController extends Controller
     public function getClassificatory(Request $request){
 
         $classificatoryArr = ['numberOwner', 'currency', 'workSchedule', 'educations', 'characteristic', 'numberCode',
-        'category', 'forWhoNeed', 'term', 'benefit','specialties', 'languages', 'languageLevels', 'duty', 'interviewPlace', 'status'];
+        'category', 'forWhoNeed', 'term', 'benefit','vacancy_profession', 'languages', 'languageLevels', 'duty', 'interviewPlace', 'status', 'drivingLicense'];
 
         $classificatory = $this->classificatoryService->get($classificatoryArr);
+        $classificatory['specialties'] = $classificatory['vacancy_profession'];
         return response()->json($classificatory);
     }
 
@@ -35,8 +41,15 @@ class GetVacancyInfoController extends Controller
 
     public function statusChangeInfo(Request $request) {
         $classificatory = $this->classificatoryService->get(['reasonForCancel']);
-        // dd($classificatory);
-        $history = VacancyRedactedHistory::where('vacancy_id', $request->data)->where('column_name', 'status')->get();
+        $history = Activity::where('subject_id', $request->data)
+            ->where('description', 'updated')
+            ->where('event', 'updated')
+            ->whereRaw("json_extract(properties, '$.old.status_id') IS NOT NULL")
+            ->whereRaw("json_extract(properties, '$.attributes.status_id') IS NOT NULL")
+            ->leftJoin('users', 'users.id', 'activity_log.causer_id')
+            ->select('properties', 'activity_log.created_at', 'users.name_ka')
+            ->get()
+            ->toArray();
         $data = ['history' => $history, 'status' => Status::whereNotIn('id', [1, 4, 13])->where('status_type_id', 1)->get()->toArray(), 'role_id' => Auth::user()->role_id, 'reasonForCancel' => $classificatory['reasonForCancel']];
         return response()->json($data);
     }
@@ -59,13 +72,52 @@ class GetVacancyInfoController extends Controller
     }
 
     function vacancyRedactedHistory(Request $request) {
-        $data = VacancyRedactedHistory::orderBy('created_at', 'DESC')
-                ->where('vacancy_id', $request->data)
-                ->leftJoin('users', 'users.id', 'vacancy_redacted_histories.user_id')
-                // ->with('user')
-                ->select('vacancy_redacted_histories.*', 'users.name_ka as name')
-                ->get()->toArray();
-        // dd($data);
+        $vacancy = Vacancy::where('id', $request->data)->first();
+        $vacancyId = $vacancy->id;
+        $employerId = $vacancy->employer->id;
+        $demandId = $vacancy->demand->id ?? '';
+        $depositId = $vacancy->deposit->id ?? '';
+        $auditableIds = [$vacancyId, $employerId, $depositId, $demandId];
+
+        $data = Activity::orderBy('activity_log.id', 'DESC')
+            ->whereNot('event', 'created')
+            ->whereIn('subject_id', $auditableIds)
+            ->leftJoin('users', 'users.id', 'activity_log.causer_id')
+            ->select('activity_log.*', 'users.name_ka', 'users.role_id')
+            ->get()->toArray();
+        foreach ($data as &$value) {
+            switch ($value['description']) {
+                case 'Sync_for_who_need':
+                    $model = ForWhoNeed::class;
+                    $columnName = 'name_ka';
+                    break;
+                case 'Sync_duty':
+                    $model = Duty::class;
+                    $columnName = 'name_ka';
+                    break;
+                case 'Sync_driving_license':
+                    $model = DrivingLicense::class;
+                    $columnName = 'name';
+                    break;
+                case 'Sync_characteristic':
+                    $model = GeneralCharacteristic::class;
+                    $columnName = 'name_ka';
+                    break;
+                case 'Sync_benefit':
+                    $model = Benefit::class;
+                    $columnName = 'name_ka';
+                    break;
+                default:
+                    $model = null;
+                    $columnName = null;
+                    break;
+            }
+
+            if ($model !== null && $columnName !== null) {
+                $value['properties']['old'] = $model::whereIn('id', $value['properties']['old'])->pluck($columnName)->toArray();
+                $value['properties']['attributes'] = $model::whereIn('id', $value['properties']['attributes'])->pluck($columnName)->toArray();
+            }
+        }
         return response()->json($data);
     }
 

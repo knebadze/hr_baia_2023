@@ -5,13 +5,18 @@ namespace App\Repositories\Vacancy;
 use Carbon\Carbon;
 use App\Models\Vacancy;
 use App\Models\Employer;
+use Illuminate\Http\Request;
 use App\Models\VacancyDemand;
 use App\Models\VacancyDeposit;
+use OwenIt\Auditing\Models\Audit;
+use Illuminate\Support\Facades\Auth;
+use OwenIt\Auditing\Contracts\Auditor;
+use OwenIt\Auditing\Resolvers\IpAddressResolver;
 
 class VacancyUpdateRepository
 {
 
-    public function update($data){
+    public function update($data, $ip){
         // dd($data);
         $id = $data['id'];
         $vacancy = Vacancy::findOrFail($id);
@@ -30,7 +35,7 @@ class VacancyUpdateRepository
         $vacancy->additional_schedule_ru = $data['additional_schedule_ru'];
 
         $vacancy->comment = $data['comment'];
-        $dateTime = Carbon::createFromTimestamp(strtotime($data['interviewDate'] . $data['interviewTime']));
+        $dateTime = $data['interviewDate'].' '.$data['interviewTime'];
         $vacancy->interview_date = $dateTime;
         $vacancy->interview_place_id = $data['interview_place']['id'];
 
@@ -43,85 +48,87 @@ class VacancyUpdateRepository
         $vacancy->update();
 
 
-        $filteredArray = array_filter($data['demand'], 'is_null');
+        // $filteredArray = $data['demand']? array_filter($data['demand'], 'is_null'): null;
 
-        if (count($filteredArray) !== count($data['demand'])) {
+        // if ($filteredArray && (count($filteredArray) !== count($data['demand']))) {
+            VacancyDemand::updateOrCreate(
+                ['vacancy_id' => $data['demand']['vacancy_id']], // Update condition
+                [
+                    'vacancy_id' => $data['demand']['vacancy_id'],
+                    'min_age' => $data['demand']['min_age'] ?? null,
+                    'max_age' => $data['demand']['max_age'] ?? null,
+                    'education_id' => $data['demand']['education']['id'] ?? null,
+                    'profession_id' => $data['demand']['specialty']['id'] ?? null,
+                    'additional_duty_ka' => $data['demand']['additional_duty_ka'] ?? null,
+                    'additional_duty_en' => $data['demand']['additional_duty_en'] ?? null,
+                    'additional_duty_ru' => $data['demand']['additional_duty_ru'] ?? null,
+                    'language_id' => $data['demand']['language']['id'] ?? null,
+                    'language_level_id' => $data['demand']['language_level']['id'] ?? null,
+                    'has_experience' => isset($data['demand']['has_experience']) ? $data['demand']['has_experience'] : 0,
+                    'has_recommendation' => isset($data['demand']['has_recommendation']) ? $data['demand']['has_recommendation']: 0,
+                ]
+            );
+        // }
 
-            // $demand = VacancyDemand::findOrFail($data['demand_id']);
-            // $demand->min_age = $data['min_age'];
-            // $demand->max_age = $data['max_age'];
-            // $demand->education_id = $data['education']['id'];
-            // $demand->additional_duty_ka = $data['additional_duty_ka'];
-            // $demand->additional_duty_en = $data['additional_duty_en'];
-            // $demand->additional_duty_ru = $data['additional_duty_ru'];
-            // $demand->language_id = $data['language']['id'];
-            // $demand->language_level_id = $data['language_level']['id'];
-            // $demand->update();
-            $demand = VacancyDemand::findOrFail($data['demand_id']);
-            $demand->min_age = $data['demand']['min_age'];
-            $demand->max_age = $data['demand']['max_age'];
-            $demand->education_id = ($data['demand']['education'])?$data['demand']['education']['id']:null;
-            $demand->specialty_id = ($data['demand']['specialty'])?$data['demand']['specialty']['id']:null;
-            $demand->additional_duty_ka = $data['demand']['additional_duty_ka'];
-            $demand->additional_duty_en = $data['demand']['additional_duty_en'];
-            $demand->additional_duty_ru = $data['demand']['additional_duty_ru'];
-            $demand->language_id = ($data['demand']['language'])?$data['demand']['language']['id']:null;
-            $demand->language_level_id = ($data['demand']['language_level'])?$data['demand']['language_level']['id']:null;
-            $demand->has_experience = ($data['demand']['has_experience'] == 1 )?$data['demand']['has_experience']:0;
-            $demand->has_recommendation = ($data['demand']['has_recommendation'])?$data['demand']['has_recommendation']:0;
-        }
-
-        $employer = Employer::findOrFail($data['employer_id']);
-        $employer->name_ka = $data['name_ka'];
-        $employer->name_en = $data['name_en'];
-        $employer->name_ru = $data['name_ru'];
-        $employer->address_ka = $data['address_ka'];
-        $employer->address_en = $data['address_en'];
-        $employer->address_ru = $data['address_ru'];
-        $employer->number = $data['number'];
-        $employer->number_code_id = $data['number_code']['id'];
-        $employer->email = $data['email'];
+        $employer = Employer::findOrFail($data['employer']['id']);
+        $employer->name_ka = $data['employer']['name_ka'];
+        $employer->name_en = $data['employer']['name_en'];
+        $employer->name_ru = $data['employer']['name_ru'];
+        $employer->address_ka = $data['employer']['address_ka'];
+        $employer->address_en = $data['employer']['address_en'];
+        $employer->address_ru = $data['employer']['address_ru'];
+        $employer->number = $data['employer']['number'];
+        $employer->number_code_id = $data['employer']['number_code']['id'];
+        $employer->email = $data['employer']['email'];
         $employer->update();
-        // dd($data);
-        // $findDeposit = VacancyDeposit::where('vacancy_id', $data['id'])->first();
-        // $deposit = VacancyDeposit::findOrFail($findDeposit->id);
-        // $deposit->candidate_initial_amount = (int)$data['payment'] / 2;
-        // $deposit->employer_initial_amount = ((int)$data['payment'] * 10) / 100;
-        // $deposit->must_be_enrolled_candidate = (int)$data['payment'] / 2;
-        // $deposit->must_be_enrolled_employer = ((int)$data['payment'] * 10) / 100;
-        // $deposit->update();
 
         $selectForWhoNeedId = collect($data['vacancy_for_who_need'])->reduce(function ($carry, $item) {
             if($carry  == null) $carry = [];
             $carry[] = $item["id"];
             return $carry;
         }, []);
-        $vacancy->vacancyForWhoNeed()->sync($selectForWhoNeedId);
+        $vacancy->syncVacancyForWhoNeed($selectForWhoNeedId);
+        // $vacancy->vacancyForWhoNeed()->sync($selectForWhoNeedId);
 
         $selectBenefitId = collect($data['vacancy_benefit'])->reduce(function ($carry, $item) {
             if($carry  == null) $carry = [];
             $carry[] = $item["id"];
             return $carry;
         }, []);
-        $vacancy->vacancyBenefit()->sync($selectBenefitId);
+        $vacancy->syncVacancyBenefit($selectBenefitId);
+        // $vacancy->vacancyBenefit()->sync($selectBenefitId);
 
         $selectCharacteristic = collect($data['characteristic'])->reduce(function ($carry, $item) {
             if($carry  == null) $carry = [];
             $carry[] = $item['id'];
             return $carry;
         }, []);
-        $vacancy->characteristic()->sync( $selectCharacteristic );
+        $vacancy->syncCharacteristic($selectCharacteristic);
+        // $vacancy->characteristic()->sync( $selectCharacteristic );
+
+        // dd($old_value);
+        // $this->syncRelatedData($vacancy, $old_value, $selectCharacteristic, $ip, 'VacancyCandidateCharacteristic');
 
         $selectDutyId = collect($data['vacancy_duty'])->reduce(function ($carry, $item) {
             if($carry  == null) $carry = [];
             $carry[] = $item["id"];
             return $carry;
         }, []);
-        $vacancy->vacancyDuty()->sync($selectDutyId);
+        $vacancy->syncVacancyDuty($selectDutyId);
+
+        if (isset($data['vacancy_driving_license'])) {
+            $selectDrivingLicenseId = collect($data['vacancy_driving_license'])->reduce(function ($carry, $item) {
+                if($carry  == null) $carry = [];
+                $carry[] = $item["id"];
+                return $carry;
+            }, []);
+            $vacancy->syncVacancyDrivingLicense($selectDrivingLicenseId);
+            // $vacancy->vacancyDrivingLicense()->sync($selectDrivingLicenseId);
+        }
     }
 
     function updateDeposit($data) {
-        // dd($data);
+        dd($data);
         $deposit = VacancyDeposit::findOrFail($data['id']);
         if ($deposit->employer_initial_amount != $data['employer_initial_amount']) {
             if ($deposit->employer_initial_amount > $data['employer_initial_amount']) {
@@ -153,16 +160,39 @@ class VacancyUpdateRepository
                 'must_be_enrolled_candidate_date' => $data['must_be_enrolled_candidate_date'],
             ]
         );
-        $deposit->employer_initial_amount = $data['employer_initial_amount'];
-        $deposit->must_be_enrolled_employer = $mustEmployer;
-        $deposit->must_be_enrolled_employer_date = $data['must_be_enrolled_employer_date'];
-        $deposit->candidate_initial_amount = $data['candidate_initial_amount'];
-        $deposit->must_be_enrolled_candidate = $mustCandidate;
-        $deposit->must_be_enrolled_candidate_date = $data['must_be_enrolled_candidate_date'];
-        $deposit->update();
+        // $deposit->employer_initial_amount = $data['employer_initial_amount'];
+        // $deposit->must_be_enrolled_employer = $mustEmployer;
+        // $deposit->must_be_enrolled_employer_date = $data['must_be_enrolled_employer_date'];
+        // $deposit->candidate_initial_amount = $data['candidate_initial_amount'];
+        // $deposit->must_be_enrolled_candidate = $mustCandidate;
+        // $deposit->must_be_enrolled_candidate_date = $data['must_be_enrolled_candidate_date'];
+        // $deposit->update();
     }
 
 
+    // laravel audit
+    // function syncRelatedData( $vacancy, $old_value, $new_value, $ip, $related) {
+    //     $difference_old_to_new = array_diff($old_value, $new_value);
+    //     $difference_new_to_old = array_diff($new_value, $old_value);
+
+    //     $difference = array_merge($difference_old_to_new, $difference_new_to_old);
+    //     if (!empty($difference)) {
+    //         $user_id = Auth::id() ?? null;
+    //         $auditData = [
+    //             'user_id' => $user_id,
+    //             'event'       => 'sync',
+    //             'auditable_id'=> $vacancy->id,
+    //             'auditable_type' => "App\Models\\".$related,
+    //             'old_values'  => [$related.'_ids' => $old_value], // You may need to provide old values depending on your requirements
+    //             'new_values'  => [$related.'_ids' => $new_value],
+    //             'ip_address'     => $ip,
+    //         ];
+
+    //         // Auditor::connection('database')->event('update')->audit($auditData);
+    //         Audit::create($auditData);
+
+    //     }
+    // }
 
 
 }
