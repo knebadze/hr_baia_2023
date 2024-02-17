@@ -162,7 +162,6 @@ export default {
         async fetchData(){
 
             const response = await axios.get(`/fetch_employer?page=${this.pagination.current_page}`);
-            console.log('response',response);
             let data = response.data
             this.employer = data.data
             this.staticEmployer = data.data

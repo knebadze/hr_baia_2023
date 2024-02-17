@@ -170,29 +170,7 @@ class VacancyUpdateRepository
     }
 
 
-    // laravel audit
-    // function syncRelatedData( $vacancy, $old_value, $new_value, $ip, $related) {
-    //     $difference_old_to_new = array_diff($old_value, $new_value);
-    //     $difference_new_to_old = array_diff($new_value, $old_value);
 
-    //     $difference = array_merge($difference_old_to_new, $difference_new_to_old);
-    //     if (!empty($difference)) {
-    //         $user_id = Auth::id() ?? null;
-    //         $auditData = [
-    //             'user_id' => $user_id,
-    //             'event'       => 'sync',
-    //             'auditable_id'=> $vacancy->id,
-    //             'auditable_type' => "App\Models\\".$related,
-    //             'old_values'  => [$related.'_ids' => $old_value], // You may need to provide old values depending on your requirements
-    //             'new_values'  => [$related.'_ids' => $new_value],
-    //             'ip_address'     => $ip,
-    //         ];
-
-    //         // Auditor::connection('database')->event('update')->audit($auditData);
-    //         Audit::create($auditData);
-
-    //     }
-    // }
 
 
 }

@@ -346,7 +346,7 @@
     </div>
     <!-- /.container-fluid -->
     <select_personal_table v-if="candidate.length > 0" :data="modalData" :key="tableKey"></select_personal_table>
-    <div class="mt-2">
+    <div class="mt-2" v-if="candidate.length > 0">
             <paginate
                 v-model="pagination.current_page"
                 :page-count="pagination.last_page"

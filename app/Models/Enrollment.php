@@ -4,20 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use OwenIt\Auditing\Contracts\Auditable;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
-class Enrollment extends Model implements Auditable
+class Enrollment extends Model
 {
-    use HasFactory;
-    use \OwenIt\Auditing\Auditable;
-    
+    use LogsActivity, HasFactory;
+
     protected $fillable = [
-        'enrollment_type',
-        'author_id ',
-        'vacancy_id ',
-        'candidate_id ',
-        'who_is_counting',
-        'type',
+        'enrollment_type', #1_კანდიდატი, 2_ვაკანსია
+        'author_id',
+        'vacancy_id',
+        'candidate_id',
+        'who_is_counting', #1_კანდიდატი, 2_დამსაქმებელი
+        'type', #1_სრული, 0_არასრული
         'name',
         'money',
         'hr_percent',
@@ -26,6 +26,11 @@ class Enrollment extends Model implements Auditable
         'agree',
     ];
 
+    public function getActivitylogOptions(): LogOptions
+    {
+        $logOptions = LogOptions::defaults([])->logFillable()->logOnlyDirty();
+        return $logOptions;
+    }
     public function user()
     {
         return $this->belongsTo(User::class, 'author_id', 'id');

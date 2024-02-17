@@ -27,6 +27,7 @@ return new class extends Migration
             $table->float('hr_bonus');
             $table->string('file_path', 300)->nullable();
             $table->integer('agree')->default(0);
+            $table->foreignId('status_id')->default(17)->constrained()->onUpdate('cascade');
             $table->timestamps();
             $table->foreign('author_id')->references('id')->on('users');
         });

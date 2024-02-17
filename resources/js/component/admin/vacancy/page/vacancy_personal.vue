@@ -21,32 +21,41 @@ export default {
     },
     setup(props) {
         const items = ref(props.data)
-
+        console.log('items', items.value);
         const tableConfig = computed(() => {
             let data = []
-            const employedData = _.filter(props.data, function(o) {return  o.qualifying_type_id ==  6 || o.qualifying_type_id ==  7 });
+            const employedData = _.filter(props.data, function(o) {return  o.qualifying_type_id ==  7 || o.qualifying_type_id ==  8 });
             const employedObj = {
                 type: 'employed',
                 title:'დასაქმებული კანდიდატი',
-                header: ['ID', 'სახელი გვარი', 'დამატების თარიღი', 'დაწყების დრო', 'დასრულების დრო', 'სტატუსი', 'მოქმედება'],
+                header: ['ID', 'სახელი გვარი',  'დაწყების დრო', 'დასრულების დრო', 'სტატუსი', 'მოქმედების თარიღი', 'მოქმედება'],
                 data: employedData
             };
             employedData.length > 0 && data.push(employedObj);
 
-            const trialData = _.filter(props.data, function(o) {return  o.qualifying_type_id ==  5 });
+            const trialData = _.filter(props.data, function(o) {return  o.qualifying_type_id ==  6 });
             const trialObj = {
                 type: 'trail',
                 title:'გამოსაცდელი ვადით',
-                header: ['ID', 'სახელი გვარი', 'დამატების თარიღი', 'დაწყების დრო', 'დასრულების დრო', 'სტატუსი', 'მოქმედება'],
+                header: ['ID', 'სახელი გვარი',  'დაწყების დრო', 'დასრულების დრო', 'სტატუსი', 'მოქმედების თარიღი', 'მოქმედება'],
                 data: trialData
             };
             trialData.length > 0 && data.push(trialObj);
+
+            const approvedByEmployerData = _.filter(props.data, function(o) {return  o.qualifying_type_id ==  5 });
+            const approvedObj = {
+                type: 'approved',
+                title:'დამსაქმებლის მოწონებული',
+                header: ['ID', 'სახელი გვარი',  'დაწყების დრო', 'დასრულების დრო', 'სტატუსი', 'მოქმედების თარიღი', 'მოქმედება'],
+                data: approvedByEmployerData
+            }
+            approvedByEmployerData.length > 0 && data.push(approvedObj)
 
             const interviewData = _.filter(props.data, function(o) {return  o.qualifying_type_id ==  4 });
             const interviewObj = {
                 type: 'interview',
                 title:'გასაუბრებაზე ცხადდებიან',
-                header: ['ID', 'სახელი გვარი', 'დამატების თარიღი', 'გასაუბრების დრო', 'გასაუბრების ადგილი', 'მოქმედება'],
+                header: ['ID', 'სახელი გვარი',  'გასაუბრების დრო', 'გასაუბრების ადგილი', 'სტატუსი', 'მოქმედების თარიღი', 'მოქმედება'],
                 data: interviewData
             };
             interviewData.length > 0 && data.push(interviewObj);
@@ -55,7 +64,7 @@ export default {
             const noteObj = {
                 type: 'note',
                 title:'ჩანიშვნები',
-                header: ['ID', 'შემკვეთი', 'ტიპი', 'დამატების თარიღი', 'მოქმედება'],
+                header: ['ID', 'შემკვეთი', 'ტიპი', 'მოქმედების თარიღი', 'მოქმედება'],
                 data: noteData
             };
             noteData.length > 0 && data.push(noteObj);

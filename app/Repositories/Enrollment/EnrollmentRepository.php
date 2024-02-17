@@ -24,6 +24,7 @@ class EnrollmentRepository
         $enrollment->money = $data['data']->money;
         $enrollment->hr_percent = $bonus_percent;
         $enrollment->hr_bonus = number_format((int)$data['data']->money * (int)$bonus_percent / 100, 2);
+        $enrollment->status_id = 17;
         if (isset($data['file'])) {
             $filePath = $data['file']->store('enrollment', 'public');
         }
@@ -46,6 +47,7 @@ class EnrollmentRepository
         $enrollment->type = $data['data']->type;
         $enrollment->name = $data['data']->name;
         $enrollment->money = $data['data']->money;
+        $enrollment->status_id = 17;
         if ($data['data']->type == 1) {
             // აქ შეიძლება დაემატოს პროცენტული გამოთვლა
             $enrollment->hr_bonus = $paidBonus->meaning;

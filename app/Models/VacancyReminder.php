@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use OwenIt\Auditing\Contracts\Auditable;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
-class VacancyReminder extends Model implements Auditable
+class VacancyReminder extends Model
 {
-    use HasFactory;
-    use \OwenIt\Auditing\Auditable;
+    use LogsActivity, HasFactory;
     protected $fillable = [
         'vacancy_id',
         'hr_id',
@@ -18,6 +18,11 @@ class VacancyReminder extends Model implements Auditable
         'active'
     ];
 
+    public function getActivitylogOptions(): LogOptions
+    {
+        $logOptions = LogOptions::defaults([])->logFillable()->logOnlyDirty();
+        return $logOptions;
+    }
     public function vacancy()
     {
         return $this->belongsTo(Vacancy::class);

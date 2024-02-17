@@ -13,6 +13,7 @@ class hrDailyWork extends Model
         'hr_id',
         'has_vacancy',
         'employed',
+        'approved_by_employer',
         'has_probationary_period',
         'has_enrollment_vacancy',
         'candidate_has_registered',

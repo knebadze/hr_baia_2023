@@ -1,74 +1,18 @@
-<template lang="">
-    <div v-if="itemsSelectedButton" class="d-flex justify-content-end mb-2">
-        <button class="btn btn-info btn-sm" @click="showModal(item)">
-            <i class="fa fa-plus"></i> დამატება
-        </button>
-    </div>
-    <EasyDataTable
-        v-model:items-selected="itemsSelected"
-        buttons-pagination
-        :headers="headers"
-        :items="items"
-        table-class-name="customize-table"
-        :body-row-class-name="bodyRowClassNameFunction"
-        border-cell
-        :hide-footer="true"
+<script setup>
+    import { ref, computed } from "vue";
+    import moment from 'moment'
+    import Slider from '@vueform/slider'
+    import "@vueform/slider/themes/default.css";
+    import _ from 'lodash'
+    import table_cog from "./table_cog.vue";
+    import expand_body from "../../../candidate/component/candidate/expand_body.vue";
+    import addPersonalVacancy from "../../modal/addPersonalVacancy.vue";
 
-    >
-    <template #item-status="item">
-        <!-- {{ item.status }} -->
-        <span :class="(item.status.id == 8)?'badge badge-warning':(item.status.id == 9)?'badge badge-primary':(item.status.id == 10)?'badge badge-success':(item.status.id == 11)?'badge badge-info':(item.status.id == 12)?'badge badge-secondary':''" >{{ item.status.name_ka }}</span>
-    </template>
-    <!-- :filter-options="filterOptions" -->
-    <template #item-operation="item">
-       <div class="operation-wrapper d-flex" >
-        <div>
-            <span v-if="item.badgeClass" class="badge badge-pill bg-indigo  p-2 mr-1" title="კანდიდატი უკვე დამატებულია ვაკანსიაზე"> <i class="fa fa-check"></i></span>
-        </div>
-
-        <div v-if="!itemsSelectedButton">
-            <table_cog :item="item" @emitOpenModal="handlerOpenModal"/>
-
-        </div>
-
-      </div>
-    </template>
-        <template #expand="item">
-            <!-- {{ item }} -->
-              <!-- /.card-header -->
-             <expand_body :item="item" />
-              <!-- /.card-body -->
-        </template>
-
-    </EasyDataTable>
-    <addPersonalVacancy  :visible="showAddPersonalModal" :item="modalItem" :onMessageFromChildren="handleMessageFromChildren"></addPersonalVacancy>
-
-</template>
-<script>
-import { ref, computed } from "vue";
-import moment from 'moment'
-import Slider from '@vueform/slider'
-import "@vueform/slider/themes/default.css";
-import _ from 'lodash'
-import table_cog from "./table_cog.vue";
-import expand_body from "../../../candidate/component/candidate/expand_body.vue";
-import addPersonalVacancy from "../../modal/addPersonalVacancy.vue";
-
-export default {
-    components: {
-      Slider,
-      table_cog,
-      expand_body,
-      addPersonalVacancy
-    },
-    props:{
+    const props = defineProps({
         data: Object,
         vacancy: Object
-    },
-
-    setup(props){
-        //variable
-        const itemsSelected = ref([]);
+    });
+    const itemsSelected = ref([]);
         let itemsSelectedButton = ref(false)
         let showAddPersonalModal = ref(false)
         let badgeClass = ref(false)
@@ -116,9 +60,10 @@ export default {
             }
         };
 
-        function handleMessageFromChildren(id, message) {
-            badgeClass.value = message
-            items.value[_.findIndex(items.value, function(o) { return o.id == id })].badgeClass = badgeClass.value
+        const handleMessageFromChildren = (item)=> {
+            console.log('id', item);
+            badgeClass.value = item.bool
+            items.value[_.findIndex(items.value, function(o) { return o.id == item.id })].badgeClass = badgeClass.value
         };
 
         const showModal = (item) => {
@@ -132,41 +77,54 @@ export default {
         };
 
 
-
-
-
-        return {
-            headers,
-            items,
-            itemsSelected,
-            itemsSelectedButton,
-            // statusChangeModal,
-            showAddPersonalModal,
-            modalItem,
-            badgeClass,
-            bodyRowClassNameFunction,
-            handleMessageFromChildren,
-            handlerOpenModal
-        };
-    },
-    methods:{
-    },
-    watch:{
-        itemsSelected: {
-            handler(newValue, oldValue) {
-
-                if (newValue.length > 0) {
-                    this.itemsSelectedButton = true
-                }else{
-                    this.itemsSelectedButton = false
-                }
-
-            },
-            deep: true
-        },
-    }
-}
 </script>
+<template lang="">
+    <div v-if="itemsSelectedButton" class="d-flex justify-content-end mb-2">
+        <button class="btn btn-info btn-sm" @click="showModal(item)">
+            <i class="fa fa-plus"></i> დამატება
+        </button>
+    </div>
+    <EasyDataTable
+        v-model:items-selected="itemsSelected"
+        buttons-pagination
+        :headers="headers"
+        :items="items"
+        table-class-name="customize-table"
+        :body-row-class-name="bodyRowClassNameFunction"
+        border-cell
+        :hide-footer="true"
+
+    >
+    <template #item-status="item">
+        <!-- {{ item.status }} -->
+        <span :class="`badge bg-${item.status.color} p-1`" >{{ item.status.name_ka }}</span>
+    </template>
+    <!-- :filter-options="filterOptions" -->
+    <template #item-operation="item">
+       <div class="operation-wrapper d-flex" >
+        <div>
+            <span v-if="item.badgeClass" class="badge badge-pill bg-indigo  p-2 mr-1" title="კანდიდატი უკვე დამატებულია ვაკანსიაზე"> <i class="fa fa-check"></i></span>
+        </div>
+
+        <div v-if="!itemsSelectedButton">
+            <table_cog :item="item" @emitOpenModal="handlerOpenModal"/>
+
+        </div>
+
+      </div>
+    </template>
+        <template #expand="item">
+            <!-- {{ item }} -->
+              <!-- /.card-header -->
+             <expand_body :item="item" />
+              <!-- /.card-body -->
+        </template>
+
+    </EasyDataTable>
+    <addPersonalVacancy  :visible="showAddPersonalModal" :item="modalItem" :emitResponse="handleMessageFromChildren" />
+
+</template>
+
 <style >
     .my-vacancy-row  {
         --easy-table-body-row-background-color: #befdc1;

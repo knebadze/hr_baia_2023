@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use OwenIt\Auditing\Contracts\Auditable;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
-class QualifyingCandidate extends Model implements Auditable
+class QualifyingCandidate extends Model
 {
-    use HasFactory;
-    use \OwenIt\Auditing\Auditable;
+    use LogsActivity, HasFactory;
     protected $fillable = [
         'vacancy_id',
         'candidate_id',
@@ -21,6 +21,11 @@ class QualifyingCandidate extends Model implements Auditable
         'start_date',
         'end_date'
     ];
+    public function getActivitylogOptions(): LogOptions
+    {
+        $logOptions = LogOptions::defaults([])->logFillable()->logOnlyDirty();
+        return $logOptions;
+    }
     public function qualifyingType()
     {
         return $this->belongsTo(QualifyingType::class);
@@ -41,5 +46,10 @@ class QualifyingCandidate extends Model implements Auditable
     public function interviewPlace()
     {
         return $this->belongsTo(InterviewPlace::class);
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(status::class);
     }
 }

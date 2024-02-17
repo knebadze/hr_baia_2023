@@ -14,7 +14,7 @@ class SendDailySmsService
         $currentDate = Carbon::today();
 
         $probationPeriod = QualifyingCandidate::query()
-            ->where('qualifying_type_id', 5)
+            ->where('qualifying_type_id', 6)
             ->whereNull('status_id')
             ->when($currentDate, function ($query) use ($currentDate) {
                 $query->whereDate('start_date', '<=', $currentDate)
@@ -66,7 +66,7 @@ class SendDailySmsService
     }
 
     function hrBlock(){
-        
+
     }
 
     function sendSms(){

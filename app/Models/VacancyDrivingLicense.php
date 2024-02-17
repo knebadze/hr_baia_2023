@@ -4,12 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use OwenIt\Auditing\Contracts\Auditable;
 
-class VacancyDrivingLicense extends Model implements Auditable
+class VacancyDrivingLicense extends Model
 {
     use HasFactory;
-    use \OwenIt\Auditing\Auditable;
     protected $fillable = [
         'vacancy_id',
         'driving_license_id',

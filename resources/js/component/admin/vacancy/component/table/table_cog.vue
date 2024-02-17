@@ -5,7 +5,7 @@
                 <i class="fa fa-cog"></i>
             </button>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                <a v-if="item.status.id != 4 && item.status.id != 5 && item.status.id != 13" class="dropdown-item" href="#" @click="openModal(item, 1)">რედაქტირება</a>
+                <a v-if="item.status.id != 3 && item.status.id != 4 && item.status.id != 5 && item.status.id != 13" class="dropdown-item" href="#" @click="openModal(item, 1)">რედაქტირება</a>
                 <a v-if="item.status.id != 3 && item.status.id != 4 && item.status.id != 5 && item.status.id != 13" class="dropdown-item" href="#" @click="openModal(item, 2)">სტატუსის შეცვლა</a>
                 <a v-if="item.status.id == 2" class="dropdown-item" :href="personalSelectionUrl+'/'+item.id" >კადრების შერჩევა</a>
                 <a v-if="item.status.id > 1" class="dropdown-item" :href="vacancyPersonalUrl+'/'+item.id" >შერჩეული კადრები</a>

@@ -20,8 +20,9 @@
                             <!-- <th>ჰრ</th> -->
                             <th v-if="role_id == 1">HR</th>
                             <th>ვაკანსია</th>
-                            <th>დასაქმება</th>
+                            <th>დამსაქმებლის მოწონებული</th>
                             <th>გამოსაცდელი ვადა</th>
+                            <th>დასაქმება</th>
                             <th>ვაკანსიის ჩარიცხვა</th>
                             <th>კანდიდატის ჩარიცხვა</th>
                             <th>კანდიდატის რეგისტრაცია</th>
@@ -32,8 +33,9 @@
                             <td>{{ index + 1 }}.</td>
                             <td v-if="role_id == 1">{{ item.name_ka }}</td>
                             <td>{{ item.has_vacancy }}</td>
-                            <td>{{ item.employed }}</td>
+                            <td>{{ item.approved_by_employer }}</td>
                             <td>{{ item.has_probationary_period }}</td>
+                            <td>{{ item.employed }}</td>
                             <td>{{ item.has_enrollment_vacancy }}</td>
                             <td>{{ item.has_enrollment_register }}</td>
                             <td>{{ item.candidate_has_registered }}</td>
@@ -41,8 +43,9 @@
                         <tr v-if="role_id == 1">
                             <td colspan="2"><strong>სულ:</strong></td>
                             <td>{{ totalVacancy }}</td>
-                            <td>{{ totalEmployed }}</td>
+                            <td>{{ totalApprove }}</td>
                             <td>{{ totalProbation }}</td>
+                            <td>{{ totalEmployed }}</td>
                             <td>{{ totalEnrollmentVacancy }}</td>
                             <td>{{ totalEnrollmentCandidate }}</td>
                             <td>{{ totalEnrollmentCandidate }}</td>
@@ -80,12 +83,16 @@ export default {
         totalVacancy(){
             return _.sumBy(this.data.dailyWork, item => (item.has_vacancy));
         },
-        totalEmployed(){
-            return _.sumBy(this.data.dailyWork, item => (item.employed));
+        totalApprove(){
+            return _.sumBy(this.data.dailyWork, item => (item.approved_by_employer));
         },
         totalProbation(){
             return _.sumBy(this.data.dailyWork, item => (item.has_probationary_period));
         },
+        totalEmployed(){
+            return _.sumBy(this.data.dailyWork, item => (item.employed));
+        },
+
         totalEnrollmentVacancy(){
             return _.sumBy(this.data.dailyWork, item => (item.has_enrollment_vacancy));
         },

@@ -60,11 +60,14 @@ class SelectionPersonalController extends Controller
             ->leftJoin('interview_places as e', 'a.interview_place_id', 'e.id')
             ->join('vacancies as v', 'a.vacancy_id', 'v.id')
             ->leftJoin('candidate_end_works as f', 'a.id', 'f.qualifying_candidate_id')
+            ->leftJoin('statuses as s', 'a.status_id', 's.id')
             ->select('a.*', 'b.id as candidate_id', 'c.name_ka as candidate_name',
-            'd.name as qualifying_type', 'e.name_ka as interview_place',
-            'v.status_id as vacancy_status_id', 'v.code as vacancy_code', 'v.start_date as vacancy_start_date',
-            'v.interview_place_id as vacancy_interview_place_id', 'v.interview_date as vacancy_interview_date',
-            'v.hr_id as vacancy_hr_id', 'f.no_reason_id as end_work_reason_id', 'f.reason_info as end_work_reason' )
+                'd.name as qualifying_type', 'e.name_ka as interview_place',
+                'v.status_id as vacancy_status_id', 'v.code as vacancy_code', 'v.start_date as vacancy_start_date',
+                'v.interview_place_id as vacancy_interview_place_id', 'v.interview_date as vacancy_interview_date',
+                'v.hr_id as vacancy_hr_id', 'f.no_reason_id as end_work_reason_id', 'f.reason_info as end_work_reason',
+                's.name_ka as status', 's.color as status_color'
+            )
             ->get();
         $auth = (Auth::user()->role_id == 1)?Auth::user():User::where('id', Auth::id())->with('hr')->first();
         // dd($data);
@@ -74,7 +77,7 @@ class SelectionPersonalController extends Controller
     public function find(CandidateFilters $filters)  {
         // dd($filters);
         return Candidate::filter($filters)
-            ->whereIn('status_id', [9, 11, 14])
+            ->whereIn('status_id', [9, 11, 14, 15])
             ->with([
                 'user', 'user.gender', 'specialty', 'nationality', 'religion', 'education', 'maritalStatus', 'citizenship',
                 'professions', 'characteristic', 'getLanguage.language', 'getLanguage.level', 'allergy', 'drivingLicense', 'generalWorkExperience', 'notice',
@@ -87,12 +90,18 @@ class SelectionPersonalController extends Controller
     function addPersonalInfo(Request $request) {
         $findCandidate['this_vacancy'] = QualifyingCandidate::where('candidate_id', $request->data['candidate_id'])
             ->where('vacancy_id', $request->data['vacancy_id'])
-            ->whereNull('status_id')
+            // ->where(function ($query) {
+            //     $query->whereNull('status_id')
+            //         ->orWhere('status_id', 17);
+            // })
             ->with('qualifyingType')
             ->first();
         $busy = QualifyingCandidate::where('candidate_id', $request->data['candidate_id'])
-            ->whereIn('qualifying_type_id', [ 4, 5, 7])
-            ->whereNull('status_id')
+            ->whereIn('qualifying_type_id', [ 4, 5, 6, 7, 8])
+            ->where(function ($query) {
+                $query->whereNull('status_id')
+                    ->orWhere('status_id', 17);
+            })
             ->with(['qualifyingType', 'vacancy.hr.user'])
             ->get()->toArray();
         // ვპოულობ კანდიდატი თუ არის  'დამსაქმებლის მოწონებული', 'გამოსაცდელი ვადით', 'დასაქმდა' კატეგორიაში
@@ -109,7 +118,7 @@ class SelectionPersonalController extends Controller
             // ასევე ვამოწმებ ვაკანსიის სტატუს
             $filteredCollection = $collection->filter(function ($item, $key) {
                 $statusId = $item['vacancy']['status_id'];
-                return !in_array($statusId, [5, 6, 7]);
+                return !in_array($statusId, [5, 6, 7, 8]);
             });
 
             $filteredArray = $filteredCollection->all();
@@ -149,7 +158,7 @@ class SelectionPersonalController extends Controller
         }
 
         $classificatory = ['qualifyingType' => QualifyingType::all()->toArray(), 'interviewPlace' => InterviewPlace::all()->toArray()];
-        $data = ['findCandidate' => $findCandidate, 'classificatory' => $classificatory, 'busy' => $busy];
+        $data = ['candidateInfo' => $findCandidate, 'cla' => $classificatory, 'busy' => $busy];
         return response()->json($data);
     }
 
@@ -246,7 +255,7 @@ class SelectionPersonalController extends Controller
         $data = $request->data;
         $result = [];
         if ($data['candidate_id']) {
-            $find = QualifyingCandidate::where('candidate_id', $data['candidate_id'])->where('qualifying_type_id', 7)->whereNull('status_id')->first();
+            $find = QualifyingCandidate::where('candidate_id', $data['candidate_id'])->where('qualifying_type_id', 8)->whereNull('status_id')->first();
         }else{
             $find = QualifyingCandidate::Where('id', $data['id'])->whereNull('status_id')->first();
         }
@@ -268,7 +277,7 @@ class SelectionPersonalController extends Controller
         // ჯეისონიდან ამოღებული პირველი 6 თარიღით ვიგებ დღეების სახელებს
         // ვაბრუნებ მასივად
         $find = QualifyingCandidate::where('candidate_id', $request->candidate_id )
-            ->where('qualifying_type_id', 7)
+            ->where('qualifying_type_id', 8)
             ->where('end_date', '>', Carbon::today())
             ->with('workDay')
             ->get()->toArray();
@@ -291,8 +300,8 @@ class SelectionPersonalController extends Controller
 
     function getAddPersonalWasEmployedInfo(Request $request)  {
         // dd($request->data);
-        $data['candidates'] = QualifyingCandidate::where('vacancy_id', $request->data)->with(['candidate.user', 'qualifyingType'])->get();
-        $data['employ_type'] = QualifyingType::whereIN('id', [6, 7])->get()->toArray();
+        $data['candidates'] = QualifyingCandidate::where('vacancy_id', $request->data)->with(['candidate.user', 'qualifyingType', 'status'])->get();
+        $data['employ_type'] = QualifyingType::whereIN('id', [7, 8])->get()->toArray();
         return response()->json($data);
     }
 

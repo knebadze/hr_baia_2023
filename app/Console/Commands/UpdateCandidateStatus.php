@@ -33,7 +33,7 @@ class UpdateCandidateStatus extends Command
      */
     public function handle()
     {
-        $periodEmploy = QualifyingCandidate::whereDate('end_date', '<', Carbon::today())->where('qualifying_type_id', 7)->with('workDay')->get()->toArray();
+        $periodEmploy = QualifyingCandidate::whereDate('end_date', '<', Carbon::today())->where('qualifying_type_id', 8)->with('workDay')->get()->toArray();
         foreach ($periodEmploy as $key => $value) {
             if (in_array(Carbon::today()->toDateString(), json_decode($value['work_day']['work_day']))) {
                 if (!Candidate::where('id', $value['candidate_id'])->where('status_id', 11)) {

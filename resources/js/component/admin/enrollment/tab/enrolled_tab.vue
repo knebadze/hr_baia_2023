@@ -192,7 +192,7 @@
             </div>
             <!-- ./col -->
         </div>
-        <enrolled_table :items="items" :role_id="role_id" :start_date="data.start_date"></enrolled_table>
+        <enrolled_table :items="items" :role_id="role_id" :start_date="data.start_date" :key="tableKey"></enrolled_table>
 
 
     <div class="mt-2">
@@ -254,7 +254,8 @@ export default {
                     {'id': 0, 'name':'მიმდინარე'},
                     {'id': 1, 'name':'დადასტურებული'},
                 ],
-            }
+            },
+            tableKey: 0
         }
     },
     computed:{
@@ -277,7 +278,7 @@ export default {
 
     },
     created() {
-        this.getData()
+        // this.getData()
         // this.role_id = this.data.role_id
         let arr = [
             {'id': 1, 'money': 500, 'agree': 0},
@@ -296,13 +297,28 @@ export default {
         },
 
         async firstData() {
-            if(this.data.items){
-                this.items = this.data.items.data;
-                this.pagination = {
-                    'current_page': this.data.items.current_page,
-                    'last_page': this.data.items.last_page
-                };
+            try {
+                const response = await axios.post(`/enrollment_fetch?page=${this.pagination.current_page}` )
+                if (response.status == 200) {
+                    const { data } = response;
+                    this.pagination = {
+                        'current_page':data.current_page,
+                        'last_page': data.last_page
+                    }
+                    this.items = data.data
+                    this.tableKey++
+                }
+
+            } catch (error) {
+                console.log(error);
             }
+            // if(this.data.items){
+            //     this.items = this.data.items.data;
+            //     this.pagination = {
+            //         'current_page': this.data.items.current_page,
+            //         'last_page': this.data.items.last_page
+            //     };
+            // }
 
 
         },
@@ -352,6 +368,9 @@ export default {
     },
     watch:{
 
+    },
+    mounted() {
+        this.getData()
     },
 }
 </script>

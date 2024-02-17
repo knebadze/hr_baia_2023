@@ -27,12 +27,12 @@ class EnrollmentPageRepository
                 ->leftJoin('vacancies', 'enrollments.vacancy_id', '=', 'vacancies.id')
                 ->join('users', 'enrollments.author_id', '=', 'users.id')
                 ->select('enrollments.*', 'vacancies.code', 'users.name_ka')
-                ->paginate(25);
+                ->paginate(20);
 
             $enrolled['hr'] = User::where('role_id', 2)->whereNot('is_active', 2)->get()->toArray();
             $enrolled['start_date'] = $salary->created_at;
         }
-     
+
         $mustBeEnrolled = [];
 
         $employer = VacancyDeposit::whereNotNull('must_be_enrolled_employer_date')

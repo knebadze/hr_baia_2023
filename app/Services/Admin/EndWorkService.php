@@ -35,12 +35,12 @@ class EndWorkService
         }
         $redacted = [];
         if ($data['reason']['id'] == 15) {
-            QualifyingCandidate::where('id', $data['id'])->update(['status_id'=> 1, 'end_date' => $currentDate->copy()->subDay(1)->toDateString()]);
+            QualifyingCandidate::where('id', $data['id'])->update(['status_id'=> 18, 'end_date' => $currentDate->copy()->subDay(1)->toDateString()]);
             Vacancy::where('id', $find->vacancy_id)->update(['status_id' => 13]);
             $redacted['status'] = $findVacancy['status'];
         }else{
 
-            QualifyingCandidate::where('id', $data['id'])->update(['status_id'=> 2,'end_date' => $currentDate->copy()->subDay(1)->toDateString()]);
+            QualifyingCandidate::where('id', $data['id'])->update(['status_id'=> 19,'end_date' => $currentDate->copy()->subDay(1)->toDateString()]);
             Vacancy::where('id', $find->vacancy_id)
                 ->update([
                     'status_id' => 2,
@@ -59,11 +59,10 @@ class EndWorkService
 
         }
 
-        if (!QualifyingCandidate::where('candidate_id', $find->candidate_id)->whereNull('status_id')->exists()) {
-            Candidate::where('id', $find->candidate_id)->update(['status_id'=> 9]);
-        }
+        Candidate::where('id', $find->candidate_id)->update(['status_id'=> 9]);
 
-        if ($find->qualifying_type_id == 7) {
+
+        if ($find->qualifying_type_id == 8) {
             WorkDay::where('id', $find->workDay->id)->delete();
         }
         if (VacancyReminder::where('vacancy_id', $find->vacancy_id)->whereDate('date', '>', Carbon::now())->exists()) {

@@ -15,7 +15,7 @@
                             <div class="ls-inputicon-box">
                                 <select class="form-control" id="exampleFormControlSelect1" v-model="m.candidate_id" >
                                     <option value="">არცერთი</option>
-                                    <option v-for="(item, index) in info.candidates" :key="index" :value="item">{{ `${item.candidate.user.name_ka} - (ID: ${item.candidate_id}) - ${item.qualifying_type.name}`}} </option>
+                                    <option v-for="(item, index) in info.candidates" :key="index" :value="item">{{ `${item.candidate.user.name_ka} - (ID: ${item.candidate_id}) - ${item.qualifying_type.name} - (${item.status.name_ka})`}} </option>
                                 </select>
                             </div>
                         </div>
@@ -198,6 +198,7 @@
 
                     let result = await this.getClassificatory();
                     this.info  = result.data
+                    console.log('info', this.info);
                     this.employType()
                     this.m.vacancy = {
                         'id':this.item.id,
@@ -208,6 +209,10 @@
                     if ( this.item.work_schedule_id == 8 ) {
                         this.m.week_day = null
                     }
+                    // if ( this.item.work_schedule_id != 7 &&  this.item.work_schedule_id != 9) {
+                    //     this.m.employ_type = this.info.employ_type
+                    //     this.disabled = true
+                    // }
                     this.showConfirm = true
 
                 } catch (error) {
@@ -227,9 +232,14 @@
             employType(){
                 let period = [6, 7, 8, 9]
                 let work_schedule_id = this.item.work_schedule_id
+                let cla = this.info.employ_type
                 if( _.includes(period, work_schedule_id) ){
-                    let cla = this.info.employ_type
+
+                    this.m.employ_type = _.find(cla, function(o) { return o.id == 8; })
+                }else{
+                    this.disabled = true
                     this.m.employ_type = _.find(cla, function(o) { return o.id == 7; })
+                    console.log('this.m.employ_type',this.m.employ_type);
                 }
             },
             save(){

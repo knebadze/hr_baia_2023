@@ -78,8 +78,9 @@ const importComponents = async () => {
     //   adminVacancyTable,
       employerPage,
 
-      enrolledPage,
-      mustBeEnrolledPage,
+      enrollmentPage,
+    //   enrolledPage,
+    //   mustBeEnrolledPage,
       monthlySalaryPage,
       oldSalaryPage,
 
@@ -132,8 +133,10 @@ const importComponents = async () => {
       import('./component/admin/vacancy/component/table/vacancy_table.vue'),
     //   import('./component/admin/vacancy/component/admin_vacancy_table.vue'),
       import('./component/admin/employer/page/employer_page.vue'),
-      import('./component/admin/enrollment/page/enrolled_page.vue'),
-      import('./component/admin/enrollment/page/must_be_enrolled_page.vue'),
+
+      import('./component/admin/enrollment/page/EnrollmentPage.vue'),
+    //   import('./component/admin/enrollment/page/enrolled_page.vue'),
+    //   import('./component/admin/enrollment/page/must_be_enrolled_page.vue'),
       import('./component/admin/salary/page/monthly_salary_page.vue'),
       import('./component/admin/salary/page/old_salary_page.vue'),
 
@@ -198,10 +201,11 @@ const importComponents = async () => {
     app.component('vacancy-table', vacancyTable.default);
     // app.component('admin-vacancy-table', adminVacancyTable.default)
 
-    app.component('employer-page', employerPage.default)
+    app.component('employer-page', employerPage.default);
 
-    app.component('enrolled-page', enrolledPage.default)
-    app.component('must-be-enrolled-page', mustBeEnrolledPage.default)
+    app.component('enrollment-page', enrollmentPage.default);
+    // app.component('enrolled-page', enrolledPage.default)
+    // app.component('must-be-enrolled-page', mustBeEnrolledPage.default)
     app.component('monthly-salary-page', monthlySalaryPage.default)
     app.component('old-salary-page', oldSalaryPage.default)
 

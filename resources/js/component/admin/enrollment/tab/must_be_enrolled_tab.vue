@@ -363,7 +363,7 @@
         <must_be_enrolled_table :items="items" :role_id="role_id"></must_be_enrolled_table>
 
 
-    <!-- <div class="mt-2">
+    <div class="mt-2">
         <paginate
             v-model="pagination.current_page"
             :page-count="pagination.last_page"
@@ -376,7 +376,7 @@
             :page-class="'page-item'"
             >
         </paginate>
-    </div> -->
+    </div>
 
   </section>
 </template>
@@ -390,7 +390,7 @@ export default {
         must_be_enrolled_table
     },
     props:{
-        data:Object,
+        // data:Object,
         role_id: Number
     },
     data() {
@@ -428,10 +428,26 @@ export default {
             //     'current_page': this.data.items.current_page,
             //     'last_page': this.data.items.last_page
             // };
-            this.data.items.forEach(element => {
-                this.money = this.money + element.money
-                this.bonus = (element.type == 2)?this.bonus + (element.money * element.bonus_percent / 100):this.bonus + 10
-            });
+            try {
+                const response = await axios.post(`/must_be_enrolled_fetch?page=${this.pagination.current_page}` )
+                if (response.status == 200) {
+                    const { data } = response;
+                    this.pagination = {
+                        'current_page':data.current_page,
+                        'last_page': data.last_page
+                    }
+                    this.items = _.sortBy(data.data, [function(o) { return o.date; }]);
+                    this.tableKey++
+                    this.items.forEach(element => {
+                        this.money = this.money + element.money
+                        this.bonus = (element.type == 2)?this.bonus + (element.money * element.bonus_percent / 100):this.bonus + 10
+                    });
+                }
+
+            } catch (error) {
+                console.log(error);
+            }
+
             // this.data.items.data.forEach(element => {
             //     let candidate = {
             //         'type': 1,
@@ -455,7 +471,7 @@ export default {
             //     }
             //     this.items = [candidate, employer]
             // });
-            this.items = _.sortBy(this.data.items, [function(o) { return o.date; }]);
+            // this.items = _.sortBy(this.data.items, [function(o) { return o.date; }]);
         },
         filterMeth(type,m){
             this.getDataType = type

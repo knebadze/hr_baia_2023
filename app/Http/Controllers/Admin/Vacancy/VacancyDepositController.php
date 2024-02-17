@@ -33,7 +33,8 @@ class VacancyDepositController extends Controller
         $vacancy = Vacancy::where('id',$id)->first();
         $data['employer'] = $vacancy->employer->name_ka;
         $data['status'] = $vacancy->status_id;
-        $qualifying = QualifyingCandidate::orderBy('id', 'DESC')->where('vacancy_id', $vacancy->id)->whereIn('qualifying_type_id', [5, 6, 7])->first();
+        $qualifying = QualifyingCandidate::orderBy('id', 'DESC')->where('vacancy_id', $vacancy->id)->whereIn('qualifying_type_id', [ 7, 8])->first();
+        // dd($qualifying);
         // dd($vacancy);
         // dd(Candidate::where('id', $qualifying->candidate->id)->where('registration_fee', 0)->exists());
         $data['register'] = ($qualifying && Candidate::where('id', $qualifying->candidate->id)->where('registration_fee', 0)->exists())? RegistrationFee::where('user_id', $qualifying->candidate->user_id)->first(): null;

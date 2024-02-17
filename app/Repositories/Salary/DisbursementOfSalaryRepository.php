@@ -46,6 +46,9 @@ class DisbursementOfSalaryRepository
                 if (RegistrationFee::where('money', 0)->exists()) {
                     RegistrationFee::where('money', 0)->delete();
                 }
+
+                // ყველა დადასტურებულ ჩარიცხვას რომელსის თარიღიც ნაკლებია გაცემის თარიღზე ეცვლება სტატუს 18 _ით (დასრულებული)
+                Enrollment::where('agree', 1)->where('created_at', '<=', $salary->disbursement_date)->update(['status_id', 18]);
             }
 
             return ['type' => 's', 'salary' => $salary];

@@ -19,7 +19,7 @@ class BlackListController extends Controller
         $data = [];
         if ($req['type'] == 'candidate') {
             $checkQualifying = QualifyingCandidate::where('candidate_id', $req['id'])
-                ->whereIn('qualifying_type_id', [3, 5])
+                ->whereIn('qualifying_type_id', [3, 6])
                 ->whereHas('vacancy', function ($query) {
                     return $query->where('status_id', 2);
                 })

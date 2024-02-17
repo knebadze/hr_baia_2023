@@ -16,12 +16,13 @@
                         <td><u class="text-primary" @click="openCandidateFullInfoModal(item.candidate_id)">{{ item.candidate_id }}</u></td>
                         <td>{{ item.candidate_name }}</td>
                         <td v-if="type == 'note'">{{ item.qualifying_type }}</td>
-                        <td>{{ item.created_at }}</td>
-                        <td v-if="type == 'employed' || type == 'trail'">{{ item.start_date }}</td>
-                        <td v-if="type == 'employed' || type == 'trail'">{{ item.end_date }}</td>
-                        <td v-if="type == 'employed' || type == 'trail'" :class="item.end_work_reason_id?'text-primary':''" @click="openEndWorkInfoModal(item)">{{ item.status }}</td>
+
                         <td v-if="type == 'interview'">{{ item.interview_date }}</td>
                         <td v-if="type == 'interview'">{{ item.interview_place }}</td>
+                        <td v-if="type == 'employed' || type == 'trail' || type == 'approved'">{{ item.start_date }}</td>
+                        <td v-if="type == 'employed' || type == 'trail' || type == 'approved'">{{ item.end_date }}</td>
+                        <td v-if="type == 'employed' || type == 'trail' || type == 'approved' || type == 'interview'" :class="item.end_work_reason_id?'text-primary':''" @click="openEndWorkInfoModal(item)"><span :class="`badge bg-${item.status_color} p-1`" >{{ item.status }}</span></td>
+                        <td>{{ item.updated_at }}</td>
                         <td>
                             <table_cog :item = "item" :auth="auth"/>
 
@@ -56,10 +57,10 @@ export default {
         const type = ref(props.items.type);
         for (let i = 0; i < data.value.length; i++) {
             // Access the element to update in each object
-            data.value[i].created_at = moment(data.value[i].created_at).format("YYYY-MM-DD HH:mm");
+            data.value[i].updated_at = moment(data.value[i].updated_at).format("YYYY-MM-DD HH:mm");
             data.value[i].start_date = (data.value[i].start_date)?moment(data.value[i].start_date).format("YYYY-MM-DD"):null;
             data.value[i].end_date = (data.value[i].end_date)?moment(data.value[i].end_date).format("YYYY-MM-DD"):null;
-            data.value[i].status = (!data.value[i].status_id)? 'მიმდინარე' :data.value[i].status_id == 1? 'დასრულებული': 'გაუქმებული'
+            // data.value[i].status = (!data.value[i].status_id)? 'მიმდინარე' :data.value[i].status_id == 1? 'დასრულებული': 'გაუქმებული'
         }
 
         const candidateFullInfoModalShow = ref(false);

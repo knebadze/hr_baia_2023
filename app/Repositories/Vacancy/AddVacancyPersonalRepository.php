@@ -3,6 +3,7 @@
 namespace App\Repositories\Vacancy;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Vacancy;
 use App\Models\WorkDay;
 use App\Models\Candidate;
@@ -11,9 +12,11 @@ use App\Models\GlobalVariable;
 use App\Models\RegistrationFee;
 use App\Models\userRegisterLog;
 use App\Models\VacancyReminder;
+use Illuminate\Support\Facades\DB;
 use App\Models\QualifyingCandidate;
 use Illuminate\Support\Facades\App;
 use App\Events\SmsNotificationEvent;
+use Illuminate\Support\Facades\Auth;
 
 class AddVacancyPersonalRepository
 {
@@ -23,7 +26,9 @@ class AddVacancyPersonalRepository
         $qualifying->vacancy_id = $data['vacancy_id'];
         $qualifying->qualifying_type_id = $data['type']['id'];
         $qualifying->candidate_id = $data['candidate_id'];
+        $status = null;
         if ($data['type']['id'] == 4) {
+            $status = 17;
             $qualifying->interview_date = $data['interview_date'];
             $qualifying->interview_place_id = $data['interview_place']['id'];
             $reminderText = 'კანდიდატი (ID: '.$data['candidate_id'].') შევიდა გასაუბრებაზე, უნდა გადავამოწმო როგორ ჩაიარა გასაუბრებამ';
@@ -33,6 +38,14 @@ class AddVacancyPersonalRepository
             $this->addReminder($data['vacancy_id'], $reminderData, $reminderText );
         }
         if ($data['type']['id'] == 5) {
+            $status = 17;
+            $qualifying->start_date = Carbon::now();
+            $qualifying->end_date = $qualifying->start_date->copy()->addDays(5);
+            $this->changeCandidateStatus($data['candidate_id'], $data['type']['id']);
+            $this->dailyWorkEvent($data['vacancy_id'], 'approved_by_employer');
+        }
+        if ($data['type']['id'] == 6) {
+            $status = 17;
             $qualifying->start_date = $data['start_date'];
             $qualifying->end_date = $data['end_date'];
             $reminderText = 'კანდიდატი (ID: '.$data['candidate_id']. ')შევიდა გამოსაცდელი ვადით, უნდა გადავამოწმო იმყოფება თუ არაა სამუშაო ადგილზე';
@@ -45,11 +58,13 @@ class AddVacancyPersonalRepository
             $reminderDataCarbon->setTime(12, 0, 0);
             $this->addReminder($data['vacancy_id'], $reminderDataCarbon, $reminderText);
             $this->changeCandidateStatus($data['candidate_id'], $data['type']['id']);
-            $this->dailyWorkEvent($data['vacancy_id']);
+            $this->dailyWorkEvent($data['vacancy_id'], 'has_probationary_period');
+            $this->updateQualifying($data['vacancy_id']);
         }
+        $qualifying->status_id = $status;
         $qualifying->save();
 
-        $this->sendSms($qualifying);
+        $data['type']['id'] != 3 && $this->sendSms($qualifying);
 
         return $qualifying;
     }
@@ -74,7 +89,7 @@ class AddVacancyPersonalRepository
     function update($data) {
         $qualifying = QualifyingCandidate::where('candidate_id', $data['candidate_id'])->where('vacancy_id', $data['vacancy_id'])->first();
         $qualifying->qualifying_type_id = $data['type']['id'];
-        $qualifying->status_id = null;
+        $status = null;
         if ($data['type']['id'] == 4) {
             $qualifying->interview_date = $data['interview_date'];
             $qualifying->interview_place_id = $data['interview_place']['id'];
@@ -85,6 +100,14 @@ class AddVacancyPersonalRepository
             $this->addReminder($data['vacancy_id'], $reminderData, $reminderText );
         }
         if ($data['type']['id'] == 5) {
+            $status = 17;
+            $qualifying->start_date = Carbon::now();
+            $qualifying->end_date = $qualifying->start_date->copy()->addDays(5);
+            $this->changeCandidateStatus($data['candidate_id'], $data['type']['id']);
+            $this->dailyWorkEvent($data['vacancy_id'], 'approved_by_employer');
+        }
+        if ($data['type']['id'] == 6) {
+            $status = 17;
             $qualifying->start_date = $data['start_date'];
             $qualifying->end_date = $data['end_date'];
             $reminderText = 'კანდიდატი (ID: '.$data['candidate_id']. ')შევიდა გამოსაცდელი ვადით, უნდა გადავამოწმო იმყოფება თუ არაა სამუშაო ადგილზე';
@@ -97,10 +120,12 @@ class AddVacancyPersonalRepository
             $reminderDataCarbon->setTime(12, 0, 0);
             $this->addReminder($data['vacancy_id'], $reminderDataCarbon, $reminderText);
             $this->changeCandidateStatus($data['candidate_id'], $data['type']['id']);
-            $this->dailyWorkEvent($data['vacancy_id']);
+            $this->dailyWorkEvent($data['vacancy_id'], 'has_probationary_period');
+            $this->updateQualifying($data['vacancy_id']);
         }
+        $qualifying->status_id = $status;
         $qualifying->update();
-        $this->sendSms($qualifying);
+        $data['type']['id'] != 3 && $this->sendSms($qualifying);
         return $qualifying;
     }
 
@@ -137,37 +162,36 @@ class AddVacancyPersonalRepository
     // როცა კადრი დასაქმდა
     function wasEmployed($data){
         // dd($data);
+        $vacancy_id = $data['vacancy']['id'];
         $end_date = $this->endDay($data['vacancy']['term'], $data['vacancy']['start_date']);
         $qualifying = QualifyingCandidate::updateOrCreate(
-            ['candidate_id' => $data['candidate_id'], 'vacancy_id' => $data['vacancy']['id']],
+            ['candidate_id' => $data['candidate_id'], 'vacancy_id' => $vacancy_id],
             [
                 'qualifying_type_id' => $data['employ_type']['id'],
                 'start_date' => $data['vacancy']['start_date'],
                 'end_date' => $end_date,
-                'status_id' => null,
+                'status_id' => 17,
             ]
         );
         $this->changeCandidateStatus($data['candidate_id'], $data['employ_type']['id']);
-        $this->addRegistrationFee($data['candidate_id'], $data['vacancy']['id']);
-        if ($data['employ_type']['id'] == 7) {
+        $this->addRegistrationFee($data['candidate_id'], $vacancy_id);
+        if ($data['employ_type']['id'] == 8) {
             $this->workDay($qualifying->id, $data['vacancy']['work_schedule_id'], $data['vacancy']['start_date'], $data['vacancy']['term'], $data['week_day']);
         }
-        $this->employedDailyWorkEvent($data['vacancy']['id']);
-        // if ($data['employ_type']['id'] == 7 || $data['employ_type']['id'] == 6) {
-        //     $endDate = Carbon::parse($end_date);
-        //     $endDate = $endDate->subDay(2)->toDateString();
-        //     $this->addReminder($data['vacancy']['id'], $endDate, 'ვაკნსიას ეწურება ვადა!!! უნდა დავურეკო დამკვეთს');
-        // }
+        $this->employedDailyWorkEvent($vacancy_id);
+
         return $qualifying;
     }
 
     function changeCandidateStatus($candidate_id, $employ_type_id)  {
-        if ($employ_type_id == 7) {
+        if ($employ_type_id == 8) {
             Candidate::where( 'id', $candidate_id )->update(['status_id'=> 11]);
-        }else if($employ_type_id == 6){
+        }else if($employ_type_id == 7){
             Candidate::where( 'id', $candidate_id )->update(['status_id'=> 10]);
-        }else if($employ_type_id == 5){
+        }else if($employ_type_id == 6){
             Candidate::where( 'id', $candidate_id )->update(['status_id'=> 14]);
+        }else if($employ_type_id == 5){
+            Candidate::where( 'id', $candidate_id )->update(['status_id'=> 15]);
         }
 
     }
@@ -296,9 +320,9 @@ class AddVacancyPersonalRepository
         $reminder->save();
     }
 
-    function dailyWorkEvent($vacancy_id) {
+    function dailyWorkEvent($vacancy_id, $type) {
         $vacancy = Vacancy::where('id', $vacancy_id)->first();
-        event(new hrDailyJob($vacancy->hr_id, 'has_probationary_period'));
+        event(new hrDailyJob($vacancy->hr_id, $type));
     }
 
     function employedDailyWorkEvent($vacancy_id) {
@@ -361,9 +385,10 @@ class AddVacancyPersonalRepository
                 $data = [];
 
                 $notificationType = 'interview_period_candidate';
+                $dateInCarbonFormat = Carbon::parse($qualifying->interview_date);
                 $data = [
                     'to' => $candidate_number,
-                    'dateTime' => $qualifying->interview_date,
+                    'dateTime' => $dateInCarbonFormat->format('y m d'),
                     'place' => $qualifying->interviewPlace->name_ka,
                     'eName' => $qualifying->interview_place_id != 2? $employer_name:'',
                     'eNumber' => $qualifying->interview_place_id != 2?$employer_number:'',
@@ -378,12 +403,30 @@ class AddVacancyPersonalRepository
                 break;
 
             case 5:
+                $notificationType = 'approved_by_employer';
+                $data = [
+                    'to' => $employer_number,
+                    'link' => route('candidate.photo.questionnaire', [
+                        'locale' => App::getLocale(),
+                        'id' => $qualifying->id,
+                    ]),
+                ];
+                break;
+
+            case 6:
                 $notificationType = 'probation_period_candidate';
                 $data = [
                     'to' => $candidate_number,
-                    'name' => $candidate_name,
-                    'hName' => $hr_name,
+                    'dateTime' => $qualifying->start_date.'-'.$qualifying->end_date,
+                    'cName' => $candidate_name,
+                    'cNumber' => $candidate_number,
+                    'name' => $hr_name,
                     'number' => $hr_number,
+                    'link' => route('job.detail', [
+                        'locale' => App::getLocale(),
+                        'id' => $qualifying->vacancy->id,
+                        'slug' => $qualifying->vacancy->slug
+                    ])
                 ];
                 event(new SmsNotificationEvent($data, $notificationType));
                 $data = [];
@@ -405,6 +448,55 @@ class AddVacancyPersonalRepository
         }
 
         event(new SmsNotificationEvent($data, $notificationType));
+    }
+
+    function updateQualifying($vacancy_id) {
+        // საჭიროებსს ესემესებს გაუქმების შესახებ
+        try {
+            DB::beginTransaction();
+
+                // Update records for qualifying_type_id 4
+                $interview = QualifyingCandidate::where('vacancy_id', $vacancy_id)
+                    ->whereIn('qualifying_type_id', [4, 5])
+                    ->where('status_id', 17)
+                    ->pluck('id')->toArray();
+                if (count($interview)) {
+                    QualifyingCandidate::whereIn('vacancy_id', $interview)->update(['status_id' => 19]);
+                    $text = 'შევიდა გასაუბრებაზე';
+                    VacancyReminder::where('vacancy_id', $vacancy_id)->where('reason', 'LIKE', '%'.$text.'%')->update(['active' => 1]);
+                }
+
+
+                // Update records for qualifying_type_id 5 or 6 and within the date range
+                // რა შემთხვევაში უნდა გაუქმდეს მიმდინარე მოწონება და გამოსაცდელი
+                // თუ ახალის სტარტი და ენდ ნაპოვნის თარიებს შორისაა
+                // --------------------------დასამუშავებელია--------------------------
+                // QualifyingCandidate::where('vacancy_id', $vacancy_id)
+                //     ->whereIn('qualifying_type_id', 6)
+                //     ->where('status_id', 17)
+
+                //     ->update(['status_id' => 19]);
+
+            DB::commit();
+            // if (QualifyingCandidate::where('vacancy_id', $vacancy_id)->where('qualifying_type_id', 6)->where('status_id', 19)->where('updated_at', now())->exists()) {
+            //     $admin = User::where('id',76)->first();
+            //     $data = [
+            //         'to' => $admin->number,
+            //         'hr' => Auth::user()->name_ka,
+            //         'link' => route('vacancy.personal', [
+            //             'id' => $vacancy_id,
+            //         ])
+            //     ];
+            //     $notificationType = 'probation_canceled_admin';
+            //     event(new SmsNotificationEvent($data, $notificationType));
+            // }
+            return true;
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            dd($th);
+            return false;
+        }
+
     }
 
 }

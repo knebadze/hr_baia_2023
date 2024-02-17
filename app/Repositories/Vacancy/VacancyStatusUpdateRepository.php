@@ -4,6 +4,7 @@ namespace App\Repositories\Vacancy;
 
 use Carbon\Carbon;
 use App\Models\Vacancy;
+use App\Models\Candidate;
 use App\Events\hrDailyJob;
 use App\Models\VacancyDeposit;
 use App\Models\RegistrationFee;
@@ -87,9 +88,31 @@ class VacancyStatusUpdateRepository
     }
 
     function updateQualifying($vacancy_id)  {
-        if (QualifyingCandidate::where('vacancy_id', $vacancy_id)->whereIn('qualifying_type_id', [3, 5])->whereNull('status_id')->exists()) {
-            QualifyingCandidate::where('vacancy_id', $vacancy_id)->whereIn('qualifying_type_id', [3, 5])->whereNull('status_id')->update(['status_id' => 2]);
-        }
+        // Fetch qualifying candidates to be updated
+        $qualifyingUpdate = QualifyingCandidate::where('vacancy_id', $vacancy_id)
+            ->whereNotIn('qualifying_type_id', [7, 8])
+            ->where('status_id', 17)
+            ->get();
+
+        // Update status_id for qualifying candidates
+        $qualifyingCandidateIds = $qualifyingUpdate->pluck('id');
+        QualifyingCandidate::whereIn('id', $qualifyingCandidateIds)->update(['status_id' => 19]);
+
+        // Fetch candidate IDs to be updated
+        $candidateIds = $qualifyingUpdate->pluck('candidate_id')->toArray();
+
+        // Update status_id for candidates
+        Candidate::whereIn('id', $candidateIds)
+            ->whereIn('status_id', [14, 15])
+            ->whereDoesntHave('qualifyingCandidate', function ($query) use ($vacancy_id) {
+                $query->where('vacancy_id', '!=', $vacancy_id)
+                      ->where(function ($q) {
+                          $q->whereIn('qualifying_type_id', [5, 6])
+                            ->where('status_id', '!=', 17)
+                            ->orWhereNull('status_id');
+                      });
+            })
+            ->update(['status_id' => 9]);
     }
 
 

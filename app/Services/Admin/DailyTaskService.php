@@ -16,11 +16,11 @@ class DailyTaskService
     function task() {
         try {
              // #პირველი ნაწილი
-            // ვამოწმებ ვადაგასულ ჩანაწერებს სადაც status_id 1 არ უდრის
+            // ვამოწმებ ვადაგასულ ჩანაწერებს სადაც status_id არის null ან 17(მიმდინარე)
             // ვააბდეითებ status_id, vacancy->status_id, candidate->status_id
             // ვაკანსიაა ვადაგასულია, სამუშაო გრაფიკი წაშლილია, კანდიდატი თავისუფალი თუ სხვა აქტიურ ვაკანსიაზე არაა დასაქმებული
-            $quality = QualifyingCandidate::whereIn('qualifying_type_id', [5, 6, 7])
-                ->whereNull('status_id')
+            $quality = QualifyingCandidate::whereIn('qualifying_type_id', [5, 6, 7, 8])
+                ->where('status_id', 17)
                 ->whereDate('end_date', '<', Carbon::today())
                 ->get();
 
@@ -30,7 +30,7 @@ class DailyTaskService
                 $vacancy_ids = collect($quality)->pluck('vacancy_id')->toArray();
                 $candidate_ids = collect($quality)->pluck('candidate_id')->toArray();
 
-                QualifyingCandidate::whereIn('id', $ids)->update(['status_id' => 1]);
+                QualifyingCandidate::whereIn('id', $ids)->update(['status_id' => 18]);
                 WorkDay::whereIn('qualifying_candidate_id', $ids)->delete();
 
 
@@ -41,10 +41,17 @@ class DailyTaskService
 
 
             }
+            // გასაუბრებაზე ცხადება ტიპის სტატუსის განახლება
+            $interview = QualifyingCandidate::where('qualifying_type_id', 4)
+                ->where('status_id', 17)
+                ->whereDate('interview_date', '<', Carbon::today())
+                ->update(['status_id' => 18]);
+
+
             $currentDateTime = Carbon::today();
             // #მეორე ნაწილი
-            $quality2 = QualifyingCandidate::whereIn('qualifying_type_id', [5, 6, 7])
-                ->whereNull('status_id')
+            $quality2 = QualifyingCandidate::whereIn('qualifying_type_id', [5, 6, 7, 8])
+                ->where('status_id', 17)
                 ->whereDate(
                     DB::raw('DATE_ADD(end_date, INTERVAL -2 DAY)'),
                     '=',
