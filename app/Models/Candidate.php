@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class Candidate extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
     protected $fillable = [
         'user_id',
         'personal_number',
@@ -54,6 +56,12 @@ class Candidate extends Model
     ];
     // protected $appends = ['HasRecommendation'];
 
+    public function getActivitylogOptions(): LogOptions
+    {
+        $logOptions = LogOptions::defaults([])->logFillable()->logOnlyDirty();
+        return $logOptions;
+    }
+    
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');

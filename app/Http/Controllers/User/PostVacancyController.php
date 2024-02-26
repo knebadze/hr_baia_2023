@@ -25,7 +25,7 @@ class PostVacancyController extends Controller
         $this->vacancyService = $vacancyService;
         $this->classificatoryService = $classificatoryService;
     }
-    public function index($lang, $id, $code)
+    public function index($lang, $id=null, $code=null)
     {
         $auth = Auth::user();
 

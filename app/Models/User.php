@@ -9,12 +9,13 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 // implements HasMedia
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, LogsActivity;
     // InteractsWithMedia
 
     /**
@@ -64,6 +65,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function getActivitylogOptions(): LogOptions
+    {
+
+        $logOptions = LogOptions::defaults([])->logFillable()->logOnlyDirty();
+
+        return $logOptions;
+    }
+    
     public function setProviderTokenAttribute($value)
     {
         $this->attributes['provider_token'] = Crypt::encryptString($value);
