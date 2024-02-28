@@ -15,7 +15,7 @@ use Spatie\Activitylog\LogOptions;
 // implements HasMedia
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, LogsActivity;
+    use HasApiTokens, HasFactory, Notifiable,LogsActivity;
     // InteractsWithMedia
 
     /**
@@ -25,7 +25,6 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'role_id',
-        'user_type_id',
         'name_ka',
         'name_en',
         'name_ru',
@@ -68,11 +67,20 @@ class User extends Authenticatable
     public function getActivitylogOptions(): LogOptions
     {
 
-        $logOptions = LogOptions::defaults([])->logFillable()->logOnlyDirty();
+        $logOptions = LogOptions::defaults([])->logOnly([
+            'role_id',
+            'name_ka',
+            'name_en',
+            'name_ru',
+            'email',
+            'number',
+            'date_of_birth',
+            'gender_id',
+        ]);
 
         return $logOptions;
     }
-    
+
     public function setProviderTokenAttribute($value)
     {
         $this->attributes['provider_token'] = Crypt::encryptString($value);
@@ -81,7 +89,7 @@ class User extends Authenticatable
     public function getProviderTokenAttribute($value)
     {
         // $this->provider_token;
-        return Crypt::deCrypt($value);
+        return Crypt::decryptString($value);
     }
 
     public function candidate()
