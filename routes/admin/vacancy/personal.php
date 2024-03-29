@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Hr\SelectionPersonalController;
+use App\Http\Controllers\HR\SelectionPersonalController;
 
 // C
 Route::post('/add_vacancy_personal', [SelectionPersonalController::class, 'addPersonal']);

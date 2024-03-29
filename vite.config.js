@@ -23,4 +23,12 @@ export default defineConfig({
             'top-level-await': true //browsers can handle top-level-await features
         },
     },
+    define: {
+        // Define Vue feature flags for production build
+        // __VUE_PROD_DEVTOOLS__: false, // Disable Vue Devtools
+        // __VUE_OPTIONS_API__: true, // Enable Vue 3 Options API
+        // __VUE_PROD_DEVTOOLS__: false, // Disable Vue Devtools in production
+        __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: false, // Disable hydration mismatch details
+        // Add other feature flags as needed
+      },
 });

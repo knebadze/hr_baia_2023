@@ -172,7 +172,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
 
     include('admin/global_variable/variable.php');
 
-    include('Api/api.php');
+    include('store_api/api.php');
 
     Route::post('/check_verify_code', [CheckVerifyCodeController::class, 'check']);
 

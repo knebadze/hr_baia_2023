@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Hr;
+namespace App\Http\Controllers\HR;
 
 use Exception;
 use Carbon\Carbon;

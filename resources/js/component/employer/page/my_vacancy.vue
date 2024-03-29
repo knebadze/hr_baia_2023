@@ -67,7 +67,7 @@ export default {
         const showVerifyCodeInput = ref(false);
         const tableData = ref(null);
         let checkAndVerifyData = ref({});
-        const componentKey = ref(0);
+        let componentKey = ref(0);
 
         const verify = () =>{
             axios({
