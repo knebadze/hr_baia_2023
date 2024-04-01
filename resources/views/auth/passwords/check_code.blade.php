@@ -49,7 +49,7 @@
 
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <button type="submit" class="site-button">{{ __('lang.check_code_btn') }}</button>
+                                                    <button type="submit" class="btn btn-primary w-100 py-3">{{ __('lang.check_code_btn') }}</button>
                                                 </div>
                                             </div>
                                         </form>
