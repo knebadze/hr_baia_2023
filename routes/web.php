@@ -31,6 +31,7 @@ use App\Http\Controllers\User\PostVacancyController;
 
 use App\Http\Controllers\User\UserProfileController;
 use App\Http\Controllers\Auth\ChangePasswordController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\CheckVerifyCodeController;
 use App\Http\Controllers\Employer\EmployerInfoController;
 
@@ -100,8 +101,12 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
         // Route::get('/job_detail/{id?}/{slug?}', [VacancyController::class, 'show'])->name('job_detail');
 
         Route::get('/auth/passwords/change_password', [ChangePasswordController::class, 'index'])->name('auth.password.change_password');
-
-
+        Route::get('/auth/passwords/forgot_password', [ForgotPasswordController::class, 'index'])->name('auth.password.forgot_password');
+        Route::post('/send_code_forgot_password', [ForgotPasswordController::class, 'sendCode'])->name('send_code_forgot_password');
+        Route::get('/auth/passwords/check_code/{id}', [ForgotPasswordController::class, 'check_code'])->name('auth.password.check_code');
+        Route::post('/check_code_in_base', [ForgotPasswordController::class, 'checkCodeInBase'])->name('check_code_in_base');
+        Route::get('/auth/passwords/change_password_guest/{id}/{code}', [ForgotPasswordController::class, 'changePassword'])->name('auth.password.change_password_guest');
+        Route::post('/update_password', [ForgotPasswordController::class, 'updatePassword'])->name('guest.update_password');
         Route::get('/home', [HomeController::class, 'index'])->name('home');
 
         //______________________ADMIN PAGE_____________________________

@@ -98,7 +98,7 @@
                                             </div>
                                             <div class="col-lg-12">
                                                 <div class="form-group mb-3 ">
-                                                    <a class="text-primary" href="#">{{ __('lang.modal_login_password_forgot') }}</a>
+                                                    <a class="text-primary" href="{{ route('auth.password.forgot_password', App()->getLocale()) }}">{{ __('lang.modal_login_password_forgot') }}</a>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
@@ -113,7 +113,17 @@
                                                 <span class="center-text-or">Or</span>
                                             </div>
                                         </div>
-
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <form action="{{ route('auth.social.redirect', 'google') }}" method="GET">
+                                                    @csrf
+                                                    <button type="submit" class="log_with_google">
+                                                        <img src="{{ asset('images/google-icon.png') }}" alt="">
+                                                        Continue with Google
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <form action="{{ route('auth.social.redirect', 'facebook') }}" method="GET">
@@ -126,17 +136,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <form action="{{ route('auth.social.redirect', 'google') }}" method="GET">
-                                                    @csrf
-                                                    <button type="submit" class="log_with_google">
-                                                        <img src="{{ asset('images/google-icon.png') }}" alt="">
-                                                        Continue with Google
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </div>
+
                                         <div class="col-md-12">
                                             <div class="mt-3 mb-3">{{ __('lang.modal_login_dont_have_account') }}
                                                 <a href="{{ route('register', App()->getLocale()) }}"><u class="text-primary">{{ __('lang.modal_login_sign_up') }}</u></a>
