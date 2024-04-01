@@ -160,8 +160,11 @@ class VacancyRepository{
             $findAuthor = Vacancy::where('author_id', $findEmployer->id)->first();
             if ($findAuthor) {
                 $find = HrHasVacancy::where('hr_id', $findAuthor->hr_id)->first();
-                $find->update(['has_vacancy' => 1]);
-                return $findAuthor->hr_id;
+                if ($find) {
+                    $find->update(['has_vacancy' => 1]);
+                    return $findAuthor->hr_id;
+                }
+                
             }
 
         }

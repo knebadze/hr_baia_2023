@@ -19,7 +19,7 @@
                 <th>კორპ. ნომერი</th>
                 <th>შიდა ნომერი</th>
                 <th>საკ. ნომერი</th>
-                <th>სტატუსი</th>
+                <th >სტატუსი</th>
                 <th>ნახვა/რედაქტირება</th>
                 </tr>
             </thead>
@@ -30,8 +30,8 @@
                 <td>{{ item.number }}</td>
                 <td>{{ (item.hr)?item.hr.inside_number:'' }}</td>
                 <td>{{ item.hr.mobile }}</td>
-                <td><Switch  v-model:checked="item.switch" label="" @click.self="isActiveUpdate(item)"/></td>
-                <td><button class="btn btn-info" @click="openViewModal(item)"><i class="fa fa-eye"></i> + <i class="fa fa-pen"></i></button></td>
+                <td><Switch v-if="item.is_active != 2"  v-model:checked="item.switch" label="" @click.self="isActiveUpdate(item)"/><span v-else class="text-sm text-danger">ამორიცხული</span></td>
+                <td ><button v-if="item.is_active != 2" class="btn btn-info" @click="openViewModal(item)"><i class="fa fa-eye"></i> + <i class="fa fa-pen"></i></button></td>
                 </tr>
 
 
