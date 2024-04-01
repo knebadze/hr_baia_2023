@@ -1,3 +1,139 @@
+<script setup>
+import { computed, onMounted, reactive, ref } from "vue";
+import Slider from "@vueform/slider";
+import Paginate from "vuejs-paginate-next";
+import axios from "axios";
+import Switch from "../../../inc/Switch.vue";
+import vacancy_table from "../component/table/vacancy_table.vue";
+
+const props = defineProps({data: Object});
+
+const staticItems = ref([]);
+const items = ref([]);
+const count = ref(0);
+const collapse = ref(false);
+const cla = ref(props.data.classificatory)
+let m = reactive({ payment: [50, 4000], age: [18, 65] });
+const pagination = ref({ current_page: 1,last_page: 2 });
+const getDataType = ref("first_data");
+const roleId = ref(props.data.roleId);
+const hrId = ref(null);
+hrId.value = props.data.hasOwnProperty("hrId") ? props.data.hrId : null;
+const tableKey = ref(0);
+const tableCla = ref(props.data.classificatory.workSchedule);
+
+
+const toggleCollapse = () => {
+    collapse.value = !collapse.value ;
+}
+
+
+const getRandomInt = (min, max) =>{
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+const randomNumber = computed(() => getRandomInt(1, 2));
+
+const shouldRenderTable = computed(() => Object.keys(items.value).length !== 0);
+
+
+const firstData = async() => {
+    try {
+        const { data } = await axios.get(
+            `/get_vacancy?page=${pagination.value.current_page}`
+        );
+        const { vacancy } = data
+        if (vacancy) {
+            pagination.value = {
+                current_page: vacancy.current_page,
+                last_page: vacancy.last_page,
+            };
+            items.value = vacancy.data;
+            staticItems.value = vacancy.data;
+            tableKey.value++;
+
+            count.value = data.count
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+
+const filter = async (m) =>{
+
+    m.created_at_from || m.created_at_to
+        ? (m["created_at"] = [m.created_at_from, m.created_at_to])
+        : "";
+    m.start_date_from || m.start_date_to
+        ? (m["start_date"] = [m.start_date_from, m.start_date_to])
+        : "";
+    m.interview_date_from || m.interview_date_to
+        ? (m["interview_date"] = [
+                m.interview_date_from,
+                m.interview_date_to,
+            ])
+        : "";
+
+    try {
+        const { data } = await axios({
+            method: "post",
+            url:
+                "/admin_vacancy_filter?page=" +
+                pagination.value.current_page,
+            data: m,
+        })
+
+        const { vacancy } = data
+        if (vacancy) {
+            pagination.value = {
+                current_page: vacancy.current_page,
+                last_page: vacancy.last_page,
+            };
+            items.value = vacancy.data;
+            tableKey.value++;
+
+            count.value = data.count
+
+            collapse.value = false;
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
+
+};
+
+const filterMeth = (type, m)=> {
+    getDataType.value = type;
+    if (getDataType.value == "filter") {
+        filter(m);
+    }
+};
+
+const getData= () => {
+    if (getDataType.value == "first_data") {
+        firstData();
+    } else if (getDataType.value == "filter") {
+        filter(m);
+    }
+};
+
+const addVacancy = () => {
+    let url = new URL(location.href);
+    window.location.replace(`${url.origin}/ka/post_job`);
+};
+const endFilter = () => {
+    m = { payment: [50, 4000], age: [18, 65] };
+    items.value = staticItems.value;
+    tableKey.value++;
+    collapse.value = false;
+};
+
+onMounted( async() => {
+    await getData();
+})
+
+</script>
 <template lang="">
     <section class="content">
         <div class="container-fluid">
@@ -8,25 +144,25 @@
                             class="card-title w-100 d-flex justify-content-between"
                         >
                             <a
+                                role="button"
                                 class="d-block w-100"
-                                data-toggle="collapse"
-                                href="#collapseOne"
+                                @click="toggleCollapse"
                             >
                                 ფილტრი
                             </a>
-                            <i class="fas fa-angle-down float-right"></i>
+                            <i class="fas" :class="{'fa-angle-down': !collapse, 'fa-angle-up': collapse}"></i>
                         </h4>
                     </div>
                     <div
                         id="collapseOne"
                         class="collapse"
-                        :class="colspan"
+                        :class="{ 'show': collapse }"
                         data-parent="#accordion"
                     >
                         <div class="card-body">
-                            <h5 class="ml-2">
+                            <!-- <h5 class="ml-2">
                                 <i class="fa fa-user"></i> დამკვეთი:
-                            </h5>
+                            </h5> -->
                             <hr />
                             <div class="row" v-if="cla">
                                 <div class="col-xl-4 col-lg-6 col-md-12">
@@ -724,7 +860,7 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <!-- <button type="button" class="btn btn-primary" @click="endFilter()"><i class="fa fa-times"></i> ფილტრის გამორთვა</button> -->
+                            <!-- <button type="button" class="btn btn-danger" @click="endFilter()"><i class="fa fa-times"></i> ფილტრის გამორთვა</button> -->
                             <button
                                 type="button"
                                 class="btn btn-success float-right"
@@ -738,7 +874,8 @@
             </div>
         </div>
 
-        <div class="my-2 d-flex justify-content-end">
+        <div class="my-2 d-flex justify-content-between">
+            <p>სულ: {{ count }} </p>
             <button type="button" class="btn btn-success" @click="addVacancy()">
                 <i class="fa fa-plus"></i> ვაკანსისი დამატება
             </button>
@@ -768,142 +905,5 @@
         </div>
     </section>
 </template>
-<script>
-import Slider from "@vueform/slider";
-import Paginate from "vuejs-paginate-next";
-import axios from "axios";
-import Switch from "../../../inc/Switch.vue";
-import vacancy_table from "../component/table/vacancy_table.vue";
-// import Loading from 'vue-loading-overlay';
-export default {
-    components: {
-        Slider,
-        Paginate,
-        Switch,
-        vacancy_table,
-        // Loading
-    },
-    props: {
-        data: Object,
-    },
-    data() {
-        return {
-            items: {},
-            colspan: "hide",
-            cla: null,
-            m: { payment: [50, 4000], age: [18, 65] },
-            pagination: {
-                current_page: 1,
-                last_page: 2,
-            },
-            getDataType: "first_data",
-            roleId: null,
-            hrId: null,
-            // randomNumber: 0
-            tableKey: 0,
-            tableCla: null,
-        };
-    },
-    computed: {
-        randomNumber() {
-            function getRandomInt(min, max) {
-                return Math.floor(Math.random() * (max - min + 1)) + min;
-            }
-            return getRandomInt(1, 2);
-        },
-        shouldRenderTable() {
-            return Object.keys(this.items).length !== 0;
-        },
-    },
-    created() {
-        this.cla = this.data.classificatory;
-        this.roleId = this.data.roleId;
-        this.hrId = this.data.hasOwnProperty("hrId") ? this.data.hrId : null;
-        this.tableCla = this.data.classificatory.workSchedule;
-        this.getData();
-    },
-    methods: {
-        getData() {
-            if (this.getDataType == "first_data") {
-                this.firstData();
-            } else if (this.getDataType == "filter") {
-                this.filter(this.m);
-            }
-        },
-        async firstData() {
-            try {
-                const { data } = await axios.get(
-                    `/get_vacancy?page=${this.pagination.current_page}`
-                );
-                if (data) {
-                    this.pagination = {
-                        current_page: data.current_page,
-                        last_page: data.last_page,
-                    };
-                    this.items = data.data;
-                    this.tableKey++;
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        },
-        filterMeth(type, m) {
-            this.getDataType = type;
-            if (this.getDataType == "filter") {
-                this.filter(m);
-            }
-        },
-        filter(m) {
-            m.created_at_from || m.created_at_to
-                ? (m["created_at"] = [m.created_at_from, m.created_at_to])
-                : "";
-            m.start_date_from || m.start_date_to
-                ? (m["start_date"] = [m.start_date_from, m.start_date_to])
-                : "";
-            m.interview_date_from || m.interview_date_to
-                ? (m["interview_date"] = [
-                      m.interview_date_from,
-                      m.interview_date_to,
-                  ])
-                : "";
-            // (m.hr)?m.hr = this.hrId:'';
-            // if (m.payment[0] == 50 && m.payment[1] == 4000 ) {
-            //     delete m.payment;
-            // }
-            // if (m.age[0] == 18 && m.age[1] == 65 ) {
-            //     delete m.age;
-            // }
-            let currentObj = this;
 
-            axios({
-                method: "post",
-                url:
-                    "/admin_vacancy_filter?page=" +
-                    this.pagination.current_page,
-                data: m,
-            })
-                .then(function (response) {
-                    currentObj.pagination = {
-                        current_page: response.data.current_page,
-                        last_page: response.data.last_page,
-                    };
-                    currentObj.items = response.data.data;
-                    currentObj.tableKey++;
-                })
-                .catch(function (error) {
-                    // handle error
-                    console.log(error);
-                });
-        },
-        addVacancy() {
-            let url = new URL(location.href);
-            window.location.replace(`${url.origin}/ka/post_job`);
-        },
-        endFilter() {
-            this.m = { payment: [50, 4000], age: [18, 65] };
-            this.items = this.data.vacancy.data;
-        },
-    },
-};
-</script>
 <style lang=""></style>

@@ -86,7 +86,10 @@ class VacancyActionController extends Controller
             ])->when(Auth::user()->role_id != 1, function ($query) {
                 $query->where('hr_id', '=', Auth::user()->hr->id);
             })->paginate(25);
-            return response()->json($vacancy);
+
+        $totalVacancies = $vacancy->total();
+
+        return response()->json(['vacancy' => $vacancy, 'count' => $totalVacancies]);
 
     }
     function delete(Request $request)  {

@@ -46,8 +46,9 @@ class AdminVacancyController extends Controller
             ->when(Auth::user()->role_id != 1, function ($query) {
                 $query->where('hr_id', '=', Auth::user()->hr->id);
             })->paginate(20);
+        $totalVacancies = $vacancy->total();
 
-        return response()->json($vacancy);
+        return response()->json(['vacancy' => $vacancy, 'count' => $totalVacancies]);
     }
 
 }
