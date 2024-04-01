@@ -135,7 +135,7 @@ class Vacancy extends Model
 
     public function demand()
     {
-        return $this->belongsTo(VacancyDemand::class, 'id', 'vacancy_id');
+        return $this->hasOne(VacancyDemand::class, 'id', 'vacancy_id');
     }
 
     public function getCharacteristic()

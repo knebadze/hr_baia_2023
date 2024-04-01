@@ -199,6 +199,9 @@
                                             <multiselect
                                                 v-model="m.status"
                                                 :options="cla.status"
+                                                :multiple="true"
+                                                :close-on-select="false"
+                                                :clear-on-select="false"
                                                 deselect-label="Can't remove this value"
                                                 track-by="name_ka"
                                                 label="name_ka"
@@ -864,7 +867,12 @@ export default {
                   ])
                 : "";
             // (m.hr)?m.hr = this.hrId:'';
-
+            // if (m.payment[0] == 50 && m.payment[1] == 4000 ) {
+            //     delete m.payment;
+            // }
+            // if (m.age[0] == 18 && m.age[1] == 65 ) {
+            //     delete m.age;
+            // }
             let currentObj = this;
 
             axios({

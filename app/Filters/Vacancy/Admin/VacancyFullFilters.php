@@ -6,7 +6,7 @@ class VacancyFullFilters
 {
     protected $filters = [
         'name' => vacancyEmployerNameFilter::class,
-        // 'number' => VacancyEmployerNumberFilter::class,
+        'number' => VacancyEmployerNumberFilter::class,
         // // 'address' => '',
         'code' => vacancyCodeFilter::class,
         'category' => VacancyCategoryFilter::class,
