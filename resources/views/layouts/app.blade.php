@@ -27,8 +27,7 @@
   <!-- summernote -->
   <link rel="stylesheet" href="{{ asset('admin/plugins/summernote/summernote-bs4.min.css') }}">
 
-  {{-- <link rel="stylesheet" href="{{asset('build/assets/app-17decf63.css') }}">
-  <link rel="stylesheet" href="{{asset('build/assets/app-74b23952.css') }}"> --}}
+
   @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
@@ -93,6 +92,5 @@
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('admin/dist/js/pages/dashboard.js') }}"></script>
 
-     {{-- <script type="module" src="{{ asset('build/assets/app-4ed993c7.js') }}"></script>
-    <script type="module" src="{{ asset('build/assets/app-6205d15e.js') }}"></script> --}}
+ 
 </body>
