@@ -15,19 +15,21 @@ class WelcomeService
         $slider = DB::table('vacancies as a')
             ->selectRaw('
                 COUNT(CASE WHEN a.status_id != 5 THEN a.id ELSE NULL END) as vacancies,
-                COUNT(DISTINCT CASE WHEN a.category_id != 8 AND b.for_who_need_id NOT IN (382, 385, 390) THEN a.ID ELSE NULL END) as familyVacancy,
+
                 (SELECT COUNT(*) FROM candidates WHERE status_id IN (10, 11)) as candidateCount
             ')
             ->leftJoin('for_who_vacancies as b', 'a.id', 'b.vacancy_id')
             ->first();
+            // COUNT(DISTINCT CASE WHEN a.category_id != 8 AND b.for_who_need_id NOT IN (382, 385, 390) THEN a.ID ELSE NULL END) as familyVacancy,
         $result['slider'] = [
             'vacancies' => $slider->vacancies,
-            'familyVacancy' => $slider->familyVacancy,
+            // 'familyVacancy' => $slider->familyVacancy,
             'candidateCount' => $slider->candidateCount,
         ];
+        // dd($result);
         $categoriesWithVacancies = DB::table('categories')
             ->leftJoin('vacancies', 'categories.id', '=', 'vacancies.category_id')
-            ->select('categories.*', DB::raw('COUNT(CASE WHEN vacancies.status_id != 5 THEN vacancies.id ELSE NULL END) as count'))
+            ->select('categories.*', DB::raw('COUNT(CASE WHEN vacancies.status_id in (2) THEN vacancies.id ELSE NULL END) as count'))
             ->groupBy('categories.id')
             ->get()->toArray();
             $categoriesWithVacancies['type'] = 'vacancy';

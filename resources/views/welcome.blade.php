@@ -99,8 +99,7 @@
 
 
 
-                        <div class="twm-bnr-blocks-position-wrap">
-                            <!--icon-block-1-->
+                        {{-- <div class="twm-bnr-blocks-position-wrap">
                             <div class="twm-bnr-blocks twm-bnr-blocks-position-1">
                                 <div class="twm-icon">
                                     <img src="{{ asset('images/main-slider/slider1/icon-1.png') }}" alt="">
@@ -108,11 +107,10 @@
                                 <div class="twm-content">
                                     <div class="tw-count-number text-clr-sky">
                                         <span>{{($data['slider']['vacancies'] -  $data['slider']['familyVacancy'] <= 0)?10:$data['slider']['vacancies'] -  $data['slider']['familyVacancy'] }}</span>
-                                        {{-- <span class="counter">12</span>K+ --}}
                                     </div>
                                     <p class="icon-content-info">{{ __('lang.welcome_rightside_bar_companyvacancie') }}</p>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <!--icon-block-2-->
                             <div class="twm-bnr-blocks twm-bnr-blocks-position-2">
@@ -121,7 +119,7 @@
                                 </div>
                                 <div class="twm-content">
                                     <div class="tw-count-number text-clr-pink">
-                                        <span>{{ $data['slider']['familyVacancy'] }}</span>
+                                        <span>{{ $data['slider']['vacancies'] }}</span>
                                         {{-- <span class="counter">{{ $data['slider']['familyVacancy'] }}</span> + --}}
                                     </div>
                                     <p class="icon-content-info">{{ __('lang.welcome_rightside_bar_individualvacancie') }} </p>
@@ -133,10 +131,6 @@
                                 <div class="twm-pics">
                                     <span><img src="{{ asset('images/main-slider/slider1/user/u-1.jpg') }}" alt=""></span>
                                     <span><img src="{{ asset('images/main-slider/slider1/user/u-2.jpg') }}" alt=""></span>
-                                    <span><img src="{{ asset('images/main-slider/slider1/user/u-3.jpg') }}" alt=""></span>
-                                    <span><img src="{{ asset('images/main-slider/slider1/user/u-4.jpg') }}" alt=""></span>
-                                    <span><img src="{{ asset('images/main-slider/slider1/user/u-5.jpg') }}" alt=""></span>
-                                    <span><img src="{{ asset('images/main-slider/slider1/user/u-6.jpg') }}" alt=""></span>
                                 </div>
                                 <div class="twm-content">
                                     <div class="tw-count-number text-clr-green">
@@ -158,9 +152,9 @@
             </div>
 
         </div>
-        <div class="twm-gradient-text">
+        {{-- <div class="twm-gradient-text">
             Jobs
-        </div>
+        </div> --}}
     </div>
     <!--Banner End-->
     {{-- <how-work></how-work> --}}
@@ -268,7 +262,7 @@
                <div class="twm-jobs-list-wrap">
                    <ul>
                     <popular-vacancy :items='@json($data['popularVacancy'])' :auth='@json($auth)'></popular-vacancy>
-                     
+
 
                    </ul>
                    <div class="text-center m-b30">
