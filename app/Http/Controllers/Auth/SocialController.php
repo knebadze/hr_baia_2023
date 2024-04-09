@@ -43,7 +43,7 @@ class SocialController extends Controller
         } catch (\Exception $e) {
             // Log the exception to investigate the error
             Log::error('Socialite Error: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'დაფიქსირდა შეცდომა');
+            return redirect()->route('login', app()->getLocale())->with('error', 'დაფიქსირდა შეცდომა');
             // Handle the error gracefully, for example, by displaying a user-friendly error message
         }
 

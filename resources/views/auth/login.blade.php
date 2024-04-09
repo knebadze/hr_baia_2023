@@ -39,7 +39,11 @@
                                     </div>
                                 </div>
                                 <div class="twm-tabs-style-2">
-
+                                    @if (session('error'))
+                                        <div class="alert alert-danger">
+                                            {{ session('error') }}
+                                        </div>
+                                    @endif
                                     <div class="row">
                                         <form method="POST" action="{{ route('login', app()->getLocale()) }}">
                                             @csrf
