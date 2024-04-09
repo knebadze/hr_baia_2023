@@ -13,14 +13,7 @@
                 <div class="col-lg-3 col-md-12">
                     @php
                         $companyInformation = Cache::get('company_information');
-                        if ($companyInformation === null) {
-                            // If cache is null, fetch data from database and cache it
-                            $companyInformation = CompanyInformation::first();
-
-                            if ($companyInformation !== null) {
-                                Cache::forever('company_information', $companyInformation);
-                            }
-                        }
+                       
                     @endphp
                     <div class="widget widget_about">
                         <div class="logo-footer clearfix">
