@@ -34,6 +34,7 @@ use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\CheckVerifyCodeController;
 use App\Http\Controllers\Employer\EmployerInfoController;
+use App\Http\Controllers\TermConditionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,7 +55,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
        function()
     {
         Auth::routes();
-        Route::get('/prices', [PricesController::class, 'index'])->name('prices');
+
 
         Route::get('/', [MainController::class, 'index'])->name('welcome');
 
@@ -93,6 +94,8 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
 
         // Faq Page
         Route::get('/faq', [FaqController::class, 'index'])->name('faq');
+        Route::get('/prices', [PricesController::class, 'index'])->name('prices');
+        Route::get('/term_condition', TermConditionController::class)->name('term.condition');
 
         //user vacancy
         // Route::get('/user/vacancy', [VacancyController::class, 'index'])->name('user.vacancy');

@@ -12,7 +12,6 @@ class CompanyInfoController extends Controller
     function index() {
         $data = Cache::get('company_information');
         if ($data === null) {
-            // If cache is null, fetch data from database and cache it
             $companyInformation = CompanyInformation::first();
 
             if ($companyInformation !== null) {

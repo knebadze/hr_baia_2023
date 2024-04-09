@@ -39,6 +39,7 @@
                             <ul class="sub-menu">
                                 <li><a href="{{ route('about' , App()->getLocale())  }}">{{ __('lang.menu_about_us') }}</a></li>
                                 <li><a href="{{ route('prices' , App()->getLocale())  }}">{{ __('lang.prices') }}</a></li>
+                                <li><a href="{{ route('term.condition' , App()->getLocale())  }}">{{ __('lang.rule') }}</a></li>
                             </ul>
                         </li>
 

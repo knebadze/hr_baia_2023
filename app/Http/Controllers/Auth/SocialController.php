@@ -21,7 +21,7 @@ class SocialController extends Controller
     public function callback($provider){
         try {
             $providerUser = Socialite::driver($provider)->user();
-            $user = User::where('email', $providerUser->email)->first();
+            $user = $providerUser->email?User::where('email', $providerUser->email)->first():null;
             if (!$user) {
                 $user = User::updateOrCreate([
                     'email' => $providerUser->email,
