@@ -21,11 +21,13 @@ class SocialController extends Controller
     public function callback($provider){
         try {
             $providerUser = Socialite::driver($provider)->user();
-            $user = $providerUser->email?User::where('email', $providerUser->email)->first():null;
+            $user = $providerUser->email?User::where('provider_id', $providerUser->id)->first():null;
             if (!$user) {
                 $user = User::updateOrCreate([
-                    'email' => $providerUser->email,
+                    'provider_id' => $providerUser->id,
+
                 ], [
+                    'email' => $providerUser->email,
                     'name_en' => $providerUser->name,
                     'avatar' => $providerUser->avatar,
                     'password' => Hash::make(Str::random(8)),
