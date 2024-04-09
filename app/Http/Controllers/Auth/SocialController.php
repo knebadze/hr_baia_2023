@@ -36,7 +36,7 @@ class SocialController extends Controller
             }
 
             Auth::login($user);
-            if ($user->whereHas('candidate')) {
+            if ($user->candidate) {
                 return redirect('/ka/home');
             }
             return redirect('/ka/user/userProfile');

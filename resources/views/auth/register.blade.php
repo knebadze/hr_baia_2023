@@ -197,6 +197,17 @@
 
                                         <div class="col-md-12">
                                             <div class="form-group">
+                                                <form action="{{ route('auth.social.redirect', 'google') }}" method="GET">
+                                                    @csrf
+                                                    <button type="submit" class="log_with_google">
+                                                        <img src="{{ asset('images/google-icon.png') }}" alt="">
+                                                        Continue with Google
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
                                                 <form action="{{ route('auth.social.redirect', 'facebook') }}" method="GET">
                                                     @csrf
                                                     <button type="submit" class="log_with_facebook">
@@ -207,17 +218,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <form action="{{ route('auth.social.redirect', 'google') }}" method="GET">
-                                                    @csrf
-                                                    <button type="submit" class="log_with_google">
-                                                        <img src="{{ asset('images/google-icon.png') }}" alt="">
-                                                        Continue with Google
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </div>
+
                                         <div class="col-md-12">
                                             <div class="mt-3 mb-3">{{ __('lang.modal_registration_already_registered?') }}
                                                 <a href="{{ route('login', App()->getLocale()) }}"><u class="text-primary">{{ __('lang.modal_registration_log_in_here') }}</u></a>
