@@ -26,7 +26,7 @@ use App\Http\Controllers\SubscriptionController;
 
 use App\Http\Controllers\Admin\SmsPageController;
 use App\Http\Controllers\Admin\BlackListController;
-
+use App\Http\Controllers\Admin\CompanyInfoController;
 use App\Http\Controllers\User\PostVacancyController;
 
 use App\Http\Controllers\User\UserProfileController;
@@ -180,6 +180,8 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     include('store_api/api.php');
 
     Route::post('/check_verify_code', [CheckVerifyCodeController::class, 'check']);
+
+    Route::post('/update_company_info', [CompanyInfoController::class, 'update'])->name('update_company_info');
 
 
 

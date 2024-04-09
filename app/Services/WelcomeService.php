@@ -7,19 +7,22 @@ use App\Models\Category;
 use App\Models\Testimonial;
 use App\Models\WorkSchedule;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 
 class WelcomeService
 {
     function data() {
         $result = [];
-        $slider = DB::table('vacancies as a')
-            ->selectRaw('
-                COUNT(CASE WHEN a.status_id != 5 THEN a.id ELSE NULL END) as vacancies,
+        $slider = Cache::remember('slider_data', 5 * 60, function () {
+            return DB::table('vacancies as a')
+                ->selectRaw('
+                    COUNT(CASE WHEN a.status_id != 5 THEN a.id ELSE NULL END) as vacancies,
 
-                (SELECT COUNT(*) FROM candidates WHERE status_id IN (10, 11)) as candidateCount
-            ')
-            ->leftJoin('for_who_vacancies as b', 'a.id', 'b.vacancy_id')
-            ->first();
+                    (SELECT COUNT(*) FROM candidates WHERE status_id IN (10, 11)) as candidateCount
+                ')
+                ->leftJoin('for_who_vacancies as b', 'a.id', 'b.vacancy_id')
+                ->first();
+        });
             // COUNT(DISTINCT CASE WHEN a.category_id != 8 AND b.for_who_need_id NOT IN (382, 385, 390) THEN a.ID ELSE NULL END) as familyVacancy,
         $result['slider'] = [
             'vacancies' => $slider->vacancies,
@@ -44,8 +47,10 @@ class WelcomeService
         $categoriesWithCandidates['type'] = 'candidate';
         $result['categoriesWithCandidates'] = $categoriesWithCandidates;
 
-        $testimonial = Testimonial::where('active', 1)->get()->toArray();
-        $result['testimonial'] = $testimonial;
+        $testimonials = Cache::rememberForever('testimonials', function () {
+            return Testimonial::where('active', 1)->get()->toArray();
+        });
+        $result['testimonial'] = $testimonials;
 
         $popularCategories = DB::table('categories')
             ->select('categories.*', DB::raw('COUNT(CASE WHEN vacancies.status_id != 5 THEN vacancies.id ELSE NULL END)  as vacancy_count'))
@@ -65,10 +70,12 @@ class WelcomeService
 
         $result['popularVacancy'] = $popularVacancy;
 
-        $classificatory = [
-            'category' => Category::all(),
-            'work_schedule' => WorkSchedule::all()
+        $classificatoryArr = [
+            'category',
+            'workSchedule'
         ];
+        $classificatoryService = new ClassificatoryService();
+        $classificatory = $classificatoryService->get($classificatoryArr);
         $result['classificatory'] = $classificatory;
         return $result;
     }

@@ -133,6 +133,14 @@
                     </p>
                 </a>
             </li>
+            <li class="nav-item">
+                <a @if(Route::currentRouteName() === 'admin.company.info') class="nav-link active" @else class="nav-link" @endif href="{{ route('admin.company.info') }}">
+                    <i class="nav-icon fa fa-info"></i>
+                    <p>
+                        company info
+                    </p>
+                </a>
+            </li>
             <hr>
             <li class="nav-item mt-3">
                 <a

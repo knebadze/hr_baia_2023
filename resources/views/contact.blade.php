@@ -16,26 +16,26 @@
                                 <h2 class="wt-title">{{ __('lang.menu_contact') }}</h2>
                             </div>
                         </div>
-                        <!-- BREADCRUMB ROW -->                            
-                        
+                        <!-- BREADCRUMB ROW -->
+
                             <div>
                                 <ul class="wt-breadcrumb breadcrumb-style-2">
                                     <li><a href="{{ url ('/') }}">{{ __('lang.menu_home') }}</a> /</li>
                                     <li>{{ __('lang.menu_contact') }}</li>
                                 </ul>
                             </div>
-                        
-                        <!-- BREADCRUMB ROW END -->                        
+
+                        <!-- BREADCRUMB ROW END -->
                     </div>
                 </div>
             </div>
             <!-- INNER PAGE BANNER END -->
-           
+
             <!-- CONTACT FORM -->
-            <div class="section-full twm-contact-one">   
+            <div class="section-full twm-contact-one">
                 <div class="section-content">
                     <div class="container">
-                            
+
                         <!-- CONTACT FORM-->
                         <div class="contact-one-inner">
                             <div class="row">
@@ -48,7 +48,7 @@
                                             <h2 class="wt-title">{{ __('lang.contact_read_us') }}</h2>
                                             {{-- <p>Feel free to contact us and we will get back to you as soon as we can.</p> --}}
                                         </div>
-                                        <!-- TITLE END--> 
+                                        <!-- TITLE END-->
 
                                         <form  class="cons-contact-form" method="post" action="">
                                             <div class="row">
@@ -58,64 +58,65 @@
                                                         <input name="username" type="text" required class="form-control" placeholder="{{ __('lang.contact_read_us_input_name') }}">
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div class="col-lg-6 col-md-6">
                                                     <div class="form-group mb-3">
                                                     <input name="email" type="text" class="form-control" required placeholder="{{ __('lang.contact_read_us_input_mail') }}">
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div class="col-lg-6 col-md-6">
                                                     <div class="form-group mb-3">
                                                         <input name="phone" type="text" class="form-control" required placeholder="{{ __('lang.contact_read_us_input_phone') }}">
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div class="col-lg-6 col-md-6">
                                                     <div class="form-group mb-3">
                                                         <input name="subject" type="text" class="form-control" required placeholder="{{ __('lang.contact_read_us_input_title') }}">
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div class="col-lg-12">
                                                     <div class="form-group mb-3">
                                                     <textarea name="message" class="form-control" rows="3" placeholder="{{ __('lang.contact_read_us_input_text') }}"></textarea>
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div class="col-md-12">
                                                     <button type="submit" class="site-button">{{ __('lang.contact_read_us_button_send') }}</button>
                                                 </div>
-                                                
+
                                             </div>
                                         </form>
                                     </div>
-                                </div> 
+                                </div>
 
                                 <div class="col-lg-6 col-md-12">
                                     <div class="contact-info-wrap">
 
                                         <div class="contact-info">
-                                            <div class="contact-info-section">  
-                                                    
+                                            <div class="contact-info-section">
+
                                                     <div class="c-info-column">
                                                         <div class="c-info-icon"><i class=" fas fa-map-marker-alt"></i></div>
                                                         <h3 class="twm-title">{{ __('lang.contact_read_us_address') }}</h3>
-                                                        <p>{{ __('lang.contact_read_us_address_descr') }}</p>
-                                                    </div>  
+                                                        <p>I: {{ $companyInformation->address_1 }}</p>
+                                                        <p> II: {{ $companyInformation->address_2 }}</p>
+                                                    </div>
 
                                                     <div class="c-info-column">
                                                         <div class="c-info-icon custome-size"><i class="fas fa-mobile-alt"></i></div>
                                                         <h3 class="twm-title">{{ __('lang.contact_read_us_input_phone') }}</h3>
-                                                        <p><a href="tel:+995 598857657">+995 598857657</a></p>
+                                                        <p><a href="tel:{{ preg_replace('/[^0-9]/', '', $companyInformation->number) }}">{{ $companyInformation->number }}</a></p>
                                                     </div>
 
                                                     <div class="c-info-column">
                                                         <div class="c-info-icon"><i class="fas fa-envelope"></i></div>
                                                         <h3 class="twm-title">{{ __('lang.contact_read_us_input_mail') }}</h3>
-                                                        <p>support@hrbaia.com</p>
+                                                        <p>{{ $companyInformation->gmail }}</p>
                                                     </div>
-                                            
+
                                             </div>
                                         </div>
 
@@ -124,20 +125,46 @@
 
                             </div>
                         </div>
-                        
+
                     </div>
-                    
+
                 </div>
             </div>
             <div class="gmap-outline">
                 <div class="google-map">
                     <div style="width: 100%">
-                        <iframe height="460" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3304.8534521658976!2d-118.2533646842856!3d34.073270780600225!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c6fd9829c6f3%3A0x6ecd11bcf4b0c23a!2s1363%20Sunset%20Blvd%2C%20Los%20Angeles%2C%20CA%2090026%2C%20USA!5e0!3m2!1sen!2sin!4v1620815366832!5m2!1sen!2sin"></iframe>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d656.9115121022472!2d44.80063583721382!3d41.69788881546854!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40440ce667def78f%3A0xd2b59c205478e63!2s5%2F5a%20Archil%20Jorjadze%20St%2C%20T&#39;bilisi!5e1!3m2!1sen!2sge!4v1712650206577!5m2!1sen!2sge"
+                            width="600"
+                            height="450"
+                            style="border:0;"
+                            allowfullscreen=""
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                            style="filter: grayscale(0) hue-rotate(190deg);"
+                        ></iframe>
                     </div>
                 </div>
             </div>
-      
+
 
         </div>
         <!-- CONTENT END -->
 @endsection
+{{-- <script>
+    // Function to display cookies
+    function displayCookies() {
+        // Get all cookies associated with the document
+        var cookies = document.cookie.split(';');
+
+        // Display each cookie
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim(); // Remove leading/trailing whitespace
+            console.log('cookie',cookie);
+        }
+    }
+
+    // Call displayCookies function when the page is loaded
+    window.onload = function() {
+        displayCookies();
+    };
+</script> --}}

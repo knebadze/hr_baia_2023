@@ -4,6 +4,7 @@ namespace App\Repositories\Admin\Testimonial;
 
 use App\Models\Testimonial;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 
 class TestimonialRepository
@@ -22,6 +23,8 @@ class TestimonialRepository
         }
         $testimonial->save();
 
+        // Clear testimonials cache
+        Cache::forget('testimonials');
         return $testimonial;
     }
 
@@ -39,6 +42,8 @@ class TestimonialRepository
         }
 
         $testimonial->update();
+        // Clear testimonials cache
+        Cache::forget('testimonials');
     }
 
     function delete($id) {
@@ -54,7 +59,8 @@ class TestimonialRepository
 
         // Delete the testimonial
         $testimonial->delete();
-
+        // Clear testimonials cache
+        Cache::forget('testimonials');
         return true;
     }
 

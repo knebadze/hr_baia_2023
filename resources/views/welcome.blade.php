@@ -27,7 +27,7 @@
                                     <select class="wt-search-bar-select" title="" id="j-Job_Title" name="category_id" required>
                                         <option value="">{{ __('lang.welcome_leftside_bar_search_job_select_job_category') }}</option>
                                         @foreach ($data['classificatory']['category'] as $item)
-                                            <option value="{{ $item->id }}">{{ $item->{'name_'.app()->getLocale()} }}</option>
+                                            <option value="{{ $item['id'] }}">{{ $item['name_'.app()->getLocale()] }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -37,8 +37,8 @@
                                     <label>{{ __('lang.welcome_leftside_bar_search_job_select_job') }}</label>
                                     <select class="wt-search-bar-select" data-live-search="true" title="" id="j-All_Category" name="work_schedule_id">
                                         <option value="">{{ __('lang.welcome_leftside_bar_search_job_category_job_all_category') }}</option>
-                                        @foreach ($data['classificatory']['work_schedule'] as $item)
-                                            <option value="{{ $item->id }}">{{ $item->{'name_'.app()->getLocale()} }}</option>
+                                        @foreach ($data['classificatory']['workSchedule'] as $item)
+                                            <option value="{{ $item['id'] }}">{{ $item['name_'.app()->getLocale()] }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -74,15 +74,16 @@
             <div class="col-xl-6 col-lg-6 col-md-12 twm-bnr-right-section">
                 <div class="twm-bnr-right-content">
 
-                    <div class="twm-img-bg-circle-area">
+                    {{-- <div class="twm-img-bg-circle-area">
                         <div class="twm-img-bg-circle1 rotate-center"><span></span></div>
                         <div class="twm-img-bg-circle2 rotate-center-reverse"><span></span></div>
                         <div class="twm-img-bg-circle3"><span></span></div>
-                    </div>
+                    </div> --}}
 
                     <div class="twm-bnr-right-carousel">
 
-                        <div class="owl-carousel twm-h1-bnr-carousal">
+
+                        {{-- <div class="owl-carousel twm-h1-bnr-carousal">
                             <div class="item">
                               <div class="slide-img">
                                 <img src="{{ asset('images/main-slider/slider1/r-img1.png') }}" alt="#">
@@ -90,12 +91,10 @@
                             </div>
                             <div class="item">
                               <div class="slide-img">
-                                {{-- <div class="slide-img"> --}}
                                     <img src="{{ asset('images/main-slider/slider1/r-img2.png') }}" alt="#">
-                                {{-- </div> --}}
                               </div>
                             </div>
-                        </div>
+                        </div> --}}
 
 
 

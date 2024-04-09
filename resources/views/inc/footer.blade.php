@@ -11,15 +11,18 @@
             <div class="row">
 
                 <div class="col-lg-3 col-md-12">
-
+                    @php
+                        $companyInformation = Cache::get('company_information');
+                    @endphp
                     <div class="widget widget_about">
                         <div class="logo-footer clearfix">
                             <a href="index.html"><img src="/images/logo-baia.png" style="max-height: 150px;" alt=""></a>
                         </div>
                         <ul class="ftr-list">
-                            <li><p><span>{{ __('lang.footer_address_one') }}</span>{{ __('lang.footer_address_two') }}</p></li>
-                            <li><p><span>Email :</span>support@hrbaia.com</p></li>
-                            <li class="adressColor"><p><span>{{ __('lang.footer_call') }}</span><a href="tel:+995 598857657">+995 598857657</a></p></li>
+                            <li><p>I: {{ $companyInformation->address_1 }}</p></li>
+                            <li><p> II: {{ $companyInformation->address_2 }}</p></li>
+                            <li><p><span>Email :</span>{{ $companyInformation->gmail }}</p></li>
+                            <li class="adressColor"><p><span>{{ __('lang.footer_call') }}</span><a href="tel:{{ preg_replace('/[^0-9]/', '', $companyInformation->number) }}">{{ $companyInformation->number }}</a></p></li>
                         </ul>
                     </div>
 

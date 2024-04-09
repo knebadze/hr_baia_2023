@@ -9,57 +9,57 @@ All JavaScript fuctions Start
 ---------------------------------------------------------------------------------------------*/
 
 //  selectpicker function by = bootstrap-select.min.js ========================== //
-	function select_picker_select(){
-		jQuery('.my-select').selectpicker();
-	}
+	// function select_picker_select(){
+	// 	jQuery('.my-select').selectpicker();
+	// }
 
 //  Home 1 Banner Carousel function by = owl.carousel.js ========================== //
-	function twm_h1_bnr_carousal(){
-		jQuery('.twm-h1-bnr-carousal').owlCarousel({
-			animateIn: 'fadeIn',
-			animateOut: 'fadeOut',
-			items: 1,
-			loop: true,
-			nav:false,
-			dots: false,
-			autoplay:true,
-			autoplayHoverPause:false,
-			touchDrag  : false,
-			mouseDrag  : false,
-		});
-	}
+	// function twm_h1_bnr_carousal(){
+	// 	jQuery('.twm-h1-bnr-carousal').owlCarousel({
+	// 		animateIn: 'fadeIn',
+	// 		animateOut: 'fadeOut',
+	// 		items: 1,
+	// 		loop: true,
+	// 		nav:false,
+	// 		dots: false,
+	// 		autoplay:true,
+	// 		autoplayHoverPause:false,
+	// 		touchDrag  : false,
+	// 		mouseDrag  : false,
+	// 	});
+	// }
 
 //  Job Categories Carousel function by = owl.carousel.js ========================== //
-	function job_categories_carousel(){
-		jQuery('.job-categories-carousel').owlCarousel({
-			loop:true,
-			nav:true,
-			dots: false,
-			center:false,
-			margin:30,
-			autoplay:true,
-			navText: ['<i class="feather-chevron-left"></i>', '<i class="feather-chevron-right"></i>'],
-			responsive:{
-				0:{
-					items:1,
-				},
-				480:{
-					items:1,
-				},
-				767:{
-					items:2,
-					margin:0,
-				},
-				991:{
-					items:2,
+	// function job_categories_carousel(){
+	// 	jQuery('.job-categories-carousel').owlCarousel({
+	// 		loop:true,
+	// 		nav:true,
+	// 		dots: false,
+	// 		center:false,
+	// 		margin:30,
+	// 		autoplay:true,
+	// 		navText: ['<i class="feather-chevron-left"></i>', '<i class="feather-chevron-right"></i>'],
+	// 		responsive:{
+	// 			0:{
+	// 				items:1,
+	// 			},
+	// 			480:{
+	// 				items:1,
+	// 			},
+	// 			767:{
+	// 				items:2,
+	// 				margin:0,
+	// 			},
+	// 			991:{
+	// 				items:2,
 
-				},
-				1024:{
-					items:3
-				}
-			}
-		});
-	}
+	// 			},
+	// 			1024:{
+	// 				items:3
+	// 			}
+	// 		}
+	// 	});
+	// }
 
 // > Video responsive function by = custom.js ========================= //
 	function video_responsive(){
@@ -68,46 +68,46 @@ All JavaScript fuctions Start
 	}
 
 // > LIGHTBOX Gallery Popup function	by = lc_lightbox.lite.js =========================== //
- 	function lightbox_popup(){
-        lc_lightbox('.elem', {
-            wrap_class: 'lcl_fade_oc',
-            gallery : true,
-            thumb_attr: 'data-lcl-thumb',
+ 	// function lightbox_popup(){
+    //     lc_lightbox('.elem', {
+    //         wrap_class: 'lcl_fade_oc',
+    //         gallery : true,
+    //         thumb_attr: 'data-lcl-thumb',
 
-            skin: 'minimal',
-            radius: 0,
-            padding	: 0,
-            border_w: 0,
-        });
-	}
+    //         skin: 'minimal',
+    //         radius: 0,
+    //         padding	: 0,
+    //         border_w: 0,
+    //     });
+	// }
 
 // > magnificPopup for video function	by = magnific-popup.js ===================== //
-	function magnific_video(){
-		jQuery('.mfp-video').magnificPopup({
-			type: 'iframe',
-		});
-	}
+	// function magnific_video(){
+	// 	jQuery('.mfp-video').magnificPopup({
+	// 		type: 'iframe',
+	// 	});
+	// }
 
 // Vertically center Bootstrap modal popup function by = custom.js ==============//
-	function popup_vertical_center(){
-		jQuery(function() {
-			function reposition() {
-				var modal = jQuery(this),
-				dialog = modal.find('.modal-dialog');
-				modal.css('display', 'block');
+	// function popup_vertical_center(){
+	// 	jQuery(function() {
+	// 		function reposition() {
+	// 			var modal = jQuery(this),
+	// 			dialog = modal.find('.modal-dialog');
+	// 			modal.css('display', 'block');
 
-				// Dividing by two centers the modal exactly, but dividing by three
-				// or four works better for larger screens.
-				dialog.css("margin-top", Math.max(0, (jQuery(window).height() - dialog.height()) / 2));
-			}
-			// Reposition when a modal is shown
-			jQuery('.modal').on('show.bs.modal', reposition);
-			// Reposition when the window is resized
-			jQuery(window).on('resize', function() {
-				jQuery('.modal:visible').each(reposition);
-			});
-		});
-	}
+	// 			// Dividing by two centers the modal exactly, but dividing by three
+	// 			// or four works better for larger screens.
+	// 			dialog.css("margin-top", Math.max(0, (jQuery(window).height() - dialog.height()) / 2));
+	// 		}
+	// 		// Reposition when a modal is shown
+	// 		jQuery('.modal').on('show.bs.modal', reposition);
+	// 		// Reposition when the window is resized
+	// 		jQuery(window).on('resize', function() {
+	// 			jQuery('.modal:visible').each(reposition);
+	// 		});
+	// 	});
+	// }
 
 // > Main menu sticky on top  when scroll down function by = custom.js ========== //
 	function sticky_header(){
@@ -232,250 +232,250 @@ All JavaScript fuctions Start
  	}
 
 //  Client logo Carousel function by = owl.carousel.js ========================== //
-	function home_client_carousel(){
-	jQuery('.home-client-carousel').owlCarousel({
-		loop:true,
-		nav:false,
-		dots: true,
-		margin:5,
-		autoplay:true,
-		navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
-		responsive:{
-			0:{
-				items:2,
-			},
-			480:{
-				items:3,
-			},
-			767:{
-				items:4,
-			},
-			1000:{
-				items:4
-			}
-		}
-	});
-	}
+	// function home_client_carousel(){
+	// jQuery('.home-client-carousel').owlCarousel({
+	// 	loop:true,
+	// 	nav:false,
+	// 	dots: true,
+	// 	margin:5,
+	// 	autoplay:true,
+	// 	navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
+	// 	responsive:{
+	// 		0:{
+	// 			items:2,
+	// 		},
+	// 		480:{
+	// 			items:3,
+	// 		},
+	// 		767:{
+	// 			items:4,
+	// 		},
+	// 		1000:{
+	// 			items:4
+	// 		}
+	// 	}
+	// });
+	// }
 
 	//  Client logo Carousel function by = owl.carousel.js ========================== //
-	function home_client_carousel_2(){
-		jQuery('.home-client-carousel2').owlCarousel({
-			loop:true,
-			nav:true,
-			dots: false,
-			margin:30,
-			autoplay:true,
-			navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
-			responsive:{
-				0:{
-					items:2,
-				},
-				480:{
-					items:3,
-				},
-				767:{
-					items:4,
-				},
-				1000:{
-					items:6
-				}
-			}
-		});
-	}
+	// function home_client_carousel_2(){
+	// 	jQuery('.home-client-carousel2').owlCarousel({
+	// 		loop:true,
+	// 		nav:true,
+	// 		dots: false,
+	// 		margin:30,
+	// 		autoplay:true,
+	// 		navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
+	// 		responsive:{
+	// 			0:{
+	// 				items:2,
+	// 			},
+	// 			480:{
+	// 				items:3,
+	// 			},
+	// 			767:{
+	// 				items:4,
+	// 			},
+	// 			1000:{
+	// 				items:6
+	// 			}
+	// 		}
+	// 	});
+	// }
 
 	//  Client logo Carousel function by = owl.carousel.js ========================== //
-	function home_client_carousel_3(){
-		jQuery('.home-client-carousel3').owlCarousel({
-			loop:true,
-			nav:false,
-			dots: false,
-			margin:30,
-			autoplay:true,
-			autoplayTimeout: 1500,
-			navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
-			responsive:{
-				0:{
-					items:2,
-				},
-				480:{
-					items:3,
-				},
-				767:{
-					items:4,
-				},
-				1000:{
-					items:5
-				}
-			}
-		});
-	}
+	// function home_client_carousel_3(){
+	// 	jQuery('.home-client-carousel3').owlCarousel({
+	// 		loop:true,
+	// 		nav:false,
+	// 		dots: false,
+	// 		margin:30,
+	// 		autoplay:true,
+	// 		autoplayTimeout: 1500,
+	// 		navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
+	// 		responsive:{
+	// 			0:{
+	// 				items:2,
+	// 			},
+	// 			480:{
+	// 				items:3,
+	// 			},
+	// 			767:{
+	// 				items:4,
+	// 			},
+	// 			1000:{
+	// 				items:5
+	// 			}
+	// 		}
+	// 	});
+	// }
 
 	//  Related jobs Carousel function by = owl.carousel.js ========================== //
-	function twm_related_jobs_carousel(){
-		jQuery('.twm-related-jobs-carousel').owlCarousel({
-			loop:true,
-			nav:false,
-			dots: true,
-			margin:30,
-			//autoplay:true,
-			autoplayTimeout:3000,
-			navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
-			responsive:{
-				0:{
-					items:1,
-				},
-				480:{
-					items:1,
-				},
-				767:{
-					items:2,
-				},
-				1000:{
-					items:3
-				}
-			}
-		});
-	}
+	// function twm_related_jobs_carousel(){
+	// 	jQuery('.twm-related-jobs-carousel').owlCarousel({
+	// 		loop:true,
+	// 		nav:false,
+	// 		dots: true,
+	// 		margin:30,
+	// 		//autoplay:true,
+	// 		autoplayTimeout:3000,
+	// 		navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
+	// 		responsive:{
+	// 			0:{
+	// 				items:1,
+	// 			},
+	// 			480:{
+	// 				items:1,
+	// 			},
+	// 			767:{
+	// 				items:2,
+	// 			},
+	// 			1000:{
+	// 				items:3
+	// 			}
+	// 		}
+	// 	});
+	// }
 
 	//  Client logo Carousel function by = owl.carousel.js ========================== //
-	function home_client_carousel_4(){
-		jQuery('.home-client-carousel4').owlCarousel({
-			loop:true,
-			nav:false,
-			dots: false,
-			margin:0,
-			autoplay:true,
-			autoplayTimeout: 1500,
-			navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
-			responsive:{
-				0:{
-					items:2,
-				},
-				480:{
-					items:3,
-				},
-				767:{
-					items:4,
-				},
-				1000:{
-					items:5
-				}
-			}
-		});
-	}
+	// function home_client_carousel_4(){
+	// 	jQuery('.home-client-carousel4').owlCarousel({
+	// 		loop:true,
+	// 		nav:false,
+	// 		dots: false,
+	// 		margin:0,
+	// 		autoplay:true,
+	// 		autoplayTimeout: 1500,
+	// 		navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
+	// 		responsive:{
+	// 			0:{
+	// 				items:2,
+	// 			},
+	// 			480:{
+	// 				items:3,
+	// 			},
+	// 			767:{
+	// 				items:4,
+	// 			},
+	// 			1000:{
+	// 				items:5
+	// 			}
+	// 		}
+	// 	});
+	// }
 
 	//  Trusted logo Carousel function by = owl.carousel.js ========================== //
-	function trusted_logo(){
-		jQuery('.trusted-logo').owlCarousel({
-			loop:true,
-			nav:false,
-			dots: false,
-			margin:5,
-			autoplay:true,
-			navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
-			responsive:{
-				0:{
-					items:1,
-				},
-				480:{
-					items:2,
-				},
-				767:{
-					items:2,
-				},
-				991:{
-					items:2
-				}
-			}
-		});
-	}
+	// function trusted_logo(){
+	// 	jQuery('.trusted-logo').owlCarousel({
+	// 		loop:true,
+	// 		nav:false,
+	// 		dots: false,
+	// 		margin:5,
+	// 		autoplay:true,
+	// 		navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
+	// 		responsive:{
+	// 			0:{
+	// 				items:1,
+	// 			},
+	// 			480:{
+	// 				items:2,
+	// 			},
+	// 			767:{
+	// 				items:2,
+	// 			},
+	// 			991:{
+	// 				items:2
+	// 			}
+	// 		}
+	// 	});
+	// }
 
 	//  Testimonial Carousel function by = owl.carousel.js ========================== //
-	function twm_testimonial_1_carousel(){
-		jQuery('.twm-testimonial-1-carousel').owlCarousel({
-			loop:true,
-			nav:true,
-			dots: false,
-			margin:30,
-			autoplay:true,
-			navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
-			responsive:{
-				0:{
-					items:1,
-				},
-				480:{
-					items:1,
-				},
-				991:{
-					items:2,
-				}
+	// function twm_testimonial_1_carousel(){
+	// 	jQuery('.twm-testimonial-1-carousel').owlCarousel({
+	// 		loop:true,
+	// 		nav:true,
+	// 		dots: false,
+	// 		margin:30,
+	// 		autoplay:true,
+	// 		navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
+	// 		responsive:{
+	// 			0:{
+	// 				items:1,
+	// 			},
+	// 			480:{
+	// 				items:1,
+	// 			},
+	// 			991:{
+	// 				items:2,
+	// 			}
 
-			}
-		});
-	}
+	// 		}
+	// 	});
+	// }
 
 	//  Testimonial Carousel function by = owl.carousel.js ========================== //
-	function twm_testimonial_2_carousel(){
-		jQuery('.twm-testimonial-2-carousel').owlCarousel({
-			loop:true,
-			nav:true,
-			dots: false,
-			margin:5,
-			autoplay:true,
-			navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
-			responsive:{
-				0:{
-					items:1,
-				},
-				480:{
-					items:1,
-				},
-				991:{
-					items:2,
-				},
-				1199:{
-					items:3,
-				}
+	// function twm_testimonial_2_carousel(){
+	// 	jQuery('.twm-testimonial-2-carousel').owlCarousel({
+	// 		loop:true,
+	// 		nav:true,
+	// 		dots: false,
+	// 		margin:5,
+	// 		autoplay:true,
+	// 		navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
+	// 		responsive:{
+	// 			0:{
+	// 				items:1,
+	// 			},
+	// 			480:{
+	// 				items:1,
+	// 			},
+	// 			991:{
+	// 				items:2,
+	// 			},
+	// 			1199:{
+	// 				items:3,
+	// 			}
 
-			}
-		});
-	}
+	// 		}
+	// 	});
+	// }
 
 
 	//  Latest Article Blogs Carousel function by = owl.carousel.js ========================== //
-	function twm_la_home_blog(){
-		jQuery('.twm-la-home-blog').owlCarousel({
-			loop:true,
-			nav:true,
-			dots: false,
-			margin:30,
-			autoplay:false,
-			navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
-			responsive:{
-				0:{
-					items:1,
-				},
-				480:{
-					items:1,
-				},
-				991:{
-					items:2,
-				},
-				1199:{
-					items:3,
-				}
+	// function twm_la_home_blog(){
+	// 	jQuery('.twm-la-home-blog').owlCarousel({
+	// 		loop:true,
+	// 		nav:true,
+	// 		dots: false,
+	// 		margin:30,
+	// 		autoplay:false,
+	// 		navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
+	// 		responsive:{
+	// 			0:{
+	// 				items:1,
+	// 			},
+	// 			480:{
+	// 				items:1,
+	// 			},
+	// 			991:{
+	// 				items:2,
+	// 			},
+	// 			1199:{
+	// 				items:3,
+	// 			}
 
-			}
-		});
-	}
+	// 		}
+	// 	});
+	// }
 
 	//  Counter Section function by = counterup.min.js
-	function counter_section(){
-		jQuery('.counter').counterUp({
-			delay: 10,
-			time: 3000
-		});
-	}
+	// function counter_section(){
+	// 	jQuery('.counter').counterUp({
+	// 		delay: 10,
+	// 		time: 3000
+	// 	});
+	// }
 
 
 	// sidebarCollapse function by = custom.js
@@ -507,46 +507,46 @@ All JavaScript fuctions Start
 	}
 
 	// CustomScrollbar function by = jquery.scrollbar.js
-	function scroll_bar_custome(){
-		jQuery('.scrollbar-macosx').scrollbar();
-	}
+	// function scroll_bar_custome(){
+	// 	jQuery('.scrollbar-macosx').scrollbar();
+	// }
 
 
 	// Jobs Bookmark table function by = dataTables.bootstrap5.js
-    function jobs_bookmark_table(){
-        jQuery('#jobs_bookmark_table').DataTable(
-            {
-                "aLengthMenu": [[3, 5, 10, -1], [3, 5, 10, "All"]],
-                "iDisplayLength": 3
-            }
-        );
-    }
+    // function jobs_bookmark_table(){
+    //     jQuery('#jobs_bookmark_table').DataTable(
+    //         {
+    //             "aLengthMenu": [[3, 5, 10, -1], [3, 5, 10, "All"]],
+    //             "iDisplayLength": 3
+    //         }
+    //     );
+    // }
 
 	// candidate_data_table function by = dataTables.bootstrap5.js
-    function candidate_data_table(){
-        jQuery('#candidate_data_table').DataTable(
-            {
-                "aLengthMenu": [[5, 8, 10, -1], [5, 8, 10, "All"]],
-                    "iDisplayLength": 5
-                }
-            );
+    // function candidate_data_table(){
+    //     jQuery('#candidate_data_table').DataTable(
+    //         {
+    //             "aLengthMenu": [[5, 8, 10, -1], [5, 8, 10, "All"]],
+    //                 "iDisplayLength": 5
+    //             }
+    //         );
 
-		function checkAll(bx) {
-			var cbs = document.getElementsByTagName('input');
-			for(var i=0; i < cbs.length; i++) {
-				if(cbs[i].type == 'checkbox') {
-				cbs[i].checked = bx.checked;
-				}
-			}
-    	}
-	}
+	// 	function checkAll(bx) {
+	// 		var cbs = document.getElementsByTagName('input');
+	// 		for(var i=0; i < cbs.length; i++) {
+	// 			if(cbs[i].type == 'checkbox') {
+	// 			cbs[i].checked = bx.checked;
+	// 			}
+	// 		}
+    // 	}
+	// }
 
 	// datepicker function by = dbootstrap-datepicker.js
-    function datepicker_function(){
-		$('.datepicker').datepicker({
-			format: 'dd/mm/yyyy'
-		});
-	}
+    // function datepicker_function(){
+	// 	$('.datepicker').datepicker({
+	// 		format: 'dd/mm/yyyy'
+	// 	});
+	// }
 
 
 	// profile-chart function by = chart.js
@@ -586,9 +586,9 @@ All JavaScript fuctions Start
 		});
 	}
 	//  Radius Range Slider function by = bootstrap-slider.min.js ========================== //
-	function radius_range(){
-		jQuery("#ex2").slider({});
-	}
+	// function radius_range(){
+	// 	jQuery("#ex2").slider({});
+	// }
 
 	//DropZone File Uploading Function Start=========================//
 	function Dropzone_infut_file(){
@@ -768,21 +768,21 @@ All JavaScript fuctions Start
 ---------------------------------------------------------------------------------------------*/
 	jQuery(document).ready(function() {
 		//  selectpicker function by = bootstrap-select.min.js ========================== //
-	    select_picker_select(),
+	    // select_picker_select(),
 		//  Home 1 Banner Carousel function by = owl.carousel.js ========================== //
-	    twm_h1_bnr_carousal(),
+	    // twm_h1_bnr_carousal(),
 		//  Job Categories Carousel function by = owl.carousel.js ========================== //
-	    job_categories_carousel(),
+	    // job_categories_carousel(),
 		// > Top Search bar Show Hide function by = custom.js
 		site_search(),
 		// > Video responsive function by = custom.js
 		video_responsive(),
 		 // > LIGHTBOX Gallery Popup function	by = lc_lightbox.lite.js =========================== //
-		lightbox_popup(),
+		// lightbox_popup(),
 		// > magnificPopup for video function	by = magnific-popup.js
-		magnific_video(),
+		// magnific_video(),
 		// > Vertically center Bootstrap modal popup function by = custom.js
-		popup_vertical_center();
+		// popup_vertical_center();
 		// > Main menu sticky on top  when scroll down function by = custom.js
 		sticky_header(),
 	    // > Sidebar sticky  when scroll down function by = theia-sticky-sidebar.js ========== //
@@ -798,25 +798,25 @@ All JavaScript fuctions Start
 		// Mobile side drawer function by = custom.js
 		mobile_side_drawer(),
 		//  Client logo Carousel function by = owl.carousel.js ========================== //
-		home_client_carousel(),
+		// home_client_carousel(),
 		//  Client logo Carousel function by = owl.carousel.js ========================== //
-	    home_client_carousel_2(),
+	    // home_client_carousel_2(),
 		//  Client logo Carousel function by = owl.carousel.js ========================== //
-	    home_client_carousel_3(),
+	    // home_client_carousel_3(),
 		//  Related jobs Carousel function by = owl.carousel.js ========================== //
-	    twm_related_jobs_carousel(),
+	    // twm_related_jobs_carousel(),
 		//  Client logo Carousel function by = owl.carousel.js ========================== //
-	    home_client_carousel_4(),
+	    // home_client_carousel_4(),
 		//  Trusted logo Carousel function by = owl.carousel.js ========================== //
-		trusted_logo(),
+		// trusted_logo(),
 		//  Testimonial Carousel function by = owl.carousel.js ========================== //
-	    twm_testimonial_1_carousel(),
+	    // twm_testimonial_1_carousel(),
 		//  Testimonial Carousel function by = owl.carousel.js ========================== //
-	    twm_testimonial_2_carousel(),
+	    // twm_testimonial_2_carousel(),
 		//  Latest Article Blogs Carousel function by = owl.carousel.js ========================== //
-		twm_la_home_blog(),
+		// twm_la_home_blog(),
 		//  Counter Section function by = counterup.min.js ========================== //
-		counter_section(),
+		// counter_section(),
 		//massage user list show hide function by = custom.js	 ========================== //
 		msg_user_list_slide(),
 		// sidebarCollapse function by = custom.js
@@ -826,19 +826,19 @@ All JavaScript fuctions Start
 		// dashboard Message function by = custom.js
 		dashboard_message_dropdown(),
 		// CustomScrollbar function by = jquery.scrollbar.js
-		scroll_bar_custome(),
+		// scroll_bar_custome(),
 		// Jobs Bookmark table function by = dataTables.bootstrap5.js
-		jobs_bookmark_table(),
+		// jobs_bookmark_table(),
 		// candidate_data_table function by = dataTables.bootstrap5.js
-		candidate_data_table(),
+		// candidate_data_table(),
 		// datepicker function by = dbootstrap-datepicker.js
-		datepicker_function(),
+		// datepicker_function(),
 		// profile-chart function by = chart.js
 		profile_chart(),
 		// view map sidebar function by = custom.js
 	    view_map_sidebar(),
 		//  Radius Range Slider function by = bootstrap-slider.min.js ========================== //
-	     radius_range(),
+	    //  radius_range(),
 		//DropZone File Uploading Function Start=========================//
 	    Dropzone_infut_file();
 

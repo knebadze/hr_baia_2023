@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\EnrollmentController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\AdminVacancyController;
 use App\Http\Controllers\Admin\AdminCandidateController;
+use App\Http\Controllers\Admin\CompanyInfoController;
 use App\Http\Controllers\Admin\GlobalVariableController;
 use App\Http\Controllers\HR\SelectionPersonalController;
 use App\Http\Controllers\Admin\RelevantVacancyController;
@@ -70,4 +71,7 @@ Route::prefix('admin')->middleware(['auth.adminRedirect'])->group(function () {
 
     Route::get('sms_template', [SmsPageController::class, 'index'])
         ->name('admin.sms.template');
+
+    Route::get('company_info', [CompanyInfoController::class, 'index'])
+        ->name('admin.company.info');
 });
