@@ -10,9 +10,15 @@ use Illuminate\Support\Facades\Cache;
 class CompanyInfoController extends Controller
 {
     function index() {
-        $data = Cache::rememberForever('company_information', function () {
-            return CompanyInformation::first();
-        });
+        $data = Cache::get('company_information');
+        if ($data === null) {
+            // If cache is null, fetch data from database and cache it
+            $companyInformation = CompanyInformation::first();
+
+            if ($companyInformation !== null) {
+                $data = Cache::forever('company_information', $companyInformation);
+            }
+        }
         $coordinatesJson_1 = $data->location_1;
         if ($coordinatesJson_1) {
             $coordinates_1 = json_decode($coordinatesJson_1, true);
