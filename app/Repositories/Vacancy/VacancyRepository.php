@@ -128,7 +128,6 @@ class VacancyRepository{
 
     public function addEmployer($data)
     {
-        // dd($data);
         $employer = Employer::updateOrCreate(
             ['number' => $data['number'], 'number_code_id' => array_key_exists('number_code', $data)? $data['number_code']['id']:$data['number_code_id']],
             [
@@ -141,8 +140,8 @@ class VacancyRepository{
                 'street_ka' => $data['street_ka'] ?? null,
                 'street_en' => $data['street_en'] ?? null,
                 'street_ru' => $data['street_ru'] ?? null,
-                'email' => $data['email'] ?? null
-                // 'verify_code' => $data['verify_code'],
+                'email' => $data['email'] ?? null,
+                'verify_code' => $data['verify_code'],
             ]
         );
         return $employer;
@@ -164,7 +163,7 @@ class VacancyRepository{
                     $find->update(['has_vacancy' => 1]);
                     return $findAuthor->hr_id;
                 }
-                
+
             }
 
         }
