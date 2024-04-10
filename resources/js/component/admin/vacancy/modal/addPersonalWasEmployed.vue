@@ -198,7 +198,6 @@
 
                     let result = await this.getClassificatory();
                     this.info  = result.data
-                    console.log('info', this.info);
                     this.employType()
                     this.m.vacancy = {
                         'id':this.item.id,
@@ -239,7 +238,6 @@
                 }else{
                     this.disabled = true
                     this.m.employ_type = _.find(cla, function(o) { return o.id == 7; })
-                    console.log('this.m.employ_type',this.m.employ_type);
                 }
             },
             save(){

@@ -418,7 +418,6 @@
                     this.classificatory = {...result.data}
                     this.cla = result.data
                     let item = this.item
-                    console.log(item);
                     this.cla.forWhoNeed = _.filter(this.classificatory.forWhoNeed, function(o) { return o.category_id == item.category_id; });
                     this.cla.duty = _.filter(this.classificatory.duty, function(o) { return o.category_id == item.category_id; });
                     this.m = this.makeModel(this.item)
@@ -444,7 +443,6 @@
                 let [datePart, timePart] = item.interview_date.split(' ');
                 const data = item
                 data.demand = !data.demand ? {vacancy_id: data.id}: data.demand
-                console.log(data.demand);
                 data.interviewDate = datePart,
                 data.interviewTime = timePart,
                 data.go_vacation = Boolean(data.go_vacation);
@@ -455,7 +453,6 @@
                 data.demand.has_recommendation = Boolean(data.demand.has_recommendation);
 
                 data.lang = this.getLang
-                console.log('data', data);
                 return {...data}
             },
             chooseNumberCode(item){
@@ -466,7 +463,7 @@
                     'iso':item.iso
                 }
             },
-        
+
             save(){
                 if (this.m.title_ka == null || this.m.vacancy_for_who_need == null) {
                     toast.error("აუცილებელია გაწითლებული ველების შევსება", {

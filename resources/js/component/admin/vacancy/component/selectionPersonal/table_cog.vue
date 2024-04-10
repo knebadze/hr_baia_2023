@@ -28,7 +28,6 @@ export default {
     setup(props, {emit}) {
         const scheduleModalShow = ref(false);
         const modalItem = ref(null)
-        console.log(props.item);
 
         const  showModal = (item) => {
             emit("emitOpenModal", item);

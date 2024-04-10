@@ -76,9 +76,7 @@
             async show(){
                 try {
                     let result = await this.getClassificatory();
-                    console.log(result);
                     this.cla = result.data
-                    console.log(this.item);
                     this.m = {...this.item}
                     this.showConfirm = true
                 } catch (error) {

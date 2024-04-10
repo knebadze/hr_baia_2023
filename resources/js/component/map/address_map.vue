@@ -207,8 +207,6 @@ export default {
         geolocate.on("geolocate", locateUser);
 
         function locateUser(e) {
-            console.log("A geolocate event has occurred.", e);
-            console.log("lng:" + e.coords.longitude + ", lat:" + e.coords.latitude);
         }
 
     }

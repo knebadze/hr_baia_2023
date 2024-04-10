@@ -25,7 +25,6 @@ export default {
         const cla = ref(_.cloneDeep(props.data.classificatory));
         const showVerifySection = ref(true);
         const showPostSection = ref(false);
-        console.log(props.data);
         const post_vacancy_data = ref({...props.data})
 
         // გამეორების დროს იგზავნება ობიექტი

@@ -23,7 +23,6 @@
 
     const getData = async (page) => {
         if (dataType.value == 'filter') {
-            console.log('dataType.value',dataType.value);
             await filterCandidates(page, filterParam.value)
         }else{
             try {

@@ -61,7 +61,6 @@
         };
 
         const handleMessageFromChildren = (item)=> {
-            console.log('id', item);
             badgeClass.value = item.bool
             items.value[_.findIndex(items.value, function(o) { return o.id == item.id })].badgeClass = badgeClass.value
         };

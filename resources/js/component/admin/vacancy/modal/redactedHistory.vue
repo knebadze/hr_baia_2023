@@ -178,7 +178,6 @@
             async show(){
                 try {
                     let result = await this.getInfo();
-                    console.log(result.data);
                     // return
                     this.data = this.makeData(result.data)
 
@@ -213,7 +212,6 @@
                     'App\\Models\\VacancyDemand': 'ინფორმაცია კადრზე'
                 };
                 const obj = (item) =>{
-                    // console.log('old',  item);
                     let newItem = {};
                     // let notFoundKeys = [];
                     for (let key in item) {

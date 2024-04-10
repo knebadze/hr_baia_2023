@@ -38,7 +38,6 @@
             cla.value = data.cla
             candidateInfo.value = data.candidateInfo
             busy.value = data.busy
-            console.log('response', response);
             qualifyingType.value = filterCla()
             m.value = {...props.item}
             m.value['type'] = (candidateInfo.value && candidateInfo.value.this_vacancy )?candidateInfo.value.this_vacancy.qualifying_type:null
@@ -49,7 +48,6 @@
             const endDateMoment = moment(m.value.start_date);
             startDateMax.value = startDateMoment.subtract(5, 'days').format('YYYY-MM-DD');
             endDateMax.value = endDateMoment.subtract(1, 'days').format('YYYY-MM-DD');
-            console.log('qualifyingType.value',qualifyingType.value);
             showConfirm.value = true
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -61,7 +59,6 @@
     const filterCla = () =>{
         let filterQualifyingType = null;
         let check = candidateInfo.value && candidateInfo.value.hasOwnProperty('this_vacancy') && candidateInfo.value.this_vacancy
-        console.log(check && candidateInfo.value.this_vacancy.qualifying_type_id == 4);
 
         if(check && candidateInfo.value.this_vacancy.qualifying_type_id == 4){
             filterQualifyingType = cla.value.qualifyingType.filter(item => item.id >= candidateInfo.value.this_vacancy.qualifying_type_id  && item.id < 7);

@@ -12,7 +12,6 @@ export const useCandidateStore = defineStore('candidate', {
         async fetchCandidates(page) {
             try {
                 const response = await axios.get(`/fetch_candidate?page=${page}`);
-                console.log('fetch',response);
                 const data = response.data;
 
                 // Update the store's state
@@ -29,7 +28,6 @@ export const useCandidateStore = defineStore('candidate', {
         async filterCandidates(page, filterData) {
             try {
                 const response = await axios.post(`/candidate_filter?page=${page}`, filterData);
-                console.log('filter',response);
                 const data = response.data;
 
                 // Update the store's state

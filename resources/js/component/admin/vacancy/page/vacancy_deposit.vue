@@ -60,7 +60,6 @@ export default {
         data: Object
     },
     setup(props) {
-        console.log(props.data);
         const model = ref({...props.data.deposit})
         const depositAuthor = ref(props.data.employer);
         const registerEnrollmentComponent = ref(null);

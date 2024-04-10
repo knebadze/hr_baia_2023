@@ -201,7 +201,6 @@ export default {
         item.value.user.name_en = spliceName(item.value.user.name_en);
         item.value.user.name_ru = spliceName(item.value.user.name_ru);
 
-        console.log(props.data);
         const getLang = computed(() => {
             return I18n.getSharedInstance().options.lang;
         });

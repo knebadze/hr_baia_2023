@@ -150,21 +150,3 @@
         </div>
         <!-- CONTENT END -->
 @endsection
-{{-- <script>
-    // Function to display cookies
-    function displayCookies() {
-        // Get all cookies associated with the document
-        var cookies = document.cookie.split(';');
-
-        // Display each cookie
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = cookies[i].trim(); // Remove leading/trailing whitespace
-            console.log('cookie',cookie);
-        }
-    }
-
-    // Call displayCookies function when the page is loaded
-    window.onload = function() {
-        displayCookies();
-    };
-</script> --}}

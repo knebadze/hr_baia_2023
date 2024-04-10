@@ -21,7 +21,6 @@ export default {
     },
     setup(props) {
         const items = ref(props.data)
-        console.log('items', items.value);
         const tableConfig = computed(() => {
             let data = []
             const employedData = _.filter(props.data, function(o) {return  o.qualifying_type_id ==  7 || o.qualifying_type_id ==  8 });
