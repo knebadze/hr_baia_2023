@@ -46,6 +46,7 @@ export default {
                 }
             }
             let formData = new FormData();
+            formData.append('id', this.auth.id)
             formData.append('avatar', this.avatar)
             let currentObj = this;
             axios.post('/upload_avatar', formData, config)
