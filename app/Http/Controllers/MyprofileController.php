@@ -20,7 +20,7 @@ class MyprofileController extends Controller
     public function store(Request $request)
     {
         try {
-            $user = User::findOrFail(Auth::id());
+            $user = User::findOrFail($request->id);
 
             // Check if there's a new avatar uploaded
             if ($request->hasFile('avatar')) {
