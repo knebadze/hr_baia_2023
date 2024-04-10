@@ -74,42 +74,38 @@
             <div class="col-xl-6 col-lg-6 col-md-12 twm-bnr-right-section">
                 <div class="twm-bnr-right-content">
 
-                    {{-- <div class="twm-img-bg-circle-area">
+                    <div class="twm-img-bg-circle-area">
                         <div class="twm-img-bg-circle1 rotate-center"><span></span></div>
                         <div class="twm-img-bg-circle2 rotate-center-reverse"><span></span></div>
                         <div class="twm-img-bg-circle3"><span></span></div>
-                    </div> --}}
+                    </div>
 
                     <div class="twm-bnr-right-carousel">
 
 
-                        {{-- <div class="owl-carousel twm-h1-bnr-carousal">
-                            <div class="item">
-                              <div class="slide-img">
-                                <img src="{{ asset('images/main-slider/slider1/r-img1.png') }}" alt="#">
-                              </div>
-                            </div>
+                        <div class="owl-carousel twm-h1-bnr-carousal">
+
                             <div class="item">
                               <div class="slide-img">
                                     <img src="{{ asset('images/main-slider/slider1/r-img2.png') }}" alt="#">
                               </div>
                             </div>
-                        </div> --}}
+                        </div>
 
 
 
-                        {{-- <div class="twm-bnr-blocks-position-wrap">
+                        <div class="twm-bnr-blocks-position-wrap">
                             <div class="twm-bnr-blocks twm-bnr-blocks-position-1">
                                 <div class="twm-icon">
                                     <img src="{{ asset('images/main-slider/slider1/icon-1.png') }}" alt="">
                                 </div>
                                 <div class="twm-content">
                                     <div class="tw-count-number text-clr-sky">
-                                        <span>{{($data['slider']['vacancies'] -  $data['slider']['familyVacancy'] <= 0)?10:$data['slider']['vacancies'] -  $data['slider']['familyVacancy'] }}</span>
+                                        <span>0</span>
                                     </div>
                                     <p class="icon-content-info">{{ __('lang.welcome_rightside_bar_companyvacancie') }}</p>
                                 </div>
-                            </div> --}}
+                            </div>
 
                             <!--icon-block-2-->
                             <div class="twm-bnr-blocks twm-bnr-blocks-position-2">
@@ -127,10 +123,13 @@
 
                             <!--icon-block-3-->
                             <div class="twm-bnr-blocks-3 twm-bnr-blocks-position-3">
-                                <div class="twm-pics">
+                                <div class="twm-icon me-2">
+                                    <img src="{{ asset('images/main-slider/slider1/icon-3.png') }}" alt="">
+                                </div>
+                                {{-- <div class="twm-pics">
                                     <span><img src="{{ asset('images/main-slider/slider1/user/u-1.jpg') }}" alt=""></span>
                                     <span><img src="{{ asset('images/main-slider/slider1/user/u-2.jpg') }}" alt=""></span>
-                                </div>
+                                </div> --}}
                                 <div class="twm-content">
                                     <div class="tw-count-number text-clr-green">
                                         <span>{{ $data['slider']['candidateCount'] }}</span>

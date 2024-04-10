@@ -76,7 +76,7 @@
                                                     @endif
 
                                                 </div>
-                                                <div class="col-lg-12">
+                                                {{-- <div class="col-lg-12">
                                                     <div class="form-group mb-3">
                                                         <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="{{ __('lang.modal_registration_mail') }}" onkeypress="return /[a-zA-Z0-9@.-_]/i.test(event.key)">
 
@@ -86,7 +86,7 @@
                                                             </span>
                                                         @enderror
                                                     </div>
-                                                </div>
+                                                </div> --}}
 
                                                 <div class="col-lg-12">
                                                     <div class="input-group  mb-3">

@@ -106,9 +106,9 @@ return [
     //აქამდე
         'welcome_leftside_bar_popular' => 'პოპულარული',
     // ----------------------------------------------------------------------------------------------------
-    'welcome_rightside_bar_companyvacancie' => 'კომპანიის ვაკანსიები',
+    'welcome_rightside_bar_companyvacancie' => 'დასაქმებული',
     'welcome_rightside_bar_individualvacancie' => 'ვაკანსიები ოჯახში',
-    'welcome_rightside_bar_employees' => 'დასაქმებულები',
+    'welcome_rightside_bar_employees' => 'კანდიდატი',
     // ----------------------------------------------------------------------------------------------------
     'welcome_middle_leftblock_small_text' => 'სამუშაო კატეგორიებით',
     'welcome_middle_leftblock_big_text' => 'აირჩიეთ თქვენთვის სასურველი კატეგორია',
@@ -538,7 +538,7 @@ return [
     'user_profile_page_medical_please_info' => 'გთხოვთ მოგვაწოდოთ ინფორმაცია მნიშვნელოვანი ოპერაციების და ქრონიკული დაავადებების შესახებ ასეთის არსებობის შემთხვევაში.',
 
     // Map
-    'user_profile_page_address' => 'დასახლების დასახელება',
+    'user_profile_page_address' => 'ქალაქი, დაბა, უბანი ან სოფელი',
         'user_profile_page_street' => 'ქუჩის დასახელება',
     'user_profile_page_address_map' => 'მისამართის შესავსებათ უმჯობესია გამოიყენოთ რუკის საძიებო ველი',
     'user_profile_page_address_map_2' => 'მოძებვნის შემდეგ შეგიძლიათ ამოძრაოთ მარკერი რათა დააზუსთოთ

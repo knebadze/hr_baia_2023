@@ -79,7 +79,7 @@ return [
     'menu_log_in' => 'Авторизоваться',
     // ----------------------------------------------------------------------------------------------------
     // Welcome Lang Page
-    'welcome_leftside_bar_one' => 'У нас есть', 
+    'welcome_leftside_bar_one' => 'У нас есть',
     'welcome_leftside_bar_two' => 'реальная работа',
 
     'welcome_leftside_bar_firstword_one' => 'Работа здесь',
@@ -103,7 +103,7 @@ return [
     // ----------------------------------------------------------------------------------------------------
     'welcome_rightside_bar_companyvacancie' => 'Вакансии компании',
     'welcome_rightside_bar_individualvacancie' => 'Вакансии в семье',
-    'welcome_rightside_bar_employees' => 'Сотрудники',
+    'welcome_rightside_bar_employees' => 'Кандидат',
     // ----------------------------------------------------------------------------------------------------
     'welcome_middle_leftblock_small_text' => 'С рабочими категориями',
     'welcome_middle_leftblock_big_text' => 'Выберите нужную категорию',
@@ -149,7 +149,7 @@ return [
     'individual_vacancies_page_big_title' => 'Самые популярные вакансии',
     'individual_vacancies_page_small_title_first' => 'Главная',
     'individual_vacancies_page_small_title_second' => 'Вакансии в семье',
-    
+
     'individual_vacancies_page_leftside_category' => 'Категория',
         'individual_vacancies_page_leftside_category_allcategory' => 'Все категории',
 
@@ -159,7 +159,7 @@ return [
     'individual_vacancies_page_leftside_location' => 'Местоположение',
         'individual_vacancies_page_leftside_search_location' => 'поиск Местоположение',
 
-    'individual_vacancies_page_leftside_type_of_work' => 'Тип работы',    
+    'individual_vacancies_page_leftside_type_of_work' => 'Тип работы',
 
     'individual_vacancies_page_leftside_date_of_publication' => 'Дата публикации',
         'individual_vacancies_page_leftside_any' => 'Любой',
@@ -213,7 +213,7 @@ return [
     'company_vacancies_page_big_title' => 'Самые популярные вакансии',
     'company_vacancies_page_small_title_first' => 'Главная',
     'company_vacancies_page_small_title_second' => 'Вакансии в семье',
-    
+
     'company_vacancies_page_leftside_category' => 'Категория',
         'company_vacancies_page_leftside_category_allcategory' => 'Все категории',
 
@@ -223,7 +223,7 @@ return [
     'company_vacancies_page_leftside_location' => 'Местоположение',
         'company_vacancies_page_leftside_search_location' => 'поиск Местоположение',
 
-    'individual_vacancies_page_leftside_type_of_work' => 'Тип работы',    
+    'individual_vacancies_page_leftside_type_of_work' => 'Тип работы',
 
     'company_vacancies_page_leftside_date_of_publication' => 'Дата публикации',
         'company_vacancies_page_leftside_any' => 'Любой',
@@ -296,12 +296,12 @@ return [
     'about_us_page_title_one' => 'О нас',
     'about_us_page_title_link' => 'Главная',
 
-    'about_us_page_description' => 'Кадровое агентство «БАИА» специализируется на подборе и трудоустройстве квалифицированного домашнего персонала, 
-                                    также офисных менеджеров,  администраторов  гостиниц, консультантов магазинов, электриков, 
-                                    поваров,  строителей и специалистов других профилей внутри страны и за рубежом.  
-                                    В нашем агентстве к каждому клиенту профессиональный и индивидуальный подход. 
-                                    Наши специалисты оперативно и качественно решат Ваши проблемы, связанные как  с поиском персонала, 
-                                    так и трудоустройством кандидатов.  В отличие от большинства кадровых агентств наше агентство по 
+    'about_us_page_description' => 'Кадровое агентство «БАИА» специализируется на подборе и трудоустройстве квалифицированного домашнего персонала,
+                                    также офисных менеджеров,  администраторов  гостиниц, консультантов магазинов, электриков,
+                                    поваров,  строителей и специалистов других профилей внутри страны и за рубежом.
+                                    В нашем агентстве к каждому клиенту профессиональный и индивидуальный подход.
+                                    Наши специалисты оперативно и качественно решат Ваши проблемы, связанные как  с поиском персонала,
+                                    так и трудоустройством кандидатов.  В отличие от большинства кадровых агентств наше агентство по
                                     подбору домашнего персонала имеет узкую специализацию, что позволяет привлечь к процедуре подбора лучших специалистов.',
 
     'about_us_page_working_proccess' => 'Рабочий процесс',
@@ -321,7 +321,7 @@ return [
     'about_us_page_select_desire_category' => 'Выберите нужную категорию',
 
     'about_us_page_all_category' => 'Все категории',
-    
+
     'about_us_page_follow_our_steps' => 'Следуйте нашим шагам',
         'about_us_page_follow_our_steps_list_1' => 'Надежная и качественная работа',
         'about_us_page_follow_our_steps_list_2' => 'Международная работа',
@@ -365,7 +365,7 @@ return [
     'candidate_page_big_title' => 'Кандидаты',
     'candidate_page_small_title_first' => 'Главная',
     'candidate_page_small_title_second' => 'Кандидаты',
-    
+
     'candidate_page_leftside_category' => 'Категория',
         'candidate_page_leftside_category_allcategory' => 'Все категории',
 
@@ -375,7 +375,7 @@ return [
     'candidate_page_leftside_location' => 'Местоположение',
         'candidate_page_leftside_search_location' => 'поиск Местоположение',
 
-    'candidate_page_leftside_type_of_work' => 'Тип работы',    
+    'candidate_page_leftside_type_of_work' => 'Тип работы',
 
     'candidate_page_leftside_date_of_publication' => 'Дата публикации',
         'candidate_page_leftside_any' => 'Любой',
@@ -529,19 +529,19 @@ return [
         'user_profile_page_personal_family_children_age' => 'Возраст детей',
         'user_profile_page_personal_family_spouse' => 'Имя, фамилия и место работы супруги',
         'user_profile_page_personal_family_fill_info' => 'Пожалуйста, заполните информацию в соответствии с указанным запросом.',
- 
+
     // Medical information Block Lang
     'user_profile_page_medical_info' => 'Медицинская информация',
     'user_profile_page_medical_alergy' => 'Алергия на',
     'user_profile_page_medical_operation' => 'Операция или хроническое заболевание',
-    'user_profile_page_medical_please_info' => 'Пожалуйста, предоставьте информацию о серьезных операциях и хронических заболеваниях, если таковые имеются.', 
+    'user_profile_page_medical_please_info' => 'Пожалуйста, предоставьте информацию о серьезных операциях и хронических заболеваниях, если таковые имеются.',
 
     // Map
     'user_profile_page_address' => 'Адрес',
         'user_profile_page_street' => 'Улица',
     'user_profile_page_address_map' =>'Для ввода адреса лучше использовать поле поиска по карте. Это облегчит вам заполнение',
     'user_profile_page_address_map_2' => 'После поиска вы можете перетащить маркер, чтобы уточнить свой адрес',
-    
+
     // Foreign Language Block Lang
     'user_profile_page_foreign_lang_title' => 'Иностранные языки',
     'user_profile_page_foreign_lang_language' => 'Иностранный язык',
@@ -656,7 +656,7 @@ return [
     'employer_add_job_duties' => 'обязанности',
     'employer_add_job_additional_duties' => 'Дополнительные обязанности',
     'employer_add_job_button_add' => 'Добавить',
-    'employer_add_job_select' => 'выбрать', 
+    'employer_add_job_select' => 'выбрать',
 
     // Prices Page
     'conditions_for_the_candidate' => 'Условия для кандидата',

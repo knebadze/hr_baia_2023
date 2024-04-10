@@ -18,7 +18,7 @@ class WelcomeService
                 ->selectRaw('
                     COUNT(CASE WHEN a.status_id != 5 THEN a.id ELSE NULL END) as vacancies,
 
-                    (SELECT COUNT(*) FROM candidates WHERE status_id IN (10, 11)) as candidateCount
+                    (SELECT COUNT(*) FROM candidates ) as candidateCount
                 ')
                 ->leftJoin('for_who_vacancies as b', 'a.id', 'b.vacancy_id')
                 ->first();

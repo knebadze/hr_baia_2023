@@ -56,7 +56,7 @@ class RegisterController extends Controller
         // dd($data);
         return Validator::make($data, [
             'name_ka' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            // 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'number' => ['required', 'size:9', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'agree' => ['required'],
@@ -65,9 +65,9 @@ class RegisterController extends Controller
         ],
         [
             'name_ka.required' => 'სახელი და გვარის შევსება სავალდებულოა',
-            'email.required' => 'იმეილის შევსება სავალდებულოა',
-            'email.email' => 'იმეილი აუცილებლად უნდა შეიცავდეს "@" სიმბოლოს',
-            'email.unique' => 'იმეილი უკვე გამოყენებულია',
+            // 'email.required' => 'იმეილის შევსება სავალდებულოა',
+            // 'email.email' => 'იმეილი აუცილებლად უნდა შეიცავდეს "@" სიმბოლოს',
+            // 'email.unique' => 'იმეილი უკვე გამოყენებულია',
             'number.required' => 'ნომრის შევსება სავალდებულოა',
             'number.size' => 'ნომრის უნდა შეიცავდეს 9 ციფრს',
             'number.unique' => 'ნომერი უკვე გამოყენებულია',
@@ -118,7 +118,7 @@ class RegisterController extends Controller
             'name_ka' => $name_ka,
             'name_en' => $name_en,
             'name_ru' => $name_ru,
-            'email' => $data['email'],
+            // 'email' => $data['email'],
             'date_of_birth' => $data['date_of_birth'],
             'gender_id' => $data['gender_id'],
             'avatar' => $defaultAvatar,

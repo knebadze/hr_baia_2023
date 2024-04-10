@@ -63,7 +63,7 @@ return [
     'page_title_blog' => 'Blog',
     'page_title_contact' => 'Contact Page',
 
-    // ----------------------------------------------------------------------------------------------------     
+    // ----------------------------------------------------------------------------------------------------
     // Menu Lang Block
     'menu_home' => 'Home',
     'menu_vacancies' => 'Vacancies',
@@ -79,7 +79,7 @@ return [
     'menu_log_in' => 'Log In',
     // ----------------------------------------------------------------------------------------------------
     // Welcome Lang Page
-    'welcome_leftside_bar_one' => 'With Us', 
+    'welcome_leftside_bar_one' => 'With Us',
     'welcome_leftside_bar_two' => 'It\'s a real job',
 
     'welcome_leftside_bar_firstword_one' => 'A job will be',
@@ -102,7 +102,7 @@ return [
     // ----------------------------------------------------------------------------------------------------
     'welcome_rightside_bar_companyvacancie' => 'Company vacancies',
     'welcome_rightside_bar_individualvacancie' => 'Family Vacancies',
-    'welcome_rightside_bar_employees' => 'Employees',
+    'welcome_rightside_bar_employees' => 'Candidate',
     // ----------------------------------------------------------------------------------------------------
     'welcome_middle_leftblock_small_text' => 'With Work categories',
     'welcome_middle_leftblock_big_text' => 'Choose the category you want',
@@ -193,11 +193,11 @@ return [
     'individual_vacancies_page_middle_title_sort' => 'Sort',
 
     'individual_vacancies_page_middle_latest' => 'Latest',
-    'individual_vacancies_page_middle_free_schedule' => 'Free schedule', 
+    'individual_vacancies_page_middle_free_schedule' => 'Free schedule',
     'individual_vacancies_page_middle_full_time' => 'Full time',
     'individual_vacancies_page_middle_intership' => 'Intership',
     'individual_vacancies_page_middle_half_time' => 'Half Time',
-    'individual_vacancies_page_middle_temporary' => 'Temporary',  
+    'individual_vacancies_page_middle_temporary' => 'Temporary',
 
     'individual_vacancies_page_middle_show_me_10' => 'Show Me 10',
     'individual_vacancies_page_middle_show_me_20' => 'Show Me 20',
@@ -260,11 +260,11 @@ return [
     'company_vacancies_page_middle_title_sort' => 'Sort',
 
     'company_vacancies_page_middle_latest' => 'Latest',
-    'company_vacancies_page_middle_free_schedule' => 'Free schedule', 
+    'company_vacancies_page_middle_free_schedule' => 'Free schedule',
     'company_vacancies_page_middle_full_time' => 'Full time',
     'company_vacancies_page_middle_intership' => 'Intership',
     'company_vacancies_page_middle_half_time' => 'Half Time',
-    'company_vacancies_page_middle_temporary' => 'Temporary',  
+    'company_vacancies_page_middle_temporary' => 'Temporary',
 
     'company_vacancies_page_middle_show_me_10' => 'Show Me 10',
     'company_vacancies_page_middle_show_me_20' => 'Show Me 20',
@@ -296,10 +296,10 @@ return [
     'about_us_page_title_one' => 'About Us',
     'about_us_page_title_link' => 'Home',
 
-    'about_us_page_description' => 'Jobs agency “Baia” is pleased to introduce you domestic personnel for employers 
-                                    who can work in and outside of Georgia. We can help you to select caregivers, 
-                                    qualified nannies, tutors, domestic helpers, nurses for old or bedridden patients, 
-                                    personal drivers. We work  professionally, quickly and qualitatively and in target times. 
+    'about_us_page_description' => 'Jobs agency “Baia” is pleased to introduce you domestic personnel for employers
+                                    who can work in and outside of Georgia. We can help you to select caregivers,
+                                    qualified nannies, tutors, domestic helpers, nurses for old or bedridden patients,
+                                    personal drivers. We work  professionally, quickly and qualitatively and in target times.
                                     Contact us and choose the day for interview. We will contact you very soon!',
     'about_us_page_working_proccess' => 'Working Proccess',
     'about_us_page_working_how_does_it_work' => 'How does it work',
@@ -311,7 +311,7 @@ return [
             'about_us_page_card_editing_user_description' => 'Edit your cabinet.',
 
         'about_us_page_card_upload_user' => 'Upload your resume / CV',
-            'about_us_page_card_upload_user_description' => 'You must upload your resume for everyone to see.',  
+            'about_us_page_card_upload_user_description' => 'You must upload your resume for everyone to see.',
 
     'about_us_page_jobs_by_category' => 'Jobs by categories',
     'about_us_page_select_desire_category' => 'Select the desired category',
@@ -407,11 +407,11 @@ return [
     'candidate_page_middle_title_sort' => 'Sort',
 
     'candidate_page_middle_latest' => 'Latest',
-    'candidate_page_middle_free_schedule' => 'Free schedule', 
+    'candidate_page_middle_free_schedule' => 'Free schedule',
     'candidate_page_middle_full_time' => 'Full time',
     'candidate_page_middle_intership' => 'Intership',
     'candidate_page_middle_half_time' => 'Half Time',
-    'candidate_page_middle_temporary' => 'Temporary',  
+    'candidate_page_middle_temporary' => 'Temporary',
 
     'candidate_page_middle_show_me_10' => 'Show Me 10',
     'candidate_page_middle_show_me_20' => 'Show Me 20',
@@ -461,7 +461,7 @@ return [
     'footer_nav_faq' => 'FAQ',
         'footer_nav_large' => 'Frequently Asked Questions',
     'prices' => 'Prices',
-    
+
     // ====================================================================================================
     // Admin Panel Page
     // ====================================================================================================
@@ -526,8 +526,8 @@ return [
 
     // Medical information Block Lang
     'user_profile_page_medical_info' => 'Medical Information',
-    'user_profile_page_medical_alergy' => 'Alergy', 
-    'user_profile_page_medical_operation' => 'Surgery or chronic illness', 
+    'user_profile_page_medical_alergy' => 'Alergy',
+    'user_profile_page_medical_operation' => 'Surgery or chronic illness',
     'user_profile_page_medical_please_info' => 'Please provide information about major surgeries and chronic illnesses, if any.',
 
     // Map
@@ -536,7 +536,7 @@ return [
     'user_profile_page_address_map' => 'It is better to use the map search field to fill in the address. It will make filling easier for you',
     'user_profile_page_address_map_2' => 'After searching, you can drag the marker to refine your address',
 
-    
+
     // Foreign Language Block Lang
     'user_profile_page_foreign_lang_title' => 'Foreign Languages',
     'user_profile_page_foreign_lang_language' => 'Foreign Language',
@@ -556,7 +556,7 @@ return [
     'user_profile_page_work_object' => 'Object',
     'user_profile_page_work_actions' => 'Actions',
     'user_profile_page_work_button_add_info' => 'Add',
-    'user_profile_page_work_exp_experience' => 'Do you have work experience?', 
+    'user_profile_page_work_exp_experience' => 'Do you have work experience?',
 
     // Work Recommendation Block Lang
     'user_profile_page_recomendation_title' => 'Recommendation',
@@ -650,12 +650,12 @@ return [
     'employer_add_job_duties' => 'duties',
     'employer_add_job_additional_duties' => 'Additional duties',
     'employer_add_job_button_add' => 'Add',
-    'employer_add_job_select' => 'select', 
+    'employer_add_job_select' => 'select',
 
     // Prices Page
     'conditions_for_the_candidate' => 'Conditions for the candidate',
-    'conditions_for_the_candidate_modal' => '🌹Our conditions are as follows: half of the first month\'s salary will be deducted 
-                                            after you receive this salary, and registration is paid and costs 30 GEL, and registration 
+    'conditions_for_the_candidate_modal' => '🌹Our conditions are as follows: half of the first month\'s salary will be deducted
+                                            after you receive this salary, and registration is paid and costs 30 GEL, and registration
                                             is necessary in order to offer you vacancies from us.',
 
     'conditions_for_the_employer' => 'Conditions for the employer',
@@ -677,5 +677,5 @@ return [
                             that the agency does not limit Amatui\'s activity fee,
                             This is based on today\'s total market value,
                             Both family and all other personnel in the field of activity listed above',
-    
+
 ];
