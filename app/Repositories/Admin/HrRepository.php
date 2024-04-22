@@ -77,7 +77,9 @@ class HrRepository
         $hr->person_number = $data['person_number'];
         $hr->mobile = $data['mobile'];
         $hr->inside_number = $data['inside_number'];
+        $hr->branch_id = $data['branch_id'];
         $hr->bonus_percent = $data['bonus_percent'];
+        $hr->internship = $data['internship']?1:0;
         $hr->fixed_salary = $data['fixed_salary'];
         $hr->fb_link = $data['fb_link'];
         $hr->save();
@@ -102,41 +104,48 @@ class HrRepository
 
    public function update($data)
    {
+        try {
+            $hrUser = User::findOrFail($data['id']);
 
-        $hrUser = User::findOrFail($data['id']);
+            $hrUser->name_ka = $data['name'];
+            $hrUser->name_en = GoogleTranslate::trans($data['name'], 'en');
+            $hrUser->name_ru = GoogleTranslate::trans($data['name'], 'ru');
+            $hrUser->email = $data['email'];
+            $hrUser->number = $data['k_mobile'];
+            $hrUser->date_of_birth = $data['date_of_birth'];
+            $hrUser->gender_id = $data['gender'];
+            if ($data['password']) {
+                $hrUser->password = Hash::make($data['password']);
+            }
 
-        $hrUser->name_ka = $data['name'];
-        $hrUser->name_en = GoogleTranslate::trans($data['name'], 'en');
-        $hrUser->name_ru = GoogleTranslate::trans($data['name'], 'ru');
-        $hrUser->email = $data['email'];
-        $hrUser->number = $data['k_mobile'];
-        $hrUser->date_of_birth = $data['date_of_birth'];
-        $hrUser->gender_id = $data['gender'];
-        if ($data['password']) {
-            $hrUser->password = Hash::make($data['password']);
+
+            if ($data['avatar']) {
+                $upload_path = public_path('images/hr');
+
+                $file_name = $data['avatar']->getClientOriginalName();
+                $generated_new_name = time() . '.' .$file_name;
+                $data['avatar']->move($upload_path, $generated_new_name);
+                $hrUser->avatar = $generated_new_name;
+            }
+
+            $hrUser->update();
+            $hr = Hr::findOrFail($data['hr_id']);
+
+            $hr->person_number = $data['person_number'];
+            $hr->mobile = $data['mobile'];
+            $hr->inside_number = $data['inside_number'];
+            $hr->branch_id = (int)$data['branch_id'];
+            $hr->bonus_percent = $data['bonus_percent'];
+            $hr->internship = $data['internship']?1:0;
+            $hr->fixed_salary = $data['fixed_salary'];
+            $hr->fb_link = $data['fb_link'];
+            $hr->update();
+            return 'ok';
+        } catch (\Throwable $th) {
+            //throw $th;
+            dd($th);
         }
 
-
-        if ($data['avatar']) {
-            $upload_path = public_path('images/hr');
-
-            $file_name = $data['avatar']->getClientOriginalName();
-            $generated_new_name = time() . '.' .$file_name;
-            $data['avatar']->move($upload_path, $generated_new_name);
-            $hrUser->avatar = $generated_new_name;
-        }
-
-        $hrUser->update();
-        $hr = Hr::findOrFail($data['hr_id']);
-        $hr->person_number = $data['person_number'];
-        $hr->mobile = $data['mobile'];
-        $hr->inside_number = $data['inside_number'];
-        $hr->mobile = $data['bonus_percent'];
-        $hr->mobile = $data['fixed_salary'];
-        $hr->fb_link = $data['fb_link'];
-        $hr->update();
-
-        return 'ok';
    }
 
    function salary($id, $salary) {

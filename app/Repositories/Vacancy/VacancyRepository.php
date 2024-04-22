@@ -14,6 +14,7 @@ use Illuminate\Support\Carbon;
 use App\Models\VacancyReminder;
 use App\Traits\HrHasVacancyTrait;
 use App\Events\SmsNotificationEvent;
+use App\Models\GlobalVariable;
 use Illuminate\Support\Facades\Auth;
 
 class VacancyRepository{
@@ -21,7 +22,7 @@ class VacancyRepository{
     public function save($data)
     {
         $employer = $this->addEmployer($data['employer']);
-        $hr_id = $this->addHrId( $data['employer']['number'] );
+        $hr_id = $this->addHrId( $data['employer']['number'], $data['vacancy']['payment']);
 
         $vacancy = new Vacancy();
         $vacancy->code = random_int(100000, 999999999);
@@ -147,7 +148,7 @@ class VacancyRepository{
         return $employer;
     }
 
-    public function addHrId($number)
+    public function addHrId($number, $payment)
     {
 
         $hr_id = null;
@@ -168,9 +169,26 @@ class VacancyRepository{
 
         }
 
+        // ვამოწმობ ავტორიზებული იუზერი თუ Hr და ვნახულობ რომელ ფილიალს ეკუთვნის ამის შემდეგ მის ფილიალში ვაწერ ვაკანსიას
+
         // ვამოწმებ თუ ვინმეს გადაეწერა ვაკანსია და იმას ვისაც ყველაზე მეტი ვაკანსია აკლია ვაძლევ შემდეგ ვაკანსისას
         // ვზრდი მინუსს increment
-        $findLessReWrite = HrHasVacancy::where('re_write', '<', 0)->where('is_active', 1)->orderBy('re_write', 'ASC')->first();
+        $auth = Auth::user();
+        $internship = GlobalVariable::where('name', 'internship_payment')->first()->internship;
+
+        $findLessReWrite = HrHasVacancy::where('re_write', '<', 0)
+            ->where('is_active', 1)
+            ->when($auth->role_id == 2, function ($query) use($auth) {
+                return $query->whereHas('hr', function ($subQuery) use ($auth) {
+                    $subQuery->where('branch_id', $auth->hr->branch_id);
+                });
+            })
+            ->when($payment > $internship, function ($query)  {
+                return $query->whereHas('hr', function ($subQuery) {
+                    $subQuery->where('internship', 0);
+                });
+            })
+            ->orderBy('re_write', 'ASC')->first();
         if ($findLessReWrite) {
             $findLessReWrite->increment('re_write');
             $findLessReWrite->update(['has_vacancy' => 1]);
@@ -180,10 +198,26 @@ class VacancyRepository{
 
         // თუ ზედა ორი პუნქტი არ შესრულდა ვეძებ ვისაც არ მიუღია ამ წრეზე ვაკანსია
 
-        $findNext = HrHasVacancy::orderBy('id', 'ASC')
+        $nextVacancy = HrHasVacancy::orderBy('id', 'ASC')
             ->where('has_vacancy', 0)
-            ->where('is_active', 1)
-            ->first();
+            ->where('is_active', 1);
+
+        // Apply additional filtering based on the user's role if applicable
+        if ($auth->role_id == 2) {
+            $nextVacancy->whereHas('hr', function ($query) use ($auth) {
+                $query->where('branch_id', $auth->hr->branch_id);
+            });
+        }
+
+        // Apply filtering based on payment and internship criteria
+        $nextVacancy->when($payment > $internship, function ($query) {
+            $query->whereHas('hr', function ($subQuery) {
+                $subQuery->where('internship', 0);
+            });
+        });
+
+        // Retrieve the first matching vacancy
+        $findNext = $nextVacancy->first();
         // dd($findNext);
         // ბოლო აქტიური ეიჩარი ვინაა ამ წრეზე ვამოწმებ
         $lastHrId = HrHasVacancy::orderBy('hr_id', 'DESC')

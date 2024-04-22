@@ -19,6 +19,8 @@
                 <th>კორპ. ნომერი</th>
                 <th>შიდა ნომერი</th>
                 <th>საკ. ნომერი</th>
+                <th>ფილიალი</th>
+                <th>სტაჟიორი</th>
                 <th >სტატუსი</th>
                 <th>ნახვა/რედაქტირება</th>
                 </tr>
@@ -30,6 +32,8 @@
                 <td>{{ item.number }}</td>
                 <td>{{ (item.hr)?item.hr.inside_number:'' }}</td>
                 <td>{{ item.hr.mobile }}</td>
+                <td>{{ item.hr.branch_id == 1?'ჯორჯაძე':'ფშაველა' }}</td>
+                <td>{{ item.hr.internship == 1?'კი': 'არა' }}</td>
                 <td><Switch v-if="item.is_active != 2"  v-model:checked="item.switch" label="" @click.self="isActiveUpdate(item)"/><span v-else class="text-sm text-danger">ამორიცხული</span></td>
                 <td ><button v-if="item.is_active != 2" class="btn btn-info" @click="openViewModal(item)"><i class="fa fa-eye"></i> + <i class="fa fa-pen"></i></button></td>
                 </tr>

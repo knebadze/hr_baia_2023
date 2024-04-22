@@ -8,6 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Hr extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'person_number',
+        'mobile',
+        'inside_number',
+        'bonus_percent',
+        'fixed_salary',
+        'branch_id',
+        'internship',
+        'fb_link',
+    ];
+    protected $casts = [
+        'internship' => 'boolean',
+    ];
 
     public function user()
     {
