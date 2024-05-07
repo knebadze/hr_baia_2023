@@ -12,19 +12,31 @@
 
                 <div class="col-lg-3 col-md-12">
                     @php
+                        $companyInformation =  null;
                         $companyInformation = Cache::get('company_information');
-                       
+                        if ($companyInformation === null) {
+                            $data = \App\Models\CompanyInformation::first();
+
+                            if ($data !== null) {
+                                // Cache the data and then assign it to $companyInformation
+                                Cache::forever('company_information', $data);
+                                $companyInformation = $data;
+                            }
+                        }
                     @endphp
                     <div class="widget widget_about">
                         <div class="logo-footer clearfix">
                             <a href="index.html"><img src="/images/logo-baia.png" style="max-height: 150px;" alt=""></a>
                         </div>
-                        <ul class="ftr-list">
-                            <li><p>I: {{ $companyInformation->address_1 }}</p></li>
-                            <li><p> II: {{ $companyInformation->address_2 }}</p></li>
-                            <li><p><span>Email :</span>{{ $companyInformation->gmail }}</p></li>
-                            <li class="adressColor"><p><span>{{ __('lang.footer_call') }}</span><a href="tel:{{ preg_replace('/[^0-9]/', '', $companyInformation->number) }}">{{ $companyInformation->number }}</a></p></li>
-                        </ul>
+                        @if ($companyInformation !== null)
+                            <ul class="ftr-list">
+                                <li><p>I: {{ $companyInformation->address_1 }}</p></li>
+                                <li><p> II: {{ $companyInformation->address_2 }}</p></li>
+                                <li><p><span>Email :</span>{{ $companyInformation->gmail }}</p></li>
+                                <li class="adressColor"><p><span>{{ __('lang.footer_call') }}</span><a href="tel:{{ preg_replace('/[^0-9]/', '', $companyInformation->number) }}">{{ $companyInformation->number }}</a></p></li>
+                            </ul>
+                        @endif
+
                     </div>
 
                 </div>

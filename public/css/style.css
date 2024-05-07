@@ -34,7 +34,7 @@ body {
 }
 
 .psswdInputBlock {
-  height: 10px !important;
+  /* height: 10px !important; */
 }
 
 /* Prices Page */
@@ -5979,7 +5979,7 @@ button.scroltop span {
 
 /*inner page banner*/
 .wt-bnr-inr {
-  height: 390px;
+  height: 290px;
   background-size: cover;
   background-position: center center;
   display: table;
@@ -5988,7 +5988,7 @@ button.scroltop span {
 }
 @media (max-width: 767px) {
   .wt-bnr-inr {
-    height: 380px;
+    height: 200px;
   }
 }
 .wt-bnr-inr .container {

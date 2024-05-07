@@ -20,13 +20,13 @@
                         </multiselect>
                     </div>
 
-                    <div class="form-group mb-4 keywordSideBar">
+                    <!-- <div class="form-group mb-4 keywordSideBar">
                         <h4 class="section-head-small mb-4">{{ $t('lang.individual_vacancies_page_leftside_keyword') }}</h4>
                         <div class="input-group">
                             <input type="text" class="form-control" v-model="filterItem.word" :placeholder="$t('lang.individual_vacancies_page_leftside_name_or_keyword')">
                             <button class="btn" type="button"><i class="feather-search"></i></button>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="form-group mb-4 locationSideBar">
                         <h4 class="section-head-small mb-4">{{ $t('lang.individual_vacancies_page_leftside_location') }}</h4>

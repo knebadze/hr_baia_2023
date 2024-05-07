@@ -5,16 +5,19 @@ import Paginate from "vuejs-paginate-next";
 import axios from "axios";
 import Switch from "../../../inc/Switch.vue";
 import vacancy_table from "../component/table/vacancy_table.vue";
+import { useVacancyStore } from "../../../../store/admin/vacancyStore";
+import { storeToRefs } from "pinia";
 
-const props = defineProps({data: Object});
+const props = defineProps({ data: Object });
+const vacancyStore = useVacancyStore();
+const { pagination, vacancies, countVacancy, staticVacancies } =
+    storeToRefs(vacancyStore);
+const { fetchVacancy, filterVacancy } = vacancyStore;
 
-const staticItems = ref([]);
-const items = ref([]);
-const count = ref(0);
 const collapse = ref(false);
-const cla = ref(props.data.classificatory)
+const cla = ref(props.data.classificatory);
 let m = reactive({ payment: [50, 4000], age: [18, 65] });
-const pagination = ref({ current_page: 1,last_page: 2 });
+// const pagination = ref({ current_page: 1,last_page: 2 });
 const getDataType = ref("first_data");
 const roleId = ref(props.data.roleId);
 const hrId = ref(null);
@@ -22,45 +25,20 @@ hrId.value = props.data.hasOwnProperty("hrId") ? props.data.hrId : null;
 const tableKey = ref(0);
 const tableCla = ref(props.data.classificatory.workSchedule);
 
-
 const toggleCollapse = () => {
-    collapse.value = !collapse.value ;
-}
+    collapse.value = !collapse.value;
+};
 
-
-const getRandomInt = (min, max) =>{
+const getRandomInt = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 const randomNumber = computed(() => getRandomInt(1, 2));
 
-const shouldRenderTable = computed(() => Object.keys(items.value).length !== 0);
+const shouldRenderTable = computed(
+    () => Object.keys(vacancies.value).length !== 0
+);
 
-
-const firstData = async() => {
-    try {
-        const { data } = await axios.get(
-            `/get_vacancy?page=${pagination.value.current_page}`
-        );
-        const { vacancy } = data
-        if (vacancy) {
-            pagination.value = {
-                current_page: vacancy.current_page,
-                last_page: vacancy.last_page,
-            };
-            items.value = vacancy.data;
-            staticItems.value = vacancy.data;
-            tableKey.value++;
-
-            count.value = data.count
-        }
-    } catch (error) {
-        console.log(error);
-    }
-};
-
-
-const filter = async (m) =>{
-
+const filter = async (page = 1, m) => {
     m.created_at_from || m.created_at_to
         ? (m["created_at"] = [m.created_at_from, m.created_at_to])
         : "";
@@ -68,53 +46,26 @@ const filter = async (m) =>{
         ? (m["start_date"] = [m.start_date_from, m.start_date_to])
         : "";
     m.interview_date_from || m.interview_date_to
-        ? (m["interview_date"] = [
-                m.interview_date_from,
-                m.interview_date_to,
-            ])
+        ? (m["interview_date"] = [m.interview_date_from, m.interview_date_to])
         : "";
 
-    try {
-        const { data } = await axios({
-            method: "post",
-            url:
-                "/admin_vacancy_filter?page=" +
-                pagination.value.current_page,
-            data: m,
-        })
-
-        const { vacancy } = data
-        if (vacancy) {
-            pagination.value = {
-                current_page: vacancy.current_page,
-                last_page: vacancy.last_page,
-            };
-            items.value = vacancy.data;
-            tableKey.value++;
-
-            count.value = data.count
-
-            collapse.value = false;
-        }
-
-    } catch (error) {
-        console.log(error);
-    }
-
+    await filterVacancy(page, m);
+    tableKey.value++;
 };
 
-const filterMeth = (type, m)=> {
+const filterMeth = (type, m) => {
     getDataType.value = type;
     if (getDataType.value == "filter") {
-        filter(m);
+        filter(1, m);
     }
 };
 
-const getData= () => {
+const getData = async (page) => {
     if (getDataType.value == "first_data") {
-        firstData();
+        await fetchVacancy(page);
+        tableKey.value++;
     } else if (getDataType.value == "filter") {
-        filter(m);
+        await filter(page, m);
     }
 };
 
@@ -124,15 +75,14 @@ const addVacancy = () => {
 };
 const endFilter = () => {
     m = { payment: [50, 4000], age: [18, 65] };
-    items.value = staticItems.value;
+    vacancies.value = staticVacancies.value;
     tableKey.value++;
     collapse.value = false;
 };
 
-onMounted( async() => {
+onMounted(async () => {
     await getData();
-})
-
+});
 </script>
 <template lang="">
     <section class="content">
@@ -150,13 +100,19 @@ onMounted( async() => {
                             >
                                 ფილტრი
                             </a>
-                            <i class="fas" :class="{'fa-angle-down': !collapse, 'fa-angle-up': collapse}"></i>
+                            <i
+                                class="fas"
+                                :class="{
+                                    'fa-angle-down': !collapse,
+                                    'fa-angle-up': collapse,
+                                }"
+                            ></i>
                         </h4>
                     </div>
                     <div
                         id="collapseOne"
                         class="collapse"
-                        :class="{ 'show': collapse }"
+                        :class="{ show: collapse }"
                         data-parent="#accordion"
                     >
                         <div class="card-body">
@@ -875,14 +831,14 @@ onMounted( async() => {
         </div>
 
         <div class="my-2 d-flex justify-content-between">
-            <p>სულ: {{ count }} </p>
+            <p>სულ: {{ countVacancy }}</p>
             <button type="button" class="btn btn-success" @click="addVacancy()">
                 <i class="fa fa-plus"></i> ვაკანსისი დამატება
             </button>
         </div>
         <vacancy_table
             v-if="shouldRenderTable"
-            :data="items"
+            :data="vacancies"
             :hrId="hrId"
             :classificatory="tableCla"
             :roleId="roleId"

@@ -51,7 +51,7 @@ class FamilyWorkExperience extends Model
     }
     public function familyWorkDuty()
     {
-        return $this->belongsToMany(Duty::class, 'family_work_duties');
+        return $this->belongsToMany(CandidateDuty::class, 'family_work_duties');
     }
     public function getFamilyWorkDuty()
     {

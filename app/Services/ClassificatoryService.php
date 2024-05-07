@@ -12,6 +12,7 @@ use App\Models\Notice;
 use App\Models\Status;
 use App\Models\Allergy;
 use App\Models\Benefit;
+use App\Models\CandidateDuty;
 use App\Models\Category;
 use App\Models\Currency;
 use App\Models\Language;
@@ -74,6 +75,7 @@ class ClassificatoryService
                 'benefit' => Benefit::all()->toArray(),
                 'forWhoNeed' => ForWhoNeed::all()->toArray(),
                 'duty' => Duty::all()->toArray(),
+                'candidateDuty' => CandidateDuty::all()->toArray(),
                 'status' => Status::where('status_type_id', 1)->get()->toArray(),
                 'candidateStatus' => Status::where('status_type_id', 2)->get()->toArray(),
                 'hr' => User::where('role_id', 2)->with('hr')->get()->toArray(),

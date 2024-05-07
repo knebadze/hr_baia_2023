@@ -61,7 +61,7 @@ class Candidate extends Model
         $logOptions = LogOptions::defaults([])->logFillable()->logOnlyDirty();
         return $logOptions;
     }
-    
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
@@ -84,7 +84,7 @@ class Candidate extends Model
     }
     public function citizenship()
     {
-         return $this->belongsToMany(Citizenship::class, 'candidate_citizenships');
+        return $this->belongsToMany(Citizenship::class, 'candidate_citizenships');
     }
     public function professions()
     {

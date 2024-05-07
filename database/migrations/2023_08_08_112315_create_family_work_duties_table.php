@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('family_work_duties', function (Blueprint $table) {
             $table->id();
             $table->foreignId('family_work_experience_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('duty_id')->constrained();
+            $table->foreignId('candidate_duty_id')->constrained();
             $table->timestamps();
         });
     }

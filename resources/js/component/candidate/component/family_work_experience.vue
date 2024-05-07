@@ -131,6 +131,7 @@ export default {
         let workCount = null
         const send = ref(false);
         const cla = ref(_.cloneDeep(props.data.cla))
+        cla.duty = props.data.cla.candidateDuty
         const claLongest = ref(cla.value.workExperiences)
         const formData = {...props.data.model.familyWorkExperience};
 
@@ -166,7 +167,7 @@ export default {
 
         const watchItem = () => m.value.family_work_category;
         watch(watchItem, (newVal) => {
-            let duty = _.cloneDeep(props.data.cla.duty)
+            let duty = _.cloneDeep(props.data.cla.candidateDuty)
             if (newVal !== undefined && newVal != '') {
                 let filteredDuty = [];
                 newVal.forEach(element => {

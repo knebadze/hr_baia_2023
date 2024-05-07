@@ -10,10 +10,10 @@ export const useCandidateStore = defineStore('candidate', {
     }),
     actions: {
         async fetchCandidates(page) {
+            console.log(page);
             try {
                 const response = await axios.get(`/fetch_candidate?page=${page}`);
                 const data = response.data;
-
                 // Update the store's state
                 this.candidate = data.data;
                 this.pagination = {

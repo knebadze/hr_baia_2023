@@ -11,11 +11,11 @@ class FamilyWorkDuty extends Model
 
     protected $fillable = [
         'family_work_experience_id',
-        'duty_id',
+        'candidate_duty_id',
     ];
 
     public function duty()
     {
-        return $this->belongsTo(Duty::class);
+        return $this->belongsTo(CandidateDuty::class);
     }
 }

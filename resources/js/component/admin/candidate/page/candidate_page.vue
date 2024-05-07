@@ -4,7 +4,7 @@
     import paginate from 'vuejs-paginate-next';
     import candidate_table from '../component/candidate/candidate_table.vue';
     import candidate_filter from '../component/candidate/candidate_filter.vue';
-    import { useCandidateStore } from '../../../../store/candidateStore'
+    import { useCandidateStore } from '../../../../store/admin/candidateStore'
     import { defineProps, computed, ref, onMounted, toRefs  } from 'vue';
     // const candidateStore = useCandidateStore();
     const { pagination, candidate } = toRefs(useCandidateStore());
