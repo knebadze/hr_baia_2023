@@ -433,7 +433,7 @@ export default {
         data: Object,
     },
     setup(props) {
-        console.log("item.value", item.value);
+        const item = ref(props.data);
         const spliceName = (item) => {
             let nameParts = item.split(" ");
 
