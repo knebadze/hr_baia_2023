@@ -16,6 +16,6 @@ class FamilyWorkDuty extends Model
 
     public function duty()
     {
-        return $this->belongsTo(CandidateDuty::class);
+        return $this->belongsTo(CandidateDuty::class,  'candidate_duty_id', 'id');
     }
 }
