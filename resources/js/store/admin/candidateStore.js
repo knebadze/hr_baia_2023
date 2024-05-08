@@ -7,19 +7,21 @@ export const useCandidateStore = defineStore('candidate', {
             current_page: 1,
             last_page: 2,
         },
+        count: 0,
     }),
     actions: {
         async fetchCandidates(page) {
-            console.log(page);
             try {
                 const response = await axios.get(`/fetch_candidate?page=${page}`);
                 const data = response.data;
+                const { candidates, total } = data;
                 // Update the store's state
-                this.candidate = data.data;
+                this.candidate = candidates.data;
                 this.pagination = {
-                    current_page: data.current_page,
-                    last_page: data.last_page,
+                    current_page: candidates.current_page,
+                    last_page: candidates.last_page,
                 };
+                this.count = total;
             } catch (error) {
                 console.error('Error fetching candidates:', error);
                 throw error; // Propagate the error to the caller
@@ -29,13 +31,14 @@ export const useCandidateStore = defineStore('candidate', {
             try {
                 const response = await axios.post(`/candidate_filter?page=${page}`, filterData);
                 const data = response.data;
-
+                const { candidates, total } = data;
                 // Update the store's state
-                this.candidate = data.data;
+                this.candidate = candidates.data;
                 this.pagination = {
-                    current_page: data.current_page,
-                    last_page: data.last_page,
+                    current_page: candidates.current_page,
+                    last_page: candidates.last_page,
                 };
+                this.count = total;
             } catch (error) {
                 console.error('Error filtering candidates:', error);
                 throw error; // Propagate the error to the caller

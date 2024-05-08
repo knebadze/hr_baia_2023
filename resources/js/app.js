@@ -47,6 +47,7 @@ const importComponents = async () => {
       //candidate
       candidateProfile,
       resume,
+      GuestCandidatePage,
       candidateList,
       candidateDetail,
 
@@ -103,6 +104,7 @@ const importComponents = async () => {
 
       import('./component/candidate/page/candidate_profile.vue'),
       import('./component/candidate/resume.vue'),
+      import('./component/candidate/page/GuestCandidatePage.vue'),
       import('./component/candidate/candidate_list.vue'),
       import('./component/candidate/candidate_detail.vue'),
 
@@ -164,6 +166,7 @@ const importComponents = async () => {
     //candidate
     app.component('candidate-profile', candidateProfile.default);
     app.component('resume-vue', resume.default);
+    app.component('guest-candidate-page', GuestCandidatePage.default);
     app.component('candidate-list', candidateList.default);
     app.component('candidate-detail', candidateDetail.default);
 

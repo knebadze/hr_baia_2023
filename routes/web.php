@@ -130,6 +130,8 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::get('auth/{provider}/redirect', [SocialController::class, 'redirect'])->name('auth.social.redirect');
     Route::get('auth/{provider}/callback', [SocialController::class, 'callback'])->name('auth.social.callback');
 
+    //________________________guest page API________________
+    include('user/candidate.php');
     //________________________admin page without lang________________
     // Define a route group for admin-related routes
 

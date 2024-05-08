@@ -38,7 +38,7 @@ Route::post('delete_candidate', [AdminCandidateController::class, 'delete']);
 
 // F
 
-Route::post('user_candidate_filter', [CandidateController::class, 'filter']);
+Route::post('guest_candidate_filter', [CandidateController::class, 'filter']);
 Route::post('candidate_filter', [AdminCandidateController::class, 'filter']);
 
 // S

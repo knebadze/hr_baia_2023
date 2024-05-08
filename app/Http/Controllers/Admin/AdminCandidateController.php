@@ -46,7 +46,8 @@ class AdminCandidateController extends Controller
     function fetch(Request $request)  {
         try {
             // $perPage = $request->input('per_page', 20);
-            $data = Candidate::orderBy('id', 'DESC')->with(
+            $data = [];
+            $query = Candidate::orderBy('id', 'DESC')->with(
                 [
                     'user.gender',
                     'user.registerLog',
@@ -71,8 +72,15 @@ class AdminCandidateController extends Controller
                     'maritalStatus',
                     'drivingLicense',
                     'status',
+                    'number.numberOwner',
 
-                ])->paginate(20)->toArray();
+                ]);
+            $total = $query->count();
+            $candidates = $query->paginate(20)->toArray();
+            $data = [
+                'candidates' => $candidates,
+                'total' => $total
+            ];
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -82,7 +90,7 @@ class AdminCandidateController extends Controller
 
     public function filter(CandidateFilters $filters)
     {
-        return Candidate::filter($filters)->orderBy('id', 'DESC')->with(
+        $query =  Candidate::filter($filters)->orderBy('id', 'DESC')->with(
             [
                 'user.gender',
                 'user.registerLog',
@@ -107,7 +115,13 @@ class AdminCandidateController extends Controller
                 'maritalStatus',
                 'drivingLicense',
                 'status',
-            ])->paginate(20)->toArray();
+            ]);
+            $total = $query->count();
+            $candidates = $query->paginate(20)->toArray();
+            return [
+                'candidates' => $candidates,
+                'total' => $total
+            ];
     }
 
     public function workInfoData(Request $request)

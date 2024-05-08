@@ -76,6 +76,10 @@
                                 : "უცნობია"
                         }}
                     </dd>
+                    <dt class="col-sm-4">მისამართი:</dt>
+                    <dd class="col-sm-8">
+                        {{ `${item.address_ka} ${item.street_ka}` }}
+                    </dd>
                     <dt class="col-sm-4">ეროვნება:</dt>
                     <dd class="col-sm-8">{{ item.nationality.name_ka }}</dd>
                     <dt class="col-sm-4">მოქალაქეობა:</dt>
@@ -143,54 +147,6 @@
                             }}
                         </dd>
                     </div>
-                    <dt class="col-sm-4">სამუშაი გამოცდილება:</dt>
-                    <dd
-                        class="col-sm-8"
-                        :class="
-                            item.general_work_experience.length > 0
-                                ? 'text-primary'
-                                : 'text-danger'
-                        "
-                        @click="
-                            item.general_work_experience.length > 0 &&
-                                openInfoModal(
-                                    'general_work',
-                                    item.general_work_experience
-                                )
-                        "
-                    >
-                        <u style="cursor: pointer">{{
-                            item.general_work_experience.length > 0
-                                ? item.general_work_experience == 0
-                                    ? "არა"
-                                    : "კი"
-                                : "ინფორმაცია ვერ მოიძებნა"
-                        }}</u>
-                    </dd>
-                    <dt class="col-sm-4">ოჯახში მუშაობის გამოცდილება:</dt>
-                    <dd
-                        class="col-sm-8"
-                        :class="
-                            item.family_work_experience
-                                ? 'text-primary'
-                                : 'text-danger'
-                        "
-                        @click="
-                            item.family_work_experience &&
-                                openInfoModal(
-                                    'family_work',
-                                    item.family_work_experience
-                                )
-                        "
-                    >
-                        <u style="cursor: pointer">{{
-                            item.family_work_experience == 0
-                                ? "არა"
-                                : item.family_work_experience === null
-                                ? "ინფორმაცია ვერ მოიძებნა"
-                                : "კი"
-                        }}</u>
-                    </dd>
                 </dl>
             </div>
             <div class="col-md-6">
@@ -226,7 +182,7 @@
                     <dt class="col-sm-4">დაბადების თარიღი:</dt>
                     <dd class="col-sm-8">{{ item.user.date_of_birth }}</dd>
                     <div class="row col-12" v-if="item.medical_info_ka">
-                        <dt class="col-sm-4">მახასიათებლები:</dt>
+                        <dt class="col-sm-4">სამედიცინო:</dt>
                         <dd class="col-sm-8">{{ item.medical_info_ka }}</dd>
                     </div>
 
@@ -250,6 +206,73 @@
                                 : "ინფორმაცია ვერ მოიძებნა"
                         }}</u>
                     </dd>
+                    <div class="col-12 d-flex align-items-center p-0">
+                        <dt class="col-sm-4">სამუშაი გამოცდილება:</dt>
+                        <dd
+                            class="col-sm-8"
+                            :class="
+                                item.general_work_experience.length > 0
+                                    ? 'text-primary'
+                                    : 'text-danger'
+                            "
+                            @click="
+                                item.general_work_experience.length > 0 &&
+                                    openInfoModal(
+                                        'general_work',
+                                        item.general_work_experience
+                                    )
+                            "
+                        >
+                            <u style="cursor: pointer">{{
+                                item.general_work_experience.length > 0
+                                    ? item.general_work_experience == 0
+                                        ? "არა"
+                                        : "კი"
+                                    : "ინფორმაცია ვერ მოიძებნა"
+                            }}</u>
+                        </dd>
+                    </div>
+                    <div class="col-12 d-flex align-items-center p-0">
+                        <dt class="col-sm-4">ოჯახში მუშაობის გამოცდილება:</dt>
+                        <dd
+                            class="col-sm-8"
+                            :class="
+                                item.family_work_experience
+                                    ? 'text-primary'
+                                    : 'text-danger'
+                            "
+                            @click="
+                                item.family_work_experience &&
+                                    openInfoModal(
+                                        'family_work',
+                                        item.family_work_experience
+                                    )
+                            "
+                        >
+                            <u style="cursor: pointer">{{
+                                item.family_work_experience == 0
+                                    ? "არა"
+                                    : item.family_work_experience === null
+                                    ? "ინფორმაცია ვერ მოიძებნა"
+                                    : "კი"
+                            }}</u>
+                        </dd>
+                    </div>
+                    <div class="col-12 d-flex align-items-center p-0">
+                        <dt class="col-sm-4">დამატებით ნომრები:</dt>
+                        <dd class="col-sm-8">
+                            {{
+                                item.number.length > 0
+                                    ? item.number
+                                          .map(
+                                              (i) =>
+                                                  `${i.number_owner.name_ka} - ${i.number}`
+                                          )
+                                          .join(", ")
+                                    : "ინფორმაცია ვერ მოიძებნა"
+                            }}
+                        </dd>
+                    </div>
                 </dl>
             </div>
         </div>

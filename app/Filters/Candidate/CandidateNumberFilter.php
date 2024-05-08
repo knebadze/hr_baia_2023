@@ -8,6 +8,8 @@ class CandidateNumberFilter
     {
         $query->whereHas('user', function ($query) use ( $request ) {
             return $query->where('number', $request);
+        })->orWhereHas('number', function ($query) use ( $request ) {
+            return $query->where('number', $request);
         });
 
     }

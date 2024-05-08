@@ -7,7 +7,7 @@
     import { useCandidateStore } from '../../../../store/admin/candidateStore'
     import { defineProps, computed, ref, onMounted, toRefs  } from 'vue';
     // const candidateStore = useCandidateStore();
-    const { pagination, candidate } = toRefs(useCandidateStore());
+    const { pagination, candidate, count } = toRefs(useCandidateStore());
     const props = defineProps({
         data: Object
     });
@@ -57,7 +57,8 @@
     <div>
         <candidate_filter :cla="cla" @emitFilterData="handlerEmitFilterData" />
 
-        <div class="mb-2 d-flex justify-content-end">
+        <div class="mb-2 d-flex justify-content-between">
+            <p>სულ: {{ count }}</p>
             <a type="button" class="btn btn-success" :href="addCandidateUrl" title="კანდიდატის დამატება"><i class="fa fa-plus"></i> დაამატე კანდიდატი</a>
         </div>
         <candidate_table v-if="candidate.length > 0" :data="candidate" :role_id="role_id" :hrId="id" :key="tableKey" />
