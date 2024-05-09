@@ -153,7 +153,7 @@ return [
 
     // ----------------------------------------------------------------------------------------------------
     // Individual Vacancies Lang Page
-    'individual_vacancies_page_big_title' => 'ყველაზე პოპულარული ვაკანსიები',
+    'individual_vacancies_page_big_title' => 'ვაკანსიები',
     'individual_vacancies_page_small_title_first' => 'მთავარი',
     'individual_vacancies_page_small_title_second' => 'ვაკანსიები ოჯახში',
 

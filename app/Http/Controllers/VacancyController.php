@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Vacancy;
 use Illuminate\Http\Request;
 use App\Services\VacancyService;
+use Illuminate\Http\JsonResponse;
 use App\Models\QualifyingCandidate;
 use Illuminate\Support\Facades\Auth;
 use App\Filters\Vacancy\VacancyFilters;
@@ -26,23 +27,33 @@ class VacancyController extends Controller
     // index
     public function index()
     {
+        return view ('job');
+    }
 
-        $vacancy = Vacancy::orderby('updated_at', 'DESC')
+    function fetch() : JsonResponse {
+        try {
+            $query = Vacancy::orderby('updated_at', 'DESC')
                 ->whereIn('status_id', [2, 6, 7])
-                ->with(['author','currency', 'category', 'workSchedule', 'vacancyForWhoNeed', 'vacancyBenefit', 'vacancyInterest', 'hr.user'])
-                ->paginate(25)->toArray();
-        $data = [
-            'vacancy' => $vacancy,
-        ];
-        $data = array_merge($data, $this->addData());
-        return view ('job', compact('data'));
+                ->with(['author','currency', 'category', 'workSchedule', 'vacancyForWhoNeed', 'vacancyBenefit', 'vacancyInterest', 'hr.user']);
+            $vacancy = $query->paginate(25)->toArray();
+            $total = $query->count();
+
+            $data = [
+                'vacancy' => $vacancy,
+                'total' => $total,
+            ];
+            $data = array_merge($data, $this->addData());
+            return response()->json($data, 200);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th->getMessage()], 500);
+        }
     }
 
     function addData()  {
         $classificatoryArr = ['category', 'workSchedule'];
         $classificatory = $this->classificatoryService->get($classificatoryArr);
         $auth = User::where('id', Auth::id())->with('candidate')->first();
-        return ['classificatory' => $classificatory, 'auth' => $auth];
+        return ['classificatory' => $classificatory, 'authUser' => $auth];
     }
     // public function data(Request $request)
     // {
@@ -61,13 +72,21 @@ class VacancyController extends Controller
 
     public function filter(VacancyFilters $filters)
     {
-        $vacancy = Vacancy::filter($filters)->orderby('updated_at', 'DESC')->whereIn('status_id', [2, 6])->with(['author','currency', 'category', 'workSchedule', 'vacancyForWhoNeed', 'vacancyBenefit', 'vacancyInterest', 'hr.user'])->paginate(25)->toArray();;
-        // $countVacancy = Vacancy::filter($filters)->count();
-        $data = [
-            'vacancy' => $vacancy,
-            // 'count' => $countVacancy
-        ];
-        return $data;
+        try {
+            $query = Vacancy::filter($filters)->orderby('updated_at', 'DESC')
+            ->whereIn('status_id', [2, 6])
+            ->with(['author','currency', 'category', 'workSchedule', 'vacancyForWhoNeed', 'vacancyBenefit', 'vacancyInterest', 'hr.user']);
+
+            $vacancy = $query->paginate(25)->toArray();
+            $total = $query->count();
+            $data = [
+                'vacancy' => $vacancy,
+                'total' => $total
+            ];
+            return response()->json($data, 200);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th->getMessage()], 500);
+        }
     }
 
     public function searchForId($id, $array) {

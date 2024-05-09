@@ -17,8 +17,10 @@ class VacancyFilters
     {
 
         foreach ($this->receivedFilters() as $name => $value) {
-            $filterInstance = new $this->filters[$name];
-            $query = $filterInstance($query, $value);
+            if ($value) {
+                $filterInstance = new $this->filters[$name];
+                $query = $filterInstance($query, $value);
+            }
         }
         return $query;
     }
