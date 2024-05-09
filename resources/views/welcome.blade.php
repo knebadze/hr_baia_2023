@@ -112,12 +112,14 @@
                                 <div class="twm-icon">
                                     <img src="{{ asset('images/main-slider/slider1/icon-2.png') }}" alt="">
                                 </div>
-                                <div class="twm-content">
-                                    <div class="tw-count-number text-clr-pink">
-                                        <span>{{ $data['slider']['vacancies'] }}</span>
-                                        {{-- <span class="counter">{{ $data['slider']['familyVacancy'] }}</span> + --}}
-                                    </div>
-                                    <p class="icon-content-info">{{ __('lang.welcome_rightside_bar_individualvacancie') }} </p>
+                                <div class="twm-content" role="button">
+                                    <a href="{{ route('job' , App()->getLocale())  }}">
+                                        <div class="tw-count-number text-clr-pink">
+                                            <span>{{ $data['slider']['vacancies'] }}</span>
+                                        </div>
+                                        <p class="icon-content-info">{{ __('lang.welcome_rightside_bar_individualvacancie') }} </p>
+                                    </a>
+
                                 </div>
                             </div>
 
@@ -130,12 +132,14 @@
                                     <span><img src="{{ asset('images/main-slider/slider1/user/u-1.jpg') }}" alt=""></span>
                                     <span><img src="{{ asset('images/main-slider/slider1/user/u-2.jpg') }}" alt=""></span>
                                 </div> --}}
-                                <div class="twm-content">
-                                    <div class="tw-count-number text-clr-green">
-                                        <span>{{ $data['slider']['candidateCount'] }}</span>
-                                        {{-- <span class="counter">31</span>K+ --}}
-                                    </div>
-                                    <p class="icon-content-info">{{ __('lang.welcome_rightside_bar_employees') }}</p>
+                                <div class="twm-content" role="button">
+                                    <a href="{{ route('candidate' , App()->getLocale())  }}">
+                                        <div class="tw-count-number text-clr-green">
+                                            <span>{{ $data['slider']['candidateCount'] }}</span>
+                                        </div>
+                                        <p class="icon-content-info">{{ __('lang.welcome_rightside_bar_employees') }}</p>
+                                    </a>
+
                                 </div>
                             </div>
                         </div>

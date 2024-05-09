@@ -56,7 +56,7 @@ const detailUrl = computed(() => {
                                 trimEnd(get(item, `address_${getLang}`), ' ')
                             }}
                         </p>
-                        <span><i class="fa fa-clock pe-1"> </i>{{ item.created_at }}</span>
+                        <!-- <span><i class="fa fa-clock pe-1"> </i>{{ item.created_at }}</span> -->
 
                         <!-- <div class="twm-jobs-vacancies">$</div> -->
                     </div>

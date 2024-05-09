@@ -214,6 +214,7 @@ export default defineComponent({
         }
         watch(filterItem.value, (newValue, oldValue) => {
             // Do something when filterItem changes
+            console.log(newValue);
             emit('emitFilterData', menageFilterItem(newValue))
         });
         return{

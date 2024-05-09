@@ -16,6 +16,13 @@ const filterItem = ref({
     name: null,
     address: null
 });
+const paymentItems = ref([
+    { id: 0, name: "lang.individual_vacancies_page_leftside_sallary_any" },
+    { id: 1, name: "lang.individual_vacancies_page_leftside_sallary_from_500" },
+    { id: 2, name: "lang.individual_vacancies_page_leftside_sallary_from_700" },
+    { id: 3, name: "lang.individual_vacancies_page_leftside_sallary_from_900" },
+    { id: 4, name: "lang.individual_vacancies_page_leftside_sallary_other" }
+]);
 const getDataType = ref("first_data");
 const getData = async (page = 1) => {
     if (getDataType.value == "first_data") {
@@ -67,21 +74,6 @@ onMounted(async () => {
                                         :track-by="`name_${getLang}`"
                                         :preselect-first="false"
                                     >
-                                        <!-- <template
-                                            slot="selection"
-                                            slot-scope="{
-                                                values,
-                                                search,
-                                                isOpen,
-                                            }"
-                                            ><span
-                                                class="multiselect__single"
-                                                v-if="values.length"
-                                                v-show="!isOpen"
-                                                >{{ values.length }} options
-                                                selected</span
-                                            ></template
-                                        >-->
                                     </multiselect>
                                 </div>
                                 <div class="form-group mb-4 sheduldeSideBar">
@@ -105,26 +97,10 @@ onMounted(async () => {
                                         :track-by="`name_${getLang}`"
                                         :preselect-first="false"
                                     >
-                                        <!-- <template
-                                            slot="selection"
-                                            slot-scope="{
-                                                values,
-                                                search,
-                                                isOpen,
-                                            }"
-                                            ><span
-                                                class="multiselect__single"
-                                                v-if="values.length"
-                                                v-show="!isOpen"
-                                                >{{ values.length }} options
-                                                selected</span
-                                            ></template
-                                        > -->
                                     </multiselect>
                                 </div>
 
-                                <div class="form-group mb-4 keywordSideBar">
-                                    <!-- სათარგმნი -->
+                                <!-- <div class="form-group mb-4 keywordSideBar">
                                     <h4 class="section-head-small mb-4">
                                         {{ $t("სახელი გვარი") }}
                                     </h4>
@@ -139,7 +115,7 @@ onMounted(async () => {
                                             <i class="feather-search"></i>
                                         </button>
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <div class="form-group mb-4 locationSideBar">
                                     <h4 class="section-head-small mb-4">
@@ -177,115 +153,29 @@ onMounted(async () => {
                                         }}
                                     </h4>
                                     <ul>
-                                        <li>
+                                        <li v-for="(item, index) in paymentItems" :key="index">
                                             <div class="form-check">
                                                 <input
                                                     type="radio"
-                                                    value="0"
+                                                    :value="item.id"
                                                     v-model="
                                                         filterItem.user_filter_payment
                                                     "
                                                     class="form-check-input"
-                                                    id="Any1"
+                                                    :id="`payment_radio_${item.id}`"
                                                 />
                                                 <label
                                                     class="form-check-label"
-                                                    for="Any1"
+                                                    :for="`payment_radio_${item.id}`"
                                                     >{{
                                                         $t(
-                                                            "lang.individual_vacancies_page_leftside_sallary_any"
-                                                        )
-                                                    }}</label
-                                                >
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="form-check">
-                                                <input
-                                                    type="radio"
-                                                    value="1"
-                                                    v-model="
-                                                        filterItem.user_filter_payment
-                                                    "
-                                                    class="form-check-input"
-                                                    id="Compensation1"
-                                                />
-                                                <label
-                                                    class="form-check-label"
-                                                    for="Compensation1"
-                                                    >{{
-                                                        $t(
-                                                            "lang.individual_vacancies_page_leftside_sallary_from_500"
-                                                        )
-                                                    }}</label
-                                                >
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="form-check">
-                                                <input
-                                                    type="radio"
-                                                    value="2"
-                                                    v-model="
-                                                        filterItem.user_filter_payment
-                                                    "
-                                                    class="form-check-input"
-                                                    id="Compensation2"
-                                                />
-                                                <label
-                                                    class="form-check-label"
-                                                    for="Compensation2"
-                                                    >{{
-                                                        $t(
-                                                            "lang.individual_vacancies_page_leftside_sallary_from_700"
+                                                            item.name
                                                         )
                                                     }}</label
                                                 >
                                             </div>
                                         </li>
 
-                                        <li>
-                                            <div class="form-check">
-                                                <input
-                                                    type="radio"
-                                                    value="3"
-                                                    v-model="
-                                                        filterItem.user_filter_payment
-                                                    "
-                                                    class="form-check-input"
-                                                    id="Compensation3"
-                                                />
-                                                <label
-                                                    class="form-check-label"
-                                                    for="Compensation3"
-                                                    >{{
-                                                        $t(
-                                                            "lang.individual_vacancies_page_leftside_sallary_from_900"
-                                                        )
-                                                    }}</label
-                                                >
-                                            </div>
-                                        </li>
-
-                                        <li>
-                                            <div class="form-check">
-                                                <input
-                                                    type="checkbox"
-                                                    value="4"
-                                                    class="form-check-input"
-                                                    id="Other1"
-                                                />
-                                                <label
-                                                    class="form-check-label"
-                                                    for="Other1"
-                                                    >{{
-                                                        $t(
-                                                            "lang.individual_vacancies_page_leftside_sallary_other"
-                                                        )
-                                                    }}</label
-                                                >
-                                            </div>
-                                        </li>
                                     </ul>
                                 </div>
                             </form>
@@ -308,7 +198,6 @@ onMounted(async () => {
 
                 <div class="col-lg-8 col-md-12">
                     <!--Filter Short By-->
-                    <!--  წაშალე ენები-->
                     <div
                         class="product-filter-wrap d-flex justify-content-between align-items-center m-b30"
                     >
@@ -346,7 +235,6 @@ onMounted(async () => {
 
                     <div class="twm-candidates-grid-wrap">
                         <div class="row">
-                            <!-- აქ ჩაჯდება ლისტ -->
                             <candidate-list
                                 v-for="(item, index) in candidates"
                                 :key="index"
