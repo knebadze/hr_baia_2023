@@ -76,8 +76,10 @@ class PostVacancyController extends Controller
             if ($employer) {
                 $employer->update(['verify_code' => $randomNumber]);
             }else{
-                $addOrUpdateEmployer = new VacancyRepository();
-                $addOrUpdateEmployer->addEmployer(array_merge($data, ['verify_code' => $randomNumber]));
+                Employer::create([
+                    'number' => $data['number'],
+                    'verify_code' => $randomNumber
+                ]);
 
             }
 

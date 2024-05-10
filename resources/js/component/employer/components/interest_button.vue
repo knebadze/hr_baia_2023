@@ -6,13 +6,15 @@
 <script>
 import { ref, computed } from 'vue';
 import Swal from 'sweetalert2';
+import { useGuestVacancyStore } from '../../../store/guest/guestVacancyStore';
 export default {
     props:{
         item: Object,
         auth: Object
     },
-    emits:['emitReceiveChild'],
-    setup(props, { emit }) {
+    // emits:['emitReceiveChild'],
+    setup(props) {
+        console.log(props.auth);
         const getLang = computed(() => {
             return I18n.getSharedInstance().options.lang;
         });
@@ -54,8 +56,6 @@ export default {
                         return
                     }
 
-                }else if(props.auth.role_id == 3){
-
                 }
                 sendInterestAxios(item)
 
@@ -85,6 +85,7 @@ export default {
             }
         };
 
+        const { interested } = useGuestVacancyStore();
         const sendInterestAxios = (item) =>{
             axios({
                 method: "post",
@@ -136,7 +137,8 @@ export default {
                             // }
 
                         })
-                        emit('emitReceiveChild', item.id, response.data)
+                        interested(item.id, response.data)
+                        // emit('emitReceiveChild', item.id, response.data)
                     }
                 }
 

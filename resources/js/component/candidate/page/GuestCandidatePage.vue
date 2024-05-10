@@ -6,22 +6,28 @@ import { useGuestCandidateStore } from "../../../store/guest/guestCandidateStore
 import { storeToRefs } from "pinia";
 import { I18n } from "laravel-vue-i18n";
 
+const props = defineProps({
+    data: {
+        type: Object,
+        default: null,
+    },
+});
 const guestCandidateStore = useGuestCandidateStore();
 const { candidates, pagination, cla, count } = storeToRefs(guestCandidateStore);
-const { fetchCandidates, filterCandidates } = guestCandidateStore;
+const { fetchCandidates, filterCandidates, setCla } = guestCandidateStore;
 const filterItem = ref({
     category: null,
     work_schedule: null,
     user_filter_payment: null,
     name: null,
-    address: null
+    address: null,
 });
 const paymentItems = ref([
     { id: 0, name: "lang.individual_vacancies_page_leftside_sallary_any" },
     { id: 1, name: "lang.individual_vacancies_page_leftside_sallary_from_500" },
     { id: 2, name: "lang.individual_vacancies_page_leftside_sallary_from_700" },
     { id: 3, name: "lang.individual_vacancies_page_leftside_sallary_from_900" },
-    { id: 4, name: "lang.individual_vacancies_page_leftside_sallary_other" }
+    { id: 4, name: "lang.individual_vacancies_page_leftside_sallary_other" },
 ]);
 const getDataType = ref("first_data");
 const getData = async (page = 1) => {
@@ -29,20 +35,39 @@ const getData = async (page = 1) => {
         await fetchCandidates(page);
     } else if (getDataType.value == "filter") {
         console.log("filterItem", filterItem);
-        filterCandidates(page, filterItem.value)
+        filterCandidates(page, filterItem.value);
     }
 };
 const getLang = computed(() => {
     return I18n.getSharedInstance().options.lang;
 });
 
-watch(filterItem, (newValue, oldValue) => {
-    console.log('filterItem changed:', newValue);
-    getDataType.value = "filter";
-    filterCandidates(1, newValue);
-}, { deep: true });
+watch(
+    filterItem,
+    (newValue, oldValue) => {
+        console.log("filterItem changed:", newValue);
+        getDataType.value = "filter";
+        filterCandidates(1, newValue);
+    },
+    { deep: true }
+);
+
 onMounted(async () => {
-    await getData();
+    let url = new URL(location.href);
+    const pathname = url.pathname;
+    const parts = _.split(pathname, "/");
+    const searchString = _.nth(parts, 2);
+    if (searchString == "candidate_search") {
+        const number = _.last(_.split(_.last(parts), "["), "]");
+        // Remove the ']' character from the end of the number
+        const cleanedNumber = _.trimEnd(number, "]");
+        const { classificatory } = props.data;
+        filterItem.value.category = [_.find(classificatory.category, (o) => o.id == Number(cleanedNumber))]
+        setCla(classificatory);
+        
+    } else {
+        await getData();
+    }
 });
 </script>
 <template>
@@ -153,7 +178,12 @@ onMounted(async () => {
                                         }}
                                     </h4>
                                     <ul>
-                                        <li v-for="(item, index) in paymentItems" :key="index">
+                                        <li
+                                            v-for="(
+                                                item, index
+                                            ) in paymentItems"
+                                            :key="index"
+                                        >
                                             <div class="form-check">
                                                 <input
                                                     type="radio"
@@ -167,15 +197,10 @@ onMounted(async () => {
                                                 <label
                                                     class="form-check-label"
                                                     :for="`payment_radio_${item.id}`"
-                                                    >{{
-                                                        $t(
-                                                            item.name
-                                                        )
-                                                    }}</label
+                                                    >{{ $t(item.name) }}</label
                                                 >
                                             </div>
                                         </li>
-
                                     </ul>
                                 </div>
                             </form>

@@ -33,7 +33,7 @@ class AdminCandidateController extends Controller
                 $candidateClassificatoryArr = [
                     'gender', 'nationality', 'religions','educations', 'maritalStatus', 'citizenship', 'professions',
                     'specialties', 'allergies', 'languages', 'languageLevels', 'workExperiences',  'drivingLicense','characteristic',
-                    'yesNo', 'category', 'workSchedule', 'candidateStatus', 'candidateStatus'
+                    'yesNo', 'category', 'workSchedule', 'candidateStatus', 'candidateStatus', 'candidateDuty'
                 ];
                 $classificatory = $this->classificatoryService->get($candidateClassificatoryArr);
                 $data = [
@@ -94,7 +94,7 @@ class AdminCandidateController extends Controller
             [
                 'user.gender',
                 'user.registerLog',
-                // 'workInformation',
+                'user.registerFee',
                 'getWorkInformation.category',
                 'getWorkInformation.currency',
                 'getWorkInformation.getWorkSchedule.workSchedule',
@@ -115,6 +115,7 @@ class AdminCandidateController extends Controller
                 'maritalStatus',
                 'drivingLicense',
                 'status',
+                'number.numberOwner',
             ]);
             $total = $query->count();
             $candidates = $query->paginate(20)->toArray();

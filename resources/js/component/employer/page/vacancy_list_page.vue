@@ -7,15 +7,35 @@ import { computed, onMounted } from "vue";
 import { useGuestVacancyStore } from "../../../store/guest/guestVacancyStore";
 import { storeToRefs } from "pinia";
 
+const props = defineProps({
+    data: {
+        type: Object,
+        default: null,
+    },
+});
 const guestVacancyStore = useGuestVacancyStore();
 const { vacancies, pagination, count, auth } = storeToRefs(guestVacancyStore);
-const { getData } = guestVacancyStore;
+const { getData, setData } = guestVacancyStore;
 
 const getLang = computed(() => {
     return I18n.getSharedInstance().options.lang;
 });
 onMounted(async () => {
-    await getData();
+    let url = new URL(location.href);
+    const pathname = url.pathname;
+    const parts = _.split(pathname, "/");
+    const searchString = _.nth(parts, 2);
+
+    if (searchString == "job_search") {
+        console.log("searchString", searchString);
+        // const number = _.last(_.split(_.last(parts), "["), "]");
+        // // Remove the ']' character from the end of the number
+        // const cleanedNumber = _.trimEnd(number, "]");
+
+        setData(props.data);
+    } else {
+        await getData();
+    }
 });
 </script>
 <template>
@@ -66,12 +86,14 @@ onMounted(async () => {
                                 :auth="auth"
                             ></vacancy_list>
                         </ul>
-                        <div class="d-flex justify-content-center">
-                            <p class="text-secondary">აქტიური ვაკანსია ვერ მოიძებნა</p>
+                        <div v-else class="d-flex justify-content-center">
+                            <p class="text-secondary">
+                                აქტიური ვაკანსია ვერ მოიძებნა
+                            </p>
                         </div>
                     </div>
 
-                    <div class="pagination-outer" v-if="vacancies.length">
+                    <div class="pagination-outer" v-if="vacancies.length > 25">
                         <div class="pagination-style1">
                             <paginate
                                 v-model="pagination.current_page"

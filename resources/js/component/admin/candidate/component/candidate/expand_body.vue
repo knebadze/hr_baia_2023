@@ -147,6 +147,19 @@
                             }}
                         </dd>
                     </div>
+                    <div class="row col-12">
+                        <dt class="col-sm-4">facebook:</dt>
+                        <dd class="col-sm-8">
+                            <a
+                                v-if="item.fb_link"
+                                class="text-primary"
+                                :href="item.fb_link"
+                                target="_blank"
+                                ><u>ეწვიეთ ლინკს</u></a
+                            >
+                            <span v-else>არ აქვს</span>
+                        </dd>
+                    </div>
                 </dl>
             </div>
             <div class="col-md-6">
@@ -290,6 +303,7 @@ export default {
         item: Object,
     },
     setup(props) {
+        console.log(props.item);
         const modalType = ref(null);
         const modalItem = ref(null);
         const showInfoModal = ref(false);

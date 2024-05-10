@@ -96,23 +96,43 @@ class CandidateController extends Controller
     function search($lang, $category_id) {
 
         $ids = json_decode($category_id);
-        // dd($ids);
-        $candidate = Candidate::orderBy('id', 'DESC')
-            ->whereNotIn('status_id', [8, 12])
-            ->whereHas('getWorkInformation', function ($query) use($ids) {
-                return $query->whereIn('category_id', $ids);
-            })
-            ->with(['user', 'workInformation'])
-            ->paginate(25)->toArray();
+
+        // $query = Candidate::orderBy('id', 'DESC')
+        //     ->whereNotIn('status_id', [8, 12])
+        //     ->whereHas('getWorkInformation', function ($query) use($ids) {
+        //         return $query->whereIn('category_id', $ids);
+        //     })
+        //     ->with(['user', 'workInformation']);
+        
+        // $candidate = $query->paginate(25)->toArray();
+        // $total = $query->count();
+        $classificatoryArr = ['category', 'workSchedule'];
+        $classificatory = $this->classificatoryService->get($classificatoryArr);
+        // dd($candidate);
+        $data = [
+            'classificatory' => $classificatory
+        ];
+
+        return view ('candidate_search', compact('data'));
+    }
+
+    function fetchCandidateSearch($category_id = '1') : JsonResponse {
+
+        try {
+            list($candidate, $count) = $this->getCandidates();
             $classificatoryArr = ['category', 'workSchedule'];
             $classificatory = $this->classificatoryService->get($classificatoryArr);
-            // dd($candidate);
+
             $data = [
                 'candidate' => $candidate,
+                'total' => $count,
                 'classificatory' => $classificatory
             ];
 
-            return view ('candidate_search', compact('data'));
+            return response()->json($category_id,  200);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th->getMessage()], 500);
+        }
     }
 
     function filter(CandidateFilters $filters) {

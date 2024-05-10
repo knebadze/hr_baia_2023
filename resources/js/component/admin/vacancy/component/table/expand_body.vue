@@ -4,7 +4,7 @@
         <div class="col-md-4">
             <dl class="row">
                 <dt class="col-sm-4">ID:</dt>
-                <dd class="col-sm-8">{{ item.code }}</dd>
+                <dd class="col-sm-8" ><span >{{ item.code }}</span></dd>
                 <dt class="col-sm-4">კატეგორია:</dt>
                 <dd class="col-sm-8"><span :class="`badge bg-${item.category.color} p-1`" >{{ item.category.name_ka }}</span></dd>
                 <dt class="col-sm-4">გრაფიკი:</dt>

@@ -70,6 +70,49 @@
                                     </div>
                                 </div>
                             </div>
+                            <div v-if="data.get_work_information.length > 0">
+                                <h4 class="twm-s-title">დასაქმება სურს</h4>
+                                <div class="twm-timing-list-wrap">
+                                    <div
+                                        class="twm-timing-list"
+                                        v-for="(
+                                            item, index
+                                        ) in data.get_work_information"
+                                        :key="index"
+                                    >
+                                        <div class="twm-time-list-title ">
+                                            {{
+                                                item.category[`name_${getLang}`]
+                                            }}
+                                        </div>
+                                        <div class="twm-time-list-position">
+                                            {{
+                                                item.get_work_schedule
+                                                    .map(
+                                                        (i) =>
+                                                            i.work_schedule[
+                                                                `name_${getLang}`
+                                                            ]
+                                                    )
+                                                    .join(", ")
+                                            }}
+                                        </div>
+                                        <div class="twm-time-list-date ">
+                                            {{
+                                                `${item.currency.icon} ${item.payment}`
+                                            }}
+                                        </div>
+                                        <hr
+                                            v-if="
+                                                data.get_work_information
+                                                    .length -
+                                                    1 !=
+                                                index
+                                            "
+                                        />
+                                    </div>
+                                </div>
+                            </div>
 
                             <div v-if="data.characteristic">
                                 <h4 class="twm-s-title">მახასიათებლები</h4>
@@ -214,7 +257,7 @@
                             </div>
                             <div class="twm-s-info-wrap mb-5">
                                 <h4 class="section-head-small mb-4">
-                                    Profile Info
+                                    დეტალური ინფორმაცია
                                 </h4>
                                 <div class="twm-s-info">
                                     <ul>
@@ -434,6 +477,7 @@ export default {
     },
     setup(props) {
         const item = ref(props.data);
+        console.log(item.value);
         const spliceName = (item) => {
             let nameParts = item.split(" ");
 

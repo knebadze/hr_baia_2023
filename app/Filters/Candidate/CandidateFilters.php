@@ -45,6 +45,7 @@ class CandidateFilters
         'free_registration' => CandidateFreeRegistrationFilter::class,
         'paid' => CandidatePaidFilter::class,
         'has_to_pay' => CandidateHasToPayFilter::class,
+        'duty' => CandidateDutyFilter::class,
         'user_filter_payment' => CandidateUserPaymentFilter::class
     ];
 

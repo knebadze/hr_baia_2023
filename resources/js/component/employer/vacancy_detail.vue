@@ -1,12 +1,10 @@
 <template lang="">
-   <!-- OUR BLOG START -->
-   <div class="section-full  p-t120 p-b90 bg-white">
+    <!-- OUR BLOG START -->
+    <div class="section-full p-t120 p-b90 bg-white">
         <div class="container">
-
             <!-- BLOG SECTION START -->
             <div class="section-content">
                 <div class="row d-flex justify-content-center">
-
                     <div class="col-lg-8 col-md-12">
                         <!-- Candidate detail START -->
                         <div class="cabdidate-de-info">
@@ -14,77 +12,195 @@
                                 <div class="twm-job-self-info">
                                     <div class="twm-job-self-top">
                                         <div class="twm-media-bg">
-                                            <img :src="'/images/job-detail-bg.jpg'" alt="#">
-                                            <div class="twm-jobs-category green"><span class="twm-bg-green">New</span></div>
+                                            <img
+                                                :src="'/images/candidates/candidate-bg2.jpg'"
+                                                alt="#"
+                                            />
+                                            <div
+                                                class="twm-jobs-category green"
+                                            >
+                                                <span class="twm-bg-green">{{
+                                                    vacancy.category[
+                                                        `name_${getLang}`
+                                                    ]
+                                                }}</span>
+                                            </div>
                                         </div>
 
                                         <div class="twm-mid-content">
-
-                                            <div class="twm-media">
+                                            <!-- <div class="twm-media">
                                                 <img :src="'/images/jobs-company/pic1.jpg'" alt="#">
+                                            </div> -->
+
+                                            <!-- <h4 class="twm-job-title">
+                                                {{
+                                                    vacancy.category[
+                                                        `name_${getLang}`
+                                                    ]
+                                                }}
+                                                <span
+                                                    class="twm-job-post-duration"
+                                                ></span>
+                                            </h4> -->
+                                            <div
+                                                class="row d-flex align-items-center"
+                                            >
+                                                <div class="col-md-6">
+                                                    <p
+                                                        class="twm-job-apllication-area"
+                                                    >
+                                                        განცხადებას ვადა გასდის:
+                                                        <span
+                                                            class="twm-job-apllication-date text-danger"
+                                                            >{{
+                                                                vacancy.start_date
+                                                            }}</span
+                                                        >
+                                                    </p>
+                                                </div>
+                                                <div
+                                                    class="col-md-6 interest-button"
+                                                >
+                                                    <interest_button
+                                                        v-if="
+                                                            !data.staticVacancy
+                                                        "
+                                                        :item="vacancy"
+                                                        :auth="auth"
+                                                        @emitReceiveChild="
+                                                            handlerUpdateData
+                                                        "
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="d-flex justify-content-between align-items-center"
+                                            ></div>
+                                            <div>
+                                                <p class="twm-job-address">
+                                                    <i
+                                                        class="feather-map-pin"
+                                                    ></i
+                                                    >მდებარეობა:{{
+                                                        vacancy.author
+                                                            .address_ka
+                                                    }}
+                                                </p>
                                             </div>
 
-                                            <h4 class="twm-job-title">{{ vacancy.category[`name_${getLang}`] }} <span class="twm-job-post-duration"></span></h4>
-                                            <p class="twm-job-address"><i class="feather-map-pin"></i>{{ vacancy.author.address_ka }}</p>
                                             <div class="twm-job-self-mid">
-                                                <div class="twm-job-self-mid-left">
-
-                                                    <div class="twm-jobs-amount">{{ vacancy.payment+' '+vacancy.currency.icon }} </div>
+                                                <div
+                                                    class="twm-job-self-mid-left"
+                                                >
+                                                    <div
+                                                        class="twm-job-address"
+                                                    >
+                                                        <span>
+                                                            <i
+                                                                class="fas fa-money-bill-wave"
+                                                            ></i>
+                                                            ანაზღაურება:
+                                                            {{
+                                                                vacancy.payment +
+                                                                " " +
+                                                                vacancy.currency
+                                                                    .icon
+                                                            }}
+                                                        </span>
+                                                    </div>
                                                 </div>
-                                                <div class="twm-job-apllication-area">განცხადებას ვადა გასდის:
-                                                    <span class="twm-job-apllication-date">{{ vacancy.start_date }}</span>
+                                                <div
+                                                    class="twm-job-apllication-area"
+                                                >
+                                                    <!-- განცხადებას ვადა გასდის:
+                                                    <span
+                                                        class="twm-job-apllication-date"
+                                                        >{{
+                                                            vacancy.start_date
+                                                        }}</span
+                                                    > -->
                                                 </div>
-                                            </div>
-
-                                            <div class="twm-job-self-bottom">
-                                                <interest_button v-if=" !data.staticVacancy" :item="vacancy" :auth="auth" @emitReceiveChild="handlerUpdateData"/>
-                                                <!-- <button v-if=" !data.staticVacancy" class="site-button" @click="interest(vacancy)">
-                                                    დაინტერესება
-                                                </button> -->
-
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                             <!-- <h4 class="twm-s-title">აღწერა:</h4>
                             <p>ვეძებ {{ vacancy.category[`name_${getLang}`] }}_ს, <span v-for="(item, index) in vacancy.vacancy_for_who_need" :key="index">{{ item[`name_${getLang}`]+', ' }}_სთვის</span></p> -->
 
-                            <h4 class="twm-s-title">სამუშაო დღეები და საათები:</h4>
-                            <p>{{ vacancy[`additional_schedule_${getLang}`]  }}</p>
+                            <div
+                                v-if="vacancy[`additional_schedule_${getLang}`]"
+                            >
+                                <h4 class="twm-s-title">
+                                    სამუშაო დღეები და საათები:
+                                </h4>
+                                <p>
+                                    {{
+                                        vacancy[
+                                            `additional_schedule_${getLang}`
+                                        ]
+                                    }}
+                                </p>
+                            </div>
 
-                            <h4 class="twm-s-title">ბენეფიტები:</h4>
+                            <div v-if="vacancy.vacancy_benefit.length">
+                                <h4 class="twm-s-title">ბენეფიტები:</h4>
 
-                            <span v-for="(item, index) in vacancy.vacancy_benefit" :key="index" class="badge bg-primary " style="margin-right: 5px; font-size:15px">{{ item[`name_${getLang}`]+', '}}</span>
+                                <span
+                                    v-for="(
+                                        item, index
+                                    ) in vacancy.vacancy_benefit"
+                                    :key="index"
+                                    class="badge bg-primary"
+                                    style="margin-right: 5px; font-size: 15px"
+                                    >{{ item[`name_${getLang}`] + ", " }}</span
+                                >
+                            </div>
 
-
-
-                            <h4 class="twm-s-title">მოთხოვნები:</h4>
-                            <ul class="description-list-2">
-                                    <li v-for="(item, index) in vacancy.vacancy_duty" :key="index">
+                            <div v-if="vacancy.vacancy_duty.length">
+                                <h4 class="twm-s-title">მოთხოვნები:</h4>
+                                <ul class="description-list-2">
+                                    <li
+                                        v-for="(
+                                            item, index
+                                        ) in vacancy.vacancy_duty"
+                                        :key="index"
+                                    >
                                         <i class="feather-check"></i>
-                                        {{ item[`name_${getLang}`]+', '}}
+                                        {{ item[`name_${getLang}`] + ", " }}
                                     </li>
-                            </ul>
+                                </ul>
+                            </div>
 
-                            <h4 class="twm-s-title">გაზიარება</h4>
+                            <!-- გამოჩნდება როცა გაზიარება გვექნება -->
+                            <!-- <h4 class="twm-s-title">გაზიარება</h4>
                             <div class="twm-social-tags">
                                 <a href="#" class="fb-clr">Facebook</a>
                                 <a href="#" class="tw-clr">Twitter</a>
 
                                 <a href="#" class="insta-clr">Instagram</a>
 
-                            </div>
+                            </div> -->
 
-                            <h4 class="twm-s-title">მდებარეობა</h4>
-                            <div class="twm-m-map mb-5">
+                            <!-- გამოჩნდება როცა რუკა გვექნება -->
+                            <h4
+                                v-if="vacancy.author.map_link"
+                                class="twm-s-title"
+                            >
+                                <a
+                                    class="text-primary"
+                                    :href="vacancy.author.map_link"
+                                    target="_blank"
+                                    ><u>მდებარეობა</u></a
+                                >
+                            </h4>
+                            <!-- <div class="twm-m-map mb-5">
                                 <div class="twm-m-map-iframe">
-                                    <iframe height="310" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3304.8534521658976!2d-118.2533646842856!3d34.073270780600225!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c6fd9829c6f3%3A0x6ecd11bcf4b0c23a!2s1363%20Sunset%20Blvd%2C%20Los%20Angeles%2C%20CA%2090026%2C%20USA!5e0!3m2!1sen!2sin!4v1620815366832!5m2!1sen!2sin"></iframe>
+                                    <iframe height="310" src="https://goo.gl/maps/Ht2qbkj3ba3pwNHo6"></iframe>
                                 </div>
-                            </div>
+                            </div> -->
 
-                            <div class="twm-two-part-section">
+                            <!-- <div class="twm-two-part-section">
                                 <div class="row">
 
                                     <div class="col-lg-6 col-md-12">
@@ -101,64 +217,126 @@
                                     </div>
 
                                 </div>
-                            </div>
-
-
+                            </div> -->
                         </div>
                     </div>
 
                     <div class="col-lg-4 col-md-12 rightSidebar">
-
                         <div class="side-bar mb-4">
                             <div class="twm-s-info2-wrap mb-5">
                                 <div class="twm-s-info2">
-                                    <h4 class="section-head-small mb-4">სამუშაო ინფორმაცია</h4>
+                                    <h4 class="section-head-small mb-4">
+                                        დეტალური ინფორმაცია
+                                    </h4>
                                     <ul class="twm-job-hilites">
-
                                         <li>
                                             <i class="fas fa-eye"></i>
-                                            <span class="twm-title">{{ vacancy.view }} ნახვა</span>
+                                            <span class="twm-title"
+                                                >{{ vacancy.view }} ნახვა</span
+                                            >
                                         </li>
                                         <li>
-                                            <i class="fas fa-file-signature"></i>
-                                            <span class="twm-title">{{ data.applicants }} აპლიკანტი</span>
+                                            <i
+                                                class="fas fa-file-signature"
+                                            ></i>
+                                            <span class="twm-title"
+                                                >{{
+                                                    data.applicants
+                                                }}
+                                                აპლიკანტი</span
+                                            >
                                         </li>
                                     </ul>
                                     <ul class="twm-job-hilites2">
-
                                         <li>
                                             <div class="twm-s-info-inner">
-                                                <i class="fas fa-calendar-alt"></i>
-                                                <span class="twm-title">გამოქვეყნების დრო</span>
-                                                <div class="twm-s-info-discription">{{ vacancy.created_at }}</div>
+                                                <i
+                                                    class="fas fa-calendar-alt"
+                                                ></i>
+                                                <span class="twm-title"
+                                                    >გამოქვეყნების დრო</span
+                                                >
+                                                <div
+                                                    class="twm-s-info-discription"
+                                                >
+                                                    {{ vacancy.created_at }}
+                                                </div>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="twm-s-info-inner">
-                                                <i class="fas fa-map-marker-alt"></i>
-                                                <span class="twm-title">ლოკაცია</span>
-                                                <div class="twm-s-info-discription">{{ vacancy.author[`address_${getLang}`] }}</div>
+                                                <i
+                                                    class="fas fa-map-marker-alt"
+                                                ></i>
+                                                <span class="twm-title"
+                                                    >ლოკაცია</span
+                                                >
+                                                <div
+                                                    class="twm-s-info-discription"
+                                                >
+                                                    {{
+                                                        vacancy.author[
+                                                            `address_${getLang}`
+                                                        ]
+                                                    }}
+                                                </div>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="twm-s-info-inner">
                                                 <i class="fas fa-user-tie"></i>
-                                                <span class="twm-title">სამუშაო დასახელება</span>
-                                                <div class="twm-s-info-discription">{{ vacancy[`title_${getLang}`]  }}</div>
+                                                <span class="twm-title"
+                                                    >სამუშაო დასახელება</span
+                                                >
+                                                <div
+                                                    class="twm-s-info-discription"
+                                                >
+                                                    {{
+                                                        vacancy[
+                                                            `title_${getLang}`
+                                                        ]
+                                                    }}
+                                                </div>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="twm-s-info-inner">
                                                 <i class="fas fa-user-tie"></i>
-                                                <span class="twm-title">ვისთვის მესაჭიროება</span>
-                                                <div class="twm-s-info-discription"><span v-for="(item, index) in vacancy.vacancy_for_who_need" :key="index">{{ item[`name_${getLang}`]+', ' }}_სთვის</span></div>
+                                                <span class="twm-title"
+                                                    >ვისთვის მესაჭიროება</span
+                                                >
+                                                <div
+                                                    class="twm-s-info-discription"
+                                                >
+                                                    <span
+                                                        v-for="(
+                                                            item, index
+                                                        ) in vacancy.vacancy_for_who_need"
+                                                        :key="index"
+                                                        >{{
+                                                            item[
+                                                                `name_${getLang}`
+                                                            ] + ", "
+                                                        }}_სთვის</span
+                                                    >
+                                                </div>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="twm-s-info-inner">
                                                 <i class="fas fa-user-tie"></i>
-                                                <span class="twm-title">გრაფიკი</span>
-                                                <div class="twm-s-info-discription">{{ vacancy.work_schedule[`name_${getLang}`]  }}</div>
+                                                <span class="twm-title"
+                                                    >გრაფიკი</span
+                                                >
+                                                <div
+                                                    class="twm-s-info-discription"
+                                                >
+                                                    {{
+                                                        vacancy.work_schedule[
+                                                            `name_${getLang}`
+                                                        ]
+                                                    }}
+                                                </div>
                                             </div>
                                         </li>
                                         <!-- <li>
@@ -169,25 +347,64 @@
                                             </div>
                                         </li> -->
 
-                                        <li>
+                                        <li v-if="vacancy.demand">
                                             <div class="twm-s-info-inner">
                                                 <i class="fas fa-suitcase"></i>
-                                                <span class="twm-title">განათლება</span>
-                                                <div class="twm-s-info-discription">{{ (vacancy.demand.education)?vacancy.demand.education[`name_${getLang}`]:'-' }}</div>
+                                                <span class="twm-title"
+                                                    >განათლება</span
+                                                >
+                                                <div
+                                                    class="twm-s-info-discription"
+                                                >
+                                                    {{
+                                                        vacancy.demand.education
+                                                            ? vacancy.demand
+                                                                  .education[
+                                                                  `name_${getLang}`
+                                                              ]
+                                                            : "-"
+                                                    }}
+                                                </div>
                                             </div>
                                         </li>
-                                        <li>
+                                        <li v-if="vacancy.demand">
                                             <div class="twm-s-info-inner">
                                                 <i class="fas fa-tasks"></i>
-                                                <span class="twm-title">სპეციალობა</span>
-                                                <div class="twm-s-info-discription">{{ (vacancy.demand.specialty)?vacancy.demand.specialty[`name_${getLang}`]:'-' }}</div>
+                                                <span class="twm-title"
+                                                    >სპეციალობა</span
+                                                >
+                                                <div
+                                                    class="twm-s-info-discription"
+                                                >
+                                                    {{
+                                                        vacancy.demand.specialty
+                                                            ? vacancy.demand
+                                                                  .specialty[
+                                                                  `name_${getLang}`
+                                                              ]
+                                                            : "-"
+                                                    }}
+                                                </div>
                                             </div>
                                         </li>
-                                        <li>
+                                        <li v-if="vacancy.demand">
                                             <div class="twm-s-info-inner">
                                                 <i class="fas fa-language"></i>
-                                                <span class="twm-title">უცხო ენა</span>
-                                                <div class="twm-s-info-discription">{{ (vacancy.demand.language)?vacancy.demand.language[`name_${getLang}`]:'-' }}</div>
+                                                <span class="twm-title"
+                                                    >უცხო ენა</span
+                                                >
+                                                <div
+                                                    class="twm-s-info-discription"
+                                                >
+                                                    {{
+                                                        vacancy.demand.language
+                                                            ? vacancy.demand
+                                                                  .language[
+                                                                  `name_${getLang}`
+                                                              ]
+                                                            : "-"
+                                                    }}
+                                                </div>
                                             </div>
                                         </li>
                                         <li>
@@ -199,10 +416,21 @@
                                         </li>
                                         <li>
                                             <div class="twm-s-info-inner">
-
-                                                <i class="fas fa-money-bill-wave"></i>
-                                                <span class="twm-title">ანაზღაურება</span>
-                                                <div class="twm-s-info-discription">{{ vacancy.payment+' '+vacancy.currency.icon }}</div>
+                                                <i
+                                                    class="fas fa-money-bill-wave"
+                                                ></i>
+                                                <span class="twm-title"
+                                                    >ანაზღაურება</span
+                                                >
+                                                <div
+                                                    class="twm-s-info-discription"
+                                                >
+                                                    {{
+                                                        vacancy.payment +
+                                                        " " +
+                                                        vacancy.currency.icon
+                                                    }}
+                                                </div>
                                             </div>
                                         </li>
                                         <li>
@@ -212,9 +440,7 @@
                                                 <div class="twm-s-info-discription">{{ vacancy.hr.user.number }}</div>
                                             </div> -->
                                         </li>
-
                                     </ul>
-
                                 </div>
                             </div>
 
@@ -226,10 +452,7 @@
                             //         <button style="margin-right: 1%; margin-bottom: 1%;" class="btn btn-secondary">მენეჯერი</button>
                             //     </div>
                             // </div> --}} -->
-
                         </div>
-
-
 
                         <!-- //  <div class="twm-advertisment" style="background-image:url(images/add-bg.jpg);">
                         //     <div class="overlay"></div>
@@ -238,55 +461,61 @@
                         //      Email. Add Resume NOW!</p>
                         //      <a href="javascript:;" class="site-button white">Read More</a>
                         // </div> -->
-
-
                     </div>
-
                 </div>
-
             </div>
-
         </div>
-
     </div>
     <!-- //  OUR BLOG END -->
 </template>
 <script>
-  import moment from 'moment';
-  import interest_button from './components/interest_button.vue'
+import moment from "moment";
+import interest_button from "./components/interest_button.vue";
 export default {
-    components:{
-        interest_button
+    components: {
+        interest_button,
     },
-    props:{
-        data: Object
+    props: {
+        data: Object,
     },
     data() {
         return {
-            vacancy:{},
-            auth:null,
+            vacancy: {},
+            auth: null,
             // checkInterest: false
-        }
+        };
     },
-    computed:{
-        getLang(){
-            return I18n.getSharedInstance().options.lang
+    computed: {
+        getLang() {
+            return I18n.getSharedInstance().options.lang;
         },
     },
     created() {
-        this.vacancy = this.data.vacancy
-        this.auth = this.data.auth
-        this.vacancy.created_at =  moment(this.data.vacancy.created_at).format("YYYY-MM-DD HH:mm")
-        this.vacancy.start_date = moment(this.data.vacancy.start_date).format("YYYY-MM-DD")
+        this.vacancy = this.data.vacancy;
+        this.auth = this.data.auth;
+        this.vacancy.created_at = moment(this.data.vacancy.created_at).format(
+            "YYYY-MM-DD HH:mm"
+        );
+        this.vacancy.start_date = moment(this.data.vacancy.start_date).format(
+            "YYYY-MM-DD"
+        );
     },
     methods: {
-        handlerUpdateData(id, response){
-            this.vacancy.vacancy_interest.push(response.data.qualifying)
-        }
-        
+        handlerUpdateData(id, response) {
+            this.vacancy.vacancy_interest.push(response.data.qualifying);
+        },
     },
-}
+};
 </script>
-<style lang="">
-
+<style scope>
+.interest-button {
+    display: flex;
+    justify-content: flex-end;
+}
+@media (max-width: 767px) {
+    .interest-button {
+        justify-content: start;
+        margin-bottom: 2vh;
+    }
+}
 </style>

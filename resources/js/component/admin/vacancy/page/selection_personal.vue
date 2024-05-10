@@ -394,6 +394,7 @@ export default {
 
     },
     created(){
+        console.log(this.data);
         this.cla = this.data.classificatory
         this.m.height = [140, 220]
         this.m.weight = [40, 180]

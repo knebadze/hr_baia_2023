@@ -1,22 +1,13 @@
 <template lang="">
-    <vacancy_list :items="items" :auth="auth"></vacancy_list>
+    <vacancy_list v-for="(item, index) in items" :key="index" :item="item" :auth="auth"></vacancy_list>
 </template>
-<script>
+<script setup>
 import vacancy_list from '../employer/components/list/VacancyList.vue';
-export default {
-    components:{
-        vacancy_list
-    },
-    props:{
-        items: Object,
-        auth: Object
-    },
-    computed:{
 
-    },
-    created(){
-    }
-}
+const props = defineProps({
+    items: Object,
+    auth: Object
+});
 </script>
 <style lang="">
 

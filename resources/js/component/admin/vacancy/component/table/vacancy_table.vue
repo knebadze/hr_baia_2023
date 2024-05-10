@@ -98,8 +98,21 @@ const filterOptions = computed(() => {
 //         data.value = props.data.vacancy
 //     }
 // };
-
-
+const copyToClipboard = (item) => {
+    navigator.clipboard
+        .writeText(item)
+        .then(() => {
+            toast.success("დაკოპირდა", {
+                theme: "colored",
+                autoClose: 1000,
+            });
+            // You can add any success message or actions here
+        })
+        .catch((err) => {
+            console.error("Error copying text: ", err);
+            // You can handle the error here, e.g., show an error message
+        });
+};
 </script>
 <template>
     <div>
@@ -119,6 +132,14 @@ const filterOptions = computed(() => {
                         :roleId="role_id"
                     ></table_cog>
                 </div>
+            </template>
+            <template #item-code="item">
+                <span
+                    ref="codeDisplay"
+                    role="button"
+                    @click="copyToClipboard(item.code)"
+                    >{{ item.code }}</span
+                >
             </template>
             <template #item-category="item">
                 <span :class="`badge bg-${item.category.color} p-1`">{{

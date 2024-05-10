@@ -10,9 +10,14 @@ export const useGuestCandidateStore = defineStore('guestCandidate', () =>{
     const cla = ref([]);
     const count = ref(0);
 
+
+    const setCla = (classificatory) =>{
+        cla.value = classificatory;
+    }
     const fetchCandidates = async (page) => {
         try {
             const response = await axios.get(`/guest_fetch_candidate?page=${page}`);
+            console.log('response', response);
             const data = response.data;
             const { candidate, classificatory, total } = data
 
@@ -49,6 +54,7 @@ export const useGuestCandidateStore = defineStore('guestCandidate', () =>{
             throw error; // Propagate the error to the caller
         }
     };
+   
 
     return {
         candidates,
@@ -57,5 +63,6 @@ export const useGuestCandidateStore = defineStore('guestCandidate', () =>{
         count,
         fetchCandidates,
         filterCandidates,
+        setCla
     };
 });

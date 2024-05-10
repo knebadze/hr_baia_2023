@@ -33,7 +33,7 @@
 
 
     <!-- OUR BLOG START -->
-    <candidate-list :data='@json($data)'></candidate-list>
+    <guest-candidate-page :data='@json($data)'></guest-candidate-page>
 
 </div>
 <!-- CONTENT END -->

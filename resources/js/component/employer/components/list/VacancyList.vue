@@ -6,7 +6,7 @@
                     <div class="row">
                         <div class="col-md-8">
                             <h4>
-                                {{ item[`title_${getLang}`]
+                                {{ item[`title_${getLang}`]?item[`title_${getLang}`]:''
                                 }}<span
                                     class="twm-job-post-duration"
                                     style="color: green"
@@ -69,7 +69,7 @@
                         <div class="col-md-4 right_section">
                             <div class="twm-jobs-amount text-align">
                                 {{
-                                    `${item.hr.user.number} /${
+                                    `${item.hr.user.number} / ${
                                         item.hr.user[`name_${getLang}`]
                                     }`
                                 }}
@@ -118,7 +118,7 @@
                             <interest_button
                                 v-else
                                 :item="item"
-                                @emitReceiveChild="handlerUpdateData"
+                                :auth="auth"
                             />
                         </div>
                         <div class="col-md-4 right_section">
@@ -145,12 +145,13 @@ const props = defineProps({
     item: Object,
     auth: Object,
 });
+console.log(props.auth);
 const getLang = computed(() => {
     return I18n.getSharedInstance().options.lang;
 });
 
 let url = new URL(location.href);
-const detailUrl = ref(url.origin + "/" + getLang.value + "/job_detail");
+const detailUrl = ref(`${url.origin}/${getLang.value}/job_detail`);
 // const checkInterest = ref(false);
 
 const getTimeAgo = (created_at) => {
@@ -219,10 +220,6 @@ const viewDetails = (id, slug) => {
     const url = `${detailUrl.value}/${id}/${slug}`;
     // Navigate to the url
     window.location.href = url;
-};
-const handlerUpdateData = (id, response) => {
-    // let find = props.items.find((element) => element.id == id);
-    props.item.find.vacancy_interest.push(response.data.qualifying);
 };
 </script>
 <style scope>

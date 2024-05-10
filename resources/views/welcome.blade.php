@@ -245,36 +245,39 @@
 
     </div>
       <!-- JOB POST START -->
-    <div class="section-full p-t120 p-b90 site-bg-light-purple twm-bg-ring-wrap">
-        <div class="twm-bg-ring-right"></div>
-        <div class="twm-bg-ring-left"></div>
-        <div class="container">
+      @if (count($data['popularVacancy']))
+        <div class="section-full p-t120 p-b90 site-bg-light-purple twm-bg-ring-wrap">
+            <div class="twm-bg-ring-right"></div>
+            <div class="twm-bg-ring-left"></div>
+            <div class="container">
 
-            <!-- TITLE START-->
-            <div class="section-head center wt-small-separator-outer">
-                <div class="wt-small-separator site-text-primary">
-                   <div>{{ __('lang.welcome_current_vacancies_title') }}</div>
+                <!-- TITLE START-->
+                <div class="section-head center wt-small-separator-outer">
+                    <div class="wt-small-separator site-text-primary">
+                    <div>{{ __('lang.welcome_current_vacancies_title') }}</div>
+                    </div>
+                    <h2 class="wt-title">{{ __('lang.welcome_popular_vacancies_title') }}</h2>
                 </div>
-                <h2 class="wt-title">{{ __('lang.welcome_popular_vacancies_title') }}</h2>
+                <!-- TITLE END-->
+
+
+                <div class="section-content">
+                <div class="twm-jobs-list-wrap">
+                    <ul>
+                        <popular-vacancy :items='@json($data['popularVacancy'])' :auth='@json($auth)'></popular-vacancy>
+
+
+                    </ul>
+                    <div class="text-center m-b30">
+                            <a href="job-list.html" class=" site-button">{{ __('lang.welcome_current_vacancies_button') }}</a>
+                    </div>
+                </div>
+                </div>
+
             </div>
-            <!-- TITLE END-->
-
-
-            <div class="section-content">
-               <div class="twm-jobs-list-wrap">
-                   <ul>
-                    <popular-vacancy :items='@json($data['popularVacancy'])' :auth='@json($auth)'></popular-vacancy>
-
-
-                   </ul>
-                   <div class="text-center m-b30">
-                        <a href="job-list.html" class=" site-button">{{ __('lang.welcome_current_vacancies_button') }}</a>
-                   </div>
-               </div>
-            </div>
-
         </div>
-    </div>
+      @endif
+
     <!-- JOB POST END -->
 
             <!-- TESTIMONIAL SECTION START -->

@@ -14,14 +14,14 @@
                     <div class="wt-bnr-inr-entry">
                         <div class="banner-title-outer">
                             <div class="banner-title-name">
-                                <h2 class="wt-title">{{ $data['vacancy']->category->{'name_'.App()->getLocale()} }}</h2>
+                                <h2 class="wt-title">ვაკანსისი ინფორმაცია</h2>
                             </div>
                         </div>
                         <!-- BREADCRUMB ROW -->
 
                             <div>
                                 <ul class="wt-breadcrumb breadcrumb-style-2">
-                                    <li><a href="index.html">მთავარი/</a></li><li>აპლიკანტის სახელი / გვარი</li>
+                                    {{-- <li><a href="index.html">მთავარი/</a></li><li>აპლიკანტის სახელი / გვარი</li> --}}
                                 </ul>
                             </div>
 

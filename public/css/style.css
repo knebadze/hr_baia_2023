@@ -10122,7 +10122,7 @@ ol.comment-list li.comment .comment-respond .comment-form p {
 }
 .twm-employer-self-info .twm-employer-self-top .twm-mid-content {
   position: relative;
-  padding-top: 80px;
+  padding-top: 50px;
 }
 .twm-employer-self-info .twm-employer-self-bottom {
   position: absolute;
@@ -10347,7 +10347,7 @@ ol.comment-list li.comment .comment-respond .comment-form p {
 }
 .twm-job-self-wrap .twm-job-self-info .twm-job-self-top .twm-mid-content {
   position: relative;
-  padding-top: 80px;
+  padding-top: 50px;
 }
 @media (max-width: 420px) {
   .twm-job-self-wrap .twm-job-self-info .twm-job-self-top .twm-mid-content {
@@ -10442,7 +10442,7 @@ ol.comment-list li.comment .comment-respond .comment-form p {
 }
 .twm-job-self-wrap.twm-job-detail-v2 .twm-job-self-info .twm-job-self-top .twm-mid-content {
   position: relative;
-  padding-top: 80px;
+  padding-top: 50px;
   text-align: center;
 }
 

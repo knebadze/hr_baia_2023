@@ -98,7 +98,7 @@ class VacancyController extends Controller
         }
         return false;
     }
-    public function show($lang, $id, $slug) {
+    public function show($lang, $id, $slug=null) {
         // dd($lang, $id, $slug);
         $vacancy = Vacancy::where('id', $id)
             ->with([
@@ -115,7 +115,7 @@ class VacancyController extends Controller
                 'vacancyDuty'
                 ])
             ->first();
-            // dd(Auth::check());
+            // dd($vacancy->toArray());
         $findCandidate = (Auth::check() && Auth::user()->role_id == 3)?QualifyingCandidate::where('vacancy_id', $vacancy->id)->where('candidate_id', Auth::user()->candidate->id)->first():null;
         $statusThisVacancy = ($findCandidate)?$findCandidate->qualifyingType:null;
         $auth = User::where('id', Auth::id())->with('candidate')->first();
@@ -143,10 +143,10 @@ class VacancyController extends Controller
 
     public function search(Request $request, $lang, $category_id = null, $work_schedule_id = null, $address = null){
         // dd($category_id);
-        $category_id = ($category_id)?$category_id:$request->input('category_id', $category_id);
+        $category_id = ($category_id)?intval(trim($category_id, '[]')):$request->input('category_id', $category_id);
         $work_schedule_id = $request->input('work_schedule_id', $work_schedule_id);
         $address = $request->input('address', $address);
-        $vacancy = Vacancy::orderby('updated_at', 'DESC')
+        $query = Vacancy::orderby('updated_at', 'DESC')
             ->whereIn('status_id', [2, 6])
             ->where('category_id', $category_id)
             ->when($work_schedule_id, function ($query) use($work_schedule_id) {
@@ -154,13 +154,15 @@ class VacancyController extends Controller
             })
             ->when($address, function ($query) use($address) {
                 return $query->whereHas('employer', function ($query) use($address) {
-                    return $query->where('address_ka', 'LIKE', $address.'%')
-                    ->orWhere('address_en', 'LIKE', $address.'%')
-                    ->orWhere('address_ru', 'LIKE', $address.'%');
+                    return $query->where('address_ka', 'LIKE', '%'.$address.'%')
+                    ->orWhere('address_en', 'LIKE', '%'.$address.'%')
+                    ->orWhere('address_ru', 'LIKE', '%'.$address.'%');
                 });
             })
-            ->with(['author','currency', 'category', 'workSchedule', 'vacancyForWhoNeed', 'vacancyBenefit', 'vacancyInterest', 'hr.user'])
-            ->paginate(25)->toArray();
+            ->with(['author','currency', 'category', 'workSchedule', 'vacancyForWhoNeed', 'vacancyBenefit', 'vacancyInterest', 'hr.user']);
+
+            $vacancy = $query->paginate(25)->toArray();
+            $total = $query->count();
             $data = [
                 'vacancy' => $vacancy,
             ];
