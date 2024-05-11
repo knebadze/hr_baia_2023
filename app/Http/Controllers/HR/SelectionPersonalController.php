@@ -37,7 +37,7 @@ class SelectionPersonalController extends Controller
         $vacancy = Vacancy::where('id', $id)->with([
             'vacancyDuty', 'vacancyBenefit', 'vacancyForWhoNeed', 'characteristic', 'employer', 'currency','category', 'status',
             'workSchedule', 'vacancyInterest', 'interviewPlace','term', 'demand', 'demand.language', 'demand.education', 'demand.languageLevel','demand.specialty',
-            'employer.numberCode','deposit', 'getVacancyDrivingLicense.drivingLicense'
+            'employer.numberCode','deposit', 'getVacancyDrivingLicense.drivingLicense',
 
             ])->first();
 
@@ -79,12 +79,32 @@ class SelectionPersonalController extends Controller
         return Candidate::filter($filters)
             ->whereIn('status_id', [9, 11, 14, 15])
             ->with([
-                'user', 'user.gender', 'specialty', 'nationality', 'religion', 'education', 'maritalStatus', 'citizenship',
-                'professions', 'characteristic', 'getLanguage.language', 'getLanguage.level', 'allergy', 'drivingLicense', 'generalWorkExperience', 'notice',
-                'familyWorkExperience.noReason','familyWorkExperience.familyWorkDuty', 'recommendation', 'getWorkInformation',
-                'getWorkInformation.category','getWorkInformation.currency', 'getWorkInformation.workSchedule', 'qualifyingCandidate', 'qualifyingCandidate.vacancy', 'status'
+                'user.gender',
+                'user.registerLog',
+                'user.registerFee',
+                'getWorkInformation.category',
+                'getWorkInformation.currency',
+                'getWorkInformation.getWorkSchedule.workSchedule',
+                'nationality',
+                'citizenship',
+                'religion',
+                'education',
+                'getLanguage.language',
+                'getLanguage.level',
+                'professions',
+                'specialty',
+                'recommendation',
+                'generalWorkExperience',
+                'familyWorkExperience.noReason',
+                'familyWorkExperience.familyWorkDuty',
+                'characteristic',
+                'allergy',
+                'maritalStatus',
+                'drivingLicense',
+                'status',
+                'number.numberOwner',
             ])
-            ->paginate(20)->toArray();
+            ->paginate(25)->toArray();
     }
 
     function addPersonalInfo(Request $request) {
