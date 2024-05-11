@@ -41,6 +41,10 @@ class Vacancy extends Model
         'photo',
         'reason_for_cancel_id'
     ];
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d H:i',
+        'updated_at' => 'datetime:Y-m-d H:i',
+    ];
 
     public function getActivitylogOptions(): LogOptions
     {

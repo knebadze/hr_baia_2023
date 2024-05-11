@@ -1,36 +1,137 @@
 <template lang="">
     <div>
         <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button
+                class="btn btn-primary dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+            >
                 <i class="fa fa-cog"></i>
             </button>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                <a v-if="item.status.id != 3 && item.status.id != 4 && item.status.id != 5 && item.status.id != 13" class="dropdown-item" href="#" @click="openModal(item, 1)">რედაქტირება</a>
-                <a v-if="item.status.id != 3 && item.status.id != 4 && item.status.id != 5 && item.status.id != 13" class="dropdown-item" href="#" @click="openModal(item, 2)">სტატუსის შეცვლა</a>
-                <a v-if="item.status.id == 2" class="dropdown-item" :href="personalSelectionUrl+'/'+item.id" >კადრების შერჩევა</a>
-                <a v-if="item.status.id > 1" class="dropdown-item" :href="vacancyPersonalUrl+'/'+item.id" >შერჩეული კადრები</a>
-                <a v-if="item.status.id != 4 && item.status.id != 5  && item.status.id != 13" class="dropdown-item" href="#" @click="openModal(item, 3)">შეხსენება</a>
+            <div
+                class="dropdown-menu dropdown-menu-right"
+                aria-labelledby="dropdownMenuButton"
+            >
+                <a
+                    v-if="
+                        item.status.id != 3 &&
+                        item.status.id != 4 &&
+                        item.status.id != 5 &&
+                        item.status.id != 13
+                    "
+                    class="dropdown-item"
+                    href="#"
+                    @click="openModal(item, 1)"
+                    >რედაქტირება</a
+                >
+                <a
+                    v-if="
+                        item.status.id != 3 &&
+                        item.status.id != 4 &&
+                        item.status.id != 5 &&
+                        item.status.id != 13
+                    "
+                    class="dropdown-item"
+                    href="#"
+                    @click="openModal(item, 2)"
+                    >სტატუსის შეცვლა</a
+                >
+                <a
+                    v-if="item.status.id == 2"
+                    class="dropdown-item"
+                    :href="personalSelectionUrl + '/' + item.id"
+                    >კადრების შერჩევა</a
+                >
+                <a
+                    v-if="item.status.id > 1"
+                    class="dropdown-item"
+                    :href="vacancyPersonalUrl + '/' + item.id"
+                    >შერჩეული კადრები</a
+                >
+                <a
+                    v-if="
+                        item.status.id != 4 &&
+                        item.status.id != 5 &&
+                        item.status.id != 13
+                    "
+                    class="dropdown-item"
+                    href="#"
+                    @click="openModal(item, 3)"
+                    >შეხსენება</a
+                >
                 <!-- <a v-else-if="item.status.id != 4 && item.status.id != 5  && item.status.id != 13" class="dropdown-item" href="#" @click="openModal(item, 3)">შეხსენება</a> -->
-                <a v-if="item.status.id != 4 && item.status.id != 5  && item.status.id != 13" class="dropdown-item" :href="vacancyDepositUrl+'/'+item.id" >დეპოზიტი</a>
+                <a
+                    v-if="
+                        item.status.id != 4 &&
+                        item.status.id != 5 &&
+                        item.status.id != 13
+                    "
+                    class="dropdown-item"
+                    :href="vacancyDepositUrl + '/' + item.id"
+                    >დეპოზიტი</a
+                >
                 <!-- <a v-else-if="item.status.id != 4 && item.status.id != 5 && item.status.id != 13" class="dropdown-item" :href="vacancyDepositUrl+'/'+item.id" >დეპოზიტი</a> -->
-                <a v-if="item.status.id == 13 || item.status.id == 5" class="dropdown-item" href="#"  @click="openModal(item, 4)">გამეორება</a>
-                <a v-if="item.status.id !== 3 && item.status.id !== 4 && item.status.id !== 5 && item.status.id !== 13" class="dropdown-item" href="#" @click="carryInHead(item)">აპინვა </a>
-                <a class="dropdown-item" href="#" @click="openModal(item, 5)">ისტორია</a>
+                <a
+                    v-if="item.status.id == 13 || item.status.id == 5"
+                    class="dropdown-item"
+                    href="#"
+                    @click="openModal(item, 4)"
+                    >გამეორება</a
+                >
+                <a
+                    v-if="
+                        item.status.id !== 3 &&
+                        item.status.id !== 4 &&
+                        item.status.id !== 5 &&
+                        item.status.id !== 13
+                    "
+                    class="dropdown-item"
+                    href="#"
+                    @click="carryInHead(item)"
+                    >აპინვა
+                </a>
+                <a class="dropdown-item" href="#" @click="openModal(item, 5)"
+                    >ისტორია</a
+                >
 
-                <a v-if="roleId == 1 && (item.status.id == 1 || item.status.id == 2 || item.status.id == 6)" class="dropdown-item" href="#" @click="openModal(item, 6)"> გადაწერა</a>
-                <a v-if="roleId == 1" class="dropdown-item bg-danger" href="#" @click="vacancyDelete(item.id)">წაშლა</a>
-
+                <a
+                    v-if="
+                        roleId == 1 &&
+                        (item.status.id == 1 ||
+                            item.status.id == 2 ||
+                            item.status.id == 6)
+                    "
+                    class="dropdown-item"
+                    href="#"
+                    @click="openModal(item, 6)"
+                >
+                    გადაწერა</a
+                >
+                <a
+                    v-if="roleId == 1"
+                    class="dropdown-item bg-danger"
+                    href="#"
+                    @click="vacancyDelete(item.id)"
+                    >წაშლა</a
+                >
             </div>
         </div>
         <vacancyUpdate :visible="showUpdateModal" :item="modalData" />
 
-        <changeStatus :visible="showStatusModal" :item="modalData" />
+        <changeStatus :visible="showStatusModal" />
 
-        <vacancyReminder :visible="showReminderModal" :item="modalData" :roleId="roleId" />
+        <vacancyReminder
+            :visible="showReminderModal"
+            :item="modalData"
+            :roleId="roleId"
+        />
 
         <redactedHistory :visible="showHistoryModal" :vacancyId="vacancyId" />
 
-        <change_hr :visible="hrModelShow" :item="modalData"/>
+        <change_hr :visible="hrModelShow" :item="modalData" />
     </div>
 </template>
 <script>
@@ -42,7 +143,8 @@ import vacancyReminder from "../../modal/vacancyReminder.vue";
 import redactedHistory from "../../modal/redactedHistory.vue";
 import change_hr from '../../modal/change_hr.vue';
 import Swal from 'sweetalert2';
-
+import { useChangeVacancyStatusStore } from "../../../../../store/admin/vacancy/changeStatusStore";
+import { storeToRefs } from "pinia";
 export default {
     components:{
         vacancyUpdate,
@@ -57,6 +159,7 @@ export default {
         roleId: Number
     },
     setup(props) {
+
         const modalComponent = ref(null);
         const showUpdateModal = ref(false);
         const showStatusModal = ref(false);
@@ -72,7 +175,11 @@ export default {
         const vacancyPersonalUrl = ref(url.origin+'/admin/vacancy_personal')
         const vacancyDepositUrl = ref(url.origin+'/admin/vacancy_deposit')
 
+
         const openModal = (item, index) =>{
+            const changeVacancyStatusStore = useChangeVacancyStatusStore();
+            const { setVacancy } = changeVacancyStatusStore
+            setVacancy(item)
             modalData.value = item
             if (index == 1) {
                 showUpdateModal.value = !showUpdateModal.value;
@@ -213,6 +320,7 @@ export default {
             })
         };
 
+
         return{
             modalComponent,
             showUpdateModal,
@@ -236,6 +344,4 @@ export default {
     }
 }
 </script>
-<style lang="">
-
-</style>
+<style lang=""></style>

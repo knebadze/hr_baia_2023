@@ -1,6 +1,6 @@
-import { defineStore } from 'pinia';
+import { defineStore, storeToRefs } from 'pinia';
 import { ref } from 'vue';
-
+import { useLoadingStore } from '../loaderStore';
 export const useVacancyStore = defineStore('vacancy', () => {
     const vacancies = ref([]);
     const staticVacancies = ref([]);
@@ -9,9 +9,11 @@ export const useVacancyStore = defineStore('vacancy', () => {
         current_page: 1,
         last_page: 2,
     });
-
+    const loadingStore = useLoadingStore();
+    const { loadingActive } = storeToRefs(loadingStore);
     const fetchVacancy = async (page = 1) => {
         try {
+            loadingActive.value = true;
             const response = await axios.get(`/get_vacancy?page=${page}`);
             const data = response.data;
             const { count, vacancy } = data;
@@ -23,8 +25,10 @@ export const useVacancyStore = defineStore('vacancy', () => {
                 current_page: vacancy.current_page,
                 last_page: vacancy.last_page,
             };
+            loadingActive.value = false;
         } catch (error) {
             console.error('Error fetching Vacancies:', error);
+            loadingActive.value = false;
             throw error; // Propagate the error to the caller
         }
     }
@@ -51,6 +55,7 @@ export const useVacancyStore = defineStore('vacancy', () => {
         staticVacancies,
         pagination,
         countVacancy,
+        loadingActive,
         fetchVacancy,
         filterVacancy
     }

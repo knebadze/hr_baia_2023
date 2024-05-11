@@ -7,10 +7,11 @@ import Switch from "../../../inc/Switch.vue";
 import vacancy_table from "../component/table/vacancy_table.vue";
 import { useVacancyStore } from "../../../../store/admin/vacancyStore";
 import { storeToRefs } from "pinia";
+import Loading from 'vue3-loading-overlay'
 
 const props = defineProps({ data: Object });
 const vacancyStore = useVacancyStore();
-const { pagination, vacancies, countVacancy, staticVacancies } =
+const { pagination, vacancies, countVacancy, staticVacancies, loadingActive } =
     storeToRefs(vacancyStore);
 const { fetchVacancy, filterVacancy } = vacancyStore;
 
@@ -29,10 +30,10 @@ const toggleCollapse = () => {
     collapse.value = !collapse.value;
 };
 
-const getRandomInt = (min, max) => {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-};
-const randomNumber = computed(() => getRandomInt(1, 2));
+// const getRandomInt = (min, max) => {
+//     return Math.floor(Math.random() * (max - min + 1)) + min;
+// };
+// const randomNumber = computed(() => getRandomInt(1, 2));
 
 const shouldRenderTable = computed(
     () => Object.keys(vacancies.value).length !== 0
@@ -86,6 +87,12 @@ onMounted(async () => {
 </script>
 <template lang="">
     <section class="content">
+        <loading
+            :active="loadingActive"
+            :can-cancel="true"
+            loader="dots"
+            :is-full-page="true"
+        />
         <div class="container-fluid">
             <div id="accordion">
                 <div class="card card-primary">
