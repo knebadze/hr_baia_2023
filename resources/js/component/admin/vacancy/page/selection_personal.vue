@@ -285,49 +285,49 @@
                             <div class="col-xl-4 col-lg-6 col-md-12 mt-3">
                                 <div class=" form-check">
                                     <input type="checkbox" class="form-check-input" id="exampleCheck2" value="1" v-model="m.stay_night">
-                                    <label class="form-check-label" for="exampleCheck1">შეეძლოს ღამე დარჩენა</label>
+                                    <label class="form-check-label" for="exampleCheck2">შეეძლოს ღამე დარჩენა</label>
                                 </div>
                             </div>
                             <div class="col-xl-4 col-lg-6 col-md-12 mt-3">
                                 <div class=" form-check">
                                     <input type="checkbox" class="form-check-input" id="exampleCheck3" value="1" v-model="m.work_additional_hours">
-                                    <label class="form-check-label" for="exampleCheck1">შეეძლო დამატებით საათებში მუშაობა</label>
+                                    <label class="form-check-label" for="exampleCheck3">შეეძლო დამატებით საათებში მუშაობა</label>
                                 </div>
                             </div>
                             <div class="col-xl-4 col-lg-6 col-md-12 mt-3">
                                 <div class=" form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck3" value="1" v-model="m.convection">
-                                    <label class="form-check-label" for="exampleCheck1">არა ნასამართლევი</label>
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck4" value="1" v-model="m.convection">
+                                    <label class="form-check-label" for="exampleCheck4">არა ნასამართლევი</label>
                                 </div>
                             </div>
                             <div class="col-xl-4 col-lg-6 col-md-12 mt-3">
                                 <div class=" form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck3" value="1" v-model="m.smoke">
-                                    <label class="form-check-label" for="exampleCheck1">არა მწეველი</label>
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck5" value="1" v-model="m.smoke">
+                                    <label class="form-check-label" for="exampleCheck5">არა მწეველი</label>
                                 </div>
                             </div>
                             <div class="col-xl-4 col-lg-6 col-md-12 mt-3">
                                 <div class=" form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck3" value="1" v-model="m.work_abroad">
-                                    <label class="form-check-label" for="exampleCheck1">შეეძლო საზღვარ გარეთ მუშაობა</label>
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck6" value="1" v-model="m.work_abroad">
+                                    <label class="form-check-label" for="exampleCheck6">შეეძლო საზღვარ გარეთ მუშაობა</label>
                                 </div>
                             </div>
                             <div class="col-xl-4 col-lg-6 col-md-12 mt-3">
                                 <div class=" form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck3" value="1" v-model="m.has_general_work_experience">
-                                    <label class="form-check-label" for="exampleCheck1">ზოგადი სამუშაო გამოცდილება</label>
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck7" value="1" v-model="m.has_general_work_experience">
+                                    <label class="form-check-label" for="exampleCheck7">ზოგადი სამუშაო გამოცდილება</label>
                                 </div>
                             </div>
                             <div class="col-xl-4 col-lg-6 col-md-12 mt-3">
                                 <div class=" form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck3" value="1" v-model="m.has_family_work_experience">
-                                    <label class="form-check-label" for="exampleCheck1">ოჯახში მუშაობის გამოცდილება</label>
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck8" value="1" v-model="m.has_family_work_experience">
+                                    <label class="form-check-label" for="exampleCheck8">ოჯახში მუშაობის გამოცდილება</label>
                                 </div>
                             </div>
                             <div class="col-xl-4 col-lg-6 col-md-12 mt-3">
                                 <div class=" form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck3" value="1" v-model="m.has_recommendation">
-                                    <label class="form-check-label" for="exampleCheck1">რეკომენდაცია</label>
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck9" value="1" v-model="m.has_recommendation">
+                                    <label class="form-check-label" for="exampleCheck9">რეკომენდაცია</label>
                                 </div>
                             </div>
                         </div>
@@ -458,6 +458,7 @@ export default {
             axios.post(`/find_personal?page=${this.pagination.current_page}`, this.m)
             .then(function (response) {
                 // handle success
+                console.log(response.data.data);
                 currentObj.candidate = response.data.data
                 currentObj.modalData['candidate'] = response.data.data
                 currentObj.pagination = {
