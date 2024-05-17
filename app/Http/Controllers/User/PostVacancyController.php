@@ -78,6 +78,7 @@ class PostVacancyController extends Controller
             }else{
                 Employer::create([
                     'number' => $data['number'],
+                    'number_code_id' => $data['number_code']?$data['number_code']['id']:79,
                     'verify_code' => $randomNumber
                 ]);
 

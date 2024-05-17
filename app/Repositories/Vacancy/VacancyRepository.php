@@ -177,10 +177,15 @@ class VacancyRepository{
 
         $findLessReWrite = HrHasVacancy::where('re_write', '<', 0)
             ->where('is_active', 1)
-            ->when($auth->role_id == 2, function ($query) use($auth) {
-                return $query->whereHas('hr', function ($subQuery) use ($auth) {
-                    $subQuery->where('branch_id', $auth->hr->branch_id);
-                });
+            ->when($auth, function ($query) use($auth) {
+                if ($auth->role_id == 2) {
+                    return $query->whereHas('hr', function ($subQuery) use ($auth) {
+                        $subQuery->where('branch_id', $auth->hr->branch_id);
+                    });
+                }else{
+                    return $query;
+                }
+
             })
             ->when($payment > $internship, function ($query)  {
                 return $query->whereHas('hr', function ($subQuery) {
@@ -202,7 +207,7 @@ class VacancyRepository{
             ->where('is_active', 1);
 
         // Apply additional filtering based on the user's role if applicable
-        if ($auth->role_id == 2) {
+        if ($auth && $auth->role_id == 2) {
             $nextVacancy->whereHas('hr', function ($query) use ($auth) {
                 $query->where('branch_id', $auth->hr->branch_id);
             });
