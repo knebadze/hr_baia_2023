@@ -5,7 +5,7 @@ import { ref, onMounted, watch, computed } from "vue";
 import { useGuestCandidateStore } from "../../../store/guest/guestCandidateStore";
 import { storeToRefs } from "pinia";
 import { I18n } from "laravel-vue-i18n";
-
+import Loading from 'vue3-loading-overlay'
 const props = defineProps({
     data: {
         type: Object,
@@ -13,7 +13,7 @@ const props = defineProps({
     },
 });
 const guestCandidateStore = useGuestCandidateStore();
-const { candidates, pagination, cla, count } = storeToRefs(guestCandidateStore);
+const { candidates, pagination, cla, count, loadingActive } = storeToRefs(guestCandidateStore);
 const { fetchCandidates, filterCandidates, setCla } = guestCandidateStore;
 const filterItem = ref({
     category: null,
@@ -64,7 +64,7 @@ onMounted(async () => {
         const { classificatory } = props.data;
         filterItem.value.category = [_.find(classificatory.category, (o) => o.id == Number(cleanedNumber))]
         setCla(classificatory);
-        
+
     } else {
         await getData();
     }
@@ -72,6 +72,13 @@ onMounted(async () => {
 </script>
 <template>
     <div class="section-full p-t120 p-b90 site-bg-white">
+        <loading
+            :active="loadingActive"
+            :can-cancel="true"
+            loader="dots"
+            color="#01ecd5"
+            :is-full-page="true"
+        />
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-12 rightSidebar">

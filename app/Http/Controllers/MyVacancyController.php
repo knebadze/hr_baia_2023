@@ -13,6 +13,7 @@ use App\Models\QualifyingCandidate;
 use App\Events\SmsNotificationEvent;
 use Illuminate\Support\Facades\Auth;
 use App\Services\ClassificatoryService;
+use PhpParser\Node\Stmt\TryCatch;
 
 class MyVacancyController extends Controller
 {
@@ -31,21 +32,26 @@ class MyVacancyController extends Controller
     }
 
     function checkAndVerify(Request $request){
-        $exists = Employer::where('number', $request->number)->whereHas('vacancy', function ($query) {
-            return $query->whereNotIn('status_id', [4, 5, 13]);
-        })->exists();
-        if ($exists) {
-            $randomNumber = null;
+        try {
             $employer = Employer::where('number', $request->number)->first();
-            if ($employer->number_code_id == 79 && strlen($request->number) == 9) {
-                $sendSms = new SmsService();
-                $randomNumber = rand(10000, 99999);
-                $employer->update(['verify_code' => $randomNumber]);
-                $sendSms->sendSms($request->number, 'verify code:'.$randomNumber);
+
+            if ($employer && $employer->vacancy()->whereNotIn('status_id', [4, 5, 13])->exists()) {
+                $randomNumber = null;
+
+                if ($employer->number_code_id == 79 && strlen($request->number) == 9) {
+                    $sendSms = new SmsService();
+                    $randomNumber = rand(10000, 99999);
+                    $employer->update(['verify_code' => $randomNumber]);
+                    $sendSms->sendSms($request->number, 'verify code:'.$randomNumber);
+                }
+
+                $result = ['type' => 's'];
+            } else {
+                $result = ['type' => 'e'];
             }
-            $result = ['type' => 's'];
-        }else{
-            $result = ['type' => 'e'];
+        } catch (\Throwable $th) {
+            // Consider logging the error here
+            $result = ['type' => 'e', 'error' => $th->getMessage()];
         }
 
         return response()->json($result);

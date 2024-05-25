@@ -1,6 +1,7 @@
-import { defineStore } from "pinia";
+import { defineStore, storeToRefs } from "pinia";
 import { ref, watch } from "vue";
 import _ from "lodash";
+import { useLoadingStore } from '../loaderStore';
 export const useGuestVacancyStore = defineStore("guestVacancy", () => {
     const vacancies = ref([]);
     const staticVacancies = ref([]);
@@ -24,7 +25,8 @@ export const useGuestVacancyStore = defineStore("guestVacancy", () => {
 
     //vacancy
     // const vacancyDetail = ref(null);
-
+    const loadingStore = useLoadingStore();
+    const { loadingActive } = storeToRefs(loadingStore);
     //method
     const anyNonNull = (newValue) => {
         return _.some(newValue, (value) => {
@@ -36,7 +38,6 @@ export const useGuestVacancyStore = defineStore("guestVacancy", () => {
     };
 
     const setData = (data) => {
-        console.log("data", data);
         const { total, vacancy, classificatory, authUser } = data;
         // Update the store's state
         vacancies.value = vacancy.data;
@@ -51,12 +52,14 @@ export const useGuestVacancyStore = defineStore("guestVacancy", () => {
         auth.value = authUser;
     };
     const fetchVacancy = async (page = 1) => {
+        loadingActive.value = true;
         try {
             const response = await axios.get(`/fetch_vacancy?page=${page}`);
             const data = response.data;
             setData(data)
-            console.log("data", data);
+            loadingActive.value = false;
         } catch (error) {
+            loadingActive.value = false;
             console.error("Error fetching Vacancies:", error);
             throw error; // Propagate the error to the caller
         }
@@ -64,6 +67,7 @@ export const useGuestVacancyStore = defineStore("guestVacancy", () => {
 
     const filterVacancy = async (page = 1, filterData) => {
         try {
+            loadingActive.value = true;
             const response = await axios.post(
                 `/vacancy_filter?page=${page}`,
                 filterData
@@ -78,8 +82,10 @@ export const useGuestVacancyStore = defineStore("guestVacancy", () => {
                 current_page: vacancy.current_page,
                 last_page: vacancy.last_page,
             };
+            loadingActive.value = false;
         } catch (error) {
             console.error("Error filtering vacancies:", error);
+            loadingActive.value = false;
             throw error; // Propagate the error to the caller
         }
     };

@@ -41,10 +41,10 @@ class Employer extends Model
 
         return $logOptions;
     }
-    
+
     public function vacancy()
     {
-        return $this->hasMany(vacancy::class, 'author_id', 'id');
+        return $this->hasMany(Vacancy::class, 'author_id', 'id' );
     }
 
     public function numberCode()

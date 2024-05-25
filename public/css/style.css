@@ -104,7 +104,7 @@ body {
   background: #0275d8;
 }
 
-.activeClass a {
+.activeClass  {
   color: #5e2dfa !important;
   font-weight: bold !important;
 }

@@ -1,5 +1,4 @@
 <template lang="">
-    {{ $t('lang.user_profile_page_category_title') }}
     <div class="twm-error-wrap">
         <div class="row">
             <div class="col-lg-12 col-md-12 mb-4">
@@ -142,7 +141,8 @@ export default {
             showVerifyCodeInput,
             handlerAction,
             tableData,
-            checkAndVerifyData
+            checkAndVerifyData,
+            componentKey
         }
     },
 

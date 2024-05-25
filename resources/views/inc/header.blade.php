@@ -26,27 +26,27 @@
                 <div class="nav-animation header-nav navbar-collapse collapse d-flex justify-content-center">
 
                     <ul class="nav navbar-nav">
-                        <li @if(Route::currentRouteName() === 'welcome') class="activeClass" @else class="" @endif><a href="{{ route('welcome' , App()->getLocale())  }}">{{ __('lang.menu_home') }}</a></li>
-                        <li @if(Route::currentRouteName() === 'job' || Route::currentRouteName() === 'my.vacancy' || Route::currentRouteName() === 'onmap') class="activeClass" @else class="" @endif class="has-child"><a href="javascript:;">{{ __('lang.menu_vacancies') }}</a>
+                        <li><a @if(Route::currentRouteName() === 'welcome') class="activeClass" @else class="" @endif href="{{ route('welcome' , App()->getLocale())  }}">{{ __('lang.menu_home') }}</a></li>
+                        <li  class="has-child"><a @if(Route::currentRouteName() === 'job' || Route::currentRouteName() === 'my.vacancy' || Route::currentRouteName() === 'onmap') class="activeClass" @else class="" @endif href="javascript:;">{{ __('lang.menu_vacancies') }}</a>
                             <ul class="sub-menu">
-                                <li><a href="{{ route('job' , App()->getLocale())  }}">{{ __('lang.menu_individual_vacancies') }}</a></li>
-                                <li><a href="{{ route('onmap' , App()->getLocale())  }}">{{ __('lang.menu_vacancies_onmap') }}</a></li>
-                                <li><a href="{{ route('my.vacancy' , App()->getLocale())  }}">{{ __('lang.menu_your_vacancies') }}</a></li>
+                                <li><a @if(Route::currentRouteName() === 'job') class="activeClass" @else class="" @endif href="{{ route('job' , App()->getLocale())  }}">{{ __('lang.menu_individual_vacancies') }}</a></li>
+                                <li><a @if(Route::currentRouteName() === 'onmap') class="activeClass" @else class="" @endif href="{{ route('onmap' , App()->getLocale())  }}">{{ __('lang.menu_vacancies_onmap') }}</a></li>
+                                <li><a @if(Route::currentRouteName() === 'my.vacancy') class="activeClass" @else class="" @endif href="{{ route('my.vacancy' , App()->getLocale())  }}">{{ __('lang.menu_your_vacancies') }}</a></li>
                             </ul>
                         </li>
 
-                        <li @if(Route::currentRouteName() === 'about' || Route::currentRouteName() === 'about' || Route::currentRouteName() === 'prices') class="activeClass" @else class="" @endif class="has-child"><a href="javascript:;">{{ __('lang.menu_about_us') }}</a>
+                        <li class="has-child"><a @if(Route::currentRouteName() === 'about' || Route::currentRouteName() === 'term.condition' || Route::currentRouteName() === 'prices') class="activeClass" @else class="" @endif href="javascript:;">{{ __('lang.menu_about_us') }}</a>
                             <ul class="sub-menu">
-                                <li><a href="{{ route('about' , App()->getLocale())  }}">{{ __('lang.menu_about_us') }}</a></li>
-                                <li><a href="{{ route('prices' , App()->getLocale())  }}">{{ __('lang.prices') }}</a></li>
-                                <li><a href="{{ route('term.condition' , App()->getLocale())  }}">{{ __('lang.rule') }}</a></li>
+                                <li><a @if(Route::currentRouteName() === 'about') class="activeClass" @else class="" @endif href="{{ route('about' , App()->getLocale())  }}">{{ __('lang.menu_about_us') }}</a></li>
+                                <li><a @if(Route::currentRouteName() === 'prices') class="activeClass" @else class="" @endif href="{{ route('prices' , App()->getLocale())  }}">{{ __('lang.prices') }}</a></li>
+                                <li><a @if(Route::currentRouteName() === 'term.condition') class="activeClass" @else class="" @endif href="{{ route('term.condition' , App()->getLocale())  }}">{{ __('lang.rule') }}</a></li>
                             </ul>
                         </li>
 
                         {{-- <li @if(Route::currentRouteName() === 'about') class="activeClass" @else class="" @endif><a href="{{ route('about' , App()->getLocale())  }}">{{ __('lang.menu_about_us') }}</a></li> --}}
-                        <li @if(Route::currentRouteName() === 'candidate') class="activeClass" @else class="" @endif><a href="{{ route('candidate' , App()->getLocale())  }}">{{ __('lang.menu_candidate') }}</a></li>
+                        <li><a @if(Route::currentRouteName() === 'candidate') class="activeClass" @else class="" @endif href="{{ route('candidate' , App()->getLocale())  }}">{{ __('lang.menu_candidate') }}</a></li>
                         {{-- <li @if(Route::currentRouteName() === 'blog') class="activeClass" @else class="" @endif><a href="{{ route('blog' , App()->getLocale())  }}">{{ __('lang.menu_blog') }}</a></li> --}}
-                        <li @if(Route::currentRouteName() === 'contact') class="activeClass" @else class="" @endif><a href="{{ route('contact' , App()->getLocale())  }}">{{ __('lang.menu_contact') }}</a></li>
+                        <li><a @if(Route::currentRouteName() === 'contact') class="activeClass" @else class="" @endif href="{{ route('contact' , App()->getLocale())  }}">{{ __('lang.menu_contact') }}</a></li>
                         <li class="has-child"><a href="javascript:;"><img src="/images/language.png"> </a>
                             <ul class="sub-menu">
                                 <li><a href="{{ route(Route::currentRouteName(), 'ka') }}"><img src="/images/geo.png"> ქართული</a></li>
