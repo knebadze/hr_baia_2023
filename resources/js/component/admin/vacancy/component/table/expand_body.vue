@@ -14,8 +14,8 @@
 
         <div class="col-md-4">
             <dl class="row">
-                <dt class="col-sm-4">დამსაქმებელი:</dt>
-                <dd class="col-sm-8">{{ item.employer.name_ka }}</dd>
+                <dt class="col-sm-5">დამსაქმებელი:</dt>
+                <dd class="col-sm-7">{{ item.employer.name_ka }}</dd>
                 <div class="row col-12" v-if="item.hr_id == hr_id || roleId == 1">
                     <dt class="col-sm-4">ნომერი:</dt>
                     <dd class="col-sm-8">{{ item.employer.number }}</dd>
@@ -27,8 +27,8 @@
         </div>
         <div class="col-md-4">
             <dl class="row">
-                <dt class="col-sm-4">ანაზღაურება:</dt>
-                <dd class="col-sm-8">{{ `${item.payment} - ${item.currency.icon}` }}</dd>
+                <dt class="col-sm-5">ანაზღაურება:</dt>
+                <dd class="col-sm-7">{{ `${item.payment} - ${item.currency.icon}` }}</dd>
                 <dt class="col-sm-4">საჭიროება:</dt>
                 <dd class="col-sm-8">{{ item.start_date }}</dd>
                 <div class="col-md-12" v-if="item.status.id == 5">

@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 use Illuminate\Support\Arr;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
+use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Candidate extends Model
 {
@@ -61,11 +62,29 @@ class Candidate extends Model
         $logOptions = LogOptions::defaults([])->logFillable()->logOnlyDirty();
         return $logOptions;
     }
-
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+    public function getAgeAttribute()
+    {
+        // Ensure the user relationship is loaded
+        if ($this->user) {
+            // Parse the date of birth string using Carbon
+            $birthDate = Carbon::parse($this->user->date_of_birth);
+
+            // Get current date
+            $now = Carbon::now();
+
+            // Calculate the difference in years
+            $age = $birthDate->diffInYears($now);
+
+            return $age;
+        }
+
+        return null; // or handle cases where the user is not available
+    }
+
     public function nationality()
     {
         return $this->belongsTo(Nationality::class, 'nationality_id');

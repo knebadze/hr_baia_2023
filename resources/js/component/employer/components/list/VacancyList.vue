@@ -6,7 +6,10 @@
                     <div class="row">
                         <div class="col-md-8">
                             <h4>
-                                {{ item[`title_${getLang}`]?item[`title_${getLang}`]:''
+                                {{
+                                    item[`title_${getLang}`]
+                                        ? item[`title_${getLang}`]
+                                        : ""
                                 }}<span
                                     class="twm-job-post-duration"
                                     style="color: green"
@@ -109,17 +112,19 @@
                 <div class="col-12">
                     <div class="row">
                         <div class="col-md-8">
-                            <span
-                                v-if="isCandidateInterested"
-                                style="font-size: 20px"
-                            >
-                                <i :class="iconClass"></i>
-                            </span>
-                            <interest_button
-                                v-else
-                                :item="item"
-                                :auth="auth"
-                            />
+                            <div v-if="auth&&auth.role_id === 3">
+                                <span
+                                    v-if="isCandidateInterested"
+                                    style="font-size: 20px"
+                                >
+                                    <i :class="iconClass"></i>
+                                </span>
+                                <interest_button
+                                    v-else
+                                    :item="item"
+                                    :auth="auth"
+                                />
+                            </div>
                         </div>
                         <div class="col-md-4 right_section">
                             <button
@@ -145,7 +150,7 @@ const props = defineProps({
     item: Object,
     auth: Object,
 });
-console.log(props.auth);
+console.log(props.item);
 const getLang = computed(() => {
     return I18n.getSharedInstance().options.lang;
 });
@@ -184,36 +189,32 @@ const getTimeAgo = (created_at) => {
 const isCandidateInterested = computed(() => {
     return (
         props.auth &&
-        props.item.vacancy_interest.some(
+        props.auth.role_id == 3 &&
+        props.item.qualifying_candidate.some(
             (o) => o.candidate_id == props.auth.candidate.id
         )
     );
 });
 
 const iconClass = computed(() => {
-    if (
-        props.item.vacancy_interest.some(
-            (o) =>
-                o.candidate_id == props.auth.candidate.id &&
-                o.employer_answer == null
-        )
-    ) {
-        return "fa fa-plus-circle text-warning";
-    } else if (
-        props.item.vacancy_interest.some(
-            (o) => o.user_id == props.auth.id && o.employer_answer == 0
-        )
-    ) {
-        return "fa fa-times-circle text-danger";
-    } else if (
-        props.item.vacancy_interest.some(
-            (o) => o.user_id == props.auth.id && o.employer_answer == 1
-        )
-    ) {
-        return "fa fa-check-circle text-success";
-    } else {
-        return "";
+    const qualifyingCandidate = props.item.qualifying_candidate.find(
+        (o) => o.candidate_id == props.auth.candidate.id
+    );
+
+    if (qualifyingCandidate) {
+        if (qualifyingCandidate.employer_answer === null) {
+            return "fa fa-plus-circle text-warning";
+        } else if (qualifyingCandidate.employer_answer === 0) {
+            return "fa fa-times-circle text-danger";
+        } else if (
+            qualifyingCandidate.employer_answer === 1 ||
+            qualifyingCandidate.qualifying_type_id > 3
+        ) {
+            return "fa fa-check-circle text-success";
+        }
     }
+
+    return "";
 });
 
 const viewDetails = (id, slug) => {

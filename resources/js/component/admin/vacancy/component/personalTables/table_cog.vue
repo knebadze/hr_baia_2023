@@ -21,10 +21,10 @@
             </div>
         </div>
     </div>
-    <add_personal_vacancy :visible="showAddPersonalModal" :item="modalItem" />
-    <move_end_date :visible="moveModalShow" :item="modalItem"/>
-    <end_work_modal :visible="endWorkModalShow" :item="qualifying_id"/>
-    <schedule_calendar_modal :visible="scheduleModalShow" :item="qualifying_id"/>
+    <add_personal_vacancy :visible="showAddPersonalModal" :item="modalItem"/>
+    <move_end_date :visible="moveModalShow" :item="modalItem" />
+    <end_work_modal :visible="endWorkModalShow" :item="qualifying_id" />
+    <schedule_calendar_modal :visible="scheduleModalShow" :item="qualifying_id" />
 </template>
 <script>
 import add_personal_vacancy from '../../modal/addPersonalVacancy.vue'
@@ -54,7 +54,7 @@ export default {
         const qualifying_id = ref(null)
 
         const openAddPersonalModal = () =>{
-            showAddPersonalModal.value = !showAddPersonalModal.value
+
             let obj = {
                 vacancy_id: props.item.vacancy_id,
                 vacancy_code: props.item.vacancy_code,
@@ -65,6 +65,8 @@ export default {
                 candidate_id: props.item.candidate_id
             };
             modalItem.value = obj
+            console.log('modalItem.value', modalItem.value);
+            showAddPersonalModal.value = !showAddPersonalModal.value
         };
 
         const moveModal = (item) => {

@@ -61,9 +61,10 @@
                                                 <div
                                                     class="col-md-6 interest-button"
                                                 >
+
                                                     <interest_button
                                                         v-if="
-                                                            !data.staticVacancy
+                                                            auth && auth.role_id == 3 && !isCandidateInterested
                                                         "
                                                         :item="vacancy"
                                                         :auth="auth"
@@ -489,6 +490,14 @@ export default {
         getLang() {
             return I18n.getSharedInstance().options.lang;
         },
+        isCandidateInterested () {
+            return (
+                this.auth && this.auth.role_id == 3 &&
+                this.vacancy.qualifying_candidate.some(
+                    (o) => o.candidate_id == this.auth.candidate.id
+                )
+            );
+        }
     },
     created() {
         this.vacancy = this.data.vacancy;

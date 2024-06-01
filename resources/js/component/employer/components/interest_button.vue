@@ -14,7 +14,7 @@ export default {
     },
     // emits:['emitReceiveChild'],
     setup(props) {
-        console.log(props.auth);
+        console.log(props.auth, props.item);
         const getLang = computed(() => {
             return I18n.getSharedInstance().options.lang;
         });

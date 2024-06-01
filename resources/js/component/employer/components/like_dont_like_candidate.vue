@@ -16,6 +16,9 @@ export default {
     },
     emits:['newData'],
     setup(props, { emit }) {
+        const getLang = computed(() => {
+            return I18n.getSharedInstance().options.lang;
+        });
         const url = new URL(location.href)
         const showButton = computed(() => {
             let pathName = url.pathname;

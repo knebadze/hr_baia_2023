@@ -3,7 +3,7 @@
     import enrolled_tab from '../tab/enrolled_tab.vue';
     import must_be_enrolled_tab from '../tab/must_be_enrolled_tab.vue';
     const props = defineProps({
-        data: Array
+        data: Object,
     })
     const role_id = ref(props.data.role_id)
 </script>

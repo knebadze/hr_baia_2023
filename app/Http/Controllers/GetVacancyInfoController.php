@@ -57,10 +57,12 @@ class GetVacancyInfoController extends Controller
 
 
     function getVacancyFullInfo(Request $request)  {
-        $vacancy = Vacancy::where('id', $request->data)->with([
-            'vacancyDuty', 'vacancyBenefit', 'vacancyForWhoNeed', 'characteristic', 'employer', 'currency','category', 'status',
-            'workSchedule', 'vacancyInterest', 'interviewPlace','term', 'demand', 'demand.language', 'demand.education', 'demand.languageLevel','demand.specialty',
-            'employer.numberCode','deposit','hr.user', 'vacancyDrivingLicense'
+        $vacancy = Vacancy::where('id', $request->data)
+            ->orWhere('code', $request->data)
+            ->with([
+                'vacancyDuty', 'vacancyBenefit', 'vacancyForWhoNeed', 'characteristic', 'employer', 'currency','category', 'status',
+                'workSchedule', 'vacancyInterest', 'interviewPlace','term', 'demand', 'demand.language', 'demand.education', 'demand.languageLevel','demand.specialty',
+                'employer.numberCode','deposit','hr.user', 'vacancyDrivingLicense'
             ])->first();
 
         $role_id = Auth::user()->role_id;
@@ -72,54 +74,93 @@ class GetVacancyInfoController extends Controller
     }
 
     function vacancyRedactedHistory(Request $request) {
-        $vacancy = Vacancy::where('id', $request->data)->first();
-        $vacancyId = $vacancy->id;
-        $employerId = $vacancy->employer->id;
-        $demandId = $vacancy->demand->id ?? '';
-        $depositId = $vacancy->deposit->id ?? '';
-        $auditableIds = [$vacancyId, $employerId, $depositId, $demandId];
-
+        $vacancy = Vacancy::with('employer', 'demand', 'deposit')
+            ->where('id', $request->data)
+            ->firstOrFail();
+    
+        $auditableIds = [
+            $vacancy->id,
+            optional($vacancy->employer)->id,
+            optional($vacancy->demand)->id,
+            optional($vacancy->deposit)->id,
+        ];
+    
         $data = Activity::orderBy('activity_log.id', 'DESC')
-            ->whereNot('event', 'created')
-            ->whereIn('subject_id', $auditableIds)
+            // ->whereNot('event', 'created')
+            ->whereIn('subject_id', array_filter($auditableIds))
             ->leftJoin('users', 'users.id', 'activity_log.causer_id')
             ->select('activity_log.*', 'users.name_ka', 'users.role_id')
-            ->get()->toArray();
-        foreach ($data as &$value) {
-            switch ($value['description']) {
-                case 'Sync_for_who_need':
-                    $model = ForWhoNeed::class;
-                    $columnName = 'name_ka';
-                    break;
-                case 'Sync_duty':
-                    $model = Duty::class;
-                    $columnName = 'name_ka';
-                    break;
-                case 'Sync_driving_license':
-                    $model = DrivingLicense::class;
-                    $columnName = 'name';
-                    break;
-                case 'Sync_characteristic':
-                    $model = GeneralCharacteristic::class;
-                    $columnName = 'name_ka';
-                    break;
-                case 'Sync_benefit':
-                    $model = Benefit::class;
-                    $columnName = 'name_ka';
-                    break;
-                default:
-                    $model = null;
-                    $columnName = null;
-                    break;
-            }
-
-            if ($model !== null && $columnName !== null) {
-                $value['properties']['old'] = $model::whereIn('id', $value['properties']['old'])->pluck($columnName)->toArray();
-                $value['properties']['attributes'] = $model::whereIn('id', $value['properties']['attributes'])->pluck($columnName)->toArray();
-            }
-        }
+            ->get()
+            ->map(function ($value) {
+                $models = [
+                    'Sync_for_who_need' => [ForWhoNeed::class, 'name_ka'],
+                    'Sync_duty' => [Duty::class, 'name_ka'],
+                    'Sync_driving_license' => [DrivingLicense::class, 'name'],
+                    'Sync_characteristic' => [GeneralCharacteristic::class, 'name_ka'],
+                    'Sync_benefit' => [Benefit::class, 'name_ka'],
+                ];
+    
+                if (isset($models[$value['description']])) {
+                    [$model, $columnName] = $models[$value['description']];
+                    $value['properties']['old'] = $model::whereIn('id', $value['properties']['old'])->pluck($columnName)->toArray();
+                    $value['properties']['attributes'] = $model::whereIn('id', $value['properties']['attributes'])->pluck($columnName)->toArray();
+                }
+    
+                return $value;
+            })
+            ->toArray();
+    
         return response()->json($data);
     }
+    // function vacancyRedactedHistory(Request $request) {
+    //     $vacancy = Vacancy::where('id', $request->data)->first();
+    //     $vacancyId = $vacancy->id;
+    //     $employerId = $vacancy->employer->id;
+    //     $demandId = $vacancy->demand->id ?? '';
+    //     $depositId = $vacancy->deposit->id ?? '';
+    //     $auditableIds = [$vacancyId, $employerId, $depositId, $demandId];
+
+    //     $data = Activity::orderBy('activity_log.id', 'DESC')
+    //         ->whereNot('event', 'created')
+    //         ->whereIn('subject_id', $auditableIds)
+    //         ->leftJoin('users', 'users.id', 'activity_log.causer_id')
+    //         ->select('activity_log.*', 'users.name_ka', 'users.role_id')
+    //         ->get()->toArray();
+    //     foreach ($data as &$value) {
+    //         switch ($value['description']) {
+    //             case 'Sync_for_who_need':
+    //                 $model = ForWhoNeed::class;
+    //                 $columnName = 'name_ka';
+    //                 break;
+    //             case 'Sync_duty':
+    //                 $model = Duty::class;
+    //                 $columnName = 'name_ka';
+    //                 break;
+    //             case 'Sync_driving_license':
+    //                 $model = DrivingLicense::class;
+    //                 $columnName = 'name';
+    //                 break;
+    //             case 'Sync_characteristic':
+    //                 $model = GeneralCharacteristic::class;
+    //                 $columnName = 'name_ka';
+    //                 break;
+    //             case 'Sync_benefit':
+    //                 $model = Benefit::class;
+    //                 $columnName = 'name_ka';
+    //                 break;
+    //             default:
+    //                 $model = null;
+    //                 $columnName = null;
+    //                 break;
+    //         }
+
+    //         if ($model !== null && $columnName !== null) {
+    //             $value['properties']['old'] = $model::whereIn('id', $value['properties']['old'])->pluck($columnName)->toArray();
+    //             $value['properties']['attributes'] = $model::whereIn('id', $value['properties']['attributes'])->pluck($columnName)->toArray();
+    //         }
+    //     }
+    //     return response()->json($data);
+    // }
 
 
 

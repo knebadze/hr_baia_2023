@@ -16,9 +16,10 @@ use App\Models\QualifyingCandidate;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Services\ClassificatoryService;
+use App\Services\Admin\MoveEndDateService;
 use App\Filters\Candidate\CandidateFilters;
 use App\Services\AddVacancyPersonalService;
-use App\Services\Admin\MoveEndDateService;
+use App\Http\Resources\QualifyingCandidateResource;
 
 class SelectionPersonalController extends Controller
 {
@@ -51,7 +52,13 @@ class SelectionPersonalController extends Controller
     }
     function vacancyPersonal($id) {
 
-        $data = DB::table('qualifying_candidates as a')
+    //     $query = QualifyingCandidate::where('vacancy_id', $id)
+    //         ->orderBy('qualifying_type_id', 'DESC')
+        
+    //         ->get();
+    
+    // $data = QualifyingCandidateResource::collection($query);
+    $data = DB::table('qualifying_candidates as a')
             ->orderBy('qualifying_type_id', 'DESC')
             ->where('vacancy_id', $id)
             ->join('candidates as b', 'a.candidate_id', 'b.id')
@@ -103,6 +110,7 @@ class SelectionPersonalController extends Controller
                 'drivingLicense',
                 'status',
                 'number.numberOwner',
+                'qualifyingCandidate'
             ])
             ->paginate(25)->toArray();
     }

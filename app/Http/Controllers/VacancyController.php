@@ -34,7 +34,17 @@ class VacancyController extends Controller
         try {
             $query = Vacancy::orderby('updated_at', 'DESC')
                 ->whereIn('status_id', [2, 6, 7])
-                ->with(['author','currency', 'category', 'workSchedule', 'vacancyForWhoNeed', 'vacancyBenefit', 'vacancyInterest', 'hr.user']);
+                ->with([
+                    'author',
+                    'currency',
+                    'category',
+                    'workSchedule',
+                    'vacancyForWhoNeed',
+                    'vacancyBenefit',
+                    'hr.user',
+                    'qualifyingCandidate'
+                ]);
+
             $vacancy = $query->paginate(25)->toArray();
             $total = $query->count();
 
@@ -75,7 +85,7 @@ class VacancyController extends Controller
         try {
             $query = Vacancy::filter($filters)->orderby('updated_at', 'DESC')
             ->whereIn('status_id', [2, 6])
-            ->with(['author','currency', 'category', 'workSchedule', 'vacancyForWhoNeed', 'vacancyBenefit', 'vacancyInterest', 'hr.user']);
+            ->with(['author','currency', 'category', 'workSchedule', 'vacancyForWhoNeed', 'vacancyBenefit', 'qualifyingCandidate', 'hr.user']);
 
             $vacancy = $query->paginate(25)->toArray();
             $total = $query->count();
@@ -112,7 +122,8 @@ class VacancyController extends Controller
                 'demand.specialty',
                 'demand.language',
                 'vacancyBenefit',
-                'vacancyDuty'
+                'vacancyDuty',
+                'qualifyingCandidate'
                 ])
             ->first();
             // dd($vacancy->toArray());

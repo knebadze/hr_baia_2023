@@ -196,33 +196,36 @@ class AddVacancyPersonalRepository
 
     }
 
+    
     function addRegistrationFee($candidate_id, $vacancy_id){
-        // ვამოწმებ აქვს თუ არაა თანხა გადახდილი
+           // ვამოწმებ აქვს თუ არაა თანხა გადახდილი
         // ვამოწმებ რომელიმე ჰრ ის დასაქმებული ხო არაა
         // თუ არის ბონუსი ეკუთვნის მას
         // თუ არა ბონუსი ეკუთვნის ვაკანსია რომელ ეიჩარსაც აწერია
-        if (Candidate::where('id', $candidate_id)->where('registration_fee', 0)->exists()) {
-            $candidate = Candidate::where('id', $candidate_id)->first();
-            if (userRegisterLog::where('user_id', $candidate->user->id)->exists()) {
-                $log = userRegisterLog::where('user_id', $candidate->user->id)->first();
+        $candidate = Candidate::find($candidate_id);
+        if ($candidate && $candidate->registration_fee == 0) {
+            $log = userRegisterLog::where('user_id', $candidate->user->id)->first();
+            if ($log) {
                 $creator_id = $log->creator_id;
-            }else{
-                $vacancy = Vacancy::where('id', $vacancy_id)->first();
-                $creator_id = $vacancy->hr->user->id;
+            } else {
+                $vacancy = Vacancy::find($vacancy_id);
+                $creator_id = $vacancy ? $vacancy->hr->user->id : null;
             }
-            // if (RegistrationFee::where('user_id', $candidate->user->id)->exists()) {
-                $paidBonus = GlobalVariable::where('name', 'paid_registration')->first();
+    
+            $paidBonus = GlobalVariable::where('name', 'paid_registration')->first();
+            if ($paidBonus) {
                 $date = Carbon::now()->addDays(7)->toDateString();
-                $fee = RegistrationFee::create([
-                    'user_id' => $candidate->user->id,
-                    'initial_amount' => $paidBonus->meaning,
-                    'money' => $paidBonus->meaning,
-                    'creator_id' => $creator_id,
-                    'enroll_date' => $date,
-                ]);
-            // }
+                $fee = RegistrationFee::updateOrCreate(
+                    ['user_id' => $candidate->user->id],
+                    [
+                        'initial_amount' => $paidBonus->meaning,
+                        'money' => $paidBonus->meaning,
+                        'creator_id' => $creator_id,
+                        'enroll_date' => $date,
+                    ]
+                );
+            }
         }
-
     }
 
     function workDay($id, $work_schedule_id, $start_date, $term, $week_day) {
@@ -385,10 +388,10 @@ class AddVacancyPersonalRepository
                 $data = [];
 
                 $notificationType = 'interview_period_candidate';
-                $dateInCarbonFormat = Carbon::parse($qualifying->interview_date);
+                // $dateInCarbonFormat = Carbon::parse($qualifying->interview_date);
                 $data = [
                     'to' => $candidate_number,
-                    'dateTime' => $dateInCarbonFormat->format('y m d'),
+                    'dateTime' => $qualifying->interview_date,
                     'place' => $qualifying->interviewPlace->name_ka,
                     'eName' => $qualifying->interview_place_id != 2? $employer_name:'',
                     'eNumber' => $qualifying->interview_place_id != 2?$employer_number:'',
@@ -414,22 +417,22 @@ class AddVacancyPersonalRepository
                 break;
 
             case 6:
-                $notificationType = 'probation_period_candidate';
-                $data = [
-                    'to' => $candidate_number,
-                    'dateTime' => $qualifying->start_date.'-'.$qualifying->end_date,
-                    'cName' => $candidate_name,
-                    'cNumber' => $candidate_number,
-                    'name' => $hr_name,
-                    'number' => $hr_number,
-                    'link' => route('job.detail', [
-                        'locale' => App::getLocale(),
-                        'id' => $qualifying->vacancy->id,
-                        'slug' => $qualifying->vacancy->slug
-                    ])
-                ];
-                event(new SmsNotificationEvent($data, $notificationType));
-                $data = [];
+                // $notificationType = 'probation_period_candidate';
+                // $data = [
+                //     'to' => $candidate_number,
+                //     'dateTime' => $qualifying->start_date.'-'.$qualifying->end_date,
+                //     'cName' => $candidate_name,
+                //     'cNumber' => $candidate_number,
+                //     'name' => $hr_name,
+                //     'number' => $hr_number,
+                //     'link' => route('job.detail', [
+                //         'locale' => App::getLocale(),
+                //         'id' => $qualifying->vacancy->id,
+                //         'slug' => $qualifying->vacancy->slug
+                //     ])
+                // ];
+                // event(new SmsNotificationEvent($data, $notificationType));
+                // $data = [];
                 // Additional logic for case 5
                 $notificationType = 'probation_period_employer';
                 $data = [

@@ -50,7 +50,10 @@ class Vacancy extends Model
     {
         $additionalArray  = ['category.name_ka', 'currency.name_ka', 'status.name_ka', 'workSchedule.name_ka', 'hr.user.name', 'term.name_ka', 'reasonForCancel.name_ka', 'interviewPlace.name_ka'];
         $combinedArray = array_merge($this->fillable, $additionalArray);
-        $logOptions = LogOptions::defaults([])->logOnly($combinedArray)->logOnlyDirty();
+        $logOptions = LogOptions::defaults()
+        ->logOnly($combinedArray)
+        ->logOnlyDirty()
+        ->dontLogIfAttributesChangedOnly(['view']);
 
         return $logOptions;
     }
@@ -186,6 +189,11 @@ class Vacancy extends Model
     public function qualifyingCandidate()
     {
         return $this->hasMany(QualifyingCandidate::class, 'vacancy_id', 'id');
+    }
+
+    public function qualifyingCandidatePluckCandidateId()
+    {
+        return $this->hasMany(QualifyingCandidate::class, 'vacancy_id', 'id')->pluck('candidate_id');
     }
 
     public function vacancyInterest()

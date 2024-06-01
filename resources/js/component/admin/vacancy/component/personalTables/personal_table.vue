@@ -1,5 +1,5 @@
 <template lang="">
-      <div class="card">
+    <div class="card">
         <div class="card-header">
             <h3 class="card-title">{{ items.title }}</h3>
         </div>
@@ -8,82 +8,129 @@
             <table class="table twm-table table-striped table-border">
                 <thead>
                     <tr>
-                        <th v-for="(item, index) in items.header" :key="index">{{ item }}</th>
+                        <th v-for="(item, index) in items.header" :key="index">
+                            {{ item }}
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="(item, index) in data" :key="index">
-                        <td><u class="text-primary" @click="openCandidateFullInfoModal(item.candidate_id)">{{ item.candidate_id }}</u></td>
+                        <td>
+                            <u
+                                role="button"
+                                class="text-primary"
+                                @click="
+                                    openCandidateFullInfoModal(
+                                        item.candidate_id
+                                    )
+                                "
+                                >{{ item.candidate_id }}</u
+                            >
+                        </td>
+                        <td v-if="type == 'employed'">
+                            {{ item.qualifying_type }}
+                        </td>
                         <td>{{ item.candidate_name }}</td>
-                        <td v-if="type == 'note'">{{ item.qualifying_type }}</td>
+                        <td v-if="type == 'note'">
+                            {{ item.qualifying_type }}
+                        </td>
 
-                        <td v-if="type == 'interview'">{{ item.interview_date }}</td>
-                        <td v-if="type == 'interview'">{{ item.interview_place }}</td>
-                        <td v-if="type == 'employed' || type == 'trail' || type == 'approved'">{{ item.start_date }}</td>
-                        <td v-if="type == 'employed' || type == 'trail' || type == 'approved'">{{ item.end_date }}</td>
-                        <td v-if="type == 'employed' || type == 'trail' || type == 'approved' || type == 'interview'" :class="item.end_work_reason_id?'text-primary':''" @click="openEndWorkInfoModal(item)"><span :class="`badge bg-${item.status_color} p-1`" >{{ item.status }}</span></td>
+                        <td v-if="type == 'interview'">
+                            {{ item.interview_date }}
+                        </td>
+                        <td v-if="type == 'interview'">
+                            {{ item.interview_place }}
+                        </td>
+                        <td
+                            v-if="
+                                type == 'employed' ||
+                                type == 'trail' ||
+                                type == 'approved'
+                            "
+                        >
+                            {{ item.start_date }}
+                        </td>
+                        <td
+                            v-if="
+                                type == 'employed' ||
+                                type == 'trail' ||
+                                type == 'approved'
+                            "
+                        >
+                            {{ item.end_date }}
+                        </td>
+                        <td
+                            v-if="
+                                type == 'employed' ||
+                                type == 'trail' ||
+                                type == 'approved' ||
+                                type == 'interview'
+                            "
+                            :class="
+                                item.end_work_reason_id ? 'text-primary' : ''
+                            "
+                            @click="openEndWorkInfoModal(item)"
+                        >
+                            <span
+                                :class="`badge bg-${item.status_color} p-1`"
+                                >{{ item.status }}</span
+                            >
+                        </td>
                         <td>{{ item.updated_at }}</td>
                         <td>
-                            <table_cog :item = "item" :auth="auth"/>
-
+                            <table_cog :item="item" :auth="auth" />
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
-      </div>
-      <candidateFullInfoModalVue :visible="candidateFullInfoModalShow" :candidate_id="candidate_id"></candidateFullInfoModalVue>
-      <end_work_info :visible="showEndWorkInfoModal " :item="modalItem"/>
+    </div>
+    <candidateFullInfoModalVue
+        :visible="candidateFullInfoModalShow"
+        :candidate_id="candidate_id"
+    ></candidateFullInfoModalVue>
+    <end_work_info :visible="showEndWorkInfoModal" :item="modalItem" />
 </template>
 <script>
-import { ref } from 'vue';
-import moment from 'moment'
-import table_cog from './table_cog.vue';
-import candidateFullInfoModalVue from '../../../candidate/modal/candidateFullInfoModal.vue';
-import end_work_info from '../../modal/end_work_info.vue';
+import { ref } from "vue";
+import table_cog from "./table_cog.vue";
+import candidateFullInfoModalVue from "../../../candidate/modal/candidateFullInfoModal.vue";
+import end_work_info from "../../modal/end_work_info.vue";
 export default {
-    components:{
+    components: {
         table_cog,
         candidateFullInfoModalVue,
-        end_work_info
+        end_work_info,
     },
-    props:{
+    props: {
         items: Object,
-        auth: Object
+        auth: Object,
     },
     setup(props) {
-
         const data = ref(props.items.data);
         const type = ref(props.items.type);
-        for (let i = 0; i < data.value.length; i++) {
-            // Access the element to update in each object
-            data.value[i].updated_at = moment(data.value[i].updated_at).format("YYYY-MM-DD HH:mm");
-            data.value[i].start_date = (data.value[i].start_date)?moment(data.value[i].start_date).format("YYYY-MM-DD"):null;
-            data.value[i].end_date = (data.value[i].end_date)?moment(data.value[i].end_date).format("YYYY-MM-DD"):null;
-            // data.value[i].status = (!data.value[i].status_id)? 'მიმდინარე' :data.value[i].status_id == 1? 'დასრულებული': 'გაუქმებული'
-        }
 
         const candidateFullInfoModalShow = ref(false);
-        const candidate_id = ref(null)
+        const candidate_id = ref(null);
 
-        const openCandidateFullInfoModal = (id) =>{
-            candidateFullInfoModalShow.value = !candidateFullInfoModalShow.value;
-            candidate_id.value = id
+        const openCandidateFullInfoModal = (id) => {
+            candidateFullInfoModalShow.value =
+                !candidateFullInfoModalShow.value;
+            candidate_id.value = id;
         };
 
-        const showEndWorkInfoModal = ref(false)
-        const modalItem = ref(null)
-        const openEndWorkInfoModal = (item) =>{
+        const showEndWorkInfoModal = ref(false);
+        const modalItem = ref(null);
+        const openEndWorkInfoModal = (item) => {
             if (!item.end_work_reason_id) {
-                return
+                return;
             }
-            showEndWorkInfoModal.value = !showEndWorkInfoModal.value
+            showEndWorkInfoModal.value = !showEndWorkInfoModal.value;
             modalItem.value = {
                 end_work_reason_id: item.end_work_reason_id,
-                end_work_reason: item.end_work_reason
-
-            }
-        }
+                end_work_reason: item.end_work_reason,
+            };
+        };
 
         return {
             data,
@@ -96,12 +143,9 @@ export default {
             modalItem,
 
             openCandidateFullInfoModal,
-            openEndWorkInfoModal
-
-        }
-    }
-}
+            openEndWorkInfoModal,
+        };
+    },
+};
 </script>
-<style lang="">
-
-</style>
+<style lang=""></style>

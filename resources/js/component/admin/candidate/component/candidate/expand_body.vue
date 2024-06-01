@@ -16,7 +16,7 @@
             </div>
 
             <div>
-                <p :class="`rounded-top bg-${item.status.color} `">
+                <p :class="`px-2 rounded-top bg-${item.status.color} `">
                     {{ item.status.name_ka }}
                 </p>
                 <p
@@ -25,6 +25,7 @@
                             ? 'rounded-top bg-warning '
                             : 'rounded-top bg-success '
                     "
+                    class="px-2"
                 >
                     {{
                         item.registration_fee == 0 ? "გადასახდელი" : "გადახდილი"

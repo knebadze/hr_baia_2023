@@ -21,6 +21,13 @@ class QualifyingCandidate extends Model
         'start_date',
         'end_date'
     ];
+    protected $casts = [
+        'interview_date' => 'datetime:Y-m-d H:i',
+        'start_date' => 'datetime:Y-m-d',
+        'end_date' => 'datetime:Y-m-d',
+        'created_at' => 'datetime:Y-m-d H:i',
+        'updated_at' => 'datetime:Y-m-d H:i'
+    ];
     public function getActivitylogOptions(): LogOptions
     {
         $logOptions = LogOptions::defaults([])->logFillable()->logOnlyDirty();
@@ -50,6 +57,6 @@ class QualifyingCandidate extends Model
 
     public function status()
     {
-        return $this->belongsTo(status::class);
+        return $this->belongsTo(Status::class);
     }
 }

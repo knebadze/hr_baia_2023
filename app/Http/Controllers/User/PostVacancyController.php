@@ -92,11 +92,13 @@ class PostVacancyController extends Controller
     }
 
     function sendSms(Request $request){
-        $data = $request->model;
-        // dd($data);
-        event(new SmsNotificationEvent($data['data'], $data['type']));
-        return response()->json();
-
+        try {
+            $data = $request->model;
+            event(new SmsNotificationEvent($data['data'], $data['type']));
+            return response()->json(['message' => 'SMS sent successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Failed to send SMS', 'error' => $e->getMessage()], 500);
+        }
     }
 
     public function store(Request $request)

@@ -17,5 +17,13 @@ class RegistrationFee extends Model
         'money',
         'enroll_date',
     ];
+
+    function user(){
+        return $this->belongsTo(User::class);
+    }
+
+    function creator(){
+        return $this->belongsTo(User::class);
+    }
 }
 

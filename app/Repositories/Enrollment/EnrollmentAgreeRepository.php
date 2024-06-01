@@ -13,143 +13,191 @@ use App\Models\VacancyDeposit;
 use App\Models\RegistrationFee;
 use App\Models\userRegisterLog;
 use App\Models\VacancyReminder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class EnrollmentAgreeRepository
 {
-    function agree($data) {
-        // dd($data);
+    const TYPE_PARTIAL = 0;
+    const WHO_IS_COUNTING_CANDIDATE = 1;
+    const STATUS_CLOSED = 4;
+    const REGISTRATION_FEE_PAID = 1;
 
+    function agree($data) {
+        // Start a new database transaction
+        DB::beginTransaction();
+    
         try {
             $enrollment = Enrollment::where('id', $data['id'])->first();
             $enrollment->update([
                 'agree' => 1
             ]);
+    
             if ($data['enrollment_type'] == 2) {
-                //ვაკანსიის ჩარიცხვა
                 $updateVacancyDeposit = $this->updateVacancyDeposit($data['vacancy_id'], $data['who_is_counting'], $data['type'], $data['money']);
-                // dd('$hello');
                 $updateVacancyDeposit && $this->checkVacancy($data['vacancy_id']);
                 $this->dailyWorkEvent($data['author_id'], 'v');
-
-
-            }else{
-                //რეგისტრაცისს ჩარიცხვა
+            } else {
                 $this->updateRegisterFee($data['candidate_id'], $data['type'], $data['money']);
                 $this->dailyWorkEvent($data['author_id'], 'c');
-
             }
+    
             $this->addHrBonus($data['enrollment_type'], $data['author_id'], $data['hr_bonus']);
-
+    
+            // If we reach here, it means that no exceptions were thrown
+            // We can commit the transaction
+            DB::commit();
+    
             return $enrollment;
         } catch (\Throwable $th) {
-            //throw $th;
-            dd($th);
+            // An error occurred, we need to rollback the transaction
+            DB::rollBack();
+    
+            Log::error('An error occurred during enrollment agreement agree: ' . $th->getMessage());
             throw new \Exception("An error occurred during enrollment agreement: " . $th->getMessage(), 500);
         }
-
-
     }
 
+ 
+    
     function updateVacancyDeposit($vacancy_id, $who_is_counting, $type, $money){
+  
+        DB::beginTransaction();
+
         try {
-            $deposit = VacancyDeposit::where('vacancy_id', $vacancy_id)->first();
+            $deposit = VacancyDeposit::where('vacancy_id', $vacancy_id)->firstOrFail();
 
-            if ($type == 0) {
-                //არასრული ჩარიცხვა
-                if ($who_is_counting == 1) {
-                    //კანდიდატის ჩარიცხვა
-                    $deposit->update([
-                        'must_be_enrolled_candidate' => (int)$deposit->must_be_enrolled_candidate - (int)$money
-                    ]);
-                }else{
-                    //დამსაქმებლის ჩარიცხვა
-                    $deposit->update([
-                        'must_be_enrolled_employer' => (int)$deposit->must_be_enrolled_employer - (int)$money
-                    ]);
-                }
-
-            }else{
-                //სრული ჩარიცხვა
-                if ($who_is_counting == 1) {
-                    //კანდიდატის ჩარიცხვა
-                    $deposit->update([
-                        'must_be_enrolled_candidate' => 0,
-                        'must_be_enrolled_candidate_date' => null
-                    ]);
-                }else{
-                    //დამსაქმებლის ჩარიცხვა
-                    $deposit->update([
-                        'must_be_enrolled_employer' => 0,
-                        'must_be_enrolled_employer_date' => null
-                    ]);
-                }
+            if ($type == self::TYPE_PARTIAL) {
+                $fieldToUpdate = $who_is_counting == self::WHO_IS_COUNTING_CANDIDATE ? 'must_be_enrolled_candidate' : 'must_be_enrolled_employer';
+                $deposit->update([
+                    $fieldToUpdate => (int)$deposit->$fieldToUpdate - (int)$money
+                ]);
+            } else {
+                $fieldToUpdate = $who_is_counting == self::WHO_IS_COUNTING_CANDIDATE ? 'must_be_enrolled_candidate' : 'must_be_enrolled_employer';
+                $deposit->update([
+                    $fieldToUpdate => 0,
+                    $fieldToUpdate . '_date' => null
+                ]);
             }
+
+            DB::commit();
+            return true;
         } catch (\Throwable $th) {
-            dd($th);
+            DB::rollBack();
+            Log::error('An error occurred during enrollment agreement updateVacancyDeposit: ' . $th->getMessage());
             throw new \Exception("An error occurred during enrollment agreement: " . $th->getMessage(), 500);
-            return false;
         }
-
-
-        return true;
     }
+    // function updateVacancyDeposit($vacancy_id, $who_is_counting, $type, $money){
+    //     try {
+    //         $deposit = VacancyDeposit::where('vacancy_id', $vacancy_id)->first();
 
+    //         if ($type == 0) {
+    //             //არასრული ჩარიცხვა
+    //             if ($who_is_counting == 1) {
+    //                 //კანდიდატის ჩარიცხვა
+    //                 $deposit->update([
+    //                     'must_be_enrolled_candidate' => (int)$deposit->must_be_enrolled_candidate - (int)$money
+    //                 ]);
+    //             }else{
+    //                 //დამსაქმებლის ჩარიცხვა
+    //                 $deposit->update([
+    //                     'must_be_enrolled_employer' => (int)$deposit->must_be_enrolled_employer - (int)$money
+    //                 ]);
+    //             }
+
+    //         }else{
+    //             //სრული ჩარიცხვა
+    //             if ($who_is_counting == 1) {
+    //                 //კანდიდატის ჩარიცხვა
+    //                 $deposit->update([
+    //                     'must_be_enrolled_candidate' => 0,
+    //                     'must_be_enrolled_candidate_date' => null
+    //                 ]);
+    //             }else{
+    //                 //დამსაქმებლის ჩარიცხვა
+    //                 $deposit->update([
+    //                     'must_be_enrolled_employer' => 0,
+    //                     'must_be_enrolled_employer_date' => null
+    //                 ]);
+    //             }
+    //         }
+    //     } catch (\Throwable $th) {
+    //         Log::error('An error occurred during enrollment agreement updateVacancyDeposit: ' . $th->getMessage());
+    //         throw new \Exception("An error occurred during enrollment agreement: " . $th->getMessage(), 500);
+    //         return false;
+    //     }
+
+
+    //     return true;
+    // }
+
+    
     function checkVacancy($vacancy_id) {
-        if (VacancyDeposit::where('vacancy_id', $vacancy_id)->where('must_be_enrolled_employer', 0)->where('must_be_enrolled_candidate', 0)->exists()) {
-            // VacancyDeposit::where('vacancy_id', $vacancy_id)->delete();
-            Vacancy::where('id', $vacancy_id)->update(['status_id' => 4]);
-            $this->deleteReminder($vacancy_id);
-            $this->deleteDeposit($vacancy_id);
+        $deposit = VacancyDeposit::firstWhere([
+            ['vacancy_id', '=', $vacancy_id],
+            ['must_be_enrolled_employer', '=', 0],
+            ['must_be_enrolled_candidate', '=', 0]
+        ]);
 
+        if (!$deposit) {
+            return;
         }
+
+        Vacancy::where('id', $vacancy_id)->update(['status_id' => self::STATUS_CLOSED]);
+        $this->deleteReminder($vacancy_id);
+        $this->deleteDeposit($vacancy_id);
     }
+    
 
     function updateRegisterFee($candidate_id, $type, $money) {
-        $candidate = Candidate::where('id', $candidate_id)->first();
-        $register = RegistrationFee::where('user_id', $candidate->user->id)->first();
-        if ($type == 0) {
-            //არასრული ჩარიცხვა
+        try {
+            $candidate = Candidate::where('id', $candidate_id)->firstOrFail();
+            $register = RegistrationFee::where('user_id', $candidate->user->id)->firstOrFail();
+
+            if ($type != self::TYPE_PARTIAL) {
+                $register->update([
+                    'money' => 0,
+                    'enroll_date' => null
+                ]);
+                $candidate->update(['registration_fee' => self::REGISTRATION_FEE_PAID]);
+                return;
+            }
+
             $register->update([
                 'money' => (int)$register->money - (int)$money
             ]);
-        }else{
-            $register->update([
-                'money' => 0,
-                'enroll_date' => null
-            ]);
-            $candidate->update(['registration_fee' => 1]);
+        } catch (\Exception $e) {
+            Log::error('An error occurred during registration fee update: ' . $e->getMessage());
+            throw new \Exception("An error occurred during registration fee update: " . $e->getMessage(), 500);
         }
     }
+
 
     function addHrBonus($type, $id, $bonus) {
         try {
-            $user = User::where('id', $id)->first();
-            $salary = Salary::where('hr_id', $user->hr->id)->where('hr_agree', 0)->whereNull('disbursement_date')->first();
-            if ($type == 2) {
-                $salary->update([
-                    'hr_bonus_from_vacancy' => $salary->hr_bonus_from_vacancy + $bonus,
-                    'full_salary' => $salary->full_salary + $bonus
-                ]);
-            }else{
-                $salary->update([
-                    'hr_bonus_from_registration' => $salary->hr_bonus_from_registration + $bonus,
-                    'full_salary' => $salary->full_salary + $bonus
-                ]);
-            }
+            $user = User::where('id', $id)->firstOrFail();
+            $salary = Salary::where('hr_id', $user->hr->id)->where('hr_agree', 0)->whereNull('disbursement_date')->firstOrFail();
+
+            $bonusField = $type == 2 ? 'hr_bonus_from_vacancy' : 'hr_bonus_from_registration';
+
+            $salary->update([
+                $bonusField => $salary->$bonusField + $bonus,
+                'full_salary' => $salary->full_salary + $bonus
+            ]);
+
             return $salary;
         } catch (\Throwable $th) {
-            dd($th);
+            Log::error('An error occurred during enrollment agreement addHrBonus: ' . $th->getMessage());
             throw new \Exception("An error occurred during enrollment agreement: " . $th->getMessage(), 500);
         }
-
-
-
     }
 
     function deleteReminder($vacancyId)  {
-        if (VacancyReminder::where('vacancy_id', $vacancyId)->exists()) {
-                VacancyReminder::where('vacancy_id', $vacancyId)->whereDate('date', '>', Carbon::now()->toDateTimeString())->where('active', 0)->delete();
-        }
+        VacancyReminder::where('vacancy_id', $vacancyId)
+            ->whereDate('date', '>', Carbon::now()->toDateTimeString())
+            ->where('active', 0)
+            ->delete();
     }
 
     function deleteDeposit($vacancyId) {

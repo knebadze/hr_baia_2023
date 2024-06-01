@@ -76,7 +76,7 @@
             </tbody>
         </table>
         <vacancyFullInfoModal :visible="vacancyModal" :vacancyId="modalId"></vacancyFullInfoModal>
-        <candidateFullInfoModal :visible="candidateModal" :vacancyId="modalId"></candidateFullInfoModal>
+        <candidateFullInfoModal :visible="candidateModal" :candidate_id="modalId"></candidateFullInfoModal>
         <!-- <update_enrolled :visible="updateModal" :item="item"></update_enrolled> -->
     </div>
 </template>
@@ -122,12 +122,12 @@ export default {
     },
     methods: {
         fullModal(item){
-            if (item.enrollment_type == 1) {
+            if (item.type == 1) {
                 this.candidateModal = !this.candidateModal
-                this.modalId = item.candidate_id
+                this.modalId = item.id
             }else{
                 this.vacancyModal = !this.vacancyModal
-                this.modalId = item.vacancy_id
+                this.modalId = item.id
             }
 
         },

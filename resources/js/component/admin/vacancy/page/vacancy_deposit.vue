@@ -207,6 +207,7 @@ export default {
         const handelSend = (formData) =>{
             axios.post('/vacancy_enrollment', formData)
             .then(function (response) {
+                console.log(response);
                 if (response.status == 200) {
                     toast.success("წარმატებით ჩაირიცხა", {
                         theme: 'colored',

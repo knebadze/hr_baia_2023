@@ -239,13 +239,11 @@ class AdminCandidateController extends Controller
     }
 
     function getFullInfo(Request $request)  {
-        // dd($request->all());
         $candidate = Candidate::where('id', $request->data)->with(
             [
                 'user.gender',
                 'user.registerLog',
                 'user.registerFee',
-                // 'workInformation',
                 'getWorkInformation.category',
                 'getWorkInformation.currency',
                 'getWorkInformation.getWorkSchedule.workSchedule',
@@ -266,6 +264,7 @@ class AdminCandidateController extends Controller
                 'maritalStatus',
                 'drivingLicense',
                 'status',
+                'number.numberOwner',
             ])->first()->toArray();
             $data = [
                 'candidate' => $candidate,

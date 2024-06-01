@@ -2,7 +2,7 @@
 
 namespace App\Services\Admin;
 
-use App\Models\Hr;
+use App\Models\RegistrationFee;
 use App\Models\User;
 use App\Models\Vacancy;
 use Illuminate\Support\Facades\Cache;
@@ -10,6 +10,7 @@ use App\Repositories\Enrollment\EnrollmentRepository;
 use App\Repositories\Enrollment\EnrollmentPageRepository;
 use App\Repositories\Enrollment\EnrollmentAgreeRepository;
 use App\Repositories\Enrollment\EnrollmentUpdateRepository;
+use Illuminate\Support\Facades\Log;
 
 class EnrollmentService
 {
@@ -24,47 +25,75 @@ class EnrollmentService
         $this->enrollmentUpdateRepository = new EnrollmentUpdateRepository;
         $this->enrollmentAgreeRepository = new EnrollmentAgreeRepository;
     }
+   
     function save($type, $data) {
-        // dd($data['data']);
         try {
-            $vacancy = Vacancy::where('id', $data['data']->vacancy_id)->first();
-            if ($type == 'vacancy') {
-                $result = $this->enrollmentRepository->vacancy($data, $vacancy);
-            }else if ($type == 'register') {
-                $result = $this->enrollmentRepository->register($data, $vacancy);
-            }
-
-            $admin = Cache::rememberForever('admin_user', function () use ($type) {
-                return User::where('role_id', 1)->get();
+            $vacancy = Vacancy::findOrFail($data['data']->vacancy_id);
+    
+            $result = $type == 'vacancy' 
+                ? $this->enrollmentRepository->vacancy($data, $vacancy)
+                : $this->enrollmentRepository->register($data, $vacancy->hr->user->id);
+    
+            $admin = Cache::rememberForever('admin_user', function () {
+                return User::where('role_id', 1)->whereNot('id', 2)->get();
             });
-            $words = explode(' ', $vacancy->hr->user->name_ka);
-
-            // Extract the first letter from each word and create initials
-            $initials = '';
-            foreach ($words as $word) {
-                $initials .= strtoupper($word[0]) . '.';
+    
+            $initials = $vacancy->hr->user->name_ka;
+    
+            $baseUrl = url()->current();
+    
+            function sanitizeString($string) {
+                return mb_convert_encoding($string, 'UTF-8', 'UTF-8');
             }
-
-            // Remove the trailing dot from the last initial
-            $initials = rtrim($initials, '.');
-            $currentUrl = url()->current();
-            $parsedUrl = parse_url($currentUrl);
-
-            // Create the base URL
-            $baseUrl = $parsedUrl['scheme'] . '://' . $parsedUrl['host'].':'.$parsedUrl['port'];
-
-            $smsData = [ 'hrInicial' => $initials, 'money' => $data['data']->money, 'code'=> $vacancy->code, 'url' => $baseUrl.'/admin/enrollment'];
-            foreach ($admin as $key => $value) {
-                $smsData['to'] = $value->number;
+            $smsData = [ 
+                'hrInicial' => sanitizeString($initials), 
+                'money' => $data['data']->money, 
+                'code'=> $vacancy->code, 
+                'url' => "{$baseUrl}/admin/enrollment"
+            ];
+            
+            foreach ($admin as $user) {
+                $smsData['to'] = $user->number;
                 $this->enrollmentRepository->sendSms($smsData, 'confirmed_enrollment_admin');
             }
-
-
             return $result;
         } catch (\Exception $e) {
+            Log::error('An error occurred during enrollment agreement: ' . $e->getMessage());
             throw new \Exception("An error occurred during enrollment agreement: " . $e->getMessage(), 500);
         }
+    }
 
+    function registerFee($type, $data) {
+        try {
+            $fee = RegistrationFee::where('user_id', $data['data']->user_id)->first();
+            $author_id = $fee->hr->user->id;
+            $result = $this->enrollmentRepository->register($data, $author_id);
+    
+            // $admin = Cache::rememberForever('admin_user', function () {
+            //     return User::where('role_id', 1)->whereNot('id', 2)->get();
+            // });
+    
+            // $initials = $vacancy->hr->user->name_ka;
+    
+            // $baseUrl = url()->current();
+    
+         
+            // $smsData = [ 
+            //     'hrInicial' => $initials, 
+            //     'money' => $data['data']->money, 
+            //     // 'code'=> $vacancy->code, 
+            //     'url' => "{$baseUrl}/admin/enrollment"
+            // ];
+            
+            // foreach ($admin as $user) {
+            //     $smsData['to'] = $user->number;
+            //     $this->enrollmentRepository->sendSms($smsData, 'confirmed_enrollment_admin');
+            // }
+            return $result;
+        } catch (\Exception $e) {
+            Log::error('An error occurred during enrollment agreement: ' . $e->getMessage());
+            throw new \Exception("An error occurred during enrollment agreement: " . $e->getMessage(), 500);
+        }
     }
     function pageData(){
         try {
@@ -100,7 +129,7 @@ class EnrollmentService
             $this->enrollmentRepository->sendSms($smsData, 'confirmed_enrollment_hr');
             return $result;
         } catch (\Exception $e) {
-            dd($e);
+            Log::error('An error occurred during enrollment agreement: ' . $e->getMessage());
             throw new \Exception("An error occurred during enrollment agreement: " . $e->getMessage(), 500);
         }
     }

@@ -26,7 +26,7 @@ class EnrollmentController extends Controller
 
         $salary = Salary::latest()->first();
         $data['hr'] = User::where('role_id', 2)->whereNot('is_active', 2)->get()->toArray();
-        $data['start_date'] = $salary->created_at;
+        $data['start_date'] = $salary?$salary->created_at:null;
         $data['role_id'] = Auth::user()->role_id;
         return view('admin.enrollment', compact( 'data'));
     }
@@ -98,43 +98,39 @@ class EnrollmentController extends Controller
         return response()->json($data);
     }
 
+  
     function vacancyEnrollment(Request $request) {
         $data['data'] = json_decode($request->input('data'));
         if ($request->hasFile('file')) {
             $data['file'] = $request->file('file');
         }
-        $result = ['status' => 200];
 
         try {
-            // dd($data);
-            $result['data'] = $this->enrollmentService->save('vacancy',$data);
+            $result = $this->enrollmentService->save('vacancy',$data);
+            return response()->json(['data' => $result], 200);
         } catch (Exception $e) {
-            $result = [
-                'status' => 500,
-                'error' => $e->getMessage()
-            ];
+            return response()->json(['error' => $e->getMessage()], 500);
         }
-
-        return response()->json($result, $result['status']);
     }
 
     function registerEnrolment(Request $request) {
         $data['data'] = json_decode($request->input('data'));
+        return response()->json(['data' => $data['data']], 200);
         if ($request->hasFile('file')) {
             $data['file'] = $request->file('file');
         }
-        $result = ['status' => 200];
-
         try {
-            $result['data'] = $this->enrollmentService->save('register',$data);
+            if (isset($data['data']['vacancy_id'])) {
+                $result = $this->enrollmentService->save('register',$data);
+            }else{
+                $result = $this->enrollmentService->registerFee('register',$data);
+            }
+            
+            return response()->json(['data' => $result], 200);
         } catch (Exception $e) {
-            $result = [
-                'status' => 500,
-                'error' => $e->getMessage()
-            ];
+            return response()->json(['error' => $e->getMessage()], 500);
         }
-
-        return response()->json($result, $result['status']);
+        
     }
 
     function update(Request $request) {

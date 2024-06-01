@@ -15,7 +15,7 @@
                             <div class="ls-inputicon-box">
                                 <select class="form-control" id="exampleFormControlSelect1" v-model="m.candidate_id" >
                                     <option value="">არცერთი</option>
-                                    <option v-for="(item, index) in info.candidates" :key="index" :value="item">{{ `${item.candidate.user.name_ka} - (ID: ${item.candidate_id}) - ${item.qualifying_type.name} - (${item.status.name_ka})`}} </option>
+                                    <option v-for="(item, index) in info.candidates" :key="index" :value="item">{{ `${item.candidate.user.name_ka} - (ID: ${item.candidate_id}) - ${item.qualifying_type.name} - (${item.status?item.status.name_ka:''})`}} </option>
                                 </select>
                             </div>
                         </div>
@@ -184,6 +184,7 @@
             }
         },
         created(){
+            
 
             // this.showConfirm = this.visible
         },
@@ -198,6 +199,7 @@
 
                     let result = await this.getClassificatory();
                     this.info  = result.data
+                    console.log('result.data', result.data);
                     this.employType()
                     this.m.vacancy = {
                         'id':this.item.id,

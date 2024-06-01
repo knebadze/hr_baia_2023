@@ -1,7 +1,7 @@
 <template lang="">
     <div>
         <h5><i class="fa fa-table"></i> ცხრილი </h5>
-        <p>მიმდინარე ჩარიცხვების დაწყების თარიღი: {{ date }}</p>
+        <p>მიმდინარე ჩარიცხვების დაწყების თარიღი: {{ start_date?start_date:'ახალი ათვლა' }}</p>
         <hr>
     </div>
 
@@ -75,7 +75,7 @@
             </tbody>
         </table>
         <vacancyFullInfoModal :visible="vacancyModal" :vacancyId="modalId"></vacancyFullInfoModal>
-        <candidateFullInfoModal :visible="candidateModal" :vacancyId="modalId"></candidateFullInfoModal>
+        <candidateFullInfoModal :visible="candidateModal" :candidate_id="modalId"></candidateFullInfoModal>
         <update_enrolled :visible="updateModal" :item="item"></update_enrolled>
     </div>
 </template>
@@ -109,13 +109,6 @@ export default {
     computed:{
 
     },
-    created() {
-        for (let i = 0; i < this.items.length; i++) {
-            // Access the element to update in each object
-            this.items[i].created_at = moment(this.items[i].created_at).format("YYYY-MM-DD HH:mm");
-        }
-        this.date = moment(this.start_date).format("YYYY-MM-DD HH:mm");
-    },
     methods: {
         fullModal(item){
             if (item.enrollment_type == 1) {
@@ -125,7 +118,6 @@ export default {
                 this.vacancyModal = !this.vacancyModal
                 this.modalId = item.vacancy_id
             }
-
         },
         editModal(item){
             this.updateModal = !this.updateModal
