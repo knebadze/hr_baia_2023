@@ -22,3 +22,5 @@ yarn-error.log
 /public/build/manifest.json
 
 /storage/app
+/views/layouts/app.blade.php
+/views/layouts/appPage.blade.php
