@@ -28,7 +28,8 @@
   <link rel="stylesheet" href="{{ asset('admin/plugins/summernote/summernote-bs4.min.css') }}">
 
 
-  @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+  <link rel="stylesheet" href="{{asset('build/assets/app-17decf63.css') }}">
+  <link rel="stylesheet" href="{{asset('build/assets/app-c1f0fdab.css') }}">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -92,5 +93,6 @@
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('admin/dist/js/pages/dashboard.js') }}"></script>
 
- 
+    <script type="module" src="{{ asset('build/assets/app-4ed993c7.js') }}"></script>
+    <script type="module" src="{{ asset('build/assets/app-1375f4e7.js') }}"></script>
 </body>

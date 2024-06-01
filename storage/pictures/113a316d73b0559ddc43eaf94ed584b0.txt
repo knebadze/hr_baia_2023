@@ -1,0 +1,471 @@
+Logfile opened at 2014-05-31 21:14:53
+21:14:53.217: Suite: Could not load class 22: java.lang.NoClassDefFoundError: cl: com/nokia/mid/ui/orientation/OrientationListener 
+21:14:53.721: Suite: start
+21:14:53.722: platform: Nokia301/02.33
+21:14:53.723: locale: ru-RU
+21:14:53.724: midletVendor: Nokia
+21:14:53.724: midletName: Twitter
+21:14:53.724: midletVersion: 1.1.3
+21:14:53.725: heliumVersion: 2.2.56
+21:14:53.726: buildId: 1365400080973 (Mon Apr 08 08:48:00 GMT+03:00 2013)
+21:14:53.804: JAR changed, reloading JAR cache
+21:14:54.229: Screen.updateSize(): w=240 h=320
+21:14:54.244: S40 Gesture not available: java.lang.NoClassDefFoundError: go: com/nokia/mid/ui/gestures/GestureListener 
+21:14:54.246: runlevelUp, rl=6, isBg=false, changed=true
+21:14:54.261: Start module name: main, module=cs@f2cf6eb5
+21:14:54.268: poolsize: 77
+21:14:54.291: Custom font sizes supported: true
+21:14:54.358: Screen.updateSize(): w=240 h=320
+21:14:54.381: code main size 21
+21:14:54.386: Missing namespace main:language.r2l
+21:14:55.159: Loading module twitterapi
+21:14:55.197: code twitterapi size 26806
+21:14:55.250: Missing string @twitter:TEXT_INFO_TYPE_DIRECT_FAIL
+21:14:55.408: code ui size 62085
+21:14:55.465: Missing string @twitter:SCREEN_VIEW_CONTACT
+21:14:55.466: Missing string @twitter:SCREEN_LINK_CONTACT
+21:14:55.468: Missing string @twitter:UNLINK_CONTACT
+21:14:55.519: Loading module notification
+21:14:55.530: code notification size 3622
+21:14:55.590: Loading module sapiconnector
+21:14:55.599: code sapiconnector size 2111
+21:14:55.867: #sapiconnector#ver: 1.[0-2] returns: 1.0.0
+21:14:55.871: Loading module imagefetcher
+21:14:55.880: code imagefetcher size 1441
+21:14:55.905: Loading module maps
+21:14:55.920: code maps size 8435
+21:14:56.006: Loading module util
+21:14:56.022: code util size 4897
+21:14:56.035: SApi receive java.io.IOException: 
+21:14:58.282: #maps#defaulLocation() mcc:  mnc:  msin:  lat: 60.1675 lon: 24.9528
+21:14:58.285: Loading module jsr211
+21:14:58.295: code jsr211 size 473
+21:14:58.413: http worker: java.io.IOException: No SIM Card
+21:14:58.419: trying to get invocation
+21:14:58.420: invocation is null
+21:14:58.537: sizeChanged: 240x320
+21:14:58.538: Screen.updateSize(): w=240 h=320
+21:14:58.557: Unloading module jsr211
+21:14:58.564: [TONY]showNotify: 
+21:15:11.705: [TONY]hideNotify: 
+21:15:14.067: [TONY]showNotify: 
+21:15:20.572: [TONY]hideNotify: 
+21:16:13.538: [TONY]showNotify: 
+21:16:17.150: runlevelDown, rl=0, isBg=true, changed=true
+21:16:17.167: Unloading module util
+21:16:17.169: Unloading module maps
+21:16:17.172: Unloading module imagefetcher
+21:16:17.177: Unloading module sapiconnector
+21:16:17.180: Unloading module notification
+21:16:17.181: Unloading module ui
+21:16:17.184: Unloading module twitterapi
+21:16:17.186: Unloading module main
+21:16:17.204: closeLogFile()
+Logfile opened at 2014-05-31 21:16:20
+21:16:20.000: Suite: Could not load class 22: java.lang.NoClassDefFoundError: cl: com/nokia/mid/ui/orientation/OrientationListener 
+21:16:20.499: Suite: start
+21:16:20.501: platform: Nokia301/02.33
+21:16:20.501: locale: ru-RU
+21:16:20.502: midletVendor: Nokia
+21:16:20.502: midletName: Twitter
+21:16:20.503: midletVersion: 1.1.3
+21:16:20.503: heliumVersion: 2.2.56
+21:16:20.504: buildId: 1365400080973 (Mon Apr 08 08:48:00 GMT+03:00 2013)
+21:16:20.871: Screen.updateSize(): w=240 h=320
+21:16:20.886: S40 Gesture not available: java.lang.NoClassDefFoundError: go: com/nokia/mid/ui/gestures/GestureListener 
+21:16:20.888: runlevelUp, rl=6, isBg=false, changed=true
+21:16:20.902: Start module name: main, module=cs@ec6bc9e0
+21:16:20.910: poolsize: 77
+21:16:20.933: Custom font sizes supported: true
+21:16:21.001: Screen.updateSize(): w=240 h=320
+21:16:21.031: code main size 21
+21:16:21.036: Missing namespace main:language.r2l
+21:16:21.807: Loading module twitterapi
+21:16:21.845: code twitterapi size 26806
+21:16:21.897: Missing string @twitter:TEXT_INFO_TYPE_DIRECT_FAIL
+21:16:22.017: code ui size 62085
+21:16:22.318: Missing string @twitter:SCREEN_VIEW_CONTACT
+21:16:22.319: Missing string @twitter:SCREEN_LINK_CONTACT
+21:16:22.321: Missing string @twitter:UNLINK_CONTACT
+21:16:22.386: Loading module notification
+21:16:22.398: code notification size 3622
+21:16:22.459: Loading module sapiconnector
+21:16:22.467: code sapiconnector size 2111
+21:16:22.509: #sapiconnector#ver: 1.[0-2] returns: 1.0.0
+21:16:22.512: Loading module imagefetcher
+21:16:22.520: code imagefetcher size 1441
+21:16:22.545: Loading module maps
+21:16:22.561: code maps size 8435
+21:16:22.627: Loading module util
+21:16:22.643: code util size 4897
+21:16:22.655: SApi receive java.io.IOException: 
+21:16:23.812: #maps#defaulLocation() mcc:  mnc:  msin:  lat: 60.1675 lon: 24.9528
+21:16:23.817: Loading module jsr211
+21:16:23.827: code jsr211 size 473
+21:16:23.940: http worker: java.io.IOException: No SIM Card
+21:16:23.945: trying to get invocation
+21:16:23.946: invocation is null
+21:16:24.046: Unloading module jsr211
+21:16:24.062: sizeChanged: 240x320
+21:16:24.063: Screen.updateSize(): w=240 h=320
+21:16:24.068: [TONY]showNotify: 
+21:16:28.954: [TONY]hideNotify: 
+21:17:42.146: [TONY]showNotify: 
+21:17:48.235: [TONY]hideNotify: 
+21:19:03.592: [TONY]showNotify: 
+21:19:12.369: runlevelDown, rl=0, isBg=true, changed=true
+21:19:12.371: Unloading module util
+21:19:12.374: Unloading module maps
+21:19:12.377: Unloading module imagefetcher
+21:19:12.378: Unloading module sapiconnector
+21:19:12.383: Unloading module notification
+21:19:12.386: Unloading module ui
+21:19:12.388: Unloading module twitterapi
+21:19:12.390: Unloading module main
+21:19:12.406: closeLogFile()
+Logfile opened at 2014-05-31 21:19:15
+21:19:15.098: Suite: Could not load class 22: java.lang.NoClassDefFoundError: cl: com/nokia/mid/ui/orientation/OrientationListener 
+21:19:15.599: Suite: start
+21:19:15.600: platform: Nokia301/02.33
+21:19:15.601: locale: ru-RU
+21:19:15.602: midletVendor: Nokia
+21:19:15.602: midletName: Twitter
+21:19:15.602: midletVersion: 1.1.3
+21:19:15.603: heliumVersion: 2.2.56
+21:19:15.604: buildId: 1365400080973 (Mon Apr 08 08:48:00 GMT+03:00 2013)
+21:19:15.970: Screen.updateSize(): w=240 h=320
+21:19:15.985: S40 Gesture not available: java.lang.NoClassDefFoundError: go: com/nokia/mid/ui/gestures/GestureListener 
+21:19:15.987: runlevelUp, rl=6, isBg=false, changed=true
+21:19:16.003: Start module name: main, module=cs@eca2530f
+21:19:16.010: poolsize: 77
+21:19:16.032: Custom font sizes supported: true
+21:19:16.100: Screen.updateSize(): w=240 h=320
+21:19:16.130: code main size 21
+21:19:16.135: Missing namespace main:language.r2l
+21:19:16.904: Loading module twitterapi
+21:19:16.941: code twitterapi size 26806
+21:19:16.992: Missing string @twitter:TEXT_INFO_TYPE_DIRECT_FAIL
+21:19:17.112: code ui size 62085
+21:19:17.413: Missing string @twitter:SCREEN_VIEW_CONTACT
+21:19:17.414: Missing string @twitter:SCREEN_LINK_CONTACT
+21:19:17.416: Missing string @twitter:UNLINK_CONTACT
+21:19:17.481: Loading module notification
+21:19:17.492: code notification size 3622
+21:19:17.552: Loading module sapiconnector
+21:19:17.561: code sapiconnector size 2111
+21:19:17.603: #sapiconnector#ver: 1.[0-2] returns: 1.0.0
+21:19:17.606: Loading module imagefetcher
+21:19:17.616: code imagefetcher size 1441
+21:19:17.640: Loading module maps
+21:19:17.656: code maps size 8435
+21:19:17.722: Loading module util
+21:19:17.739: code util size 4897
+21:19:17.751: SApi receive java.io.IOException: 
+21:19:19.317: #maps#defaulLocation() mcc:  mnc:  msin:  lat: 60.1675 lon: 24.9528
+21:19:19.319: Loading module jsr211
+21:19:19.329: code jsr211 size 473
+21:19:19.447: http worker: java.io.IOException: No SIM Card
+21:19:19.452: trying to get invocation
+21:19:19.453: invocation is null
+21:19:19.567: sizeChanged: 240x320
+21:19:19.568: Screen.updateSize(): w=240 h=320
+21:19:19.572: Unloading module jsr211
+21:19:19.579: [TONY]showNotify: 
+21:19:25.749: [TONY]hideNotify: 
+21:21:52.280: [TONY]showNotify: 
+21:21:55.163: [TONY]hideNotify: 
+21:23:24.283: [TONY]showNotify: 
+21:23:30.792: Component Flow@e02057d3 already belongs to another parent Scrollable@ed30f6d9
+21:23:31.369: [TONY]hideNotify: 
+21:23:32.750: [TONY]showNotify: 
+21:23:32.826: http worker: java.io.IOException: No SIM Card
+21:23:46.688: Component Flow@e0ddbd39 already belongs to another parent Scrollable@46d3a7e
+21:23:47.037: [TONY]hideNotify: 
+21:23:49.492: [TONY]showNotify: 
+21:23:57.295: Loading module signup
+21:23:57.320: code signup size 3090
+21:23:57.473: Component Flow@ecf25544 already belongs to another parent Scrollable@ee7965f6
+21:24:20.417: CellLocation.getInstance() created
+21:24:20.419: setProperties: (cacheSize=1, debugPrint=true)
+21:24:20.420: SUPLConnection.getLocation
+21:24:20.421: SUPLConnection.run()
+21:24:20.423: getLocation( false ) called
+21:24:20.424: getCurrentCellParameters: called
+21:24:20.426: getSystemProperty(): name, value: com.nokia.mid.networkID, 28204
+21:24:20.429: getSystemProperty(): name, value: com.nokia.mid.networkID, 28204
+21:24:20.432: getSystemProperty(): name, value: com.nokia.mid.lac, 10101
+21:24:20.434: getSystemProperty(): name, value: Cell-ID, 5392
+21:24:20.435: system property MCC 282
+21:24:20.436: system property MNC 04
+21:24:20.437: system property LAC 10101
+21:24:20.438: system property CellId 5392
+21:24:20.439: getLocation: not cached - ask SUPL
+21:24:20.441: getLocation: get dataBearer and IMSI
+21:24:20.444: getSystemProperty(): name, value: com.nokia.midp.impl.isa.network.databearer, UMTS
+21:24:20.446: data bearer is UMTS
+21:24:20.450: getSystemProperty(): name, value: com.nokia.mid.imsi, 282040003538113
+21:24:20.451: getLocation: begin opening connection: ssl://supl.nokia.com:7275
+21:24:20.473: Error getting location, java.io.IOException: Error occured whilst opening connection: java.io.IOException: Error occured whilst opening connection
+21:24:20.476: SUPLConnection.doCallback -1
+21:24:20.477: SUPLConnection.getStruct()
+21:24:20.478: SUPLConnection.getStruct lat: -9998.0 lon: -9998.0
+21:24:20.492: #maps#defaulLocation() mcc: 282 mnc: 04 msin: 0003538113 lat: 60.1675 lon: 24.9528
+21:25:06.067: [TONY]hideNotify: 
+21:26:26.675: [TONY]showNotify: 
+21:26:48.184: [TONY]hideNotify: 
+21:27:15.560: [TONY]showNotify: 
+21:27:18.737: Component Flow@ee59ef63 already belongs to another parent Scrollable@a5d18c5
+21:27:25.326: runlevelDown, rl=0, isBg=true, changed=true
+21:27:25.327: Unloading module signup
+21:27:25.330: Unloading module util
+21:27:25.332: Unloading module maps
+21:27:25.334: Unloading module imagefetcher
+21:27:25.336: Unloading module sapiconnector
+21:27:25.339: Unloading module notification
+21:27:25.341: Unloading module ui
+21:27:25.343: Unloading module twitterapi
+21:27:25.346: Unloading module main
+21:27:25.360: closeLogFile()
+Logfile opened at 2014-06-05 07:35:13
+07:35:12.519: Suite: Could not load class 22: java.lang.NoClassDefFoundError: cl: com/nokia/mid/ui/orientation/OrientationListener 
+07:35:13.027: Suite: start
+07:35:13.028: platform: Nokia301/02.33
+07:35:13.028: locale: ru-RU
+07:35:13.029: midletVendor: Nokia
+07:35:13.029: midletName: Twitter
+07:35:13.029: midletVersion: 1.1.3
+07:35:13.030: heliumVersion: 2.2.56
+07:35:13.031: buildId: 1365400080973 (Mon Apr 08 08:48:00 GMT+03:00 2013)
+07:35:13.404: Screen.updateSize(): w=240 h=320
+07:35:13.419: S40 Gesture not available: java.lang.NoClassDefFoundError: go: com/nokia/mid/ui/gestures/GestureListener 
+07:35:13.421: runlevelUp, rl=6, isBg=false, changed=true
+07:35:13.436: Start module name: main, module=cs@94839d1
+07:35:13.443: poolsize: 77
+07:35:13.466: Custom font sizes supported: true
+07:35:13.534: Screen.updateSize(): w=240 h=320
+07:35:13.558: code main size 21
+07:35:13.563: Missing namespace main:language.r2l
+07:35:14.333: Loading module twitterapi
+07:35:14.369: code twitterapi size 26806
+07:35:14.420: Missing string @twitter:TEXT_INFO_TYPE_DIRECT_FAIL
+07:35:14.547: code ui size 62085
+07:35:14.808: Missing string @twitter:SCREEN_VIEW_CONTACT
+07:35:14.809: Missing string @twitter:SCREEN_LINK_CONTACT
+07:35:14.810: Missing string @twitter:UNLINK_CONTACT
+07:35:14.876: Loading module notification
+07:35:14.887: code notification size 3622
+07:35:14.947: Loading module sapiconnector
+07:35:14.955: code sapiconnector size 2111
+07:35:14.998: #sapiconnector#ver: 1.[0-2] returns: 1.0.0
+07:35:15.001: Loading module imagefetcher
+07:35:15.011: code imagefetcher size 1441
+07:35:15.035: Loading module maps
+07:35:15.050: code maps size 8435
+07:35:15.121: Loading module util
+07:35:15.138: code util size 4897
+07:35:15.150: SApi receive java.io.IOException: 
+07:35:16.344: #maps#defaulLocation() mcc: 282 mnc: 04 msin: 0003538113 lat: 60.1675 lon: 24.9528
+07:35:16.346: Loading module jsr211
+07:35:16.357: code jsr211 size 473
+07:35:16.491: trying to get invocation
+07:35:16.493: invocation is null
+07:35:16.509: http worker: java.io.IOException: 81-Error in HTTP operation
+07:35:16.606: Unloading module jsr211
+07:35:16.621: sizeChanged: 240x320
+07:35:16.622: Screen.updateSize(): w=240 h=320
+07:35:16.627: [TONY]showNotify: 
+07:35:17.503: CellLocation.getInstance() created
+07:35:17.505: setProperties: (cacheSize=1, debugPrint=true)
+07:35:17.506: SUPLConnection.getLocation
+07:35:17.507: SUPLConnection.run()
+07:35:17.508: getLocation( false ) called
+07:35:17.509: getCurrentCellParameters: called
+07:35:17.512: getSystemProperty(): name, value: com.nokia.mid.networkID, 28204
+07:35:17.515: getSystemProperty(): name, value: com.nokia.mid.networkID, 28204
+07:35:17.518: getSystemProperty(): name, value: com.nokia.mid.lac, 10101
+07:35:17.520: getSystemProperty(): name, value: Cell-ID, 5392
+07:35:17.521: system property MCC 282
+07:35:17.522: system property MNC 04
+07:35:17.523: system property LAC 10101
+07:35:17.524: system property CellId 5392
+07:35:17.524: getLocation: not cached - ask SUPL
+07:35:17.526: getLocation: get dataBearer and IMSI
+07:35:17.529: getSystemProperty(): name, value: com.nokia.midp.impl.isa.network.databearer, UMTS
+07:35:17.531: data bearer is UMTS
+07:35:17.535: getSystemProperty(): name, value: com.nokia.mid.imsi, 282040003538113
+07:35:17.536: getLocation: begin opening connection: ssl://supl.nokia.com:7275
+07:35:17.559: Error getting location, java.io.IOException: Error occured whilst opening connection: java.io.IOException: Error occured whilst opening connection
+07:35:17.560: SUPLConnection.doCallback -1
+07:35:17.561: SUPLConnection.getStruct()
+07:35:17.563: SUPLConnection.getStruct lat: -9998.0 lon: -9998.0
+07:35:17.576: #maps#defaulLocation() mcc: 282 mnc: 04 msin: 0003538113 lat: 60.1675 lon: 24.9528
+07:35:19.756: runlevelDown, rl=0, isBg=true, changed=true
+07:35:19.757: Unloading module util
+07:35:19.760: Unloading module maps
+07:35:19.762: Unloading module imagefetcher
+07:35:19.765: Unloading module sapiconnector
+07:35:19.769: Unloading module notification
+07:35:19.771: Unloading module ui
+07:35:19.774: Unloading module twitterapi
+07:35:19.776: Unloading module main
+07:35:19.794: closeLogFile()
+Logfile opened at 2014-06-21 21:05:48
+21:05:48.340: Suite: Could not load class 22: java.lang.NoClassDefFoundError: cl: com/nokia/mid/ui/orientation/OrientationListener 
+21:05:48.717: Suite: start
+21:05:48.718: platform: Nokia301/02.33
+21:05:48.719: locale: ru-RU
+21:05:48.720: midletVendor: Nokia
+21:05:48.720: midletName: Twitter
+21:05:48.720: midletVersion: 1.1.3
+21:05:48.721: heliumVersion: 2.2.56
+21:05:48.722: buildId: 1365400080973 (Mon Apr 08 08:48:00 GMT+03:00 2013)
+21:05:49.114: Screen.updateSize(): w=240 h=320
+21:05:49.128: S40 Gesture not available: java.lang.NoClassDefFoundError: go: com/nokia/mid/ui/gestures/GestureListener 
+21:05:49.130: runlevelUp, rl=6, isBg=false, changed=true
+21:05:49.145: Start module name: main, module=cs@ec32092e
+21:05:49.152: poolsize: 77
+21:05:49.175: Custom font sizes supported: true
+21:05:49.246: Screen.updateSize(): w=240 h=320
+21:05:49.269: code main size 21
+21:05:49.273: Missing namespace main:language.r2l
+21:05:50.104: Loading module twitterapi
+21:05:50.142: code twitterapi size 26806
+21:05:50.266: Missing string @twitter:TEXT_INFO_TYPE_DIRECT_FAIL
+21:05:50.408: code ui size 62085
+21:05:50.730: Missing string @twitter:SCREEN_VIEW_CONTACT
+21:05:50.731: Missing string @twitter:SCREEN_LINK_CONTACT
+21:05:50.732: Missing string @twitter:UNLINK_CONTACT
+21:05:50.798: Loading module notification
+21:05:50.810: code notification size 3622
+21:05:50.842: Loading module sapiconnector
+21:05:50.851: code sapiconnector size 2111
+21:05:50.898: #sapiconnector#ver: 1.[0-2] returns: 1.0.0
+21:05:50.901: Loading module imagefetcher
+21:05:50.910: code imagefetcher size 1441
+21:05:50.935: Loading module maps
+21:05:50.976: code maps size 8435
+21:05:51.053: Loading module util
+21:05:51.069: code util size 4897
+21:05:51.081: SApi receive java.io.IOException: 
+21:05:51.979: #maps#defaulLocation() mcc: 282 mnc: 01 msin: 7204156084 lat: 60.1675 lon: 24.9528
+21:05:51.981: Loading module jsr211
+21:05:51.991: code jsr211 size 473
+21:05:52.252: trying to get invocation
+21:05:52.254: invocation is null
+21:05:52.310: sizeChanged: 240x320
+21:05:52.311: Screen.updateSize(): w=240 h=320
+21:05:52.373: Unloading module jsr211
+21:05:52.379: [TONY]showNotify: 
+21:05:53.154: CellLocation.getInstance() created
+21:05:53.156: setProperties: (cacheSize=1, debugPrint=true)
+21:05:53.157: SUPLConnection.getLocation
+21:05:53.158: SUPLConnection.run()
+21:05:53.159: getLocation( false ) called
+21:05:53.160: getCurrentCellParameters: called
+21:05:53.162: getSystemProperty(): name, value: com.nokia.mid.networkID, 28201
+21:05:53.166: getSystemProperty(): name, value: com.nokia.mid.networkID, 28201
+21:05:53.169: getSystemProperty(): name, value: com.nokia.mid.lac, 2000
+21:05:53.171: getSystemProperty(): name, value: Cell-ID, 131078253
+21:05:53.172: system property MCC 282
+21:05:53.173: system property MNC 01
+21:05:53.173: system property LAC 2000
+21:05:53.175: system property CellId 131078253
+21:05:53.176: getLocation: not cached - ask SUPL
+21:05:53.178: getLocation: get dataBearer and IMSI
+21:05:53.182: getSystemProperty(): name, value: com.nokia.midp.impl.isa.network.databearer, UMTS
+21:05:53.183: data bearer is UMTS
+21:05:53.186: getSystemProperty(): name, value: com.nokia.mid.imsi, 282017204156084
+21:05:53.187: getLocation: begin opening connection: ssl://supl.nokia.com:7275
+21:06:06.522: runlevelDown, rl=0, isBg=true, changed=true
+21:06:06.523: Unloading module util
+21:06:06.527: Unloading module maps
+21:06:06.529: Unloading module imagefetcher
+21:06:06.535: Unloading module sapiconnector
+21:06:06.539: Unloading module notification
+21:06:06.541: Unloading module ui
+21:06:06.544: Unloading module twitterapi
+21:06:06.547: Unloading module main
+21:06:06.567: closeLogFile()
+Logfile opened at 2014-11-02 20:03:19
+20:03:18.989: Suite: Could not load class 22: java.lang.NoClassDefFoundError: cl: com/nokia/mid/ui/orientation/OrientationListener 
+20:03:19.314: Suite: start
+20:03:19.315: platform: Nokia301/02.33
+20:03:19.316: locale: ru-RU
+20:03:19.316: midletVendor: Nokia
+20:03:19.316: midletName: Twitter
+20:03:19.317: midletVersion: 1.1.3
+20:03:19.317: heliumVersion: 2.2.56
+20:03:19.318: buildId: 1365400080973 (Mon Apr 08 08:48:00 GMT+03:00 2013)
+20:03:19.705: Screen.updateSize(): w=240 h=320
+20:03:19.721: S40 Gesture not available: java.lang.NoClassDefFoundError: go: com/nokia/mid/ui/gestures/GestureListener 
+20:03:19.722: runlevelUp, rl=6, isBg=false, changed=true
+20:03:19.737: Start module name: main, module=cs@16751b6b
+20:03:19.745: poolsize: 77
+20:03:19.767: Custom font sizes supported: true
+20:03:19.835: Screen.updateSize(): w=240 h=320
+20:03:19.857: code main size 21
+20:03:19.862: Missing namespace main:language.r2l
+20:03:20.580: Loading module twitterapi
+20:03:20.616: code twitterapi size 26806
+20:03:20.731: Missing string @twitter:TEXT_INFO_TYPE_DIRECT_FAIL
+20:03:20.865: code ui size 62085
+20:03:20.925: Missing string @twitter:SCREEN_VIEW_CONTACT
+20:03:20.926: Missing string @twitter:SCREEN_LINK_CONTACT
+20:03:20.927: Missing string @twitter:UNLINK_CONTACT
+20:03:20.977: Loading module notification
+20:03:20.990: code notification size 3622
+20:03:21.239: Loading module sapiconnector
+20:03:21.258: code sapiconnector size 2111
+20:03:21.308: #sapiconnector#ver: 1.[0-2] returns: 1.0.0
+20:03:21.311: Loading module imagefetcher
+20:03:21.320: code imagefetcher size 1441
+20:03:21.344: Loading module maps
+20:03:21.386: code maps size 8435
+20:03:21.457: Loading module util
+20:03:21.473: code util size 4897
+20:03:21.485: SApi receive java.io.IOException: 
+20:03:22.331: #maps#defaulLocation() mcc: 282 mnc: 04 msin: 0003538113 lat: 60.1675 lon: 24.9528
+20:03:22.337: Loading module jsr211
+20:03:22.348: code jsr211 size 473
+20:03:22.510: trying to get invocation
+20:03:22.511: invocation is null
+20:03:22.520: http worker: java.io.IOException: 80-Error in HTTP operation
+20:03:22.617: Unloading module jsr211
+20:03:22.631: sizeChanged: 240x320
+20:03:22.633: Screen.updateSize(): w=240 h=320
+20:03:22.637: [TONY]showNotify: 
+20:03:23.494: CellLocation.getInstance() created
+20:03:23.496: setProperties: (cacheSize=1, debugPrint=true)
+20:03:23.497: SUPLConnection.getLocation
+20:03:23.498: SUPLConnection.run()
+20:03:23.500: getLocation( false ) called
+20:03:23.501: getCurrentCellParameters: called
+20:03:23.503: getSystemProperty(): name, value: com.nokia.mid.networkID, 28204
+20:03:23.506: getSystemProperty(): name, value: com.nokia.mid.networkID, 28204
+20:03:23.508: getSystemProperty(): name, value: com.nokia.mid.lac, 10101
+20:03:23.511: getSystemProperty(): name, value: Cell-ID, 5392
+20:03:23.512: system property MCC 282
+20:03:23.514: system property MNC 04
+20:03:23.515: system property LAC 10101
+20:03:23.515: system property CellId 5392
+20:03:23.516: getLocation: not cached - ask SUPL
+20:03:23.517: getLocation: get dataBearer and IMSI
+20:03:23.521: getSystemProperty(): name, value: com.nokia.midp.impl.isa.network.databearer, UMTS
+20:03:23.522: data bearer is UMTS
+20:03:23.526: getSystemProperty(): name, value: com.nokia.mid.imsi, 282040003538113
+20:03:23.527: getLocation: begin opening connection: ssl://supl.nokia.com:7275
+20:03:23.551: Error getting location, java.io.IOException: Error occured whilst opening connection: java.io.IOException: Error occured whilst opening connection
+20:03:23.552: SUPLConnection.doCallback -1
+20:03:23.553: SUPLConnection.getStruct()
+20:03:23.554: SUPLConnection.getStruct lat: -9998.0 lon: -9998.0
+20:03:23.567: #maps#defaulLocation() mcc: 282 mnc: 04 msin: 0003538113 lat: 60.1675 lon: 24.9528
+20:03:27.908: runlevelDown, rl=0, isBg=true, changed=true
+20:03:27.910: Unloading module util
+20:03:27.913: Unloading module maps
+20:03:27.918: Unloading module imagefetcher
+20:03:27.920: Unloading module sapiconnector
+20:03:27.922: Unloading module notification
+20:03:27.924: Unloading module ui
+20:03:27.926: Unloading module twitterapi
+20:03:27.928: Unloading module main
+20:03:27.948: closeLogFile()

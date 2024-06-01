@@ -3,13 +3,28 @@
     "file": "assets/Switch-af176a96.css",
     "src": "Switch.css"
   },
-  "_Switch-80021928.js": {
+  "VacancyList.css": {
+    "file": "assets/VacancyList-2f7f55aa.css",
+    "src": "VacancyList.css"
+  },
+  "_Switch-97e5d7fa.js": {
     "css": [
       "assets/Switch-af176a96.css"
     ],
-    "file": "assets/Switch-80021928.js",
+    "file": "assets/Switch-97e5d7fa.js",
     "imports": [
       "__plugin-vue_export-helper-c27b6911.js",
+      "resources/js/app.js"
+    ]
+  },
+  "_VacancyList-c0f2e193.js": {
+    "css": [
+      "assets/VacancyList-2f7f55aa.css"
+    ],
+    "file": "assets/VacancyList-c0f2e193.js",
+    "imports": [
+      "_interest_button-a25a768a.js",
+      "_moment-fbc5633a.js",
       "resources/js/app.js"
     ]
   },
@@ -19,73 +34,91 @@
   "__plugin-vue_export-helper-c27b6911.js": {
     "file": "assets/_plugin-vue_export-helper-c27b6911.js"
   },
-  "_addPersonalVacancy-14494e49.js": {
+  "_addPersonalVacancy-0ad162d2.js": {
     "css": [
       "assets/addPersonalVacancy-666acf25.css"
     ],
-    "file": "assets/addPersonalVacancy-14494e49.js",
+    "file": "assets/addPersonalVacancy-0ad162d2.js",
     "imports": [
       "resources/js/app.js",
       "__plugin-vue_export-helper-c27b6911.js",
-      "_vacancyFullInfoModal-ef599252.js",
-      "_moment-fbc5633a.js"
+      "_vacancyFullInfoModal-ab74c95c.js",
+      "_moment-fbc5633a.js",
+      "_axios-aba6f0e0.js",
+      "_sweetalert2.all-cd4a28e1.js"
     ]
   },
   "_axios-aba6f0e0.js": {
     "file": "assets/axios-aba6f0e0.js"
   },
-  "_candidateFullInfoModal-c55328be.js": {
+  "_candidateFullInfoModal-0cab826a.js": {
     "css": [
-      "assets/candidateFullInfoModal-1b1d1ae7.css"
+      "assets/candidateFullInfoModal-1319dace.css"
     ],
-    "file": "assets/candidateFullInfoModal-c55328be.js",
+    "file": "assets/candidateFullInfoModal-0cab826a.js",
     "imports": [
       "resources/js/app.js",
-      "_expand_body-7fac6c67.js",
+      "_expand_body-a78fd298.js",
+      "_moment-fbc5633a.js",
       "__plugin-vue_export-helper-c27b6911.js"
     ]
   },
-  "_carousel-856d6986.js": {
+  "_carousel-bc91b60a.js": {
     "css": [
       "assets/carousel-bea71dee.css"
     ],
-    "file": "assets/carousel-856d6986.js",
+    "file": "assets/carousel-bc91b60a.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_expand_body-7fac6c67.js": {
-    "file": "assets/expand_body-7fac6c67.js",
+  "_expand_body-a78fd298.js": {
+    "file": "assets/expand_body-a78fd298.js",
     "imports": [
-      "_lodash-34bff0ac.js",
+      "_lodash-c1ebff3c.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "resources/js/app.js"
     ]
   },
-  "_index.esm-a3c1fa50.js": {
-    "file": "assets/index.esm-a3c1fa50.js",
+  "_index-1b1b76ad.js": {
+    "file": "assets/index-1b1b76ad.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_interest_button-98aa2596.js": {
-    "file": "assets/interest_button-98aa2596.js",
+  "_index.esm-28e00496.js": {
+    "file": "assets/index.esm-28e00496.js",
+    "imports": [
+      "resources/js/app.js"
+    ]
+  },
+  "_interest_button-a25a768a.js": {
+    "file": "assets/interest_button-a25a768a.js",
+    "imports": [
+      "_sweetalert2.all-cd4a28e1.js",
+      "resources/js/app.js",
+      "_lodash-c1ebff3c.js",
+      "_loaderStore-e00a5fef.js",
+      "__plugin-vue_export-helper-c27b6911.js"
+    ]
+  },
+  "_like_dont_like_candidate-fd1d0544.js": {
+    "file": "assets/like_dont_like_candidate-fd1d0544.js",
     "imports": [
       "_sweetalert2.all-cd4a28e1.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "resources/js/app.js"
     ]
   },
-  "_like_dont_like_candidate-bbd56c12.js": {
-    "file": "assets/like_dont_like_candidate-bbd56c12.js",
+  "_loaderStore-e00a5fef.js": {
+    "file": "assets/loaderStore-e00a5fef.js",
     "imports": [
-      "_sweetalert2.all-cd4a28e1.js",
-      "__plugin-vue_export-helper-c27b6911.js",
-      "resources/js/app.js"
+      "resources/js/app.js",
+      "_lodash-c1ebff3c.js"
     ]
   },
-  "_lodash-34bff0ac.js": {
-    "file": "assets/lodash-34bff0ac.js",
+  "_lodash-c1ebff3c.js": {
+    "file": "assets/lodash-c1ebff3c.js",
     "imports": [
       "__commonjsHelpers-28e086c5.js"
     ]
@@ -93,20 +126,20 @@
   "_moment-fbc5633a.js": {
     "file": "assets/moment-fbc5633a.js"
   },
-  "_reminder_table-dd3fd126.js": {
+  "_reminder_table-68f0d6a8.js": {
     "css": [
       "assets/reminder_table-59e0a48c.css"
     ],
-    "file": "assets/reminder_table-dd3fd126.js",
+    "file": "assets/reminder_table-68f0d6a8.js",
     "imports": [
       "resources/js/app.js",
       "_moment-fbc5633a.js",
       "__plugin-vue_export-helper-c27b6911.js",
-      "_vacancyFullInfoModal-ef599252.js"
+      "_vacancyFullInfoModal-ab74c95c.js"
     ]
   },
-  "_slider-1ba3e0fc.js": {
-    "file": "assets/slider-1ba3e0fc.js",
+  "_slider-c2e1be10.js": {
+    "file": "assets/slider-c2e1be10.js",
     "imports": [
       "resources/js/app.js"
     ]
@@ -117,56 +150,56 @@
       "__commonjsHelpers-28e086c5.js"
     ]
   },
-  "_table_cog-4ddca3e9.js": {
-    "file": "assets/table_cog-4ddca3e9.js",
+  "_table_cog-4e119425.js": {
+    "file": "assets/table_cog-4e119425.js",
     "imports": [
-      "_addPersonalVacancy-14494e49.js",
+      "_addPersonalVacancy-0ad162d2.js",
       "resources/js/app.js",
       "_moment-fbc5633a.js",
       "__plugin-vue_export-helper-c27b6911.js"
     ]
   },
-  "_vacancyFullInfoModal-ef599252.js": {
+  "_vacancyFullInfoModal-ab74c95c.js": {
     "css": [
       "assets/vacancyFullInfoModal-5e26b0f1.css"
     ],
-    "file": "assets/vacancyFullInfoModal-ef599252.js",
+    "file": "assets/vacancyFullInfoModal-ab74c95c.js",
     "imports": [
       "resources/js/app.js",
       "__plugin-vue_export-helper-c27b6911.js"
     ]
   },
-  "_vacancy_list-d7a8ce69.js": {
-    "file": "assets/vacancy_list-d7a8ce69.js",
+  "_vacancy_table-e85db57c.js": {
+    "css": [
+      "assets/vacancy_table-4f270acc.css",
+      "assets/default-a9a17144.css"
+    ],
+    "file": "assets/vacancy_table-e85db57c.js",
     "imports": [
-      "_interest_button-98aa2596.js",
+      "resources/js/app.js",
+      "_slider-c2e1be10.js",
+      "_lodash-c1ebff3c.js",
+      "__plugin-vue_export-helper-c27b6911.js",
       "_moment-fbc5633a.js",
-      "__commonjsHelpers-28e086c5.js",
-      "__plugin-vue_export-helper-c27b6911.js",
-      "resources/js/app.js"
-    ]
-  },
-  "_verify_code_div-a930d530.js": {
-    "css": [
-      "assets/verify_code_div-13cb4f31.css"
+      "_loaderStore-e00a5fef.js",
+      "_reminder_table-68f0d6a8.js",
+      "_sweetalert2.all-cd4a28e1.js",
+      "_vacancyFullInfoModal-ab74c95c.js"
     ],
-    "file": "assets/verify_code_div-a930d530.js",
+    "isDynamicEntry": true
+  },
+  "_verify_code_div-b0cf0f57.js": {
+    "css": [
+      "assets/verify_code_div-28f6a9cb.css"
+    ],
+    "file": "assets/verify_code_div-b0cf0f57.js",
     "imports": [
       "__plugin-vue_export-helper-c27b6911.js",
       "resources/js/app.js"
     ]
   },
-  "_vue3-loading-overlay-d033c87d.js": {
-    "css": [
-      "assets/vue3-loading-overlay-8fa3e3f0.css"
-    ],
-    "file": "assets/vue3-loading-overlay-d033c87d.js",
-    "imports": [
-      "resources/js/app.js"
-    ]
-  },
-  "_vuejs-paginate-next.es-7648497a.js": {
-    "file": "assets/vuejs-paginate-next.es-7648497a.js",
+  "_vuejs-paginate-next.es-f534f000.js": {
+    "file": "assets/vuejs-paginate-next.es-f534f000.js",
     "imports": [
       "resources/js/app.js"
     ]
@@ -176,7 +209,7 @@
     "src": "addPersonalVacancy.css"
   },
   "candidateFullInfoModal.css": {
-    "file": "assets/candidateFullInfoModal-1b1d1ae7.css",
+    "file": "assets/candidateFullInfoModal-1319dace.css",
     "src": "candidateFullInfoModal.css"
   },
   "carousel.css": {
@@ -188,17 +221,17 @@
     "src": "default.css"
   },
   "lang/php_en.json": {
-    "file": "assets/php_en-e71c2f25.js",
+    "file": "assets/php_en-55c030d9.js",
     "isDynamicEntry": true,
     "src": "lang/php_en.json"
   },
   "lang/php_ka.json": {
-    "file": "assets/php_ka-e2db3534.js",
+    "file": "assets/php_ka-58432048.js",
     "isDynamicEntry": true,
     "src": "lang/php_ka.json"
   },
   "lang/php_ru.json": {
-    "file": "assets/php_ru-bace1512.js",
+    "file": "assets/php_ru-f3e712ae.js",
     "isDynamicEntry": true,
     "src": "lang/php_ru.json"
   },
@@ -2322,6 +2355,10 @@
     "file": "assets/zw-8629d7c5.svg",
     "src": "node_modules/flag-icons/flags/4x3/zw.svg"
   },
+  "public/images/candidates/candidate-bg2.jpg": {
+    "file": "assets/candidate-bg2-ca192cd7.jpg",
+    "src": "public/images/candidates/candidate-bg2.jpg"
+  },
   "public/images/eng.png": {
     "file": "assets/eng-70e3ea1a.png",
     "src": "public/images/eng.png"
@@ -2362,6 +2399,7 @@
       "resources/js/component/user/change_password.vue",
       "resources/js/component/candidate/page/candidate_profile.vue",
       "resources/js/component/candidate/resume.vue",
+      "resources/js/component/candidate/page/GuestCandidatePage.vue",
       "resources/js/component/candidate/candidate_list.vue",
       "resources/js/component/candidate/candidate_detail.vue",
       "resources/js/component/employer/page/post_vacancy_page.vue",
@@ -2369,6 +2407,7 @@
       "resources/js/component/employer/vacancy_detail.vue",
       "resources/js/component/employer/page/my_vacancy.vue",
       "resources/js/component/employer/page/show_update_vacancy.vue",
+      "resources/js/component/page/ComingSoon.vue",
       "resources/js/component/admin/vacancy/page/selection_personal.vue",
       "resources/js/component/admin/vacancy/page/vacancy_personal.vue",
       "resources/js/component/admin/dashboard/reminderManager.vue",
@@ -2384,10 +2423,9 @@
       "resources/js/component/admin/vacancy/page/vacancy_deposit.vue",
       "resources/js/component/admin/candidate/page/vacancy_attached.vue",
       "resources/js/component/admin/candidate/page/relevant_vacancy.vue",
-      "resources/js/component/admin/vacancy/component/table/vacancy_table.vue",
+      "_vacancy_table-e85db57c.js",
       "resources/js/component/admin/employer/page/employer_page.vue",
-      "resources/js/component/admin/enrollment/page/enrolled_page.vue",
-      "resources/js/component/admin/enrollment/page/must_be_enrolled_page.vue",
+      "resources/js/component/admin/enrollment/page/EnrollmentPage.vue",
       "resources/js/component/admin/salary/page/monthly_salary_page.vue",
       "resources/js/component/admin/salary/page/old_salary_page.vue",
       "resources/js/component/page/busy_candidate.vue",
@@ -2402,14 +2440,14 @@
       "lang/php_ka.json",
       "lang/php_ru.json"
     ],
-    "file": "assets/app-9f9659cf.js",
+    "file": "assets/app-1375f4e7.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },
   "resources/js/bootstrap.js": {
-    "file": "assets/bootstrap-d5f89a96.js",
+    "file": "assets/bootstrap-a2f484a0.js",
     "imports": [
-      "_lodash-34bff0ac.js",
+      "_lodash-c1ebff3c.js",
       "_axios-aba6f0e0.js",
       "__commonjsHelpers-28e086c5.js"
     ],
@@ -2417,7 +2455,7 @@
     "src": "resources/js/bootstrap.js"
   },
   "resources/js/component/admin/candidate/modal/add_black_list.vue": {
-    "file": "assets/add_black_list-27094d77.js",
+    "file": "assets/add_black_list-67e63e27.js",
     "imports": [
       "resources/js/app.js",
       "_moment-fbc5633a.js",
@@ -2427,7 +2465,7 @@
     "src": "resources/js/component/admin/candidate/modal/add_black_list.vue"
   },
   "resources/js/component/admin/candidate/modal/send_message_modal.vue": {
-    "file": "assets/send_message_modal-6b86ed2c.js",
+    "file": "assets/send_message_modal-025d7063.js",
     "imports": [
       "resources/js/app.js",
       "_moment-fbc5633a.js",
@@ -2437,9 +2475,9 @@
     "src": "resources/js/component/admin/candidate/modal/send_message_modal.vue"
   },
   "resources/js/component/admin/candidate/page/add_candidate.vue": {
-    "file": "assets/add_candidate-04f3b97d.js",
+    "file": "assets/add_candidate-46c4dfd4.js",
     "imports": [
-      "_index.esm-a3c1fa50.js",
+      "_index.esm-28e00496.js",
       "resources/js/app.js",
       "__plugin-vue_export-helper-c27b6911.js"
     ],
@@ -2459,19 +2497,20 @@
       "resources/js/component/admin/candidate/modal/send_message_modal.vue",
       "resources/js/component/admin/candidate/modal/add_black_list.vue"
     ],
-    "file": "assets/candidate_page-96560909.js",
+    "file": "assets/candidate_page-126f7dde.js",
     "imports": [
-      "_lodash-34bff0ac.js",
-      "_vuejs-paginate-next.es-7648497a.js",
+      "_lodash-c1ebff3c.js",
+      "_vuejs-paginate-next.es-f534f000.js",
       "_moment-fbc5633a.js",
-      "_slider-1ba3e0fc.js",
-      "_expand_body-7fac6c67.js",
+      "_slider-c2e1be10.js",
+      "_expand_body-a78fd298.js",
       "resources/js/app.js",
       "_sweetalert2.all-cd4a28e1.js",
-      "_addPersonalVacancy-14494e49.js",
+      "_addPersonalVacancy-0ad162d2.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "__commonjsHelpers-28e086c5.js",
-      "_vacancyFullInfoModal-ef599252.js"
+      "_vacancyFullInfoModal-ab74c95c.js",
+      "_axios-aba6f0e0.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/component/admin/candidate/page/candidate_page.vue"
@@ -2484,10 +2523,10 @@
     "css": [
       "assets/candidate_update_page-89e3adc3.css"
     ],
-    "file": "assets/candidate_update_page-e2a05573.js",
+    "file": "assets/candidate_update_page-ebc2efc8.js",
     "imports": [
       "resources/js/app.js",
-      "_lodash-34bff0ac.js",
+      "_lodash-c1ebff3c.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "__commonjsHelpers-28e086c5.js"
     ],
@@ -2495,52 +2534,56 @@
     "src": "resources/js/component/admin/candidate/page/candidate_update_page.vue"
   },
   "resources/js/component/admin/candidate/page/relevant_vacancy.vue": {
-    "file": "assets/relevant_vacancy-beee8245.js",
+    "file": "assets/relevant_vacancy-379e20d6.js",
     "imports": [
       "_moment-fbc5633a.js",
-      "_lodash-34bff0ac.js",
+      "_lodash-c1ebff3c.js",
       "_axios-aba6f0e0.js",
-      "_vuejs-paginate-next.es-7648497a.js",
-      "_vacancyFullInfoModal-ef599252.js",
-      "__plugin-vue_export-helper-c27b6911.js",
+      "_vuejs-paginate-next.es-f534f000.js",
+      "_vacancyFullInfoModal-ab74c95c.js",
       "resources/js/app.js",
+      "__plugin-vue_export-helper-c27b6911.js",
       "__commonjsHelpers-28e086c5.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/component/admin/candidate/page/relevant_vacancy.vue"
   },
   "resources/js/component/admin/candidate/page/vacancy_attached.vue": {
-    "file": "assets/vacancy_attached-4604434d.js",
+    "file": "assets/vacancy_attached-fd911ac0.js",
     "imports": [
-      "_lodash-34bff0ac.js",
+      "_lodash-c1ebff3c.js",
       "_moment-fbc5633a.js",
-      "_table_cog-4ddca3e9.js",
-      "_vacancyFullInfoModal-ef599252.js",
+      "_table_cog-4e119425.js",
+      "_vacancyFullInfoModal-ab74c95c.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "resources/js/app.js",
+      "_candidateFullInfoModal-0cab826a.js",
       "__commonjsHelpers-28e086c5.js",
-      "_addPersonalVacancy-14494e49.js"
+      "_addPersonalVacancy-0ad162d2.js",
+      "_axios-aba6f0e0.js",
+      "_sweetalert2.all-cd4a28e1.js",
+      "_expand_body-a78fd298.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/component/admin/candidate/page/vacancy_attached.vue"
   },
   "resources/js/component/admin/dashboard/dailyReminder.vue": {
-    "file": "assets/dailyReminder-f913cc08.js",
+    "file": "assets/dailyReminder-0f244bb8.js",
     "imports": [
-      "_reminder_table-dd3fd126.js",
+      "_reminder_table-68f0d6a8.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "resources/js/app.js",
       "_moment-fbc5633a.js",
-      "_vacancyFullInfoModal-ef599252.js"
+      "_vacancyFullInfoModal-ab74c95c.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/component/admin/dashboard/dailyReminder.vue"
   },
   "resources/js/component/admin/dashboard/hr_daily_work.vue": {
-    "file": "assets/hr_daily_work-f62567c4.js",
+    "file": "assets/hr_daily_work-463cee6a.js",
     "imports": [
       "_moment-fbc5633a.js",
-      "_vacancyFullInfoModal-ef599252.js",
+      "_vacancyFullInfoModal-ab74c95c.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "resources/js/app.js"
     ],
@@ -2555,20 +2598,20 @@
     "css": [
       "assets/reminderManager-30d3b370.css"
     ],
-    "file": "assets/reminderManager-c6e532d8.js",
+    "file": "assets/reminderManager-3ca70b52.js",
     "imports": [
       "_axios-aba6f0e0.js",
       "_moment-fbc5633a.js",
       "resources/js/app.js",
-      "_reminder_table-dd3fd126.js",
-      "_vacancyFullInfoModal-ef599252.js",
+      "_reminder_table-68f0d6a8.js",
+      "_vacancyFullInfoModal-ab74c95c.js",
       "__plugin-vue_export-helper-c27b6911.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/component/admin/dashboard/reminderManager.vue"
   },
   "resources/js/component/admin/employer/modal/update_modal.vue": {
-    "file": "assets/update_modal-9c47bf46.js",
+    "file": "assets/update_modal-fe252ad3.js",
     "imports": [
       "resources/js/app.js",
       "_moment-fbc5633a.js",
@@ -2578,12 +2621,12 @@
     "src": "resources/js/component/admin/employer/modal/update_modal.vue"
   },
   "resources/js/component/admin/employer/page/employer_page.css": {
-    "file": "assets/employer_page-7eb73a33.css",
-    "src": "resources/js/component/page/busy_candidate.css"
+    "file": "assets/monthly_salary_page-7eb73a33.css",
+    "src": "resources/js/component/admin/employer/page/employer_page.css"
   },
   "resources/js/component/admin/employer/page/employer_page.vue": {
     "css": [
-      "assets/employer_page-7eb73a33.css",
+      "assets/monthly_salary_page-7eb73a33.css",
       "assets/default-a9a17144.css"
     ],
     "dynamicImports": [
@@ -2591,50 +2634,34 @@
       "resources/js/component/admin/candidate/modal/add_black_list.vue",
       "resources/js/component/admin/candidate/modal/send_message_modal.vue"
     ],
-    "file": "assets/employer_page-7d0d1bdb.js",
+    "file": "assets/employer_page-469d949f.js",
     "imports": [
-      "_lodash-34bff0ac.js",
-      "_vuejs-paginate-next.es-7648497a.js",
+      "_lodash-c1ebff3c.js",
+      "_vuejs-paginate-next.es-f534f000.js",
       "resources/js/app.js",
       "_moment-fbc5633a.js",
-      "_slider-1ba3e0fc.js",
+      "_slider-c2e1be10.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "__commonjsHelpers-28e086c5.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/component/admin/employer/page/employer_page.vue"
   },
-  "resources/js/component/admin/enrollment/page/enrolled_page.vue": {
-    "file": "assets/enrolled_page-fef204fd.js",
+  "resources/js/component/admin/enrollment/page/EnrollmentPage.vue": {
+    "file": "assets/EnrollmentPage-d26ce4fa.js",
     "imports": [
-      "_lodash-34bff0ac.js",
+      "_lodash-c1ebff3c.js",
       "_moment-fbc5633a.js",
-      "_vuejs-paginate-next.es-7648497a.js",
-      "_vacancyFullInfoModal-ef599252.js",
-      "_candidateFullInfoModal-c55328be.js",
+      "_vuejs-paginate-next.es-f534f000.js",
+      "_vacancyFullInfoModal-ab74c95c.js",
+      "_candidateFullInfoModal-0cab826a.js",
       "resources/js/app.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "__commonjsHelpers-28e086c5.js",
-      "_expand_body-7fac6c67.js"
+      "_expand_body-a78fd298.js"
     ],
     "isDynamicEntry": true,
-    "src": "resources/js/component/admin/enrollment/page/enrolled_page.vue"
-  },
-  "resources/js/component/admin/enrollment/page/must_be_enrolled_page.vue": {
-    "file": "assets/must_be_enrolled_page-6eb76ad0.js",
-    "imports": [
-      "_vuejs-paginate-next.es-7648497a.js",
-      "_moment-fbc5633a.js",
-      "_vacancyFullInfoModal-ef599252.js",
-      "_candidateFullInfoModal-c55328be.js",
-      "__plugin-vue_export-helper-c27b6911.js",
-      "resources/js/app.js",
-      "_lodash-34bff0ac.js",
-      "_expand_body-7fac6c67.js",
-      "__commonjsHelpers-28e086c5.js"
-    ],
-    "isDynamicEntry": true,
-    "src": "resources/js/component/admin/enrollment/page/must_be_enrolled_page.vue"
+    "src": "resources/js/component/admin/enrollment/page/EnrollmentPage.vue"
   },
   "resources/js/component/admin/global_variable/page/global_variable_page.css": {
     "file": "assets/global_variable_page-e734f28e.css",
@@ -2644,7 +2671,7 @@
     "css": [
       "assets/global_variable_page-e734f28e.css"
     ],
-    "file": "assets/global_variable_page-0b797040.js",
+    "file": "assets/global_variable_page-ae38be36.js",
     "imports": [
       "resources/js/app.js",
       "__plugin-vue_export-helper-c27b6911.js"
@@ -2653,39 +2680,40 @@
     "src": "resources/js/component/admin/global_variable/page/global_variable_page.vue"
   },
   "resources/js/component/admin/hr/page/hr_page.css": {
-    "file": "assets/hr_page-d26ef6cd.css",
+    "file": "assets/hr_page-ee446705.css",
     "src": "resources/js/component/admin/hr/page/hr_page.css"
   },
   "resources/js/component/admin/hr/page/hr_page.vue": {
     "css": [
-      "assets/hr_page-d26ef6cd.css"
+      "assets/hr_page-ee446705.css",
+      "assets/Switch-af176a96.css"
     ],
-    "file": "assets/hr_page-ad2ed77f.js",
+    "file": "assets/hr_page-6a9c0f11.js",
     "imports": [
       "resources/js/app.js",
       "__plugin-vue_export-helper-c27b6911.js",
-      "_Switch-80021928.js",
-      "_lodash-34bff0ac.js",
+      "_Switch-97e5d7fa.js",
+      "_lodash-c1ebff3c.js",
       "__commonjsHelpers-28e086c5.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/component/admin/hr/page/hr_page.vue"
   },
   "resources/js/component/admin/reminder/page/reminder_page.vue": {
-    "file": "assets/reminder_page-b6408819.js",
+    "file": "assets/reminder_page-faa7adbd.js",
     "imports": [
       "_moment-fbc5633a.js",
       "_axios-aba6f0e0.js",
       "resources/js/app.js",
       "__plugin-vue_export-helper-c27b6911.js",
-      "_reminder_table-dd3fd126.js",
-      "_vacancyFullInfoModal-ef599252.js"
+      "_reminder_table-68f0d6a8.js",
+      "_vacancyFullInfoModal-ab74c95c.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/component/admin/reminder/page/reminder_page.vue"
   },
   "resources/js/component/admin/salary/modal/supplement_modal.vue": {
-    "file": "assets/supplement_modal-a833edc5.js",
+    "file": "assets/supplement_modal-563c35bc.js",
     "imports": [
       "resources/js/app.js",
       "_moment-fbc5633a.js",
@@ -2695,23 +2723,23 @@
     "src": "resources/js/component/admin/salary/modal/supplement_modal.vue"
   },
   "resources/js/component/admin/salary/page/monthly_salary_page.css": {
-    "file": "assets/employer_page-7eb73a33.css",
-    "src": "resources/js/component/page/busy_candidate.css"
+    "file": "assets/monthly_salary_page-7eb73a33.css",
+    "src": "resources/js/component/admin/employer/page/employer_page.css"
   },
   "resources/js/component/admin/salary/page/monthly_salary_page.vue": {
     "css": [
-      "assets/employer_page-7eb73a33.css",
+      "assets/monthly_salary_page-7eb73a33.css",
       "assets/default-a9a17144.css"
     ],
     "dynamicImports": [
       "resources/js/component/admin/salary/modal/supplement_modal.vue"
     ],
-    "file": "assets/monthly_salary_page-238b7d0a.js",
+    "file": "assets/monthly_salary_page-2c5305ea.js",
     "imports": [
       "resources/js/app.js",
       "_moment-fbc5633a.js",
-      "_slider-1ba3e0fc.js",
-      "_lodash-34bff0ac.js",
+      "_slider-c2e1be10.js",
+      "_lodash-c1ebff3c.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "__commonjsHelpers-28e086c5.js"
     ],
@@ -2730,12 +2758,12 @@
     "dynamicImports": [
       "resources/js/component/admin/salary/modal/supplement_modal.vue"
     ],
-    "file": "assets/old_salary_page-96f61f22.js",
+    "file": "assets/old_salary_page-e35d3861.js",
     "imports": [
       "resources/js/app.js",
       "_moment-fbc5633a.js",
-      "_slider-1ba3e0fc.js",
-      "_lodash-34bff0ac.js",
+      "_slider-c2e1be10.js",
+      "_lodash-c1ebff3c.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "__commonjsHelpers-28e086c5.js"
     ],
@@ -2743,7 +2771,7 @@
     "src": "resources/js/component/admin/salary/page/old_salary_page.vue"
   },
   "resources/js/component/admin/sms_template/page/sms_template.vue": {
-    "file": "assets/sms_template-a5e3dd45.js",
+    "file": "assets/sms_template-e8ffb96f.js",
     "imports": [
       "resources/js/app.js",
       "__plugin-vue_export-helper-c27b6911.js",
@@ -2759,13 +2787,14 @@
   },
   "resources/js/component/admin/testimonial/page/testimonial_page.vue": {
     "css": [
-      "assets/testimonial_page-aaa1f76b.css"
+      "assets/testimonial_page-aaa1f76b.css",
+      "assets/Switch-af176a96.css"
     ],
-    "file": "assets/testimonial_page-3be96fcc.js",
+    "file": "assets/testimonial_page-c3cdf47c.js",
     "imports": [
       "resources/js/app.js",
       "_moment-fbc5633a.js",
-      "_Switch-80021928.js",
+      "_Switch-97e5d7fa.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "_sweetalert2.all-cd4a28e1.js",
       "__commonjsHelpers-28e086c5.js"
@@ -2774,7 +2803,7 @@
     "src": "resources/js/component/admin/testimonial/page/testimonial_page.vue"
   },
   "resources/js/component/admin/vacancy/component/registration_enrollment.vue": {
-    "file": "assets/registration_enrollment-e7548bc0.js",
+    "file": "assets/registration_enrollment-0f82d3c1.js",
     "imports": [
       "resources/js/app.js",
       "__plugin-vue_export-helper-c27b6911.js"
@@ -2782,51 +2811,29 @@
     "isDynamicEntry": true,
     "src": "resources/js/component/admin/vacancy/component/registration_enrollment.vue"
   },
-  "resources/js/component/admin/vacancy/component/table/vacancy_table.css": {
-    "file": "assets/vacancy_table-25ba1cb5.css",
-    "src": "resources/js/component/admin/vacancy/component/table/vacancy_table.css"
-  },
-  "resources/js/component/admin/vacancy/component/table/vacancy_table.vue": {
-    "css": [
-      "assets/vacancy_table-25ba1cb5.css",
-      "assets/default-a9a17144.css"
-    ],
-    "file": "assets/vacancy_table-7595f3f6.js",
-    "imports": [
-      "resources/js/app.js",
-      "_moment-fbc5633a.js",
-      "_slider-1ba3e0fc.js",
-      "_Switch-80021928.js",
-      "_lodash-34bff0ac.js",
-      "__plugin-vue_export-helper-c27b6911.js",
-      "_reminder_table-dd3fd126.js",
-      "_sweetalert2.all-cd4a28e1.js",
-      "_vacancyFullInfoModal-ef599252.js",
-      "__commonjsHelpers-28e086c5.js"
-    ],
-    "isDynamicEntry": true,
-    "src": "resources/js/component/admin/vacancy/component/table/vacancy_table.vue"
-  },
   "resources/js/component/admin/vacancy/page/selection_personal.css": {
-    "file": "assets/selection_personal-8c0272c9.css",
+    "file": "assets/selection_personal-727f897a.css",
     "src": "resources/js/component/admin/vacancy/page/selection_personal.css"
   },
   "resources/js/component/admin/vacancy/page/selection_personal.vue": {
     "css": [
-      "assets/selection_personal-8c0272c9.css",
+      "assets/selection_personal-727f897a.css",
       "assets/default-a9a17144.css"
     ],
-    "file": "assets/selection_personal-e44cbe2e.js",
+    "file": "assets/selection_personal-5084a9f3.js",
     "imports": [
-      "_slider-1ba3e0fc.js",
-      "_moment-fbc5633a.js",
-      "_lodash-34bff0ac.js",
-      "_addPersonalVacancy-14494e49.js",
-      "__plugin-vue_export-helper-c27b6911.js",
       "resources/js/app.js",
-      "_expand_body-7fac6c67.js",
+      "_slider-c2e1be10.js",
+      "_moment-fbc5633a.js",
+      "_lodash-c1ebff3c.js",
+      "_addPersonalVacancy-0ad162d2.js",
+      "__plugin-vue_export-helper-c27b6911.js",
+      "_expand_body-a78fd298.js",
+      "_vuejs-paginate-next.es-f534f000.js",
+      "_vacancyFullInfoModal-ab74c95c.js",
       "__commonjsHelpers-28e086c5.js",
-      "_vacancyFullInfoModal-ef599252.js"
+      "_axios-aba6f0e0.js",
+      "_sweetalert2.all-cd4a28e1.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/component/admin/vacancy/page/selection_personal.vue"
@@ -2835,7 +2842,7 @@
     "dynamicImports": [
       "resources/js/component/admin/vacancy/component/registration_enrollment.vue"
     ],
-    "file": "assets/vacancy_deposit-623962ec.js",
+    "file": "assets/vacancy_deposit-2353cea1.js",
     "imports": [
       "resources/js/app.js",
       "_sweetalert2.all-cd4a28e1.js",
@@ -2847,51 +2854,54 @@
   },
   "resources/js/component/admin/vacancy/page/vacancy_page.vue": {
     "css": [
+      "assets/Switch-af176a96.css",
       "assets/default-a9a17144.css"
     ],
-    "file": "assets/vacancy_page-1d58fc70.js",
+    "file": "assets/vacancy_page-bfe56a4d.js",
     "imports": [
-      "_slider-1ba3e0fc.js",
-      "_vuejs-paginate-next.es-7648497a.js",
-      "_axios-aba6f0e0.js",
-      "_Switch-80021928.js",
-      "resources/js/component/admin/vacancy/component/table/vacancy_table.vue",
       "resources/js/app.js",
+      "_slider-c2e1be10.js",
+      "_vuejs-paginate-next.es-f534f000.js",
+      "_vacancy_table-e85db57c.js",
+      "_index-1b1b76ad.js",
+      "_lodash-c1ebff3c.js",
+      "__commonjsHelpers-28e086c5.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "_moment-fbc5633a.js",
-      "_lodash-34bff0ac.js",
-      "__commonjsHelpers-28e086c5.js",
-      "_reminder_table-dd3fd126.js",
-      "_vacancyFullInfoModal-ef599252.js",
+      "_loaderStore-e00a5fef.js",
+      "_reminder_table-68f0d6a8.js",
+      "_vacancyFullInfoModal-ab74c95c.js",
       "_sweetalert2.all-cd4a28e1.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/component/admin/vacancy/page/vacancy_page.vue"
   },
   "resources/js/component/admin/vacancy/page/vacancy_personal.vue": {
-    "file": "assets/vacancy_personal-0d82ed05.js",
+    "file": "assets/vacancy_personal-bfd2b90f.js",
     "imports": [
-      "_lodash-34bff0ac.js",
-      "_moment-fbc5633a.js",
-      "_table_cog-4ddca3e9.js",
-      "_candidateFullInfoModal-c55328be.js",
+      "_lodash-c1ebff3c.js",
+      "_table_cog-4e119425.js",
+      "_candidateFullInfoModal-0cab826a.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "resources/js/app.js",
       "__commonjsHelpers-28e086c5.js",
-      "_addPersonalVacancy-14494e49.js",
-      "_vacancyFullInfoModal-ef599252.js",
-      "_expand_body-7fac6c67.js"
+      "_addPersonalVacancy-0ad162d2.js",
+      "_vacancyFullInfoModal-ab74c95c.js",
+      "_moment-fbc5633a.js",
+      "_axios-aba6f0e0.js",
+      "_sweetalert2.all-cd4a28e1.js",
+      "_expand_body-a78fd298.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/component/admin/vacancy/page/vacancy_personal.vue"
   },
   "resources/js/component/candidate/candidate_detail.vue": {
-    "file": "assets/candidate_detail-70a5d8ae.js",
+    "file": "assets/candidate_detail-d0e36715.js",
     "imports": [
-      "_lodash-34bff0ac.js",
+      "_lodash-c1ebff3c.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "resources/js/app.js",
-      "_like_dont_like_candidate-bbd56c12.js",
+      "_like_dont_like_candidate-fd1d0544.js",
       "__commonjsHelpers-28e086c5.js",
       "_sweetalert2.all-cd4a28e1.js"
     ],
@@ -2899,15 +2909,27 @@
     "src": "resources/js/component/candidate/candidate_detail.vue"
   },
   "resources/js/component/candidate/candidate_list.vue": {
-    "file": "assets/candidate_list-c07abe4c.js",
+    "file": "assets/candidate_list-55d550d2.js",
     "imports": [
-      "_vuejs-paginate-next.es-7648497a.js",
-      "_moment-fbc5633a.js",
       "resources/js/app.js",
-      "__plugin-vue_export-helper-c27b6911.js"
+      "_lodash-c1ebff3c.js",
+      "__commonjsHelpers-28e086c5.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/component/candidate/candidate_list.vue"
+  },
+  "resources/js/component/candidate/page/GuestCandidatePage.vue": {
+    "file": "assets/GuestCandidatePage-2aa001e1.js",
+    "imports": [
+      "resources/js/app.js",
+      "_lodash-c1ebff3c.js",
+      "_vuejs-paginate-next.es-f534f000.js",
+      "_loaderStore-e00a5fef.js",
+      "_index-1b1b76ad.js",
+      "__commonjsHelpers-28e086c5.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/component/candidate/page/GuestCandidatePage.vue"
   },
   "resources/js/component/candidate/page/candidate_profile.css": {
     "file": "assets/candidate_profile-f936d450.css",
@@ -2917,12 +2939,13 @@
     "css": [
       "assets/candidate_profile-f936d450.css"
     ],
-    "file": "assets/candidate_profile-ba4daa33.js",
+    "file": "assets/candidate_profile-be213413.js",
     "imports": [
       "resources/js/app.js",
-      "_index.esm-a3c1fa50.js",
+      "_index.esm-28e00496.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "_sweetalert2.all-cd4a28e1.js",
+      "_lodash-c1ebff3c.js",
       "resources/js/component/user/upload_avatar.vue",
       "__commonjsHelpers-28e086c5.js"
     ],
@@ -2930,9 +2953,9 @@
     "src": "resources/js/component/candidate/page/candidate_profile.vue"
   },
   "resources/js/component/candidate/resume.vue": {
-    "file": "assets/resume-1ea20bb4.js",
+    "file": "assets/resume-ba54d8f2.js",
     "imports": [
-      "_lodash-34bff0ac.js",
+      "_lodash-c1ebff3c.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "resources/js/app.js",
       "__commonjsHelpers-28e086c5.js"
@@ -2941,10 +2964,10 @@
     "src": "resources/js/component/candidate/resume.vue"
   },
   "resources/js/component/employer/page/my_vacancy.vue": {
-    "file": "assets/my_vacancy-e8680f81.js",
+    "file": "assets/my_vacancy-fc42e7e2.js",
     "imports": [
-      "_verify_code_div-a930d530.js",
-      "_like_dont_like_candidate-bbd56c12.js",
+      "_verify_code_div-b0cf0f57.js",
+      "_like_dont_like_candidate-fd1d0544.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "resources/js/app.js",
       "_sweetalert2.all-cd4a28e1.js",
@@ -2954,69 +2977,86 @@
     "src": "resources/js/component/employer/page/my_vacancy.vue"
   },
   "resources/js/component/employer/page/post_vacancy_page.css": {
-    "file": "assets/post_vacancy_page-6ce6c2ae.css",
+    "file": "assets/post_vacancy_page-e9ecc272.css",
     "src": "resources/js/component/employer/page/post_vacancy_page.css"
   },
   "resources/js/component/employer/page/post_vacancy_page.vue": {
-    "css": [
-      "assets/post_vacancy_page-6ce6c2ae.css"
+    "assets": [
+      "assets/candidate-bg2-ca192cd7.jpg"
     ],
-    "file": "assets/post_vacancy_page-32b73932.js",
+    "css": [
+      "assets/post_vacancy_page-e9ecc272.css",
+      "assets/vue3-loading-overlay-8fa3e3f0.css"
+    ],
+    "file": "assets/post_vacancy_page-69a1ac0e.js",
     "imports": [
-      "_lodash-34bff0ac.js",
+      "_lodash-c1ebff3c.js",
       "resources/js/app.js",
       "_sweetalert2.all-cd4a28e1.js",
-      "_verify_code_div-a930d530.js",
+      "_verify_code_div-b0cf0f57.js",
+      "_index-1b1b76ad.js",
+      "_loaderStore-e00a5fef.js",
       "__plugin-vue_export-helper-c27b6911.js",
-      "_index.esm-a3c1fa50.js",
+      "_index.esm-28e00496.js",
       "_moment-fbc5633a.js",
-      "_vue3-loading-overlay-d033c87d.js",
       "__commonjsHelpers-28e086c5.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/component/employer/page/post_vacancy_page.vue"
   },
   "resources/js/component/employer/page/show_update_vacancy.vue": {
-    "file": "assets/show_update_vacancy-10c1d206.js",
+    "css": [
+      "assets/vue3-loading-overlay-8fa3e3f0.css"
+    ],
+    "file": "assets/show_update_vacancy-53241ae5.js",
     "imports": [
-      "_lodash-34bff0ac.js",
+      "_lodash-c1ebff3c.js",
       "resources/js/app.js",
       "_sweetalert2.all-cd4a28e1.js",
-      "_index.esm-a3c1fa50.js",
+      "_index.esm-28e00496.js",
       "_moment-fbc5633a.js",
       "__plugin-vue_export-helper-c27b6911.js",
-      "_vue3-loading-overlay-d033c87d.js",
+      "_index-1b1b76ad.js",
       "__commonjsHelpers-28e086c5.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/component/employer/page/show_update_vacancy.vue"
   },
   "resources/js/component/employer/page/vacancy_list_page.vue": {
-    "file": "assets/vacancy_list_page-99af4114.js",
+    "file": "assets/vacancy_list_page-1df4204b.js",
     "imports": [
-      "_vuejs-paginate-next.es-7648497a.js",
-      "_axios-aba6f0e0.js",
-      "_lodash-34bff0ac.js",
+      "_vuejs-paginate-next.es-f534f000.js",
       "resources/js/app.js",
-      "__plugin-vue_export-helper-c27b6911.js",
-      "_vacancy_list-d7a8ce69.js",
-      "__commonjsHelpers-28e086c5.js",
-      "_interest_button-98aa2596.js",
+      "_interest_button-a25a768a.js",
+      "_VacancyList-c0f2e193.js",
       "_sweetalert2.all-cd4a28e1.js",
+      "__commonjsHelpers-28e086c5.js",
+      "_lodash-c1ebff3c.js",
+      "_loaderStore-e00a5fef.js",
+      "__plugin-vue_export-helper-c27b6911.js",
       "_moment-fbc5633a.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/component/employer/page/vacancy_list_page.vue"
   },
+  "resources/js/component/employer/vacancy_detail.css": {
+    "file": "assets/vacancy_detail-f6a46199.css",
+    "src": "resources/js/component/employer/vacancy_detail.css"
+  },
   "resources/js/component/employer/vacancy_detail.vue": {
-    "file": "assets/vacancy_detail-426bda95.js",
+    "css": [
+      "assets/vacancy_detail-f6a46199.css"
+    ],
+    "file": "assets/vacancy_detail-8bdb6a9e.js",
     "imports": [
       "_moment-fbc5633a.js",
-      "_interest_button-98aa2596.js",
+      "_interest_button-a25a768a.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "resources/js/app.js",
       "_sweetalert2.all-cd4a28e1.js",
-      "__commonjsHelpers-28e086c5.js"
+      "__commonjsHelpers-28e086c5.js",
+      "_lodash-c1ebff3c.js",
+      "_loaderStore-e00a5fef.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/component/employer/vacancy_detail.vue"
@@ -3028,7 +3068,7 @@
       "assets/eng-70e3ea1a.png",
       "assets/rus-fc556df9.png"
     ],
-    "file": "assets/languageSwitcher-61fe4633.js",
+    "file": "assets/languageSwitcher-14266078.js",
     "imports": [
       "__plugin-vue_export-helper-c27b6911.js",
       "resources/js/app.js"
@@ -3037,7 +3077,7 @@
     "src": "resources/js/component/languageSwitcher.vue"
   },
   "resources/js/component/modal/modalManager.vue": {
-    "file": "assets/modalManager-24010409.js",
+    "file": "assets/modalManager-ef37b63a.js",
     "imports": [
       "__plugin-vue_export-helper-c27b6911.js",
       "resources/js/app.js"
@@ -3045,31 +3085,40 @@
     "isDynamicEntry": true,
     "src": "resources/js/component/modal/modalManager.vue"
   },
+  "resources/js/component/page/ComingSoon.vue": {
+    "file": "assets/ComingSoon-03e21eba.js",
+    "imports": [
+      "__plugin-vue_export-helper-c27b6911.js",
+      "resources/js/app.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/component/page/ComingSoon.vue"
+  },
   "resources/js/component/page/busy_candidate.css": {
-    "file": "assets/employer_page-7eb73a33.css",
-    "src": "resources/js/component/page/busy_candidate.css"
+    "file": "assets/monthly_salary_page-7eb73a33.css",
+    "src": "resources/js/component/admin/employer/page/employer_page.css"
   },
   "resources/js/component/page/busy_candidate.vue": {
     "css": [
-      "assets/employer_page-7eb73a33.css",
+      "assets/monthly_salary_page-7eb73a33.css",
       "assets/default-a9a17144.css"
     ],
-    "file": "assets/busy_candidate-6a67c502.js",
+    "file": "assets/busy_candidate-12fd4151.js",
     "imports": [
       "resources/js/app.js",
       "_moment-fbc5633a.js",
-      "_lodash-34bff0ac.js",
-      "_vacancyFullInfoModal-ef599252.js",
-      "_candidateFullInfoModal-c55328be.js",
+      "_lodash-c1ebff3c.js",
+      "_vacancyFullInfoModal-ab74c95c.js",
+      "_candidateFullInfoModal-0cab826a.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "__commonjsHelpers-28e086c5.js",
-      "_expand_body-7fac6c67.js"
+      "_expand_body-a78fd298.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/component/page/busy_candidate.vue"
   },
   "resources/js/component/user/change_password.vue": {
-    "file": "assets/change_password-9bd5be6f.js",
+    "file": "assets/change_password-b7b8ca23.js",
     "imports": [
       "resources/js/app.js",
       "__plugin-vue_export-helper-c27b6911.js"
@@ -3078,7 +3127,7 @@
     "src": "resources/js/component/user/change_password.vue"
   },
   "resources/js/component/user/upload_avatar.vue": {
-    "file": "assets/upload_avatar-283cc144.js",
+    "file": "assets/upload_avatar-9b0e75b5.js",
     "imports": [
       "__plugin-vue_export-helper-c27b6911.js",
       "resources/js/app.js"
@@ -3087,17 +3136,17 @@
     "src": "resources/js/component/user/upload_avatar.vue"
   },
   "resources/js/component/welcome/category_carousel.css": {
-    "file": "assets/category_carousel-2f02e543.css",
+    "file": "assets/category_carousel-6835a099.css",
     "src": "resources/js/component/welcome/category_carousel.css"
   },
   "resources/js/component/welcome/category_carousel.vue": {
     "css": [
-      "assets/category_carousel-2f02e543.css"
+      "assets/category_carousel-6835a099.css"
     ],
-    "file": "assets/category_carousel-4acb06c2.js",
+    "file": "assets/category_carousel-34b41ff2.js",
     "imports": [
-      "_carousel-856d6986.js",
-      "_lodash-34bff0ac.js",
+      "_carousel-bc91b60a.js",
+      "_lodash-c1ebff3c.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "resources/js/app.js",
       "__commonjsHelpers-28e086c5.js"
@@ -3106,21 +3155,23 @@
     "src": "resources/js/component/welcome/category_carousel.vue"
   },
   "resources/js/component/welcome/popular_vacancy.vue": {
-    "file": "assets/popular_vacancy-85a6ede8.js",
+    "file": "assets/popular_vacancy-eef939ba.js",
     "imports": [
-      "_vacancy_list-d7a8ce69.js",
-      "__plugin-vue_export-helper-c27b6911.js",
+      "_VacancyList-c0f2e193.js",
       "resources/js/app.js",
-      "_interest_button-98aa2596.js",
+      "_interest_button-a25a768a.js",
       "_sweetalert2.all-cd4a28e1.js",
       "__commonjsHelpers-28e086c5.js",
+      "_lodash-c1ebff3c.js",
+      "_loaderStore-e00a5fef.js",
+      "__plugin-vue_export-helper-c27b6911.js",
       "_moment-fbc5633a.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/component/welcome/popular_vacancy.vue"
   },
   "resources/js/component/welcome/subscribe_input.vue": {
-    "file": "assets/subscribe_input-c30a9493.js",
+    "file": "assets/subscribe_input-98f7023b.js",
     "imports": [
       "resources/js/app.js",
       "__plugin-vue_export-helper-c27b6911.js"
@@ -3136,10 +3187,10 @@
     "css": [
       "assets/testimonial_carousel-e3b0c442.css"
     ],
-    "file": "assets/testimonial_carousel-287e37cf.js",
+    "file": "assets/testimonial_carousel-0efcd41b.js",
     "imports": [
-      "_carousel-856d6986.js",
-      "_lodash-34bff0ac.js",
+      "_carousel-bc91b60a.js",
+      "_lodash-c1ebff3c.js",
       "__plugin-vue_export-helper-c27b6911.js",
       "resources/js/app.js",
       "__commonjsHelpers-28e086c5.js"
@@ -3148,7 +3199,7 @@
     "src": "resources/js/component/welcome/testimonial_carousel.vue"
   },
   "resources/sass/app.scss": {
-    "file": "assets/app-74b23952.css",
+    "file": "assets/app-c1f0fdab.css",
     "isEntry": true,
     "src": "resources/sass/app.scss"
   },
@@ -3156,8 +3207,12 @@
     "file": "assets/vacancyFullInfoModal-5e26b0f1.css",
     "src": "vacancyFullInfoModal.css"
   },
+  "vacancy_table.css": {
+    "file": "assets/vacancy_table-4f270acc.css",
+    "src": "vacancy_table.css"
+  },
   "verify_code_div.css": {
-    "file": "assets/verify_code_div-13cb4f31.css",
+    "file": "assets/verify_code_div-28f6a9cb.css",
     "src": "verify_code_div.css"
   },
   "vue3-loading-overlay.css": {
