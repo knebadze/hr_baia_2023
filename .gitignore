@@ -20,3 +20,5 @@ yarn-error.log
 /resourse/views/layouts/app.blade.php
 /resourse/views/layouts/appPage.blade.php
 /public/build/manifest.json
+
+/storage/app
