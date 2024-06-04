@@ -18,16 +18,26 @@ class EmployerController extends Controller
         return view('admin.employer');
     }
 
-    function fetch() {
-        $data = Employer::orderBy('id', 'DESC')->paginate(20)->toArray();
+    function fetch(Request $request) {
+        $query = Employer::orderBy('id', 'DESC');
+        $total = $query->count();
+        $employer = $query->paginate(20)->toArray();
+        $data = [
+            'total' => $total,
+            'employer' => $employer
+        ];
         return response()->json($data);
     }
     function filter(EmployerFilters $filters) {
-
-        return Employer::filter($filters)
-            ->orderBy('id', 'DESC')
-            ->paginate(20)
-            ->toArray();
+        $query = Employer::filter($filters)
+            ->orderBy('id', 'DESC');
+        $total = $query->count();
+        $employer = $query->paginate(20)->toArray();
+        $data = [
+            'total' => $total,
+            'employer' => $employer
+        ];
+        return response()->json($data);
     }
     public function translate($data)
     {

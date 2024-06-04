@@ -81,6 +81,9 @@
         <!-- <div class="mb-2 d-flex justify-content-end">
             <a type="button" class="btn btn-success" :href="addCandidateUrl" title="კანდიდატის დამატება"><i class="fa fa-plus"></i> დაამატე კანდიდატი</a>
         </div> -->
+        <div>
+            <p>სულ: {{ total }}</p>
+        </div>
         <employer_table :data="employer" :role_id="1" :key="tableKey"></employer_table>
         <div class="mt-2">
             <paginate
@@ -136,7 +139,7 @@ export default {
             cla: {},
             colspan:'collapsed-card',
             tableKey: 0,
-
+            total: 0,
 
         }
     },
@@ -163,13 +166,15 @@ export default {
 
             const response = await axios.get(`/fetch_employer?page=${this.pagination.current_page}`);
             let data = response.data
-            this.employer = data.data
-            this.staticEmployer = data.data
+            console.log(data);
+            this.employer = data.employer.data
+            this.staticEmployer = data.employer.data
             // this.cla = this.data.classificatory
             this.pagination = {
-                'current_page':data.current_page,
-                'last_page': data.last_page
+                'current_page':data.employer.current_page,
+                'last_page': data.employer.last_page
             }
+            this.total = data.total
             this.tableKey++
         },
         filterMeth(type,m){
@@ -199,11 +204,12 @@ export default {
                 })
             .then(function (response) {
                 // handle success
-                currentObj.employer = response.data.data
+                currentObj.employer = response.data.employer.data
                 currentObj.pagination = {
-                    'current_page':response.data.current_page,
-                    'last_page': response.data.last_page
+                    'current_page':response.data.employer.current_page,
+                    'last_page': response.data.employer.last_page
                 }
+                currentObj.total = response.data.total
                 currentObj.tableKey++
                 // currentObj.modalData['candidate'] = response.data
 

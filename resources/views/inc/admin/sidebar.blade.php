@@ -67,10 +67,7 @@
             </li>
             <li class="nav-item">
                 <a href="#" @if(Route::currentRouteName() === 'admin.hr' ||
-                                    Route::currentRouteName() === 'admin.employer' ||
-                                        Route::currentRouteName() === 'admin.candidate' ||
-                                            Route::currentRouteName() === 'admin.vacancy.attached' ||
-                                                Route::currentRouteName() === 'admin.relevant.vacancy') class="nav-link active" @else class="nav-link" @endif>
+                                    Route::currentRouteName() === 'admin.administrator' ) class="nav-link active" @else class="nav-link" @endif>
                     <i class="nav-icon fas fa-users"></i>
                     <p>
                         Staff
