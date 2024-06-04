@@ -17,7 +17,7 @@ class HrRepository
 {
    public function store($data)
    {
-    // dd($data);
+    dd($data);
     try {
         $validate = Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
@@ -47,7 +47,7 @@ class HrRepository
         }
         // dd($validate);
         $hrUser = new User();
-        $hrUser->role_id = 2;
+        // $hrUser->role_id = 2;
         $hrUser->name_ka = $data['name'];
         $hrUser->name_en = GoogleTranslate::trans($data['name'], 'en');
         $hrUser->name_ru = GoogleTranslate::trans($data['name'], 'ru');

@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\EnrollmentController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\AdminVacancyController;
 use App\Http\Controllers\Admin\AdminCandidateController;
+use App\Http\Controllers\Admin\AdministratorController;
 use App\Http\Controllers\Admin\CompanyInfoController;
 use App\Http\Controllers\Admin\GlobalVariableController;
 use App\Http\Controllers\HR\SelectionPersonalController;
@@ -47,6 +48,9 @@ Route::prefix('admin')->middleware(['auth.adminRedirect'])->group(function () {
 
     Route::get('hr', [HrController::class, 'index'])
         ->name('admin.hr');
+
+    Route::get('administrator', [AdministratorController::class, 'index'])
+        ->name('admin.administrator');
 
     Route::get('candidate', [AdminCandidateController::class, 'index'])
         ->name('admin.candidate');

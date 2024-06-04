@@ -9,6 +9,7 @@ class Hr extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'user_id',
         'person_number',
         'mobile',
         'inside_number',
@@ -31,4 +32,10 @@ class Hr extends Model
     {
         return $this->hasOne(User::class);
     }
+
+    public function branch()
+    {
+        return $this->hasOne(Branch::class, 'id', 'branch_id');
+    }
+
 }

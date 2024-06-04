@@ -1,4 +1,109 @@
-<template lang="">
+<script setup>
+import { ref, reactive, watch } from "vue";
+import axios from "axios";
+
+const props = defineProps({
+    visible: Boolean,
+    role: Number,
+    cla: Object,
+});
+
+const showConfirm = ref(false);
+const avatar = ref(null);
+const imgName = ref("აირჩიე სურათი");
+const model = reactive({
+    role_id: null,
+    name: "",
+    email: "",
+    mobile: "",
+    date_of_birth: "",
+    gender_id: "",
+    person_number: "",
+    number: "",
+    inside_number: "",
+    branch_id: "",
+    internship: "",
+    fb_link: "",
+    password: "",
+});
+
+
+const show = () => {
+    showConfirm.value = true;
+    model.role_id = props.role;
+};
+
+const hide = () => {
+    showConfirm.value = false;
+};
+watch(
+    () => props.visible,
+    (newValue) => {
+        show();
+    }
+);
+const generatePassword = () => {
+    let result = "";
+    let characters =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%&*";
+    let charactersLength = characters.length;
+    for (let i = 0; i < 8; i++) {
+        result += characters.charAt(
+            Math.floor(Math.random() * charactersLength)
+        );
+    }
+    model.password = result;
+};
+
+const avatarUpload = (event) => {
+    avatar.value = event.target.files[0];
+    imgName.value = event.target.files[0].name;
+};
+
+const addStaff = async () => {
+    const config = {
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+    };
+    let formData = new FormData();
+    Object.keys(model).forEach((key) => {
+        formData.append(key, model[key]);
+    });
+    if (avatar.value != null) {
+        formData.append("avatar", avatar.value);
+    } else {
+        formData.append("avatar", "");
+    }
+
+    try {
+        const response = await axios.post("/add_staff", formData, config);
+        console.log("response", response);
+        if (response.status == 200) {
+            hide();
+            toast.success("ინფორმაცია წარმატებით შეინახა", {
+                theme: "colored",
+                autoClose: 1000,
+            });
+            setTimeout(() => {
+                document.location.reload();
+            }, 1500);
+        } else {
+            toast.error("ინფორმაცია არასწორია", {
+                theme: "colored",
+                autoClose: 1000,
+            });
+        }
+    } catch (error) {
+        console.log(error);
+        toast.error("ინფორმაცია არასწორია", {
+            theme: "colored",
+            autoClose: 1000,
+        });
+    }
+};
+</script>
+<template>
     <!-- Modal -->
     <div
         v-if="showConfirm"
@@ -17,7 +122,11 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h6 class="modal-title" id="exampleModalLongTitle">
-                        ახალი HR - ის დამატება
+                        {{
+                            `ახალი ${
+                                role == 2 ? `HR` : `ადმინისტრატორი`
+                            } - ის დამატება`
+                        }}
                     </h6>
                     <button
                         type="button"
@@ -101,7 +210,7 @@
                                         class="form-check-input"
                                         type="radio"
                                         value="1"
-                                        v-model="model.gender"
+                                        v-model="model.gender_id"
                                     />
                                     <label class="form-check-label">კაცი</label>
                                 </div>
@@ -110,7 +219,7 @@
                                         class="form-check-input"
                                         type="radio"
                                         value="2"
-                                        v-model="model.gender"
+                                        v-model="model.gender_id"
                                     />
                                     <label class="form-check-label">ქალი</label>
                                 </div>
@@ -221,8 +330,16 @@
                                     id="exampleFormControlSelect1"
                                     v-model="model.branch_id"
                                 >
-                                    <option value="1">ჯორჯაძის</option>
-                                    <option value="2">ვაჟა ფშაველას</option>
+                                    <option value="" disabled selected>
+                                        აირჩიე ფილიალი
+                                    </option>
+                                    <option
+                                        v-for="(item, index) in cla"
+                                        :key="index"
+                                        :value="item.id"
+                                    >
+                                        {{ item.name }}
+                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -294,7 +411,7 @@
                     <button
                         type="button"
                         class="btn btn-success"
-                        @click="addHR(model)"
+                        @click="addStaff"
                     >
                         <i class=""></i>დამატება
                     </button>
@@ -303,135 +420,6 @@
         </div>
     </div>
 </template>
-<script>
-export default {
-    props: {
-        visible: Boolean,
-    },
-    data() {
-        return {
-            showConfirm: false,
-            model: {
-                name: "",
-                email: "",
-                mobile: "",
-                date_of_birth: "",
-                gender: "",
-                person_number: "",
-                number: "",
-                inside_number: "",
-                branch_id: "",
-                internship: "",
-                fb_link: "",
-                password: "",
-            },
-            avatar: null,
-            imgName: "აირჩიე სურათი",
-        };
-    },
-    created() {
-        // this.showConfirm = this.visible
-    },
-    methods: {
-        show() {
-            this.showConfirm = true;
-        },
-        hide() {
-            this.showConfirm = false;
-        },
-        generatePassword() {
-            let result = "";
-            let characters =
-                "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%&*";
-            let charactersLength = characters.length;
-            for (let i = 0; i < 8; i++) {
-                result += characters.charAt(
-                    Math.floor(Math.random() * charactersLength)
-                );
-            }
-            this.model.password = result;
-        },
-        avatarUpload(event) {
-            this.avatar = event.target.files[0];
-            this.imgName = event.target.files[0].name;
-        },
-        addHR(model) {
-            let currentObj = this;
-            const config = {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-            };
-            let formData = new FormData();
-            formData.append("name", model.name);
-            formData.append("email", model.email);
-            formData.append("mobile", model.mobile);
-            formData.append("date_of_birth", model.date_of_birth);
-            formData.append("gender_id", model.gender);
-            formData.append("person_number", model.person_number);
-            formData.append("number", model.number);
-            formData.append("inside_number", model.inside_number);
-            formData.append("branch_id", model.branch_id);
-            formData.append("internship", model.internship);
-            formData.append("fb_link", model.fb_link);
-            formData.append("password", model.password);
-            formData.append("bonus_percent", model.bonus_percent);
-            formData.append("fixed_salary", model.fixed_salary);
-            if (this.avatar != null) {
-                formData.append("avatar", this.avatar);
-            } else {
-                formData.append("avatar", "");
-            }
-
-            axios
-                .post("/add_hr", formData, config)
-                .then(function (response) {
-                    // handle success
-                    // return
-                    if (response.status == 200) {
-                        // currentObj.candidate_id = response.data.data;
-
-                        if (
-                            response.data.original &&
-                            Object.keys(response.data.original.errors).length >
-                                0
-                        ) {
-                            let message = "ინფორმაცია არასწორია";
-                            if (response.data.original.errors.number) {
-                                message =
-                                    response.data.original.errors.number[0];
-                            }
-                            toast.error(message, {
-                                theme: "colored",
-                                autoClose: 1000,
-                            });
-                            return;
-                        } else {
-                            currentObj.hide();
-                            toast.success("ინფორმაცია წარმატებით შეინახა", {
-                                theme: "colored",
-                                autoClose: 1000,
-                            });
-                            setTimeout(() => {
-                                document.location.reload();
-                            }, 1500);
-                        }
-
-                        // // alert()
-                    }
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-        },
-    },
-    watch: {
-        visible: function () {
-            this.show();
-        },
-    },
-};
-</script>
 <style scoped>
 .modal-body {
     height: 250px;

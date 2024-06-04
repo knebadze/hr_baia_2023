@@ -21,6 +21,8 @@ return new class extends Migration
             $table->char('inside_number', 20);
             $table->float('bonus_percent');
             $table->integer('fixed_salary');
+            $table->integer('branch_id');
+            $table->tinyInteger('internship')->default(0);
             $table->string('fb_link')->nullable();
             $table->timestamps();
         });

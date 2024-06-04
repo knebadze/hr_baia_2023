@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use Exception;
 use App\Models\User;
+use App\Models\Branch;
 use App\Models\HrHasVacancy;
 use Illuminate\Http\Request;
 use App\Services\Admin\HrService;
 use App\Traits\HrHasVacancyTrait;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
+use App\Http\Resources\Admin\StaffResource;
 
 class HrController extends Controller
 {
@@ -22,51 +25,67 @@ class HrController extends Controller
     }
     public function index()
     {
-        $hr = User::orderBy('id', 'DESC')->where('role_id', 2)->with('hr')->get();
-        $hasVacancyControl = $this->getHasVacancyControl()['hasVacancyControl'];
-        $data["hr"] = $hr;
-        $data['hasVacancyControl'] = $hasVacancyControl;
-        return view('admin.hr', compact('data'));
+        return view('admin.hr');
     }
 
-    public function store(Request $request)
+    function fetchData()
     {
-        $data = $request->all();
         try {
-            $result = $this->hrService->addHr($data);
+            $hrs = User::orderBy('id', 'DESC')->where('role_id', 2)->with('staff')->get();
+            $data["staff"] = StaffResource::collection($hrs);
+            $data['cla'] = Cache::rememberForever('branches', function () {
+                return Branch::select('id', 'name')->get()->toArray();
+            });
+            $hasVacancyControl = $this->getHasVacancyControl()['hasVacancyControl'];
+            $data['hasVacancyControl'] = $hasVacancyControl;
         } catch (Exception $e) {
-            $result = [
+            $data = [
                 'status' => 500,
                 'error' => $e->getMessage()
             ];
         }
 
-        return response()->json($result);
+        return response()->json($data);
     }
 
-    public function isActiveUpdate(Request $request)
-    {
-        $user = User::where('id', $request->id)->first();
-        User::where('id', $request->id)->update(['is_active' => $request->is_active]);
-        HrHasVacancy::where('hr_id', $request->hr_id)->update(['is_active' => $request->is_active]);
-        $result = ($user->is_active == 1)?'HR '.$user->name_ka.' არააქტიურია':'HR '.$user->name_ka.' აქტიურია';
-        return response()->json($result);
-    }
+    // public function store(Request $request)
+    // {
+    //     $data = $request->all();
+    //     try {
+    //         $result = $this->hrService->addHr($data);
+    //     } catch (Exception $e) {
+    //         $result = [
+    //             'status' => 500,
+    //             'error' => $e->getMessage()
+    //         ];
+    //     }
 
-    public function update(Request $request)
-    {
-        $data = $request->all();
-        try {
-            $result = $this->hrService->updateHr($data);
-        } catch (Exception $e) {
-            $result = [
-                'status' => 500,
-                'error' => $e->getMessage()
-            ];
-        }
+    //     return response()->json($result);
+    // }
 
-        return response()->json($result);
-    }
+    // public function isActiveUpdate(Request $request)
+    // {
+    //     $user = User::where('id', $request->id)->first();
+    //     User::where('id', $request->id)->update(['is_active' => $request->is_active]);
+    //     HrHasVacancy::where('hr_id', $request->hr_id)->update(['is_active' => $request->is_active]);
+    //     $result = ($user->is_active == 1)?$user->name_ka.' არააქტიურია':$user->name_ka.' აქტიურია';
+    //     return response()->json($result);
+    // }
+
+    // public function update(Request $request)
+    // {
+    //     $data = $request->all();
+    //     try {
+    //         $result = $this->hrService->updateHr($data);
+    //     } catch (Exception $e) {
+    //         $result = [
+    //             'status' => 500,
+    //             'error' => $e->getMessage()
+    //         ];
+    //     }
+
+    //     return response()->json($result);
+    // }
 
     function getHr(Request $request) {
         try {

@@ -34,14 +34,46 @@
             </li>
 
             <li class="nav-item">
+                <a href="#" @if(
+                                    Route::currentRouteName() === 'admin.employer' ||
+                                        Route::currentRouteName() === 'admin.candidate' ||
+                                            Route::currentRouteName() === 'admin.vacancy.attached' ||
+                                                Route::currentRouteName() === 'admin.relevant.vacancy') class="nav-link active" @else class="nav-link" @endif>
+                    <i class="nav-icon fas fa-user"></i>
+                    <p>
+                        Users
+                        <i class="fas fa-angle-left right"></i>
+                        {{-- <span class="badge badge-info right">6</span> --}}
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a @if(Route::currentRouteName() === 'admin.candidate') class="nav-link active" @else class="nav-link" @endif href="{{ route('admin.candidate', App()->getLocale()) }}">
+                            <i class="nav-icon fas fa-user"></i>
+                            <p>
+                                კანდიდატები
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a @if(Route::currentRouteName() === 'admin.employer') class="nav-link active" @else class="nav-link" @endif href="{{ route('admin.employer', App()->getLocale()) }}">
+                            <i class="nav-icon fas fa-user"></i>
+                            <p>
+                                დამსაქმებლები
+                            </p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
                 <a href="#" @if(Route::currentRouteName() === 'admin.hr' ||
                                     Route::currentRouteName() === 'admin.employer' ||
                                         Route::currentRouteName() === 'admin.candidate' ||
                                             Route::currentRouteName() === 'admin.vacancy.attached' ||
                                                 Route::currentRouteName() === 'admin.relevant.vacancy') class="nav-link active" @else class="nav-link" @endif>
-                    <i class="nav-icon fas fa-copy"></i>
+                    <i class="nav-icon fas fa-users"></i>
                     <p>
-                        Users
+                        Staff
                         <i class="fas fa-angle-left right"></i>
                         {{-- <span class="badge badge-info right">6</span> --}}
                     </p>
@@ -56,18 +88,10 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a @if(Route::currentRouteName() === 'admin.candidate') class="nav-link active" @else class="nav-link" @endif href="{{ route('admin.candidate', App()->getLocale()) }}">
+                        <a @if(Route::currentRouteName() === 'admin.administrator') class="nav-link active" @else class="nav-link" @endif href="{{ route('admin.administrator', App()->getLocale()) }}">
                             <i class="nav-icon fas fa-user"></i>
                             <p>
-                                კანდიდატები
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a @if(Route::currentRouteName() === 'admin.employer') class="nav-link active" @else class="nav-link" @endif href="{{ route('admin.employer', App()->getLocale()) }}">
-                            <i class="nav-icon fas fa-user"></i>
-                            <p>
-                                დამსაქმებლები
+                                ადმინისტრატორი
                             </p>
                         </a>
                     </li>

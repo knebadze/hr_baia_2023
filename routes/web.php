@@ -149,7 +149,9 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
 
     //_____________________ADMIN REQUEST_______________________________
 
+    include('admin/staff/staff.php');
     include('admin/hr/hr.php');
+    include('admin/administrator/administrator.php');
     include('admin/candidate/candidate.php');
     include('admin/employer/employer.php');
 
