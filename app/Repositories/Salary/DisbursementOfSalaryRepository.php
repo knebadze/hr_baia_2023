@@ -34,7 +34,7 @@ class DisbursementOfSalaryRepository
             $salary = Salary::orderBy('hr_id', 'ASC')->whereIn('id', $ids)->update(['disbursement_date' => Carbon::now()]);
             //იქმნება ახალი ხელფასის ჩანაწერი
             foreach ($data as $key => $value) {
-                $this->createSalary($value);
+                $this->createSalary($value['hr_id']);
             }
             $this->addWorkLog($ids);
             if($salary){
@@ -59,14 +59,14 @@ class DisbursementOfSalaryRepository
 
     }
 
-    function createSalary($data) {
-        $hr = Hr::where('id', $data['hr_id'])->first();
+    function createSalary($staff_id) {
+        $staff = Hr::where('id', $staff_id)->first();
         $salary = new Salary();
-        $salary->hr_id = $hr->id;
-        $salary->fixed_salary = $hr->fixed_salary;
-        $salary->full_salary = $hr->fixed_salary;
+        $salary->hr_id = $staff->id;
+        $salary->fixed_salary = $staff->fixed_salary;
+        $salary->full_salary = $staff->fixed_salary;
         $salary->save();
-
+        return $salary;
     }
 
     function addWorkLog($ids) {

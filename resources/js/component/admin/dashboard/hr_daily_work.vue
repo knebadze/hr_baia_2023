@@ -1,3 +1,25 @@
+
+<script setup>
+import { defineProps, ref, computed } from 'vue'
+const props = defineProps({
+    data: Object,
+    role_id: Number
+})
+const items = computed(() => props.role_id === 1 ? props.data.hr : props.data);
+
+const vacancyModelShow = ref(false)
+const item = ref(null)
+
+const totalVacancy = computed(() => _.sumBy(items.value.dailyWork, item => (item.has_vacancy)));
+const totalApprove = computed(() => _.sumBy(items.value.dailyWork, item => (item.approved_by_employer)));
+const totalProbation = computed(() => _.sumBy(items.value.dailyWork, item => (item.has_probationary_period)));
+const totalEmployed = computed(() => _.sumBy(items.value.dailyWork, item => (item.employed)));
+const totalEnrollmentVacancy = computed(() => _.sumBy(items.value.dailyWork, item => (item.has_enrollment_vacancy)));
+const totalEnrollmentCandidate = computed(() => _.sumBy(items.value.dailyWork, item => (item.has_enrollment_register)));
+const totalRegistered = computed(() => _.sumBy(items.dailyWork, item => (item.candidate_has_registered)));
+
+
+</script>
 <template lang="">
     <div class="card direct-chat direct-chat-primary">
         <div class="card-header">
@@ -29,7 +51,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(item, index) in data.dailyWork" :key="index">
+                        <tr v-for="(item, index) in items.dailyWork" :key="index">
                             <td>{{ index + 1 }}.</td>
                             <td v-if="role_id == 1">{{ item.name_ka }}</td>
                             <td>{{ item.has_vacancy }}</td>
@@ -55,67 +77,12 @@
             </div>
         </div>
         <div class="card-footer d-flex justify-content-between" v-if="role_id == 1">
-            <p class="text-success"><strong>ვაკანსია მიიღო: {{ data.lastRecord }}</strong></p>
-            <p class="text-warning"><strong>რიგშია: {{ data.nextRecord }}</strong> </p>
-            <p class="text-danger"><strong>არააქტიური: {{ data.noActive.length > 0?data.noActive.map(i => i.hr.user.name_ka).join(', '):'არცერთი' }}</strong> </p>
+            <p class="text-success"><strong>ვაკანსია მიიღო: {{ items.lastRecord }}</strong></p>
+            <p class="text-warning"><strong>რიგშია: {{ items.nextRecord }}</strong> </p>
+            <p class="text-danger"><strong>არააქტიური: {{ items.noActive.length > 0?items.noActive.map(i => i.hr.user.name_ka).join(', '):'არცერთი' }}</strong> </p>
         </div>
-        <vacancyFullInfoModal :visible="vacancyModelShow" :vacancyId="item"></vacancyFullInfoModal>
     </div>
 </template>
-<script>
-import moment from 'moment'
-import vacancyFullInfoModal from '../vacancy/modal/vacancyFullInfoModal.vue';
-export default {
-    components:{
-        vacancyFullInfoModal
-    },
-    props:{
-        data: Object,
-        role_id: Number
-    },
-    data() {
-        return {
-            vacancyModelShow: false,
-            item:null
-        }
-    },
-    computed:{
-        totalVacancy(){
-            return _.sumBy(this.data.dailyWork, item => (item.has_vacancy));
-        },
-        totalApprove(){
-            return _.sumBy(this.data.dailyWork, item => (item.approved_by_employer));
-        },
-        totalProbation(){
-            return _.sumBy(this.data.dailyWork, item => (item.has_probationary_period));
-        },
-        totalEmployed(){
-            return _.sumBy(this.data.dailyWork, item => (item.employed));
-        },
-
-        totalEnrollmentVacancy(){
-            return _.sumBy(this.data.dailyWork, item => (item.has_enrollment_vacancy));
-        },
-        totalEnrollmentCandidate(){
-            return _.sumBy(this.data.dailyWork, item => (item.has_enrollment_register));
-        },
-        totalRegistered(){
-            return _.sumBy(this.data.dailyWork, item => (item.candidate_has_registered));
-        }
-    },
-    created(){
-    },
-    methods:{
-        vacancyModal(id){
-            this.vacancyModelShow = !this.vacancyModelShow
-            this.item = id
-        },
-
-
-    }
-
-}
-</script>
 <style lang="">
 
 </style>

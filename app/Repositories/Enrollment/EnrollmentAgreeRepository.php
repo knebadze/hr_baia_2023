@@ -13,6 +13,7 @@ use App\Models\VacancyDeposit;
 use App\Models\RegistrationFee;
 use App\Models\userRegisterLog;
 use App\Models\VacancyReminder;
+use App\Repositories\Salary\DisbursementOfSalaryRepository;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -26,13 +27,13 @@ class EnrollmentAgreeRepository
     function agree($data) {
         // Start a new database transaction
         DB::beginTransaction();
-    
+
         try {
             $enrollment = Enrollment::where('id', $data['id'])->first();
             $enrollment->update([
                 'agree' => 1
             ]);
-    
+
             if ($data['enrollment_type'] == 2) {
                 $updateVacancyDeposit = $this->updateVacancyDeposit($data['vacancy_id'], $data['who_is_counting'], $data['type'], $data['money']);
                 $updateVacancyDeposit && $this->checkVacancy($data['vacancy_id']);
@@ -41,27 +42,27 @@ class EnrollmentAgreeRepository
                 $this->updateRegisterFee($data['candidate_id'], $data['type'], $data['money']);
                 $this->dailyWorkEvent($data['author_id'], 'c');
             }
-    
-            $this->addHrBonus($data['enrollment_type'], $data['author_id'], $data['hr_bonus']);
-    
+            $user = User::where('id', $data['author_id'])->firstOrFail();
+            $this->addHrBonus($data['enrollment_type'], $user->staff->id, $data['hr_bonus']);
+
             // If we reach here, it means that no exceptions were thrown
             // We can commit the transaction
             DB::commit();
-    
+
             return $enrollment;
         } catch (\Throwable $th) {
             // An error occurred, we need to rollback the transaction
             DB::rollBack();
-    
+
             Log::error('An error occurred during enrollment agreement agree: ' . $th->getMessage());
             throw new \Exception("An error occurred during enrollment agreement: " . $th->getMessage(), 500);
         }
     }
 
- 
-    
+
+
     function updateVacancyDeposit($vacancy_id, $who_is_counting, $type, $money){
-  
+
         DB::beginTransaction();
 
         try {
@@ -132,7 +133,7 @@ class EnrollmentAgreeRepository
     //     return true;
     // }
 
-    
+
     function checkVacancy($vacancy_id) {
         $deposit = VacancyDeposit::firstWhere([
             ['vacancy_id', '=', $vacancy_id],
@@ -148,7 +149,7 @@ class EnrollmentAgreeRepository
         $this->deleteReminder($vacancy_id);
         $this->deleteDeposit($vacancy_id);
     }
-    
+
 
     function updateRegisterFee($candidate_id, $type, $money) {
         try {
@@ -176,15 +177,25 @@ class EnrollmentAgreeRepository
 
     function addHrBonus($type, $id, $bonus) {
         try {
-            $user = User::where('id', $id)->firstOrFail();
-            $salary = Salary::where('hr_id', $user->hr->id)->where('hr_agree', 0)->whereNull('disbursement_date')->firstOrFail();
-
+            // $user = User::where('id', $id)->firstOrFail();
+            // if ($user->staff === null) {
+            //     throw new \Exception("User with id {$id} does not have an associated staff");
+            // }
+            $salary = Salary::where('hr_id', $id)->where('hr_agree', 0)->whereNull('disbursement_date')->firstOrFail();
             $bonusField = $type == 2 ? 'hr_bonus_from_vacancy' : 'hr_bonus_from_registration';
-
-            $salary->update([
-                $bonusField => $salary->$bonusField + $bonus,
-                'full_salary' => $salary->full_salary + $bonus
-            ]);
+            if ($salary){
+                $salary->update([
+                    $bonusField => $salary->$bonusField + $bonus,
+                    'full_salary' => $salary->full_salary + $bonus
+                ]);
+            }else{
+                $createSalary = new DisbursementOfSalaryRepository();
+                $salary = $createSalary->createSalary($id);
+                $salary->update([
+                    $bonusField => $salary->$bonusField + $bonus,
+                    'full_salary' => $salary->full_salary + $bonus
+                ]);
+            }
 
             return $salary;
         } catch (\Throwable $th) {

@@ -87,13 +87,24 @@
       </div>
       <!-- /.row -->
       <!-- Main row -->
+      @php
+            $role_id = Auth::user()->role_id;
+      @endphp
         <div class="row">
             <section class="col-lg-12 connectedSortable">
                 <daily-reminder :data='@json($data['dailyReminder'])' :role_id='@json($role_id)'></daily-reminder>
             </section>
-            <section class="col-lg-12 connectedSortable">
-                <daily-work :data='@json($data["hrDailyWork"])' :role_id='@json($role_id)'></daily-work>
-            </section>
+            @if ($role_id == 1 || $role_id == 2)
+                <section class="col-lg-12 connectedSortable">
+                    <hr-daily-work :data='@json($data["hrDailyWork"])' :role_id='@json($role_id)'></hr-daily-work>
+                </section>
+            @endif
+
+            @if ($role_id == 1 || $role_id == 4)
+                <section class="col-lg-12 connectedSortable">
+                    <administrator-daily-work :data='@json($data["hrDailyWork"])' :role_id='@json($role_id)'></administrator-daily-work>
+                </section>
+            @endif
         </div>
       <!-- /.row (main row) -->
     </div><!-- /.container-fluid -->

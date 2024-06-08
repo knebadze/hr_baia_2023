@@ -42,7 +42,7 @@
         @include('inc.admin.nav')
         @if (Auth::user()->role_id == 1)
             @include('inc.admin.sidebar')
-        @elseif (Auth::user()->role_id == 2)
+        @elseif (Auth::user()->role_id == 2 || Auth::user()->role_id == 4)
             @include('inc.hr.sidebar')
         @endif
 

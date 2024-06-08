@@ -114,6 +114,7 @@ export default {
     },
     created(){
         this.m = {...this.data.model}
+        console.log(this.data);
         this.cla = this.data.cla
     },
     methods: {

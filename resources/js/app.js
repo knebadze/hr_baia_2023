@@ -61,7 +61,8 @@ const importComponents = async () => {
         modalManager,
         hrPage,
         dailyReminder,
-        dailyWork,
+        hrDailyWork,
+        administratorDailyWork,
 
         AdministratorPage,
 
@@ -121,6 +122,7 @@ const importComponents = async () => {
         import("./component/admin/staff/hr/page/hr_page.vue"),
         import("./component/admin/dashboard/dailyReminder.vue"),
         import("./component/admin/dashboard/hr_daily_work.vue"),
+        import("./component/admin/dashboard/AdministratorDailyWork.vue"),
 
         import("./component/admin/staff/administrator/page/AdministratorPage.vue"),
 
@@ -191,7 +193,8 @@ const importComponents = async () => {
     // app.component('candidate-table', candidateTable)
     // dashboard
     app.component("daily-reminder", dailyReminder.default);
-    app.component("daily-work", dailyWork.default);
+    app.component("hr-daily-work", hrDailyWork.default);
+    app.component("administrator-daily-work", administratorDailyWork.default);
 
     app.component("administrator-page", AdministratorPage.default);
     // page

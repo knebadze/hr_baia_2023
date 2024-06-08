@@ -20,9 +20,17 @@ class DashboardService
     }
 
     function getData(){
+        $role_id = Auth::user()->role_id;
         $infoBox = $this->infoBoxRepository->data();
         $dailyReminder = $this->dailyReminderRepository->data();
-        $hrDailyWork = $this->hrDailyWorkRepository->data();
+        $hrDailyWork = null;
+        if ($role_id == 1) {
+            $hrDailyWork = ['hr' => $this->hrDailyWorkRepository->hrData(), 'administrator' => $this->hrDailyWorkRepository->administratorDate()];
+        }else if ($role_id == 2) {
+            $hrDailyWork = $this->hrDailyWorkRepository->hrData();
+        }else{
+            $hrDailyWork = $this->hrDailyWorkRepository->administratorDate();
+        }
         return ['infoBox' => $infoBox, 'dailyReminder' => $dailyReminder, 'hrDailyWork' => $hrDailyWork];
     }
 }

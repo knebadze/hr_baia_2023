@@ -43,7 +43,7 @@ class AdminVacancyController extends Controller
             'workSchedule', 'vacancyInterest', 'interviewPlace','term', 'demand', 'demand.language', 'demand.education', 'demand.languageLevel','demand.specialty',
             'employer.numberCode','deposit','hr.user', 'vacancyDrivingLicense', 'reasonForCancel'
             ])
-            ->when(Auth::user()->role_id != 1, function ($query) {
+            ->when(Auth::user()->role_id == 2, function ($query) {
                 $query->where('hr_id', '=', Auth::user()->hr->id);
             })->paginate(20);
         $totalVacancies = $vacancy->total();

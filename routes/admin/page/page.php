@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\CompanyInfoController;
 use App\Http\Controllers\Admin\GlobalVariableController;
 use App\Http\Controllers\HR\SelectionPersonalController;
 use App\Http\Controllers\Admin\RelevantVacancyController;
+use App\Http\Controllers\Admin\UnfinishedRegistration;
 use App\Http\Controllers\Admin\VacancyAttachedController;
 use App\Http\Controllers\Admin\Vacancy\VacancyDepositController;
 
@@ -51,6 +52,9 @@ Route::prefix('admin')->middleware(['auth.adminRedirect'])->group(function () {
 
     Route::get('administrator', [AdministratorController::class, 'index'])
         ->name('admin.administrator');
+
+    Route::get('unfinished_registration', [UnfinishedRegistration::class, 'index'])
+        ->name('admin.unfinished.registration');
 
     Route::get('candidate', [AdminCandidateController::class, 'index'])
         ->name('admin.candidate');

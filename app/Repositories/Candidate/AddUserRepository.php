@@ -6,10 +6,13 @@ use App\Models\User;
 use App\Models\Salary;
 use App\Models\Vacancy;
 use App\Events\hrDailyJob;
+use App\Models\Enrollment;
 use App\Models\GlobalVariable;
 use App\Models\RegistrationFee;
 use App\Models\userRegisterLog;
 use App\Models\VacancyReminder;
+use App\Repositories\Enrollment\EnrollmentAgreeRepository;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Stichoza\GoogleTranslate\GoogleTranslate;
@@ -18,94 +21,107 @@ class AddUserRepository
 {
     function save($data) {
         try {
-            // dd($data);
+
+            // return $data;
+            DB::beginTransaction();
+
             $name_ka = $data['name_ka'];
             $name_en = GoogleTranslate::trans($data['name_ka'], 'en');
             $name_ru = GoogleTranslate::trans($data['name_ka'], 'ru');
-            if ($data['gender']['id'] == 1) {
-                $avatar = 'user_avatar/default_male.jpg';
-            } else {
-                $avatar = 'user_avatar/default_female.jpg';
-            }
+            $avatar = $data['gender']['id'] == 1 ? 'user_avatar/default_male.jpg' : 'user_avatar/default_female.jpg';
 
-            // Initialize a flag to track success/failure
-            $allModelsCreated = true;
-
-            // Create the User model
             $user = User::updateOrCreate(
                 ['number' => $data['number']],
                 [
-                'name_ka' => $name_ka,
-                'name_en' => $name_en,
-                'name_ru' => $name_ru,
-                'email' => $data['email'],
-                'date_of_birth' => $data['date_of_birth'],
-                'gender_id' => $data['gender']['id'],
-                'avatar' => $avatar,
-                'number' => $data['number'],
-                'password' => Hash::make($data['password']),
-                'lang' => 'ka',
-            ]);
-            // dd($user);
-            if ($user->wasRecentlyCreated) {
+                    'name_ka' => $name_ka,
+                    'name_en' => $name_en,
+                    'name_ru' => $name_ru,
+                    'email' => $data['email'],
+                    'date_of_birth' => $data['date_of_birth'],
+                    'gender_id' => $data['gender']['id'],
+                    'avatar' => $avatar,
+                    'number' => $data['number'],
+                    'password' => Hash::make($data['password']),
+                    'lang' => 'ka',
+                ]
+            );
 
-                // User record was just created
-                // You can perform actions for a newly created user here
+            if (!$user) {
+                throw new \Exception("User creation failed.", 500);
+            }
+            $authUser = Auth::user();
+            $author= $this->getAuthor($authUser);
+
+            if ($user->wasRecentlyCreated) {
+                // return $staff;
                 $registerLog = userRegisterLog::create([
-                    'creator_id' => Auth::id(),
+                    'creator_id' => $author->id,
                     'user_id' => $user->id,
                     'type' => $data['type']['id'],
                 ]);
-                // dd('if');
-                // dd($data['type']);
-                Auth::user()->role_id == 2 && $this->dailyWorkEvent(Auth::user()->hr->id);
 
                 if (!$registerLog) {
-                    $allModelsCreated = false;
+                    throw new \Exception("User register log creation failed.", 500);
                 }
-                $fee = null;
+
+                $staffId = $author->staff->id;
+
+
+                $this->dailyWorkEvent($staffId);
+                $this->addRegistrationBonus($staffId);
+
 
                 if ($data['type']['id'] == 1) {
                     $fee = RegistrationFee::create([
                         'user_id' => $user->id,
-                        'initial_amount' => ($data['money']) ? $data['money'] : null,
-                        'money' => ($data['money']) ? $data['money'] : null,
-                        'creator_id' => Auth::id(),
-                        'enroll_date' => ($data['enroll_date']) ? $data['enroll_date'] : null,
+                        'initial_amount' => $data['money'] ?? null,
+                        'money' => $data['money'] ?? null,
+                        'creator_id' => $author->id,
+                        'enroll_date' => $data['enroll_date'] ?? null,
                     ]);
-                    //ვერ ვამატებ შეხსენებას რადგან მარტო ვაკანსიაზეა გათვლილი
-                    // $this->addReminder(['vacancy_id' => $id, 'date' => $date.' 10:00:00', 'reason' =>  'ვაკანსიაზე უნდა მოხდეს თანხის ჩარიცხვა']);
+
+                    if (!$fee) {
+                        throw new \Exception("Registration fee creation failed.", 500);
+                    }
                 }
-
-                // Check if RegistrationFee creation failed
-                // if (!$fee) {
-                //     $allModelsCreated = false;
-                // }
-            } else {
-                // dd('update');
-                // User record already existed and was updated
-                // You can perform actions for an updated user here
-            }
-            // Check if User creation failed
-            if (!$user) {
-                $allModelsCreated = false;
             }
 
-            // Check if at least one model creation failed
-            if (!$allModelsCreated) {
-                throw new \Exception("An error occurred during enrollment agreement.", 500);
-            }
+            DB::commit();
 
             return $user;
         } catch (\Throwable $th) {
+            DB::rollBack();
             throw new \Exception("An error occurred during enrollment agreement: " . $th->getMessage(), 500);
         }
     }
 
-    function dailyWorkEvent($hr_id) {
-        event(new hrDailyJob($hr_id, 'candidate_has_registered'));
+    function getAuthor($authUser){
+        if ($authUser->role_id !== 1) {
+            return $authUser;
+        }else{
+            $randomAdministrator = User::where('role_id', 4)->where('is_active', 1)->inRandomOrder()->first();
+            return $randomAdministrator;
+        }
+    }
+    function dailyWorkEvent($staff_id) {
+        try {
+            event(new hrDailyJob($staff_id, 'candidate_has_registered'));
+        } catch (\Exception $e) {
+            // Handle the exception
+            throw new \Exception("dailyWorkEvent failed: ". $e, 500);
+        }
     }
 
+    function addRegistrationBonus($staff_id) {
+        try {
+            $addBonus = new EnrollmentAgreeRepository();
+            $bonus = GlobalVariable::where('name', 'registration_bonus')->first();
+            $addBonus->addHrBonus(1, $staff_id, $bonus->meaning/2);
+        } catch (\Exception $e) {
+            // Handle the exception
+            throw new \Exception("addRegistrationBonus failed: ".$e, 500);
+        }
+    }
     public function update($data)
     {
         try {

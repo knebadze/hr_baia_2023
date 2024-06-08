@@ -9,9 +9,12 @@ use App\Models\WorkInformation;
 use App\Models\Additional_number;
 use App\Models\CandidateLanguage;
 use App\Services\CandidateService;
+use App\Http\Requests\AddUserRequest;
 use App\Models\CandidateRecommendation;
 use App\Models\General_work_experience;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpFoundation\Response;
 use App\Services\CandidateModel\CandidateModelService;
 
 class CandidateInfoController extends Controller
@@ -163,22 +166,24 @@ class CandidateInfoController extends Controller
         return response()->json($result, $result['status']);
     }
 
-    function addUser(Request $request)  {
-
-
+    function addUser(AddUserRequest $request) {
+        
         try {
+            $validated = $request->validated();
+
             $data = $request->all();
-            $result = ['status' => 200];
-            $result['data'] = $this->candidateService->addUser($data);
-
-        } catch (Exception $e) {
             $result = [
-                'status' => 500,
-                'error' => $e->getMessage()
+                'status' => Response::HTTP_OK,
+                'data' => $this->candidateService->addUser($data),
             ];
-        }
 
-        return response()->json($result, $result['status']);
+            return response()->json($result, Response::HTTP_OK);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => Response::HTTP_INTERNAL_SERVER_ERROR,
+                'error' => $e->getMessage(),
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     function findModel(Request $request) {

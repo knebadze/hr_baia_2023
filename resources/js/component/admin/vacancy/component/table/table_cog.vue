@@ -32,7 +32,8 @@
                         item.status.id != 3 &&
                         item.status.id != 4 &&
                         item.status.id != 5 &&
-                        item.status.id != 13
+                        item.status.id != 13 &&
+                        roleId != 4
                     "
                     class="dropdown-item"
                     href="#"
@@ -40,7 +41,7 @@
                     >სტატუსის შეცვლა</a
                 >
                 <a
-                    v-if="item.status.id == 2"
+                    v-if="item.status.id == 2 && roleId != 4"
                     class="dropdown-item"
                     :href="personalSelectionUrl + '/' + item.id"
                     >კადრების შერჩევა</a
@@ -55,7 +56,8 @@
                     v-if="
                         item.status.id != 4 &&
                         item.status.id != 5 &&
-                        item.status.id != 13
+                        item.status.id != 13 &&
+                        roleId != 4
                     "
                     class="dropdown-item"
                     href="#"
@@ -67,7 +69,7 @@
                     v-if="
                         item.status.id != 4 &&
                         item.status.id != 5 &&
-                        item.status.id != 13
+                        item.status.id != 13 && roleId != 4
                     "
                     class="dropdown-item"
                     :href="vacancyDepositUrl + '/' + item.id"
@@ -86,7 +88,7 @@
                         item.status.id !== 3 &&
                         item.status.id !== 4 &&
                         item.status.id !== 5 &&
-                        item.status.id !== 13
+                        item.status.id !== 13 && roleId != 4
                     "
                     class="dropdown-item"
                     href="#"
@@ -137,29 +139,28 @@
 <script>
 import { ref } from "vue";
 // import { markRaw } from 'vue';
-import vacancyUpdate from "../../modal/vacancyUpdate.vue"
+import vacancyUpdate from "../../modal/vacancyUpdate.vue";
 import changeStatus from "../../modal/changeStatus.vue";
 import vacancyReminder from "../../modal/vacancyReminder.vue";
 import redactedHistory from "../../modal/redactedHistory.vue";
-import change_hr from '../../modal/change_hr.vue';
-import Swal from 'sweetalert2';
+import change_hr from "../../modal/change_hr.vue";
+import Swal from "sweetalert2";
 import { useChangeVacancyStatusStore } from "../../../../../store/admin/vacancy/changeStatusStore";
 import { storeToRefs } from "pinia";
 export default {
-    components:{
+    components: {
         vacancyUpdate,
         changeStatus,
         vacancyReminder,
         redactedHistory,
-        change_hr
+        change_hr,
     },
-    props:{
+    props: {
         item: Object,
         // hr_id: Number,
-        roleId: Number
+        roleId: Number,
     },
     setup(props) {
-
         const modalComponent = ref(null);
         const showUpdateModal = ref(false);
         const showStatusModal = ref(false);
@@ -168,76 +169,74 @@ export default {
         const showHistoryModal = ref(false);
         const hrModelShow = ref(false);
         const modalData = ref(null);
-        const vacancyId = ref(null)
+        const vacancyId = ref(null);
 
-        const url = new URL( location.href)
-        const personalSelectionUrl = ref(url.origin+'/admin/selection_personal')
-        const vacancyPersonalUrl = ref(url.origin+'/admin/vacancy_personal')
-        const vacancyDepositUrl = ref(url.origin+'/admin/vacancy_deposit')
+        const url = new URL(location.href);
+        const personalSelectionUrl = ref(
+            url.origin + "/admin/selection_personal"
+        );
+        const vacancyPersonalUrl = ref(url.origin + "/admin/vacancy_personal");
+        const vacancyDepositUrl = ref(url.origin + "/admin/vacancy_deposit");
 
-
-        const openModal = (item, index) =>{
+        const openModal = (item, index) => {
             const changeVacancyStatusStore = useChangeVacancyStatusStore();
-            const { setVacancy } = changeVacancyStatusStore
-            setVacancy(item)
-            modalData.value = item
+            const { setVacancy } = changeVacancyStatusStore;
+            setVacancy(item);
+            modalData.value = item;
             if (index == 1) {
                 showUpdateModal.value = !showUpdateModal.value;
-            }else if(index == 2){
-                showStatusModal.value = !showStatusModal.value
-            }else if(index == 3){
-                showReminderModal.value = !showReminderModal.value
-            }else if(index == 4){
-                let url = new URL( location.href)
-                window.location.replace(`${url.origin}/ka/post_job/${item.id}/${item.code}`);
+            } else if (index == 2) {
+                showStatusModal.value = !showStatusModal.value;
+            } else if (index == 3) {
+                showReminderModal.value = !showReminderModal.value;
+            } else if (index == 4) {
+                let url = new URL(location.href);
+                window.location.replace(
+                    `${url.origin}/ka/post_job/${item.id}/${item.code}`
+                );
                 // showRepeatModal.value = !showRepeatModal.value
-            }else if(index == 5){
-                showHistoryModal.value = !showHistoryModal.value
-                vacancyId.value = item.id
-            }else if(index == 6){
-                hrModelShow.value = !hrModelShow.value
+            } else if (index == 5) {
+                showHistoryModal.value = !showHistoryModal.value;
+                vacancyId.value = item.id;
+            } else if (index == 6) {
+                hrModelShow.value = !hrModelShow.value;
             }
-
-
         };
 
-        const carryInHead = (item) =>{
+        const carryInHead = (item) => {
             let editedFields = {
-                'carry_in_head_date': item.carry_in_head_date,
-            }
+                carry_in_head_date: item.carry_in_head_date,
+            };
             Swal.fire({
-                title: 'ნამდვილად გსურთ ვაკანსიის თავში ატანა?',
+                title: "ნამდვილად გსურთ ვაკანსიის თავში ატანა?",
                 //   showDenyButton: true,
-                cancelButtonText:'არა',
-                confirmButtonText: 'კი',
+                cancelButtonText: "არა",
+                confirmButtonText: "კი",
                 showCancelButton: true,
             }).then((result) => {
-            /* Read more about isConfirmed, isDenied below */
+                /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
-                    axios.post('/carry_in_head_vacancy' ,{
-                        data: {'id':item.id, 'edit': editedFields},
-                    })
-                    .then(function (response) {
-                        if (response.status == 200) {
-                            toast.success("წარმატებით შესრულდა", {
-                                theme: 'colored',
-                                autoClose: 1000,
-                            });
-                            setTimeout(() => {
-                                document.location.reload();
-                            }, 2000);
-                        }
-
-
-
-                    })
-                    .catch(function (error) {
-                        // handle error
-                        console.log(error);
-                    })
-
+                    axios
+                        .post("/carry_in_head_vacancy", {
+                            data: { id: item.id, edit: editedFields },
+                        })
+                        .then(function (response) {
+                            if (response.status == 200) {
+                                toast.success("წარმატებით შესრულდა", {
+                                    theme: "colored",
+                                    autoClose: 1000,
+                                });
+                                setTimeout(() => {
+                                    document.location.reload();
+                                }, 2000);
+                            }
+                        })
+                        .catch(function (error) {
+                            // handle error
+                            console.log(error);
+                        });
                 } else if (result.isDenied) {
-                    return
+                    return;
                 }
             });
         };
@@ -247,81 +246,74 @@ export default {
                 title: "ნამდვილად გსურთ ვაკანსიის წაშლა?",
 
                 showCancelButton: true,
-                cancelButtonText:'არა',
+                cancelButtonText: "არა",
                 confirmButtonText: "კი",
                 showLoaderOnConfirm: true,
                 preConfirm: async () => {
                     try {
-                    const response = await  axios({
-                        method: "post",
-                        url: '/delete_vacancy',
-                        data: {id: id, check: true},
-
-                    });
-                    if (!response.status == 200) {
-                        return Swal.showValidationMessage(`
+                        const response = await axios({
+                            method: "post",
+                            url: "/delete_vacancy",
+                            data: { id: id, check: true },
+                        });
+                        if (!response.status == 200) {
+                            return Swal.showValidationMessage(`
                         ${JSON.stringify(await response.error)}
                         `);
-                    }
-                    return response;
+                        }
+                        return response;
                     } catch (error) {
-                    Swal.showValidationMessage(`
+                        Swal.showValidationMessage(`
                         Request failed: ${error}
                     `);
                     }
                 },
-                allowOutsideClick: () => !Swal.isLoading()
-                }).then((result) => {
+                allowOutsideClick: () => !Swal.isLoading(),
+            }).then((result) => {
                 if (result.isConfirmed) {
                     if (result.value.data.data) {
                         Swal.fire({
-                            title: 'ამ ვაკანსიას აქვას გამეორების ისტორია. წასაშლელად აუცილებელია ისტრორიის წაშლა, გსურთ ეს?',
+                            title: "ამ ვაკანსიას აქვას გამეორების ისტორია. წასაშლელად აუცილებელია ისტრორიის წაშლა, გსურთ ეს?",
                             //   showDenyButton: true,
-                            cancelButtonText:'არა',
-                            confirmButtonText: 'კი',
+                            cancelButtonText: "არა",
+                            confirmButtonText: "კი",
                             showCancelButton: true,
                         }).then((result) => {
-                            sendDeleteAxios(id)
-                        })
-                    }else{
-                        sendDeleteAxios(id)
+                            sendDeleteAxios(id);
+                        });
+                    } else {
+                        sendDeleteAxios(id);
                     }
                 }
             });
-            return
-
+            return;
         };
 
-        const sendDeleteAxios = (id) =>{
+        const sendDeleteAxios = (id) => {
             axios({
                 method: "post",
-                url: '/delete_vacancy',
-                data: {id: id, check: false},
-
+                url: "/delete_vacancy",
+                data: { id: id, check: false },
             })
-            .then(function (response) {
-                // items.value = response.data
-                if (response.status == 200) {
-                    toast.success("წარმატებით წაიშალა", {
-                        theme: 'colored',
-                        autoClose: 1000,
-                    });
-                    setTimeout(() => {
-                        document.location.reload();
-                    }, 1500);
-                }
-
-
-
-            })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
-            })
+                .then(function (response) {
+                    // items.value = response.data
+                    if (response.status == 200) {
+                        toast.success("წარმატებით წაიშალა", {
+                            theme: "colored",
+                            autoClose: 1000,
+                        });
+                        setTimeout(() => {
+                            document.location.reload();
+                        }, 1500);
+                    }
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                });
         };
 
-
-        return{
+        return {
             modalComponent,
             showUpdateModal,
             showStatusModal,
@@ -339,9 +331,9 @@ export default {
             // url
             personalSelectionUrl,
             vacancyPersonalUrl,
-            vacancyDepositUrl
-        }
-    }
-}
+            vacancyDepositUrl,
+        };
+    },
+};
 </script>
 <style lang=""></style>
