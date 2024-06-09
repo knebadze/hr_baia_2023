@@ -5,11 +5,12 @@ namespace App\Repositories\Salary;
 use App\Models\Hr;
 use Carbon\Carbon;
 use App\Models\Salary;
+use App\Models\HrWorkLog;
 use App\Models\Enrollment;
 use App\Models\hrDailyWork;
-use App\Models\HrWorkLog;
-use App\Models\RegistrationFee;
 use App\Models\VacancyDeposit;
+use App\Models\RegistrationFee;
+use Illuminate\Support\Facades\Log;
 
 class DisbursementOfSalaryRepository
 {
@@ -60,13 +61,26 @@ class DisbursementOfSalaryRepository
     }
 
     function createSalary($staff_id) {
-        $staff = Hr::where('id', $staff_id)->first();
-        $salary = new Salary();
-        $salary->hr_id = $staff->id;
-        $salary->fixed_salary = $staff->fixed_salary;
-        $salary->full_salary = $staff->fixed_salary;
-        $salary->save();
-        return $salary;
+        try {
+            $staff = Hr::where('id', $staff_id)->first();
+            if (!$staff) {
+                throw new \Exception("Staff with id {$staff_id} not found.", 404);
+            }
+
+            $salary = new Salary();
+            $salary->hr_id = $staff->id;
+            $salary->fixed_salary = $staff->fixed_salary;
+            $salary->full_salary = $staff->fixed_salary;
+            $salary->save();
+
+            return $salary;
+        } catch (\Exception $e) {
+            // Log the error message
+            Log::error('Error creating salary: ' . $e->getMessage());
+
+            // You can decide what to return in case of error
+            return null;
+        }
     }
 
     function addWorkLog($ids) {

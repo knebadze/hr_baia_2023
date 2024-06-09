@@ -277,7 +277,7 @@ class AdminCandidateController extends Controller
     function sendSms(Request $request) {
         try {
             $smsService = new SmsService();
-            $result = $smsService->sendSms($request->number, $request->text);
+            $result = $smsService->sendSms($request->number, $request->text, 'default');
         } catch (Exception $e) {
             $result = [
                 'status' => 500,

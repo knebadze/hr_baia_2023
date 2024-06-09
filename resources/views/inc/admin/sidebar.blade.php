@@ -2,7 +2,7 @@
     <!-- Brand Logo -->
     <a href="{{ route('admin.dashboard', App()->getLocale()) }}" class="brand-link">
       <img src="{{ asset('admin/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+      <span class="brand-text font-weight-light">ადმინი</span>
     </a>
 
     <!-- Sidebar -->
@@ -38,7 +38,8 @@
                                     Route::currentRouteName() === 'admin.employer' ||
                                         Route::currentRouteName() === 'admin.candidate' ||
                                             Route::currentRouteName() === 'admin.vacancy.attached' ||
-                                                Route::currentRouteName() === 'admin.relevant.vacancy') class="nav-link active" @else class="nav-link" @endif>
+                                                Route::currentRouteName() === 'admin.relevant.vacancy' ||
+                                                    Route::currentRouteName() === 'admin.unfinished.registration') class="nav-link active" @else class="nav-link" @endif>
                     <i class="nav-icon fas fa-user"></i>
                     <p>
                         Users
@@ -60,6 +61,14 @@
                             <i class="nav-icon fas fa-user"></i>
                             <p>
                                 დამსაქმებლები
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a @if(Route::currentRouteName() === 'admin.unfinished.registration') class="nav-link active" @else class="nav-link" @endif href="{{ route('admin.unfinished.registration', App()->getLocale()) }}">
+                            <i class="nav-icon fa fa-spinner"></i>
+                            <p>
+                                დაუსრულებელი რეგისტრაცია
                             </p>
                         </a>
                     </li>

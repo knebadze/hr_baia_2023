@@ -11,11 +11,13 @@ use App\Models\GlobalVariable;
 use App\Models\RegistrationFee;
 use App\Models\userRegisterLog;
 use App\Models\VacancyReminder;
-use App\Repositories\Enrollment\EnrollmentAgreeRepository;
 use Illuminate\Support\Facades\DB;
+use App\Events\SmsNotificationEvent;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Models\UnfinishedRegistration;
 use Stichoza\GoogleTranslate\GoogleTranslate;
+use App\Repositories\Enrollment\EnrollmentAgreeRepository;
 
 class AddUserRepository
 {
@@ -50,7 +52,11 @@ class AddUserRepository
                 throw new \Exception("User creation failed.", 500);
             }
             $authUser = Auth::user();
-            $author= $this->getAuthor($authUser);
+            $author = $this->getAuthor($authUser, $data['was_assigned']);
+            if ( !$author || !$authUser) {
+                throw new \Exception("One or more required users are null.", 500);
+            }
+            // print_r($author);
 
             if ($user->wasRecentlyCreated) {
                 // return $staff;
@@ -84,6 +90,28 @@ class AddUserRepository
                         throw new \Exception("Registration fee creation failed.", 500);
                     }
                 }
+
+                if ($data['was_assigned']) {
+                    $wasAssigned = UnfinishedRegistration::create([
+                        'user_id' => $user->id,
+                        'was_assigned_id' => $author->id,
+                        'author_id' => $authUser->id,
+                        'status_id' => 2,
+                    ]);
+
+                    $baseUrl = url()->current();
+                    $smsData = [
+                        'to' => $author->number,
+                        'name' => $data['name_ka'],
+                        'number' => $data['number'],
+                        'link' => "{$baseUrl}/admin/add_candidate",
+                    ];
+
+                    $this->sendSms($smsData, 'to_be_assigned_administrator');
+                    if (!$wasAssigned) {
+                        throw new \Exception("Unfinished Registration creation failed.", 500);
+                    }
+                }
             }
 
             DB::commit();
@@ -95,11 +123,14 @@ class AddUserRepository
         }
     }
 
-    function getAuthor($authUser){
-        if ($authUser->role_id !== 1) {
+    function getAuthor($authUser, $wasAssigned = false){
+        if ($authUser->role_id !== 1 && !$wasAssigned) {
             return $authUser;
         }else{
             $randomAdministrator = User::where('role_id', 4)->where('is_active', 1)->inRandomOrder()->first();
+            if (!$randomAdministrator) {
+                $randomAdministrator = User::where('role_id', 4)->first();
+            }
             return $randomAdministrator;
         }
     }
@@ -150,6 +181,12 @@ class AddUserRepository
             ];
         }
     }
+
+    function sendSms($data, $name)
+    {
+        event(new SmsNotificationEvent($data, $name));
+    }
+
 
     // function addReminder($data) {
     //     $reminder = new VacancyReminder();

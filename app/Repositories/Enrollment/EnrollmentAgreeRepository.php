@@ -177,25 +177,18 @@ class EnrollmentAgreeRepository
 
     function addHrBonus($type, $id, $bonus) {
         try {
-            // $user = User::where('id', $id)->firstOrFail();
-            // if ($user->staff === null) {
-            //     throw new \Exception("User with id {$id} does not have an associated staff");
-            // }
-            $salary = Salary::where('hr_id', $id)->where('hr_agree', 0)->whereNull('disbursement_date')->firstOrFail();
+            $salary = Salary::where('hr_id', $id)->where('hr_agree', 0)->whereNull('disbursement_date')->first();
             $bonusField = $type == 2 ? 'hr_bonus_from_vacancy' : 'hr_bonus_from_registration';
-            if ($salary){
-                $salary->update([
-                    $bonusField => $salary->$bonusField + $bonus,
-                    'full_salary' => $salary->full_salary + $bonus
-                ]);
-            }else{
+
+            if (!$salary){
                 $createSalary = new DisbursementOfSalaryRepository();
                 $salary = $createSalary->createSalary($id);
-                $salary->update([
-                    $bonusField => $salary->$bonusField + $bonus,
-                    'full_salary' => $salary->full_salary + $bonus
-                ]);
             }
+
+            $salary->update([
+                $bonusField => $salary->$bonusField + $bonus,
+                'full_salary' => $salary->full_salary + $bonus
+            ]);
 
             return $salary;
         } catch (\Throwable $th) {

@@ -43,6 +43,7 @@ class CandidateService
 
     function addUser($data) {
         $result = $this->addUserRepository->save($data);
+
         return $result;
     }
     public function candidateSaveData($data)
@@ -87,4 +88,6 @@ class CandidateService
     //     $result = $this->candidateRepository->removeOldWorkExperience($data);
     //     return $result;
     // }
+
+
 }

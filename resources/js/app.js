@@ -94,6 +94,8 @@ const importComponents = async () => {
         smsTemplate,
         globalVariablePage,
 
+        unfinishedRegistration,
+
         // ... Other component imports ...
     ] = await Promise.all([
         import("./component/languageSwitcher.vue"),
@@ -156,6 +158,7 @@ const importComponents = async () => {
         import(
             "./component/admin/global_variable/page/global_variable_page.vue"
         ),
+        import("./component/admin/unfinished_registration/page/UnfinishedRegistration.vue")
 
         // ... Other dynamic imports ...
     ]);
@@ -227,6 +230,8 @@ const importComponents = async () => {
     app.component("testimonial-page", testimonialPage.default);
     app.component("sms-template", smsTemplate.default);
     app.component("global-variable", globalVariablePage.default);
+
+    app.component("unfinished-registration", unfinishedRegistration.default);
 
     app.component("multiselect", Multiselect);
 

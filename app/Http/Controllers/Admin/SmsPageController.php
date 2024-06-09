@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Cache;
 class SmsPageController extends Controller
 {
     function index() {
-        $templates = SmsTemplate::all();
+        $templates = SmsTemplate::whereNot('name', 'default')->get();
         return view('admin.sms_template', compact('templates'));
     }
 

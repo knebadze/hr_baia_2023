@@ -21,6 +21,7 @@
     <section class="content">
         <div class="container-fluid">
             {{-- <testimonial-page :data='@json($testimonial)'></testimonial-page> --}}
+            <unfinished-registration/>
         </div>
     </section>
 @endsection

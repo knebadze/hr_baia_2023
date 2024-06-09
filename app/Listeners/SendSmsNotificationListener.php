@@ -50,7 +50,7 @@ class SendSmsNotificationListener implements ShouldQueue
 
 
         // Send SMS using your SMS service
-        $this->smsService->sendSms($data['to'], $smsMessage);
+        $this->smsService->sendSms($data['to'], $smsMessage, $type);
     }
 
     protected function getSmsTemplate($type)
