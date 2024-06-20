@@ -61,7 +61,8 @@
                 v-if="
                     !item.user.register_log &&
                     item.registration_fee != 1 &&
-                    item.status_id != 12
+                    item.status_id != 12 &&
+                    role_id != 1
                 "
                 href="#"
                 class="dropdown-item"
@@ -157,10 +158,11 @@ export default {
         };
 
         const enrolled = (item) => {
+            console.log(item);
             showEnrolledModal.value = !showEnrolledModal.value;
             modalItem.value = item.register_fee
                 ? item.register_fee
-                : { log: null };
+                : { log: null, user_id: item.id};
             modalItem.value["name"] = item.name_ka;
         };
 

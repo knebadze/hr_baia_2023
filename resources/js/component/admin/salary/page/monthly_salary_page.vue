@@ -1,6 +1,11 @@
 <template lang="">
     <div>
-        <monthly_salary_table v-if="role_id == 2" :data="items" :role_id="role_id"> </monthly_salary_table>
+        <monthly_salary_table
+            v-if="role_id == 2"
+            :data="items"
+            :role_id="role_id"
+        >
+        </monthly_salary_table>
         <div v-else>
             <div class="row">
                 <div class="col-lg-3 col-6">
@@ -9,10 +14,10 @@
                             <!-- <h3>{{ agree_no_count }}</h3> -->
                             <h3>{{ data.info.enrollment_total }}</h3>
 
-                            <p> სულ დარიცხვები</p>
+                            <p>სულ დარიცხვები</p>
                         </div>
                         <div class="icon">
-                        <i class="fa fa-times"></i>
+                            <i class="fa fa-times"></i>
                         </div>
                         <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
                     </div>
@@ -38,10 +43,10 @@
                         <div class="inner">
                             <h3>{{ total_hr_bonus }}</h3>
 
-                            <p>ჰრ_ის ბონუსი სულ</p>
+                            <p>ბონუსი სულ</p>
                         </div>
                         <div class="icon">
-                        <i class="ion ion-stats-bars"></i>
+                            <i class="ion ion-stats-bars"></i>
                         </div>
                         <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
                     </div>
@@ -55,56 +60,61 @@
                             <p>დანამატი</p>
                         </div>
                         <div class="icon">
-                        <i class="fa fa-check"></i>
+                            <i class="fa fa-check"></i>
                         </div>
                         <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
                     </div>
                 </div>
                 <!-- ./col -->
-
             </div>
 
-            <hr>
+            <hr />
 
-            <monthly_salary_table :data="items" :role_id="role_id"> </monthly_salary_table>
+            <monthly_salary_table :data="items" :role_id="role_id">
+            </monthly_salary_table>
         </div>
     </div>
 </template>
 <script>
-import monthly_salary_table from '../component/monthly_salary_table.vue'
+import monthly_salary_table from "../component/monthly_salary_table.vue";
 export default {
-    components:{
-        monthly_salary_table
+    components: {
+        monthly_salary_table,
     },
-    props:{
+    props: {
         data: Object,
-        role_id:Number
+        role_id: Number,
     },
     data() {
         return {
-            items: {}
-        }
+            items: {},
+        };
     },
-    computed:{
-        total_salary(){
-            return  _.sumBy(this.data.data, item => (item.full_salary)).toFixed(2);
+    computed: {
+        total_salary() {
+            return _.sumBy(this.data.data, (item) => item.full_salary).toFixed(
+                2
+            );
         },
-        total_hr_bonus(){
-            return  (_.sumBy(this.data.data, item => (item.hr_bonus_from_vacancy)) + _.sumBy(this.data.data, item => (item.hr_bonus_from_registration))).toFixed(2);
+        total_hr_bonus() {
+            return (
+                _.sumBy(this.data.data, (item) => item.hr_bonus_from_vacancy) +
+                _.sumBy(
+                    this.data.data,
+                    (item) => item.hr_bonus_from_registration
+                )
+            ).toFixed(2);
         },
         total_supplement() {
-            return  _.sumBy(this.data.data, item => (item.supplement)).toFixed(2);
-        }
+            return _.sumBy(this.data.data, (item) => item.supplement).toFixed(
+                2
+            );
+        },
     },
     created() {
-
-        this.items = this.data.data
+        this.items = this.data.data;
     },
-    methods: {
-
-    },
-}
+    methods: {},
+};
 </script>
-<style lang="">
-
-</style>
+<style lang=""></style>

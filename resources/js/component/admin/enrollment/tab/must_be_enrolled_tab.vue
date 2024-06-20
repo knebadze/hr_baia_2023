@@ -1,5 +1,5 @@
 <template lang="">
-    <section class="content ">
+    <section class="content">
         <!-- <div class="container-fluid">
             <div id="accordion" >
                 <div class="card card-primary" >
@@ -324,10 +324,10 @@
                     <div class="inner">
                         <h3>{{ bonus.toFixed(2) }}</h3>
 
-                        <p>ჰრ_ის ბონუსი იქნება</p>
+                        <p>ბონუსი იქნება</p>
                     </div>
                     <div class="icon">
-                    <i class="ion ion-stats-bars"></i>
+                        <i class="ion ion-stats-bars"></i>
                     </div>
                     <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
                 </div>
@@ -360,65 +360,64 @@
             </div> -->
             <!-- ./col -->
         </div>
-        <must_be_enrolled_table :items="items" :role_id="role_id"></must_be_enrolled_table>
+        <must_be_enrolled_table
+            :items="items"
+            :role_id="role_id"
+        ></must_be_enrolled_table>
 
-
-    <div class="mt-2">
-        <paginate
-            v-model="pagination.current_page"
-            :page-count="pagination.last_page"
-            :page-range="3"
-            :margin-pages="2"
-            :click-handler="getData"
-            :prev-text="'უკან'"
-            :next-text="'წინ'"
-            :container-class="'pagination'"
-            :page-class="'page-item'"
+        <div class="mt-2">
+            <paginate
+                v-model="pagination.current_page"
+                :page-count="pagination.last_page"
+                :page-range="3"
+                :margin-pages="2"
+                :click-handler="getData"
+                :prev-text="'უკან'"
+                :next-text="'წინ'"
+                :container-class="'pagination'"
+                :page-class="'page-item'"
             >
-        </paginate>
-    </div>
-
-  </section>
+            </paginate>
+        </div>
+    </section>
 </template>
 <script>
-import Paginate from 'vuejs-paginate-next';
-import must_be_enrolled_table from '../component/must_be_enrolled_table.vue';
-import _ from 'lodash';
+import Paginate from "vuejs-paginate-next";
+import must_be_enrolled_table from "../component/must_be_enrolled_table.vue";
+import _ from "lodash";
 export default {
-    components:{
+    components: {
         Paginate,
-        must_be_enrolled_table
+        must_be_enrolled_table,
     },
-    props:{
+    props: {
         // data:Object,
-        role_id: Number
+        role_id: Number,
     },
     data() {
         return {
-            colspan: 'hide',
-            pagination:{
+            colspan: "hide",
+            pagination: {
                 current_page: 1,
                 last_page: 2,
             },
-            getDataType:'first_data',
-            items:{},
+            getDataType: "first_data",
+            items: {},
             // role_id: null,
             money: 0,
-            bonus: 0
-        }
+            bonus: 0,
+        };
     },
-    computed:{
-
-    },
+    computed: {},
     created() {
-        this.getData()
+        this.getData();
         // this.role_id = this.data.role_id
     },
     methods: {
         async getData() {
-            if (this.getDataType == 'first_data') {
+            if (this.getDataType == "first_data") {
                 await this.firstData();
-            } else if ( this.getDataType == 'filter') {
+            } else if (this.getDataType == "filter") {
                 await this.filter(this.m);
             }
         },
@@ -429,21 +428,30 @@ export default {
             //     'last_page': this.data.items.last_page
             // };
             try {
-                const response = await axios.post(`/must_be_enrolled_fetch?page=${this.pagination.current_page}` )
+                const response = await axios.post(
+                    `/must_be_enrolled_fetch?page=${this.pagination.current_page}`
+                );
                 if (response.status == 200) {
                     const { data } = response;
                     this.pagination = {
-                        'current_page':data.current_page,
-                        'last_page': data.last_page
-                    }
-                    this.items = _.sortBy(data.data, [function(o) { return o.date; }]);
-                    this.tableKey++
-                    this.items.forEach(element => {
-                        this.money = this.money + element.money
-                        this.bonus = (element.type == 2)?this.bonus + (element.money * element.bonus_percent / 100):this.bonus + 10
+                        current_page: data.current_page,
+                        last_page: data.last_page,
+                    };
+                    this.items = _.sortBy(data.data, [
+                        function (o) {
+                            return o.date;
+                        },
+                    ]);
+                    this.tableKey++;
+                    this.items.forEach((element) => {
+                        this.money = this.money + element.money;
+                        this.bonus =
+                            element.type == 2
+                                ? this.bonus +
+                                  (element.money * element.bonus_percent) / 100
+                                : this.bonus + 10;
                     });
                 }
-
             } catch (error) {
                 console.log(error);
             }
@@ -473,21 +481,15 @@ export default {
             // });
             // this.items = _.sortBy(this.data.items, [function(o) { return o.date; }]);
         },
-        filterMeth(type,m){
-            this.getDataType = type
-            if (this.getDataType == 'filter') {
-                this.filter(m)
+        filterMeth(type, m) {
+            this.getDataType = type;
+            if (this.getDataType == "filter") {
+                this.filter(m);
             }
         },
-        async filter(m){
-
-        }
+        async filter(m) {},
     },
-    watch:{
-
-    },
-}
+    watch: {},
+};
 </script>
-<style lang="">
-
-</style>
+<style lang=""></style>

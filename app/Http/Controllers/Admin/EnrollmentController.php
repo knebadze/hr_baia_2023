@@ -98,7 +98,7 @@ class EnrollmentController extends Controller
         return response()->json($data);
     }
 
-  
+
     function vacancyEnrollment(Request $request) {
         $data['data'] = json_decode($request->input('data'));
         if ($request->hasFile('file')) {
@@ -114,23 +114,23 @@ class EnrollmentController extends Controller
     }
 
     function registerEnrolment(Request $request) {
-        $data['data'] = json_decode($request->input('data'));
-        return response()->json(['data' => $data['data']], 200);
+        $data['data'] = json_decode($request->input('data'), true); // Add true as the second argument
+        // return response()->json(['data' => $data['data']], 200);
         if ($request->hasFile('file')) {
             $data['file'] = $request->file('file');
         }
+
         try {
             if (isset($data['data']['vacancy_id'])) {
                 $result = $this->enrollmentService->save('register',$data);
-            }else{
-                $result = $this->enrollmentService->registerFee('register',$data);
+            } else {
+                $result = $this->enrollmentService->registerFee($data);
             }
-            
+
             return response()->json(['data' => $result], 200);
         } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
-        
     }
 
     function update(Request $request) {
