@@ -42,7 +42,8 @@ class VacancyController extends Controller
                     'vacancyForWhoNeed',
                     'vacancyBenefit',
                     'hr.user',
-                    'qualifyingCandidate'
+                    'qualifyingCandidate',
+                    'vacancyInterest'
                 ]);
 
             $vacancy = $query->paginate(25)->toArray();

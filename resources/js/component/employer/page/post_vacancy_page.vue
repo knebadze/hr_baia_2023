@@ -5,26 +5,22 @@
 
     </div>
 </template>
-<script>
+<script setup>
 import { ref, computed } from 'vue';
 import _ from 'lodash';
 import verify_number from '../components/verify_number.vue';
 import post_vacancy from '../components/post_vacancy/post_vacancy.vue';
-export default {
-    components:{
-        verify_number,
-        post_vacancy
-    },
-    props:{
-        data: Object,
-    },
-    setup(props) {
+
+        const props = defineProps({
+            data: Object
+        });
+        console.log(props.data);
         const getLang = computed(() => {
             return I18n.getSharedInstance().options.lang;
         });
         const cla = ref(_.cloneDeep(props.data.classificatory));
-        const showVerifySection = ref(true);
-        const showPostSection = ref(false);
+        const showVerifySection = ref(props.data.model.role_id == 3);
+        const showPostSection = ref(props.data.model.role_id != 3);
         const post_vacancy_data = ref({...props.data})
 
         // გამეორების დროს იგზავნება ობიექტი
@@ -107,16 +103,7 @@ export default {
             post_vacancy_data.value.classificatory.category = item.used_category? props.data.classificatory.category.filter(i => !item.used_category.includes(i.id)):props.data.classificatory.category
         }
 
-        return {
-            cla,
-            handlerVerify,
-            showVerifySection,
-            showPostSection,
-            post_vacancy_data
-        }
 
-    }
-}
 </script>
 <style scoped>
 

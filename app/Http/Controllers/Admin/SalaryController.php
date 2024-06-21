@@ -22,7 +22,7 @@ class SalaryController extends Controller
     function index() {
         $data = $this->salaryService->data();
         $role_id = Auth::user()->role_id;
-        $hr = User::where('role_id', 2)->whereNot('is_active', 2)->get();
+        $hr= User::whereIn('role_id', [2, 4])->whereNot('is_active', 2)->get();
         return view('admin.salary', compact('data', 'role_id', 'hr'));
     }
 
@@ -79,10 +79,10 @@ class SalaryController extends Controller
         $threeMonthsAgo = Carbon::now()->subMonths(3);
         return Salary::filter($filters)
             ->when(Auth::user()->role_id !== 1, function ($query) {
-                return $query->where('hr_id', Auth::user()->hr->id);
+                return $query->where('hr_id', Auth::user()->staff->id);
             })
             ->orderBy('created_at', 'ASC')
-            ->With('hr.user')
+            ->With('staff.user')
             ->get()->toArray();
     }
 }

@@ -115,7 +115,7 @@ class EnrollmentController extends Controller
 
     function registerEnrolment(Request $request) {
         $data['data'] = json_decode($request->input('data'), true); // Add true as the second argument
-        // return response()->json(['data' => $data['data']], 200);
+
         if ($request->hasFile('file')) {
             $data['file'] = $request->file('file');
         }

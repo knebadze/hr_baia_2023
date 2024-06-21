@@ -117,4 +117,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(RegistrationFee::class);
     }
+
+    public function role()
+    {
+        return $this->hasOne(role::class, 'id', 'role_id');
+    }
 }

@@ -64,7 +64,7 @@ class WelcomeService
 
         $popularVacancy = Vacancy::whereIn('status_id', [2, 6, 7])
                 ->orderBy('view', 'DESC')
-                ->with(['author','currency', 'category', 'workSchedule', 'vacancyForWhoNeed', 'vacancyBenefit', 'vacancyInterest', 'hr.user'])
+                ->with(['author','currency', 'category', 'workSchedule', 'vacancyForWhoNeed', 'vacancyBenefit', 'vacancyInterest', 'hr.user', 'qualifyingCandidate'])
                 ->take(5)
                 ->get()->toArray();
 

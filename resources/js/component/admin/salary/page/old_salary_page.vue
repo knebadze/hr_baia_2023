@@ -134,7 +134,7 @@
                 <div class="small-box bg-warning">
                     <div class="inner">
                         <!-- <h3>{{ agree_no_count }}</h3> -->
-                        <h3>{{ data.info.enrollment_total }}</h3>
+                        <h3>{{ data.info.enrollment_total??0 }}</h3>
 
                         <p>სულ დარიცხვები</p>
                     </div>

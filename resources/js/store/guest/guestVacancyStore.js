@@ -1,7 +1,7 @@
 import { defineStore, storeToRefs } from "pinia";
 import { ref, watch } from "vue";
 import _ from "lodash";
-import { useLoadingStore } from '../loaderStore';
+import { useLoadingStore } from "../loaderStore";
 export const useGuestVacancyStore = defineStore("guestVacancy", () => {
     const vacancies = ref([]);
     const staticVacancies = ref([]);
@@ -56,7 +56,7 @@ export const useGuestVacancyStore = defineStore("guestVacancy", () => {
         try {
             const response = await axios.get(`/fetch_vacancy?page=${page}`);
             const data = response.data;
-            setData(data)
+            setData(data);
             loadingActive.value = false;
         } catch (error) {
             loadingActive.value = false;
@@ -98,9 +98,16 @@ export const useGuestVacancyStore = defineStore("guestVacancy", () => {
     };
 
     const interested = (id, response) => {
+        console.log("response", response);
+        console.log("id", id);
         let find = _.find(vacancies.value, { id: id });
-        find.vacancy_interest.push(response.data.qualifying);
-    }
+        console.log("find", find);
+        if (find.vacancy_interest) {
+            find.vacancy_interest.push(response.data.qualifying);
+        } else {
+            find["vacancy_interest"] = [response.data.qualifying];
+        }
+    };
 
     // vacancy
     // const fetchVacancyDetail = async (id) => {}
@@ -135,6 +142,6 @@ export const useGuestVacancyStore = defineStore("guestVacancy", () => {
         filterVacancy,
         getData,
         setData,
-        interested
+        interested,
     };
 });

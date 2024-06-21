@@ -112,28 +112,62 @@
                     </div>
                 </div>
 
-                <!-- <div class="col-xl-4 col-lg-6 col-md-12">
-                                <div class="form-group">
-                                    <label><span class="text-danger">* </span>{{ ('ტელეფონის ნომერი') }}</label>
-                                    <div class="input-group mb-3">
-                                    <button style="border-style: none;" class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><span :class="`fi fi-${m.employer.number_code.iso.toLowerCase()}`"></span>+{{ m.employer.number_code.phonecode }}</button>
-                                    <ul class="dropdown-menu" style=" overflow: hidden; overflow-y: auto; max-height: calc(100vh - 550px);">
-                                        <li v-for="item in cla.numberCode" @click="chooseNumberCode(item)"><a class="dropdown-item"><span :class="`fi fi-${item.iso.toLowerCase()}`"></span>+{{ item.phonecode }}</a></li>
-                                    </ul>
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            :class="(m.employer.number == null || v.employer.number.$error)?'is-invalid':''"
-                                            v-model="m.employer.number"
-                                            placeholder="555666777"
-                                            onkeypress="return /[0-9]/i.test(event.key)"
-                                            @blur="v.employer.number.$touch"
-                                        >
-                                        <span v-if="send && !v.employer.number.required.$response" style='color:red'>* </span>
-                                        <span v-if="send && !v.employer.number.numeric.$response" style='color:red'>* </span>
-                                    </div>
-                                </div>
-                            </div> -->
+                <div class="col-xl-6 col-lg-6 col-md-12">
+                    <div class="form-group">
+                        <label
+                            ><span class="text-danger">* </span
+                            >{{ "ტელეფონის ნომერი" }}</label
+                        >
+                        <div class="input-group mb-3">
+                            <button
+                                style="border-style: none"
+                                class="btn btn-outline-secondary dropdown-toggle"
+                                type="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                            >
+                                <span
+                                    :class="`fi fi-${m.employer.number_code.iso.toLowerCase()}`"
+                                ></span
+                                >+{{ m.employer.number_code.phonecode }}
+                            </button>
+                            <ul
+                                class="dropdown-menu"
+                                style="
+                                    overflow: hidden;
+                                    overflow-y: auto;
+                                    max-height: calc(100vh - 550px);
+                                "
+                            >
+                                <li
+                                    v-for="item in cla.numberCode"
+                                    @click="chooseNumberCode(item)"
+                                >
+                                    <a class="dropdown-item"
+                                        ><span
+                                            :class="`fi fi-${item.iso.toLowerCase()}`"
+                                        ></span
+                                        >+{{ item.phonecode }}</a
+                                    >
+                                </li>
+                            </ul>
+                            <input
+                                type="text"
+                                class="form-control"
+                                :class="
+                                    m.employer.number == null
+                                        ? 'is-invalid'
+                                        : ''
+                                "
+                                v-model="m.employer.number"
+                                placeholder="555666777"
+                                onkeypress="return /[0-9]/i.test(event.key)"
+                            />
+                            <!-- <span v-if="send && !v.employer.number.required.$response" style='color:red'>* </span>
+                                        <span v-if="send && !v.employer.number.numeric.$response" style='color:red'>* </span> -->
+                        </div>
+                    </div>
+                </div>
                 <div class="col-xl-6 col-lg-6 col-md-12">
                     <div class="form-group">
                         <label
@@ -1198,7 +1232,7 @@ export default {
                 }
             }
         });
-        const claFilterByCategory = (category_id) =>{
+        const claFilterByCategory = (category_id) => {
             cla.value.forWhoNeed = _.filter(
                 props.data.classificatory.forWhoNeed,
                 function (o) {
@@ -1211,11 +1245,11 @@ export default {
                     return o.category_id == category_id;
                 }
             );
-        }
+        };
 
         const watchCategory = () => m.value.vacancy.category;
         watch(watchCategory, (newVal) => {
-            claFilterByCategory(newVal.id)
+            claFilterByCategory(newVal.id);
         });
 
         const startDate = (item) => {
@@ -1403,7 +1437,7 @@ export default {
             }).then((result) => {
                 if (result.isConfirmed) {
                     let url = new URL(location.href);
-                    if (props.data.model.role_id == 1) {
+                    if (props.data.model.role_id != 3) {
                         window.location.replace(
                             `${url.origin}/admin/vacancy?ka`
                         );
@@ -1416,8 +1450,12 @@ export default {
             });
         };
         onMounted(() => {
-            if (m.value.vacancy && m.value.vacancy.id && m.value.vacancy.category_id) {
-                claFilterByCategory(m.value.vacancy.category_id)
+            if (
+                m.value.vacancy &&
+                m.value.vacancy.id &&
+                m.value.vacancy.category_id
+            ) {
+                claFilterByCategory(m.value.vacancy.category_id);
             }
         });
 

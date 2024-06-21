@@ -78,17 +78,8 @@ class AddUserRepository
 
 
                 if ($data['type']['id'] == 1) {
-                    $fee = RegistrationFee::create([
-                        'user_id' => $user->id,
-                        'initial_amount' => $data['money'] ?? null,
-                        'money' => $data['money'] ?? null,
-                        'creator_id' => $author->id,
-                        'enroll_date' => $data['enroll_date'] ?? null,
-                    ]);
+                    $this->createRegistrationFee($data, $user->id, $author->id);
 
-                    if (!$fee) {
-                        throw new \Exception("Registration fee creation failed.", 500);
-                    }
                 }
 
                 if ($data['was_assigned']) {
@@ -123,6 +114,19 @@ class AddUserRepository
         }
     }
 
+    function createRegistrationFee ($data, $user_id, $author_id) {
+        $fee = RegistrationFee::create([
+            'user_id' => $user_id,
+            'initial_amount' => $data['money'] ?? null,
+            'money' => $data['money'] ?? null,
+            'creator_id' => $author_id,
+            'enroll_date' => $data['enroll_date'] ?? now(),
+        ]);
+
+        if (!$fee) {
+            throw new \Exception("Registration fee creation failed.", 500);
+        }
+    }
     function getAuthor($authUser, $wasAssigned = false){
         if ($authUser->role_id !== 1 && !$wasAssigned) {
             return $authUser;

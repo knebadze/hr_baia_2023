@@ -54,7 +54,7 @@
                                     v-if="role_id == 1 && m.enrollment_type"
                                 >
                                     <div class="form-group">
-                                        <label>ჰრ</label>
+                                        <label>staff</label>
                                         <div class="ls-inputicon-box">
                                             <multiselect
                                                 v-model="m.hr"

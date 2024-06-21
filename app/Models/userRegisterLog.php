@@ -13,4 +13,14 @@ class userRegisterLog extends Model
         'user_id',
         'type',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'creator_id');
+    }
 }

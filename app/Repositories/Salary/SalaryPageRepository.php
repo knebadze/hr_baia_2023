@@ -15,24 +15,24 @@ class SalaryPageRepository
     function data() {
         $data = [];
         $data['current']['data'] = Salary::when(Auth::user()->role_id !== 1, function ($query) {
-                return $query->where('hr_id', Auth::user()->hr->id)->where('hr_agree', 0);
+                return $query->where('hr_id', Auth::user()->staff->id)->where('hr_agree', 0);
             })->when(Auth::user()->role_id === 1, function ($query) {
                 return $query->whereNUll('disbursement_date');
             })
             ->orderBy('full_salary', 'DESC')
-            ->With('hr.user')
+            ->With('hr.user.role')
             ->get()->toArray();
         // dd($data);
         $data['current']['info'] = $this->info();
 
         $threeMonthsAgo = Carbon::now()->subMonths(3);
         $data['old']['data'] = Salary::when(Auth::user()->role_id !== 1, function ($query) {
-                return $query->where('hr_id', Auth::user()->hr->id);
+                return $query->where('hr_id', Auth::user()->staff->id);
             })
             ->whereDate('disbursement_date', '>=', $threeMonthsAgo)
             ->whereDate('disbursement_date', '<=', Carbon::now())
             ->orderBy('created_at', 'DESC')
-            ->With('hr.user')
+            ->With('hr.user.role')
             ->get()->toArray();
             // dd($data['old']['data']);
         $data['old']['info'] = $data['old']['data'] ?$this->oldInfo($data['old']['data']) :[];

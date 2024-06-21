@@ -45,6 +45,7 @@ class Candidate extends Model
         'map_link',
         'status_id',
         'stage',
+        'registration_fee',
     ];
     protected $attributes = [
         'convection' => 0,

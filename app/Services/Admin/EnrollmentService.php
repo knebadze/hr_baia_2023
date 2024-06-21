@@ -2,16 +2,18 @@
 
 namespace App\Services\Admin;
 
-use App\Models\RegistrationFee;
 use App\Models\User;
 use App\Models\Vacancy;
+use App\Models\RegistrationFee;
+use App\Models\userRegisterLog;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use App\Repositories\Candidate\AddUserRepository;
 use App\Repositories\Enrollment\EnrollmentRepository;
 use App\Repositories\Enrollment\EnrollmentPageRepository;
 use App\Repositories\Enrollment\EnrollmentAgreeRepository;
 use App\Repositories\Enrollment\EnrollmentUpdateRepository;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 
 class EnrollmentService
 {
@@ -29,17 +31,24 @@ class EnrollmentService
 
     function save($type, $data) {
         try {
-            $vacancy = Vacancy::findOrFail($data['data']->vacancy_id);
-
-            $result = $type == 'vacancy'
-                ? $this->enrollmentRepository->vacancy($data, $vacancy)
-                : $this->enrollmentRepository->register($data['data'], $vacancy->hr->user->id);
-
+            $vacancy = Vacancy::findOrFail($data['data']['vacancy_id']);
+            $initials = $vacancy->hr->user->name_ka;
+            if ($type == 'vacancy') {
+                $result = $this->enrollmentRepository->vacancy($data, $vacancy);
+            }else{
+                $author_id = $vacancy->hr->user->id;
+                $registerLog = userRegisterLog::where('user_id', $data['data']['user_id'])->first();
+                if ($registerLog) {
+                    $author_id = $registerLog->creator_id;
+                    $initials = $registerLog->creator->name_ka;
+                }
+                $result = $this->enrollmentRepository->register($data['data'], $author_id);
+            }
             $admin = Cache::rememberForever('admin_user', function () {
                 return User::where('role_id', 1)->whereNot('id', 2)->get();
             });
 
-            $initials = $vacancy->hr->user->name_ka;
+
 
             $baseUrl = url()->current();
 
@@ -48,7 +57,7 @@ class EnrollmentService
             }
             $smsData = [
                 'hrInicial' => sanitizeString($initials),
-                'money' => $data['data']->money,
+                'money' => $data['data']['money'],
                 'code'=> $vacancy->code,
                 'url' => "{$baseUrl}/admin/enrollment"
             ];
@@ -74,6 +83,8 @@ class EnrollmentService
                 $auth = Auth::user();
                 $author_id = $auth->id;
                 $initials = $auth->name_ka;
+                $registrationFee = new AddUserRepository();
+                $registrationFee->createRegistrationFee($data['data'], $data['data']['user_id'], $author_id);
             }
             $result = $this->enrollmentRepository->register($data['data'], $author_id);
 

@@ -40,6 +40,7 @@ class EnrollmentAgreeRepository
                 $this->dailyWorkEvent($data['author_id'], 'v');
             } else {
                 $this->updateRegisterFee($data['candidate_id'], $data['type'], $data['money']);
+                $this->updateCandidateFeeStatus($data['candidate_id']);
                 $this->dailyWorkEvent($data['author_id'], 'c');
             }
             $user = User::where('id', $data['author_id'])->firstOrFail();
@@ -150,6 +151,15 @@ class EnrollmentAgreeRepository
         $this->deleteDeposit($vacancy_id);
     }
 
+    function updateCandidateFeeStatus ($candidate_id) {
+        try {
+            $candidate = Candidate::where('id', $candidate_id)->firstOrFail();
+            $candidate->update(['registration_fee' => 1]);
+        } catch (\Exception $e) {
+            Log::error('An error occurred during candidate status update: ' . $e->getMessage());
+            throw new \Exception("An error occurred during candidate status update: " . $e->getMessage(), 500);
+        }
+    }
 
     function updateRegisterFee($candidate_id, $type, $money) {
         try {

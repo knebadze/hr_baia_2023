@@ -17,7 +17,9 @@ class DisbursementOfSalaryRepository
     function check($data) {
         $salary = Salary::latest()->first();
         // dd(Enrollment::whereDate('created_at', '>=', Carbon::parse($salary->created_at)->startOfDay()->toDateTimeString())->where('agree', 0)->count());
-        $check = (Enrollment::whereDate('created_at', '>=', Carbon::parse($salary->created_at)->startOfDay()->toDateTimeString())->where('agree', 0)->exists())?Enrollment::whereDate('created_at', '>=', Carbon::parse($salary->created_at)->startOfDay()->toDateTimeString())->where('agree', 0)->count():null;
+        $check = (Enrollment::whereDate('created_at', '>=', Carbon::parse($salary->created_at)->startOfDay()->toDateTimeString())->where('agree', 0)->exists())
+            ? Enrollment::whereDate('created_at', '>=', Carbon::parse($salary->created_at)->startOfDay()->toDateTimeString())->where('agree', 0)->count()
+            : null;
         if ($check) {
             return ['type' => 'w', 'checkCount' => $check];
         } else {
@@ -28,7 +30,6 @@ class DisbursementOfSalaryRepository
 
     function action($data) {
         // dd('action',$data);
-
         try {
             $ids = collect($data)->pluck('id')->toArray();
 
@@ -55,7 +56,7 @@ class DisbursementOfSalaryRepository
             return ['type' => 's', 'salary' => $salary];
         } catch (\Throwable $th) {
             //throw $th;
-            throw new \Exception("An error occurred during enrollment agreement: " . $th->getMessage(), 500);
+            throw new \Exception("An error occurred during disbursement agreement: " . $th->getMessage(), 500);
         }
 
     }
@@ -121,6 +122,7 @@ class DisbursementOfSalaryRepository
             hrDailyWork::whereIn('hr_id', $hr_ids)->whereBetween('created_at', [$start_date, $end_date])->delete();
         } catch (\Throwable $th) {
             //throw $th;
+            throw new \Exception("An error occurred during addWorkLog agreement: " . $th->getMessage(), 500);
             dd($th);
         }
 
