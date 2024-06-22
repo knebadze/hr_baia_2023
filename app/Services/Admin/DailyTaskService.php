@@ -3,6 +3,7 @@
 namespace App\Services\Admin;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Vacancy;
 use App\Models\WorkDay;
 use App\Models\Candidate;
@@ -10,6 +11,7 @@ use App\Models\DailyTask;
 use App\Models\VacancyReminder;
 use Illuminate\Support\Facades\DB;
 use App\Models\QualifyingCandidate;
+use App\Models\UnfinishedRegistration;
 
 class DailyTaskService
 {
@@ -96,6 +98,32 @@ class DailyTaskService
 
             }
 
+            // #მეოთხე ნაწილი
+            // ვამოწმებ რეგისტრაციებს რომლებსც არ დაუწყიათ პირადი მონაცემების შევსება
+          // Calculate the date once and reuse
+            $twoDaysAgo = Carbon::today()->subDays(2);
+
+            // Attempt to retrieve users with a single query
+            $unfinished = User::where('role_id', 3)
+                ->where(function ($query) use ($twoDaysAgo) {
+                    // Users without a candidate and unfinished registration, created 2 days ago
+                    $query->whereDoesntHave('candidate')
+                        ->whereDoesntHave('unFinishedRegistration')
+                        ->whereDate('created_at', $twoDaysAgo);
+                })
+                ->orWhereHas('candidate', function ($query) use ($twoDaysAgo) {
+                    // Or users with a candidate in stage less than 7, updated 2 days ago
+                    $query->where('stage', '<', 7)
+                        ->whereDate('updated_at', $twoDaysAgo);
+                })
+                ->get();
+
+            // Process each user to create an unfinished registration
+            if (count($unfinished)) {
+                $unfinished->each(function ($user) {
+                    $this->createUnfinished($user->id);
+                });
+            }
 
             $daily = DailyTask::first();
             $daily->update(['date' => Carbon::today()->toDateString()]);
@@ -115,5 +143,26 @@ class DailyTaskService
                     'reason' => $text
                 ]
             );
+    }
+
+    function createUnfinished($user_id)  {
+        // Attempt to find a random active user with role_id 4
+        $assignedUser = User::where('role_id', 4)->where('is_active', 1)->inRandomOrder()->first();
+
+        // Check if a user was found
+        if (!$assignedUser) {
+            // Handle the error, e.g., log it, throw an exception, or return false
+            return false;
+        }
+
+        // Proceed with creating the UnfinishedRegistration record
+        UnfinishedRegistration::firstOrCreate([
+            'user_id' => $user_id,
+            'was_assigned_id' => $assignedUser->id,
+            'status_id' => 2
+        ]);
+
+        // Optionally, return true or the created model instance to indicate success
+        return true;
     }
 }

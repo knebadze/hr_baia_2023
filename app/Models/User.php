@@ -122,4 +122,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(role::class, 'id', 'role_id');
     }
+
+    public function unFinishedRegistration()
+    {
+        return $this->hasOne(UnfinishedRegistration::class);
+    }
 }
