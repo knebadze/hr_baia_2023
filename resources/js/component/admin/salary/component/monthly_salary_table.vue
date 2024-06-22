@@ -275,9 +275,9 @@ export default {
                                         autoClose: 1000,
                                     }
                                 );
-                                setTimeout(() => {
-                                    document.location.reload();
-                                }, 1500);
+                                // setTimeout(() => {
+                                //     document.location.reload();
+                                // }, 1500);
                             }
                         })
                         .catch(function (error) {

@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { reactive, ref } from "vue";
 import { fetchUnfinishedRegistrations } from "../../services/administrator";
 import { toastNotification } from "../../helper/toastNotification";
 export const useUnfinishedRegistrationStore = defineStore(
@@ -14,7 +14,16 @@ export const useUnfinishedRegistrationStore = defineStore(
         const role_id = ref(null);
         const getDataType = ref("first_data");
         const cla = ref([]);
-
+        const filterItem = reactive({
+            author: null,
+            assigned: null,
+            status: null,
+            candidate_name: null,
+            candidate_number: null,
+            date_from: null,
+            date_to: null,
+            all: null,
+        });
         const fetchUnfinishedRegistrations = async (page) => {
             try {
                 const response = await axios.post(
@@ -32,6 +41,7 @@ export const useUnfinishedRegistrationStore = defineStore(
                 count.value = total;
                 role_id.value = data.role_id;
                 cla.value = data.classificatory;
+                console.log("cla", cla.value);
             } catch (error) {
                 console.error(
                     "Error fetching unfinished registrations:",
@@ -49,6 +59,7 @@ export const useUnfinishedRegistrationStore = defineStore(
                 );
                 const data = response.data;
                 const { unfinishedRegistrations, total } = data;
+                getDataType.value = "filter";
                 // Update the store's state
                 unfinishedRegistration.value = unfinishedRegistrations.data;
                 pagination.value = {
@@ -71,7 +82,10 @@ export const useUnfinishedRegistrationStore = defineStore(
                 });
                 console.log("response", response);
                 const data = response.data;
-                let findIndex = _.findIndex(unfinishedRegistration.value, ['id', id]);
+                let findIndex = _.findIndex(unfinishedRegistration.value, [
+                    "id",
+                    id,
+                ]);
                 unfinishedRegistration.value.splice(findIndex, 1);
                 toastNotification("წარმატებით შესრულდა", "success");
             } catch (error) {
@@ -90,7 +104,7 @@ export const useUnfinishedRegistrationStore = defineStore(
             if (getDataType.value == "first_data") {
                 await fetchUnfinishedRegistrations(page);
             } else if (getDataType.value == "filter") {
-                await filterUnfinishedRegistrations(page, filterItem.value);
+                await filterUnfinishedRegistrations(page, filterItem);
             }
         };
         return {
@@ -98,6 +112,8 @@ export const useUnfinishedRegistrationStore = defineStore(
             pagination,
             count,
             role_id,
+            cla,
+            filterItem,
             fetchUnfinishedRegistrations,
             filterUnfinishedRegistrations,
             getData,

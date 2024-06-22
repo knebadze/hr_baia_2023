@@ -302,8 +302,11 @@ export default {
                             autoClose: 1000,
                         });
                         let url = new URL(location.href);
+                        let nextUrl = this.m.was_assigned
+                            ? `${url.origin}/admin/vacancy?ka`
+                            : `${url.origin}/ka/user/userProfile?user=${response.data.data.id}`;
                         window.location.replace(
-                            `${url.origin}/ka/user/userProfile?user=${response.data.data.id}`
+                            nextUrl
                         );
                         // setTimeout(() => {
                         //     document.location.reload();

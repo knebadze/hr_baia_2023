@@ -11,6 +11,7 @@ use App\Services\ClassificatoryService;
 use App\Http\Resources\UnfinishedRegistrationCollection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Resources\Staff\UnfinishedRegistrationResource;
+use App\Filters\unFinishedRegistration\UnFinishedRegistrationFilters;
 
 class UnfinishedRegistrationController extends Controller
 {
@@ -25,9 +26,10 @@ class UnfinishedRegistrationController extends Controller
         $unfinished = $query->paginate(20);
         $unfinished = new UnfinishedRegistrationCollection($unfinished);
         $total = $query->count();
-        $classificatoryArray = ['status'];
+        $classificatoryArray = ['status', 'unfinishedRegistrationAuthor', 'administrator'];
         $classificatoryService = new ClassificatoryService();
         $classificatory = $classificatoryService->get($classificatoryArray);
+
         $data = ['unfinishedRegistrations' => $unfinished, 'total' => $total, 'role_id' => Auth::user()->role_id, 'classificatory' => $classificatory];
         return response()->json($data);
     }
@@ -56,6 +58,24 @@ class UnfinishedRegistrationController extends Controller
             return true;
         }
         return false;
+    }
+
+    function filter(UnFinishedRegistrationFilters $filters) {
+        try {
+            $query = UnfinishedRegistration::filter($filters)
+                ->orderBy('id', 'ASC');
+            $total = $query->count();
+            $unfinished = $query->paginate(20);
+            $unfinishedRegistrations = new UnfinishedRegistrationCollection($unfinished);
+            $data = [
+                'total' => $total,
+                'unfinishedRegistrations' => $unfinishedRegistrations
+            ];
+            return response()->json($data);
+        } catch (\Exception $e) {
+            // Handle the error
+            return response()->json(['error' => 'An error occurred'], 500);
+        }
     }
 
 }

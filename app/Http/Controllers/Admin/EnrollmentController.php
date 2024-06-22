@@ -100,7 +100,7 @@ class EnrollmentController extends Controller
 
 
     function vacancyEnrollment(Request $request) {
-        $data['data'] = json_decode($request->input('data'));
+        $data['data'] = json_decode($request->input('data'), true);
         if ($request->hasFile('file')) {
             $data['file'] = $request->file('file');
         }

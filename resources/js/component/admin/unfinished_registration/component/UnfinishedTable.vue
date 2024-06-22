@@ -25,7 +25,7 @@ const completedRegistration = (id) => {
         <thead>
             <tr>
                 <th>#</th>
-                <th>მომხმარებელი</th>
+                <th>კანდიდატი</th>
                 <th>ნომერი</th>
                 <th>ავტორი</th>
                 <th v-if="role_id == 1">დაეწერა</th>

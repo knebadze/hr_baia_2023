@@ -32,6 +32,7 @@ class EnrollmentService
     function save($type, $data) {
         try {
             $vacancy = Vacancy::findOrFail($data['data']['vacancy_id']);
+            // return $vacancy;
             $initials = $vacancy->hr->user->name_ka;
             if ($type == 'vacancy') {
                 $result = $this->enrollmentRepository->vacancy($data, $vacancy);
@@ -68,8 +69,8 @@ class EnrollmentService
             }
             return $result;
         } catch (\Exception $e) {
-            Log::error('An error occurred during enrollment agreement: ' . $e->getMessage());
-            throw new \Exception("An error occurred during enrollment agreement: " . $e->getMessage(), 500);
+            Log::error('An error occurred during enrollment save agreement: ' . $e->getMessage());
+            throw new \Exception("An error occurred during enrollment save agreement: " . $e->getMessage(), 500);
         }
     }
 

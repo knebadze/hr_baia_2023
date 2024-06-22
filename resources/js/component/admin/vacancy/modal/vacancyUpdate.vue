@@ -35,7 +35,7 @@
                             <label for="exampleInputEmail1">სახელი გვარი</label>
                             <input
                                 class="form-control"
-                                v-model="m.employer[`name_${getLang}`]"
+                                v-model="m.employer['name_ka']"
                                 type="text"
                                 :placeholder="
                                     $t(
@@ -105,7 +105,7 @@
                             >
                             <input
                                 class="form-control"
-                                v-model="m.employer[`address_${getLang}`]"
+                                v-model="m.employer['address_ka']"
                                 type="text"
                             />
                         </div>
@@ -113,7 +113,7 @@
                             <label for="exampleInputEmail1">ქუჩა</label>
                             <input
                                 class="form-control"
-                                v-model="m.employer[`street_${getLang}`]"
+                                v-model="m.employer['street_ka']"
                                 type="text"
                             />
                         </div>
@@ -132,7 +132,7 @@
                                 :class="
                                     !m.title_ka ? 'border border-danger' : ''
                                 "
-                                v-model="m[`title_${getLang}`]"
+                                v-model="m['title_ka']"
                                 type="text"
                                 :placeholder="
                                     $t(
@@ -148,8 +148,8 @@
                                     v-model="m.category"
                                     :options="cla.category"
                                     deselect-label="Can't remove this value"
-                                    :track-by="`name_${getLang}`"
-                                    :label="`name_${getLang}`"
+                                    :track-by="'name_ka'"
+                                    :label="'name_ka'"
                                     placeholder="Select one"
                                     :searchable="true"
                                     :allow-empty="false"
@@ -229,8 +229,8 @@
                                         v-model="m.work_schedule"
                                         :options="cla.workSchedule"
                                         deselect-label="Can't remove this value"
-                                        :track-by="`name_${getLang}`"
-                                        :label="`name_${getLang}`"
+                                        :track-by="'name_ka'"
+                                        :label="'name_ka'"
                                         placeholder="Select one"
                                         :searchable="false"
                                         :allow-empty="false"
@@ -282,8 +282,8 @@
                                         v-model="m.currency"
                                         :options="cla.currency"
                                         deselect-label="Can't remove this value"
-                                        :track-by="`name_${getLang}`"
-                                        :label="`name_${getLang}`"
+                                        :track-by="'name_ka'"
+                                        :label="'name_ka'"
                                         placeholder="Select one"
                                         :searchable="false"
                                         :allow-empty="false"
@@ -308,9 +308,7 @@
                                 <div class="ls-inputicon-box">
                                     <textarea
                                         class="form-control"
-                                        v-model="
-                                            m[`additional_schedule_${getLang}`]
-                                        "
+                                        v-model="m['additional_schedule_ka']"
                                         type="text"
                                         placeholder=""
                                         rows="3"
@@ -416,8 +414,8 @@
                                         v-model="m.term"
                                         :options="cla.term"
                                         deselect-label="Can't remove this value"
-                                        :track-by="`name_${getLang}`"
-                                        :label="`name_${getLang}`"
+                                        :track-by="'name_ka'"
+                                        :label="'name_ka'"
                                         placeholder="Select one"
                                         :searchable="true"
                                         :allow-empty="false"
@@ -538,8 +536,8 @@
                                         v-model="m.demand.education"
                                         :options="cla.educations"
                                         deselect-label="Can't remove this value"
-                                        :track-by="`name_${getLang}`"
-                                        :label="`name_${getLang}`"
+                                        :track-by="'name_ka'"
+                                        :label="'name_ka'"
                                         :placeholder="
                                             $t('lang.employer_add_job_select')
                                         "
@@ -562,8 +560,8 @@
                                         v-model="m.demand.specialty"
                                         :options="cla.specialties"
                                         deselect-label="Can't remove this value"
-                                        :track-by="`name_${getLang}`"
-                                        :label="`name_${getLang}`"
+                                        :track-by="'name_ka'"
+                                        :label="'name_ka'"
                                         :placeholder="
                                             $t('lang.employer_add_job_select')
                                         "
@@ -590,8 +588,8 @@
                                         v-model="m.demand.language"
                                         :options="cla.languages"
                                         deselect-label="Can't remove this value"
-                                        :track-by="`name_${getLang}`"
-                                        :label="`name_${getLang}`"
+                                        :track-by="'name_ka'"
+                                        :label="'name_ka'"
                                         :placeholder="
                                             $t('lang.employer_add_job_select')
                                         "
@@ -619,8 +617,8 @@
                                         v-model="m.demand.language_level"
                                         :options="cla.languageLevels"
                                         deselect-label="Can't remove this value"
-                                        :track-by="`name_${getLang}`"
-                                        :label="`name_${getLang}`"
+                                        :track-by="'name_ka'"
+                                        :label="'name_ka'"
                                         :placeholder="
                                             $t('lang.employer_add_job_select')
                                         "
@@ -767,7 +765,7 @@
                                 }}</label>
                                 <textarea
                                     class="form-control"
-                                    v-model="m[`additional_duty_${getLang}`]"
+                                    v-model="m['additional_duty_ka']"
                                     type="text"
                                     placeholder=""
                                     rows="3"
@@ -814,8 +812,8 @@
                                         v-model="m.interview_place"
                                         :options="cla.interviewPlace"
                                         deselect-label="Can't remove this value"
-                                        :track-by="`name_${getLang}`"
-                                        :label="`name_${getLang}`"
+                                        :track-by="'name_ka'"
+                                        :label="'name_ka'"
                                         :placeholder="
                                             $t('lang.employer_add_job_select')
                                         "
@@ -882,7 +880,8 @@ export default {
     },
     computed: {
         getLang() {
-            return I18n.getSharedInstance().options.lang;
+            const instance = I18n.getSharedInstance();
+            return instance.options.lang;
         },
     },
     methods: {

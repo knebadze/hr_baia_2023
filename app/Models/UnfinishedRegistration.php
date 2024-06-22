@@ -34,4 +34,9 @@ class UnfinishedRegistration extends Model
     {
         return $this->belongsTo(Status::class);
     }
+    
+    public function scopeFilter($query, $filters)
+    {
+        return $filters->apply($query);
+    }
 }

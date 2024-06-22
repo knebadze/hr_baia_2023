@@ -18,13 +18,13 @@ class EnrollmentRepository
             $enrollment = new Enrollment([
                 'enrollment_type' => 2,
                 'author_id' => $vacancy->hr->user->id,
-                'vacancy_id' => $data['data']->vacancy_id,
-                'who_is_counting' => $data['data']->who_is_counting,
-                'type' => $data['data']->type,
-                'name' => $data['data']->name,
-                'money' => $data['data']->money,
+                'vacancy_id' => $data['data']['vacancy_id'],
+                'who_is_counting' => $data['data']['who_is_counting'],
+                'type' => $data['data']['type'],
+                'name' => $data['data']['name'],
+                'money' => $data['data']['money'],
                 'hr_percent' => $bonus_percent,
-                'hr_bonus' => number_format((int)$data['data']->money * (int)$bonus_percent / 100, 2),
+                'hr_bonus' => number_format((int)$data['data']['money'] * (int)$bonus_percent / 100, 2),
                 'status_id' => 17,
             ]);
 

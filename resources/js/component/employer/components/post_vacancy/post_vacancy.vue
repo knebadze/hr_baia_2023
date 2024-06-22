@@ -112,7 +112,7 @@
                     </div>
                 </div>
 
-                <div class="col-xl-6 col-lg-6 col-md-12">
+                <div class="col-xl-6 col-lg-6 col-md-12" v-if="data.model.role_id && data.model.role_id != 3">
                     <div class="form-group">
                         <label
                             ><span class="text-danger">* </span

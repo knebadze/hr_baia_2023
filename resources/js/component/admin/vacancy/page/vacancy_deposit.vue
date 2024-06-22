@@ -112,17 +112,9 @@ export default {
             return find;
         })
 
-        const forItem = (item) =>{
-            var editedFields = {}
-            for (const field in item) {
-                if ( item[field] !== candidateModel.value[field] ) {
-                        editedFields[field] = candidateModel.value[field]
-                }
-            }
-            return editedFields
-        }
+
         const handleRedacted = (updatedModel, type) => {
-            let editedFields = forItem(updatedModel)
+            console.log('updatedModel',updatedModel);
             Swal.fire({
                 title: 'ნამდვილად გსურთ რედაქტირება?',
                 //   showDenyButton: true,
@@ -134,7 +126,7 @@ export default {
                 if (result.isConfirmed) {
                     // return
                     axios.post('/update_vacancy_deposit' ,{
-                        data: {model: updatedModel, edit: editedFields, type: type},
+                        data: {model: updatedModel,  type: type},
                     })
                     .then(function (response) {
                         // handle success
@@ -165,7 +157,6 @@ export default {
         };
 
         const handleSave = (updatedModel, type) => {
-            let editedFields = forItem(updatedModel)
             Swal.fire({
                 title: 'ნამდვილად გსურთ ვაკანსიის ჩარიცხვის შენახვა?',
                 //   showDenyButton: true,
@@ -176,7 +167,7 @@ export default {
             /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
                     axios.post('/save_vacancy_deposit' ,{
-                        data: {model: updatedModel, edit: editedFields, type: type},
+                        data: {model: updatedModel, type: type},
                     })
                     .then(function (response) {
                         // handle success

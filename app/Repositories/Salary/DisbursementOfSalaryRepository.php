@@ -41,16 +41,12 @@ class DisbursementOfSalaryRepository
             $this->addWorkLog($ids);
             if($salary){
                 // იშლება განულებული ჩარიცხვები
-                if (VacancyDeposit::where('must_be_enrolled_employer', 0)->where('must_be_enrolled_candidate', 0)->exists()) {
-                    VacancyDeposit::where('must_be_enrolled_employer', 0)->where('must_be_enrolled_candidate', 0)->delete();
-                }
+                VacancyDeposit::where('must_be_enrolled_employer', 0)->where('must_be_enrolled_candidate', 0)->delete();
                 // იშლება განულებული რეგისტრაციის გადახდები
-                if (RegistrationFee::where('money', 0)->exists()) {
-                    RegistrationFee::where('money', 0)->delete();
-                }
+                RegistrationFee::where('money', 0)->delete();
 
                 // ყველა დადასტურებულ ჩარიცხვას რომელსის თარიღიც ნაკლებია გაცემის თარიღზე ეცვლება სტატუს 18 _ით (დასრულებული)
-                Enrollment::where('agree', 1)->where('created_at', '<=', $salary->disbursement_date)->update(['status_id', 18]);
+                Enrollment::where('agree', 1)->where('created_at', '<=', $salary[0]->disbursement_date)->update(['status_id', 18]);
             }
 
             return ['type' => 's', 'salary' => $salary];

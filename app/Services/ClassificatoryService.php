@@ -81,6 +81,8 @@ class ClassificatoryService
                 'hr' => User::where('role_id', 2)->with('hr')->get()->toArray(),
                 'vacancy_profession' => Profession::all()->toArray(),
                 'reasonForCancel' => ReasonForCancel::all()->toArray(),
+                'administrator' => User::where('role_id', 4)->get()->toArray(),
+                'unfinishedRegistrationAuthor' => User::whereIn('role_id', [1,2])->whereNot('id', 2)->where('is_active', 1)->get()->toArray()
             ];
         });
 

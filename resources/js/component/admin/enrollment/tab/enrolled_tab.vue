@@ -417,6 +417,7 @@ export default {
         },
     },
     created() {
+        this.data.start_date= moment(this.data.start_date).format("YYYY-MM-DD HH:mm")
         // this.getData()
         // this.role_id = this.data.role_id
         let arr = [

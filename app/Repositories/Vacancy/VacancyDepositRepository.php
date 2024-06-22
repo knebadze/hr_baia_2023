@@ -45,7 +45,7 @@ class VacancyDepositRepository
                     $mustCandidate = $deposit->must_be_enrolled_candidate + ($data['initial_amount'] - $deposit->candidate_initial_amount);
                 }
             }else{
-                $mustCandidate = $data['must_be_enrolled_employer'];
+                $mustCandidate = $data['must_be_enrolled'];
             }
             $deposit->candidate_initial_amount = $data['initial_amount'];
             $deposit->must_be_enrolled_candidate = $mustCandidate;

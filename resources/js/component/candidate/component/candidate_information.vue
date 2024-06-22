@@ -19,6 +19,8 @@
                                         type="text"
                                         placeholder=""
                                         @blur="v.personal_number.$touch"
+                                        maxlength="11"
+                                        onkeypress="return /[0-9]/i.test(event.key)"
                                     >
 
                                     <span v-if="send && !v.personal_number.required.$response" style='color:red'>* </span>
@@ -399,7 +401,7 @@
     </form>
 </template>
 <script>
-import { ref, computed, watch } from 'vue';
+import { ref, computed, watch, onMounted } from 'vue';
 import { I18n } from 'laravel-vue-i18n';
 import { useVuelidate } from '@vuelidate/core';
 import { required, numeric, maxLength } from '@vuelidate/validators';
@@ -543,7 +545,9 @@ export default {
                 });
             }
         }
-
+        // onMounted(() => {
+        //     window.scrollTo(0, 0);
+        // });
 
         watch(m.value, (newVal) => {
             saveButton.value = true

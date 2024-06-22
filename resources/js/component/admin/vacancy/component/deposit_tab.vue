@@ -121,6 +121,7 @@ export default {
 
         const emitRedacted = () => {
             if (m.value.initial_amount && m.value.must_be_enrolled_date) {
+                console.log(m.value);
                 emit('redacted', m.value, props.type); // Pass the updated model as the event payload
             }else{
                 toast.error("აუცილებელია ყველა პარამეტრის შევსება", {
