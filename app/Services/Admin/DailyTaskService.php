@@ -15,7 +15,7 @@ use App\Models\UnfinishedRegistration;
 
 class DailyTaskService
 {
-    
+
 
     public function task()
     {
@@ -141,21 +141,6 @@ class DailyTaskService
             });
         }
     }
-    private function updateDailyTaskDate($currentDateTime)
-    {
-        DailyTask::first()->update(['date' => $currentDateTime->toDateString()]);
-    }
-    function addRemainder($hr_id, $vacancy_id, $date, $text) {
-        VacancyReminder::create(
-                [
-                    'vacancy_id' => $vacancy_id,
-                    'hr_id' => $hr_id,
-                    'date' =>  $date,
-                    'reason' => $text
-                ]
-            );
-    }
-
     function createUnfinished($user_id)  {
         // Attempt to find a random active user with role_id 4
         $assignedUser = User::where('role_id', 4)->where('is_active', 1)->inRandomOrder()->first();
@@ -176,4 +161,20 @@ class DailyTaskService
         // Optionally, return true or the created model instance to indicate success
         return true;
     }
+    private function updateDailyTaskDate($currentDateTime)
+    {
+        DailyTask::first()->update(['date' => $currentDateTime->toDateString()]);
+    }
+    function addRemainder($hr_id, $vacancy_id, $date, $text) {
+        VacancyReminder::create(
+                [
+                    'vacancy_id' => $vacancy_id,
+                    'hr_id' => $hr_id,
+                    'date' =>  $date,
+                    'reason' => $text
+                ]
+            );
+    }
+
+
 }

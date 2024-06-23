@@ -32,8 +32,8 @@ class MyprofileController extends Controller
                 // Update the user's avatar
                 $user->avatar = $filePath;
 
-                // Delete the old avatar if it exists and it's not a default avatar
-                if ($oldAvatar && !in_array($oldAvatar, ['user_avatar/default_male.jpg', 'user_avatar/default_female.jpg'])) {
+                // Delete the old avatar if it exists, it's not a default avatar, and it actually exists in the storage
+                if ($oldAvatar && !in_array($oldAvatar, ['user_avatar/default_male.jpg', 'user_avatar/default_female.jpg']) ) {
                     Storage::disk('public')->delete($oldAvatar);
                 }
             }

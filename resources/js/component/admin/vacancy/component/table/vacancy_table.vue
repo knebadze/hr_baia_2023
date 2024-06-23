@@ -148,7 +148,9 @@ const copyToClipboard = (item) => {
             </template>
             <template #item-status="item">
                 <span :class="`badge bg-${item.status.color} p-1`">{{
-                    item.status.name_ka
+                    item.reason_for_cancel && item.reason_for_cancel.id == 35
+                        ? item.reason_for_cancel.name_ka
+                        : item.status.name_ka
                 }}</span>
             </template>
             <template #expand="item">
