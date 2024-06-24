@@ -101,7 +101,7 @@
                                 </div>
                                 <div class="twm-content">
                                     <div class="tw-count-number text-clr-sky">
-                                        <span>0</span>
+                                        <span>13007</span>
                                     </div>
                                     <p class="icon-content-info">{{ __('lang.welcome_rightside_bar_companyvacancie') }}</p>
                                 </div>
@@ -115,7 +115,7 @@
                                 <div class="twm-content" role="button">
                                     <a href="{{ route('job' , App()->getLocale())  }}">
                                         <div class="tw-count-number text-clr-pink">
-                                            <span>{{ $data['slider']['vacancies'] }}</span>
+                                            <span>{{ 34010 + $data['slider']['vacancies'] }}</span>
                                         </div>
                                         <p class="icon-content-info">{{ __('lang.welcome_rightside_bar_individualvacancie') }} </p>
                                     </a>

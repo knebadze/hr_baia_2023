@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\ImageUploadRequest;
 
 class MyprofileController extends Controller
 {
@@ -17,35 +17,32 @@ class MyprofileController extends Controller
         //
     }
 
-    public function store(Request $request)
+    public function store(ImageUploadRequest $request)
     {
         try {
             $user = User::findOrFail($request->id);
 
-            // Check if there's a new avatar uploaded
             if ($request->hasFile('avatar')) {
                 $oldAvatar = $user->avatar;
+                $avatar = $request->file('avatar');
 
-                // Store the new avatar
-                $filePath = $request->file('avatar')->store('user_avatar', 'public');
+                $image = Image::make($avatar)->fit(300, 300);
+                $filePath = 'user_avatar/' . $avatar->hashName();
+                Storage::disk('public')->put($filePath, (string) $image->encode());
 
-                // Update the user's avatar
                 $user->avatar = $filePath;
 
-                // Delete the old avatar if it exists, it's not a default avatar, and it actually exists in the storage
-                if ($oldAvatar && !in_array($oldAvatar, ['user_avatar/default_male.jpg', 'user_avatar/default_female.jpg']) ) {
+                if ($oldAvatar && !in_array($oldAvatar, ['user_avatar/default_male.jpg', 'user_avatar/default_female.jpg'])) {
                     Storage::disk('public')->delete($oldAvatar);
                 }
             }
 
-            // Save changes to the user
             $user->save();
 
             return response()->json($user);
         } catch (\Exception $e) {
-            // Handle any exceptions
-            return response()->json(['error' => 'An error occurred while updating the user avatar.'], 500);
-        }
+            return response()->json(['error' => 'An error occurred while updating the user avatar.'. $e], 500);
+    }
     }
 
     public function show($id)
