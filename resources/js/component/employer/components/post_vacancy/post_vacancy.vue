@@ -112,7 +112,10 @@
                     </div>
                 </div>
 
-                <div class="col-xl-6 col-lg-6 col-md-12" v-if="data.model.role_id && data.model.role_id != 3">
+                <div
+                    class="col-xl-6 col-lg-6 col-md-12"
+                    v-if="data.model.role_id && data.model.role_id != 3"
+                >
                     <div class="form-group">
                         <label
                             ><span class="text-danger">* </span
@@ -248,25 +251,18 @@
                         >
                         <div class="ls-inputicon-box">
                             <multiselect
-                                :customClass="{
-                                    'is-invalid':
-                                        m.vacancy.category == null ||
-                                        v.vacancy.category.$error,
-                                }"
+                                :customClass="customClasses"
                                 v-model="m.vacancy.category"
                                 :options="cla.category"
                                 deselect-label="Can't remove this value"
-                                :track-by="`name_${getLang}`"
-                                :label="`name_${getLang}`"
+                                :track-by="trackBy"
+                                :label="label"
                                 placeholder="Select one"
                                 :searchable="true"
                                 :allow-empty="false"
                                 @blur="v.vacancy.category.$touch"
+                                aria-describedby="categoryHelp"
                             >
-                                <template
-                                    slot="singleLabel"
-                                    slot-scope="{ option }"
-                                ></template>
                             </multiselect>
                             <span
                                 v-if="
@@ -310,6 +306,7 @@
                                 track-by="name_ka"
                                 :preselect-first="false"
                                 @blur="v.for_who_need.$touch"
+                                :max="3"
                             />
                             <span
                                 v-if="
@@ -719,7 +716,7 @@
                                     $t('lang.employer_add_job_select')
                                 "
                                 :searchable="true"
-                                :allow-empty="false"
+                                :allow-empty="true"
                             >
                                 <template
                                     slot="singleLabel"
@@ -743,7 +740,7 @@
                                     $t('lang.employer_add_job_select')
                                 "
                                 :searchable="true"
-                                :allow-empty="false"
+                                :allow-empty="true"
                             >
                                 <template
                                     slot="singleLabel"
@@ -772,7 +769,7 @@
                                     $t('lang.employer_add_job_select')
                                 "
                                 :searchable="true"
-                                :allow-empty="false"
+                                :allow-empty="true"
                             >
                                 <template
                                     slot="singleLabel"
@@ -799,7 +796,7 @@
                                     $t('lang.employer_add_job_select')
                                 "
                                 :searchable="true"
-                                :allow-empty="false"
+                                :allow-empty="true"
                             >
                                 <template
                                     slot="singleLabel"
@@ -1006,7 +1003,7 @@
                                     $t('lang.employer_add_job_select')
                                 "
                                 :searchable="true"
-                                :allow-empty="false"
+                                :allow-empty="true"
                             >
                                 <template
                                     slot="singleLabel"
@@ -1111,7 +1108,9 @@ export default {
         cla.value.workSchedule = props.data.classificatory.workSchedule.filter(
             (item) => item.id !== 10 && item.id !== 11
         );
-
+        cla.value.educations = props.data.classificatory.educations.filter(
+            (item) => item.id == 1 || item.id == 8
+        );
         let url = new URL(location.href);
 
         // გამეორების დროს იგზავნება ობიექტი
@@ -1125,6 +1124,18 @@ export default {
         // formData.getLang = getLang;
         // formData.number_code = cla.value.numberCode.find(element => element.phonecode == 995);
 
+        // Computed properties
+        const customClasses = computed(() => ({
+            'is-invalid': isCategoryInvalid.value,
+        }));
+
+        const trackBy = computed(() => `name_${getLang.value}`);
+
+        const label = computed(() => `name_${getLang.value}`);
+
+        const isCategoryInvalid = computed(() => {
+            return !m.value.vacancy.category || v.value.vacancy.category.$error;
+        });
         const benefitText = ref(
             m.value.benefit
                 ? m.value.benefit.map((i) => i.name_ka).join(", ")
@@ -1304,7 +1315,16 @@ export default {
                 m.value.demand.max_age = max_age;
             }
         };
-
+        const checkStartDate = (data) =>{
+            if (data.vacancy.start_date < startDateMin.value) {
+                toast.error("როდის გჭირდებათ კადრი თარიღი არ შეიძლება იყოს მიმდინარე თარიღზე ნაკლები", {
+                    theme: "colored",
+                    autoClose: 2000,
+                });
+                return false;
+            }
+            return true;
+        }
         const add = (item) => {
             let data = { ...item };
             // if (file.value != null && file.value.type !== 'application/pdf') {
@@ -1336,7 +1356,7 @@ export default {
             data.vacancy[`title_${getLang.value}`] = data.vacancy.title;
             data.lang = getLang.value;
             v.value.$touch();
-            if (!v.value.$invalid) {
+            if (!v.value.$invalid && checkStartDate(data)) {
                 let html = `
                     ${data.vacancy.start_date}_დან ${
                     data.vacancy.term[`name_${getLang.value}`]
@@ -1484,6 +1504,10 @@ export default {
             startDateMin,
             formData,
             searchData,
+            customClasses,
+            trackBy,
+            label,
+            isCategoryInvalid
         };
     },
 };

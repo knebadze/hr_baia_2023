@@ -71,9 +71,10 @@
                         </div>
                         <div class="col-md-4 right_section">
                             <div class="twm-jobs-amount text-align">
+                                <i class="fa fa-phone"></i>
                                 {{
                                     `${item.hr.user.number} / ${
-                                        item.hr.user[`name_${getLang}`]
+                                        item.hr.user[`name_${getLang}`].split(' ').shift()
                                     }`
                                 }}
                             </div>
@@ -160,11 +161,26 @@ const detailUrl = ref(`${url.origin}/${getLang.value}/job_detail`);
 // const checkInterest = ref(false);
 
 const getTimeAgo = (created_at) => {
-    const time = moment(created_at);
+    const time = moment(created_at, "YYYY-MM-DD HH:mm"); // Explicit format
+    console.log(time);
     const now = moment();
     const diff = now.diff(time);
 
-    if (diff < 60000) {
+    if (diff < 0) {
+        // Date is in the future
+        // Handle future dates appropriately
+        // For example, calculate how far in the future it is
+        const futureMinutes = moment.duration(-diff).asMinutes();
+        if (futureMinutes < 60) {
+            return `${Math.round(futureMinutes)} წუთში`; // minutes in the future
+        }
+        const futureHours = moment.duration(-diff).asHours();
+        if (futureHours < 24) {
+            return `${Math.round(futureHours)} საათში`; // hours in the future
+        }
+        // Add more conditions as needed for days, etc.
+        return "in the future";
+    } else if (diff < 60000) {
         // less than 1 minute
         return "now";
     } else if (diff < 3600000) {
@@ -181,7 +197,7 @@ const getTimeAgo = (created_at) => {
     } else if (diff < 604800000) {
         // less than 7 days (1 week)
         const days = moment.duration(diff).asDays();
-        return `${Math.round(days)} დღiს წინ`;
+        return `${Math.round(days)} დღის წინ`;
     } else {
         return time.format("D MMMM");
     }

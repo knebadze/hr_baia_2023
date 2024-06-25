@@ -22,12 +22,12 @@
                     </div>
                     <!-- BREADCRUMB ROW -->
 
-                        <div>
+                        {{-- <div>
                             <ul class="wt-breadcrumb breadcrumb-style-2">
                                 <li><a href="index.html">Home</a></li>
                                 <li>Candidate Resume</li>
                             </ul>
-                        </div>
+                        </div> --}}
 
                     <!-- BREADCRUMB ROW END -->
                 </div>

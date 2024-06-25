@@ -5,6 +5,7 @@ import "@vueform/slider/themes/default.css";
 import _ from "lodash";
 import table_cog from "./table_cog.vue";
 import expand_body from "./expand_body.vue";
+import { copyToClipboard } from "../../../../../helper/clipboard";
 
 const props = defineProps({
     data: Object,
@@ -98,21 +99,21 @@ const filterOptions = computed(() => {
 //         data.value = props.data.vacancy
 //     }
 // };
-const copyToClipboard = (item) => {
-    navigator.clipboard
-        .writeText(item)
-        .then(() => {
-            toast.success("დაკოპირდა", {
-                theme: "colored",
-                autoClose: 1000,
-            });
-            // You can add any success message or actions here
-        })
-        .catch((err) => {
-            console.error("Error copying text: ", err);
-            // You can handle the error here, e.g., show an error message
-        });
-};
+// const copyToClipboard = (item) => {
+//     navigator.clipboard
+//         .writeText(item)
+//         .then(() => {
+//             toast.success("დაკოპირდა", {
+//                 theme: "colored",
+//                 autoClose: 1000,
+//             });
+//             // You can add any success message or actions here
+//         })
+//         .catch((err) => {
+//             console.error("Error copying text: ", err);
+//             // You can handle the error here, e.g., show an error message
+//         });
+// };
 </script>
 <template>
     <div>
@@ -155,6 +156,14 @@ const copyToClipboard = (item) => {
             </template>
             <template #expand="item">
                 <expand_body :item="item" :hr_id="hr_id" :roleId="role_id" />
+            </template>
+            <template #item-employer.number="item">
+                <span
+                    ref="codeDisplay"
+                    role="button"
+                    @click="copyToClipboard(item.employer.number)"
+                    >{{ item.employer.number }}</span
+                >
             </template>
             <template #header-status.name_ka="header">
                 <div class="filter-column">

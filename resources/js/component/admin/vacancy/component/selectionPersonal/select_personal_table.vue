@@ -7,6 +7,7 @@ import _ from "lodash";
 import table_cog from "./table_cog.vue";
 import expand_body from "../../../candidate/component/candidate/expand_body.vue";
 import addPersonalVacancy from "../../modal/addPersonalVacancy.vue";
+import { copyToClipboard } from "../../../../../helper/clipboard";
 
 const props = defineProps({
     data: Object,
@@ -25,12 +26,13 @@ let modalItem = ref();
 
 const headers = ref([
     { text: "id", value: "id" },
+    { text: "ფოტო", value: "user.avatar" },
     { text: "სახელი გვარი", value: "user.name_ka" },
     { text: "ნომერი", value: "user.number" },
     { text: "პირადი ნომერი", value: "personal_number" },
 
     { text: "სტატუსი", value: "status" },
-    { text: "დამატების თარიღი", value: "created_at", sortable: true },
+    { text: "მისამართი", value: "address_ka" },
     { text: "Operation", value: "operation" },
 ]);
 
@@ -99,7 +101,6 @@ const handleMessageFromChildren = (item) => {
 };
 
 const showModal = (item) => {
-
     modalItem.value = vacancyData();
     modalItem.value["candidate_id"] =
         itemsSelected.value.length > 0
@@ -111,6 +112,10 @@ const showModal = (item) => {
 
 const handlerOpenModal = (item) => {
     showModal(item);
+};
+const sizeIn = (avatar) => {
+    const imageUrl = `/storage/${avatar}`;
+    window.open(imageUrl, "_blank").focus();
 };
 </script>
 <template lang="">
@@ -129,6 +134,31 @@ const handlerOpenModal = (item) => {
         border-cell
         :hide-footer="true"
     >
+        <template #item-id="item">
+            <span
+                ref="codeDisplay"
+                role="button"
+                @click="copyToClipboard(item.id)"
+                >{{ item.id }}</span
+            >
+        </template>
+        <template #item-user.avatar="item">
+            <img
+                :src="`/storage/${item.user.avatar}`"
+                width="50"
+                height="50"
+                @click="sizeIn(item.user.avatar)"
+                style="cursor: zoom-in"
+            />
+        </template>
+        <template #item-user.number="item">
+            <span
+                ref="codeDisplay"
+                role="button"
+                @click="copyToClipboard(item.user.number)"
+                >{{ item.user.number }}</span
+            >
+        </template>
         <template #item-status="item">
             <span :class="`badge bg-${item.status.color} p-1`">{{
                 item.status.name_ka

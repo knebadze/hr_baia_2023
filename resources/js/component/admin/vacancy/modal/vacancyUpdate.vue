@@ -101,7 +101,7 @@
                         </div>
                         <div class="col-6">
                             <label for="exampleInputEmail1"
-                                >დასახლების დასახელება</label
+                                >ქალაქი, დაბა, უბანი ან სოფელი</label
                             >
                             <input
                                 class="form-control"
@@ -829,6 +829,40 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-12">
+                            <div class="form-check">
+                                <input
+                                    type="checkbox"
+                                    class="form-check-input"
+                                    id="exampleCheck4"
+                                    value="1"
+                                    v-model="m.demand.has_experience"
+                                />
+                                <label
+                                    class="form-check-label"
+                                    for="exampleCheck4"
+                                    >გამოცდილების ქონა სავალდებულოა</label
+                                >
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12">
+                            <div class="form-check">
+                                <input
+                                    type="checkbox"
+                                    class="form-check-input"
+                                    id="exampleCheck5"
+                                    value="1"
+                                    v-model="m.demand.has_recommendation"
+                                />
+                                <label
+                                    class="form-check-label"
+                                    for="exampleCheck5"
+                                    >რეკომენდაციის ქონა სავალდებულოა</label
+                                >
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button
@@ -904,6 +938,7 @@ export default {
                     }
                 );
                 this.m = this.makeModel(this.item);
+                console.log(this.m);
                 // {...this.item}
                 // (this.m.stay_night == 1)? this.m.stay_night = true: this.m.stay_night = false
                 // this.makeModel()
@@ -923,6 +958,7 @@ export default {
         makeModel(item) {
             let [datePart, timePart] = item.interview_date.split(" ");
             const data = item;
+            console.log("data", data);
             data.demand = !data.demand ? { vacancy_id: data.id } : data.demand;
             (data.interviewDate = datePart),
                 (data.interviewTime = timePart),

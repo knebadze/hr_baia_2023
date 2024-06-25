@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
-use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Vacancy extends Model
@@ -46,6 +47,15 @@ class Vacancy extends Model
         'updated_at' => 'datetime:Y-m-d H:i',
     ];
 
+    public function getCreatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->timezone(config('app.timezone'))->format('Y-m-d H:i');
+    }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->timezone(config('app.timezone'))->format('Y-m-d H:i');
+    }
     public function getActivitylogOptions(): LogOptions
     {
         $additionalArray  = ['category.name_ka', 'currency.name_ka', 'status.name_ka', 'workSchedule.name_ka', 'hr.user.name', 'term.name_ka', 'reasonForCancel.name_ka', 'interviewPlace.name_ka'];
@@ -142,7 +152,7 @@ class Vacancy extends Model
 
     public function demand()
     {
-        return $this->hasOne(VacancyDemand::class, 'id', 'vacancy_id');
+        return $this->hasOne(VacancyDemand::class, 'vacancy_id', 'id');
     }
 
     public function getCharacteristic()

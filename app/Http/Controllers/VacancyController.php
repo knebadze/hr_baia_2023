@@ -132,7 +132,10 @@ class VacancyController extends Controller
         $statusThisVacancy = ($findCandidate)?$findCandidate->qualifyingType:null;
         $auth = User::where('id', Auth::id())->with('candidate')->first();
         $data = ['vacancy' => $vacancy, 'statusThisVacancy' => $statusThisVacancy, 'applicants' => count($vacancy->vacancyInterest), 'auth' => $auth];
-        $vacancy->increment('view', 1);
+        if (!Auth::check() || Auth::user()->role_id == 3) {
+            $vacancy->increment('view', 1);
+        }
+
         return view('job_detail', compact('data'));
     }
 

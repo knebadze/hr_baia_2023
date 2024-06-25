@@ -341,7 +341,7 @@ return [
     // ----------------------------------------------------------------------------------------------------
     // Employer  Page
     'employer_profile_page_personal_info' => 'პირადი ინფორმაცია',
-    'employer_profile_page_address' => 'დასახლების დასახელება',
+    'employer_profile_page_address' => 'ქალაქი, დაბა, უბანი ან სოფელი',
     'employer_profile_page_street' => 'ქუჩის დასახელება',
 
     'employer_jobs_page_first_title' => 'ვაკანსიები',
