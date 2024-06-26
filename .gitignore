@@ -17,10 +17,9 @@ yarn-error.log
 /.idea
 /.vscode
 
-/resourse/views/layouts/app.blade.php
-/resourse/views/layouts/appPage.blade.php
+/resources/views/layouts/app.blade.php
+/resources/views/layouts/appPage.blade.php
 /public/build/manifest.json
 
 /storage/app
-/views/layouts/app.blade.php
-/views/layouts/appPage.blade.php
+
