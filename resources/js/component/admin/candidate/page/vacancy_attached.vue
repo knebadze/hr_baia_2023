@@ -8,15 +8,17 @@
                     </div>
                     <div class="col-sm-6 text-right">
                         <h6 class="m-0">
-                            კანდიდატი: {{ candidate.user.name_ka }} 
-                            <p>ID: <u
-                                class="text-primary"
-                                @click="
-                                    openCandidateFullInfoModal(candidate.id)
-                                "
-                                >{{ candidate.id }}</u
-                            ></p>
-                            
+                            კანდიდატი: {{ candidate.user.name_ka }}
+                            <p>
+                                ID:
+                                <u
+                                    class="text-primary"
+                                    @click="
+                                        openCandidateFullInfoModal(candidate.id)
+                                    "
+                                    >{{ candidate.id }}</u
+                                >
+                            </p>
                         </h6>
                     </div>
                     <!-- /.col -->
@@ -40,18 +42,21 @@
                 </p>
             </div>
         </section>
-        <candidateFullInfoModalVue :visible="candidateFullInfoModalShow" :candidate_id="candidate_id"></candidateFullInfoModalVue>
+        <candidateFullInfoModalVue
+            :visible="candidateFullInfoModalShow"
+            :candidate_id="candidate_id"
+        ></candidateFullInfoModalVue>
     </div>
 </template>
 <script>
 import _ from "lodash";
 import { ref, computed } from "vue";
 import attached_tableVue from "../component/attached/attached_table.vue";
-import candidateFullInfoModalVue from '../modal/candidateFullInfoModal.vue';
+import candidateFullInfoModalVue from "../modal/candidateFullInfoModal.vue";
 export default {
     components: {
         attached_tableVue,
-        candidateFullInfoModalVue
+        candidateFullInfoModalVue,
     },
     props: {
         data: Object,
@@ -74,7 +79,7 @@ export default {
                     "ID",
                     "შემკვეთი",
                     "კატეგორია",
-                    "ვაკანსისი სტატუსი",
+                    "ვაკანსიის სტატუსი",
                     "დამატების თარიღი",
                     "დაწყების დრო",
                     "დასრულების დრო",
@@ -95,7 +100,7 @@ export default {
                     "ID",
                     "შემკვეთი",
                     "კატეგორია",
-                    "ვაკანსისი სტატუსი",
+                    "ვაკანსიის სტატუსი",
                     "დამატების თარიღი",
                     "დაწყების დრო",
                     "დასრულების დრო",
@@ -134,7 +139,7 @@ export default {
                     "ID",
                     "შემკვეთი",
                     "კატეგორია",
-                    "ვაკანსისი სტატუსი",
+                    "ვაკანსიის სტატუსი",
                     "დამატების თარიღი",
                     "გასაუბრების დრო",
                     "გასაუბრების ადგილი",
@@ -158,7 +163,7 @@ export default {
                     "ID",
                     "შემკვეთი",
                     "კატეგორია",
-                    "ვაკანსისი სტატუსი",
+                    "ვაკანსიის სტატუსი",
                     "ტიპი",
                     "დამატების თარიღი",
                     "მოქმედება",
@@ -170,11 +175,12 @@ export default {
             return data;
         });
         const candidateFullInfoModalShow = ref(false);
-        const candidate_id = ref(null)
+        const candidate_id = ref(null);
 
-        const openCandidateFullInfoModal = (id) =>{
-            candidateFullInfoModalShow.value = !candidateFullInfoModalShow.value;
-            candidate_id.value = id
+        const openCandidateFullInfoModal = (id) => {
+            candidateFullInfoModalShow.value =
+                !candidateFullInfoModalShow.value;
+            candidate_id.value = id;
         };
 
         return {

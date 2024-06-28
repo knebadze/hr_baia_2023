@@ -90,7 +90,7 @@ export default {
 
         const headers = ref([
             // { text: "id", value: "id" },
-            { text: "staff", value: "hr.user.name_ka" },
+            // { text: "staff", value: "staff" },
             {
                 text: "ფიქსირებული ხელფასი",
                 value: "fixed_salary",
@@ -116,6 +116,12 @@ export default {
             // { text: "Operation", value: "operation" },
         ]);
 
+        if(props.role_id == 1){
+            headers.value.unshift({ text: "role", value: "role" });
+            headers.value.unshift({ text: "staff", value: "staff" });
+
+        }
+
         let data = props.data;
         const georgianMonthNames = {
             January: "იანვარი",
@@ -133,18 +139,18 @@ export default {
         };
 
         for (let i = 0; i < data.length; i++) {
-            const date = moment(data[i].created_at);
-            const start_date = moment(data[i].created_at); // Set locale to Georgian
-            data[i].created_at = start_date.format("YYYY-MM-DD HH:mm");
+            // const date = moment(data[i].created_at);
+            // const start_date = moment(data[i].created_at); // Set locale to Georgian
+            // data[i].created_at = start_date.format("YYYY-MM-DD HH:mm");
 
             // Get the English month name
-            const englishMonthName = date.format("MMMM");
+            // const englishMonthName = date.format("MMMM");
 
             // Use the translation mapping to get the Georgian month name
-            const georgianMonthName =
-                georgianMonthNames[englishMonthName] || englishMonthName;
+            // const georgianMonthName =
+            //     georgianMonthNames[englishMonthName] || englishMonthName;
 
-            data[i].month = georgianMonthName;
+            // data[i].month = georgianMonthName;
         }
 
         //  makeData(props.data)

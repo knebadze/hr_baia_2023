@@ -380,7 +380,7 @@ watch(
                             <i class="fa fa-arrow-right" aria-hidden="true"></i>
                             კანდიდატის ID: {{ item.candidate_id }}
                             <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                            ვაკანსისი ID: {{ item.vacancy_code }}
+                            ვაკანსიის ID: {{ item.vacancy_code }}
                             <i class="fa fa-arrow-right" aria-hidden="true"></i>
                             სასურველი კატეგორია
                         </p>

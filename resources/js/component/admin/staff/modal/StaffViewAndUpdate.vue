@@ -16,7 +16,7 @@ const imgName = ref("");
 const show = () => {
     let data = { ...props.data };
     formModel.value = { ...data };
-    formModel.value['password'] = "";
+    formModel.value["password"] = "";
     console.log(formModel.value, data);
     // for (let key in data) {
     //     formModel.value[key] = data[key];
@@ -122,7 +122,7 @@ const updateHR = (data) => {
 watch(
     () => props.visible,
     (newVal) => {
-         show();
+        show();
     }
 );
 </script>
@@ -337,7 +337,7 @@ watch(
                                     class="form-control"
                                     id="exampleInputEmail6"
                                     v-model="formModel.bonus_percent"
-                                    placeholder="ვაკანსისი ბონუსის პროცენტი"
+                                    placeholder="ვაკანსიის ბონუსის პროცენტი"
                                     step="0.5"
                                 />
                             </div>
@@ -357,7 +357,7 @@ watch(
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <hr>
+                            <hr />
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-check">
@@ -376,7 +376,7 @@ watch(
                                 </div>
                             </div>
 
-                            <hr>
+                            <hr />
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
@@ -419,7 +419,6 @@ watch(
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
                     <!-- /.card-body -->

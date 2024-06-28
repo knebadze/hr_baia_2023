@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\Carbon;
+use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
-use Spatie\Activitylog\LogOptions;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class QualifyingCandidate extends Model
 {
@@ -22,12 +23,36 @@ class QualifyingCandidate extends Model
         'end_date'
     ];
     protected $casts = [
-        'interview_date' => 'datetime:Y-m-d H:i',
-        'start_date' => 'datetime:Y-m-d',
-        'end_date' => 'datetime:Y-m-d',
-        'created_at' => 'datetime:Y-m-d H:i',
-        'updated_at' => 'datetime:Y-m-d H:i'
+       'interview_date' => 'datetime:m-d-Y H:i',
+        'start_date' => 'datetime:m-d-Y',
+        'end_date' => 'datetime:m-d-Y',
+        'created_at' => 'datetime:m-d-Y H:i',
+        'updated_at' => 'datetime:m-d-Y H:i'
     ];
+    // public function getInterviewDateAttribute($value)
+    // {
+    //     return Carbon::parse($value)->format('m-d-Y H:i');
+    // }
+
+    // public function getStartDateAttribute($value)
+    // {
+    //     return Carbon::parse($value)->format('m-d-Y');
+    // }
+
+    // public function getEndDateAttribute($value)
+    // {
+    //     return Carbon::parse($value)->format('m-d-Y');
+    // }
+
+    // public function getCreatedAtAttribute($value)
+    // {
+    //     return Carbon::parse($value)->format('m-d-Y H:i');
+    // }
+
+    // public function getUpdatedAtAttribute($value)
+    // {
+    //     return Carbon::parse($value)->format('m-d-Y H:i');
+    // }
     public function getActivitylogOptions(): LogOptions
     {
         $logOptions = LogOptions::defaults([])->logFillable()->logOnlyDirty();
@@ -50,6 +75,7 @@ class QualifyingCandidate extends Model
     {
         return $this->belongsTo(WorkDay::class, 'id', 'qualifying_candidate_id');
     }
+
     public function interviewPlace()
     {
         return $this->belongsTo(InterviewPlace::class);
@@ -58,5 +84,10 @@ class QualifyingCandidate extends Model
     public function status()
     {
         return $this->belongsTo(Status::class);
+    }
+
+    public function endWork()
+    {
+        return $this->hasOne(CandidateEndWork::class);
     }
 }

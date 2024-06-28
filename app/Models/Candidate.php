@@ -54,7 +54,7 @@ class Candidate extends Model
     ];
 
     protected $casts = [
-        'created_at' => 'datetime:Y-m-d',
+        'created_at' => 'datetime:m-d-Y',
     ];
     // protected $appends = ['HasRecommendation'];
 
@@ -188,6 +188,10 @@ class Candidate extends Model
     public function status()
     {
         return $this->belongsTo(Status::class);
+    }
+    public function endWork()
+    {
+        return $this->hasOne(CandidateEndWork::class);
     }
     // public function vacancyInterest()
     // {

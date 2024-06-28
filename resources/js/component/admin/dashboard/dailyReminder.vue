@@ -4,21 +4,27 @@
             <h3 class="card-title">დღის შეხსენებები</h3>
 
             <div class="card-tools">
-                <span title="3 New Messages" class="badge badge-primary">{{ items.length }}</span>
-                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <span title="3 New Messages" class="badge badge-primary">{{
+                    items.length
+                }}</span>
+                <button
+                    type="button"
+                    class="btn btn-tool"
+                    data-card-widget="collapse"
+                >
                     <i class="fas fa-minus"></i>
                 </button>
             </div>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-            <reminder_table :items="items" :role_id="role_id" ></reminder_table>
+            <reminder_table :items="items" :role_id="role_id"></reminder_table>
             <!-- <div class="table-responsive">
                 <table class="table table-bordered">
                     <thead>
                         <tr>
                             <th style="width: 10px">#</th>
-                            <th>ვაკანსისი ID</th>
+                            <th>ვაკანსიის ID</th>
                             <th v-if="role_id == 1">HR</th>
                             <th>შეხსენების მიზეზი</th>
                             <th>დრო</th>
@@ -47,31 +53,25 @@
     </div>
 </template>
 <script>
-import reminder_table from '../reminder/component/reminder_table.vue';
+import reminder_table from "../reminder/component/reminder_table.vue";
 export default {
-    components:{
-        reminder_table
+    components: {
+        reminder_table,
     },
-    props:{
+    props: {
         data: Object,
-        role_id: Number
+        role_id: Number,
     },
     data() {
         return {
-            item: []
-        }
+            item: [],
+        };
     },
-    computed:{
+    computed: {},
+    created() {
+        this.items = this.data;
     },
-    created(){
-        this.items = this.data
-    },
-    methods:{
-
-    }
-
-}
+    methods: {},
+};
 </script>
-<style lang="">
-
-</style>
+<style lang=""></style>

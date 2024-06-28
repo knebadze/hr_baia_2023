@@ -10,6 +10,7 @@ use App\Models\Enrollment;
 use App\Models\hrDailyWork;
 use App\Models\VacancyDeposit;
 use App\Models\RegistrationFee;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class DisbursementOfSalaryRepository
@@ -29,32 +30,44 @@ class DisbursementOfSalaryRepository
     }
 
     function action($data) {
-        // dd('action',$data);
+        // dd($data);
+        // Start transaction
+        DB::beginTransaction();
+    
         try {
             $ids = collect($data)->pluck('id')->toArray();
-
+           
             $salary = Salary::orderBy('hr_id', 'ASC')->whereIn('id', $ids)->update(['disbursement_date' => Carbon::now()]);
-            //იქმნება ახალი ხელფასის ჩანაწერი
-            foreach ($data as $key => $value) {
+            // Create new salary records
+            foreach ($data as $value) {
                 $this->createSalary($value['hr_id']);
             }
             $this->addWorkLog($ids);
-            if($salary){
-                // იშლება განულებული ჩარიცხვები
+    
+            if ($salary) {
+                // Delete zero-value vacancy deposits
                 VacancyDeposit::where('must_be_enrolled_employer', 0)->where('must_be_enrolled_candidate', 0)->delete();
-                // იშლება განულებული რეგისტრაციის გადახდები
+                // Delete zero-value registration fees
                 RegistrationFee::where('money', 0)->delete();
-
-                // ყველა დადასტურებულ ჩარიცხვას რომელსის თარიღიც ნაკლებია გაცემის თარიღზე ეცვლება სტატუს 18 _ით (დასრულებული)
-                Enrollment::where('agree', 1)->where('created_at', '<=', $salary[0]->disbursement_date)->update(['status_id', 18]);
+    
+                // Update status for all confirmed enrollments before the disbursement date
+                Enrollment::where('agree', 1)
+                          ->where('created_at', '<=', Carbon::now())
+                          ->update(['status_id' => 18]);
             }
-
+    
+            // Commit transaction
+            DB::commit();
+    
             return ['type' => 's', 'salary' => $salary];
+        } catch (\Exception $e) {
+            // Rollback transaction on error
+            DB::rollback();
+            throw new \Exception("An error occurred during disbursement agreement: " . $e->getMessage(), 500);
         } catch (\Throwable $th) {
-            //throw $th;
-            throw new \Exception("An error occurred during disbursement agreement: " . $th->getMessage(), 500);
+            DB::rollback();
+            throw new \Exception("An unexpected error occurred: " . $th->getMessage(), 500);
         }
-
     }
 
     function createSalary($staff_id) {
@@ -115,7 +128,8 @@ class DisbursementOfSalaryRepository
                 $workLog->has_enrollment_register = $value->total_has_enrollment_register;
                 $workLog->save();
             }
-            hrDailyWork::whereIn('hr_id', $hr_ids)->whereBetween('created_at', [$start_date, $end_date])->delete();
+            // იშლება ყოველ დღიური სამუშაო პროცესის მონაცემი ჩაკომენტარებიულია დროეიბით
+            // hrDailyWork::whereIn('hr_id', $hr_ids)->whereBetween('created_at', [$start_date, $end_date])->delete();
         } catch (\Throwable $th) {
             //throw $th;
             throw new \Exception("An error occurred during addWorkLog agreement: " . $th->getMessage(), 500);

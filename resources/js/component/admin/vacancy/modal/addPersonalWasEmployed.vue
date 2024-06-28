@@ -184,7 +184,7 @@
             }
         },
         created(){
-            
+
 
             // this.showConfirm = this.visible
         },
@@ -342,11 +342,12 @@
                     })
                 .then(function (response) {
                     // handle success
+                    console.log('response.data', response.data);
                     if (response.data.length > 0) {
                         currentObj.day = currentObj.day.filter(item => !response.data.includes(item.filter_name));
                         currentObj.disabled = true
                     }else{
-                        currentObj.disabled = false
+                        // currentObj.disabled = false
                     }
                     toast.info("გადამოწმდა არჩეული კანდიდატის ინფორმაცია", {
                         theme: 'colored',

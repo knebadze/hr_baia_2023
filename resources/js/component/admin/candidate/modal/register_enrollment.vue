@@ -124,7 +124,6 @@ export default {
         };
     },
     created() {
-
         // this.showConfirm = this.visible
     },
     computed: {
@@ -160,7 +159,8 @@ export default {
             let item = m;
             let enrollmentType;
             // let enrolled;
-            enrollmentType = (item.money == this.item.money || item.money == 30) ? 1 : 0;
+            enrollmentType =
+                item.money == this.item.money || item.money == 30 ? 1 : 0;
             // enrolled = this.item.money - item.money
 
             let model = {
@@ -178,7 +178,7 @@ export default {
             if (enrollmentType == 0) {
                 this.$swal({
                     title: "ნამდვილად გსურთ თანხის არასრული ჩარიცხვა? შეიყვანე შემდეგი გადახდის თარიღი",
-                    html: '<input id="swal-input" type="date">',
+                    html: '<input id="swal-input" type="date" required>',
                     // input: 'date',
                     showCancelButton: true,
                     cancelButtonText: "გაუქმება",
@@ -187,6 +187,10 @@ export default {
                     preConfirm: () => {
                         const date =
                             document.getElementById("swal-input").value;
+                        if (!date) {
+                            Swal.showValidationMessage("Please enter a date."); // Display error message if date is empty
+                            return false; // Prevent the form from being submitted
+                        }
                         return axios
                             .post(
                                 "/register_update?id=" +
@@ -231,7 +235,7 @@ export default {
             axios
                 .post("/register_enrollment", formData)
                 .then(function (response) {
-                console.log('response', response);
+                    console.log("response", response);
                     if (response.status == 200) {
                         toast.success("წარმატებით ჩაირიცხა", {
                             theme: "colored",

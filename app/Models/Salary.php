@@ -19,9 +19,9 @@ class Salary extends Model
         'hr_agree'
     ];
     protected $casts = [
-        'disbursement_date' => 'datetime:Y-m-d H:i:s',
-        'created_at' => 'datetime:Y-m-d H:i',
-        'updated_at' => 'datetime:Y-m-d H:i'
+        'disbursement_date' => 'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime'
     ];
 
     public function hr()

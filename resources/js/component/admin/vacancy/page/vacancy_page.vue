@@ -7,7 +7,7 @@ import Switch from "../../../inc/Switch.vue";
 import vacancy_table from "../component/table/vacancy_table.vue";
 import { useVacancyStore } from "../../../../store/admin/vacancyStore";
 import { storeToRefs } from "pinia";
-import Loading from 'vue3-loading-overlay'
+import Loading from "vue3-loading-overlay";
 
 const props = defineProps({ data: Object });
 const vacancyStore = useVacancyStore();
@@ -840,7 +840,7 @@ onMounted(async () => {
         <div class="my-2 d-flex justify-content-between">
             <p>სულ: {{ countVacancy }}</p>
             <button type="button" class="btn btn-success" @click="addVacancy()">
-                <i class="fa fa-plus"></i> ვაკანსისი დამატება
+                <i class="fa fa-plus"></i> ვაკანსიის დამატება
             </button>
         </div>
         <vacancy_table

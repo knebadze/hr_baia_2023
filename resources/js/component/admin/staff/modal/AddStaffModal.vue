@@ -27,7 +27,6 @@ const model = reactive({
     password: "",
 });
 
-
 const show = () => {
     showConfirm.value = true;
     model.role_id = props.role;
@@ -354,7 +353,7 @@ const addStaff = async () => {
                                     class="form-control"
                                     id="exampleInputEmail6"
                                     v-model="model.bonus_percent"
-                                    placeholder="ვაკანსისი ბონუსის პროცენტი"
+                                    placeholder="ვაკანსიის ბონუსის პროცენტი"
                                     step="0.5"
                                 />
                             </div>

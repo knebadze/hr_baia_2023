@@ -22,7 +22,6 @@ class SalaryService
     }
 
     function disbursement($data) {
-        // dd($data);
         $result = [];
         if(!$data['check']){
             $result = $this->disbursementOfSalaryRepository->check($data['items']);

@@ -196,7 +196,7 @@ class AddVacancyPersonalRepository
 
     }
 
-    
+
     function addRegistrationFee($candidate_id, $vacancy_id){
            // ვამოწმებ აქვს თუ არაა თანხა გადახდილი
         // ვამოწმებ რომელიმე ჰრ ის დასაქმებული ხო არაა
@@ -211,7 +211,7 @@ class AddVacancyPersonalRepository
                 $vacancy = Vacancy::find($vacancy_id);
                 $creator_id = $vacancy ? $vacancy->hr->user->id : null;
             }
-    
+
             $paidBonus = GlobalVariable::where('name', 'paid_registration')->first();
             if ($paidBonus) {
                 $date = Carbon::now()->addDays(7)->toDateString();
@@ -333,12 +333,17 @@ class AddVacancyPersonalRepository
         event(new hrDailyJob($vacancy->hr_id, 'employed'));
     }
 
+    private function getFirstName($fullName) {
+        $parts = explode(' ', $fullName);
+        return $parts[0];
+    }
+
     function sendSms($qualifying)
     {
         $data = []; // Common data
         $employer_name = $qualifying->vacancy->employer->name_ka;
         $employer_number = $qualifying->vacancy->employer->number;
-        $hr_name = $qualifying->vacancy->hr->user->name_ka;
+        $hr_name = $this->getFirstName($qualifying->vacancy->hr->user->name_ka);
         $hr_number = $qualifying->vacancy->hr->user->number;
         $candidate_name = $qualifying->candidate->user->name_ka;
         $candidate_number = $qualifying->candidate->user->number;
@@ -409,9 +414,11 @@ class AddVacancyPersonalRepository
                 $notificationType = 'approved_by_employer';
                 $data = [
                     'to' => $employer_number,
-                    'link' => route('candidate.photo.questionnaire', [
+                    'name' => $hr_name,
+                    'number' => $hr_number,
+                    'link' => route('candidate-detail', [
                         'locale' => App::getLocale(),
-                        'id' => $qualifying->id,
+                        'id' => $qualifying->candidate->id,
                     ]),
                 ];
                 break;

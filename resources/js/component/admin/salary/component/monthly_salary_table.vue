@@ -133,17 +133,17 @@ export default {
         ]);
 
         if(props.role_id == 1){
-            headers.value.unshift({ text: "role", value: "hr.user.role.name" });
-            headers.value.unshift({ text: "staff", value: "hr.user.name_ka" });
+            headers.value.unshift({ text: "role", value: "role" });
+            headers.value.unshift({ text: "staff", value: "staff" });
 
         }
         let data = props.data;
-        for (let i = 0; i < data.length; i++) {
-            // Access the element to update in each object
-            data[i].created_at = moment(data[i].created_at).format(
-                "YYYY-MM-DD HH:mm"
-            );
-        }
+        // for (let i = 0; i < data.length; i++) {
+        //     // Access the element to update in each object
+        //     // data[i].created_at = moment(data[i].created_at).format(
+        //     //     "YYYY-MM-DD HH:mm"
+        //     // );
+        // }
         //  makeData(props.data)
 
         // cla = ref(props.data.classificatory)
@@ -236,9 +236,9 @@ export default {
                                         theme: "colored",
                                         autoClose: 1000,
                                     });
-                                    // setTimeout(() => {
-                                    //     document.location.reload();
-                                    // }, 1500);
+                                    setTimeout(() => {
+                                        document.location.reload();
+                                    }, 1500);
                                 }
                             }
                         })

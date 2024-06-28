@@ -26,8 +26,8 @@ class Enrollment extends Model
         'agree',
     ];
     protected $casts = [
-        'created_at' => 'datetime:Y-m-d H:i',
-        'updated_at' => 'datetime:Y-m-d H:i'
+        'created_at' => 'datetime:m-d-Y H:i',
+        'updated_at' => 'datetime:m-d-Y H:i'
     ];
 
     public function getActivitylogOptions(): LogOptions

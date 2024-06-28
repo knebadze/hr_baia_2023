@@ -43,8 +43,8 @@ class Vacancy extends Model
         'reason_for_cancel_id'
     ];
     protected $casts = [
-        'created_at' => 'datetime:Y-m-d H:i',
-        'updated_at' => 'datetime:Y-m-d H:i',
+        'created_at' => 'datetime:m-d-Y H:i',
+        'updated_at' => 'datetime:m-d-Y H:i',
     ];
 
     public function getCreatedAtAttribute($value)

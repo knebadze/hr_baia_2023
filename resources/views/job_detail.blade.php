@@ -14,7 +14,7 @@
                     <div class="wt-bnr-inr-entry">
                         <div class="banner-title-outer">
                             <div class="banner-title-name">
-                                <h2 class="wt-title">ვაკანსისი ინფორმაცია</h2>
+                                <h2 class="wt-title">ვაკანსიის ინფორმაცია</h2>
                             </div>
                         </div>
                         <!-- BREADCRUMB ROW -->

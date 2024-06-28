@@ -17,7 +17,7 @@ class SmsTemplateSeeder extends Seeder
     {
         DB::table('sms_templates')->delete();
         $data = array(
-            array("name"=>"add_vacancy_send_employer", "description" => "ვაკანსისი დამატების დროს - დამსაქმებელს", "template_ka"=>"თქვენ მოგემსახურებათ HR {name} T: {number}, რომელიც დაგიკავშირდებათ 3 წუთის შიგნით", "template_ka_lt"=>"", "template_en"=>"", "template_ru"=>"", "active" => "ka"),
+            array("name"=>"add_vacancy_send_employer", "description" => "ვაკანსიის დამატების დროს - დამსაქმებელს", "template_ka"=>"თქვენ მოგემსახურებათ HR {name} T: {number}, რომელიც დაგიკავშირდებათ 3 წუთის შიგნით", "template_ka_lt"=>"", "template_en"=>"", "template_ru"=>"", "active" => "ka"),
 
             array("name"=>"add_vacancy_send_hr", "description" => "ვაკანსიის დამატების დროს - HR_ს", "template_ka"=>"შესასრულებლად დაგეწერათ ვაკანსია {code}, კატეგორია {category} ტ: {number} გთხოვთ დაუკავშირდეთ 3 წუთის შიგნით და შემდეგ შეცვალოთ ვაკანსიის სტატუსი", "template_ka_lt"=>"", "template_en"=>"", "template_ru"=>"", "active" => "ka"),
 

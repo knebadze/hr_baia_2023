@@ -52,32 +52,19 @@ class SelectionPersonalController extends Controller
     }
     function vacancyPersonal($id) {
 
-    //     $query = QualifyingCandidate::where('vacancy_id', $id)
-    //         ->orderBy('qualifying_type_id', 'DESC')
-        
-    //         ->get();
-    
-    // $data = QualifyingCandidateResource::collection($query);
-    $data = DB::table('qualifying_candidates as a')
-            ->orderBy('qualifying_type_id', 'DESC')
-            ->where('vacancy_id', $id)
-            ->join('candidates as b', 'a.candidate_id', 'b.id')
-            ->join('users as c', 'b.user_id', 'c.id')
-            ->join('qualifying_types as d', 'a.qualifying_type_id', 'd.id')
-            ->leftJoin('interview_places as e', 'a.interview_place_id', 'e.id')
-            ->join('vacancies as v', 'a.vacancy_id', 'v.id')
-            ->leftJoin('candidate_end_works as f', 'a.id', 'f.qualifying_candidate_id')
-            ->leftJoin('statuses as s', 'a.status_id', 's.id')
-            ->select('a.*', 'b.id as candidate_id', 'c.name_ka as candidate_name',
-                'd.name as qualifying_type', 'e.name_ka as interview_place',
-                'v.status_id as vacancy_status_id', 'v.code as vacancy_code', 'v.start_date as vacancy_start_date',
-                'v.interview_place_id as vacancy_interview_place_id', 'v.interview_date as vacancy_interview_date',
-                'v.hr_id as vacancy_hr_id', 'f.no_reason_id as end_work_reason_id', 'f.reason_info as end_work_reason',
-                's.name_ka as status', 's.color as status_color'
-            )
-            ->get();
+        $qualifyingCandidates = QualifyingCandidate::with([
+            'candidate.user',
+            'qualifyingType',
+            'interviewPlace',
+            'vacancy',
+            'endWork',
+            'status'
+        ])
+        ->where('vacancy_id', $id)
+        ->orderBy('qualifying_type_id', 'DESC')
+        ->get();
+        $data = QualifyingCandidateResource::collection($qualifyingCandidates);
         $auth = (Auth::user()->role_id == 1)?Auth::user():User::where('id', Auth::id())->with('hr')->first();
-        // dd($data);
         return view('admin.vacancy_personal', compact('data', 'auth'));
     }
 

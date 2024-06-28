@@ -100,8 +100,8 @@ class ReminderController extends Controller
 
     function checkMainReminder(Request $request)  {
         // dd($request->all());
-        $data = false;
-        // stage == 0 ვამოწმებ სტატუს არის თუ არაა წარმოიებაში
+        $data = true;
+        // stage == 1 ვამოწმებ სტატუს არის თუ არაა წარმოიებაში
         if($request->stage == 1){
             $vacancy = Vacancy::where('id', $request->vacancy_id)->where('status_id', 2)->whereNotNull('title_ka')->exists();
             // dd($vacancy);

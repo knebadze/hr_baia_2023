@@ -60,7 +60,7 @@ class EnrollmentService
                 'hrInicial' => sanitizeString($initials),
                 'money' => $data['data']['money'],
                 'code'=> $vacancy->code,
-                'url' => "{$baseUrl}/admin/enrollment"
+                'url' => route('admin.enrollment'),
             ];
 
             foreach ($admin as $user) {
