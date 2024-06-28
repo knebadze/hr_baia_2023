@@ -136,7 +136,6 @@ export default {
             let result = await this.getInfo();
             this.registerInfo = result.data;
             this.showConfirm = true;
-            console.log(this.item);
             this.m = { ...this.item };
             // this.min = this.item.end_date;
         },
@@ -235,7 +234,6 @@ export default {
             axios
                 .post("/register_enrollment", formData)
                 .then(function (response) {
-                    console.log("response", response);
                     if (response.status == 200) {
                         toast.success("წარმატებით ჩაირიცხა", {
                             theme: "colored",

@@ -166,7 +166,6 @@ export default {
 
             const response = await axios.get(`/fetch_employer?page=${this.pagination.current_page}`);
             let data = response.data
-            console.log(data);
             this.employer = data.employer.data
             this.staticEmployer = data.employer.data
             // this.cla = this.data.classificatory

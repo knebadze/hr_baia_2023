@@ -5,7 +5,6 @@ import { split, trimEnd, get } from "lodash";
 const props = defineProps({
     item: Object,
 });
-// console.log(props.item);
 const getLang = computed(() => {
     return I18n.getSharedInstance().options.lang;
 });

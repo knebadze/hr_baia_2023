@@ -14,7 +14,6 @@ import post_vacancy from '../components/post_vacancy/post_vacancy.vue';
         const props = defineProps({
             data: Object
         });
-        console.log(props.data);
         const getLang = computed(() => {
             return I18n.getSharedInstance().options.lang;
         });

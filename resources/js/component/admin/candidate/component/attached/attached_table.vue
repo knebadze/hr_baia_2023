@@ -109,7 +109,6 @@ export default {
         auth: Object,
     },
     setup(props) {
-        console.log("props.items", props.items);
         const data = ref(props.items.data);
         const type = ref(props.items.type);
    

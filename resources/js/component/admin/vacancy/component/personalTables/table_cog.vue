@@ -65,7 +65,6 @@ export default {
                 candidate_id: props.item.candidate_id
             };
             modalItem.value = obj
-            console.log('modalItem.value', modalItem.value);
             showAddPersonalModal.value = !showAddPersonalModal.value
         };
 

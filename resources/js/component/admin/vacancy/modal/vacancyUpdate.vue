@@ -938,7 +938,6 @@ export default {
                     }
                 );
                 this.m = this.makeModel(this.item);
-                console.log(this.m);
                 // {...this.item}
                 // (this.m.stay_night == 1)? this.m.stay_night = true: this.m.stay_night = false
                 // this.makeModel()
@@ -958,7 +957,6 @@ export default {
         makeModel(item) {
             let [datePart, timePart] = item.interview_date.split(" ");
             const data = item;
-            console.log("data", data);
             data.demand = !data.demand ? { vacancy_id: data.id } : data.demand;
             (data.interviewDate = datePart),
                 (data.interviewTime = timePart),

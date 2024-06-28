@@ -375,7 +375,6 @@ export default {
         cla.value.duty = props.data.cla.candidateDuty;
         const claLongest = ref(cla.value.workExperiences);
         const formData = { ...props.data.model.familyWorkExperience };
-        console.log(cla.value);
         const getLang = computed(() => {
             return I18n.getSharedInstance().options.lang;
         });
@@ -430,10 +429,8 @@ export default {
 
         const watchItem = () => m.value.family_work_category;
         watch(watchItem, (newVal) => {
-            console.log(newVal);
             let duty = _.cloneDeep(props.data.cla.candidateDuty);
             if (newVal !== undefined && newVal != "") {
-                console.log('if',newVal);
                 let filteredDuty = [];
                 newVal.forEach((element) => {
                     let filter = _.filter(duty, function (o) {
@@ -444,7 +441,6 @@ export default {
                 cla.value.duty = filteredDuty;
             }
             if (newVal.length == 0) {
-                console.log('else',newVal);
                 cla.value.duty = props.data.cla.candidateDuty;
 
             }

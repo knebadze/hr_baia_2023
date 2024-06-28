@@ -34,7 +34,6 @@ const getData = async (page = 1) => {
     if (getDataType.value == "first_data") {
         await fetchCandidates(page);
     } else if (getDataType.value == "filter") {
-        console.log("filterItem", filterItem);
         filterCandidates(page, filterItem.value);
     }
 };
@@ -45,7 +44,6 @@ const getLang = computed(() => {
 watch(
     filterItem,
     (newValue, oldValue) => {
-        console.log("filterItem changed:", newValue);
         getDataType.value = "filter";
         filterCandidates(1, newValue);
     },

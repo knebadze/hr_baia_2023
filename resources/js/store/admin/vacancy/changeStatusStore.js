@@ -22,7 +22,6 @@ export const useChangeVacancyStatusStore = defineStore("VacancyStatus", () => {
                 data: vacancy.value.id,
             });
             responseData.value = response.data;
-            console.log("data", responseData.value);
             history.value = responseData.value.history;
             maxDate.value = getMaxDate(vacancy.value);
             minData.value = currentDate.format("YYYY-MM-DD HH:mm");
@@ -40,8 +39,6 @@ export const useChangeVacancyStatusStore = defineStore("VacancyStatus", () => {
 
     const setVacancy = (data) => {
         vacancy.value = data;
-
-        console.log(vacancy.value);
     };
 
     const makeCla = (id, claStatus) => {

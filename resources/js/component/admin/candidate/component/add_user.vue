@@ -280,13 +280,10 @@ export default {
             gender: null,
             was_assigned: false,
         };
-        console.log(this.data);
         this.cla = this.data.cla;
     },
     methods: {
         async add() {
-            // console.log(this.m);
-            // return;
             const isFormCorrect = await this.v$.$validate();
             if (!isFormCorrect) return;
             let currentObj = this;

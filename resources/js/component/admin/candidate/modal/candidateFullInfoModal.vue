@@ -79,7 +79,6 @@ export default {
             try {
                 let result = await this.getClassificatory();
                 this.candidate = result.data.candidate;
-                console.log(this.candidate);
                 this.candidate.age = this.age(
                     result.data.candidate.user.date_of_birth
                 );
@@ -91,7 +90,6 @@ export default {
             }
         },
         getClassificatory() {
-            console.log(this.candidate_id);
             return axios.post("/get_candidate_full_info", {
                 data: this.candidate_id,
             });

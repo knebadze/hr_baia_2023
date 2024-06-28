@@ -20,7 +20,6 @@ export const useGuestCandidateStore = defineStore('guestCandidate', () =>{
         try {
             loadingActive.value = true;
             const response = await axios.get(`/guest_fetch_candidate?page=${page}`);
-            console.log('response', response);
             const data = response.data;
             const { candidate, classificatory, total } = data
 

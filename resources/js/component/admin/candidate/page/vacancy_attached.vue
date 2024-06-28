@@ -64,7 +64,6 @@ export default {
         candidate: Object,
     },
     setup(props) {
-        console.log(props.candidate);
         const items = ref(props.data);
 
         const tableConfig = computed(() => {

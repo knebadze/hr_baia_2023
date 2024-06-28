@@ -233,7 +233,6 @@ export default {
                         data: { model: item },
                     })
                         .then(function (response) {
-                            console.log(response);
                             if (response.status == 200) {
                                 toast.success("წარმატებით შესრულდა", {
                                     theme: "colored",

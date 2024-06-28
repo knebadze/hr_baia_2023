@@ -46,7 +46,6 @@
     const handlerEmitFilterData = (filterData) => {
         dataType.value = 'filter'
         filterParam.value = filterData
-        console.log(filterData);
         filterCandidates(1, filterData);
     };
     onMounted(async () => {

@@ -30,7 +30,6 @@ export const useUnfinishedRegistrationStore = defineStore(
                     `/fetch_unfinished_registration?page=${page}`
                 );
                 const data = response.data;
-                console.log(data);
                 const { unfinishedRegistrations, total } = data;
                 // Update the store's state
                 unfinishedRegistration.value = unfinishedRegistrations.data;
@@ -41,7 +40,6 @@ export const useUnfinishedRegistrationStore = defineStore(
                 count.value = total;
                 role_id.value = data.role_id;
                 cla.value = data.classificatory;
-                console.log("cla", cla.value);
             } catch (error) {
                 console.error(
                     "Error fetching unfinished registrations:",
@@ -80,7 +78,6 @@ export const useUnfinishedRegistrationStore = defineStore(
                 const response = await axios.post(`/completed_registration`, {
                     id,
                 });
-                console.log("response", response);
                 const data = response.data;
                 let findIndex = _.findIndex(unfinishedRegistration.value, [
                     "id",

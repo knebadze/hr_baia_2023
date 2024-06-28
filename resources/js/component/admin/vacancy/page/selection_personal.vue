@@ -1046,7 +1046,6 @@ const findCandidate = () => {
         )
         .then(function (response) {
             // handle success
-            console.log(response.data.data);
             candidate.value = response.data.data;
             modalData["candidate"] = response.data.data;
             pagination.value = {

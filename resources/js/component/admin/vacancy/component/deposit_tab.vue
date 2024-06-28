@@ -194,7 +194,6 @@ export default {
 
         const emitRedacted = () => {
             if (m.value.initial_amount && m.value.must_be_enrolled_date) {
-                console.log(m.value);
                 emit("redacted", m.value, props.type); // Pass the updated model as the event payload
             } else {
                 toast.error("აუცილებელია ყველა პარამეტრის შევსება", {
@@ -253,7 +252,6 @@ export default {
                             Swal.showValidationMessage("Please enter a date."); // Display error message if date is empty
                             return false; // Prevent the form from being submitted
                         }
-                        console.log("date", date);
                         return axios
                             .post("/deposit_date_update", {
                                 id: model.id,

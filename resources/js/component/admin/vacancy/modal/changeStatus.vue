@@ -234,7 +234,6 @@ watch(
     () => props.visible,
     (newValue, oldValue) => {
         // This function will be called whenever `props.visible` changes
-        console.log("visible changed from", oldValue, "to", newValue);
         show();
     },
     { deep: true }
@@ -244,7 +243,6 @@ watch(
 watch(
     () => m.value.status,
     (newValue, oldValue) => {
-        console.log("old", oldValue, "nw", newValue);
         if (newValue.id == 7) {
             const currentDate = moment();
             const dateInThreeWeeks = currentDate.add(3, "weeks");

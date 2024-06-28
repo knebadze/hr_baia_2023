@@ -17,7 +17,6 @@ export const useAdministratorStore = defineStore("administrator", () => {
     const fetchAdministrator = async () => {
         try {
             const response = await getAdministrator();
-            console.log("Administrator:", response.data);
             const { data } = response;
             setAdministrators(data.staff);
             cla.value = data.cla;

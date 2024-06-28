@@ -199,7 +199,6 @@
 
                     let result = await this.getClassificatory();
                     this.info  = result.data
-                    console.log('result.data', result.data);
                     this.employType()
                     this.m.vacancy = {
                         'id':this.item.id,
@@ -342,7 +341,6 @@
                     })
                 .then(function (response) {
                     // handle success
-                    console.log('response.data', response.data);
                     if (response.data.length > 0) {
                         currentObj.day = currentObj.day.filter(item => !response.data.includes(item.filter_name));
                         currentObj.disabled = true

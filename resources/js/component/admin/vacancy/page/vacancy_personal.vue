@@ -24,7 +24,6 @@ export default {
     },
     setup(props) {
         const items = ref(props.data);
-        console.log(items.value);
         const tableConfig = computed(() => {
             let data = [];
             const employedData = _.filter(props.data, function (o) {

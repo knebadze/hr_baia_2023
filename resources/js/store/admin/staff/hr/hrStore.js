@@ -17,7 +17,6 @@ export const useHrStore = defineStore("hr", () => {
     const fetchHrs = async () => {
         try {
             const response = await getHr();
-            console.log("hr:", response.data);
             const { data } = response;
             setHrs(data.staff);
             cla.value = data.cla;

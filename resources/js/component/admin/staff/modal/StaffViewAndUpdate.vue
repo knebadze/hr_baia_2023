@@ -17,11 +17,9 @@ const show = () => {
     let data = { ...props.data };
     formModel.value = { ...data };
     formModel.value["password"] = "";
-    console.log(formModel.value, data);
     // for (let key in data) {
     //     formModel.value[key] = data[key];
     // }
-    console.log(formModel.value);
     // formModel.value = {
     //     id: data.id,
     //     hr_id: data.hr.id,

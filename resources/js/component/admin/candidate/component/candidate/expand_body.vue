@@ -304,7 +304,6 @@ export default {
         item: Object,
     },
     setup(props) {
-        console.log(props.item);
         const modalType = ref(null);
         const modalItem = ref(null);
         const showInfoModal = ref(false);

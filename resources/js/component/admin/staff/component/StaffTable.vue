@@ -26,7 +26,6 @@ const openViewModal = (data) => {
 };
 
 const isActiveUpdate = (item, index) => {
-    console.log(item);
     axios({
         method: "post",
         url: "/staff_is_active_update",
@@ -37,7 +36,6 @@ const isActiveUpdate = (item, index) => {
         },
     })
         .then(function (response) {
-            console.log(response.data);
             emit("is_active", response.data["is_active"], index);
             if (response.status == 200) {
                 toast.success(response.data.message, {

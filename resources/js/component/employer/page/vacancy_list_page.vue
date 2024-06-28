@@ -27,7 +27,6 @@ onMounted(async () => {
     const searchString = _.nth(parts, 2);
 
     if (searchString == "job_search") {
-        console.log("searchString", searchString);
         // const number = _.last(_.split(_.last(parts), "["), "]");
         // // Remove the ']' character from the end of the number
         // const cleanedNumber = _.trimEnd(number, "]");

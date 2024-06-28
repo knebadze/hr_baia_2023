@@ -12,7 +12,6 @@ const props = defineProps({
     item: Object,
     emitResponse: Function,
 });
-console.log("props.item", props.item);
 // data
 const showConfirm = ref(false);
 const cla = ref({});
@@ -57,7 +56,6 @@ const show = async () => {
         startDateMin.value = currentDate.format("YYYY-MM-DD");
         const startDateMoment = moment(m.value.start_date);
         const endDateMoment = moment(m.value.start_date);
-        console.log("startDateMoment", startDateMoment);
         startDateMax.value = startDateMoment
             .subtract(5, "days")
             .format("YYYY-MM-DD");

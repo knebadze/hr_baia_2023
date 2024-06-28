@@ -202,7 +202,6 @@ export default {
                         },
                     })
                         .then(function (response) {
-                            console.log(response.data);
                             if (response.data.status == 200) {
                                 let text;
                                 if (response.data.data.type == "w") {

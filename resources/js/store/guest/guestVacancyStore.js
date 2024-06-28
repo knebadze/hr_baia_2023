@@ -73,7 +73,6 @@ export const useGuestVacancyStore = defineStore("guestVacancy", () => {
                 filterData
             );
             const data = response.data;
-            console.log("data", data);
             const { total, vacancy } = data;
             // Update the store's state
             vacancies.value = vacancy.data;
@@ -98,10 +97,7 @@ export const useGuestVacancyStore = defineStore("guestVacancy", () => {
     };
 
     const interested = (id, response) => {
-        console.log("response", response);
-        console.log("id", id);
         let find = _.find(vacancies.value, { id: id });
-        console.log("find", find);
         if (find.vacancy_interest) {
             find.vacancy_interest.push(response.data.qualifying);
         } else {
@@ -115,7 +111,6 @@ export const useGuestVacancyStore = defineStore("guestVacancy", () => {
         filterItem,
         (newValue, oldValue) => {
             if (anyNonNull(newValue)) {
-                console.log("filterItem changed:", newValue);
                 getDataType.value = "filter";
                 filterVacancy(1, newValue);
             } else {

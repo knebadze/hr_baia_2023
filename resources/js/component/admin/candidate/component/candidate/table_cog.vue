@@ -158,7 +158,6 @@ export default {
         };
 
         const enrolled = (item) => {
-            console.log(item);
             showEnrolledModal.value = !showEnrolledModal.value;
             modalItem.value = item.register_fee
                 ? item.register_fee

@@ -151,7 +151,6 @@ const props = defineProps({
     item: Object,
     auth: Object,
 });
-console.log(props.item);
 const getLang = computed(() => {
     return I18n.getSharedInstance().options.lang;
 });

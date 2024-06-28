@@ -1119,7 +1119,6 @@ export default {
         const searchData = props.data.model.vacancy.id;
         const formData = { ...props.data.model };
         const m = ref(formData);
-        // console.log(m);
 
         // formData.getLang = getLang;
         // formData.number_code = cla.value.numberCode.find(element => element.phonecode == 995);

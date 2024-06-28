@@ -77,7 +77,6 @@ const addStaff = async () => {
 
     try {
         const response = await axios.post("/add_staff", formData, config);
-        console.log("response", response);
         if (response.status == 200) {
             hide();
             toast.success("ინფორმაცია წარმატებით შეინახა", {
