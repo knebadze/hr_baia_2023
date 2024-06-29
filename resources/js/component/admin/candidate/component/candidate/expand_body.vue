@@ -275,8 +275,8 @@
                     <div class="col-12 d-flex align-items-center p-0">
                         <dt class="col-sm-4">დამატებით ნომრები:</dt>
                         <dd class="col-sm-8">
-                            {{
-                                item.number.length > 0
+                            <!-- {{
+                                item.number && item.number.length > 0
                                     ? item.number
                                           .map(
                                               (i) =>
@@ -284,7 +284,7 @@
                                           )
                                           .join(", ")
                                     : "ინფორმაცია ვერ მოიძებნა"
-                            }}
+                            }} -->
                         </dd>
                     </div>
                 </dl>
@@ -307,7 +307,7 @@ export default {
         const modalType = ref(null);
         const modalItem = ref(null);
         const showInfoModal = ref(false);
-
+        console.log(props.item);
         const openInfoModal = (type, item) => {
             modalType.value = type;
             modalItem.value = item;

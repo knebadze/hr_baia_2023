@@ -31,7 +31,7 @@ const headers = ref([
     { text: "id", value: "id" },
     { text: "ფოტო", value: "avatar" },
     { text: "სახელი გვარი", value: "user.name_ka" },
-    { text: "ნომერი", value: "number" },
+    { text: "ნომერი", value: "user.number" },
     { text: "ასაკი", value: "age", sortable: true },
     { text: "კატეგორია", value: "category" },
     { text: "სტატუსი", value: "status" },
@@ -55,7 +55,7 @@ const makeData = (params) => {
         element.category = map.toString();
         element.age = age(element.user.date_of_birth);
         element.avatar = element.user.avatar;
-        element.number = element.user.number;
+        // element.number = element.user.number;
         arr.push(element);
     });
     return arr;
@@ -184,12 +184,12 @@ const sizeIn = (avatar) => {
                     ></span
                 >
             </template>
-            <template #item-number="item">
+            <template #item-user.number="item">
                 <span
                     ref="codeDisplay"
                     role="button"
-                    @click="copyToClipboard(item.number)"
-                    >{{ item.number }}</span
+                    @click="copyToClipboard(item.user.number)"
+                    >{{ item.user.number }}</span
                 >
             </template>
             <template #item-status="item">
