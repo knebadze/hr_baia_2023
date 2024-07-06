@@ -77,7 +77,7 @@ class SelectionPersonalController extends Controller
     }
 
     public function find(CandidateFilters $filters)  {
-        return Candidate::filter($filters)
+        $query = Candidate::filter($filters)
             ->whereIn('status_id', [9, 11, 14, 15])
             ->with([
                 'user.gender',
@@ -107,6 +107,7 @@ class SelectionPersonalController extends Controller
                 'qualifyingCandidate'
             ])
             ->paginate(25)->toArray();
+        return $query;
     }
 
     function addPersonalInfo(Request $request) {

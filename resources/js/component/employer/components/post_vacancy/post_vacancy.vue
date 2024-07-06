@@ -174,8 +174,7 @@
                 <div class="col-xl-6 col-lg-6 col-md-12">
                     <div class="form-group">
                         <label
-                            ><span class="text-danger">* </span>დასახლების
-                            დასახელება</label
+                            ><span class="text-danger">* </span>ქალაქი, დაბა, უბანი ან სოფელი</label
                         >
                         <div class="ls-inputicon-box">
                             <input

@@ -234,7 +234,7 @@ class VacancyRepository{
             ->when($auth, function ($query) use($auth) {
                 if ($auth->role_id == 2 || $auth->role_id == 1) {
                     return $query->whereHas('hr', function ($subQuery) use ($auth) {
-                        $subQuery->where('branch_id', $auth->branch_id);
+                        $subQuery->where('parent_id', $auth->parent_id);
                     });
                 }else{
                     return $query;
@@ -263,7 +263,7 @@ class VacancyRepository{
         // Apply additional filtering based on the user's role if applicable
         if ($auth && ($auth->role_id == 1 || $auth->role_id == 2)) {
             $nextVacancy->whereHas('hr', function ($query) use ($auth) {
-                $query->where('branch_id', $auth->branch_id);
+                $query->where('parent_id', $auth->parent_id);
             });
         }
 
