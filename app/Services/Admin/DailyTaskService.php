@@ -12,6 +12,7 @@ use App\Models\DailyTask;
 use App\Models\VacancyReminder;
 use Illuminate\Support\Facades\DB;
 use App\Models\QualifyingCandidate;
+use Illuminate\Support\Facades\Log;
 use App\Models\UnfinishedRegistration;
 
 class DailyTaskService
@@ -42,7 +43,7 @@ class DailyTaskService
             // update date
             $this->updateDailyTaskDate($currentDateTime);
         } catch (\Throwable $th) {
-            Log::
+            Log::error('error dailt task', $th->getMessage());
         }
     }
     private function updateQualifyingCandidatesAndRelatedEntities()
