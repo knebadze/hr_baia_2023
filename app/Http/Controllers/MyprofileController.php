@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\ImageUploadRequest;
@@ -41,6 +42,7 @@ class MyprofileController extends Controller
 
             return response()->json($user);
         } catch (\Exception $e) {
+            Log::error('Failed to upload image: ' . $e->getMessage());
             return response()->json(['error' => 'An error occurred while updating the user avatar.'. $e], 500);
         }
     }
