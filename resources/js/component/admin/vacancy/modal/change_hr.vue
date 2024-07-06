@@ -31,7 +31,7 @@
                 </div>
                 <div class="modal-body">
                     <p class="text-center text-info">
-                        ამჟამად ვაკანსია ეკუთვნის HR: {{ item.hr.user.name_ka }}
+                        ამჟამად ვაკანსია ეკუთვნის HR: {{ item.name_ka }}
                     </p>
                     <h5 class="text-center">
                         ნამდვილად გსურთ ვაკანსის გადაწერა?
@@ -79,55 +79,51 @@ import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 import moment from "moment";
 import _ from "lodash";
+import { ref, computed, watch } from "vue";
+import Swal from "sweetalert2";
+import { useVacancyStore } from "../../../../store/admin/vacancyStore";
 export default {
     props: {
         visible: Boolean,
         item: Object,
     },
-    data() {
-        return {
-            showConfirm: false,
-            data: {},
-            m: {},
-            reminder: {},
-            cla: null,
-            edit: {},
-        };
-    },
-    created() {
-        // this.showConfirm = this.visible
-    },
-    computed: {
-        getLang() {
-            return I18n.getSharedInstance().options.lang;
-        },
-    },
-    methods: {
-        async show() {
-            try {
-                let result = await this.getClassificatory();
-                let item = this.item;
-                this.cla = _.filter(result.data, function (o) {
-                    return o.hr.id != item.hr.id;
-                });
-                this.m = this.item;
-                this.edit = {
-                    hr: this.item.hr,
-                };
-                this.showConfirm = true;
-            } catch (error) {}
-        },
-        hide() {
-            this.showConfirm = false;
-        },
-        getClassificatory() {
+    setup(props) {
+        const showConfirm = ref(false);
+        const data = ref();
+        const m = ref();
+        const cla = ref();
+        const edit = ref();
+
+        const getLang = computed(() => I18n.getSharedInstance().options.lang);
+        const getClassificatory = () => {
             return axios.post("/get_hr_cla", {
-                data: this.item.id,
+                data: props.item.id,
             });
-        },
-        save() {
-            let currentObj = this;
-            this.$swal({
+        };
+        const show = async () => {
+            try {
+                let result = await getClassificatory();
+                let item = props.item;
+                cla.value = _.filter(result.data, function (o) {
+                    return o.id != item.id;
+                });
+                m.value = props.item;
+                edit.value = {
+                    hr: props.item,
+                };
+                showConfirm.value = true;
+            } catch (error) {
+                console.log(error);
+            };
+        };
+        const hide = () => {
+            showConfirm.value = false;
+        };
+
+        const vacancyStore = useVacancyStore();
+        const { updateHr } = vacancyStore;
+        const save = () =>{
+            Swal.fire({
                 title: "ნამდვილად გსურთ ვაკანსიისს სხვა hr_ზე გადაწერა?",
                 // html:'ცვლილება ავტომატურად მოხსნის კანდიდატს ვაკანის დასაქმებული სტატუსიდან',
                 //   showDenyButton: true,
@@ -141,7 +137,7 @@ export default {
                     axios({
                         method: "post",
                         url: "/change_hr_in_vacancy",
-                        data: { model: this.m, edit: this.edit },
+                        data: { model: m.value, edit: edit.value },
                     })
                         .then(function (response) {
                             if (response.data.status == 200) {
@@ -149,7 +145,8 @@ export default {
                                     theme: "colored",
                                     autoClose: 1000,
                                 });
-                                currentObj.hide();
+                                updateHr(m.value.id, m.value.new_hr);
+                                hide();
                             }
                         })
                         .catch(function (error) {
@@ -160,13 +157,25 @@ export default {
                     return;
                 }
             });
-        },
-    },
-    watch: {
-        visible: function () {
-            this.show();
-        },
-    },
+        }
+        watch(() => props.visible, (newValue) => {
+            show()
+        });
+        
+        
+        
+        return {
+            showConfirm,
+            data,
+            m,
+            cla,
+            edit,
+            getLang,
+            show,
+            hide,
+            save,
+        }
+    }
 };
 </script>
 <style lang=""></style>

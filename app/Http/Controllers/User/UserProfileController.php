@@ -29,14 +29,15 @@ class UserProfileController extends Controller
         $classificatory = $this->classificatoryService->get($candidateClassificatoryArr);
 
         $user_id = request('user');
-        // dd($user_id);
         $stage = request('stage');
         $model = $this->candidateModelService->findData($stage, $user_id);
 
+        $isUserAuthenticated = Auth::guard('web')->check();
+        $role_id = !$isUserAuthenticated? Auth::guard('staff')->user()->role_id : 3;
         $data = [
             'model' => $model,
             'classificatory' => $classificatory,
-            'role_id' => Auth::user()->role_id
+            'role_id' => $role_id
         ];
 
         return view ('user/userProfile', compact('data'));

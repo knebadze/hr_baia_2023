@@ -30,9 +30,8 @@ class ReminderDataRepository
             ->whereDate('a.date', '>=', $now->startOfWeek())
             ->whereDate('a.date', '<=', $now->endOfWeek())
             ->join('vacancies as b', 'b.id', '=', 'a.vacancy_id')
-            ->join('hrs as c', 'c.id', '=', 'a.hr_id')
-            ->join('users as d', 'c.user_id', '=', 'd.id')
-            ->select('a.*',  'b.code as code', 'd.name_ka as hr_name')
+            ->join('staff as c', 'c.id', '=', 'a.hr_id')
+            ->select('a.*',  'b.code as code', 'c.name_ka as hr_name')
             ->get();
         return $data;
     }
@@ -46,7 +45,7 @@ class ReminderDataRepository
             ->orderBy('a.created_at', 'DESC')
             ->whereDate('a.date', '>=', $now->startOfWeek())
             ->whereDate('a.date', '<=', $now->endOfWeek())
-            ->where('a.hr_id', Auth::user()->hr->id)
+            ->where('a.hr_id', Auth::guard('staff')->user()->id)
             ->join('vacancies as b', 'b.id', '=', 'a.vacancy_id')
             ->select('a.*',  'b.code as code')
             ->get();

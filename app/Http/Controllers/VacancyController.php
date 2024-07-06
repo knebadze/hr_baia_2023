@@ -8,7 +8,9 @@ use App\Models\Vacancy;
 use Illuminate\Http\Request;
 use App\Services\VacancyService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
 use App\Models\QualifyingCandidate;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use App\Filters\Vacancy\VacancyFilters;
 use App\Services\ClassificatoryService;
@@ -41,7 +43,7 @@ class VacancyController extends Controller
                     'workSchedule',
                     'vacancyForWhoNeed',
                     'vacancyBenefit',
-                    'hr.user',
+                    'hr',
                     'qualifyingCandidate',
                     'vacancyInterest'
                 ]);
@@ -66,27 +68,13 @@ class VacancyController extends Controller
         $auth = User::where('id', Auth::id())->with('candidate')->first();
         return ['classificatory' => $classificatory, 'authUser' => $auth];
     }
-    // public function data(Request $request)
-    // {
-
-    //     $vacancy = Vacancy::orderby('updated_at', 'DESC')->whereIn('status_id', [2, 6])->with(['author','currency', 'category', 'workSchedule', 'vacancyForWhoNeed', 'vacancyBenefit', 'vacancyInterest', 'hr.user'])->paginate(25)->toArray();
-    //     // dd($vacancy);
-    //     // $countVacancy = Vacancy::whereIn('status_id', [2, 6])->count();
-    //     $auth = User::where('id', Auth::id())->with('candidate')->first();
-    //     $data = [
-    //         'vacancy' => $vacancy,
-    //         // 'count' => $countVacancy,
-    //         'auth' => $auth
-    //     ];
-    //     return response($data);
-    // }
 
     public function filter(VacancyFilters $filters)
     {
         try {
             $query = Vacancy::filter($filters)->orderby('updated_at', 'DESC')
             ->whereIn('status_id', [2, 6])
-            ->with(['author','currency', 'category', 'workSchedule', 'vacancyForWhoNeed', 'vacancyBenefit', 'qualifyingCandidate', 'hr.user']);
+            ->with(['author','currency', 'category', 'workSchedule', 'vacancyForWhoNeed', 'vacancyBenefit', 'qualifyingCandidate', 'hr']);
 
             $vacancy = $query->paginate(25)->toArray();
             $total = $query->count();
@@ -99,7 +87,6 @@ class VacancyController extends Controller
             return response()->json(['error' => $th->getMessage()], 500);
         }
     }
-
     public function searchForId($id, $array) {
 
         foreach (json_decode(json_encode($array), true) as $key => $val) {
@@ -110,14 +97,13 @@ class VacancyController extends Controller
         return false;
     }
     public function show($lang, $id, $slug=null) {
-        // dd($lang, $id, $slug);
         $vacancy = Vacancy::where('id', $id)
             ->with([
                 'author',
                 'currency',
                 'category',
                 'vacancyForWhoNeed',
-                'hr.user',
+                'hr',
                 'workSchedule',
                 'demand.education',
                 'demand.specialty',
@@ -127,12 +113,13 @@ class VacancyController extends Controller
                 'qualifyingCandidate'
                 ])
             ->first();
-            // dd($vacancy->toArray());
-        $findCandidate = (Auth::check() && Auth::user()->role_id == 3)?QualifyingCandidate::where('vacancy_id', $vacancy->id)->where('candidate_id', Auth::user()->candidate->id)->first():null;
+        $isWebGuard = Auth::guard('web')->check();
+        $role_id = ($isWebGuard)?Auth::guard('web')->user()->role_id:null;
+        $findCandidate = ($isWebGuard && $role_id == 3)?QualifyingCandidate::where('vacancy_id', $vacancy->id)->where('candidate_id', Auth::guard('web')->user()->candidate->id)->first():null;
         $statusThisVacancy = ($findCandidate)?$findCandidate->qualifyingType:null;
-        $auth = User::where('id', Auth::id())->with('candidate')->first();
+        $auth = ($isWebGuard)?User::where('id', Auth::guard('web')->id())->with('candidate')->first():null;
         $data = ['vacancy' => $vacancy, 'statusThisVacancy' => $statusThisVacancy, 'applicants' => count($vacancy->vacancyInterest), 'auth' => $auth];
-        if (!Auth::check() || Auth::user()->role_id == 3) {
+        if ($isWebGuard || $role_id == 3) {
             $vacancy->increment('view', 1);
         }
 
@@ -157,7 +144,6 @@ class VacancyController extends Controller
     }
 
     public function search(Request $request, $lang, $category_id = null, $work_schedule_id = null, $address = null){
-        // dd($category_id);
         $category_id = ($category_id)?intval(trim($category_id, '[]')):$request->input('category_id', $category_id);
         $work_schedule_id = $request->input('work_schedule_id', $work_schedule_id);
         $address = $request->input('address', $address);
@@ -174,7 +160,7 @@ class VacancyController extends Controller
                     ->orWhere('address_ru', 'LIKE', '%'.$address.'%');
                 });
             })
-            ->with(['author','currency', 'category', 'workSchedule', 'vacancyForWhoNeed', 'vacancyBenefit', 'vacancyInterest', 'hr.user']);
+            ->with(['author','currency', 'category', 'workSchedule', 'vacancyForWhoNeed', 'vacancyBenefit', 'vacancyInterest', 'hr']);
 
             $vacancy = $query->paginate(25)->toArray();
             $total = $query->count();

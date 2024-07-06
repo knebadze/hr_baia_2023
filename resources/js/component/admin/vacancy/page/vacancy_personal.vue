@@ -6,6 +6,7 @@
             :key="index"
             :items="item"
             :auth="auth"
+            :adminViewAndPermission="adminViewAndPermission"
         />
         <p v-else class="text-center">შერჩეული პერსონალი ვერ მოიძებნა!!!</p>
     </div>
@@ -23,7 +24,8 @@ export default {
         auth: Object,
     },
     setup(props) {
-        const items = ref(props.data);
+        const items = ref(props.data.store);
+        const adminViewAndPermission = ref(props.data.adminViewAndPermission);
         const tableConfig = computed(() => {
             let data = [];
             const employedData = _.filter(props.data, function (o) {
@@ -129,6 +131,7 @@ export default {
 
         return {
             tableConfig,
+            adminViewAndPermission
         };
     },
 };

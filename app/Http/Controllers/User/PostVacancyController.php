@@ -27,13 +27,13 @@ class PostVacancyController extends Controller
     }
     public function index($lang, $id=null, $code=null)
     {
-        $auth = Auth::user();
+        // $auth = Auth::guard('staff')->user();
 
         if ($id && $code) {
             $vacancy = Vacancy::where('id', $id)->where('code', $code)->with([
                 'vacancyDuty', 'vacancyBenefit', 'vacancyForWhoNeed', 'characteristic', 'employer', 'currency','category', 'status',
                 'workSchedule', 'vacancyInterest', 'interviewPlace','term', 'demand', 'demand.language', 'demand.education', 'demand.languageLevel','demand.specialty',
-                'employer.numberCode','deposit','hr.user', 'vacancyDrivingLicense', 'reasonForCancel'
+                'employer.numberCode','deposit','hr', 'vacancyDrivingLicense', 'reasonForCancel'
                 ])->first();
             $employer = $vacancy->employer;
             $demand = $vacancy->demand;
@@ -43,21 +43,17 @@ class PostVacancyController extends Controller
             $demand = array_map(function ($item) { return ""; }, array_flip(Schema::getColumnListing('vacancy_demands')));
         }
 
-        // dd($demand);
-
-
         $classificatoryArr = ['category', 'currency', 'workSchedule', 'educations', 'characteristic', 'duty',
         'languages', 'languageLevels', 'interviewPlace', 'term', 'benefit','forWhoNeed', 'numberCode', 'drivingLicense', 'vacancy_profession'];
         $classificatory = $this->classificatoryService->get($classificatoryArr);
         $classificatory['specialties'] = $classificatory['vacancy_profession'];
-        // dd($classificatory);
 
         $data = [
             'model' => [
                 'employer' => $employer,
                 'vacancy' => $vacancy,
                 'demand' => $demand,
-                'role_id' => (Auth::check())?Auth::User()->role_id:3,
+                'role_id' => (Auth::guard('staff')->check())?Auth::guard('staff')->User()->role_id:3,
             ],
             'classificatory' => $classificatory
         ];
@@ -66,7 +62,6 @@ class PostVacancyController extends Controller
 
     function verifyNumber(Request $request) {
         $data = $request->model;
-        // dd($data);
         $randomNumber = null;
         if ($data['number_code']['iso'] == "GE" && strlen($data['number']) == 9) {
             $employer = Employer::where('number', $data['number'])->first();

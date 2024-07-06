@@ -15,7 +15,6 @@ class MainController extends Controller
     }
     public function index()
     {
-        // dd(app()->getLocale());
         $data = $this->welcomeService->data();
         $auth = User::where('id', Auth::id())->with('candidate')->first();
         return view ('welcome', compact('data', 'auth' ));

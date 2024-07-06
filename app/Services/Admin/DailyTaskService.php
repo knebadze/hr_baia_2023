@@ -4,6 +4,7 @@ namespace App\Services\Admin;
 
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Staff;
 use App\Models\Vacancy;
 use App\Models\WorkDay;
 use App\Models\Candidate;
@@ -41,12 +42,15 @@ class DailyTaskService
             // update date
             $this->updateDailyTaskDate($currentDateTime);
         } catch (\Throwable $th) {
-            dd($th);
+            Log::
         }
     }
     private function updateQualifyingCandidatesAndRelatedEntities()
     {
-        $quality = QualifyingCandidate::with(['vacancy', 'candidate'])->get();
+        $quality = QualifyingCandidate::whereIn('qualifying_type_id', [5, 6, 7, 8])
+                ->where('status_id', 17)
+                ->whereDate('end_date', '<', Carbon::today())
+                ->get();
 
         if ($quality->isNotEmpty()) {
             $ids = $quality->pluck('id');
@@ -93,7 +97,6 @@ class DailyTaskService
     {
         if (Vacancy::whereIn('status_id', [1, 2, 6, 7])->whereDate('start_date', '<=', Carbon::today())->exists()) {
             $vacancyEquals = Vacancy::whereIn('status_id', [1, 2, 6, 7])->whereDate('start_date', '=', Carbon::today())->get();
-            // dd($vacancyEquals);
             if (count($vacancyEquals)) {
 
                 $text = 'ვაკანსის დაწების თარღიში მითითებული დღევანდელი თარიღი გადაწიეთ!!! რადგან ვაკანსია ხვალ გაუქმდება, დაწყების თარიღამდე დასაქმებული კანდიდატის არ არსებობის გამო';
@@ -143,7 +146,7 @@ class DailyTaskService
     }
     function createUnfinished($user_id)  {
         // Attempt to find a random active user with role_id 4
-        $assignedUser = User::where('role_id', 4)->where('is_active', 1)->inRandomOrder()->first();
+        $assignedUser = Staff::where('role_id', 4)->where('is_active', 1)->inRandomOrder()->first();
 
         // Check if a user was found
         if (!$assignedUser) {

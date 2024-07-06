@@ -46,11 +46,15 @@ class GetVacancyInfoController extends Controller
             ->where('event', 'updated')
             ->whereRaw("json_extract(properties, '$.old.status_id') IS NOT NULL")
             ->whereRaw("json_extract(properties, '$.attributes.status_id') IS NOT NULL")
-            ->leftJoin('users', 'users.id', 'activity_log.causer_id')
-            ->select('properties', 'activity_log.created_at', 'users.name_ka')
+            ->leftJoin('staff', 'staff.id', 'activity_log.causer_id')
+            ->select('properties', 'activity_log.created_at', 'staff.name_ka')
             ->get()
             ->toArray();
-        $data = ['history' => $history, 'status' => Status::whereNotIn('id', [1, 4, 13])->where('status_type_id', 1)->get()->toArray(), 'role_id' => Auth::user()->role_id, 'reasonForCancel' => $classificatory['reasonForCancel']];
+        $data = [
+            'history' => $history, 
+            'status' => Status::whereNotIn('id', [1, 4, 13])->where('status_type_id', 1)->get()->toArray(), 
+            'role_id' => Auth::guard('staff')->user()->role_id, 
+            'reasonForCancel' => $classificatory['reasonForCancel']];
         return response()->json($data);
     }
 
@@ -62,11 +66,11 @@ class GetVacancyInfoController extends Controller
             ->with([
                 'vacancyDuty', 'vacancyBenefit', 'vacancyForWhoNeed', 'characteristic', 'employer', 'currency','category', 'status',
                 'workSchedule', 'vacancyInterest', 'interviewPlace','term', 'demand', 'demand.language', 'demand.education', 'demand.languageLevel','demand.specialty',
-                'employer.numberCode','deposit','hr.user', 'vacancyDrivingLicense'
+                'employer.numberCode','deposit','hr', 'vacancyDrivingLicense'
             ])->first();
 
-        $role_id = Auth::user()->role_id;
-        $hr_id = ($role_id == 2)?Auth::user()->hr->id:null;
+        $role_id = Auth::guard('staff')->user()->role_id;
+        $hr_id = ($role_id == 2)?Auth::guard('staff')->user()->id:null;
 
         $data = ['vacancy' => $vacancy, 'hr_id' => $hr_id, 'role_id' => $role_id];
 
@@ -88,8 +92,8 @@ class GetVacancyInfoController extends Controller
         $data = Activity::orderBy('activity_log.id', 'DESC')
             // ->whereNot('event', 'created')
             ->whereIn('subject_id', array_filter($auditableIds))
-            ->leftJoin('users', 'users.id', 'activity_log.causer_id')
-            ->select('activity_log.*', 'users.name_ka', 'users.role_id')
+            ->leftJoin('staff', 'staff.id', 'activity_log.causer_id')
+            ->select('activity_log.*', 'staff.name_ka', 'staff.role_id')
             ->get()
             ->map(function ($value) {
                 $models = [
@@ -165,9 +169,10 @@ class GetVacancyInfoController extends Controller
 
 
     function findVacancy(Request $request) {
-        // dd($request->data);
-        $data = Vacancy::where('code', 'LIKE', $request->data.'%')->where('status_id', 2)->with(['employer', 'category', 'status', 'hr.user', 'interviewPlace'])->get()->toArray();
-        // dd($request->data);
+        $data = Vacancy::where('code', 'LIKE', $request->data.'%')
+                ->where('status_id', 2)
+                ->with(['employer', 'category', 'status', 'hr', 'interviewPlace'])
+                ->get()->toArray();
         return response()->json($data);
     }
 

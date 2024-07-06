@@ -11,38 +11,59 @@ use App\Models\VacancyDeposit;
 use App\Models\RegistrationFee;
 use App\Models\QualifyingCandidate;
 use App\Http\Controllers\Controller;
-use App\Services\Admin\VacancyDepositService;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
+use App\Http\Resources\DepositResource;
+use App\Traits\HandlesAdminDataViewCaching;
+use App\Services\Admin\VacancyDepositService;
 
 class VacancyDepositController extends Controller
 {
+    use HandlesAdminDataViewCaching;
     private VacancyDepositService $vacancyDepositService;
     public function __construct(VacancyDepositService $vacancyDepositService)
     {
         $this->vacancyDepositService = $vacancyDepositService;
     }
+
     function index($id) {
+        $auth = Auth::guard('staff')->user();
+        $data = [
+            'auth' => $auth,
+            'adminViewAndPermission' => $auth->role_id == 1 ? $this->getAdminDataViewByKeyAndUserId('Deposit') : null,
+        ];
+    
+        // Attempt to retrieve the deposit, or create a placeholder if it doesn't exist.
         if (VacancyDeposit::where('vacancy_id', $id)->exists()) {
-            $data['deposit'] = VacancyDeposit::where('vacancy_id', $id)->first();
+            $data['deposit'] = new DepositResource(VacancyDeposit::where('vacancy_id', $id)->first());
         }else{
             $filed = Schema::getColumnListing('vacancy_deposits');
             $data['deposit'] = array_map(function ($item) { return null; }, array_flip($filed));
             $data['deposit']['vacancy_id'] = $id;
         }
-
-        $vacancy = Vacancy::where('id',$id)->first();
+    
+        // Use Eloquent relationships to simplify data retrieval
+        $vacancy = Vacancy::with(['employer', 'qualifyingCandidate', 'enrollments'])->findOrFail($id);
         $data['employer'] = $vacancy->employer->name_ka;
         $data['status'] = $vacancy->status_id;
-        $qualifying = QualifyingCandidate::orderBy('id', 'DESC')->where('vacancy_id', $vacancy->id)->whereIn('qualifying_type_id', [ 7, 8])->first();
-        // dd($qualifying);
-        // dd($vacancy);
-        // dd(Candidate::where('id', $qualifying->candidate->id)->where('registration_fee', 0)->exists());
-        $data['register'] = ($qualifying && Candidate::where('id', $qualifying->candidate->id)->where('registration_fee', 0)->exists())? RegistrationFee::where('user_id', $qualifying->candidate->user_id)->first(): null;
-        $data['enrollment'] = $qualifying && Enrollment::where('vacancy_id', $vacancy->id)->exists()? Enrollment::where('vacancy_id', $vacancy->id)->where('agree', 0)->get()->toArray(): null;
-
+    
+        // Retrieve the latest qualifying candidate of specific types
+        $qualifying = $vacancy->qualifyingCandidate()
+                               ->whereIn('qualifying_type_id', [7, 8])
+                               ->orderBy('id', 'DESC')
+                               ->first();
+    
+        // Check if the qualifying candidate exists and has no registration fee
+        $data['register'] = null;
+        if ($qualifying && $qualifying->candidate->registration_fee == 0) {
+            $data['register'] = RegistrationFee::where('user_id', $qualifying->candidate->user_id)->first();
+        }
+    
+        // Retrieve enrollments that have not agreed
+        $data['enrollment'] = $vacancy->enrollments()->where('agree', 0)->get()->toArray();
+    
         return view('admin.vacancy_deposit', compact('data'));
     }
-
     function save(Request $request) {
         $data = $request->data;
         $result = ['status' => 200];
@@ -76,7 +97,6 @@ class VacancyDepositController extends Controller
     }
 
     function updateDate(Request $request) {
-        // dd($request->id);
         $result = ['status' => 200];
 
         try {

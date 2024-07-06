@@ -1,7 +1,7 @@
 <script setup>
 import { ref, watch } from "vue";
 import axios from "axios";
-
+import moment from "moment";
 const props = defineProps({
     visible: Boolean,
     data: Object,
@@ -17,27 +17,10 @@ const show = () => {
     let data = { ...props.data };
     formModel.value = { ...data };
     formModel.value["password"] = "";
-    // for (let key in data) {
-    //     formModel.value[key] = data[key];
-    // }
-    // formModel.value = {
-    //     id: data.id,
-    //     hr_id: data.hr.id,
-    //     name: data.name_ka,
-    //     email: data.email,
-    //     mobile: data.hr.mobile,
-    //     date_of_birth: data.date_of_birth,
-    //     gender: data.gender_id,
-    //     person_number: data.hr.person_number,
-    //     k_mobile: data.number,
-    //     inside_number: data.hr.inside_number,
-    //     branch_id: data.hr.branch_id,
-    //     internship: data.hr.internship,
-    //     bonus_percent: data.hr.bonus_percent,
-    //     fixed_salary: data.hr.fixed_salary,
-    //     fb_link: data.hr.fb_link,
-    //     password: "",
-    // };
+    if (formModel.value.date_of_birth) {
+        formModel.value.date_of_birth = moment(formModel.value.date_of_birth, 'MM-DD-YYYY').format('YYYY-MM-DD');
+    }
+    
     imgName.value = data.avatar;
     showConfirm.value = true;
 };
@@ -74,22 +57,7 @@ const updateHR = (data) => {
     Object.keys(formModel.value).forEach((key) => {
         formData.append(key, formModel.value[key]);
     });
-    // formData.append("id", props.data.id);
-    // formData.append("hr_id", props.data.hr.id);
-    // formData.append("name", data.name);
-    // formData.append("email", data.email);
-    // formData.append("mobile", data.mobile);
-    // formData.append("date_of_birth", data.date_of_birth);
-    // formData.append("gender", data.gender);
-    // formData.append("person_number", data.person_number);
-    // formData.append("k_mobile", data.k_mobile);
-    // formData.append("inside_number", data.inside_number);
-    // formData.append("branch_id", data.branch_id);
-    // formData.append("bonus_percent", data.bonus_percent);
-    // formData.append("internship", data.internship);
-    // formData.append("fixed_salary", data.fixed_salary);
-    // formData.append("fb_link", data.fb_link);
-    // formData.append("password", data.password);
+    
     if (avatar.value != null) {
         formData.append("avatar", avatar.value);
     } else {
@@ -282,7 +250,7 @@ watch(
                                     type="text"
                                     class="form-control"
                                     id="exampleInputEmail5"
-                                    v-model="formModel.k_mobile"
+                                    v-model="formModel.number"
                                     placeholder="კორპორატიული ნომერი"
                                     minlength="9"
                                 />

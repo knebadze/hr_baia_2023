@@ -89,9 +89,7 @@ const totalRegistered = computed(() => {
                     >არააქტიური:
                     {{
                         items.noActive.length > 0
-                            ? items.noActive
-                                  .map((i) => i.hr.user.name_ka)
-                                  .join(", ")
+                            ? items.noActive.map((i) => i.hr.name_ka).join(", ")
                             : "არცერთი"
                     }}</strong
                 >

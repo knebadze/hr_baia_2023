@@ -235,7 +235,8 @@ const addStaff = async () => {
                                     id="exampleInputEmail7"
                                     v-model="model.person_number"
                                     placeholder="პირადი ნომერი"
-                                    minlength="11"
+                                    maxlength="11"
+                                    onkeypress="return /[0-9]/i.test(event.key)"
                                 />
                             </div>
                         </div>
@@ -321,6 +322,7 @@ const addStaff = async () => {
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="exampleFormControlSelect1"
+                                    ><span class="text-danger">* </span
                                     >ფილიალი</label
                                 >
                                 <select

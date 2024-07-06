@@ -8,7 +8,9 @@ use App\Models\HrHasVacancy;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\HrRequest;
+use App\Http\Requests\StaffRequest;
 use App\Models\Hr;
+use App\Models\Staff;
 use App\Services\Admin\StaffService;
 
 class StaffController extends Controller
@@ -19,10 +21,12 @@ class StaffController extends Controller
     {
         $this->staffService = $staffService;
     }
+
+
     public function isActiveUpdate(Request $request)
     {
         try {
-            $user = User::find($request->id);
+            $user = Staff::find($request->id);
             if ($user) {
                 $user->update(['is_active' => $request->is_active]);
                 $user->refresh(); // Refresh the user instance to get the updated is_active status
@@ -41,11 +45,12 @@ class StaffController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
-    public function store(HrRequest $request)
+    public function store(StaffRequest $request)
     {
         try {
-            $data = $request->all();
-            $result = $this->staffService->addStaff($data);
+            $data = $request->validated();
+            // $data = $request->all();
+            $result = $this->staffService->addOrUpdateStaff($data);
 
             return response()->json([
                 'status' => 200,
@@ -64,7 +69,7 @@ class StaffController extends Controller
         // ]);
         try {
             $data = $request->all();
-            $result = $this->staffService->updateStaff($data);
+            $result = $this->staffService->addOrUpdateStaff($data);
 
             return response()->json([
                 'status' => 200,

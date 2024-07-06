@@ -13,7 +13,6 @@ class VacancyDepositService
     }
 
     public function save($data) {
-        // dd($data);
         $result = $this->vacancyDepositRepository->save($data['model'], $data['type']);
         return $result;
     }

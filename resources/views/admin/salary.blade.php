@@ -30,7 +30,7 @@
                         <monthly-salary-page :data='@json($data['current'])' :role_id='@json($role_id)'></monthly-salary-page>
                     </div>
                     <div class="tab-pane" id="tab_2">
-                        <old-salary-page :data='@json($data['old'])' :role_id='@json($role_id)' :hr='@json($hr)'></old-salary-page>
+                        <old-salary-page :data='@json($data['old'])' :role_id='@json($role_id)' :staff='@json($staff)'></old-salary-page>
                     </div>
                 </div>
 

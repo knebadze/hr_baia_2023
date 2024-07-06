@@ -40,6 +40,21 @@ class Enrollment extends Model
         return $this->belongsTo(User::class, 'author_id', 'id');
     }
 
+    public function candidate()
+    {
+        return $this->belongsTo(Candidate::class, 'candidate_id', 'id');
+    }
+
+    public function vacancy()
+    {
+        return $this->belongsTo(Vacancy::class, 'vacancy_id', 'id');
+    }
+
+    public function author()
+    {
+        return $this->belongsTo(Staff::class, 'author_id', 'id');
+    }
+
     public function scopeFilter($query, $filters)
     {
         return $filters->apply($query);

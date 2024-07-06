@@ -69,8 +69,6 @@
                                 ? "სხვა"
                                 : index == "is_no_active"
                                 ? "არა აქტიური"
-                                : index == "delete"
-                                ? "ამორიცხული"
                                 : index == "has_vacancy"
                                 ? "მიიღო ვაკანსია"
                                 : index == "is_in_line"
@@ -95,7 +93,7 @@ export default {
         const color = ref({
             other: "#ddeedf",
             is_no_active: "#efbfc6",
-            delete: "#85929E",
+            // delete: "#85929E",
             has_vacancy: "#7dd87d",
             is_in_line: "#f8da5b",
             les_re_write: "#c51350",
@@ -114,9 +112,11 @@ export default {
                 currentItem["backgroundColor"] = color.value.other;
                 if (currentItem.is_active == 0) {
                     currentItem["backgroundColor"] = color.value.is_no_active;
-                } else if (currentItem.is_active == 2) {
-                    currentItem["backgroundColor"] = color.value.delete;
-                } else if (currentItem.has_vacancy == 1) {
+                } 
+                // else if (currentItem.is_active == 2) {
+                //     currentItem["backgroundColor"] = color.value.delete;
+                // } 
+                else if (currentItem.has_vacancy == 1) {
                     currentItem["backgroundColor"] = color.value.has_vacancy;
                 }
                 if (
@@ -144,7 +144,7 @@ export default {
             } else if (id == 1) {
                 return { class: "badge bg-success p-1", name: "აქტიური" };
             } else {
-                return { class: "badge bg-indigo p-1", name: "ამორიცხული" };
+                // return { class: "badge bg-indigo p-1", name: "ამორიცხული" };
             }
         };
         return {

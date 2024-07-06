@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Exception;
 use App\Models\User;
+use App\Models\Staff;
 use App\Models\Salary;
 use App\Models\Enrollment;
 use Illuminate\Http\Request;
@@ -13,92 +14,157 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Services\Admin\EnrollmentService;
+use App\Traits\HandlesAdminDataViewCaching;
 use App\Filters\Enrollment\EnrollmentFilters;
 
 class EnrollmentController extends Controller
 {
+    use HandlesAdminDataViewCaching;
     private EnrollmentService $enrollmentService;
     public function __construct(EnrollmentService $enrollmentService)
     {
         $this->enrollmentService = $enrollmentService;
     }
     function index() {
+        list($authId, $childView, $childeFilter, $adminViewAndPermission) = $this->viewAndPermission();
 
         $salary = Salary::latest()->first();
-        $data['hr'] = User::where('role_id', 2)->whereNot('is_active', 2)->get()->toArray();
+        $data['hr'] = Staff::where('role_id', 2)->when($childeFilter, function ($query) use ($authId) {
+            $ids = $this->getStaffIds($authId);
+            return $query->whereIn('id', $ids);
+        })->whereNot('is_active', 2)->get()->toArray();
         $data['start_date'] = $salary?$salary->created_at:null;
-        $data['role_id'] = Auth::user()->role_id;
+        $data['auth'] = Auth::guard('staff')->user();
         return view('admin.enrollment', compact( 'data'));
     }
 
     function enrollmentFetch() {
-        $data = Enrollment::where('enrollments.status_id', 17)
-            ->when(Auth::user()->role_id !== 1, function ($query) {
-                return $query->where('enrollments.author_id', Auth::id());
+        list($authId, $childView, $childeFilter, $adminViewAndPermission) = $this->viewAndPermission();
+        $staffUser = Auth::guard('staff')->user(); // Store the staff user for reuse
+
+        $enrollmentsQuery = Enrollment::with(['vacancy:id,code', 'author:id,name_ka,parent_id']) // Assuming 'vacancy' and 'author' are the relationship names
+            ->where('status_id', 17)
+            ->when($staffUser->role_id !== 1, function ($query) use ($staffUser) {
+                return $query->where('author_id', $staffUser->id);
+            })
+            ->when($childView, function ($query) use ($authId) {
+                $ids = $this->getStaffIds($authId);
+                return $query->whereIn('author_id', $ids);
             })
             ->orderBy('agree', 'ASC')
-            ->leftJoin('vacancies', 'enrollments.vacancy_id', '=', 'vacancies.id')
-            ->join('users', 'enrollments.author_id', '=', 'users.id')
-            ->select('enrollments.*', 'vacancies.code', 'users.name_ka')
             ->paginate(20);
+
+        $data = [
+            'enrollment' => $enrollmentsQuery,
+            'adminViewAndPermission' => $adminViewAndPermission,
+        ];
 
         return response()->json($data);
     }
 
-    function mustBeEnrollmentFetch(){
 
-        $employer = VacancyDeposit::whereNotNull('must_be_enrolled_employer_date')
-            ->leftJoin('vacancies', 'vacancy_deposits.vacancy_id', '=', 'vacancies.id')
-            ->join('hrs', 'vacancies.hr_id', '=', 'hrs.id')
-            ->select(
-                'vacancy_deposits.id as record_id',
-                'vacancies.code as id',
-                'must_be_enrolled_employer as money',
-                'must_be_enrolled_employer_date as date',
-                'bonus_percent',
-                'vacancy_deposits.updated_at as updated_at',
-                DB::raw("'2' as type"),
-                DB::raw("'2' as vacancy_type")
-            );
+    function mustBeEnrollmentFetch() {
+        list($authId, $childView, $childeFilter, $adminViewAndPermission) = $this->viewAndPermission();
 
-        $candidate = VacancyDeposit::whereNotNull('must_be_enrolled_candidate_date')
-            ->leftJoin('vacancies', 'vacancy_deposits.vacancy_id', '=', 'vacancies.id')
-            ->join('hrs', 'vacancies.hr_id', '=', 'hrs.id')
-            ->select(
-                'vacancy_deposits.id as record_id',
-                'vacancies.code as id',
-                'must_be_enrolled_candidate as money',
-                'must_be_enrolled_candidate_date as date',
-                'bonus_percent',
-                'vacancy_deposits.updated_at as updated_at',
-                DB::raw("'2' as type"),
-                DB::raw("'1' as vacancy_type")
-            );
+        // Define the base queries for employer, candidate, and register
+        $employer = $this->buildEmployerQuery();
+        $candidate = $this->buildCandidateQuery();
+        $register = $this->buildRegisterQuery();
 
-        $register = RegistrationFee::whereNot('money', 0)
-            ->join('users', 'registration_fees.user_id', '=', 'users.id')
-            ->join('candidates', 'users.id', '=', 'candidates.user_id')
-            ->select(
-                'registration_fees.id as record_id',
-                'candidates.id as id',
-                'money as money',
-                'enroll_date as date',
-                'creator_id',
-                'registration_fees.updated_at as updated_at',
-                DB::raw("'1' as type"),
-                DB::raw("'0' as type")
-            );
-
+        // Combine the queries using union
         $combinedQuery = $employer->union($candidate)->union($register);
 
-        $data = VacancyDeposit::fromSub($combinedQuery, 'combined_query')
+        // Create a subquery from the combined queries and apply conditional filtering
+        $mustBeEnrollment = VacancyDeposit::fromSub($combinedQuery, 'combined_query')
+            ->when($childView, function ($query) use ($authId) {
+                $ids = $this->getStaffIds($authId);
+                // Assuming 'author_id' is a valid field in the combined result set
+                return $query->whereIn('author_id', $ids);
+            })
             ->paginate(20);
-
-
+        $data = [
+            'mustBeEnrollment' => $mustBeEnrollment,
+            'adminViewAndPermission' => $adminViewAndPermission,
+        ];
         return response()->json($data);
     }
 
+    // Example method for building the employer query part
+    private function buildEmployerQuery() {
+        return VacancyDeposit::whereNotNull('must_be_enrolled_employer_date')
+        ->leftJoin('vacancies', 'vacancy_deposits.vacancy_id', '=', 'vacancies.id')
+        ->join('staff', 'vacancies.hr_id', '=', 'staff.id')
+        ->select(
+            'vacancy_deposits.id as record_id',
+            'vacancies.code as id',
+            'must_be_enrolled_employer as money',
+            'must_be_enrolled_employer_date as date',
+            'bonus_percent',
+            'vacancy_deposits.updated_at as updated_at',
+            'staff.name_ka as author_name',
+            'staff.id as author_id', // Add the author_id field
+            'vacancy_deposits.created_at',
+            DB::raw("'2' as type"),
+            DB::raw("'2' as vacancy_type")
+        );
+    }
 
+    private function buildCandidateQuery(){
+        return VacancyDeposit::whereNotNull('must_be_enrolled_candidate_date')
+        ->leftJoin('vacancies', 'vacancy_deposits.vacancy_id', '=', 'vacancies.id')
+        ->join('staff', 'vacancies.hr_id', '=', 'staff.id')
+        ->select(
+            'vacancy_deposits.id as record_id',
+            'vacancies.code as id',
+            'must_be_enrolled_candidate as money',
+            'must_be_enrolled_candidate_date as date',
+            'bonus_percent',
+            'vacancy_deposits.updated_at as updated_at',
+            'staff.name_ka as author_name',
+            'staff.id as author_id', // Add the author_id field
+            'vacancy_deposits.created_at',
+            DB::raw("'2' as type"),
+            DB::raw("'1' as vacancy_type")
+        );
+    }
+
+    private function buildRegisterQuery(){
+        return RegistrationFee::whereNot('money', 0)
+        ->join('users', 'registration_fees.user_id', '=', 'users.id')
+        ->join('candidates', 'users.id', '=', 'candidates.user_id')
+        ->join('staff', 'registration_fees.creator_id', '=', 'staff.id')
+        ->select(
+            'registration_fees.id as record_id',
+            'candidates.id as id',
+            'money as money',
+            'enroll_date as date',
+            'creator_id',
+            'registration_fees.updated_at as updated_at',
+            'staff.name_ka as author_name', // Assuming 'name_ka' is the field name
+            'staff.id as author_id', // Add the author_id field
+            'registration_fees.created_at',
+            DB::raw("'1' as type"),
+            DB::raw("'0' as type")
+        );
+    }
+
+    private function viewAndPermission(){
+        $auth = Auth::guard('staff')->user();
+        $authId = $auth->id;
+        $role_id = $auth->role_id;
+        $childView = false;
+        $childeFilter = false;
+        $adminViewAndPermission = [];
+        if ($role_id == 1) {
+            $adminViewAndPermission = $this->getAdminDataViewByKeyAndUserId('Enrollment');
+            $childView = $adminViewAndPermission->view == 'child';
+            $childeFilter = $adminViewAndPermission->filter == 'child';
+        }
+        return [$authId, $childView, $childeFilter, $adminViewAndPermission];
+    }
+    private function getStaffIds($parent_id) {
+        return Staff::where('parent_id', $parent_id)->pluck('id');
+    }
     function vacancyEnrollment(Request $request) {
         $data['data'] = json_decode($request->input('data'), true);
         if ($request->hasFile('file')) {
@@ -167,24 +233,26 @@ class EnrollmentController extends Controller
 
     public function filter(EnrollmentFilters $filters)
     {
-        if (Auth::user()->role_id == 1) {
-            return Enrollment::filter($filters)
-                ->orderBy('agree', 'ASC')
-                ->leftJoin('vacancies', 'enrollments.vacancy_id', '=', 'vacancies.id')
-                ->join('users', 'enrollments.author_id', '=', 'users.id')
-                ->select('enrollments.*', 'vacancies.code', 'users.name_ka')
-                ->paginate(25)->toArray();
-        } else {
-            return Enrollment::filter($filters)
-                ->where('enrollments.author_id', Auth::id())
-                ->orderBy('agree', 'ASC')
-                ->leftJoin('vacancies', 'enrollments.vacancy_id', '=', 'vacancies.id')
-                ->join('users', 'enrollments.author_id', '=', 'users.id')
-                ->select('enrollments.*', 'vacancies.code', 'users.name_ka')
-                ->paginate(25)->toArray();
-        }
+        list($authId, $childView, $childeFilter, $adminViewAndPermission) = $this->viewAndPermission();
 
+        $query = Enrollment::filter($filters)
+            ->orderBy('agree', 'ASC')
+            ->leftJoin('vacancies', 'enrollments.vacancy_id', '=', 'vacancies.id')
+            ->join('staff', 'enrollments.author_id', '=', 'staff.id')
+            ->select('enrollments.*', 'vacancies.code', 'users.name_ka');
 
+        // Apply condition based on the role_id
+        $query->when(Auth::guard('staff')->user()->role_id != 1, function ($q) {
+            return $q->where('enrollments.author_id', Auth::guard('staff')->id());
+        });
+
+        // Apply condition based on the child filter
+        $query->when($childeFilter, function ($q) use ($authId) {
+            $ids = $this->getStaffIds($authId);
+            return $q->whereIn('enrollments.author_id', $ids);
+        });
+
+        return $query->paginate(25)->toArray();
     }
 
     function getRegisterEnrollmentInfo(Request $request) {

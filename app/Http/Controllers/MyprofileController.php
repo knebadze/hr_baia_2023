@@ -42,7 +42,7 @@ class MyprofileController extends Controller
             return response()->json($user);
         } catch (\Exception $e) {
             return response()->json(['error' => 'An error occurred while updating the user avatar.'. $e], 500);
-    }
+        }
     }
 
     public function show($id)

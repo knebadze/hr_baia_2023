@@ -98,7 +98,6 @@ class ForgotPasswordController extends Controller
         }
 
         $user = User::where('id', $request->id)->first();
-        // dd($code == $user->verify_code);
         if ($user && $code == $user->verify_code) {
             return redirect()->route('auth.password.change_password_guest', ['id' => $user->id, 'code' => $code, 'locale' => App()->getLocale()]);
         }else{

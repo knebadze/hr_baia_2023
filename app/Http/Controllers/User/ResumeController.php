@@ -14,7 +14,7 @@ class ResumeController extends Controller
     {
 
 
-        $auth = Auth::user();
+        $auth = Auth::guard('web')->user();
 
         $data = Candidate::where('user_id', $auth->id)->with(
             [

@@ -21,7 +21,6 @@ class CandidateModelService
 
     ];
     function findData($setStage = null, $user_id = null, $candidate_id = null) {
-        // dd($user_id);
         $userId = $user_id ? $user_id : Auth::id();
         $stage = $setStage !== null ? $setStage : $this->checkStage($userId);
         $filterInstance = new $this->filters[$stage];
@@ -33,7 +32,6 @@ class CandidateModelService
     }
 
     function checkStage($user_id) {
-        // dd('hello');
         $stage = 0;
         if(Candidate::where('user_id', $user_id)->exists()){
             $candidate = Candidate::where('user_id', $user_id)->first();

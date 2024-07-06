@@ -7,7 +7,6 @@ trait VerifyCodeTrait
 {
     public function checkVerifyCode( $data )
     {
-        // dd($data);
         if ($data['type'] == 'employer') {
             $employer = Employer::where('number', $data['number'])->first();
             $check = (int)$data['code'] === $employer->verify_code;

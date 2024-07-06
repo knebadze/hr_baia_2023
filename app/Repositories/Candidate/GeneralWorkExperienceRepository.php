@@ -25,7 +25,6 @@ class GeneralWorkExperienceRepository
     }
 
     function save($data, $user_id) {
-        // dd($data);
         try{
             $data = $this->saveTranslate($data);
             $candidate = Candidate::where('user_id', $user_id)->first();
@@ -55,7 +54,7 @@ class GeneralWorkExperienceRepository
             }
             $generalWork->save();
             $candidate = Candidate::where('id', $candidate->id)->with(['getGeneralWorkExperience.workExperience', 'getGeneralWorkExperience.noReason', 'getGeneralWorkExperience.hasExperience'])->first();
-            if($candidate->stage = 4){
+            if($candidate->stage == 4){
                 $candidate->update(['stage' => 5]);
             }
             return [
@@ -88,7 +87,6 @@ class GeneralWorkExperienceRepository
         return $data;
     }
     function update($data){
-        // dd($data);
         $candidate_id = $data[0]['candidate_id'];
         $candidate = Candidate::findOrFail($candidate_id);
         if (General_work_experience::where('candidate_id', $candidate_id)->exists()) {

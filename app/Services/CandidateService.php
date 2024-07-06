@@ -48,7 +48,6 @@ class CandidateService
     }
     public function candidateSaveData($data)
     {
-        // dd($data);
         if($data['type'] == 'main'){
             $result = $this->addUserRepository->update($data['model']);
         }else if ($data['type'] == 'information') {

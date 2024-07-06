@@ -17,7 +17,6 @@ class VacancyUpdateRepository
 {
 
     public function update($data, $ip){
-        // dd($data);
         $id = $data['id'];
         $vacancy = Vacancy::findOrFail($id);
         $vacancy->title_ka = $data['title_ka'];
@@ -48,9 +47,7 @@ class VacancyUpdateRepository
         $vacancy->update();
 
 
-        // $filteredArray = $data['demand']? array_filter($data['demand'], 'is_null'): null;
-
-        // if ($filteredArray && (count($filteredArray) !== count($data['demand']))) {
+       
             VacancyDemand::updateOrCreate(
                 ['vacancy_id' => $data['demand']['vacancy_id']], // Update condition
                 [
@@ -68,7 +65,6 @@ class VacancyUpdateRepository
                     'has_recommendation' => isset($data['demand']['has_recommendation']) ? $data['demand']['has_recommendation']: 0,
                 ]
             );
-        // }
 
         $employer = Employer::findOrFail($data['employer']['id']);
         $employer->name_ka = $data['employer']['name_ka'];
@@ -88,7 +84,6 @@ class VacancyUpdateRepository
             return $carry;
         }, []);
         $vacancy->syncVacancyForWhoNeed($selectForWhoNeedId);
-        // $vacancy->vacancyForWhoNeed()->sync($selectForWhoNeedId);
 
         $selectBenefitId = collect($data['vacancy_benefit'])->reduce(function ($carry, $item) {
             if($carry  == null) $carry = [];
@@ -96,7 +91,6 @@ class VacancyUpdateRepository
             return $carry;
         }, []);
         $vacancy->syncVacancyBenefit($selectBenefitId);
-        // $vacancy->vacancyBenefit()->sync($selectBenefitId);
 
         $selectCharacteristic = collect($data['characteristic'])->reduce(function ($carry, $item) {
             if($carry  == null) $carry = [];
@@ -104,10 +98,6 @@ class VacancyUpdateRepository
             return $carry;
         }, []);
         $vacancy->syncCharacteristic($selectCharacteristic);
-        // $vacancy->characteristic()->sync( $selectCharacteristic );
-
-        // dd($old_value);
-        // $this->syncRelatedData($vacancy, $old_value, $selectCharacteristic, $ip, 'VacancyCandidateCharacteristic');
 
         $selectDutyId = collect($data['vacancy_duty'])->reduce(function ($carry, $item) {
             if($carry  == null) $carry = [];
@@ -123,12 +113,10 @@ class VacancyUpdateRepository
                 return $carry;
             }, []);
             $vacancy->syncVacancyDrivingLicense($selectDrivingLicenseId);
-            // $vacancy->vacancyDrivingLicense()->sync($selectDrivingLicenseId);
         }
     }
 
     function updateDeposit($data) {
-        dd($data);
         $deposit = VacancyDeposit::findOrFail($data['id']);
         if ($deposit->employer_initial_amount != $data['employer_initial_amount']) {
             if ($deposit->employer_initial_amount > $data['employer_initial_amount']) {
@@ -160,13 +148,6 @@ class VacancyUpdateRepository
                 'must_be_enrolled_candidate_date' => $data['must_be_enrolled_candidate_date'],
             ]
         );
-        // $deposit->employer_initial_amount = $data['employer_initial_amount'];
-        // $deposit->must_be_enrolled_employer = $mustEmployer;
-        // $deposit->must_be_enrolled_employer_date = $data['must_be_enrolled_employer_date'];
-        // $deposit->candidate_initial_amount = $data['candidate_initial_amount'];
-        // $deposit->must_be_enrolled_candidate = $mustCandidate;
-        // $deposit->must_be_enrolled_candidate_date = $data['must_be_enrolled_candidate_date'];
-        // $deposit->update();
     }
 
 

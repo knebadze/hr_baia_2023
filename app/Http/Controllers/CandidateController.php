@@ -108,7 +108,6 @@ class CandidateController extends Controller
         // $total = $query->count();
         $classificatoryArr = ['category', 'workSchedule'];
         $classificatory = $this->classificatoryService->get($classificatoryArr);
-        // dd($candidate);
         $data = [
             'classificatory' => $classificatory
         ];

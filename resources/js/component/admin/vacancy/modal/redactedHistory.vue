@@ -87,11 +87,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(item, index) in data" :key="index" :class="{'bg-info': item.event==='created'}">
+                                <tr
+                                    v-for="(item, index) in data"
+                                    :key="index"
+                                    :class="{
+                                        'bg-info': item.event === 'created',
+                                    }"
+                                >
                                     <td>
                                         {{ item.name_ka ?? "დამსაქმებელი" }}
                                     </td>
                                     <td>
+                                        {{ item }}
                                         {{
                                             item.role_id == 1
                                                 ? "ადმინი"
@@ -137,6 +144,7 @@ export default {
     props: {
         visible: Boolean,
         vacancyId: Number,
+        roleId: Number,
     },
     data() {
         return {
@@ -210,7 +218,7 @@ export default {
                 "term.name_ka": "ვადა",
                 "workSchedule.name_ka": "გრაფიკი",
                 "reasonForCancel.name_ka": "გაუქმების მიზეზი",
-                "hr.user.name": "HR",
+                "hr.name": "HR",
                 "category.name_ka": "კატეგორია",
                 "language.name_ka": "უცხო ენა",
                 "languageLevel.name_ka": "ცოდნის დონე",
@@ -291,6 +299,7 @@ export default {
                 element.created_at = moment(element.created_at).format(
                     "YYYY-MM-DD HH:mm"
                 );
+                // element.role_id = props.roleId;
                 element.properties.old = obj(element.properties.old);
                 element.properties.attributes = obj(
                     element.properties.attributes

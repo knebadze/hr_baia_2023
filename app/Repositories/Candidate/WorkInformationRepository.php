@@ -32,13 +32,11 @@ class WorkInformationRepository
     }
     function updateOrCreate($data){
         try{
-            // dd($data);
             if (isset($data['additional_schedule_ka'])) {
                 $lang = (isset($data['lang']))?$data['lang']:'ka';
                 $data = $this->translate($lang, $data);
             }
-            $candidate_id = $data['candidate_id'] ? $data['candidate_id']: Auth::user()->candidate->id;
-            // dd($data);
+            $candidate_id = $data['candidate_id'] ? $data['candidate_id']: Auth::guard('web')->user()->candidate->id;
             $workInformation = WorkInformation::updateOrCreate(
                 [
                     'candidate_id' => $candidate_id,
@@ -65,7 +63,7 @@ class WorkInformationRepository
 
             $candidate = Candidate::where('id', $candidate_id)->with(['getWorkInformation.category', 'getWorkInformation.currency', 'getWorkInformation.workSchedule'])->first();
 
-            if($candidate->stage = 5){
+            if($candidate->stage == 5){
                 $candidate->update(['stage' => 6, 'status_id' => 9]);
             }
             return [

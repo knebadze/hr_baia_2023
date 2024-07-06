@@ -13,17 +13,17 @@ class StaffService
         $this->staffRepository = $staffRepository;
     }
 
-    public function addStaff($data)
+    public function addOrUpdateStaff($data)
     {
 
-        $result = $this->staffRepository->store($data);
+        $result = $this->staffRepository->storeAndUpdate($data);
         return $result;
     }
 
-    public function updateStaff($data)
-    {
+    // public function updateStaff($data)
+    // {
 
-        $result = $this->staffRepository->update($data);
-        return $result;
-    }
+    //     $result = $this->staffRepository->update($data);
+    //     return $result;
+    // }
 }

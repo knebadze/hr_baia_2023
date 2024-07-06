@@ -2,29 +2,34 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\User;
+use App\Models\Staff;
 use App\Models\Branch;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
 use App\Http\Resources\Admin\StaffResource;
+use App\Traits\HandlesAdminDataViewCaching;
 
 class AdministratorController extends Controller
 {
+    use  HandlesAdminDataViewCaching;
     function index() {
-        // $administrator = User::orderBy('id', 'DESC')->where('role_id', 4)->with('staff')->get();
-        // $hasVacancyControl = $this->getHasVacancyControl()['hasVacancyControl'];
-        // $data["staff"] = $administrator;
-        // $data['hasVacancyControl'] = $hasVacancyControl;
         return view('admin.administrator' );
     }
 
     function fetchData()  {
-        $administrators = User::orderBy('id', 'DESC')->where('role_id', 4)->with('staff')->get();
+        $adminViewAndPermission = $this->getAdminDataViewByKeyAndUserId('Administrator');
+        $checkView = $adminViewAndPermission->view == 'child';
+        $administrators = Staff::orderBy('id', 'DESC')
+            ->where('role_id', 4)
+            ->when($checkView, function ($query) {
+                return $query->where('parent_id', auth()->guard('staff')->id());
+            })->get();
         $data["staff"] = StaffResource::collection($administrators);
         $data['cla'] = Cache::rememberForever('branches', function () {
             return Branch::select('id', 'name')->get()->toArray();
         });
+        $data['adminViewAndPermission'] = $adminViewAndPermission;
         return response()->json($data);
     }
 }

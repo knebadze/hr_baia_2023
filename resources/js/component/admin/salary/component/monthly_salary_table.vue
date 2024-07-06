@@ -21,24 +21,24 @@
             <!-- <template #item-category="item">
             <span class="text-primary" v-for="(i, index) in item.get_work_information" :key="index" ><u style="cursor: pointer;" @click="openInfoModal('category', item.get_work_information[index])">{{ i.category.name_ka+', ' }}</u></span>
         </template>-->
-            <template #item-status="item">
+            <!-- <template #item-status="item">
                 <span
                     :class="
                         !item.disbursement_date
                             ? 'badge bg-warning p-1'
-                            : item.disbursement_date && item.hr_agree == 0
+                            : item.disbursement_date && item.staff_agree == 0
                             ? 'badge bg-danger p-1'
                             : 'badge bg-success p-1'
                     "
                     >{{
                         !item.disbursement_date
                             ? "მიმდინარე"
-                            : item.disbursement_date && item.hr_agree == 0
+                            : item.disbursement_date && item.staff_agree == 0
                             ? "დასადასტურებელი"
                             : "დადასტურებული"
                     }}</span
                 >
-            </template>
+            </template> -->
             <template #item-operation="item">
                 <div class="operation-wrapper">
                     <button
@@ -115,19 +115,19 @@ export default {
             },
             {
                 text: "ბონუსი ვაკანსიებიდან",
-                value: "hr_bonus_from_vacancy",
+                value: "staff_bonus_from_vacancy",
                 sortable: true,
             },
             {
                 text: "ბონუსი ფაისანი რეგისტრაციებიდან",
-                value: "hr_bonus_from_registration",
+                value: "staff_bonus_from_registration",
                 sortable: true,
             },
             { text: "დანამატი", value: "supplement", sortable: true },
             { text: "სრული ხელფასი", value: "full_salary", sortable: true },
             { text: "დაწყების თარიღი", value: "created_at", sortable: true },
-            { text: "გაცემის თარიღი", value: "disbursement_date" },
-            { text: "სტატუსი", value: "status", sortable: true },
+            // { text: "გაცემის თარიღი", value: "disbursement_date" },
+            // { text: "სტატუსი", value: "status", sortable: true },
 
             { text: "Operation", value: "operation" },
         ]);
@@ -262,7 +262,7 @@ export default {
                 if (result.isConfirmed) {
                     axios({
                         method: "post",
-                        url: "/hr_agree_salary",
+                        url: "/staff_agree_salary",
                         data: { id: item.id },
                     })
                         .then(function (response) {

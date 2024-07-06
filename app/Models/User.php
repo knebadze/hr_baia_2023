@@ -101,14 +101,14 @@ class User extends Authenticatable
     {
         return $this->belongsTo(gender::class);
     }
-    public function hr()
-    {
-        return $this->hasOne(Hr::class);
-    }
-    public function staff()
-    {
-        return $this->hasOne(Hr::class);
-    }
+    // public function hr()
+    // {
+    //     return $this->hasOne(Hr::class);
+    // }
+    // public function staff()
+    // {
+    //     return $this->hasOne(Hr::class);
+    // }
     public function registerLog()
     {
         return $this->hasOne(userRegisterLog::class);
@@ -120,11 +120,16 @@ class User extends Authenticatable
 
     public function role()
     {
-        return $this->hasOne(role::class, 'id', 'role_id');
+        return $this->hasOne(Role::class, 'id', 'role_id');
     }
 
     public function unFinishedRegistration()
     {
         return $this->hasOne(UnfinishedRegistration::class);
+    }
+
+    public function blacklist()
+    {
+        return $this->hasOne(Blacklist::class, 'user_id', 'id');
     }
 }

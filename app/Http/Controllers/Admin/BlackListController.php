@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Vacancy;
 use App\Models\Blacklist;
 use App\Models\Candidate;
 use Illuminate\Http\Request;
 use App\Models\BlacklistGround;
 use App\Models\QualifyingCandidate;
+use App\Events\SmsNotificationEvent;
 use App\Http\Controllers\Controller;
-use App\Models\Vacancy;
 use Illuminate\Support\Facades\Auth;
 
 class BlackListController extends Controller
 {
     function getInfo(Request $request)  {
         $req = $request->data;
-        // dd($req);
         $data = [];
         if ($req['type'] == 'candidate') {
             $checkQualifying = QualifyingCandidate::where('candidate_id', $req['id'])
@@ -44,8 +44,19 @@ class BlackListController extends Controller
             $blackList->employer_id = $data['id'];
         }
         $blackList->ground_id = $data['reason']['id'];
-        $blackList->author_id = Auth::id();
+        $blackList->author_id = Auth::guard('staff')->id();
+        $blackList->comment = $data['comment'];
         $blackList->save();
+
+        $smsData = [
+            'to' => $request->type == 'candidate'?$blackList->user->number:$blackList->employer->number,
+            'reason' => $data['reason']['name_ka']
+        ];
+        $this->sendSms($smsData);
         return response()->json($blackList);
+    }
+
+    private function sendSms($data)  {
+        event(new SmsNotificationEvent($data, 'add_black_list'));
     }
 }

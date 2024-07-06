@@ -38,7 +38,7 @@
                                         <div class="ls-inputicon-box">
                                             <multiselect
                                                 v-model="m.hr"
-                                                :options="hr"
+                                                :options="staff"
                                                 :multiple="true"
                                                 :close-on-select="false"
                                                 :clear-on-select="false"
@@ -208,7 +208,7 @@ export default {
     props: {
         data: Object,
         role_id: Number,
-        hr: Object,
+        staff: Object,
     },
     data() {
         return {
@@ -225,8 +225,8 @@ export default {
         },
         total_hr_bonus() {
             let sum =
-                _.sumBy(this.items, (item) => item.hr_bonus_from_vacancy) +
-                _.sumBy(this.items, (item) => item.hr_bonus_from_registration);
+                _.sumBy(this.items, (item) => item.staff_bonus_from_vacancy) +
+                _.sumBy(this.items, (item) => item.staff_bonus_from_registration);
             return sum.toFixed(2);
         },
         total_supplement() {

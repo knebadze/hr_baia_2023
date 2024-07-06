@@ -9,7 +9,6 @@ class ReminderStatusFilter
     function __invoke($query, $request)
     {
         $now = Carbon::now();
-        // dd($request['id']);
         if ($request['id'] == 0) {
             return $query->where('active', 0)
                     ->where(function ($query) use ($now) {

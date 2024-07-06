@@ -193,32 +193,11 @@ class Candidate extends Model
     {
         return $this->hasOne(CandidateEndWork::class);
     }
-    // public function vacancyInterest()
-    // {
-    //     return $this->hasMany(VacancyInterest::class, 'user_id', 'user_id');
-    // }
-    // This is the scope we added
     public function scopeFilter($query, $filters)
     {
         return $filters->apply($query);
     }
 
-    // public function familyWorkSkillCategory()
-    // {
-    //     return $this->belongsTo(FamilyWorkDutyclass, 'id', 'candidate_id');
-    // }
-
-    // public function getHasRecommendationAttribute():array
-    // {
-    //     // dd($this->recommendation[0]->pivot->recommendation);
-    //     // foreach ($this->recommendation as $key => $value) {
-    //     //     return $value;
-    //     // }
-    //     dd($this);
-    //     $recommendation = CandidateRecommendation::where('candidate_id', $this->id)->first();
-    //     // dd($recommendation);
-    //     return $recommendation;
-    // }
 
 
 

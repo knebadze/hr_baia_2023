@@ -5,7 +5,7 @@ namespace App\Filters\Salary;
 class SalaryFilters
 {
     protected $filters = [
-        'hr' => SalaryHrFilter::class,
+        'staff' => SalaryStaffFilter::class,
         'date' => SalaryDateFilter::class,
     ];
 

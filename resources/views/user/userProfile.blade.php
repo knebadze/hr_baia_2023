@@ -13,15 +13,7 @@
             <div class="wt-bnr-inr-entry">
                 <div class="banner-title-outer">
                     <div class="banner-title-name">
-                        {{-- @if (Auth::user()->user_type_id == 1) --}}
                         <h2 class="wt-title">{{ __('lang.user_page_candidate_first_title') }}</h2>
-                        {{-- @elseif (Auth::user()->user_type_id == 2)
-                        <h2 class="wt-title">{{ __('lang.user_page_candidate_second_title') }}</h2>
-                        @elseif (Auth::user()->user_type_id == 3)
-                        <h2 class="wt-title">{{ __('lang.user_page_candidate_third_title') }}</h2>
-                        @elseif (Auth::user()->user_type_id == 4)
-                        <h2 class="wt-title">{{ __('lang.user_page_candidate_fourth_title') }}</h2>
-                        @endif --}}
                     </div>
                 </div>
             </div>
@@ -33,7 +25,7 @@
 
         <div class="container">
             <div class="row">
-                @if (Auth::user()->role_id == 3)
+                @if (Auth::guard('web')->check() && Auth::guard('web')->user()->role_id == 3)
                     <div class="col-xl-3 col-lg-4 col-md-12 rightSidebar m-b30">
 
                         <div class="side-bar-st-1">
@@ -46,7 +38,7 @@
                     </div>
                 @endif
 
-                    <candidate-profile :data='@json($data)' :role_id='@json(Auth::user()->role_id)'></candidate-profile>
+                    <candidate-profile :data='@json($data)' :role_id='@json(Auth::guard('web')->check()?3:Auth::guard('staff')->user()->role_id)'></candidate-profile>
 
 
             </div>

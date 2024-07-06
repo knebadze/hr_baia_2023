@@ -15,7 +15,6 @@ class ContactController extends Controller
     public function index()
     {
         $companyInformation = Cache::get('company_information');
-        // dd(app()->getLocale());
         return view ('contact', compact('companyInformation'));
     }
 

@@ -58,7 +58,7 @@ class Vacancy extends Model
     }
     public function getActivitylogOptions(): LogOptions
     {
-        $additionalArray  = ['category.name_ka', 'currency.name_ka', 'status.name_ka', 'workSchedule.name_ka', 'hr.user.name', 'term.name_ka', 'reasonForCancel.name_ka', 'interviewPlace.name_ka'];
+        $additionalArray  = ['category.name_ka', 'currency.name_ka', 'status.name_ka', 'workSchedule.name_ka', 'hr.name_ka', 'term.name_ka', 'reasonForCancel.name_ka', 'interviewPlace.name_ka'];
         $combinedArray = array_merge($this->fillable, $additionalArray);
         $logOptions = LogOptions::defaults()
         ->logOnly($combinedArray)
@@ -133,7 +133,6 @@ class Vacancy extends Model
         $difference_new_to_old = array_diff($afterSync, $beforeSync);
 
         $difference = array_merge($difference_old_to_new, $difference_new_to_old);
-        // dd($difference);
         if (!empty($difference)) {
             activity()
                 ->performedOn($that)
@@ -186,7 +185,7 @@ class Vacancy extends Model
     }
     public function hr()
     {
-        return $this->belongsTo(Hr::class);
+        return $this->belongsTo(Staff::class, 'hr_id', 'id');
     }
     public function interviewPlace()
     {
@@ -212,11 +211,16 @@ class Vacancy extends Model
     }
     public function deposit()
     {
-        return $this->belongsTo(VacancyDeposit::class, 'id', 'vacancy_id');
+        return $this->hasOne(VacancyDeposit::class);
     }
     public function reasonForCancel()
     {
         return $this->belongsTo(ReasonForCancel::class, 'reason_for_cancel_id', 'id');
+    }
+    public function enrollments () 
+    {
+        return $this->hasMany(Enrollment::class, 'vacancy_id', 'id');
+    
     }
 
 

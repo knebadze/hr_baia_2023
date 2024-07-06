@@ -13,9 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('hr_daily_works', function (Blueprint $table) {
+        Schema::create('staff_work_logs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('hr_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('staff_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->dateTime('start_date');
+            $table->dateTime('end_date');
             $table->integer('has_vacancy')->default(0);
             $table->integer('employed')->default(0);
             $table->integer('approved_by_employer')->default(0);
@@ -23,6 +25,7 @@ return new class extends Migration
             $table->integer('has_enrollment_vacancy')->default(0);
             $table->integer('candidate_has_registered')->default(0);
             $table->integer('has_enrollment_register')->default(0);
+            $table->integer('add_vacancy')->default(0);
             $table->timestamps();
         });
     }
@@ -34,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hr_daily_works');
+        Schema::dropIfExists('staff_work_logs');
     }
 };

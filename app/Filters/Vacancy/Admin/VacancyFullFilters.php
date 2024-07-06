@@ -37,7 +37,6 @@ class VacancyFullFilters
 
     public function apply($query)
     {
-        // dd($this->receivedFilters());
         foreach ($this->receivedFilters() as $name => $value) {
 
             if ($value) {

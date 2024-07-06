@@ -5,17 +5,18 @@
     const props = defineProps({
         data: Object,
     })
-    const role_id = ref(props.data.role_id)
+    const auth = ref(props.data.auth)
+    // const role_id = ref(props.data.auth.role_id)
 </script>
 <template>
     <section class="content">
         <div class="container-fluid">
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab_1">
-                        <enrolled_tab :data="data" :role_id="role_id"></enrolled_tab>
+                        <enrolled_tab :data="data" :auth="auth"></enrolled_tab>
                     </div>
                     <div class="tab-pane" id="tab_2">
-                        <must_be_enrolled_tab :role_id="role_id"></must_be_enrolled_tab>
+                        <must_be_enrolled_tab :auth="auth"></must_be_enrolled_tab>
                     </div>
                 </div>
 

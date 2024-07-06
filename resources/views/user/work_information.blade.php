@@ -13,15 +13,7 @@
             <div class="wt-bnr-inr-entry">
                 <div class="banner-title-outer">
                     <div class="banner-title-name">
-                        {{-- @if (Auth::user()->user_type_id == 1) --}}
                         <h2 class="wt-title">{{ __('lang.user_page_candidate_first_title') }}</h2>
-                        {{-- @elseif (Auth::user()->user_type_id == 2)
-                        <h2 class="wt-title">{{ __('lang.user_page_candidate_second_title') }}</h2>
-                        @elseif (Auth::user()->user_type_id == 3)
-                        <h2 class="wt-title">{{ __('დამსაქმებელი კომპანია') }}</h2>
-                        @elseif (Auth::user()->user_type_id == 4)
-                        <h2 class="wt-title">{{ __('უცნობი') }}</h2>
-                        @endif --}}
                     </div>
                 </div>
             </div>

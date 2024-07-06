@@ -385,6 +385,7 @@
 import Paginate from "vuejs-paginate-next";
 import must_be_enrolled_table from "../component/must_be_enrolled_table.vue";
 import _ from "lodash";
+import moment from "moment";
 export default {
     components: {
         Paginate,
@@ -392,7 +393,7 @@ export default {
     },
     props: {
         // data:Object,
-        role_id: Number,
+        auth: Object,
     },
     data() {
         return {
@@ -404,13 +405,30 @@ export default {
             getDataType: "first_data",
             items: {},
             // role_id: null,
-            money: 0,
-            bonus: 0,
+            // money: 0,
+            // bonus: 0,
+            viewAndPermission: null,
         };
     },
-    computed: {},
+    computed: {
+        money() {
+            return _.reduce(this.items, (sum, item) => sum + item.money, 0);
+        },
+        bonus() {
+            return _.reduce(
+                this.items,
+                (sum, item) => {
+                    return item.type == 2
+                        ? sum + (item.money * item.bonus_percent) / 100
+                        : sum + 10;
+                },
+                0
+            );
+        },
+    },
     created() {
         this.getData();
+        this.role_id = this.auth.role_id;
         // this.role_id = this.data.role_id
     },
     methods: {
@@ -433,24 +451,30 @@ export default {
                 );
                 if (response.status == 200) {
                     const { data } = response;
+                    const { mustBeEnrollment, adminViewAndPermission } = data;
                     this.pagination = {
-                        current_page: data.current_page,
-                        last_page: data.last_page,
+                        current_page: mustBeEnrollment.current_page,
+                        last_page: mustBeEnrollment.last_page,
                     };
-                    this.items = _.sortBy(data.data, [
+                    this.items = _.sortBy(mustBeEnrollment.data, [
                         function (o) {
                             return o.date;
                         },
                     ]);
+                    this.viewAndPermission = adminViewAndPermission;
                     this.tableKey++;
-                    this.items.forEach((element) => {
-                        this.money = this.money + element.money;
-                        this.bonus =
-                            element.type == 2
-                                ? this.bonus +
-                                  (element.money * element.bonus_percent) / 100
-                                : this.bonus + 10;
-                    });
+                    for (let i = 0; i < this.items.length; i++) {
+                        // Access the element to update in each object
+                        const createdAtMoment = moment(this.items[i].date);
+                        this.items[i].created_at = moment(this.items[i].created_at).format(
+                            "YYYY-MM-DD HH:mm"
+                        );
+                        if (createdAtMoment.isBefore(moment(), "day")) {
+                            this.items[i]["status"] = "გადაცილება";
+                        } else {
+                            this.items[i]["status"] = "მიმდინარე";
+                        }
+                    }
                 }
             } catch (error) {
                 console.log(error);

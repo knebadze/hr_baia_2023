@@ -6,18 +6,29 @@ import { useHrStore } from "../../../../../store/admin/staff/hr/hrStore";
 import { storeToRefs } from "pinia";
 
 const hrStore = useHrStore();
-const { hr, cla, hasVacancyControl } = storeToRefs(hrStore);
+const { hr, cla, hasVacancyControl, fullPermission, adminId } =
+    storeToRefs(hrStore);
 const { fetchHrs } = hrStore;
 const handlerIsActive = (item, index) => {
-    hr.value[index].is_active = item
+    hr.value[index].is_active = item;
 };
 onMounted(async () => {
-    await fetchHrs()
+    await fetchHrs();
 });
 </script>
 <template>
-<div>
-    <StaffTable :data="hr" :cla="cla"  @is_active="handlerIsActive" :role="2"/>
-    <has_vacancy_control :items="hasVacancyControl" v-if="hasVacancyControl.length > 0"/>
-</div>
+    <div>
+        <StaffTable
+            :data="hr"
+            :cla="cla"
+            :fullPermission="fullPermission"
+            @is_active="handlerIsActive"
+            :role="2"
+            :adminId="adminId"
+        />
+        <has_vacancy_control
+            :items="hasVacancyControl"
+            v-if="hasVacancyControl.length > 0"
+        />
+    </div>
 </template>

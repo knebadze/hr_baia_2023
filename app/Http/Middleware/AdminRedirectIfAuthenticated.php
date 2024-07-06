@@ -17,7 +17,7 @@ class AdminRedirectIfAuthenticated
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!Auth::check()) {
+        if (!Auth::guard('staff')->check()) {
             // Store the intended URL in the session
             session(['url.intended' => $request->url()]);
 

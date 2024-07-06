@@ -53,7 +53,6 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        // dd($data);
         return Validator::make($data, [
             'name_ka' => ['required', 'string', 'max:255'],
             // 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -89,8 +88,6 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        // dd($data);
-        // $tr= new GoogleTranslate();
         $lang = app()->getLocale();
         if ($lang == 'ka') {
             $name_ka = $data['name_ka'];
@@ -110,9 +107,6 @@ class RegisterController extends Controller
         } else {
             $defaultAvatar = 'user_avatar/default_female.jpg';
         }
-
-        // dd();
-        // GoogleTranslate::trans($data['name_ka'])
         $user = User::create([
             'role_id' => 3,
             'name_ka' => $name_ka,

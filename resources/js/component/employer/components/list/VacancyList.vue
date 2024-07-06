@@ -73,9 +73,11 @@
                             <div class="twm-jobs-amount text-align">
                                 <i class="fa fa-phone"></i>
                                 {{
-                                    `${item.hr.user.number} / ${
-                                        item.hr.user[`name_${getLang}`].split(' ').shift()
-                                    }`
+                                    `${item.hr.number} / ${item.hr[
+                                        `name_${getLang}`
+                                    ]
+                                        .split(" ")
+                                        .shift()}`
                                 }}
                             </div>
                         </div>
@@ -113,7 +115,7 @@
                 <div class="col-12">
                     <div class="row">
                         <div class="col-md-8">
-                            <div v-if="auth&&auth.role_id === 3">
+                            <div v-if="auth && auth.role_id === 3">
                                 <span
                                     v-if="isCandidateInterested"
                                     style="font-size: 20px"
@@ -161,7 +163,6 @@ const detailUrl = ref(`${url.origin}/${getLang.value}/job_detail`);
 
 const getTimeAgo = (created_at) => {
     const time = moment(created_at, "YYYY-MM-DD HH:mm"); // Explicit format
-    console.log(time);
     const now = moment();
     const diff = now.diff(time);
 

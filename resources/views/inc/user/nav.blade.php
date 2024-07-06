@@ -1,12 +1,12 @@
 <div class="twm-mid-content text-center">
     <a href="candidate-detail.html" class="twm-job-title">
-        <h4>{{ Auth::user()->{'name_' . app()->getLocale()} }} </h4>
+        <h4>{{ Auth::guard('web')->user()->{'name_' . app()->getLocale()} }} </h4>
     </a>
     {{-- <p>IT Contractor</p> --}}
 </div>
 {{-- Photo Upload --}}
 @php
-    $auth = Auth::user();
+    $auth = Auth::guard('web')->user();
 @endphp
 {{-- <div class="twm-candidate-profile-pic">
     <img src="{{ asset('images/user-avatar/'.$auth->avatar) }}"> --}}
@@ -21,7 +21,7 @@
             {{-- @if (Auth::user()->status != 0) --}}
                 {{-- <li ><a href="{{ route('work_information' , App()->getLocale())  }}"><i class="fa fa-file-download"></i> {{ __('lang.user_page_candidate_left_side_bar_work_info') }}</a></li> --}}
             {{-- @endif --}}
-            @if (Auth::user()->candidate && Auth::user()->candidate->status_id != 8)
+            @if (Auth::guard('web')->user()->candidate && Auth::guard('web')->user()->candidate->status_id != 8)
                 <li @if(Route::currentRouteName() === 'myrezume') class="active" @else class="" @endif><a href="{{ route('myrezume' , App()->getLocale())  }}"><i class="fa fa-receipt"></i> {{ __('lang.user_page_candidate_left_side_bar_my_resume') }}</a></li>
             @endif
 

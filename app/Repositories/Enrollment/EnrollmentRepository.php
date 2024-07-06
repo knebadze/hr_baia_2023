@@ -17,7 +17,7 @@ class EnrollmentRepository
 
             $enrollment = new Enrollment([
                 'enrollment_type' => 2,
-                'author_id' => $vacancy->hr->user->id,
+                'author_id' => $vacancy->hr->id,
                 'vacancy_id' => $data['data']['vacancy_id'],
                 'who_is_counting' => $data['data']['who_is_counting'],
                 'type' => $data['data']['type'],

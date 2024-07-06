@@ -37,7 +37,7 @@ class SocialController extends Controller
                 ]);
             }
 
-            Auth::login($user);
+            Auth::guard('web')->login($user);
             if ($user->candidate) {
                 return redirect('/ka/home');
             }

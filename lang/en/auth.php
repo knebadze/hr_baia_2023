@@ -13,8 +13,10 @@ return [
     |
     */
 
-    'failed' => 'ჩანაწერი არ მოიძებნა, თუ ჯერ არ ხართ რეგისტრირებული შექმენით კაბინეტი',
-    'password' => 'პაროლი არასწორია.',
-    'throttle' => 'ძალიან ბევრი შესვლის მცდელობა. გთხოვთ ცადოთ მოგვიანებით :seconds seconds.',
+   'failed' => 'Record not found, if you are not registered yet, please create an account',
+    'password' => 'The password is incorrect.',
+    'password_min' => 'The password must be at least 8 characters long',
+    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'blacklisted' => 'Your profile has been blacklisted. Please contact the agency.'
 
 ];

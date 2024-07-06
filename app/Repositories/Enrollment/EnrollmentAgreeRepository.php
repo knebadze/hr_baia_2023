@@ -4,6 +4,7 @@ namespace App\Repositories\Enrollment;
 
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Staff;
 use App\Models\Salary;
 use App\Models\Vacancy;
 use App\Models\Candidate;
@@ -13,9 +14,9 @@ use App\Models\VacancyDeposit;
 use App\Models\RegistrationFee;
 use App\Models\userRegisterLog;
 use App\Models\VacancyReminder;
-use App\Repositories\Salary\DisbursementOfSalaryRepository;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Repositories\Salary\DisbursementOfSalaryRepository;
 
 class EnrollmentAgreeRepository
 {
@@ -43,8 +44,8 @@ class EnrollmentAgreeRepository
                 $this->updateCandidateFeeStatus($data['candidate_id']);
                 $this->dailyWorkEvent($data['author_id'], 'c');
             }
-            $user = User::where('id', $data['author_id'])->firstOrFail();
-            $this->addHrBonus($data['enrollment_type'], $user->staff->id, $data['hr_bonus']);
+            $staff = Staff::where('id', $data['author_id'])->firstOrFail();
+            $this->addHrBonus($data['enrollment_type'], $staff->id, $data['hr_bonus']);
 
             // If we reach here, it means that no exceptions were thrown
             // We can commit the transaction
@@ -187,8 +188,8 @@ class EnrollmentAgreeRepository
 
     function addHrBonus($type, $id, $bonus) {
         try {
-            $salary = Salary::where('hr_id', $id)->where('hr_agree', 0)->whereNull('disbursement_date')->first();
-            $bonusField = $type == 2 ? 'hr_bonus_from_vacancy' : 'hr_bonus_from_registration';
+            $salary = Salary::where('staff_id', $id)->where('staff_agree', 0)->whereNull('disbursement_date')->first();
+            $bonusField = $type == 2 ? 'staff_bonus_from_vacancy' : 'staff_bonus_from_registration';
 
             if (!$salary){
                 $createSalary = new DisbursementOfSalaryRepository();
@@ -218,9 +219,9 @@ class EnrollmentAgreeRepository
         return VacancyDeposit::where('vacancy_id', $vacancyId)->delete();
     }
 
-    function dailyWorkEvent($user_id, $type) {
-        $user = User::where('id', $user_id)->first();
+    function dailyWorkEvent($staff_id, $type) {
+        $staff = Staff::where('id', $staff_id)->first();
         $eventType = ($type == 'v') ? 'has_enrollment_vacancy' : 'has_enrollment_register';
-        event(new hrDailyJob($user->hr->id, $eventType));
+        event(new hrDailyJob($staff->id, $eventType));
     }
 }

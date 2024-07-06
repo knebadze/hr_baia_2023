@@ -107,7 +107,6 @@ const showModal = (item) => {
             ? itemsSelected.value.map(({ id }) => id)
             : item.id;
     showAddPersonalModal.value = !showAddPersonalModal.value;
-    console.log(modalItem.value);
 };
 
 const handlerOpenModal = (item) => {

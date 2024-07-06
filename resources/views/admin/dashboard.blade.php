@@ -6,6 +6,7 @@
       <div class="row mb-2">
         <div class="col-sm-6">
           <h1 class="m-0">Dashboard</h1>
+          {{-- <a href="{{ route('update.vacancy') }}" class="btn btn-primary">Update Vacancies</a> --}}
         </div><!-- /.col -->
         <div class="col-sm-6">
           {{-- <ol class="breadcrumb float-sm-right">
@@ -88,7 +89,7 @@
       <!-- /.row -->
       <!-- Main row -->
       @php
-            $role_id = Auth::user()->role_id;
+            $role_id = Auth::guard('staff')->user()->role_id;
       @endphp
         <div class="row">
             <section class="col-lg-12 connectedSortable">
@@ -96,13 +97,13 @@
             </section>
             @if ($role_id == 1 || $role_id == 2)
                 <section class="col-lg-12 connectedSortable">
-                    <hr-daily-work :data='@json($data["hrDailyWork"])' :role_id='@json($role_id)'></hr-daily-work>
+                    <hr-daily-work :data='@json($data["staffDailyWork"])' :role_id='@json($role_id)'></hr-daily-work>
                 </section>
             @endif
 
             @if ($role_id == 1 || $role_id == 4)
                 <section class="col-lg-12 connectedSortable">
-                    <administrator-daily-work :data='@json($data["hrDailyWork"])' :role_id='@json($role_id)'></administrator-daily-work>
+                    <administrator-daily-work :data='@json($data["staffDailyWork"])' :role_id='@json($role_id)'></administrator-daily-work>
                 </section>
             @endif
         </div>

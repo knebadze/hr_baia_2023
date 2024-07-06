@@ -194,9 +194,7 @@ export default {
         const sendEmit = (item) => {
             for (let i = 0; i < item.length; i++) {
                 item[i]["code"] = item[i].vacancy.code;
-                item[i]["hr_name"] = item[i].hr
-                    ? item[i].hr.user.name_ka
-                    : null;
+                item[i]["hr_name"] = item[i].hr ? item[i].hr.name_ka : null;
             }
             emit("emitFilterData", item);
         };

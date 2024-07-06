@@ -49,4 +49,12 @@ return [
      * Laravel's database.default will be used instead.
      */
     'database_connection' => env('ACTIVITY_LOGGER_DB_CONNECTION'),
+    /*
+     * This array contains the models that can be the causer of an activity.
+     */
+
+    'causer' => [
+        'user' => \App\Models\User::class,
+        'staff' => \App\Models\Staff::class,
+    ],
 ];

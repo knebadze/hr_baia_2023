@@ -15,13 +15,13 @@ return new class extends Migration
     {
         Schema::create('salaries', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('hr_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('staff_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->integer('fixed_salary');
-            $table->float('hr_bonus_from_vacancy')->default(0);
-            $table->integer('hr_bonus_from_registration')->default(0);
+            $table->float('staff_bonus_from_vacancy')->default(0);
+            $table->integer('staff_bonus_from_registration')->default(0);
             $table->float('supplement')->nullable();
             $table->dateTime('disbursement_date')->nullable();
-            $table->integer('hr_agree')->default(0);
+            $table->integer('staff_agree')->default(0);
             $table->timestamps();
         });
     }

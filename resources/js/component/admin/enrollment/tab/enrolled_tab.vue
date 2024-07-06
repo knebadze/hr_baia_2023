@@ -58,7 +58,7 @@
                                         <div class="ls-inputicon-box">
                                             <multiselect
                                                 v-model="m.hr"
-                                                :options="data.hr"
+                                                :options="cla.hr"
                                                 :multiple="true"
                                                 :close-on-select="false"
                                                 :clear-on-select="false"
@@ -330,6 +330,8 @@
             :role_id="role_id"
             :start_date="data.start_date"
             :key="tableKey"
+            :fullPermission="fullPermission"
+            :admin_id="auth.id"
         ></enrolled_table>
 
         <div class="mt-2">
@@ -360,7 +362,7 @@ export default {
     },
     props: {
         data: Object,
-        role_id: Number,
+        auth: Object,
     },
     data() {
         return {
@@ -371,7 +373,7 @@ export default {
             },
             getDataType: "first_data",
             items: {},
-            // role_id: null,
+            role_id: null,
             m: {},
             cla: {
                 enrollment_type: [
@@ -392,6 +394,7 @@ export default {
                 ],
             },
             tableKey: 0,
+            viewAndPermission: null,
         };
     },
     computed: {
@@ -415,8 +418,18 @@ export default {
         agree_no_count() {
             return _.countBy(this.items, "agree")[0] || 0;
         },
+        fullView () {
+            return this.viewAndPermission?this.viewAndPermission.view == 'full':null
+        },
+        fullPermission(){
+            return this.viewAndPermission?this.viewAndPermission.permission == 'full':null
+        },
+        fullFilter(){
+            return this.viewAndPermission?this.viewAndPermission.filter == 'full':null
+        }
     },
     created() {
+        this.role_id = this.auth.role_id;
         this.data.start_date= moment(this.data.start_date).format("YYYY-MM-DD HH:mm")
         // this.getData()
         // this.role_id = this.data.role_id
@@ -436,6 +449,13 @@ export default {
             }
         },
 
+        filterHr(adminViewAndPermission){
+            if (adminViewAndPermission.filter == 'child') {
+                return this.data.hr.filter(item => item.parent_id == adminViewAndPermission.admin_id)
+            }
+            return this.data.hr
+        },
+
         async firstData() {
             try {
                 const response = await axios.post(
@@ -443,11 +463,14 @@ export default {
                 );
                 if (response.status == 200) {
                     const { data } = response;
+                    const { enrollment, adminViewAndPermission } = data
                     this.pagination = {
-                        current_page: data.current_page,
-                        last_page: data.last_page,
+                        current_page: enrollment.current_page,
+                        last_page: enrollment.last_page,
                     };
-                    this.items = data.data;
+                    this.items = enrollment.data;
+                    this.viewAndPermission = adminViewAndPermission
+                    this.cla.hr = this.filterHr(adminViewAndPermission)
                     this.tableKey++;
                 }
             } catch (error) {

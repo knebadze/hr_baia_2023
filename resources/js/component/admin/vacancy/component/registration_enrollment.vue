@@ -104,7 +104,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12">
+                <div
+                    class="col-md-12"
+                    v-if="
+                        auth.role_id == 2 ||
+                        fullPermission ||
+                        item.hr_parent_id == auth.id
+                    "
+                >
                     <button
                         v-if="!registerInfo"
                         type="button"
@@ -136,6 +143,8 @@
 export default {
     props: {
         item: Object,
+        adminViewAndPermission: Object,
+        auth: Object,
     },
     data() {
         return {
@@ -149,7 +158,13 @@ export default {
     created() {
         this.show();
     },
-    computed: {},
+    computed: {
+        fullPermission() {
+            return this.adminViewAndPermission
+                ? this.adminViewAndPermission.permission == "full"
+                : null;
+        },
+    },
     methods: {
         async show() {
             let result = await this.getInfo();

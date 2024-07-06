@@ -109,9 +109,7 @@ class VacancyUpdateService{
         }
         return $data;
     }
-    public function updateData($data, $ip) {
-        // dd($data);
-        $lang = $data['model']['lang'];
+    public function updateData($data, $ip) {['lang'];
         $trData = $this->translate($lang, $data['model']);
         $result = $this->vacancyUpdateRepository->update($trData, $ip);
         return $result;
@@ -124,7 +122,6 @@ class VacancyUpdateService{
 
 
     function updateHr($data) {
-        // dd($data['model']['id']);
         $result= $this->vacancyHrUpdateRepository->update($data['model']);
         return $result;
     }

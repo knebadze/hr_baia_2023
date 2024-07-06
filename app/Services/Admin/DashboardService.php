@@ -3,7 +3,7 @@
 namespace App\Services\Admin;
 
 use Illuminate\Support\Facades\Auth;
-use App\Repositories\Admin\Dashboard\HrDailyWorkRepository;
+use App\Repositories\Admin\Dashboard\StaffDailyWorkRepository;
 use App\Repositories\Admin\Dashboard\DailyReminderRepository;
 use App\Repositories\Admin\Dashboard\InfoBoxRepository;
 
@@ -11,26 +11,26 @@ class DashboardService
 {
     protected InfoBoxRepository $infoBoxRepository;
     protected DailyReminderRepository $dailyReminderRepository;
-    protected HrDailyWorkRepository $hrDailyWorkRepository;
+    protected StaffDailyWorkRepository $StaffDailyWorkRepository;
     public function __construct()
     {
         $this->infoBoxRepository = new InfoBoxRepository;
         $this->dailyReminderRepository = new DailyReminderRepository;
-        $this->hrDailyWorkRepository = new HrDailyWorkRepository;
+        $this->StaffDailyWorkRepository = new StaffDailyWorkRepository;
     }
 
     function getData(){
-        $role_id = Auth::user()->role_id;
+        $role_id = Auth::guard('staff')->user()->role_id;
         $infoBox = $this->infoBoxRepository->data();
         $dailyReminder = $this->dailyReminderRepository->data();
-        $hrDailyWork = null;
+        $staffDailyWork = null;
         if ($role_id == 1) {
-            $hrDailyWork = ['hr' => $this->hrDailyWorkRepository->hrData(), 'administrator' => $this->hrDailyWorkRepository->administratorDate()];
+            $staffDailyWork = ['hr' => $this->StaffDailyWorkRepository->hrData(), 'administrator' => $this->StaffDailyWorkRepository->administratorDate()];
         }else if ($role_id == 2) {
-            $hrDailyWork = $this->hrDailyWorkRepository->hrData();
+            $staffDailyWork = $this->StaffDailyWorkRepository->hrData();
         }else{
-            $hrDailyWork = $this->hrDailyWorkRepository->administratorDate();
+            $staffDailyWork = $this->StaffDailyWorkRepository->administratorDate();
         }
-        return ['infoBox' => $infoBox, 'dailyReminder' => $dailyReminder, 'hrDailyWork' => $hrDailyWork];
+        return ['infoBox' => $infoBox, 'dailyReminder' => $dailyReminder, 'staffDailyWork' => $staffDailyWork];
     }
 }

@@ -40,22 +40,18 @@ class VacancyAttachedController extends Controller
                     'qs.name_ka as status', 'qs.color as status_color',
                         )
                 ->get();
-        // QualifyingCandidate::orderBy('qualifying_type_id' , 'DESC')->where('candidate_id', $id)->with([
-        //     'vacancy.category','vacancy.employer', 'vacancy.status', 'qualifyingType'
-        // ])->get();
         $candidate = Candidate::where('id', $id)
             ->with(['user' => function ($query) {
                 $query->select('id', 'name_ka');
             }])->select('id', 'user_id')
             ->first();
-        $auth = (Auth::user()->role_id == 1)?Auth::user():User::where('id', Auth::id())->with('hr')->first();
+        $auth = (Auth::guard('staff')->user()->role_id == 1)?Auth::guard('staff')->user():User::where('id', Auth::guard('staff')->id())->first();
 
         return view('admin.vacancy_attached', compact('data', 'auth', 'candidate'));
     }
 
     function endWork(Request $request) {
         $data = $request->model;
-        // dd($data);
         $result = ['status' => 200];
 
         try {

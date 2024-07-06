@@ -19,12 +19,12 @@ use App\Http\Controllers\Admin\UnfinishedRegistrationController;
 use App\Http\Controllers\Admin\VacancyAttachedController;
 use App\Http\Controllers\Admin\Vacancy\VacancyDepositController;
 
-Route::prefix('admin')->middleware(['auth.adminRedirect'])->group(function () {
+Route::prefix('admin')->middleware('auth:staff')->group(function () {
     Route::get('candidate_update/{id?}', [AdminCandidateController::class, 'edit'])
         ->name('admin.candidate.update');
 
     Route::get('add_candidate', [AdminCandidateController::class, 'addCandidate'])
-        ->name('admin.add.candidate');
+        ->name('admin.add_candidate');
 
     Route::get('vacancy_attached/{id?}', [VacancyAttachedController::class, 'index'])
         ->name('admin.vacancy.attached');

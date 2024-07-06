@@ -8,7 +8,6 @@ use App\Models\Candidate;
 class NumberRepository
 {
     function save($data, $user_id) {
-        // dd($data);
         try{
             $candidate = Candidate::where('user_id', $user_id)->first();
             $number = new Additional_number();
@@ -18,7 +17,7 @@ class NumberRepository
             $number->number_owner_id = $data['number_owner']['id'];
             $number->save();
             $candidate = Candidate::where('user_id', $user_id)->with(['number.numberCode', 'number.numberOwner'])->first();
-            if($candidate->stage = 3){
+            if($candidate->stage == 3){
                 $candidate->update(['stage' => 4]);
             }
             return [

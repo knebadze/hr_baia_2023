@@ -72,10 +72,10 @@
                         <u class="text-primary" @click="fullModal(item)">{{
                             item.enrollment_type == 1
                                 ? item.candidate_id
-                                : item.code
+                                : item.vacancy.code
                         }}</u>
                     </td>
-                    <td v-if="role_id == 1">{{ item.name_ka }}</td>
+                    <td v-if="role_id == 1">{{ item.author.name_ka }}</td>
                     <td>
                         {{
                             item.enrollment_type == 1
@@ -131,6 +131,10 @@
                     </td>
                     <td v-if="role_id == 1">
                         <button
+                            v-if="
+                                !fullPermission &&
+                                item.author.parent_id == admin_id
+                            "
                             type="button"
                             class="btn btn-info mr-1"
                             @click="agree(item)"
@@ -140,6 +144,10 @@
                             <i class="fa fa-check-square"></i>
                         </button>
                         <button
+                            v-if="
+                                !fullPermission &&
+                                item.author.parent_id == admin_id
+                            "
                             type="button"
                             class="btn btn-success"
                             @click="editModal(item)"
@@ -178,6 +186,8 @@ export default {
         items: Object,
         role_id: Number,
         start_date: String,
+        admin_id: Number,
+        fullPermission: Boolean,
     },
     data() {
         return {

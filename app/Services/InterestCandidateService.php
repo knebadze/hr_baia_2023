@@ -22,7 +22,7 @@ class InterestCandidateService
         return $result;
     }
     function check($id) {
-        $candidateCategory = Auth::user()->candidate->getWorkInformation->toArray();
+        $candidateCategory = Auth::guard('web')->user()->candidate->getWorkInformation->toArray();
         $vacancy = Vacancy::where('id', $id)->first();
         $containsId = collect($candidateCategory)->contains(function ($item) use($vacancy) {
             return $item['category_id'] === $vacancy->category_id;
@@ -34,13 +34,12 @@ class InterestCandidateService
         }
 
 
-        // dd($candidateCategory);
     }
     function add($id) {
         $qualifying = new QualifyingCandidate();
         $qualifying->vacancy_id = $id;
         $qualifying->qualifying_type_id = 2;
-        $qualifying->candidate_id = Auth::user()->candidate->id;
+        $qualifying->candidate_id = Auth::guard('web')->user()->candidate->id;
         $qualifying->save();
 
         $this->sendSms($id, $qualifying->id);
@@ -50,7 +49,12 @@ class InterestCandidateService
     function sendSms($id, $qualifying_id = null)
     {
         $vacancy = Vacancy::where('id', $id)->first();
-        $hrSmsData = ['to' => $vacancy->hr->user->number, 'code' => $vacancy->code, 'name' => Auth::user()->name_ka, 'id' => Auth::user()->candidate->id];
+        $hrSmsData = [
+            'to' => $vacancy->hr->number,
+            'code' => $vacancy->code,
+            'name' => Auth::guard('web')->user()->name_ka,
+            'id' => Auth::guard('web')->user()->candidate->id
+        ];
 
         $employerSmsData = ['to' => $vacancy->employer->number, 'link' =>route('candidate.photo.questionnaire', ['locale' => App::getLocale(), 'id' => $qualifying_id])];
 

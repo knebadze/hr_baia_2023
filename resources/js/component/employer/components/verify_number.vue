@@ -116,8 +116,8 @@ import Swal from "sweetalert2";
 import verify_code_div from "./verify_code_div.vue";
 import Loading from "vue3-loading-overlay";
 import { I18n } from "laravel-vue-i18n";
-import { useLoadingStore } from '../../../store/loaderStore';
-import { storeToRefs } from 'pinia';
+import { useLoadingStore } from "../../../store/loaderStore";
+import { storeToRefs } from "pinia";
 const props = defineProps({
     cla: Object,
 });
@@ -213,7 +213,7 @@ const getSwal = () => {
             (x) => x.status_id == 1 || x.status_id == 2 || x.status_id == 3
         );
         let closeVacancy = checkNumberData.value.some((x) => x.status_id > 3);
-        let hr = checkNumberData.value[0].hr.user;
+        let hr = checkNumberData.value[0].hr;
         let employer = checkNumberData.value[0].employer;
         postVacancyData.employer = employer;
         if (activeVacancy.length > 0) {

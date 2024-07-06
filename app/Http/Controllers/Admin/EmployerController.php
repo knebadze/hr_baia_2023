@@ -6,12 +6,14 @@ use App\Models\Vacancy;
 use App\Models\Employer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Filters\Employer\EmployerFilters;
+use App\Traits\HandlesAdminDataViewCaching;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class EmployerController extends Controller
 {
-
+    use HandlesAdminDataViewCaching;
 
     function index() {
 
@@ -19,15 +21,18 @@ class EmployerController extends Controller
     }
 
     function fetch(Request $request) {
+        list($authId, $childView, $adminViewAndPermission) = $this->viewAndPermission('Employer');
         $query = Employer::orderBy('id', 'DESC');
         $total = $query->count();
         $employer = $query->paginate(20)->toArray();
         $data = [
             'total' => $total,
-            'employer' => $employer
+            'employer' => $employer,
+            'adminViewAndPermission' => $adminViewAndPermission,
         ];
         return response()->json($data);
     }
+
     function filter(EmployerFilters $filters) {
         $query = Employer::filter($filters)
             ->orderBy('id', 'DESC');
@@ -47,6 +52,19 @@ class EmployerController extends Controller
             $data['address_en'] = GoogleTranslate::trans($data['address_ka'], 'en');
             $data['address_ru']  = GoogleTranslate::trans($data['address_ka'], 'ru');
         return $data;
+    }
+
+    private function viewAndPermission($type){
+        $auth = Auth::guard('staff')->user();
+        $authId = $auth->id;
+        $role_id = $auth->role_id;
+        $childView = false;
+        $adminViewAndPermission = [];
+        if ($role_id == 1) {
+            $adminViewAndPermission = $this->getAdminDataViewByKeyAndUserId($type);
+            $childView = $adminViewAndPermission->view == 'child';
+        }
+        return [$authId, $childView, $adminViewAndPermission];
     }
     public function update(Request $request)
     {
@@ -85,19 +103,11 @@ class EmployerController extends Controller
             ->with([
                 'vacancyDuty', 'vacancyBenefit', 'vacancyForWhoNeed', 'characteristic', 'employer', 'currency','category', 'status',
                 'workSchedule', 'vacancyInterest', 'interviewPlace','term', 'demand', 'demand.language', 'demand.education', 'demand.languageLevel','demand.specialty',
-                'employer.numberCode','deposit','hr.user', 'vacancyDrivingLicense'
+                'employer.numberCode','deposit','hr', 'vacancyDrivingLicense'
                 ])
             ->get();
 
-        // $classificatoryArr = ['workSchedule'];
-        // $classificatoryService = new ClassificatoryService();
-        // $classificatory = $classificatoryService->get($classificatoryArr);
-        // $role_id = Auth::user()->role_id;
-        // $hr_id = $role_id == 2 ? Auth::user()->hr->id : null;
 
-
-        // $data = [ 'roleId' => $role_id, 'hrId' => $hr_id, 'vacancy' => $vacancy];
-        //         dd($data);
         return view( 'admin.employer_vacancy', compact('data'));
     }
 

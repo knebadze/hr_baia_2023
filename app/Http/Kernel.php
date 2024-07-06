@@ -36,6 +36,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+
             // \App\Http\Middleware\SetLanguage::class,
         ],
 
@@ -68,6 +69,7 @@ class Kernel extends HttpKernel
         'role' => \App\Http\Middleware\CheckRole::class,
         'auth.adminRedirect' => \App\Http\Middleware\AdminRedirectIfAuthenticated::class,
         'csrf.custom' => \App\Http\Middleware\VerifyCsrfTokenCustom::class,
+        'staff' => \App\Http\Middleware\StaffMiddleware::class,
         // 'setLang' => \App\Http\Middleware\SetLanguage::class,
     ];
 }

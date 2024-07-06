@@ -8,7 +8,6 @@ use App\Models\CandidateNotice;
 class CandidateNoticeRepository
 {
     function save($data) {
-        // dd($data)
         try{
             $candidate = Candidate::where('user_id', $data['data']->user_id)->first();
             $notice = new CandidateNotice();

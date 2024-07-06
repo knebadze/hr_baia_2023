@@ -78,7 +78,11 @@
                         </td>
                         <td>{{ item.updated_at }}</td>
                         <td>
-                            <table_cog :item="item" :auth="auth" />
+                            <table_cog
+                                :item="item"
+                                :auth="auth"
+                                v-if="auth.role_id == 2 || (fullPermission || item.hr_parent_id == auth.id)"
+                            />
                         </td>
                     </tr>
                 </tbody>
@@ -92,10 +96,11 @@
     <end_work_info :visible="showEndWorkInfoModal" :item="modalItem" />
 </template>
 <script>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import table_cog from "./table_cog.vue";
 import candidateFullInfoModalVue from "../../../candidate/modal/candidateFullInfoModal.vue";
 import end_work_info from "../../modal/end_work_info.vue";
+
 export default {
     components: {
         table_cog,
@@ -105,6 +110,7 @@ export default {
     props: {
         items: Object,
         auth: Object,
+        adminViewAndPermission: Object,
     },
     setup(props) {
         const data = ref(props.items.data);
@@ -132,6 +138,10 @@ export default {
             };
         };
 
+        const fullPermission = computed(() => {
+            return props.adminViewAndPermission ? props.adminViewAndPermission.permission == "full": null;
+        });
+
         return {
             data,
             type,
@@ -144,6 +154,7 @@ export default {
 
             openCandidateFullInfoModal,
             openEndWorkInfoModal,
+            fullPermission,
         };
     },
 };

@@ -16,7 +16,7 @@ class LanguageRepository
             $language->language_level_id = $data['level']['id'];
             $language->save();
 
-            if($candidate->stage = 2){
+            if($candidate->stage == 2){
                 $candidate->update(['stage' => 3]);
             }
             $candidate = Candidate::where('user_id', $user_id)->with(['getLanguage.language', 'getLanguage.level'])->first();

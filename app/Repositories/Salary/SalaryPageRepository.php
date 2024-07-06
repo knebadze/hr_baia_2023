@@ -3,6 +3,7 @@
 namespace App\Repositories\Salary;
 
 use Carbon\Carbon;
+use App\Models\Staff;
 use App\Models\Salary;
 use App\Models\Vacancy;
 use App\Models\Enrollment;
@@ -13,48 +14,44 @@ use App\Http\Resources\SalaryResource;
 
 class SalaryPageRepository
 {
-    function data() {
+    function data($childView) {
+        $auth = Auth::guard('staff')->user();
+        $authId = $auth->id;
         $data = [];
-        $currentSalary = Salary::when(Auth::user()->role_id !== 1, function ($query) {
-            return $query->where('hr_id', Auth::user()->staff->id)->where('hr_agree', 0);
-        })->when(Auth::user()->role_id === 1, function ($query) {
+        $currentSalary = Salary::when($auth->role_id !== 1, function ($query) use($auth) {
+            return $query->where('staff_id', $auth->id)->where('staff_agree', 0);
+        })->when($auth->role_id === 1, function ($query) {
             return $query->whereNUll('disbursement_date');
+        })->when($childView, function ($query) use ($authId) {
+            $ids = $this->getStaffIds($authId);
+            return $query->whereIn('staff_id', $ids);
         })
         ->orderBy('full_salary', 'DESC')
-        ->With('hr.user.role')
         ->get();
         $data['current']['data'] = SalaryResource::collection($currentSalary);
-        // dd($data);
         $data['current']['info'] = $this->info();
 
         $threeMonthsAgo = Carbon::now()->subMonths(3);
-        $oldSalary = Salary::when(Auth::user()->role_id !== 1, function ($query) {
-            return $query->where('hr_id', Auth::user()->staff->id);
+        $oldSalary = Salary::when($auth->role_id !== 1, function ($query) use($auth) {
+            return $query->where('staff_id', $auth->id);
         })
         ->whereDate('disbursement_date', '>=', $threeMonthsAgo)
         ->whereDate('disbursement_date', '<=', Carbon::now())
+        ->when($childView, function ($query) use ($authId) {
+            $ids = $this->getStaffIds($authId);
+            return $query->whereIn('staff_id', $ids);
+        })
         ->orderBy('created_at', 'DESC')
-        ->With('hr.user.role')
         ->get();
         $data['old']['data'] = SalaryResource::collection($oldSalary);
         $data['old']['info'] = count($data['old']['data']) ?$this->oldInfo($data['old']['data']) :[];
-        // dd($data);
         return $data;
     }
-
+    private function getStaffIds($parent_id) {
+        return Staff::where('parent_id', $parent_id)->pluck('id');
+    }
     function info() {
         $salary = Salary::latest()->first();
-        // $vacancy = Vacancy::where('status_id', 3)
-        //         ->where('updated_at', '>=', Carbon::parse($salary->created_at)->startOfDay()->toDateTimeString())
-        //         ->count();
-
-        // $deposit = VacancyDeposit::where(function($query) {
-        //         $query->where('must_be_enrolled_employer', '<', DB::raw('employer_initial_amount'))
-        //                 ->orWhere('must_be_enrolled_candidate', '<', DB::raw('candidate_initial_amount'));
-        //     })
-        //     ->where('updated_at', '>=', Carbon::parse($salary->created_at)->startOfDay()->toDateTimeString())
-        //     ->count();
-        // dd(Carbon::parse($salary->created_at)->startOfDay()->toDateTimeString());
         $enrollment_total = $salary?Enrollment::where('agree', 1)
             ->where('created_at', '>=', $salary->created_at)
             ->sum('money'):0;
@@ -65,7 +62,6 @@ class SalaryPageRepository
     function oldInfo($data) {
         $firstElement = collect($data)->first();
         $lastElement = collect($data)->last();
-        // dd($firstElement['disbursement_date'], $lastElement['disbursement_date']);
         $enrollment_total = Enrollment::where('agree', 1)
             ->whereDate('created_at', '>=', Carbon::parse($lastElement['created_at'])->startOfDay()->toDateTimeString())
             ->whereDate('created_at', '<=', Carbon::parse($firstElement['disbursement_date'])->startOfDay()->toDateTimeString())

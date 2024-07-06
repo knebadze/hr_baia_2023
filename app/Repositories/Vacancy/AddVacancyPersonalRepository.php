@@ -21,7 +21,6 @@ use Illuminate\Support\Facades\Auth;
 class AddVacancyPersonalRepository
 {
     function add($data) {
-        // dd($data['start_date']);
         $qualifying = new QualifyingCandidate();
         $qualifying->vacancy_id = $data['vacancy_id'];
         $qualifying->qualifying_type_id = $data['type']['id'];
@@ -161,7 +160,6 @@ class AddVacancyPersonalRepository
     }
     // როცა კადრი დასაქმდა
     function wasEmployed($data){
-        // dd($data);
         $vacancy_id = $data['vacancy']['id'];
         $end_date = $this->endDay($data['vacancy']['term'], $data['vacancy']['start_date']);
         $qualifying = QualifyingCandidate::updateOrCreate(
@@ -209,7 +207,7 @@ class AddVacancyPersonalRepository
                 $creator_id = $log->creator_id;
             } else {
                 $vacancy = Vacancy::find($vacancy_id);
-                $creator_id = $vacancy ? $vacancy->hr->user->id : null;
+                $creator_id = $vacancy ? $vacancy->hr->id : null;
             }
 
             $paidBonus = GlobalVariable::where('name', 'paid_registration')->first();
@@ -229,7 +227,6 @@ class AddVacancyPersonalRepository
     }
 
     function workDay($id, $work_schedule_id, $start_date, $term, $week_day) {
-        // dd($week_day);
         $startDate = Carbon::parse($start_date); // Get start_date's date
         switch ($term['type']) {
             case 'Y':
@@ -343,8 +340,8 @@ class AddVacancyPersonalRepository
         $data = []; // Common data
         $employer_name = $qualifying->vacancy->employer->name_ka;
         $employer_number = $qualifying->vacancy->employer->number;
-        $hr_name = $this->getFirstName($qualifying->vacancy->hr->user->name_ka);
-        $hr_number = $qualifying->vacancy->hr->user->number;
+        $hr_name = $this->getFirstName($qualifying->vacancy->hr->name_ka);
+        $hr_number = $qualifying->vacancy->hr->number;
         $candidate_name = $qualifying->candidate->user->name_ka;
         $candidate_number = $qualifying->candidate->user->number;
 
@@ -503,7 +500,6 @@ class AddVacancyPersonalRepository
             return true;
         } catch (\Throwable $th) {
             DB::rollBack();
-            dd($th);
             return false;
         }
 

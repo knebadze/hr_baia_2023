@@ -21,7 +21,6 @@ class TestimonialController extends Controller
 
     function index(){
         $testimonial = Testimonial::all()->toArray();
-        // dd($testimonial);
         return view('admin.testimonial', compact('testimonial'));
     }
 
@@ -30,7 +29,6 @@ class TestimonialController extends Controller
         if ($request->hasFile('file')) {
             $data['file'] = $request->file('file');
         }
-        // dd($data);
         $result = ['status' => 200];
 
         try {
@@ -47,13 +45,11 @@ class TestimonialController extends Controller
 
     function translate(Request $request) {
         $data = $request->model;
-        // dd($data);
         $result = $this->testimonialService->translate('ka', $data);
         return response()->json($result);
     }
 
     function IsActiveUpdate(Request $request) {
-        // dd($request->is_active);
         try {
             $result = Testimonial::where('id', $request->id)->update(['active' => $request->active]);
         } catch (\Throwable $th) {
@@ -68,7 +64,6 @@ class TestimonialController extends Controller
         if ($request->hasFile('file')) {
             $data['file'] = $request->file('file');
         }
-        // dd($data);
         try {
             $result = $this->testimonialService->update($data);
         } catch (\Throwable $th) {
@@ -80,7 +75,6 @@ class TestimonialController extends Controller
     function delete(Request $request) {
 
        $data = $request->id;
-        // dd($data);
         try {
             $result = $this->testimonialService->delete($data);
         } catch (\Throwable $th) {

@@ -26,6 +26,15 @@
                     </div>
                 </div>
 
+                <div class="col-xl-12 col-lg-12 col-md-12">
+                    <div class="form-group">
+                        <label>დამატებითი კომენტარი</label>
+                        <div class="ls-inputicon-box">
+                            <textarea class="form-control" v-model="m.comment" type="text" placeholder="" rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
+
               </div>
               <div class="modal-footer">
                   <button type="button" class="btn btn-success" @click.prevent="save()" ><i class=""></i>შენახვა</button>

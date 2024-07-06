@@ -36,6 +36,7 @@ class QualifyingCandidateResource extends JsonResource
             'vacancy_interview_place_id' => optional($this->vacancy)->interview_place_id,
             'vacancy_interview_date' => optional($this->vacancy->interview_date)->format('m-d-Y H:i'),
             'vacancy_hr_id' => optional($this->vacancy)->hr_id,
+            'hr_parent_id' => optional($this->vacancy)->hr->parent_id,
             'end_work_reason_id' => optional($this->endWork)->no_reason_id,
             'end_work_reason' => optional(optional($this->endWork)->reason)->name_ka,
             'status' => optional($this->status)->name_ka,

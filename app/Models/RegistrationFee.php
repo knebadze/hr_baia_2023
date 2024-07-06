@@ -23,7 +23,7 @@ class RegistrationFee extends Model
     }
 
     function creator(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Staff::class);
     }
 }
 

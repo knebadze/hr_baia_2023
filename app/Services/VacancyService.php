@@ -113,7 +113,7 @@ class VacancyService{
         $employer = Employer::where('number', $data['number'])->first();
         $vacancy = [];
         if ($employer) {
-            $vacancy = Vacancy::where('author_id', $employer->id)->with(['hr.user', 'category', 'status', 'employer'])->orderBy('id', 'DESC')->get();
+            $vacancy = Vacancy::where('author_id', $employer->id)->with(['hr', 'category', 'status', 'employer'])->orderBy('id', 'DESC')->get();
         }
 
         return $vacancy;
@@ -133,7 +133,6 @@ class VacancyService{
     }
 
     function rule($data){
-        // dd($data);
         if (Employer::where('number', $data['employer']['number'])->exists()) {
 
             $employer = Employer::where('number', $data['employer']['number'])->first();

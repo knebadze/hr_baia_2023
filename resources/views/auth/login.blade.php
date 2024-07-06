@@ -2,10 +2,6 @@
 
 @section('content')
 
-{{-- @php
-    $language = request()->query()['locale'];
-    dd($language);
-@endphp --}}
        <!-- CONTENT START -->
        <div class="page-content">
 
@@ -50,9 +46,9 @@
 
                                             <div class="col-lg-12">
                                                 <div class="form-group mb-3">
-                                                    <input id="emailOrPhone" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="{{ __('599555000') }}">
+                                                    <input id="emailOrPhone" type="text" class="form-control @error('number') is-invalid @enderror" name="number" value="{{ old('number') }}" required autocomplete="number" autofocus placeholder="{{ __('599555000') }}">
 
-                                                    @error('email')
+                                                    @error('number')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
                                                         </span>

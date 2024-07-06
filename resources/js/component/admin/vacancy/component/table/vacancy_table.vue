@@ -12,6 +12,9 @@ const props = defineProps({
     hrId: Number,
     classificatory: Object,
     roleId: Number,
+    adminId: Number,
+    fullPermission: Boolean,
+    fullView: Boolean,
 });
 
 const itemsSelected = ref([]);
@@ -92,6 +95,10 @@ const filterOptions = computed(() => {
     return filterOptionsArray;
 });
 
+const bodyRowClassNameFunction = (item, number) => {
+    if (props.fullView && item.hr.parent_id ==  props.adminId) return "my-vacancy-row";
+}
+
 // const myVacancySwitch = () =>{
 //     if (!myVacancy.value) {
 //        data.value =  _.sortBy(_.filter(props.data.vacancy, function(o) { return o.hr_id == hr_id.value; }), [function(o) { return o.start_date; }]);
@@ -121,6 +128,7 @@ const filterOptions = computed(() => {
             :headers="headers"
             :items="items"
             table-class-name="customize-table"
+             :body-row-class-name="bodyRowClassNameFunction"
             border-cell
             :filter-options="filterOptions"
             :hide-footer="true"
@@ -131,6 +139,8 @@ const filterOptions = computed(() => {
                         :item="item"
                         :key="item.id"
                         :roleId="role_id"
+                        :adminId="adminId"
+                        :fullPermission="fullPermission"
                     ></table_cog>
                 </div>
             </template>
@@ -300,5 +310,9 @@ const filterOptions = computed(() => {
     --easy-table-header-height: 50px;
     --easy-table-body-row-font-size: 14px;
     --easy-table-body-row-height: 50px;
+}
+.my-vacancy-row {
+    --easy-table-body-row-background-color: #befdc1;
+    --easy-table-body-row-font-color: #070707;
 }
 </style>

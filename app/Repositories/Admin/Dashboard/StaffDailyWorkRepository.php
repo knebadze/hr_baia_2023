@@ -3,15 +3,14 @@
 namespace App\Repositories\Admin\Dashboard;
 
 use Carbon\Carbon;
+use App\Models\Staff;
 use App\Models\Vacancy;
-use App\Models\hrDailyWork;
 use App\Models\HrHasVacancy;
-use App\Models\User;
-use Illuminate\Support\Facades\DB;
+use App\Models\StaffDailyWork;
 use Illuminate\Support\Facades\Auth;
 
 
-class HrDailyWorkRepository
+class StaffDailyWorkRepository
 {
     function hrData() {
         // Retrieve the last uploaded record
@@ -34,37 +33,38 @@ class HrDailyWorkRepository
 
         $noActive = HrHasVacancy::where('is_active', 0)
             // ->where('has_vacancy', 0)
-            ->with('hr.user')
+            ->with('hr')
             ->get()
             ->toArray();
 
-        $dailyWork = hrDailyWork::from('hr_daily_works as a')
+        $dailyWork = StaffDailyWork::from('staff_daily_works as a')
             ->whereDate('a.created_at', Carbon::today())
-            ->when(Auth::user()->role_id !== 1, function ($query) {
-                return $query->where('hr_id', Auth::user()->hr->id);
+            ->when(Auth::guard('staff')->user()->role_id !== 1, function ($query) {
+                return $query->where('staff_id', Auth::guard('staff')->user()->id);
             })
-            ->join('hrs as b', 'a.hr_id', '=', 'b.id')
-            ->join('users as c', 'b.user_id', '=', 'c.id')
-            ->where('c.role_id', 2)
-            ->select('a.*', 'c.name_ka')
+            ->join('staff as b', 'a.staff_id', '=', 'b.id')
+            ->where('b.role_id', 2)
+            ->select('a.*', 'b.name_ka')
             ->get()->toArray();
-        return ['lastRecord' => $lastRecord ? $lastRecord->hr->user->name_ka : '', 'nextRecord' => $nextRecord? $nextRecord->hr->user->name_ka: '', 'dailyWork' => $dailyWork, 'noActive' => $noActive];
+        return [
+            'lastRecord' => $lastRecord ? $lastRecord->hr->name_ka : '', 
+            'nextRecord' => $nextRecord? $nextRecord->name_ka: '', 
+            'dailyWork' => $dailyWork, 'noActive' => $noActive
+        ];
     }
 
     function administratorDate()  {
-        $dailyWork = hrDailyWork::from('hr_daily_works as a')
+        $dailyWork = StaffDailyWork::from('staff_daily_works as a')
             ->whereDate('a.created_at', Carbon::today())
-            ->when(Auth::user()->role_id !== 1, function ($query) {
-                return $query->where('hr_id', Auth::user()->staff->id);
+            ->when(Auth::guard('staff')->user()->role_id !== 1, function ($query) {
+                return $query->where('staff_id', Auth::guard('staff')->user()->id);
             })
-            ->join('hrs as b', 'a.hr_id', '=', 'b.id')
-            ->join('users as c', 'b.user_id', '=', 'c.id')
-            ->where('c.role_id', 4)
-            ->select('a.*', 'c.name_ka')
+            ->join('staff as b', 'a.staff_id', '=', 'b.id')
+            ->where('b.role_id', 4)
+            ->select('a.*', 'b.name_ka')
             ->get();
-        $noActive = User::where('role_id', 4)
+        $noActive = Staff::where('role_id', 4)
             ->where('is_active', 0)
-            ->with('staff')
             ->get()
             ->toArray();
         // $lastRecord =

@@ -9,7 +9,7 @@ Route::post('salary_supplement', [SalaryController::class, 'supplement']);
 // R
 
 // U
-Route::post('hr_agree_salary', [SalaryController::class, 'hrAgreeSalary']);
+Route::post('staff_agree_salary', [SalaryController::class, 'staffAgreeSalary']);
 Route::post('disbursement_of_salary', [SalaryController::class, 'disbursementOfSalary']);
 
 // D

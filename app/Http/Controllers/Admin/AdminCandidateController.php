@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Services\ClassificatoryService;
 use App\Filters\Candidate\CandidateFilters;
 use App\Models\Additional_number;
+use App\Models\Staff;
 use App\Services\Admin\CandidateUpdateService;
 use App\Services\SmsService;
 
@@ -38,7 +39,7 @@ class AdminCandidateController extends Controller
                 $classificatory = $this->classificatoryService->get($candidateClassificatoryArr);
                 $data = [
                     'classificatory' => $classificatory,
-                    'auth' => Auth::user()
+                    'auth' => Auth::guard('staff')->user()
                 ];
         return view('admin.candidate', compact('data'));
     }
@@ -52,6 +53,7 @@ class AdminCandidateController extends Controller
                     'user.gender',
                     'user.registerLog',
                     'user.registerFee',
+                    'user.blacklist.ground',
                     'getWorkInformation.category',
                     'getWorkInformation.currency',
                     'getWorkInformation.getWorkSchedule.workSchedule',
@@ -95,6 +97,7 @@ class AdminCandidateController extends Controller
                 'user.gender',
                 'user.registerLog',
                 'user.registerFee',
+                'user.blacklist.ground',
                 'getWorkInformation.category',
                 'getWorkInformation.currency',
                 'getWorkInformation.getWorkSchedule.workSchedule',
@@ -142,7 +145,6 @@ class AdminCandidateController extends Controller
     }
 
     function edit($id) {
-        // dd($id);
         $candidate = Candidate::where('id', $id)->with(
             [
                 'user.gender',
@@ -201,7 +203,6 @@ class AdminCandidateController extends Controller
     }
 
     function delete(Request $request)  {
-        // dd($request->id);
         $result = ['status' => 200];
 
         try {
@@ -218,8 +219,8 @@ class AdminCandidateController extends Controller
     function addCandidate() {
         $data = [];
 
-        $auth = Auth::user();
-        $user = User::where('id', $auth->id)->with('gender')->first();
+        $auth = Auth::guard('staff')->user();
+        $user = Staff::where('id', $auth->id)->with('gender')->first();
 
         //კლასიფიკატორები
 
@@ -244,6 +245,7 @@ class AdminCandidateController extends Controller
                 'user.gender',
                 'user.registerLog',
                 'user.registerFee',
+                'user.blacklist.ground',
                 'getWorkInformation.category',
                 'getWorkInformation.currency',
                 'getWorkInformation.getWorkSchedule.workSchedule',
@@ -268,8 +270,8 @@ class AdminCandidateController extends Controller
             ])->first()->toArray();
             $data = [
                 'candidate' => $candidate,
-                'role_id' => Auth::user()->role_id,
-                'hr_id' => Auth::id(),
+                'role_id' => Auth::guard('staff')->user()->role_id,
+                'hr_id' => Auth::guard('staff')->id(),
             ];
         return response()->json($data);
     }

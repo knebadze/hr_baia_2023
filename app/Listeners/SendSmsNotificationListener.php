@@ -35,7 +35,6 @@ class SendSmsNotificationListener implements ShouldQueue
     {
         $data = $event->data;
         $type = $event->type;
-        // dd($type);
         $smsTemplate = $this->getSmsTemplate($type); // Implement this method to get the SMS template from the database
 
         // Replace dynamic parameters in the template
@@ -63,7 +62,6 @@ class SendSmsNotificationListener implements ShouldQueue
         });
 
         $filteredTemplates = $templates->where('name', $type)->first();
-        // dd($filteredTemplates->template_ka);
         return $filteredTemplates->template_ka;
     }
 

@@ -8,30 +8,33 @@ use Illuminate\Database\Eloquent\Model;
 class Salary extends Model
 {
     use HasFactory;
+
     protected $fillable = [
-        'hr_id',
+        'staff_id',
         'fixed_salary',
-        'hr_bonus_from_vacancy',
-        'hr_bonus_from_registration',
-        'hr_bonus_from_free_registration',
+        'staff_bonus_from_vacancy',
+        'staff_bonus_from_registration',
+        'supplement',
         'full_salary',
         'disbursement_date',
-        'hr_agree'
-    ];
-    protected $casts = [
-        'disbursement_date' => 'datetime',
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime'
+        'staff_agree',
     ];
 
-    public function hr()
-    {
-        return $this->hasOne(Hr::class, 'id', 'hr_id');
-    }
+
+    protected $casts = [
+        'staff_id' => 'integer',
+        'fixed_salary' => 'integer',
+        'staff_bonus_from_vacancy' => 'float',
+        'staff_bonus_from_registration' => 'integer',
+        'supplement' => 'float',
+        'full_salary' => 'float', 
+        'disbursement_date' => 'datetime',
+        'staff_agree' => 'integer',
+    ];
 
     public function staff()
     {
-        return $this->hasOne(Hr::class, 'id', 'hr_id');
+        return $this->belongsTo(Staff::class);
     }
 
     public function scopeFilter($query, $filters)

@@ -29,7 +29,6 @@ class WelcomeService
             // 'familyVacancy' => $slider->familyVacancy,
             'candidateCount' => $slider->candidateCount,
         ];
-        // dd($result);
         $categoriesWithVacancies = DB::table('categories')
             ->leftJoin('vacancies', 'categories.id', '=', 'vacancies.category_id')
             ->select('categories.*', DB::raw('COUNT(CASE WHEN vacancies.status_id in (2) THEN vacancies.id ELSE NULL END) as count'))
@@ -64,7 +63,7 @@ class WelcomeService
 
         $popularVacancy = Vacancy::whereIn('status_id', [2, 6, 7])
                 ->orderBy('view', 'DESC')
-                ->with(['author','currency', 'category', 'workSchedule', 'vacancyForWhoNeed', 'vacancyBenefit', 'vacancyInterest', 'hr.user', 'qualifyingCandidate'])
+                ->with(['author','currency', 'category', 'workSchedule', 'vacancyForWhoNeed', 'vacancyBenefit', 'vacancyInterest', 'hr', 'qualifyingCandidate'])
                 ->take(5)
                 ->get()->toArray();
 

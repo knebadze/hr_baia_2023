@@ -4,24 +4,23 @@ namespace App\Repositories\Enrollment;
 
 use Carbon\Carbon;
 use App\Models\User;
-use App\Models\Enrollment;
-use App\Models\RegistrationFee;
+use App\Models\Staff;
 use App\Models\Salary;
+use App\Models\Enrollment;
 use App\Models\VacancyDeposit;
+use App\Models\RegistrationFee;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class EnrollmentPageRepository
 {
     function data()  {
-        // $currentMonth = Carbon::now()->format('m');
         $enrolled = [];
         $salary = Salary::latest()->first();
-        // dd(Carbon::parse($salary->created_at)->startOfDay()->toDateTimeString());
         if ($salary) {
             $enrolled['items'] = Enrollment::where('enrollments.created_at', '>=', $salary->created_at)
-                ->when(Auth::user()->role_id !== 1, function ($query) {
-                    return $query->where('enrollments.author_id', Auth::id());
+                ->when(Auth::guard('staff')->user()->role_id !== 1, function ($query) {
+                    return $query->where('enrollments.author_id', Auth::guard('staff')->id());
                 })
                 ->orderBy('agree', 'ASC')
                 ->leftJoin('vacancies', 'enrollments.vacancy_id', '=', 'vacancies.id')
@@ -29,7 +28,7 @@ class EnrollmentPageRepository
                 ->select('enrollments.*', 'vacancies.code', 'users.name_ka')
                 ->paginate(20);
 
-            $enrolled['hr'] = User::where('role_id', 2)->whereNot('is_active', 2)->get()->toArray();
+            $enrolled['hr'] = Staff::where('role_id', 2)->whereNot('is_active', 2)->get()->toArray();
             $enrolled['start_date'] = $salary->created_at;
         }
 
@@ -37,7 +36,7 @@ class EnrollmentPageRepository
 
         $employer = VacancyDeposit::whereNotNull('must_be_enrolled_employer_date')
             ->leftJoin('vacancies', 'vacancy_deposits.vacancy_id', '=', 'vacancies.id')
-            ->join('hrs', 'vacancies.hr_id', '=', 'hrs.id')
+            ->join('staff', 'vacancies.hr_id', '=', 'hrs.id')
             ->select(
                 'vacancy_deposits.id as record_id',
                 'vacancies.code as id',
@@ -51,7 +50,7 @@ class EnrollmentPageRepository
 
         $candidate = VacancyDeposit::whereNotNull('must_be_enrolled_candidate_date')
             ->leftJoin('vacancies', 'vacancy_deposits.vacancy_id', '=', 'vacancies.id')
-            ->join('hrs', 'vacancies.hr_id', '=', 'hrs.id')
+            ->join('staff', 'vacancies.hr_id', '=', 'hrs.id')
             ->select(
                 'vacancy_deposits.id as record_id',
                 'vacancies.code as id',

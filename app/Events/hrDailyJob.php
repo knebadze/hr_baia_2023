@@ -14,16 +14,16 @@ class hrDailyJob
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $hr_id;
+    public $staff_id;
     public $filed;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($hr_id, $filed)
+    public function __construct($staff_id, $filed)
     {
-        $this->hr_id = $hr_id;
+        $this->staff_id = $staff_id;
         $this->filed = $filed;
     }
 

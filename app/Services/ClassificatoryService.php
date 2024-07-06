@@ -4,15 +4,14 @@ namespace App\Services;
 
 use App\Models\Duty;
 use App\Models\Term;
-use App\Models\User;
 use App\Models\Skill;
+use App\Models\Staff;
 use App\Models\YesNo;
 use App\Models\gender;
 use App\Models\Notice;
 use App\Models\Status;
 use App\Models\Allergy;
 use App\Models\Benefit;
-use App\Models\CandidateDuty;
 use App\Models\Category;
 use App\Models\Currency;
 use App\Models\Language;
@@ -28,13 +27,14 @@ use App\Models\Nationality;
 use App\Models\NumberOwner;
 use App\Models\WorkSchedule;
 
+use App\Models\CandidateDuty;
 use App\Models\MaritalStatus;
 use App\Models\DrivingLicense;
 use App\Models\InterviewPlace;
 use App\Models\Language_level;
+use App\Models\ReasonForCancel;
 use App\Models\Work_experience;
 use App\Models\GeneralCharacteristic;
-use App\Models\ReasonForCancel;
 use Illuminate\Support\Facades\Cache;
 use App\Models\RecommendationFromWhom;
 
@@ -78,11 +78,11 @@ class ClassificatoryService
                 'candidateDuty' => CandidateDuty::all()->toArray(),
                 'status' => Status::where('status_type_id', 1)->get()->toArray(),
                 'candidateStatus' => Status::where('status_type_id', 2)->get()->toArray(),
-                'hr' => User::where('role_id', 2)->with('hr')->get()->toArray(),
+                'hr' => Staff::where('role_id', 2)->get()->toArray(),
                 'vacancy_profession' => Profession::all()->toArray(),
                 'reasonForCancel' => ReasonForCancel::all()->toArray(),
-                'administrator' => User::where('role_id', 4)->get()->toArray(),
-                'unfinishedRegistrationAuthor' => User::whereIn('role_id', [1,2])->whereNot('id', 2)->where('is_active', 1)->get()->toArray()
+                'administrator' => Staff::where('role_id', 4)->get()->toArray(),
+                'unfinishedRegistrationAuthor' => Staff::whereIn('role_id', [1,2])->where('is_active', 1)->get()->toArray()
             ];
         });
 

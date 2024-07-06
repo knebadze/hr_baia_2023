@@ -93,6 +93,7 @@ import post_vacancy from '../components/post_vacancy/post_vacancy.vue';
         post_vacancy_data.value.model = makeData();
 
         const handlerVerify = (item) =>{
+            console.log('item', item);
             showVerifySection.value = false
             showPostSection.value = item.active
             post_vacancy_data.value.model.employer = item.employer

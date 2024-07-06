@@ -63,7 +63,6 @@ class MyVacancyController extends Controller
 
         try {
             $result = $this->vacancyService->find($number);
-            // dd($result);
         } catch (Exception $e) {
             $result = [
                 'status' => 500,
@@ -82,7 +81,6 @@ class MyVacancyController extends Controller
 
 
         if ($qualifying) {
-            // dd($candidate_id);
             $data = Candidate::where('id', $qualifying->candidate_id)
                 ->with([
                     'user.gender',
@@ -122,16 +120,7 @@ class MyVacancyController extends Controller
     {
         $result = QualifyingCandidate::where('vacancy_id', $request->id)->where('qualifying_type_id', 2)
                 ->with([ 'candidate.user'])
-        // ->join('candidates', 'vacancy_interests.user_id', 'candidates.user_id')
-        //             ->join('users', 'vacancy_interests.user_id', 'users.id')
-        //             ->join('work_information', 'candidates.id', 'work_information.candidate_id')
-        //             ->join('categories', 'work_information.category_id', 'categories.id')
-        //             ->select('vacancy_interests.user_id', 'vacancy_interests.employer_answer', 'vacancy_interests.vacancy_id','vacancy_interests.id',
-        //                     'candidates.address_ka', 'candidates.address_en', 'candidates.address_ru', 'candidates.id as candidate_id',
-        //                     'users.name_ka as fullName_ka', 'users.name_en as fullName_en', 'users.name_ru as fullName_ru', 'users.avatar',
-        //                     'categories.name_ka', 'categories.name_en', 'categories.name_ru',    )
-                            ->get();
-                            // dd($result);
+                ->get();
         return response()->json($result);
     }
 
@@ -172,16 +161,15 @@ class MyVacancyController extends Controller
     }
 
     function show($lang, $id) {
-        // dd($id);
         $vacancy = Vacancy::where('code', $id)
             ->with([
                 'vacancyDuty', 'vacancyBenefit', 'vacancyForWhoNeed', 'characteristic', 'employer', 'currency','category', 'status',
                 'workSchedule', 'interviewPlace','term', 'demand', 'demand.language', 'demand.education', 'demand.languageLevel','demand.specialty',
-                'employer.numberCode', 'hr.user', 'vacancyDrivingLicense'
+                'employer.numberCode', 'hr', 'vacancyDrivingLicense'
             ])
             ->first()->toArray();
-        //     // dd($vacancy);
-        $auth = Auth::user();
+        $isStaffAuthenticated = Auth::guard('staff')->check();
+        $role_id = $isStaffAuthenticated?Auth::guard('staff')->user()->role_id:3;
 
         $classificatoryArr = ['category', 'currency', 'workSchedule', 'educations', 'characteristic', 'duty',
         'languages', 'languageLevels', 'interviewPlace', 'term', 'benefit','forWhoNeed', 'numberCode', 'vacancy_profession', 'drivingLicense'];
@@ -189,10 +177,8 @@ class MyVacancyController extends Controller
         $classificatory['specialties'] = $classificatory['vacancy_profession'];
         $data = [
             'model' => [
-                // 'employer' => $employer,
                 'vacancy' => $vacancy,
-                // 'demand' => $demand,
-                'role_id' => (Auth::check())?Auth::User()->role_id:3,
+                'role_id' => $role_id
             ],
             'classificatory' => $classificatory
         ];
@@ -203,7 +189,7 @@ class MyVacancyController extends Controller
     function sendSms($data) {
         $answer = $data->employer_answer == 1 ? 'მოიწონა': 'არ მოიწონა';
         $candidateSmsData = ['to' => $data->candidate->user->number, 'code' => $data->vacancy->code, 'answer' => $answer];
-        $hrSmsData = ['to' => $data->vacancy->hr->user->number, 'code' => $data->vacancy->code, 'id' => $data->candidate_id, 'name' => $data->candidate->user->name_ka, 'answer' => $answer];
+        $hrSmsData = ['to' => $data->vacancy->hr->number, 'code' => $data->vacancy->code, 'id' => $data->candidate_id, 'name' => $data->candidate->user->name_ka, 'answer' => $answer];
 
         $data->employer_answer == 1 && event(new SmsNotificationEvent($candidateSmsData, 'employer_answer_candidate'));
         event(new SmsNotificationEvent($hrSmsData, 'employer_answer_hr'));

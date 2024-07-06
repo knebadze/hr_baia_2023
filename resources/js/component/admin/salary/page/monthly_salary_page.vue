@@ -41,7 +41,7 @@
                     <!-- small box -->
                     <div class="small-box bg-indigo">
                         <div class="inner">
-                            <h3>{{ total_hr_bonus }}</h3>
+                            <h3>{{ total_staff_bonus }}</h3>
 
                             <p>ბონუსი სულ</p>
                         </div>
@@ -96,12 +96,12 @@ export default {
                 2
             );
         },
-        total_hr_bonus() {
+        total_staff_bonus() {
             return (
-                _.sumBy(this.data.data, (item) => item.hr_bonus_from_vacancy) +
+                _.sumBy(this.data.data, (item) => item.staff_bonus_from_vacancy) +
                 _.sumBy(
                     this.data.data,
-                    (item) => item.hr_bonus_from_registration
+                    (item) => item.staff_bonus_from_registration
                 )
             ).toFixed(2);
         },

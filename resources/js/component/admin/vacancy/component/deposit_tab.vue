@@ -56,7 +56,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12">
+                <div
+                    class="col-md-12"
+                    v-if="
+                        auth.role_id == 2 ||
+                        fullPermission ||
+                        item.hr_parent_id == auth.id
+                    "
+                >
                     <button
                         v-if="hasDeposit"
                         type="button"
@@ -124,7 +131,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div
+                        class="col-md-12"
+                        v-if="
+                            auth.role_id == 2 ||
+                            fullPermission ||
+                            item.hr_parent_id == auth.id
+                        "
+                    >
                         <button
                             v-if="!enrollment"
                             type="button"
@@ -163,6 +177,8 @@ export default {
         enrollment: Object,
         status: Number,
         type: String,
+        adminViewAndPermission: Object,
+        auth: Object,
     },
     setup(props, { emit }) {
         const m = ref({ ...props.item });
@@ -177,6 +193,11 @@ export default {
             props.type == "candidate" ? "კანდიდატისგან" : "დამსაქმებლისგან"
         );
 
+        const fullPermission = computed(() => {
+            return props.adminViewAndPermission
+                ? props.adminViewAndPermission.permission == "full"
+                : null;
+        });
         const watchMoney = () => model.value.money;
         watch(watchMoney, (newVal) => {
             if (newVal > m.value.must_be_enrolled) {
@@ -306,6 +327,7 @@ export default {
             handleFileChange,
             counting,
             emitSend,
+            fullPermission,
         };
     },
 };

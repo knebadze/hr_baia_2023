@@ -15,6 +15,7 @@ use App\Models\VacancyReminder;
 use App\Traits\HrHasVacancyTrait;
 use App\Events\SmsNotificationEvent;
 use App\Models\GlobalVariable;
+use App\Models\Staff;
 use Illuminate\Support\Facades\Auth;
 
 class VacancyRepository{
@@ -147,6 +148,59 @@ class VacancyRepository{
         return $employer;
     }
 
+    // public function addHrId($number, $payment) {
+    //     $hr_id = $this->findExistingHrIdForEmployer($number);
+    //     if ($hr_id) {
+    //         return $hr_id;
+    //     }
+
+    //     $auth = Auth::guard('staff')->user();
+    //     $internship = $this->getInternshipPaymentThreshold();
+
+    //     $hr_id = $this->findHrForNewVacancy($auth, $payment, $internship);
+    //     if ($hr_id) {
+    //         $this->updateVacancyForHr($hr_id);
+    //         return $hr_id;
+    //     }
+
+    //     $hr_id = $this->findNextAvailableHr($auth, $payment, $internship);
+    //     if (!$hr_id) {
+    //         $this->hrHasVacancyUpdate(); // Assuming this method resets or updates HR vacancies in some way
+    //         $hr_id = $this->findNextAvailableHr($auth, $payment, $internship);
+    //     }
+
+    //     if ($hr_id) {
+    //         $this->updateVacancyForHr($hr_id);
+    //     }
+
+    //     return $hr_id;
+    // }
+
+    // private function findExistingHrIdForEmployer($number) {
+    //     $employer = Employer::where('number', $number)->first();
+    //     if ($employer && $employer->vacancies->count() > 0) {
+    //         // Assuming each vacancy has an HR ID and we return the most recent one
+    //         return $employer->vacancies->last()->hr_id;
+    //     }
+    //     return null;
+    // }
+    // private function getInternshipPaymentThreshold() {
+    //     // Assuming there's a GlobalVariable table or similar to get this value
+    //     return GlobalVariable::where('name', 'internship_payment')->first()->internship;;
+    // }
+
+    // private function findHrForNewVacancy($authUser, $payment, $internshipThreshold) {
+    //     // Example logic: find an HR based on payment criteria and workload
+    //     return HR::where('payment', '<=', $payment)
+    //              ->where('internship_threshold', '>=', $internshipThreshold)
+    //              ->orderBy('workload') // Assuming 'workload' is a field indicating the HR's current load
+    //              ->first()
+    //              ->id ?? null;
+    // }
+    // private function findNextAvailableHr($authUser, $payment, $internshipThreshold) {
+    //     // Similar to findHrForNewVacancy but without payment criteria
+    //     return HrHasVacancy::orderBy('workload')->first()->id ?? null;
+    // }
     public function addHrId($number, $payment)
     {
 
@@ -168,19 +222,19 @@ class VacancyRepository{
 
         }
 
-        // ვამოწმობ ავტორიზებული იუზერი თუ Hr და ვნახულობ რომელ ფილიალს ეკუთვნის ამის შემდეგ მის ფილიალში ვაწერ ვაკანსიას
+        // ვამოწმობ ავტორიზებული იუზერი თუ Hr ან ადმინია, ვნახულობ რომელ ფილიალს ეკუთვნის ამის შემდეგ მის ფილიალში ვაწერ ვაკანსიას
 
         // ვამოწმებ თუ ვინმეს გადაეწერა ვაკანსია და იმას ვისაც ყველაზე მეტი ვაკანსია აკლია ვაძლევ შემდეგ ვაკანსისას
         // ვზრდი მინუსს increment
-        $auth = Auth::user();
+        $auth = Auth::guard('staff')->user();
         $internship = GlobalVariable::where('name', 'internship_payment')->first()->internship;
 
         $findLessReWrite = HrHasVacancy::where('re_write', '<', 0)
             ->where('is_active', 1)
             ->when($auth, function ($query) use($auth) {
-                if ($auth->role_id == 2) {
+                if ($auth->role_id == 2 || $auth->role_id == 1) {
                     return $query->whereHas('hr', function ($subQuery) use ($auth) {
-                        $subQuery->where('branch_id', $auth->hr->branch_id);
+                        $subQuery->where('branch_id', $auth->branch_id);
                     });
                 }else{
                     return $query;
@@ -207,9 +261,9 @@ class VacancyRepository{
             ->where('is_active', 1);
 
         // Apply additional filtering based on the user's role if applicable
-        if ($auth && $auth->role_id == 2) {
+        if ($auth && ($auth->role_id == 1 || $auth->role_id == 2)) {
             $nextVacancy->whereHas('hr', function ($query) use ($auth) {
-                $query->where('branch_id', $auth->hr->branch_id);
+                $query->where('branch_id', $auth->branch_id);
             });
         }
 
@@ -222,7 +276,6 @@ class VacancyRepository{
 
         // Retrieve the first matching vacancy
         $findNext = $nextVacancy->first();
-        // dd($findNext);
         // ბოლო აქტიური ეიჩარი ვინაა ამ წრეზე ვამოწმებ
         $lastHrId = HrHasVacancy::orderBy('hr_id', 'DESC')
             ->where('has_vacancy', 0)
@@ -295,7 +348,7 @@ class VacancyRepository{
 
     function addRepeat($old_id, $vacancy_id, $reason) {
         $repeat = new RepeatHistory();
-        $repeat->user_id = Auth::id();
+        $repeat->user_id = Auth::guard('staff')->id();
         $repeat->old_vacancy_id = $old_id;
         $repeat->new_vacancy_id = $vacancy_id;
         $repeat->reason = $reason;
@@ -307,12 +360,12 @@ class VacancyRepository{
 
     function sendSms($data)
     {
-        $hr = Hr::where('id', $data['hr_id'])->first();
-        $HData = ['name' => $hr->user->name_ka, 'number' => $hr->user->number, 'to' => $data['number']];
-        $data['to'] = $hr->user->number;
-        $admin = User::where('id',76)->first();
+        $hr = Staff::where('id', $data['hr_id'])->first();
+        $HData = ['name' => $hr->name_ka, 'number' => $hr->number, 'to' => $data['number']];
+        $data['to'] = $hr->number;
+        $admin = Staff::where('id', $hr->parent_id)->first();
         $getHasVacancyControl = $this->getHasVacancyControl();
-        $adminData = ['to' => $admin->number, 'code' => $data['code'], 'hr1' => $hr->user->name_ka, 'hr2' => $getHasVacancyControl['is_in_line']->hr_name];
+        $adminData = ['to' => $admin->number, 'code' => $data['code'], 'hr1' => $hr->name_ka, 'hr2' => $getHasVacancyControl['is_in_line']->hr_name];
         event(new SmsNotificationEvent($HData, 'add_vacancy_send_employer'));
         event(new SmsNotificationEvent($data, 'add_vacancy_send_hr'));
         event(new SmsNotificationEvent($adminData, 'add_vacancy_send_admin'));

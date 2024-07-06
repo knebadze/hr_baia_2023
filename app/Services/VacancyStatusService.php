@@ -18,7 +18,6 @@ class VacancyStatusService
     }
 
     function service($data){
-        // dd($data);
         $model = $data['model'];
         $update = $this->vacancyStatusUpdateRepository->update($model);
         $vacancy = Vacancy::where('id', $model['id'])->first();

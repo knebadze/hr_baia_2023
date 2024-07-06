@@ -13,7 +13,7 @@
           <img src="{{ asset('admin/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{ Auth::user()->name_ka }}</a>
+          <a href="#" class="d-block">{{ Auth::guard('staff')->user()->name_ka }}</a>
         </div>
       </div>
 
@@ -28,7 +28,7 @@
                 <a @if(Route::currentRouteName() === 'admin.dashboard') class="nav-link active" @else class="nav-link" @endif href="{{ route('admin.dashboard', App()->getLocale()) }}">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
                     <p>
-                        Dashboard
+                        მთავარი
                     </p>
                 </a>
             </li>

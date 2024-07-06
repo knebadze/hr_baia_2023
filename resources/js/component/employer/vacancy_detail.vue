@@ -61,10 +61,11 @@
                                                 <div
                                                     class="col-md-6 interest-button"
                                                 >
-
                                                     <interest_button
                                                         v-if="
-                                                            auth && auth.role_id == 3 && !isCandidateInterested
+                                                            auth &&
+                                                            auth.role_id == 3 &&
+                                                            !isCandidateInterested
                                                         "
                                                         :item="vacancy"
                                                         :auth="auth"
@@ -438,7 +439,7 @@
                                             <!-- <div class="twm-s-info-inner">
                                                 <i class="fas fa-phone"></i>
                                                 <span class="twm-title">ნომერი</span>
-                                                <div class="twm-s-info-discription">{{ vacancy.hr.user.number }}</div>
+                                                <div class="twm-s-info-discription">{{ vacancy.hr.number }}</div>
                                             </div> -->
                                         </li>
                                     </ul>
@@ -490,14 +491,15 @@ export default {
         getLang() {
             return I18n.getSharedInstance().options.lang;
         },
-        isCandidateInterested () {
+        isCandidateInterested() {
             return (
-                this.auth && this.auth.role_id == 3 &&
+                this.auth &&
+                this.auth.role_id == 3 &&
                 this.vacancy.qualifying_candidate.some(
                     (o) => o.candidate_id == this.auth.candidate.id
                 )
             );
-        }
+        },
     },
     created() {
         this.vacancy = this.data.vacancy;

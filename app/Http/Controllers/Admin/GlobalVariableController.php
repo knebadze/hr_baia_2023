@@ -15,7 +15,6 @@ class GlobalVariableController extends Controller
 
     function update(Request $request) {
         $data = $request->model;
-        // dd($data);
         try {
             $global = GlobalVariable::findOrFail($data['id']);
             $global->description = $data['description'];

@@ -69,7 +69,7 @@
                             item.id
                         }}</u>
                     </td>
-                    <td v-if="role_id == 1">{{ item.name_ka }}</td>
+                    <td v-if="role_id == 1">{{ item.author_name }}</td>
                     <td>
                         {{
                             item.vacancy_type == 1
@@ -122,7 +122,7 @@
     </div>
 </template>
 <script>
-import moment from "moment";
+
 import vacancyFullInfoModal from "../../vacancy/modal/vacancyFullInfoModal.vue";
 import candidateFullInfoModal from "../../candidate/modal/candidateFullInfoModal.vue";
 // import update_enrolled from '../modal/update_enrolled.vue'
@@ -147,19 +147,20 @@ export default {
     },
     computed: {},
     created() {
-        for (let i = 0; i < this.items.length; i++) {
-            // Access the element to update in each object
-            const createdAtMoment = moment(this.items[i].date);
-            this.items[i].created_at = moment(this.items[i].created_at).format(
-                "YYYY-MM-DD HH:mm"
-            );
-
-            if (createdAtMoment.isBefore(moment(), "day")) {
-                this.items[i]["status"] = "გადაცილება";
-            } else {
-                this.items[i]["status"] = "მიმდინარე";
-            }
-        }
+    // console.log('this.items',this.items);
+    //     for (let i = 0; i < this.items.length; i++) {
+    //         // Access the element to update in each object
+    //         const createdAtMoment = moment(this.items[i].date);
+    //         this.items[i].created_at = moment(this.items[i].created_at).format(
+    //             "YYYY-MM-DD HH:mm"
+    //         );
+    //         console.log(createdAtMoment);
+    //         if (createdAtMoment.isBefore(moment(), "day")) {
+    //             this.items[i]["status"] = "გადაცილება";
+    //         } else {
+    //             this.items[i]["status"] = "მიმდინარე";
+    //         }
+    //     }
     },
     methods: {
         fullModal(item) {
@@ -218,6 +219,7 @@ export default {
             });
         },
     },
+
 };
 </script>
 <style lang=""></style>

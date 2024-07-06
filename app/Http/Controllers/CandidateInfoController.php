@@ -30,7 +30,6 @@ class CandidateInfoController extends Controller
     public function addCandidate(Request $request)
     {
         $data = $request->all();
-        // dd($data);
         $result = ['status' => 200];
 
         try {
@@ -91,7 +90,6 @@ class CandidateInfoController extends Controller
         if ($request->hasFile('file')) {
             $data['file'] = $request->file('file');
         }
-        // dd($data);
         $result = ['status' => 200];
 
         try {
@@ -127,7 +125,6 @@ class CandidateInfoController extends Controller
 
     function deleteCandidateRecommendation(Request $request) {
         $id = $request->data;
-        // dd(CandidateRecommendation::where('id',$id)->first());
         $result = ['status' => 200];
         try {
             $recommendation = CandidateRecommendation::where('id',$id)->first();
@@ -203,34 +200,6 @@ class CandidateInfoController extends Controller
         return response()->json($result, $result['status']);
     }
 
-    // function StatusUpdate(Request $request)  {
-    //     dd($request->id);
-    //     Candidate::where('id', $request->id)->update(['status_id'=> 9]);
-    //     if (QualifyingCandidate::where('candidate_id', $request->id)->whereDate('end_date', '>', Carbon::today())->where('qualifying_type_id', 7)->exists()) {
-    //         $qualifying = QualifyingCandidate::where('candidate_id', $request->id)->whereDate('end_date', '>', Carbon::today()->where('qualifying_type_id', 7))->get();
-    //         $ids = collect($qualifying)->pluck('id')->toArray();
-    //         WorkDay::whereIn('qualifying_candidate_id', $ids)->delete();
-    //     }
-    //     $currentDate = Carbon::now();
-    //     QualifyingCandidate::where('candidate_id', $request->id)->whereDate('end_date', '>', Carbon::today())->update(['end_date' => $currentDate->copy()->subDay(1)->toDateString()]);
-    //     return response()->json();
-    // }
-    // public function removeOldWorkExperience(Request $request)
-    // {
-    //     $data = $request->all();
-    //     $result = ['status' => 200];
-
-    //     try {
-    //         $result['data'] = $this->candidateService->removeOldWorkExperience($data);
-    //     } catch (Exception $e) {
-    //         $result = [
-    //             'status' => 500,
-    //             'error' => $e->getMessage()
-    //         ];
-    //     }
-
-    //     return response()->json($result, $result['status']);
-    // }
 
 
 }

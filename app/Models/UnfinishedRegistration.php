@@ -22,19 +22,19 @@ class UnfinishedRegistration extends Model
 
     public function author()
     {
-        return $this->belongsTo(User::class, 'author_id');
+        return $this->belongsTo(Staff::class, 'author_id');
     }
 
     public function assignedUser()
     {
-        return $this->belongsTo(User::class, 'was_assigned_id');
+        return $this->belongsTo(Staff::class, 'was_assigned_id');
     }
 
     public function status()
     {
         return $this->belongsTo(Status::class);
     }
-    
+
     public function scopeFilter($query, $filters)
     {
         return $filters->apply($query);

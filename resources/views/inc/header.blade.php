@@ -62,7 +62,7 @@
                 <div class="extra-nav header-2-nav">
                     <div class="extra-cell">
                         <div class="header-nav-btn-section">
-                        @guest
+                        @unless(Auth::guard('web')->check() || Auth::guard('staff')->check())
                             <div class="twm-nav-btn-left">
                                 <a class="twm-nav-sign-up"  href="{{ route('register', App()->getLocale()) }}" role="button">
                                     <i class="feather-user-plus"></i>
@@ -92,7 +92,7 @@
                         @endif --}}
 
                         <div class="twm-nav-btn-right">
-                            @if (Auth::user()->role_id == 3)
+                            @if (Auth::guard('web')->check() && Auth::guard('web')->user()->role_id == 3)
                                 <a href="{{ route('home', App()->getLocale() ) }}" class="twm-nav-post-a-job">
                                     <i class="feather-user"></i> {{ __('lang.user_page_my_cabinet') }}
                                 </a>
@@ -115,7 +115,7 @@
                             </form>
                         </div>
 
-                        @endguest
+                        @endunless
                         </div>
                     </div>
 

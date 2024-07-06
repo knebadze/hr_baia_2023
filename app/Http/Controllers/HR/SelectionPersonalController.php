@@ -4,14 +4,12 @@ namespace App\Http\Controllers\HR;
 
 use Exception;
 use Carbon\Carbon;
-use App\Models\User;
 use App\Models\Vacancy;
 use App\Models\NoReason;
 use App\Models\Candidate;
 use Illuminate\Http\Request;
 use App\Models\InterviewPlace;
 use App\Models\QualifyingType;
-use Illuminate\Support\Facades\DB;
 use App\Models\QualifyingCandidate;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -19,10 +17,12 @@ use App\Services\ClassificatoryService;
 use App\Services\Admin\MoveEndDateService;
 use App\Filters\Candidate\CandidateFilters;
 use App\Services\AddVacancyPersonalService;
+use App\Traits\HandlesAdminDataViewCaching;
 use App\Http\Resources\QualifyingCandidateResource;
 
 class SelectionPersonalController extends Controller
 {
+    use  HandlesAdminDataViewCaching;
     private ClassificatoryService $classificatoryService;
     private AddVacancyPersonalService $addVacancyPersonalService;
     private MoveEndDateService $moveEndDateService;
@@ -33,7 +33,6 @@ class SelectionPersonalController extends Controller
         $this->moveEndDateService = $moveEndDateService;
     }
     public function index($id)  {
-        // dd($id);
         $data = [];
         $vacancy = Vacancy::where('id', $id)->with([
             'vacancyDuty', 'vacancyBenefit', 'vacancyForWhoNeed', 'characteristic', 'employer', 'currency','category', 'status',
@@ -63,13 +62,21 @@ class SelectionPersonalController extends Controller
         ->where('vacancy_id', $id)
         ->orderBy('qualifying_type_id', 'DESC')
         ->get();
-        $data = QualifyingCandidateResource::collection($qualifyingCandidates);
-        $auth = (Auth::user()->role_id == 1)?Auth::user():User::where('id', Auth::id())->with('hr')->first();
+        $data['store'] = QualifyingCandidateResource::collection($qualifyingCandidates);
+        $auth = Auth::guard('staff')->user();
+        $authId = $auth->id;
+        $role_id = $auth->role_id;
+
+        // Simplified conditional logic
+        $adminViewAndPermission = [];
+        if ($role_id == 1) {
+            $adminViewAndPermission = $this->getAdminDataViewByKeyAndUserId('VacancyPersonal');
+        }
+        $data['adminViewAndPermission'] = $adminViewAndPermission;
         return view('admin.vacancy_personal', compact('data', 'auth'));
     }
 
     public function find(CandidateFilters $filters)  {
-        // dd($filters);
         return Candidate::filter($filters)
             ->whereIn('status_id', [9, 11, 14, 15])
             ->with([
@@ -117,7 +124,7 @@ class SelectionPersonalController extends Controller
                 $query->whereNull('status_id')
                     ->orWhere('status_id', 17);
             })
-            ->with(['qualifyingType', 'vacancy.hr.user'])
+            ->with(['qualifyingType', 'vacancy.hr'])
             ->get()->toArray();
         // ვპოულობ კანდიდატი თუ არის  'დამსაქმებლის მოწონებული', 'გამოსაცდელი ვადით', 'დასაქმდა' კატეგორიაში
         if (count($busy) == 0) {
@@ -137,23 +144,21 @@ class SelectionPersonalController extends Controller
             });
 
             $filteredArray = $filteredCollection->all();
-            // dd($collection);
 
             $coll = collect($filteredArray);
 
             $containsHrId = $coll->contains(function ($item, $key) {
-                return  Auth::user()->role_id == 2 && $item['vacancy']['hr_id'] === Auth::user()->hr->id;
+                return  Auth::guard('staff')->user()->role_id == 2 && $item['vacancy']['hr_id'] === Auth::guard('staff')->user()->id;
             });
 
             if ($containsHrId) {
                 $busy = null;
                 // ვფილტრავ ვაკანსიებს არჩეულის გარდა სადაც ეს კანდიდატები ავტორიზებულ ჰრ ყავს 'qualifying_type_id', [ 4, 5, 7] ამ ტიპში დამატებული
                 $findVacancy = $coll->filter(function ($item, $key) use ($vacancyIdToCheck) {
-                    return $item['vacancy']['id'] != $vacancyIdToCheck && $item['vacancy']['hr_id'] === Auth::user()->hr->id;
+                    return $item['vacancy']['id'] != $vacancyIdToCheck && $item['vacancy']['hr_id'] === Auth::guard('staff')->user()->id;
                 });
                 $findArray = $findVacancy->all();
                 $findCandidate['another_vacancy'] = $findArray;
-                // dd($findArray);
             }else{
 
                 // Check if any element has an 'id' value equal to 2
@@ -228,7 +233,6 @@ class SelectionPersonalController extends Controller
 
     function deletePersonal(Request $request) {
         $data = $request->data;
-        // dd($data);
         $result = ['status' => 200];
 
         try {
@@ -246,7 +250,6 @@ class SelectionPersonalController extends Controller
 
     function addPersonalWasEmployed(Request $request) {
         $data = $request->data;
-        // dd($data);
         $result = ['status' => 200];
 
         try {
@@ -282,7 +285,6 @@ class SelectionPersonalController extends Controller
             ->toArray();
         $result['vacancy'] = $vacancy;
         $result['schedule'] = $find->workDay;
-        // dd($find->workDay);
         return response()->json($result);
     }
 
@@ -303,18 +305,14 @@ class SelectionPersonalController extends Controller
                 $decode = json_decode($value['work_day']['work_day']);
                 $newArray = array_splice($decode, 0, 6);
                 $dayArr = array_unique(array_merge($dayArr, collect($newArray)->map(fn($o) => Carbon::parse($o)->format('l'))->toArray()));
-                // dd($dayArr);
             }
 
         }
-        // dd($find);
-        // $data = [];
         return response()->json($dayArr);
     }
 
 
     function getAddPersonalWasEmployedInfo(Request $request)  {
-        // dd($request->data);
         $data['candidates'] = QualifyingCandidate::where('vacancy_id', $request->data)->with(['candidate.user', 'qualifyingType', 'status'])->get();
         $data['employ_type'] = QualifyingType::whereIN('id', [7, 8])->get()->toArray();
         return response()->json($data);

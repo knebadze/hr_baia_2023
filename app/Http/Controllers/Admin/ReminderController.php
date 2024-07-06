@@ -42,7 +42,6 @@ class ReminderController extends Controller
     }
 
     function update(Request $request)  {
-        // dd($request->data['id']);
         $result = ['status' => 200];
 
         try {
@@ -58,17 +57,16 @@ class ReminderController extends Controller
     }
 
     function filter(ReminderFilters $filters){
-        if (Auth::user()->role_id == 1) {
-            $data = VacancyReminder::filter($filters)->orderby('date', 'DESC')->with(['vacancy', 'hr.user'])->get();
+        if (Auth::guard('staff')->user()->role_id == 1) {
+            $data = VacancyReminder::filter($filters)->orderby('date', 'DESC')->with(['vacancy', 'hr'])->get();
         } else{
-            $data = VacancyReminder::filter($filters)->orderby('date', 'DESC')->where('hr_id', Auth::user()->hr->id)->with('vacancy')->get();
+            $data = VacancyReminder::filter($filters)->orderby('date', 'DESC')->where('hr_id', Auth::guard('staff')->user()->id)->with('vacancy')->get();
         }
 
         return response()->json($data);
     }
 
     function getReminderInfo(Request $request)  {
-        // dd(Carbon::now()->toDateTimeString());
         $history = VacancyReminder::orderBy('id', 'DESC')->where('vacancy_id', $request->data)->where('date', '<', Carbon::now()->toDateTimeString())->get();
         $next = VacancyReminder::orderBy('id', 'DESC')->where('vacancy_id', $request->data)->where('date', '>', Carbon::now()->toDateTimeString())->get();
         $data = ['history' => $history, 'next' => $next];
@@ -78,7 +76,7 @@ class ReminderController extends Controller
     function hrReminderInfo()  {
         $vacancyReminder = DB::table('vacancy_reminders as a')
                 ->orderBy('a.date', 'ASC')
-                ->where('a.hr_id', Auth::user()->hr->id)
+                ->where('a.hr_id', Auth::guard('staff')->user()->id)
                 ->where('a.active', 0)
                 ->where('a.date', '>=', Carbon::now()->toDateTimeString())
                 ->join('vacancies as b', 'b.id', '=', 'a.vacancy_id')
@@ -94,17 +92,14 @@ class ReminderController extends Controller
         }
         // Assuming the base time is in the 'date' property of the first item in $data
 
-        // dd($currentDateTime->diffInMinutes($baseDateTime));
         return response()->json($data);
     }
 
     function checkMainReminder(Request $request)  {
-        // dd($request->all());
         $data = true;
         // stage == 1 ვამოწმებ სტატუს არის თუ არაა წარმოიებაში
         if($request->stage == 1){
             $vacancy = Vacancy::where('id', $request->vacancy_id)->where('status_id', 2)->whereNotNull('title_ka')->exists();
-            // dd($vacancy);
             $data = $vacancy;
         }
 

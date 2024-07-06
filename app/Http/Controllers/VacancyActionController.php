@@ -4,16 +4,19 @@ namespace App\Http\Controllers;
 
 use Exception;
 use Carbon\Carbon;
+use App\Models\Staff;
 use App\Models\Vacancy;
 use Illuminate\Http\Request;
 use App\Models\RepeatHistory;
 use Illuminate\Support\Facades\Auth;
 use App\Services\VacancyStatusService;
 use App\Services\VacancyUpdateService;
+use App\Traits\HandlesAdminDataViewCaching;
 use App\Filters\Vacancy\Admin\VacancyFullFilters;
 
 class VacancyActionController extends Controller
 {
+    use HandlesAdminDataViewCaching;
     private VacancyUpdateService $vacancyUpdateService;
     private VacancyStatusService $vacancyStatusService;
     public function __construct(VacancyUpdateService $vacancyUpdateService,
@@ -79,18 +82,36 @@ class VacancyActionController extends Controller
 
     function filter(VacancyFullFilters $filters){
 
+        $auth = Auth::guard('staff')->user();
+        $authId = $auth->id;
+        $role_id = $auth->role_id;
+
+        // Simplified conditional logic
+        $childFilter = false;
+        $adminViewAndPermission = [];
+        if ($role_id == 1) {
+            $adminViewAndPermission = $this->getAdminDataViewByKeyAndUserId('Vacancy');
+            $childFilter = $adminViewAndPermission->filter == 'child';
+        }
         $vacancy = Vacancy::filter($filters)->orderby('carry_in_head_date', 'DESC')->with([
             'vacancyDuty', 'vacancyBenefit', 'vacancyForWhoNeed', 'characteristic', 'employer', 'currency','category', 'status',
             'workSchedule', 'vacancyInterest', 'interviewPlace','term', 'demand', 'demand.language', 'demand.education', 'demand.languageLevel','demand.specialty',
-            'employer.numberCode','deposit','hr.user', 'vacancyDrivingLicense', 'reasonForCancel'
-            ])->when(Auth::user()->role_id != 1, function ($query) {
-                $query->where('hr_id', '=', Auth::user()->hr->id);
+            'employer.numberCode','deposit','hr', 'vacancyDrivingLicense', 'reasonForCancel'
+            ])->when($role_id != 1, function ($query) use($authId) {
+                $query->where('hr_id', '=', $authId);
+            })
+            ->when($childFilter, function ($query) use ($authId) {
+                $ids = $this->getStaffIds($authId);
+                $query->whereIn('hr_id', $ids);
             })->paginate(25);
 
         $totalVacancies = $vacancy->total();
 
         return response()->json(['vacancy' => $vacancy, 'count' => $totalVacancies]);
 
+    }
+    private function getStaffIds($parent_id) {
+        return Staff::where('parent_id', $parent_id)->pluck('id');
     }
     function delete(Request $request)  {
 
@@ -116,7 +137,6 @@ class VacancyActionController extends Controller
     }
 
     function changeHr(Request $request) {
-        // dd($request->all());
         $data = $request->all();
         $result = ['status' => 200];
 

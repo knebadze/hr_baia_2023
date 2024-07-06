@@ -21,14 +21,14 @@
                     :class="
                         !item.disbursement_date
                             ? 'badge bg-warning p-1'
-                            : item.disbursement_date && item.hr_agree == 0
+                            : item.disbursement_date && item.staff_agree == 0
                             ? 'badge bg-danger p-1'
                             : 'badge bg-success p-1'
                     "
                     >{{
                         !item.disbursement_date
                             ? "მიმდინარე"
-                            : item.disbursement_date && item.hr_agree == 0
+                            : item.disbursement_date && item.staff_agree == 0
                             ? "დასადასტურებელი"
                             : "დადასტურებული"
                     }}</span
@@ -98,12 +98,12 @@ export default {
             },
             {
                 text: "ბონუსი ვაკანსიებიდან",
-                value: "hr_bonus_from_vacancy",
+                value: "staff_bonus_from_vacancy",
                 sortable: true,
             },
             {
                 text: "ბონუსი ფაისანი რეგისტრაციებიდან",
-                value: "hr_bonus_from_registration",
+                value: "staff_bonus_from_registration",
                 sortable: true,
             },
             { text: "დანამატი", value: "supplement", sortable: true },
@@ -137,7 +137,8 @@ export default {
         };
 
         const data = props.data.map((item) => {
-            const date = moment(item.created_at, "YYYY-MM-DD");
+            // Adjust the format string to include time
+            const date = moment(item.created_at, "MM-DD-YYYY HH:mm");
             const englishMonthName = date.format("MMMM");
             const georgianMonthName =
                 georgianMonthNames[englishMonthName] || englishMonthName;

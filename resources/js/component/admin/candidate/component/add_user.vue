@@ -299,7 +299,7 @@ export default {
                             autoClose: 1000,
                         });
                         let url = new URL(location.href);
-                        let nextUrl = this.m.was_assigned
+                        let nextUrl = currentObj.m.was_assigned
                             ? `${url.origin}/admin/vacancy?ka`
                             : `${url.origin}/ka/user/userProfile?user=${response.data.data.id}`;
                         window.location.replace(
@@ -336,7 +336,16 @@ export default {
             this.m.password = password;
         },
     },
-    watch: {},
+    watch: {
+        "m.type": function (val) {
+            if (val && val.id == 1) {
+                this.m.money = 30;
+            }else{
+                this.m.money = null;
+                this.m.enroll_date = null;
+            }
+        },
+    },
 };
 </script>
 <style lang=""></style>

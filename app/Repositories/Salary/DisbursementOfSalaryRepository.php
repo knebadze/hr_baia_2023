@@ -2,12 +2,13 @@
 
 namespace App\Repositories\Salary;
 
-use App\Models\Hr;
 use Carbon\Carbon;
+use App\Models\Staff;
 use App\Models\Salary;
-use App\Models\HrWorkLog;
+use App\Models\Vacancy;
 use App\Models\Enrollment;
-use App\Models\hrDailyWork;
+use App\Models\StaffWorkLog;
+use App\Models\StaffDailyWork;
 use App\Models\VacancyDeposit;
 use App\Models\RegistrationFee;
 use Illuminate\Support\Facades\DB;
@@ -15,50 +16,75 @@ use Illuminate\Support\Facades\Log;
 
 class DisbursementOfSalaryRepository
 {
-    function check($data) {
-        $salary = Salary::latest()->first();
-        // dd(Enrollment::whereDate('created_at', '>=', Carbon::parse($salary->created_at)->startOfDay()->toDateTimeString())->where('agree', 0)->count());
-        $check = (Enrollment::whereDate('created_at', '>=', Carbon::parse($salary->created_at)->startOfDay()->toDateTimeString())->where('agree', 0)->exists())
-            ? Enrollment::whereDate('created_at', '>=', Carbon::parse($salary->created_at)->startOfDay()->toDateTimeString())->where('agree', 0)->count()
-            : null;
-        if ($check) {
-            return ['type' => 'w', 'checkCount' => $check];
-        } else {
-            return $this->action($data);
+    function check($data, $childView, $authId) {
+        $salary = Salary::when($childView, function ($query) use ($authId) {
+            $ids = $this->getStaffIds($authId);
+            return $query->whereIn('staff_id', $ids);
+        })->latest()->first();
 
+        if (!$salary) {
+            // Handle the case where no salary record is found
+            // This could return a default action or error message
+            return ['type' => 'error', 'message' => 'No salary record found'];
+        }
+
+        $count = Enrollment::when($childView, function ($query) use ($authId) {
+                    $ids = $this->getStaffIds($authId);
+                    return $query->whereIn('author_id', $ids);
+                })
+                ->whereDate('created_at', '>=', Carbon::parse($salary->created_at)->startOfDay()->toDateTimeString())
+                ->where('agree', 0)
+                ->count();
+
+        if ($count > 0) {
+            return ['type' => 'w', 'checkCount' => $count];
+        } else {
+            return $this->action($data, $childView, $authId);
         }
     }
 
-    function action($data) {
-        // dd($data);
+    function action($data, $childView, $authId) {
         // Start transaction
         DB::beginTransaction();
-    
+
         try {
             $ids = collect($data)->pluck('id')->toArray();
-           
-            $salary = Salary::orderBy('hr_id', 'ASC')->whereIn('id', $ids)->update(['disbursement_date' => Carbon::now()]);
+
+            $salary = Salary::orderBy('staff_id', 'ASC')->whereIn('id', $ids)->update(['disbursement_date' => Carbon::now()]);
             // Create new salary records
             foreach ($data as $value) {
-                $this->createSalary($value['hr_id']);
+                $this->createSalary($value['staff_id']);
             }
             $this->addWorkLog($ids);
-    
+
             if ($salary) {
-                // Delete zero-value vacancy deposits
-                VacancyDeposit::where('must_be_enrolled_employer', 0)->where('must_be_enrolled_candidate', 0)->delete();
+               // Directly delete zero-value vacancy deposits without loading them into memory
+                VacancyDeposit::whereHas('vacancy', function ($query) use ($ids) {
+                            $query->whereIn('hr_id', $ids);
+                        })->where('must_be_enrolled_employer', 0)
+                        ->where('must_be_enrolled_candidate', 0)
+                        ->delete();
+
                 // Delete zero-value registration fees
-                RegistrationFee::where('money', 0)->delete();
-    
+                RegistrationFee::where('money', 0)
+                            ->when($childView, function ($query) use ($authId) {
+                                $creatorIds = $this->getStaffIds($authId);
+                                return $query->whereIn('creator_id', $creatorIds);
+                            })->delete();
+
                 // Update status for all confirmed enrollments before the disbursement date
                 Enrollment::where('agree', 1)
-                          ->where('created_at', '<=', Carbon::now())
-                          ->update(['status_id' => 18]);
+                        ->when($childView, function ($query) use ($authId) {
+                            $authorIds = $this->getStaffIds($authId);
+                            return $query->whereIn('author_id', $authorIds);
+                        })
+                        ->where('created_at', '<=', Carbon::now())
+                        ->update(['status_id' => 18]);
             }
-    
+
             // Commit transaction
             DB::commit();
-    
+
             return ['type' => 's', 'salary' => $salary];
         } catch (\Exception $e) {
             // Rollback transaction on error
@@ -72,13 +98,13 @@ class DisbursementOfSalaryRepository
 
     function createSalary($staff_id) {
         try {
-            $staff = Hr::where('id', $staff_id)->first();
+            $staff = Staff::where('id', $staff_id)->first();
             if (!$staff) {
                 throw new \Exception("Staff with id {$staff_id} not found.", 404);
             }
 
             $salary = new Salary();
-            $salary->hr_id = $staff->id;
+            $salary->staff_id = $staff->id;
             $salary->fixed_salary = $staff->fixed_salary;
             $salary->full_salary = $staff->fixed_salary;
             $salary->save();
@@ -94,17 +120,28 @@ class DisbursementOfSalaryRepository
     }
 
     function addWorkLog($ids) {
+        if (empty($ids)) {
+            throw new \Exception("No IDs provided for addWorkLog.", 400);
+        }
 
         try {
-            $salary = Salary::orderBy('hr_id', 'ASC')->whereIn('id', $ids)->get();
-            $hr_ids = collect($salary)->pluck('hr_id')->toArray();
+            $salary = Salary::orderBy('staff_id', 'ASC')
+                        ->whereIn('id', $ids)
+                        ->get();
 
-            $start_date = $salary[0]->created_at;
-            $end_date = $salary[0]->disbursement_date;
-            $daily = hrDailyWork::whereIn('hr_id', $hr_ids)
+            if ($salary->isEmpty()) {
+                throw new \Exception("No Salary records found for the provided IDs.", 404);
+            }
+
+            $staff_ids = $salary->pluck('staff_id')->toArray();
+
+            $start_date = $salary->first()->created_at;
+            $end_date = $salary->first()->disbursement_date;
+
+            $daily = StaffDailyWork::whereIn('staff_id', $staff_ids)
                     ->whereBetween('created_at', [$start_date, $end_date])
                     ->selectRaw('
-                        hr_id,
+                        staff_id,
                         SUM(has_vacancy) as total_has_vacancy,
                         SUM(employed) as total_employed,
                         SUM(has_probationary_period) as total_has_probationary_period,
@@ -112,30 +149,33 @@ class DisbursementOfSalaryRepository
                         SUM(candidate_has_registered) as total_candidate_has_registered,
                         SUM(has_enrollment_register) as total_has_enrollment_register
                     ')
-                    ->groupBy('hr_id')
+                    ->groupBy('staff_id')
                     ->get();
 
-            foreach ($daily as $key => $value) {
-                $workLog = new HrWorkLog();
-                $workLog->hr_id = $value->hr_id;
-                $workLog->start_date = $start_date;
-                $workLog->end_date = $end_date;
-                $workLog->has_vacancy = $value->total_has_vacancy;
-                $workLog->employed = $value->total_employed;
-                $workLog->has_probationary_period = $value->total_has_probationary_period;
-                $workLog->has_enrollment_vacancy = $value->total_has_enrollment_vacancy;
-                $workLog->candidate_has_registered = $value->total_candidate_has_registered;
-                $workLog->has_enrollment_register = $value->total_has_enrollment_register;
-                $workLog->save();
-            }
-            // იშლება ყოველ დღიური სამუშაო პროცესის მონაცემი ჩაკომენტარებიულია დროეიბით
-            // hrDailyWork::whereIn('hr_id', $hr_ids)->whereBetween('created_at', [$start_date, $end_date])->delete();
+            $workLogs = $daily->map(function ($item) use ($start_date, $end_date) {
+                return [
+                    'staff_id' => $item->staff_id,
+                    'start_date' => $start_date,
+                    'end_date' => $end_date,
+                    'has_vacancy' => $item->total_has_vacancy,
+                    'employed' => $item->total_employed,
+                    'has_probationary_period' => $item->total_has_probationary_period,
+                    'has_enrollment_vacancy' => $item->total_has_enrollment_vacancy,
+                    'candidate_has_registered' => $item->total_candidate_has_registered,
+                    'has_enrollment_register' => $item->total_has_enrollment_register,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ];
+            })->toArray();
+
+            StaffWorkLog::insert($workLogs);
+
         } catch (\Throwable $th) {
-            //throw $th;
+            // Consider logging the error here
             throw new \Exception("An error occurred during addWorkLog agreement: " . $th->getMessage(), 500);
-            dd($th);
         }
-
-
+    }
+    private function getStaffIds($parent_id) {
+        return Staff::where('parent_id', $parent_id)->pluck('id');
     }
 }

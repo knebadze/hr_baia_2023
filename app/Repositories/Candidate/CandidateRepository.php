@@ -40,7 +40,6 @@ class CandidateRepository
     }
 
     function save($data)  {
-        // dd($data);
         try {
             $lang = (array_key_exists('lang', $data))?$data['lang']:'ka';
             $data = $this->translate($lang, $data);

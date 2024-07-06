@@ -384,8 +384,8 @@ watch(
                         </p>
                         <ul>
                             <li v-for="(item, index) in busy" :key="index">
-                                {{ item.vacancy.hr.user.name_ka }} N:
-                                {{ item.vacancy.hr.user.number }}
+                                {{ item.vacancy.hr.name_ka }} N:
+                                {{ item.vacancy.hr.number }}
                             </li>
                         </ul>
                     </div>

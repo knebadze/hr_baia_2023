@@ -7,12 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 
-class hrDailyWork extends Model
+class StaffDailyWork extends Model
 {
-    use LogsActivity, HasFactory;
-
+    use HasFactory;
     protected $fillable = [
-        'hr_id',
+        'staff_id',
         'has_vacancy',
         'employed',
         'approved_by_employer',
@@ -20,7 +19,9 @@ class hrDailyWork extends Model
         'has_enrollment_vacancy',
         'candidate_has_registered',
         'has_enrollment_register',
+        'add_vacancy',
     ];
+
     protected $casts = [
         'has_vacancy' => 'integer',
         'employed' => 'integer',
@@ -32,16 +33,18 @@ class hrDailyWork extends Model
         'created_at' => 'datetime:m-d-Y H:i',
         'updated_at' => 'datetime:m-d-Y H:i',
     ];
+
     public function getActivitylogOptions(): LogOptions
     {
-        $additionalArray  = ['hr.user.name_ka'];
+        $additionalArray  = ['staff.name_ka'];
         $combinedArray = array_merge($this->fillable, $additionalArray);
         $logOptions = LogOptions::defaults([])->logOnly($combinedArray)->logOnlyDirty();
 
         return $logOptions;
     }
-    public function hr()
+
+    public function staff()
     {
-        return $this->belongsTo(Hr::class);
+        return $this->belongsTo(Staff::class, 'staff_id');
     }
 }

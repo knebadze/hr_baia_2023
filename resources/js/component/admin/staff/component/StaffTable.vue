@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import switchButton from "../../../inc/Switch.vue";
 import AddStaffModal from "../modal/AddStaffModal.vue";
 import StaffViewAndUpdate from "../modal/StaffViewAndUpdate.vue";
@@ -10,6 +10,8 @@ const props = defineProps({
     cla: Object,
     type: String,
     role: Number,
+    fullPermission: Boolean,
+    adminId: Number,
 });
 const emit = defineEmits(["is_active"]);
 const showAddModal = ref(false);
@@ -49,12 +51,26 @@ const isActiveUpdate = (item, index) => {
         });
 };
 
+const activeCount = computed(() => {
+    return props.data.filter((item) => item.is_active == 1).length;
+});
+
+const inactiveCount = computed(() => {
+    return props.data.filter((item) => item.is_active == 0).length;
+});
+
+const deletedCount = computed(() => {
+    return props.data.filter((item) => item.is_active == 2).length;
+});
 onMounted(() => {});
 </script>
 <template lang="">
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">სულ: {{ data.length }}</h3>
+                <h3 class="mr-5 card-title">სულ: {{ data.length }}</h3>
+                <h3 class="mr-5 card-title">აქტიური: {{ activeCount }}</h3>
+                <h3 class="mr-5 card-title">არა აქტიური: {{ inactiveCount }}</h3>
+                <h3 class="card-title">ამორიცხული: {{ deletedCount }}</h3>
 
             <div class="card-tools">
                 <button
@@ -86,7 +102,7 @@ onMounted(() => {});
                     <tr v-for="(item, index) in data" :key="index">
                         <td>{{ item.id }}</td>
                         <td>{{ item.name }}</td>
-                        <td>{{ item.k_mobile }}</td>
+                        <td>{{ item.number }}</td>
                         <td>
                             {{ item.inside_number }}
                         </td>
@@ -101,6 +117,7 @@ onMounted(() => {});
                                 v-model:checked="item.switch"
                                 label=""
                                 @click.self="isActiveUpdate(item, index)"
+                                :disabled="!fullPermission && adminId != item.parent_id"
                             /><span v-else class="text-sm text-danger"
                                 ><strong>ამორიცხული</strong></span
                             >
@@ -110,6 +127,7 @@ onMounted(() => {});
                                 v-if="item.is_active != 2"
                                 class="btn btn-info"
                                 @click="openViewModal(item)"
+                                :disabled="!fullPermission && adminId != item.parent_id"
                             >
                                 <i class="fa fa-eye"></i> +
                                 <i class="fa fa-pen"></i>

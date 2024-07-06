@@ -24,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $auth = Auth::User();
+        $auth = Auth::guard('web')->User();
         $vacancyCount = Vacancy::whereIn('status_id', [2, 6, 7])->count();
         $view = 0;
         

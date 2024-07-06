@@ -45,11 +45,10 @@ class RecommendationRepository
         return $data;
     }
     function save($data) {
-        // dd($data);
         try{
             $lang = (isset($data['data']->lang))?$data['data']->lang:'ka';
             $data = $this->translate($lang, $data);
-            $candidate_id = $data['data']->candidate_id ? $data['data']->candidate_id :Auth::user()->candidate->id;
+            $candidate_id = $data['data']->candidate_id ? $data['data']->candidate_id :Auth::guard('web')->user()->candidate->id;
             $candidate = Candidate::where('id', $candidate_id)->first();
             $recommendation = new CandidateRecommendation();
             $recommendation->candidate_id = $candidate_id;
@@ -93,9 +92,6 @@ class RecommendationRepository
 
             }
             $recommendation->save();
-            // $this->candidateStatusUpdate($candidate_id);
-
-            // dd('hello');
             $candidate = Candidate::where('id', $candidate_id)->first();
             if($candidate->stage = 7){
                 $candidate->update(['stage' => 8]);
@@ -115,10 +111,8 @@ class RecommendationRepository
     }
 
     function update($data)  {
-        // dd($data);
-
         $data = $this->translate('ka',$data);
-        $candidate_id = $data['data']->candidate_id ? $data['data']->candidate_id :Auth::user()->candidate->id;
+        $candidate_id = $data['data']->candidate_id ? $data['data']->candidate_id :Auth::guard('web')->user()->candidate->id;
         $recommendation = CandidateRecommendation::findOrFail($data['data']->id);
         if ($data['data']->has_recommendation->id == 1) {
             if (CandidateRecommendation::where('candidate_id', $candidate_id)->exists() && CandidateRecommendation::where('candidate_id', $candidate_id)->where('recommendation', 2)->exists()) {

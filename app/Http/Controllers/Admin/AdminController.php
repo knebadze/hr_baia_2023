@@ -4,12 +4,16 @@ namespace App\Http\Controllers\Admin;
 
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Staff;
 use App\Models\DailyTask;
 use App\Services\SmsService;
 use Illuminate\Http\Request;
+use App\Models\AdminDataView;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
 use App\Services\Admin\DailyTaskService;
 use App\Services\Admin\DashboardService;
@@ -18,10 +22,12 @@ class AdminController extends Controller
 {
     private DashboardService $dashboardService;
     private DailyTaskService $dailyTaskService;
-    public function __construct(DashboardService $dashboardService, DailyTaskService $dailyTaskService)
+    protected $smsService;
+    public function __construct(DashboardService $dashboardService, DailyTaskService $dailyTaskService, SmsService $smsService)
     {
         $this->dashboardService = $dashboardService;
         $this->dailyTaskService = $dailyTaskService;
+        $this->smsService = $smsService;
     }
     public function index()
     {
@@ -30,31 +36,27 @@ class AdminController extends Controller
 
     public function login(Request $request)
     {
-            $request->validate([
-                'number' => 'required',
-                'password' => 'required',
-            ]);
+        $request->validate([
+            'number' => 'required',
+            'password' => 'required',
+        ]);
 
-            $user = User::where('number', $request->input('number'))->whereNot('role_id', 3)->first();
-            $checkPass = null;
-            if ($user) {
-               $checkPass = Hash::check($request->input('password'), $user->password);
-            }
+        $user = Staff::where('number', $request->input('number'))->first();
 
+        if (!$user || !Hash::check($request->input('password'), $user->password)) {
+            return redirect("ka/admin")->withErrors(['number' => 'პაროლი ან ნომერი არასწორია']);
+        }
 
-            if ($checkPass) {
-                $sendSms = new SmsService();
-                $verificationCode = rand(10000, 99999);
+        $this->sendVerificationCode($user);
 
-                $user->update(['verify_code' => $verificationCode, 'verify_code_date' => now()]);
-                $sendSms->sendSms($request->input('number'), 'verify code:'.$verificationCode);
+        return redirect('ka/admin_verify?number=' . $request->input('number'));
+    }
 
-                return redirect('ka/admin_verify?number='.$request->input('number'));
-            }else{
-                return redirect("ka/admin")->withErrors(['password'=>'პაროლი არასწორია']);
-            }
-
-        return redirect("ka/admin")->withErrors(['number'=>'ინფორმაცია არასწორია']);
+    protected function sendVerificationCode($user)
+    {
+        $verificationCode = random_int(10000, 99999);
+        $user->update(['verify_code' => $verificationCode, 'verify_code_date' => now()]);
+        $this->smsService->sendSms($user->number, 'verify code:' . $verificationCode);
     }
 
     function verifyPage()
@@ -67,40 +69,77 @@ class AdminController extends Controller
     {
         $request->validate([
             'verification_code' => 'required|numeric',
+            'number' => 'required',
         ]);
 
-        $enteredCode = $request->input('verification_code');
-        $number = $request->input('number');
-        $user = User::where('number', $number)->whereNot('role_id', 3)->first();
-        $code = $user->verify_code;
+        $user = Staff::where('number', $request->input('number'))
+                    ->first(['id', 'verify_code', 'verify_code_date']);
 
-        // Check if the verification code has expired (2 minutes timeout)
-        if (now()->diffInMinutes(session($user->verify_code_date)) > 2) {
+        if (!$user) {
+            Log::info("User not found with number: " . $request->input('number'));
+            return back()->withErrors(['verification_code' => 'მომხმარებელი ვერ მოიძებნა.']);
+        }
 
+        if ($this->isCodeExpired($user)) {
+            Log::info("Code expired for user: " . $user->id);
             return back()->withErrors(['verification_code' => 'კოდი ვადაგასულია.']);
         }
-        if ($enteredCode == $code) {
 
-            if (Auth::loginUsingId($user->id)) {
-                 // Redirect to the intended dashboard
-                if (DailyTask::whereDate('date', '!=', Carbon::today())->exists()) {
-                    $this->dailyTaskService->task();
-                }
-            return redirect()->intended('ka/admin/dashboard')
-                    ->withSuccess('Signed in');
-            }
+        if (!$this->isValidCode($request, $user)) {
+            Log::info("Invalid code entered for user: " . $user->id);
+            return back()->withErrors(['verification_code' => 'კოდი არასწორიაა.']);
+        }
+        return $this->loginUser($user);
+    }
 
+    protected function isCodeExpired($user)
+    {
+        return Carbon::parse($user->verify_code_date)->diffInMinutes(now()) > 2;
+    }
+
+    protected function isValidCode($request, $user)
+    {
+        $enteredCode = $request->input('verification_code');
+        $expectedCode = $user->verify_code;
+        $isValid = $enteredCode == $expectedCode;
+
+        if (!$isValid) {
+            Log::info("Invalid code entered for user: {$user->id}. Entered: {$enteredCode}, Expected: {$expectedCode}");
         }
 
-        // Incorrect verification code
-        return back()->withErrors(['verification_code' => 'არასწორი კოდი.']);
+        return $isValid;
     }
+
+    // protected function loginUser($user)
+    // {
+    //     Auth::loginUsingId($user->id);
+    //     $this->checkAndHandleDailyTasks();
+    //     return redirect()->intended('ka/admin/dashboard')->withSuccess(__('Signed in'));
+    // }
+
+    protected function loginUser(Staff $user)
+    {
+        Auth::guard('staff')->loginUsingId($user->id);
+        $this->checkAndHandleDailyTasks();
+        return redirect()->intended('ka/admin/dashboard')->withSuccess(__('Signed in'));
+    }
+
+    protected function checkAndHandleDailyTasks()
+    {
+        if (DailyTask::whereDate('date', '!=', Carbon::today())->exists()) {
+            $this->dailyTaskService->task();
+        }
+        $adminDataViews = Cache::remember('admin_data_view', 60, function () {
+            return AdminDataView::all();
+        });
+    }
+
 
     public function dashboard()
     {
         if(Auth::check()){
                 $data = $this->dashboardService->getData();
-                $role_id = Auth::user()->role_id;
+                $role_id = Auth::guard('staff')->user()->role_id;
             return view('admin.dashboard', compact('data', 'role_id'));
         }
 

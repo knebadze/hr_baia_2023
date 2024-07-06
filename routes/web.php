@@ -116,9 +116,13 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
         Route::get('admin', [AdminController::class, 'index'])->name('admin');
         Route::get('admin_verify', [AdminController::class, 'verifyPage'])->name('admin.verify');
 
+        // Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+
+
+    });
+
+    Route::prefix('ka')->middleware('auth:staff')->group(function () {
         Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-
-
     });
 
     //admin Route
@@ -126,7 +130,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     Route::post('/admin/verify', [AdminController::class, 'verifyCode'])->name('admin.verify.code');
 
 
-
+    // Route::get('/update-vacancy', [VacancyController::class, 'updateVacancy'])->name('update.vacancy');
     Route::get('auth/{provider}/redirect', [SocialController::class, 'redirect'])->name('auth.social.redirect');
     Route::get('auth/{provider}/callback', [SocialController::class, 'callback'])->name('auth.social.callback');
 
@@ -185,7 +189,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
     include('admin/global_variable/variable.php');
 
     include('store_api/api.php');
-    
+
     // unfinishedRegistration
     include('admin/unfinished_registration/unfinishedRegistration.php');
 

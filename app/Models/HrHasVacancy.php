@@ -24,7 +24,7 @@ class HrHasVacancy extends Model
     }
     public function hr()
     {
-        return $this->belongsTo(Hr::class, 'hr_id', 'id');
+        return $this->belongsTo(Staff::class, 'hr_id', 'id');
     }
 
     public function getActiveAttribute()

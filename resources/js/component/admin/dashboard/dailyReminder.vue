@@ -36,7 +36,7 @@
                         <tr v-for="(item, index) in items" :key="index">
                             <td>{{ index + 1 }}.</td>
                             <td><u class="text-primary" @click="vacancyModal(item.vacancy_id)">{{ item.vacancy.code }}</u> </td>
-                            <td v-if="role_id == 1">{{ item.hr.user.name_ka }}</td>
+                            <td v-if="role_id == 1">{{ item.hr.name_ka }}</td>
                             <td>{{ item.reason }}</td>
                             <td>{{ item.date }}</td>
                             <td><span :class="item.main == 0 ?'badge badge-warning':'badge badge-danger'">{{ item.main == 0 ? 'ჩანაწერი': 'ძირითადი' }}</span></td>

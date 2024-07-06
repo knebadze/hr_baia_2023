@@ -23,7 +23,6 @@ class MoveEndDateService
     }
 
     function workDay($id, $work_schedule_id, $start_date, $end_date, $week_day) {
-        // dd($week_day);
         $startDate = Carbon::parse($start_date); // Get start_date's date
         $later = Carbon::parse($end_date);
 
@@ -52,7 +51,6 @@ class MoveEndDateService
         }elseif ($work_schedule_id == 8) {
             $weekendDates[] = $start_date;
         }
-        // dd($startDate, $later, $weekendDates, $work_schedule_id);
         $findWorkSchedule = WorkDay::where('id', $id)->update(['work_day' => json_encode($weekendDates)]);
     }
 }

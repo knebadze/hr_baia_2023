@@ -11,7 +11,6 @@ class CheckVerifyCodeController extends Controller
 
     function check(Request $request) {
 
-        // dd($request->all());
         $result = $this->checkVerifyCode($request->all());
         return response()->json($result);
     }

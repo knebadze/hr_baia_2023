@@ -3,14 +3,11 @@
 namespace App\Repositories\Candidate;
 
 use App\Models\User;
-use App\Models\Salary;
-use App\Models\Vacancy;
+use App\Models\Staff;
 use App\Events\hrDailyJob;
-use App\Models\Enrollment;
 use App\Models\GlobalVariable;
 use App\Models\RegistrationFee;
 use App\Models\userRegisterLog;
-use App\Models\VacancyReminder;
 use Illuminate\Support\Facades\DB;
 use App\Events\SmsNotificationEvent;
 use Illuminate\Support\Facades\Auth;
@@ -51,7 +48,7 @@ class AddUserRepository
             if (!$user) {
                 throw new \Exception("User creation failed.", 500);
             }
-            $authUser = Auth::user();
+            $authUser = Auth::guard('staff')->user();
             $author = $this->getAuthor($authUser, $data['was_assigned']);
             if ( !$author || !$authUser) {
                 throw new \Exception("One or more required users are null.", 500);
@@ -70,7 +67,7 @@ class AddUserRepository
                     throw new \Exception("User register log creation failed.", 500);
                 }
 
-                $staffId = $author->staff->id;
+                $staffId = $author->id;
 
 
                 $this->dailyWorkEvent($staffId);
@@ -90,12 +87,11 @@ class AddUserRepository
                         'status_id' => 2,
                     ]);
 
-                    $baseUrl = url()->current();
                     $smsData = [
                         'to' => $author->number,
                         'name' => $data['name_ka'],
                         'number' => $data['number'],
-                        'link' => "{$baseUrl}/admin/add_candidate",
+                        'link' => route('admin.add_candidate'),
                     ];
 
                     $this->sendSms($smsData, 'to_be_assigned_administrator');
@@ -131,9 +127,10 @@ class AddUserRepository
         if ($authUser->role_id !== 1 && !$wasAssigned) {
             return $authUser;
         }else{
-            $randomAdministrator = User::where('role_id', 4)->where('is_active', 1)->inRandomOrder()->first();
+            $parent_id = $authUser->role_id !== 1? $authUser->parent_id: $authUser->id;
+            $randomAdministrator = Staff::where('role_id', 4)->where('parent_id', $parent_id)->where('is_active', 1)->inRandomOrder()->first();
             if (!$randomAdministrator) {
-                $randomAdministrator = User::where('role_id', 4)->first();
+                $randomAdministrator = Staff::where('role_id', 4)->first();
             }
             return $randomAdministrator;
         }

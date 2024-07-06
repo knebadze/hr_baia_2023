@@ -11,12 +11,22 @@ import Loading from "vue3-loading-overlay";
 
 const props = defineProps({ data: Object });
 const vacancyStore = useVacancyStore();
-const { pagination, vacancies, countVacancy, staticVacancies, loadingActive } =
-    storeToRefs(vacancyStore);
+const {
+    pagination,
+    vacancies,
+    countVacancy,
+    staticVacancies,
+    loadingActive,
+    fullPermission,
+    adminId,
+    fullView,
+    fullFilter,
+} = storeToRefs(vacancyStore);
 const { fetchVacancy, filterVacancy } = vacancyStore;
 
 const collapse = ref(false);
 const cla = ref(props.data.classificatory);
+
 let m = reactive({ payment: [50, 4000], age: [18, 65] });
 // const pagination = ref({ current_page: 1,last_page: 2 });
 const getDataType = ref("first_data");
@@ -83,6 +93,9 @@ const endFilter = () => {
 
 onMounted(async () => {
     await getData();
+    if (!fullFilter.value) {
+        cla.value.hr = props.data.classificatory.hr.filter((item) => item.parent_id == adminId.value);
+    }
 });
 </script>
 <template lang="">
@@ -850,6 +863,9 @@ onMounted(async () => {
             :classificatory="tableCla"
             :roleId="roleId"
             :key="tableKey"
+            :fullPermission="fullPermission"
+            :adminId="adminId"
+            :fullView="fullView"
         />
 
         <div class="mt-2">

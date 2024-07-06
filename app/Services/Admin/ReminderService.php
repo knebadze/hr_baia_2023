@@ -15,19 +15,19 @@ class ReminderService
     }
 
     function data() {
-        if (Auth::user()->role_id == 1) {
-            $result = ['data' => $this->reminderDataRepository->admin(), 'role_id' => Auth::user()->role_id];
+        $auth = Auth::guard('staff')->user();
+        if ($auth->role_id == 1) {
+            $result = ['data' => $this->reminderDataRepository->admin(), 'role_id' => $auth->role_id];
         }else{
-            $result = ['data' => $this->reminderDataRepository->hr(), 'role_id' => Auth::user()->role_id];
+            $result = ['data' => $this->reminderDataRepository->hr(), 'role_id' => $auth->role_id];
         }
 
         return $result;
     }
     function add($data) {
-        // dd($data);
-        $auth = Auth::user();
+        $auth = Auth::guard('staff')->user();
         if ($auth->role_id == 2) {
-            $hr_id = Auth::user()->hr->id;
+            $hr_id = $auth->id;
         }else{
             $vacancy = Vacancy::where('id', $data['vacancy_id'])->select('id', 'hr_id')->first();
             $hr_id = $vacancy->hr_id;

@@ -15,7 +15,6 @@ class EndWorkService
 {
 
     function end($data)  {
-        // dd($data);
         // ვამოწმებ აქვს თუ არა წაშლის უფლება
         // თუ წაშლის მიზეზია "შემკვეს სურს ვაკანსიის შეწყვეტა" (15) მაშინ დასრულების დღეს ვააბდეითებ გასულ დღეზე და ვაკანსია გადამყავს ვადაგასულ სტატუსში
         // ვინახავ რედაქტირების ისტორიას
@@ -30,7 +29,7 @@ class EndWorkService
 
 
         $findVacancy = Vacancy::where('id', $find->vacancy_id)->with('status')->first()->toArray();
-        if (Auth::user()->role_id == 2 && $findVacancy['hr_id'] != Auth::user()->hr->id) {
+        if (Auth::guard('staff')->user()->role_id == 2 && $findVacancy['hr_id'] != Auth::guard('staff')->user()->id) {
             return ['type' => 'e', 'message' => 'თქვენ არ გაქვთ უფლება ამ ვაკანსიაზე შეაწყვეტინოთ მუშაობა კანდიდატს'];
         }
         $redacted = [];
@@ -79,7 +78,7 @@ class EndWorkService
         $reason->candidate_id = $find->candidate_id;
         $reason->no_reason_id = $data['reason']['id'];
         $reason->reason_info = $data['reason_info'];
-        $reason->user_id = Auth::id();
+        $reason->user_id = Auth::guard('staff')->id();
         $reason->save();
     }
 

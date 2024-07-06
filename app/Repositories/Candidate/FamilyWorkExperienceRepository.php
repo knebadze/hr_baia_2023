@@ -30,9 +30,8 @@ class FamilyWorkExperienceRepository
         return $data;
     }
     function updateOrCreate($data){
-        // dd($data);
         try{
-            $candidate_id = $data['candidate_id'] ? $data['candidate_id']: Auth::user()->candidate->id;
+            $candidate_id = $data['candidate_id'] ? $data['candidate_id']: Auth::guard('web')->user()->candidate->id;
 
             if ($data["has_experience"]['id'] == 1) {
                 if (FamilyWorkExperience::where('candidate_id', $candidate_id)->exists() && FamilyWorkExperience::where('candidate_id', $candidate_id)->where('experience', 2)->exists()) {
@@ -82,7 +81,7 @@ class FamilyWorkExperienceRepository
                 );
             }
             $candidate = Candidate::where('id', $candidate_id)->first();
-            if($candidate->stage = 6){
+            if($candidate->stage == 6){
                 $candidate->update(['stage' => 7]);
             }
             return [

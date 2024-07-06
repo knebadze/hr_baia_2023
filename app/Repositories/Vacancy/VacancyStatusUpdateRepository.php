@@ -2,23 +2,17 @@
 
 namespace App\Repositories\Vacancy;
 
-use Carbon\Carbon;
 use App\Models\Vacancy;
 use App\Models\Candidate;
-use App\Events\hrDailyJob;
 use App\Models\VacancyDeposit;
-use App\Models\RegistrationFee;
 use App\Models\VacancyReminder;
 use App\Models\QualifyingCandidate;
 use App\Events\SmsNotificationEvent;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Http;
 
 class VacancyStatusUpdateRepository
 {
 
     function update($data)  {
-        // dd($data['reason_for_cancel']['id']);
         try {
             if ($data['status']['id'] == 3) {
                 $candidate = QualifyingCandidate::where('vacancy_id', $data['id'])->whereIn('qualifying_type_id', [6, 7])->exists();

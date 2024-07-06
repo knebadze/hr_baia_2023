@@ -30,7 +30,7 @@ class VacancyReminder extends Model
 
     public function hr()
     {
-        return $this->belongsTo(Hr::class);
+        return $this->belongsTo(Staff::class);
     }
 
     public function scopeFilter($query, $filters)

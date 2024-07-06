@@ -7,7 +7,6 @@ use App\Models\VacancyDeposit;
 class VacancyDepositRepository
 {
     function save($data, $type) {
-        // dd($type);
         if($type == 'employer'){
             $save = VacancyDeposit::updateOrCreate(
                 ['vacancy_id' => $data['vacancy_id']],
@@ -32,7 +31,6 @@ class VacancyDepositRepository
     }
 
     function update($data, $type){
-        // dd($data);
         $deposit = VacancyDeposit::findOrFail($data['id']);
         // კანდიდატის ჩარიცხვა
         if($type == 'candidate'){

@@ -20,8 +20,8 @@ class UnfinishedRegistrationController extends Controller
     }
 
     function fetch() {
-        $query = UnfinishedRegistration::where('status_id', 2)->when(Auth::user()->role_id != 1, function ($query) {
-            $query->where('was_assigned_id', '=', Auth::id());
+        $query = UnfinishedRegistration::where('status_id', 2)->when(Auth::guard('staff')->user()->role_id != 1, function ($query) {
+            $query->where('was_assigned_id', '=', Auth::guard('staff')->id());
         });
         $unfinished = $query->paginate(20);
         $unfinished = new UnfinishedRegistrationCollection($unfinished);
@@ -30,7 +30,7 @@ class UnfinishedRegistrationController extends Controller
         $classificatoryService = new ClassificatoryService();
         $classificatory = $classificatoryService->get($classificatoryArray);
 
-        $data = ['unfinishedRegistrations' => $unfinished, 'total' => $total, 'role_id' => Auth::user()->role_id, 'classificatory' => $classificatory];
+        $data = ['unfinishedRegistrations' => $unfinished, 'total' => $total, 'role_id' => Auth::guard('staff')->user()->role_id, 'classificatory' => $classificatory];
         return response()->json($data);
     }
 

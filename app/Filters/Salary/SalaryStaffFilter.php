@@ -3,12 +3,12 @@
 namespace App\Filters\Salary;
 
 
-class SalaryHrFilter
+class SalaryStaffFilter
 {
     function __invoke($query, $request)
     {
         $ids = collect($request)->pluck('id')->toArray();
-        return $query->whereIn('hr_id', $ids);
+        return $query->whereIn('staff_id', $ids);
 
     }
 }
