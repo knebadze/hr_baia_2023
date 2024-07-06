@@ -85,7 +85,7 @@ class StaffController extends Controller
         try {
             $data = $request->all();
             $staff = Staff::where('id', $data['id'])->first();
-            $staff->update(['is_active' => 2]);
+            $staff->update(['is_active' => 2, 'mobile' => null]);
             Salary::where('staff_id', $staff->id)->delete();
             if ($staff && $staff->role_id == 2) {
                 HrHasVacancy::where('hr_id', $staff->id)->delete();
