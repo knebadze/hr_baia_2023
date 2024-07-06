@@ -3,15 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use Exception;
+use App\Models\Hr;
 use App\Models\User;
+use App\Models\Staff;
+use App\Models\Salary;
 use App\Models\HrHasVacancy;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\HrRequest;
 use App\Http\Requests\StaffRequest;
-use App\Models\Hr;
-use App\Models\Staff;
+use App\Http\Controllers\Controller;
 use App\Services\Admin\StaffService;
+use App\Http\Requests\Admin\HrRequest;
 
 class StaffController extends Controller
 {
@@ -83,8 +84,13 @@ class StaffController extends Controller
     function dismissalFormService(Request $request) {
         try {
             $data = $request->all();
-            // $result = $this->staffService->dismissalFormService($data);
-
+            $staff = Staff::where('id', $data['id'])->first();
+            $staff->update(['is_active' => 2]);
+            Salary::where('staff_id', $staff->id)->delete();
+            if ($staff && $staff->role_id == 2) {
+                HrHasVacancy::where('hr_id', $staff->id)->delete();
+            }
+            // $staff->refresh();
             return response()->json([
                 'status' => 200,
                 // 'data' => $result,
