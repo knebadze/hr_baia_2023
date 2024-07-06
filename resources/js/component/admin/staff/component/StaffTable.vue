@@ -4,6 +4,7 @@ import switchButton from "../../../inc/Switch.vue";
 import AddStaffModal from "../modal/AddStaffModal.vue";
 import StaffViewAndUpdate from "../modal/StaffViewAndUpdate.vue";
 import _ from "lodash";
+import Swal from "sweetalert2";
 
 const props = defineProps({
     data: Object,
@@ -62,15 +63,46 @@ const inactiveCount = computed(() => {
 const deletedCount = computed(() => {
     return props.data.filter((item) => item.is_active == 2).length;
 });
+const DismissalFromService = (item) => {
+    Swal.fire({
+        title: "ნამდვილად გსურთ ამორიცხვა?",
+        cancelButtonText: "არა",
+        confirmButtonText: "კი",
+        showCancelButton: true,
+    }).then((result) => {
+        if (result.isConfirmed) {
+            axios({
+                method: "post",
+                url: "/staff_dismissal_from_service",
+                data: {
+                    id: item.id,
+                },
+            })
+                .then(function (response) {
+                    if (response.status == 200) {
+                        toast.success(response.data.message, {
+                            theme: "colored",
+                            autoClose: 1000,
+                        });
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        } else if (result.isDenied) {
+            return;
+        }
+    });
+};
 onMounted(() => {});
 </script>
 <template lang="">
     <div class="card">
         <div class="card-header">
-                <h3 class="mr-5 card-title">სულ: {{ data.length }}</h3>
-                <h3 class="mr-5 card-title">აქტიური: {{ activeCount }}</h3>
-                <h3 class="mr-5 card-title">არა აქტიური: {{ inactiveCount }}</h3>
-                <h3 class="card-title">ამორიცხული: {{ deletedCount }}</h3>
+            <h3 class="mr-5 card-title">სულ: {{ data.length }}</h3>
+            <h3 class="mr-5 card-title">აქტიური: {{ activeCount }}</h3>
+            <h3 class="mr-5 card-title">არა აქტიური: {{ inactiveCount }}</h3>
+            <h3 class="card-title">ამორიცხული: {{ deletedCount }}</h3>
 
             <div class="card-tools">
                 <button
@@ -95,7 +127,7 @@ onMounted(() => {});
                         <th>ფილიალი</th>
                         <th>სტაჟიორი</th>
                         <th>სტატუსი</th>
-                        <th>ნახვა/რედაქტირება</th>
+                        <th>action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -117,7 +149,9 @@ onMounted(() => {});
                                 v-model:checked="item.switch"
                                 label=""
                                 @click.self="isActiveUpdate(item, index)"
-                                :disabled="!fullPermission && adminId != item.parent_id"
+                                :disabled="
+                                    !fullPermission && adminId != item.parent_id
+                                "
                             /><span v-else class="text-sm text-danger"
                                 ><strong>ამორიცხული</strong></span
                             >
@@ -127,10 +161,24 @@ onMounted(() => {});
                                 v-if="item.is_active != 2"
                                 class="btn btn-info"
                                 @click="openViewModal(item)"
-                                :disabled="!fullPermission && adminId != item.parent_id"
+                                :disabled="
+                                    !fullPermission && adminId != item.parent_id
+                                "
+                                title="ნახვა/რედაქტირება"
                             >
                                 <i class="fa fa-eye"></i> +
                                 <i class="fa fa-pen"></i>
+                            </button>
+                            <button
+                                v-if="item.is_active != 2"
+                                class="btn btn-danger ml-2"
+                                @click="DismissalFromService(item)"
+                                :disabled="
+                                    !fullPermission && adminId != item.parent_id
+                                "
+                                title="ამორიცხვა"
+                            >
+                                <i class="fa fa-times"></i>
                             </button>
                         </td>
                     </tr>
@@ -140,7 +188,11 @@ onMounted(() => {});
         <!-- /.card-body -->
     </div>
     <!-- /.card -->
-    <AddStaffModal :visible="showAddModal" :role="role" :cla="cla"></AddStaffModal>
+    <AddStaffModal
+        :visible="showAddModal"
+        :role="role"
+        :cla="cla"
+    ></AddStaffModal>
     <StaffViewAndUpdate
         :visible="showViewModal"
         :data="viewData"

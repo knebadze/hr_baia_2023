@@ -79,4 +79,18 @@ class StaffController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+
+    function dismissalFormService(Request $request) {
+        try {
+            $data = $request->all();
+            // $result = $this->staffService->dismissalFormService($data);
+
+            return response()->json([
+                'status' => 200,
+                // 'data' => $result,
+            ]);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
 }
