@@ -80,7 +80,7 @@ const DismissalFromService = (item) => {
             })
                 .then(function (response) {
                     if (response.status == 200) {
-                        toast.success(response.data.message, {
+                        toast.success('წარმატებით შესრულდა', {
                             theme: "colored",
                             autoClose: 1000,
                         });
