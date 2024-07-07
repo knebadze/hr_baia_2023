@@ -52,7 +52,7 @@ class HrController extends Controller
 
     function getHr(Request $request) {
         try {
-            $result = Staff::where('role_id', 2)->get();
+            $result = Staff::where('role_id', 2)->whereNot('is_active', 2)->get();
         } catch (Exception $e) {
             $result = [
                 'status' => 500,

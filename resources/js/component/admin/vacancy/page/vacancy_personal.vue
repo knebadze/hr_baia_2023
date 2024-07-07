@@ -26,112 +26,97 @@ export default {
     setup(props) {
         const items = ref(props.data.store);
         const adminViewAndPermission = ref(props.data.adminViewAndPermission);
+        
         const tableConfig = computed(() => {
-            let data = [];
-            const employedData = _.filter(props.data, function (o) {
-                return o.qualifying_type_id == 7 || o.qualifying_type_id == 8;
-            });
-            const employedObj = {
-                type: "employed",
-                title: "დასაქმებული კანდიდატი",
-                header: [
-                    "ID",
-                    "ტიპი",
-                    "სახელი გვარი",
-                    "დაწყების დრო",
-                    "დასრულების დრო",
-                    "სტატუსი",
-                    "მოქმედების თარიღი",
-                    "მოქმედება",
-                ],
-                data: employedData,
-            };
-            employedData.length > 0 && data.push(employedObj);
+            const config = [
+                {
+                    typeIds: [7, 8],
+                    type: "employed",
+                    title: "დასაქმებული კანდიდატი",
+                    headers: [
+                        "ID",
+                        "ტიპი",
+                        "სახელი გვარი",
+                        "დაწყების დრო",
+                        "დასრულების დრო",
+                        "სტატუსი",
+                        "მოქმედების თარიღი",
+                        "მოქმედება",
+                    ],
+                },
+                {
+                    typeIds: [6],
+                    type: "trail",
+                    title: "გამოსაცდელი ვადით",
+                    headers: [
+                        "ID",
+                        "სახელი გვარი",
+                        "დაწყების დრო",
+                        "დასრულების დრო",
+                        "სტატუსი",
+                        "მოქმედების თარიღი",
+                        "მოქმედება",
+                    ],
+                },
+                {
+                    typeIds: [5],
+                    type: "approved",
+                    title: "დამსაქმებლის მოწონებული",
+                    headers: [
+                        "ID",
+                        "სახელი გვარი",
+                        "დაწყების დრო",
+                        "დასრულების დრო",
+                        "სტატუსი",
+                        "მოქმედების თარიღი",
+                        "მოქმედება",
+                    ],
+                },
+                {
+                    typeIds: [4],
+                    type: "interview",
+                    title: "გასაუბრებაზე ცხადდებიან",
+                    headers: [
+                        "ID",
+                        "სახელი გვარი",
+                        "გასაუბრების დრო",
+                        "გასაუბრების ადგილი",
+                        "სტატუსი",
+                        "მოქმედების თარიღი",
+                        "მოქმედება",
+                    ],
+                },
+                {
+                    typeIds: [1, 2, 3],
+                    type: "note",
+                    title: "ჩანიშვნები",
+                    headers: [
+                        "ID",
+                        "შემკვეთი",
+                        "ტიპი",
+                        "მოქმედების თარიღი",
+                        "მოქმედება",
+                    ],
+                },
+            ];
 
-            const trialData = _.filter(props.data, function (o) {
-                return o.qualifying_type_id == 6;
-            });
-            const trialObj = {
-                type: "trail",
-                title: "გამოსაცდელი ვადით",
-                header: [
-                    "ID",
-                    "სახელი გვარი",
-                    "დაწყების დრო",
-                    "დასრულების დრო",
-                    "სტატუსი",
-                    "მოქმედების თარიღი",
-                    "მოქმედება",
-                ],
-                data: trialData,
-            };
-            trialData.length > 0 && data.push(trialObj);
-
-            const approvedByEmployerData = _.filter(props.data, function (o) {
-                return o.qualifying_type_id == 5;
-            });
-            const approvedObj = {
-                type: "approved",
-                title: "დამსაქმებლის მოწონებული",
-                header: [
-                    "ID",
-                    "სახელი გვარი",
-                    "დაწყების დრო",
-                    "დასრულების დრო",
-                    "სტატუსი",
-                    "მოქმედების თარიღი",
-                    "მოქმედება",
-                ],
-                data: approvedByEmployerData,
-            };
-            approvedByEmployerData.length > 0 && data.push(approvedObj);
-
-            const interviewData = _.filter(props.data, function (o) {
-                return o.qualifying_type_id == 4;
-            });
-            const interviewObj = {
-                type: "interview",
-                title: "გასაუბრებაზე ცხადდებიან",
-                header: [
-                    "ID",
-                    "სახელი გვარი",
-                    "გასაუბრების დრო",
-                    "გასაუბრების ადგილი",
-                    "სტატუსი",
-                    "მოქმედების თარიღი",
-                    "მოქმედება",
-                ],
-                data: interviewData,
-            };
-            interviewData.length > 0 && data.push(interviewObj);
-
-            const noteData = _.filter(items.value, function (o) {
-                return (
-                    o.qualifying_type_id == 1 ||
-                    o.qualifying_type_id == 2 ||
-                    o.qualifying_type_id == 3
-                );
-            });
-            const noteObj = {
-                type: "note",
-                title: "ჩანიშვნები",
-                header: [
-                    "ID",
-                    "შემკვეთი",
-                    "ტიპი",
-                    "მოქმედების თარიღი",
-                    "მოქმედება",
-                ],
-                data: noteData,
-            };
-            noteData.length > 0 && data.push(noteObj);
+            let data = config
+                .map(({ typeIds, type, title, headers }) => {
+                    const filteredData = _.filter(props.data.store, (o) =>
+                        typeIds.includes(o.qualifying_type_id)
+                    );
+                    return filteredData.length > 0
+                        ? { type, title, header: headers, data: filteredData }
+                        : null;
+                })
+                .filter((obj) => obj !== null);
 
             return data;
         });
 
         return {
             tableConfig,
-            adminViewAndPermission
+            adminViewAndPermission,
         };
     },
 };

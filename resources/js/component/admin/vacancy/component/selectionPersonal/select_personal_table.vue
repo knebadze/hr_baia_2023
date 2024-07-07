@@ -14,6 +14,8 @@ const props = defineProps({
     vacancy: Object,
 });
 
+
+
 const itemsSelected = ref([]);
 let itemsSelectedButton = ref(false);
 let showAddPersonalModal = ref(false);

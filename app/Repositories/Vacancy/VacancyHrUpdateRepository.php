@@ -3,7 +3,7 @@
 namespace App\Repositories\Vacancy;
 
 use App\Models\Vacancy;
-use App\Events\hrDailyJob;
+use App\Events\staffDailyJob;
 use App\Models\HrHasVacancy;
 use App\Models\StaffDailyWork;
 use App\Models\VacancyReminder;
@@ -30,7 +30,7 @@ class VacancyHrUpdateRepository
     }
 
     public function dailyWorkEvent($hr_id) {
-        event(new hrDailyJob($hr_id, 'has_vacancy'));
+        event(new staffDailyJob($hr_id, 'has_vacancy'));
     }
 
     public function lesHasVacancy($staff_id, $created_at) {

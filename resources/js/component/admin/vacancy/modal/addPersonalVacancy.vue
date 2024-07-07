@@ -12,6 +12,7 @@ const props = defineProps({
     item: Object,
     emitResponse: Function,
 });
+console.log(props.item);
 // data
 const showConfirm = ref(false);
 const cla = ref({});
@@ -52,6 +53,7 @@ const show = async () => {
                   (o) => o.id == m.value.interview_place_id
               )
             : m.value.interview_place;
+        m.value.interview_date = moment(m.value.interview_date, "MM-DD-YYYY HH:mm").format("YYYY-MM-DDTHH:mm");
         const currentDate = moment();
         startDateMin.value = currentDate.format("YYYY-MM-DD");
         const startDateMoment = moment(m.value.start_date);

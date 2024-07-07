@@ -137,8 +137,14 @@ class EnrollmentService
     function agree($data) {
         try {
             $result = $this->enrollmentAgreeRepository->agree($data);
-            $user = Staff::where('id', $data['author_id'])->first();
-            $smsData = ['to' => $user->number, 'money' => $data['money'], 'code'=> $data['vacancy']['code'], 'url' => route('admin.enrollment'),];
+            $staff = Staff::where('id', $data['author_id'])->first();
+            $smsData = [
+                'to' => $staff->number, 
+                'hrInicial' => '', 
+                'money' => $data['money'], 
+                'code'=> $data['vacancy']?$data['vacancy']['code']:$data['candidate_id'], 
+                'url' => route('admin.enrollment'),
+            ];
             $this->enrollmentRepository->sendSms($smsData, 'confirmed_enrollment_hr');
             return $result;
         } catch (\Exception $e) {

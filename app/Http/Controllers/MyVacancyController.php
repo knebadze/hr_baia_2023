@@ -77,7 +77,7 @@ class MyVacancyController extends Controller
 
 
     function questionnaire($local, $id) {
-        $qualifying = QualifyingCandidate::where('id', $id)->where('qualifying_type_id', 2)->first();
+        $qualifying = QualifyingCandidate::where('id', $id)->whereIn('qualifying_type_id', [1, 2])->first();
 
 
         if ($qualifying) {

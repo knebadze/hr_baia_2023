@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Throwable;
 use App\Models\User;
 use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;

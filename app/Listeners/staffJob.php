@@ -2,13 +2,13 @@
 
 namespace App\Listeners;
 
-use App\Events\hrDailyJob;
+use App\Events\staffDailyJob;
 use App\Models\StaffDailyWork;
 use Carbon\Carbon;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class HrJob
+class staffJob
 {
     /**
      * Create the event listener.
@@ -23,10 +23,10 @@ class HrJob
     /**
      * Handle the event.
      *
-     * @param  \App\Events\hrDailyJob  $event
+     * @param  \App\Events\staffDailyJob  $event
      * @return void
      */
-    public function handle(hrDailyJob $event)
+    public function handle(staffDailyJob $event)
     {
         $record = StaffDailyWork::where('staff_id', $event->staff_id)->whereDate('created_at', Carbon::today())->first();
         if (!$record) {

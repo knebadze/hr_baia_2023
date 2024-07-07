@@ -13,6 +13,7 @@ use App\Models\RegistrationFee;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Filters\Enrolled\EnrolledFilters;
 use App\Services\Admin\EnrollmentService;
 use App\Traits\HandlesAdminDataViewCaching;
 use App\Filters\Enrollment\EnrollmentFilters;
@@ -75,15 +76,17 @@ class EnrollmentController extends Controller
         $combinedQuery = $employer->union($candidate)->union($register);
 
         // Create a subquery from the combined queries and apply conditional filtering
-        $mustBeEnrollment = VacancyDeposit::fromSub($combinedQuery, 'combined_query')
+        $query = VacancyDeposit::fromSub($combinedQuery, 'combined_query')
             ->when($childView, function ($query) use ($authId) {
                 $ids = $this->getStaffIds($authId);
                 // Assuming 'author_id' is a valid field in the combined result set
                 return $query->whereIn('author_id', $ids);
-            })
-            ->paginate(20);
+            });
+        $mustBeEnrollment = $query->paginate(20);
+        $total = $query->count();
         $data = [
             'mustBeEnrollment' => $mustBeEnrollment,
+            'total' => $total,
             'adminViewAndPermission' => $adminViewAndPermission,
         ];
         return response()->json($data);
@@ -254,7 +257,10 @@ class EnrollmentController extends Controller
 
         return $query->paginate(25)->toArray();
     }
-
+    public function enrolledFilter(EnrolledFilters $filters)
+    {
+        list($authId, $childView, $childeFilter, $adminViewAndPermission) = $this->viewAndPermission();
+    }
     function getRegisterEnrollmentInfo(Request $request) {
         $data = null;
         $user = User::where('id', $request->data)->first();

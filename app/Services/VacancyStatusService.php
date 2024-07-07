@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Models\Vacancy;
-use App\Events\hrDailyJob;
+use App\Events\staffDailyJob;
 use Illuminate\Support\Carbon;
 use App\Repositories\Vacancy\VacancyStatusUpdateRepository;
 
@@ -107,6 +107,6 @@ class VacancyStatusService
     }
 
     function dailyWorkEvent($hr_id) {
-        event(new hrDailyJob($hr_id, 'has_vacancy'));
+        event(new staffDailyJob($hr_id, 'has_vacancy'));
     }
 }

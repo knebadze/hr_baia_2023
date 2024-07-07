@@ -105,9 +105,13 @@ class SelectionPersonalController extends Controller
                 'status',
                 'number.numberOwner',
                 'qualifyingCandidate'
-            ])
-            ->paginate(25)->toArray();
-        return $query;
+            ]);
+        $total = $query->count();
+        $candidates = $query->paginate(20)->toArray();
+        return [
+            'candidates' => $candidates,
+            'total' => $total
+        ];
     }
 
     function addPersonalInfo(Request $request) {

@@ -32,8 +32,8 @@ class UserProfileController extends Controller
         $stage = request('stage');
         $model = $this->candidateModelService->findData($stage, $user_id);
 
-        $isUserAuthenticated = Auth::guard('web')->check();
-        $role_id = !$isUserAuthenticated? Auth::guard('staff')->user()->role_id : 3;
+        $isUserAuthenticated = Auth::guard('staff')->check();
+        $role_id = $isUserAuthenticated? Auth::guard('staff')->user()->role_id : 3;
         $data = [
             'model' => $model,
             'classificatory' => $classificatory,

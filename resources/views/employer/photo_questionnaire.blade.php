@@ -14,17 +14,17 @@ candidate detail
             <div class="wt-bnr-inr-entry">
                 <div class="banner-title-outer">
                     <div class="banner-title-name">
-                        <h2 class="wt-title">Candidate Detail</h2>
+                        <h2 class="wt-title">კანდიდატის დეტალები</h2>
                     </div>
                 </div>
                 <!-- BREADCRUMB ROW -->
 
-                    <div>
+                    {{-- <div>
                         <ul class="wt-breadcrumb breadcrumb-style-2">
                             <li><a href="index.html">Home/</a></li>
                             <li>Candidate Detail</li>
                         </ul>
-                    </div>
+                    </div> --}}
 
                 <!-- BREADCRUMB ROW END -->
             </div>

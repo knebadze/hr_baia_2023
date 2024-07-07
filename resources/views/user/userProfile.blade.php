@@ -38,7 +38,7 @@
                     </div>
                 @endif
 
-                    <candidate-profile :data='@json($data)' :role_id='@json(Auth::guard('web')->check()?3:Auth::guard('staff')->user()->role_id)'></candidate-profile>
+                    <candidate-profile :data='@json($data)' :role_id='@json($data['role_id'])'></candidate-profile>
 
 
             </div>

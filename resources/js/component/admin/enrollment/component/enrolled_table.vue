@@ -8,30 +8,7 @@
         <hr />
     </div>
 
-    <!-- <div class="row">
-        <div class="col-md-12 border">
-
-            <div class="row">
-                <div class="col-md-4">
-                    <dl class="row">
-
-                        <dt class="col-sm-4">ვაკანსიის ID:</dt>
-                        <dd class="col-sm-8"></dd>
-                    </dl>
-                    <p>ვისი: </p>
-                    <p>ვინ ჩარიცხა: </p>
-                    <p>ტიპი: </p>
-                </div>
-                <div class="col-md-4">
-                    <p>თანხა: </p>
-                    <p>staff %: </p>
-                    <p>ბონუსი: </p>
-                    <p>ქვითარი: </p>
-                </div>
-            </div>
-
-        </div>
-    </div> -->
+    
 
     <div class="table-responsive">
         <table class="table table-bordered">
@@ -219,12 +196,6 @@ export default {
             window.open(pdfUrl, "_blank");
         },
         agree(item) {
-            // let model = {
-            //     'id': item.id,
-            //     'enrollment_type': item.enrollment_type,
-            //     'vacancy_id': item.vacancy_id,
-            //     'vacancy_enrollment'
-            // }
             let currentObj = this;
             this.$swal({
                 title: "ნამდვილად გსურთ დადასტურება?",

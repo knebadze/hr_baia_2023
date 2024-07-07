@@ -16,7 +16,7 @@
                         <enrolled_tab :data="data" :auth="auth"></enrolled_tab>
                     </div>
                     <div class="tab-pane" id="tab_2">
-                        <must_be_enrolled_tab :auth="auth"></must_be_enrolled_tab>
+                        <must_be_enrolled_tab :data="data" :auth="auth"></must_be_enrolled_tab>
                     </div>
                 </div>
 

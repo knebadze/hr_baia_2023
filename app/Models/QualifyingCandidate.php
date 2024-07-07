@@ -29,30 +29,6 @@ class QualifyingCandidate extends Model
         'created_at' => 'datetime:m-d-Y H:i',
         'updated_at' => 'datetime:m-d-Y H:i'
     ];
-    // public function getInterviewDateAttribute($value)
-    // {
-    //     return Carbon::parse($value)->format('m-d-Y H:i');
-    // }
-
-    // public function getStartDateAttribute($value)
-    // {
-    //     return Carbon::parse($value)->format('m-d-Y');
-    // }
-
-    // public function getEndDateAttribute($value)
-    // {
-    //     return Carbon::parse($value)->format('m-d-Y');
-    // }
-
-    // public function getCreatedAtAttribute($value)
-    // {
-    //     return Carbon::parse($value)->format('m-d-Y H:i');
-    // }
-
-    // public function getUpdatedAtAttribute($value)
-    // {
-    //     return Carbon::parse($value)->format('m-d-Y H:i');
-    // }
     public function getActivitylogOptions(): LogOptions
     {
         $logOptions = LogOptions::defaults([])->logFillable()->logOnlyDirty();

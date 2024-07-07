@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Listeners\HrJob;
-use App\Events\hrDailyJob;
+use App\Listeners\staffJob;
+use App\Events\staffDailyJob;
 use App\Events\SmsNotificationEvent;
 use App\Listeners\SendSmsNotificationListener;
 use Illuminate\Support\Facades\Event;
@@ -22,8 +22,8 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        hrDailyJob::class => [
-            HrJob::class,
+        staffDailyJob::class => [
+            staffJob::class,
         ],
         SmsNotificationEvent::class => [
             SendSmsNotificationListener::class,

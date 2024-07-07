@@ -110,6 +110,7 @@ class VacancyUpdateService{
         return $data;
     }
     public function updateData($data, $ip) {['lang'];
+        $lang = 'ka';
         $trData = $this->translate($lang, $data['model']);
         $result = $this->vacancyUpdateRepository->update($trData, $ip);
         return $result;

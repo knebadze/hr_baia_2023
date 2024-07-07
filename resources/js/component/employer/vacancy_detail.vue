@@ -42,6 +42,9 @@
                                                     class="twm-job-post-duration"
                                                 ></span>
                                             </h4> -->
+                                            <h4 class="twm-job-title">
+                                                ID: {{ vacancy.code }}
+                                            </h4>
                                             <div
                                                 class="row d-flex align-items-center"
                                             >

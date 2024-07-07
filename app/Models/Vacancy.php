@@ -12,7 +12,7 @@ class Vacancy extends Model
 {
     use LogsActivity, HasFactory;
     protected $fillable = [
-        'code ',
+        'code',
         'author_id',
         'hr_id',
         'title_ka',
@@ -21,9 +21,7 @@ class Vacancy extends Model
         'slug',
         'category_id',
         'status_id',
-        'address_ka',
-        'address_en',
-        'address_ru',
+        'status_change_reason',
         'payment',
         'currency_id',
         'work_schedule_id',
@@ -33,14 +31,15 @@ class Vacancy extends Model
         'start_date',
         'term_id',
         'comment',
+        'photo',
         'go_vacation',
         'stay_night',
         'work_additional_hours',
         'interview_date',
         'interview_place_id',
         'view',
-        'photo',
-        'reason_for_cancel_id'
+        'carry_in_head_date',
+        'reason_for_cancel_id',
     ];
     protected $casts = [
         'created_at' => 'datetime:m-d-Y H:i',
@@ -217,10 +216,10 @@ class Vacancy extends Model
     {
         return $this->belongsTo(ReasonForCancel::class, 'reason_for_cancel_id', 'id');
     }
-    public function enrollments () 
+    public function enrollments ()
     {
         return $this->hasMany(Enrollment::class, 'vacancy_id', 'id');
-    
+
     }
 
 

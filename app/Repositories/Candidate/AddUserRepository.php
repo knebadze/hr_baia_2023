@@ -4,7 +4,7 @@ namespace App\Repositories\Candidate;
 
 use App\Models\User;
 use App\Models\Staff;
-use App\Events\hrDailyJob;
+use App\Events\staffDailyJob;
 use App\Models\GlobalVariable;
 use App\Models\RegistrationFee;
 use App\Models\userRegisterLog;
@@ -137,7 +137,7 @@ class AddUserRepository
     }
     function dailyWorkEvent($staff_id) {
         try {
-            event(new hrDailyJob($staff_id, 'candidate_has_registered'));
+            event(new staffDailyJob($staff_id, 'candidate_has_registered'));
         } catch (\Exception $e) {
             // Handle the exception
             throw new \Exception("dailyWorkEvent failed: ". $e, 500);

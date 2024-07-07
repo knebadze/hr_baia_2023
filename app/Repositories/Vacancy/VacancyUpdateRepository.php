@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use App\Models\VacancyDemand;
 use App\Models\VacancyDeposit;
 use OwenIt\Auditing\Models\Audit;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use OwenIt\Auditing\Contracts\Auditor;
 use OwenIt\Auditing\Resolvers\IpAddressResolver;
@@ -16,106 +18,107 @@ use OwenIt\Auditing\Resolvers\IpAddressResolver;
 class VacancyUpdateRepository
 {
 
-    public function update($data, $ip){
-        $id = $data['id'];
-        $vacancy = Vacancy::findOrFail($id);
-        $vacancy->title_ka = $data['title_ka'];
-        $vacancy->title_en = $data['title_en'];
-        $vacancy->title_ru = $data['title_ru'];
-        $vacancy->slug = str()->slug($data['title_en']);
-        $vacancy->category_id = $data['category']['id'];
-        $vacancy->status_id = $data['status']['id'];
 
-        $vacancy->payment = $data['payment'];
-        $vacancy->currency_id = $data['currency']['id'];
-        $vacancy->work_schedule_id = $data['work_schedule']['id'];
-        $vacancy->additional_schedule_ka = $data['additional_schedule_ka'];
-        $vacancy->additional_schedule_en = $data['additional_schedule_en'];
-        $vacancy->additional_schedule_ru = $data['additional_schedule_ru'];
+    public function update($data, $ip)
+    {
+        DB::beginTransaction();
+        try {
+            // Assuming validation is done elsewhere or using request validation
 
-        $vacancy->comment = $data['comment'];
-        $dateTime = $data['interviewDate'].' '.$data['interviewTime'];
-        $vacancy->interview_date = $dateTime;
-        $vacancy->interview_place_id = $data['interview_place']['id'];
+            $vacancy = Vacancy::findOrFail($data['id']);
+            $vacancy->update($this->prepareData($data));;
 
+            // Update VacancyDemand
+            $this->updateVacancyDemand($data['demand']);
 
-        $vacancy->go_vacation = $data['go_vacation'];
-        $vacancy->stay_night = $data['stay_night'];
-        $vacancy->work_additional_hours = $data['work_additional_hours'];
-        $vacancy->start_date = $data['start_date'];
-        $vacancy->term_id = $data['term']['id'];
-        $vacancy->update();
+            // Update Employer
+            $employer = Employer::findOrFail($data['employer']['id']);
+            $employer->fill($data['employer']);
+            $employer->save();
 
+            // Sync relationships
+            $this->syncRelationships($vacancy, $data);
 
-       
-            VacancyDemand::updateOrCreate(
-                ['vacancy_id' => $data['demand']['vacancy_id']], // Update condition
-                [
-                    'vacancy_id' => $data['demand']['vacancy_id'],
-                    'min_age' => $data['demand']['min_age'] ?? null,
-                    'max_age' => $data['demand']['max_age'] ?? null,
-                    'education_id' => $data['demand']['education']['id'] ?? null,
-                    'profession_id' => $data['demand']['specialty']['id'] ?? null,
-                    'additional_duty_ka' => $data['demand']['additional_duty_ka'] ?? null,
-                    'additional_duty_en' => $data['demand']['additional_duty_en'] ?? null,
-                    'additional_duty_ru' => $data['demand']['additional_duty_ru'] ?? null,
-                    'language_id' => $data['demand']['language']['id'] ?? null,
-                    'language_level_id' => $data['demand']['language_level']['id'] ?? null,
-                    'has_experience' => isset($data['demand']['has_experience']) ? $data['demand']['has_experience'] : 0,
-                    'has_recommendation' => isset($data['demand']['has_recommendation']) ? $data['demand']['has_recommendation']: 0,
-                ]
-            );
-
-        $employer = Employer::findOrFail($data['employer']['id']);
-        $employer->name_ka = $data['employer']['name_ka'];
-        $employer->name_en = $data['employer']['name_en'];
-        $employer->name_ru = $data['employer']['name_ru'];
-        $employer->address_ka = $data['employer']['address_ka'];
-        $employer->address_en = $data['employer']['address_en'];
-        $employer->address_ru = $data['employer']['address_ru'];
-        $employer->number = $data['employer']['number'];
-        $employer->number_code_id = $data['employer']['number_code']['id'];
-        $employer->email = $data['employer']['email'];
-        $employer->update();
-
-        $selectForWhoNeedId = collect($data['vacancy_for_who_need'])->reduce(function ($carry, $item) {
-            if($carry  == null) $carry = [];
-            $carry[] = $item["id"];
-            return $carry;
-        }, []);
-        $vacancy->syncVacancyForWhoNeed($selectForWhoNeedId);
-
-        $selectBenefitId = collect($data['vacancy_benefit'])->reduce(function ($carry, $item) {
-            if($carry  == null) $carry = [];
-            $carry[] = $item["id"];
-            return $carry;
-        }, []);
-        $vacancy->syncVacancyBenefit($selectBenefitId);
-
-        $selectCharacteristic = collect($data['characteristic'])->reduce(function ($carry, $item) {
-            if($carry  == null) $carry = [];
-            $carry[] = $item['id'];
-            return $carry;
-        }, []);
-        $vacancy->syncCharacteristic($selectCharacteristic);
-
-        $selectDutyId = collect($data['vacancy_duty'])->reduce(function ($carry, $item) {
-            if($carry  == null) $carry = [];
-            $carry[] = $item["id"];
-            return $carry;
-        }, []);
-        $vacancy->syncVacancyDuty($selectDutyId);
-
-        if (isset($data['vacancy_driving_license'])) {
-            $selectDrivingLicenseId = collect($data['vacancy_driving_license'])->reduce(function ($carry, $item) {
-                if($carry  == null) $carry = [];
-                $carry[] = $item["id"];
-                return $carry;
-            }, []);
-            $vacancy->syncVacancyDrivingLicense($selectDrivingLicenseId);
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            // Handle error, log it or return a response
+            throw $e;
         }
     }
 
+    private function prepareData($data) {
+        $preparedData = array_intersect_key($data, array_flip([
+            'title_ka', 'title_en', 'title_ru', 'slug', 'category_id', 'status_id',
+            'payment', 'currency_id', 'work_schedule_id', 'additional_schedule_ka',
+            'additional_schedule_en', 'additional_schedule_ru', 'comment', 'interview_date',
+            'interview_place_id', 'go_vacation', 'stay_night', 'work_additional_hours',
+            'start_date', 'term_id'
+        ]));
+
+        // Manually set attributes for nested array elements and transformations
+        $preparedData['slug'] = str()->slug($data['title_en']); // Assuming str() is a valid helper
+        $preparedData['interview_date'] = $data['interviewDate'].' '.$data['interviewTime'];
+        $preparedData['work_schedule_id'] = $data['work_schedule']['id'];
+        $preparedData['category_id'] = $data['category']['id'];
+        $preparedData['status_id'] = $data['status']['id'];
+        $preparedData['currency_id'] = $data['currency']['id'];
+        $preparedData['interview_place_id'] = $data['interview_place']['id'];
+        $preparedData['term_id'] = $data['term']['id'];
+
+        return $preparedData;
+    }
+
+    private function updateVacancyDemand($demandData)
+    {
+        $preparedData = [
+            'vacancy_id' => $demandData['vacancy_id'],
+            'min_age' => $demandData['min_age'] ?? null,
+            'max_age' => $demandData['max_age'] ?? null,
+            'education_id' => $demandData['education']['id'] ?? null,
+            'profession_id' => $demandData['specialty']['id'] ?? null,
+            'additional_duty_ka' => $demandData['additional_duty_ka'] ?? null,
+            'additional_duty_en' => $demandData['additional_duty_en'] ?? null,
+            'additional_duty_ru' => $demandData['additional_duty_ru'] ?? null,
+            'language_id' => $demandData['language']['id'] ?? null,
+            'language_level_id' => $demandData['language_level']['id'] ?? null,
+            'has_experience' => $demandData['has_experience'] ?? 0,
+            'has_recommendation' => $demandData['has_recommendation'] ?? 0,
+        ];
+
+        // Use the prepared data for updateOrCreate
+        try {
+            // Use the prepared data for updateOrCreate
+            VacancyDemand::updateOrCreate(
+                ['vacancy_id' => $preparedData['vacancy_id']],
+                $preparedData
+            );
+        } catch (\Exception $e) {
+            // Handle the exception
+            // For example, log the error and/or return a custom error response
+            Log::error("Error updating vacancy demand: " . $e->getMessage());
+            // Optionally rethrow or handle differently
+            throw $e;
+        }
+    }
+
+    private function syncRelationships($vacancy, $data)
+    {
+        $relations = [
+            'vacancy_for_who_need' => 'syncVacancyForWhoNeed',
+            'vacancy_benefit' => 'syncVacancyBenefit',
+            'characteristic' => 'syncCharacteristic',
+            'vacancy_duty' => 'syncVacancyDuty',
+            'vacancy_driving_license' => 'syncVacancyDrivingLicense',
+        ];
+
+        foreach ($relations as $key => $method) {
+            if (isset($data[$key])) {
+                $ids = collect($data[$key])->pluck('id')->toArray();
+                $vacancy->$method($ids);
+            }
+        }
+    }
     function updateDeposit($data) {
         $deposit = VacancyDeposit::findOrFail($data['id']);
         if ($deposit->employer_initial_amount != $data['employer_initial_amount']) {

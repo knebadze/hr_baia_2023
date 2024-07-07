@@ -2,12 +2,13 @@
 
 namespace App\Repositories\Vacancy;
 
+use Exception;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Vacancy;
 use App\Models\WorkDay;
 use App\Models\Candidate;
-use App\Events\hrDailyJob;
+use App\Events\staffDailyJob;
 use App\Models\GlobalVariable;
 use App\Models\RegistrationFee;
 use App\Models\userRegisterLog;
@@ -15,59 +16,123 @@ use App\Models\VacancyReminder;
 use Illuminate\Support\Facades\DB;
 use App\Models\QualifyingCandidate;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Log;
 use App\Events\SmsNotificationEvent;
 use Illuminate\Support\Facades\Auth;
 
 class AddVacancyPersonalRepository
 {
+    
     function add($data) {
-        $qualifying = new QualifyingCandidate();
-        $qualifying->vacancy_id = $data['vacancy_id'];
-        $qualifying->qualifying_type_id = $data['type']['id'];
-        $qualifying->candidate_id = $data['candidate_id'];
-        $status = null;
-        if ($data['type']['id'] == 4) {
-            $status = 17;
-            $qualifying->interview_date = $data['interview_date'];
-            $qualifying->interview_place_id = $data['interview_place']['id'];
-            $reminderText = 'კანდიდატი (ID: '.$data['candidate_id'].') შევიდა გასაუბრებაზე, უნდა გადავამოწმო როგორ ჩაიარა გასაუბრებამ';
-            $carbonDate = Carbon::parse($data['interview_date']);
-            $modifiedDate = $carbonDate->addHour();
-            $reminderData = $modifiedDate->format('Y-m-d H:i:s');
-            $this->addReminder($data['vacancy_id'], $reminderData, $reminderText );
+        DB::beginTransaction(); // Start a new database transaction
+        try {
+            $qualifying = new QualifyingCandidate();
+            $qualifying->fill([
+                'vacancy_id' => $data['vacancy_id'],
+                'qualifying_type_id' => $data['type']['id'],
+                'candidate_id' => $data['candidate_id'],
+                'status_id' => 17, // Default status, assuming it's always set to 17 in your cases
+            ]);
+
+            switch ($data['type']['id']) {
+                case 4:
+                    $this->handleInterviewType($qualifying, $data);
+                    break;
+                case 5:
+                    $this->handleApprovalType($qualifying, $data);
+                    break;
+                case 6:
+                    $this->handleProbationaryPeriodType($qualifying, $data);
+                    break;
+            }
+
+            $qualifying->save();
+            if ($data['type']['id'] != 3) {
+                $this->sendSms($qualifying);
+            }
+
+            DB::commit(); // Commit the transaction
+
+            return $qualifying;
+        } catch (\Exception $e) {
+            DB::rollBack(); // Roll back the transaction on error
+            Log::error("Error adding qualifying candidate: " . $e->getMessage());
+            throw $e; // Rethrow the exception after rolling back
         }
-        if ($data['type']['id'] == 5) {
-            $status = 17;
-            $qualifying->start_date = Carbon::now();
-            $qualifying->end_date = $qualifying->start_date->copy()->addDays(5);
-            $this->changeCandidateStatus($data['candidate_id'], $data['type']['id']);
-            $this->dailyWorkEvent($data['vacancy_id'], 'approved_by_employer');
+    }
+    function update($data) {
+        DB::beginTransaction();
+        try {
+            $qualifying = QualifyingCandidate::where('candidate_id', $data['candidate_id'])
+                                              ->where('vacancy_id', $data['vacancy_id'])
+                                              ->first();
+            if (!$qualifying) {
+                // Handle the case where the qualifying candidate is not found
+                // For example, throw a custom exception or return a specific response
+                throw new \Exception("Qualifying candidate not found.");
+            }
+
+            $qualifying->qualifying_type_id = $data['type']['id'];
+            $status = null;
+
+            switch ($data['type']['id']) {
+                case 4:
+                    $this->handleInterviewType($qualifying, $data);
+                    break;
+                case 5:
+                    $status = 17;
+                    $this->handleApprovalType($qualifying, $data);
+                    break;
+                case 6:
+                    $status = 17;
+                    $this->handleProbationaryPeriodType($qualifying, $data);
+                    break;
+            }
+
+            // If status is set, update it
+            if ($status !== null) {
+                $qualifying->status_id = $status;
+            }
+
+            $qualifying->save();
+            DB::commit(); // Commit the transaction if everything is successful
+
+            return $qualifying;
+        } catch (\Exception $e) {
+            DB::rollBack(); // Rollback the transaction in case of an error
+            Log::error("Error updating qualifying candidate: " . $e->getMessage());
+            // Optionally, rethrow the exception or return a custom error response
+            throw $e;
+            // Or return a custom error response
+            // return response()->json(['error' => 'An unexpected error occurred'], 500);
         }
-        if ($data['type']['id'] == 6) {
-            $status = 17;
-            $qualifying->start_date = $data['start_date'];
-            $qualifying->end_date = $data['end_date'];
-            $reminderText = 'კანდიდატი (ID: '.$data['candidate_id']. ')შევიდა გამოსაცდელი ვადით, უნდა გადავამოწმო იმყოფება თუ არაა სამუშაო ადგილზე';
-            $reminderData = $data['start_date'];
-
-            // Create a Carbon instance from the date
-            $reminderDataCarbon = Carbon::parse($reminderData);
-
-            // Set the time to '12:00:00'
-            $reminderDataCarbon->setTime(12, 0, 0);
-            $this->addReminder($data['vacancy_id'], $reminderDataCarbon, $reminderText);
-            $this->changeCandidateStatus($data['candidate_id'], $data['type']['id']);
-            $this->dailyWorkEvent($data['vacancy_id'], 'has_probationary_period');
-            $this->updateQualifying($data['vacancy_id']);
-        }
-        $qualifying->status_id = $status;
-        $qualifying->save();
-
-        $data['type']['id'] != 3 && $this->sendSms($qualifying);
-
-        return $qualifying;
     }
 
+    private function handleInterviewType($qualifying, $data) {
+        $qualifying->interview_date = $data['interview_date'];
+        $qualifying->interview_place_id = $data['interview_place']['id'];
+        $reminderText = "კანდიდატი (ID: {$data['candidate_id']}) შევიდა გასაუბრებაზე, უნდა გადავამოწმო როგორ ჩაიარა გასაუბრებამ";
+        $reminderData = Carbon::parse($data['interview_date'])->addHour()->format('Y-m-d H:i:s');
+        $this->addReminder($data['vacancy_id'], $reminderData, $reminderText);
+    }
+
+    private function handleApprovalType($qualifying, $data) {
+        $qualifying->start_date = Carbon::now();
+        $qualifying->end_date = Carbon::now()->addDays(5);
+        $this->changeCandidateStatus($data['candidate_id'], $data['type']['id']);
+        $this->dailyWorkEvent($data['vacancy_id'], 'approved_by_employer');
+    }
+
+    private function handleProbationaryPeriodType($qualifying, $data) {
+        $qualifying->start_date = $data['start_date'];
+        $qualifying->end_date = $data['end_date'];
+        $reminderText = "კანდიდატი (ID: {$data['candidate_id']})შევიდა გამოსაცდელი ვადით, უნდა გადავამოწმო იმყოფება თუ არაა სამუშაო ადგილზე";
+        $reminderData = Carbon::parse($data['start_date'])->setTime(12, 0)->format('Y-m-d H:i:s');
+        $this->addReminder($data['vacancy_id'], $reminderData, $reminderText);
+        $this->changeCandidateStatus($data['candidate_id'], $data['type']['id']);
+        $this->dailyWorkEvent($data['vacancy_id'], 'has_probationary_period');
+        $this->updateQualifying($data['vacancy_id']);
+    }
 
     function addArr($data) {
         foreach ($data['candidate_id'] as $key => $value) {
@@ -82,49 +147,6 @@ class AddVacancyPersonalRepository
             $qualifying->save();
 
         }
-        return $qualifying;
-    }
-
-    function update($data) {
-        $qualifying = QualifyingCandidate::where('candidate_id', $data['candidate_id'])->where('vacancy_id', $data['vacancy_id'])->first();
-        $qualifying->qualifying_type_id = $data['type']['id'];
-        $status = null;
-        if ($data['type']['id'] == 4) {
-            $qualifying->interview_date = $data['interview_date'];
-            $qualifying->interview_place_id = $data['interview_place']['id'];
-            $reminderText = 'კანდიდატი (ID: '.$data['candidate_id'].') შევიდა გასაუბრებაზე, უნდა გადავამოწმო როგორ ჩაიარა გასაუბრებამ';
-            $carbonDate = Carbon::parse($data['interview_date']);
-            $modifiedDate = $carbonDate->addHour();
-            $reminderData = $modifiedDate->format('Y-m-d H:i:s');
-            $this->addReminder($data['vacancy_id'], $reminderData, $reminderText );
-        }
-        if ($data['type']['id'] == 5) {
-            $status = 17;
-            $qualifying->start_date = Carbon::now();
-            $qualifying->end_date = $qualifying->start_date->copy()->addDays(5);
-            $this->changeCandidateStatus($data['candidate_id'], $data['type']['id']);
-            $this->dailyWorkEvent($data['vacancy_id'], 'approved_by_employer');
-        }
-        if ($data['type']['id'] == 6) {
-            $status = 17;
-            $qualifying->start_date = $data['start_date'];
-            $qualifying->end_date = $data['end_date'];
-            $reminderText = 'კანდიდატი (ID: '.$data['candidate_id']. ')შევიდა გამოსაცდელი ვადით, უნდა გადავამოწმო იმყოფება თუ არაა სამუშაო ადგილზე';
-            $reminderData = $data['start_date'];
-
-            // Create a Carbon instance from the date
-            $reminderDataCarbon = Carbon::parse($reminderData);
-
-            // Set the time to '12:00:00'
-            $reminderDataCarbon->setTime(12, 0, 0);
-            $this->addReminder($data['vacancy_id'], $reminderDataCarbon, $reminderText);
-            $this->changeCandidateStatus($data['candidate_id'], $data['type']['id']);
-            $this->dailyWorkEvent($data['vacancy_id'], 'has_probationary_period');
-            $this->updateQualifying($data['vacancy_id']);
-        }
-        $qualifying->status_id = $status;
-        $qualifying->update();
-        $data['type']['id'] != 3 && $this->sendSms($qualifying);
         return $qualifying;
     }
 
@@ -160,25 +182,34 @@ class AddVacancyPersonalRepository
     }
     // როცა კადრი დასაქმდა
     function wasEmployed($data){
-        $vacancy_id = $data['vacancy']['id'];
-        $end_date = $this->endDay($data['vacancy']['term'], $data['vacancy']['start_date']);
-        $qualifying = QualifyingCandidate::updateOrCreate(
-            ['candidate_id' => $data['candidate_id'], 'vacancy_id' => $vacancy_id],
-            [
-                'qualifying_type_id' => $data['employ_type']['id'],
-                'start_date' => $data['vacancy']['start_date'],
-                'end_date' => $end_date,
-                'status_id' => 17,
-            ]
-        );
-        $this->changeCandidateStatus($data['candidate_id'], $data['employ_type']['id']);
-        $this->addRegistrationFee($data['candidate_id'], $vacancy_id);
-        if ($data['employ_type']['id'] == 8) {
-            $this->workDay($qualifying->id, $data['vacancy']['work_schedule_id'], $data['vacancy']['start_date'], $data['vacancy']['term'], $data['week_day']);
+        DB::beginTransaction();
+        try {
+            $vacancy_id = $data['vacancy']['id'];
+            $end_date = $this->endDay($data['vacancy']['term'], $data['vacancy']['start_date']);
+            $qualifying = QualifyingCandidate::updateOrCreate(
+                ['candidate_id' => $data['candidate_id'], 'vacancy_id' => $vacancy_id],
+                [
+                    'qualifying_type_id' => $data['employ_type']['id'],
+                    'start_date' => $data['vacancy']['start_date'],
+                    'end_date' => $end_date,
+                    'status_id' => 17,
+                ]
+            );
+            $this->changeCandidateStatus($data['candidate_id'], $data['employ_type']['id']);
+            $this->addRegistrationFee($data['candidate_id'], $vacancy_id);
+            if ($data['employ_type']['id'] == 8) {
+                $this->workDay($qualifying->id, $data['vacancy']['work_schedule_id'], $data['vacancy']['start_date'], $data['vacancy']['term'], $data['week_day']);
+            }
+            $this->employedDailyWorkEvent($vacancy_id);
+    
+            DB::commit();
+            return $qualifying;
+        } catch (Exception $e) {
+            DB::rollBack();
+            // Handle the error, e.g., log it or return a custom error message
+            // Log::error($e->getMessage());
+            throw $e; // or return a response indicating failure
         }
-        $this->employedDailyWorkEvent($vacancy_id);
-
-        return $qualifying;
     }
 
     function changeCandidateStatus($candidate_id, $employ_type_id)  {
@@ -322,12 +353,12 @@ class AddVacancyPersonalRepository
 
     function dailyWorkEvent($vacancy_id, $type) {
         $vacancy = Vacancy::where('id', $vacancy_id)->first();
-        event(new hrDailyJob($vacancy->hr_id, $type));
+        event(new staffDailyJob($vacancy->hr_id, $type));
     }
 
     function employedDailyWorkEvent($vacancy_id) {
         $vacancy = Vacancy::where('id', $vacancy_id)->first();
-        event(new hrDailyJob($vacancy->hr_id, 'employed'));
+        event(new staffDailyJob($vacancy->hr_id, 'employed'));
     }
 
     private function getFirstName($fullName) {
@@ -347,15 +378,23 @@ class AddVacancyPersonalRepository
 
         switch ($qualifying->qualifying_type_id) {
             case 1:
-                $notificationType = 'will_think_candidate';
+                // $notificationType = 'will_think_candidate';
+                // $data = [
+                //     'to' => $candidate_number,
+                //     'category' => $qualifying->vacancy->category->name_ka,
+                //     'number' => $hr_number,
+                //     'link' => route('job.detail', [
+                //         'locale' => App::getLocale(),
+                //         'id' => $qualifying->vacancy->id,
+                //         'slug' => $qualifying->vacancy->slug,
+                //     ]),
+                // ];
+                $notificationType = 'interested_candidate_employer';
                 $data = [
-                    'to' => $candidate_number,
-                    'category' => $qualifying->vacancy->category->name_ka,
-                    'number' => $hr_number,
-                    'link' => route('job.detail', [
+                    'to' => $employer_number,
+                    'link' => route('candidate.photo.questionnaire', [
                         'locale' => App::getLocale(),
-                        'id' => $qualifying->vacancy->id,
-                        'slug' => $qualifying->vacancy->slug,
+                        'id' => $qualifying->id,
                     ]),
                 ];
                 break;
@@ -453,7 +492,7 @@ class AddVacancyPersonalRepository
                 // Handle the default case if needed
                 break;
         }
-
+        // dd($data, $notificationType);
         event(new SmsNotificationEvent($data, $notificationType));
     }
 
@@ -472,31 +511,7 @@ class AddVacancyPersonalRepository
                     $text = 'შევიდა გასაუბრებაზე';
                     VacancyReminder::where('vacancy_id', $vacancy_id)->where('reason', 'LIKE', '%'.$text.'%')->update(['active' => 1]);
                 }
-
-
-                // Update records for qualifying_type_id 5 or 6 and within the date range
-                // რა შემთხვევაში უნდა გაუქმდეს მიმდინარე მოწონება და გამოსაცდელი
-                // თუ ახალის სტარტი და ენდ ნაპოვნის თარიებს შორისაა
-                // --------------------------დასამუშავებელია--------------------------
-                // QualifyingCandidate::where('vacancy_id', $vacancy_id)
-                //     ->whereIn('qualifying_type_id', 6)
-                //     ->where('status_id', 17)
-
-                //     ->update(['status_id' => 19]);
-
             DB::commit();
-            // if (QualifyingCandidate::where('vacancy_id', $vacancy_id)->where('qualifying_type_id', 6)->where('status_id', 19)->where('updated_at', now())->exists()) {
-            //     $admin = User::where('id',76)->first();
-            //     $data = [
-            //         'to' => $admin->number,
-            //         'hr' => Auth::user()->name_ka,
-            //         'link' => route('vacancy.personal', [
-            //             'id' => $vacancy_id,
-            //         ])
-            //     ];
-            //     $notificationType = 'probation_canceled_admin';
-            //     event(new SmsNotificationEvent($data, $notificationType));
-            // }
             return true;
         } catch (\Throwable $th) {
             DB::rollBack();

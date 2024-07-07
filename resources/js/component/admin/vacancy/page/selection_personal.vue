@@ -939,6 +939,7 @@
                 </div>
             </div>
             <!-- /.container-fluid -->
+            <p>სულ: {{ count }}</p>
             <select_personal_table
                 v-if="candidate.length > 0"
                 :data="modalData"
@@ -977,6 +978,7 @@ const colspan = ref("show");
 const modalData = reactive({});
 const vacancy = ref(null);
 const tableKey = ref(0);
+const count = ref(0);
 const pagination = ref({
     current_page: 1,
     last_page: 2,
@@ -1046,12 +1048,16 @@ const findCandidate = () => {
         )
         .then(function (response) {
             // handle success
-            candidate.value = response.data.data;
-            modalData["candidate"] = response.data.data;
+            console.log(response.data);
+            const data = response.data;
+            const { candidates, total } = data;
+            candidate.value = candidates.data;
+            modalData["candidate"] = candidates.data;
             pagination.value = {
-                current_page: response.data.current_page,
-                last_page: response.data.last_page,
+                current_page: candidates.current_page,
+                last_page: candidates.last_page,
             };
+            count.value = total;
             tableKey.value++;
         })
         .catch(function (error) {

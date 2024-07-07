@@ -8,7 +8,7 @@ use App\Models\Staff;
 use App\Models\Salary;
 use App\Models\Vacancy;
 use App\Models\Candidate;
-use App\Events\hrDailyJob;
+use App\Events\staffDailyJob;
 use App\Models\Enrollment;
 use App\Models\VacancyDeposit;
 use App\Models\RegistrationFee;
@@ -222,6 +222,6 @@ class EnrollmentAgreeRepository
     function dailyWorkEvent($staff_id, $type) {
         $staff = Staff::where('id', $staff_id)->first();
         $eventType = ($type == 'v') ? 'has_enrollment_vacancy' : 'has_enrollment_register';
-        event(new hrDailyJob($staff->id, $eventType));
+        event(new staffDailyJob($staff->id, $eventType));
     }
 }

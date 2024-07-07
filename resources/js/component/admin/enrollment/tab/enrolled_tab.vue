@@ -243,13 +243,13 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <button
+                            <!-- <button
                                 type="button"
                                 class="btn btn-primary"
                                 @click="endFilter()"
                             >
                                 <i class="fa fa-times"></i> ფილტრის გამორთვა
-                            </button>
+                            </button> -->
                             <button
                                 type="button"
                                 class="btn btn-success float-right"
