@@ -140,7 +140,7 @@ class EnrollmentService
             $staff = Staff::where('id', $data['author_id'])->first();
             $smsData = [
                 'to' => $staff->number, 
-                'hrInicial' => '', 
+                'type' => $data['vacancy']?'ვაკანსიის':'კანდიდატის', 
                 'money' => $data['money'], 
                 'code'=> $data['vacancy']?$data['vacancy']['code']:$data['candidate_id'], 
                 'url' => route('admin.enrollment'),
