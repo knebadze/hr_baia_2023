@@ -6,6 +6,7 @@ const { completed } = unfinishedRegistrationStore;
 const props = defineProps({
     items: Object,
     role_id: Number,
+    option: Object,
 });
 const textClass = (date) => {
     const currentDate = moment();
@@ -19,6 +20,7 @@ const completedRegistration = (id) => {
         `${url.origin}/ka/user/userProfile?user=${id}`
     );
 };
+
 </script>
 <template>
     <table class="table table-hover text-nowrap">
@@ -50,7 +52,7 @@ const completedRegistration = (id) => {
                     {{ item.created_at }}
                 </td>
                 <td>
-                    <div class="dropdown">
+                    <div class="dropdown" >
                         <button
                             class="btn btn-primary dropdown-toggle"
                             type="button"
@@ -78,14 +80,14 @@ const completedRegistration = (id) => {
                                 >შევასრულე</a
                             >
                             <a
-                                v-if="role_id == 1"
+                                v-if="role_id == 1 && option.childePermission && item.was_assigned_parent_id == option.admin_id"
                                 class="dropdown-item"
                                 href="#"
                                 @click="candidateDelete(item.id)"
                                 >გადაწერა</a
                             >
                             <a
-                                v-if="role_id == 1"
+                                v-if="role_id == 1 && option.childePermission && item.was_assigned_parent_id == option.admin_id"
                                 class="dropdown-item"
                                 href="#"
                                 @click="candidateDelete(item.id)"

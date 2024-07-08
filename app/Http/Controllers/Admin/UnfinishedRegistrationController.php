@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\UnfinishedRegistration;
 use App\Services\ClassificatoryService;
+use App\Traits\HandlesAdminDataViewCaching;
 use App\Http\Resources\UnfinishedRegistrationCollection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Resources\Staff\UnfinishedRegistrationResource;
@@ -15,25 +16,43 @@ use App\Filters\unFinishedRegistration\UnFinishedRegistrationFilters;
 
 class UnfinishedRegistrationController extends Controller
 {
+    use HandlesAdminDataViewCaching;
     function index() {
         return view('admin.unfinished_registration');
     }
 
     function fetch() {
-        $query = UnfinishedRegistration::where('status_id', 2)->when(Auth::guard('staff')->user()->role_id != 1, function ($query) {
-            $query->where('was_assigned_id', '=', Auth::guard('staff')->id());
-        });
+        list($authId, $childView, $childeFilter, $childePermission, $adminViewAndPermission) = $this->viewAndPermission();
+        $query = UnfinishedRegistration::where('status_id', 2)
+            ->when(Auth::guard('staff')->user()->role_id != 1, function ($query) {
+                $query->where('was_assigned_id', '=', Auth::guard('staff')->id());
+            })->when($childView, function ($query) use ($authId) {
+                $ids = $this->getStaffIds($authId);
+                return $query->whereIn('was_assigned_id', $ids);
+            });
         $unfinished = $query->paginate(20);
         $unfinished = new UnfinishedRegistrationCollection($unfinished);
         $total = $query->count();
         $classificatoryArray = ['status', 'unfinishedRegistrationAuthor', 'administrator'];
         $classificatoryService = new ClassificatoryService();
         $classificatory = $classificatoryService->get($classificatoryArray);
-
-        $data = ['unfinishedRegistrations' => $unfinished, 'total' => $total, 'role_id' => Auth::guard('staff')->user()->role_id, 'classificatory' => $classificatory];
+        $data = [
+            'unfinishedRegistrations' => $unfinished, 
+            'total' => $total, 
+            'role_id' => Auth::guard('staff')->user()->role_id, 
+            'classificatory' => $classificatory,
+            'option' => [
+                'childeFilter' => $childeFilter,
+                'childePermission' => $childePermission,
+                'admin_id' => $adminViewAndPermission->admin_id
+            ]
+            
+        ];
+            
         return response()->json($data);
     }
 
+ 
     function completed(Request $request) {
         try {
             $unfinished = UnfinishedRegistration::findOrFail($request->id);
@@ -76,6 +95,22 @@ class UnfinishedRegistrationController extends Controller
             // Handle the error
             return response()->json(['error' => 'An error occurred'], 500);
         }
+    }
+    private function viewAndPermission(){
+        $auth = Auth::guard('staff')->user();
+        $authId = $auth->id;
+        $role_id = $auth->role_id;
+        $childView = false;
+        $childeFilter = false;
+        $childePermission = false;
+        $adminViewAndPermission = [];
+        if ($role_id == 1) {
+            $adminViewAndPermission = $this->getAdminDataViewByKeyAndUserId('UnfinishedRegistration');
+            $childView = $adminViewAndPermission->view == 'child';
+            $childeFilter = $adminViewAndPermission->filter == 'child';
+            $childePermission = $adminViewAndPermission->permission == 'child';
+        }
+        return [$authId, $childView, $childeFilter, $childePermission, $adminViewAndPermission];
     }
 
 }

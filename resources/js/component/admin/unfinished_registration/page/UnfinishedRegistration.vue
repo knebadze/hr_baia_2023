@@ -8,7 +8,7 @@ import UnfinishedTable from '../component/UnfinishedTable.vue';
 import UnfinishedFilter from '../component/UnfinishedFilter.vue';
 
 const unfinishedRegistrationStore = useUnfinishedRegistrationStore();
-const { pagination, unfinishedRegistration, count, role_id, cla } = storeToRefs(unfinishedRegistrationStore);
+const { pagination, unfinishedRegistration, count, role_id, cla, option } = storeToRefs(unfinishedRegistrationStore);
 const { getData } = unfinishedRegistrationStore;
 
 onMounted(async() => {
@@ -22,7 +22,7 @@ onMounted(async() => {
         <div class="mb-2">
             <p>სულ: {{ count }}</p>
         </div>
-        <UnfinishedTable :items="unfinishedRegistration" :role_id="role_id"/>
+        <UnfinishedTable :items="unfinishedRegistration" :role_id="role_id" :option="option"/>
 
         <div class="mt-2">
             <paginate

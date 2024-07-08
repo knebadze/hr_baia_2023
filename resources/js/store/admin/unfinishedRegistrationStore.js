@@ -24,6 +24,17 @@ export const useUnfinishedRegistrationStore = defineStore(
             date_to: null,
             all: null,
         });
+        const option = ref([]);
+        const makeCla = (classificatory, childe, adminId) => {
+            if (!childe) {
+                return classificatory
+            } 
+            classificatory.administrator = _.filter(classificatory.administrator, ['parent_id', adminId])
+            classificatory.unfinishedRegistrationAuthor = _.filter(classificatory.unfinishedRegistrationAuthor, ['parent_id', adminId])
+            return classificatory
+        }
+          
+            
         const fetchUnfinishedRegistrations = async (page) => {
             try {
                 const response = await axios.post(
@@ -39,7 +50,10 @@ export const useUnfinishedRegistrationStore = defineStore(
                 };
                 count.value = total;
                 role_id.value = data.role_id;
-                cla.value = data.classificatory;
+                option.value = data.option;
+                cla.value = makeCla(data.classificatory, data.option.childeFilter, data.option.admin_id);
+                
+                console.log("option", option.value);
             } catch (error) {
                 console.error(
                     "Error fetching unfinished registrations:",
@@ -111,6 +125,7 @@ export const useUnfinishedRegistrationStore = defineStore(
             role_id,
             cla,
             filterItem,
+            option,
             fetchUnfinishedRegistrations,
             filterUnfinishedRegistrations,
             getData,

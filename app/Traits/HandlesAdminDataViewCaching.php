@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Models\Staff;
 use App\Models\AdminDataView;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
@@ -25,5 +26,9 @@ trait HandlesAdminDataViewCaching
     {
         $adminDataView = $this->getAdminDataView();
         return $adminDataView->where('key', $key)->first();
+    }
+
+    private function getStaffIds($parent_id) {
+        return Staff::where('parent_id', $parent_id)->pluck('id');
     }
 }
