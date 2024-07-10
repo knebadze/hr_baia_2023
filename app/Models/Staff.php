@@ -78,9 +78,14 @@ class Staff extends Model implements AuthenticatableContract
     {
         return $this->belongsTo(Branch::class);
     }
-    
+
     public function dataViews()
     {
         return $this->hasMany(AdminDataView::class, 'admin_id');
+    }
+
+    public function salaries()
+    {
+        return $this->hasMany(Salary::class, 'staff_id');
     }
 }

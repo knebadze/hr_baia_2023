@@ -49,7 +49,7 @@ trait FindHrTrait
         if ($vacancy) {
             $hrHasVacancy = HrHasVacancy::where('hr_id', $vacancy->hr_id)->first();
             if ($hrHasVacancy) {
-                $this->updateVacancyStatus($hrHasVacancy, ['has_vacancy' => 1]);
+                $this->UpdateHrHasVacancy($hrHasVacancy, ['has_vacancy' => 1]);
                 return $vacancy->hr_id;
             }
 

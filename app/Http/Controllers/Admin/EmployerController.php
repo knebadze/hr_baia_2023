@@ -111,4 +111,15 @@ class EmployerController extends Controller
         return view( 'admin.employer_vacancy', compact('data'));
     }
 
+    function destroy($id) {
+        // dd($id);
+        $employer = Employer::find($id);
+        if (Vacancy::where('author_id', $id)->whereNotIn('status_id', [5, 13])->exists()) {
+            return response()->json(['type' => 'e', 'message' => 'წაშლა ვერ ხერხდება, რადგან არსებობს ვაკანსიები რომლებიც არ დასრულებულა']);
+        }
+        $employer->delete();
+        return response()->json(['type' => 's', 'message' => 'წაიშალა']);
+
+    }
+
 }
