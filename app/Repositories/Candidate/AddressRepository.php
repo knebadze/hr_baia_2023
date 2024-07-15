@@ -3,50 +3,26 @@
 namespace App\Repositories\Candidate;
 
 use App\Models\Candidate;
+use App\Services\TranslationService;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class AddressRepository
 {
+
     public function translate($lang, $data)
     {
-        if ($lang == 'ka') {
-            $data['address_en'] = GoogleTranslate::trans($data['address_ka'], 'en');
-            $data['address_ru']  = GoogleTranslate::trans($data['address_ka'], 'ru');
+        // Specify the fields you want to translate
+        $fieldsToTranslate = ['address', 'street'];
 
-            if ($data['street_ka']) {
-                $data['street_en'] = GoogleTranslate::trans($data['street_ka'], 'en');
-                $data['street_ru']  = GoogleTranslate::trans($data['street_ka'], 'ru');
-            }
+        // Use the TranslationService to translate the fields
+        $translate = new TranslationService();
+        $data = $translate->translateFields($lang, $data, $fieldsToTranslate);
 
-
-        }elseif ($lang == 'en') {
-            $data['address_ka'] = GoogleTranslate::trans($data['address_en'], 'ka');
-            $data['address_ru']  = GoogleTranslate::trans($data['address_en'], 'ru');
-
-
-            if ($data['street_en']) {
-                $data['street_ka'] = GoogleTranslate::trans($data['street_en'], 'ka');
-                $data['street_ru']  = GoogleTranslate::trans($data['street_en'], 'ru');
-            }
-
-
-        }elseif ($lang == 'ru') {
-            $data['address_ka'] = GoogleTranslate::trans($data['address_ru'], 'ka');
-            $data['address_en']  = GoogleTranslate::trans($data['address_ru'], 'en');
-
-
-            if ($data['street_ru']) {
-                $data['street_ka'] = GoogleTranslate::trans($data['street_ru'], 'ka');
-                $data['street_en']  = GoogleTranslate::trans($data['vacancy']['street_ru'], 'en');
-            }
-
-
-        }
         return $data;
     }
     function save($data, $user_id) {
         try {
-            $lang = (array_key_exists('lang', $data))?$data['lang']:'ka';
+            $lang = (array_key_exists('lang', $data))?$data['lang']:app()->getLocale();
             $data = $this->translate($lang, $data);
             $candidate = Candidate::where('user_id', $user_id)->update(
                 [

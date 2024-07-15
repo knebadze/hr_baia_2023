@@ -4,36 +4,27 @@ namespace App\Repositories\Candidate;
 
 use App\Models\Candidate;
 use App\Models\WorkInformation;
+use App\Services\TranslationService;
 use Illuminate\Support\Facades\Auth;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class WorkInformationRepository
 {
-    function translate($lang, $data)  {
-        if ($lang == 'ka') {
-            if ($data['additional_schedule_ka']) {
-                $data['additional_schedule_en'] = GoogleTranslate::trans($data['additional_schedule_ka'], 'en');
-                $data['additional_schedule_ru']  = GoogleTranslate::trans($data['additional_schedule_ka'], 'ru');
-            }
-        }elseif ($lang == 'en') {
-            if ($data['additional_schedule_en']) {
-                $data['additional_schedule_ka'] = GoogleTranslate::trans($data['additional_schedule_en'], 'ka');
-                $data['additional_schedule_ru']  = GoogleTranslate::trans($data['additional_schedule_en'], 'ru');
-            }
+    public function translate($lang, $data)
+    {
+        // Specify the fields you want to translate
+        $fieldsToTranslate = ['additional_schedule'];
 
-        }elseif ($lang == 'ru') {
-            if ($data['additional_schedule_ru']) {
-                $data['additional_schedule_ka'] = GoogleTranslate::trans($data['additional_schedule_ru'], 'ka');
-                $data['additional_schedule_en']  = GoogleTranslate::trans($data['additional_schedule_ru'], 'en');
-            }
-        }
+        // Use the TranslationService to translate the fields
+        $translate = new TranslationService();
+        $data = $translate->translateFields($lang, $data, $fieldsToTranslate);
 
         return $data;
     }
     function updateOrCreate($data){
         try{
-            if (isset($data['additional_schedule_ka'])) {
-                $lang = (isset($data['lang']))?$data['lang']:'ka';
+            if (isset($data['additional_schedule_ka']) || isset($data['additional_schedule_en']) || isset($data['additional_schedule_ru'])) {
+                $lang = (array_key_exists('lang', $data))?$data['lang']:app()->getLocale();
                 $data = $this->translate($lang, $data);
             }
             $candidate_id = $data['candidate_id'] ? $data['candidate_id']: Auth::guard('web')->user()->candidate->id;

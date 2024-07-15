@@ -6,10 +6,10 @@ use App\Models\Vacancy;
 use App\Models\Employer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Services\TranslationService;
 use Illuminate\Support\Facades\Auth;
 use App\Filters\Employer\EmployerFilters;
 use App\Traits\HandlesAdminDataViewCaching;
-use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class EmployerController extends Controller
 {
@@ -44,13 +44,15 @@ class EmployerController extends Controller
         ];
         return response()->json($data);
     }
-    public function translate($data)
+    public function translate($lang, $data)
     {
-            $data['name_en'] = GoogleTranslate::trans($data['name_ka'], 'en');
-            $data['name_ru']  = GoogleTranslate::trans($data['name_ka'], 'ru');
+        // Specify the fields you want to translate
+        $fieldsToTranslate = ['name', 'address'];
 
-            $data['address_en'] = GoogleTranslate::trans($data['address_ka'], 'en');
-            $data['address_ru']  = GoogleTranslate::trans($data['address_ka'], 'ru');
+        // Use the TranslationService to translate the fields
+        $translate = new TranslationService();
+        $data = $translate->translateFields($lang, $data, $fieldsToTranslate);
+
         return $data;
     }
 
@@ -69,7 +71,8 @@ class EmployerController extends Controller
     public function update(Request $request)
     {
         try {
-            $data = $this->translate($request->model);
+            $lang = app()->getLocale();
+            $data = $this->translate($lang, $request->model);
 
             $affectedRows = Employer::where('id', $data['id'])
                 ->update([

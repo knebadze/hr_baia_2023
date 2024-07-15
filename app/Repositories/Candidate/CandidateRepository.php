@@ -4,38 +4,19 @@ namespace App\Repositories\Candidate;
 
 use App\Models\User;
 use App\Models\Candidate;
-use Stichoza\GoogleTranslate\GoogleTranslate;
+use App\Services\TranslationService;
 
 class CandidateRepository
 {
     public function translate($lang, $data)
     {
-        if ($lang == 'ka') {
+        // Specify the fields you want to translate
+        $fieldsToTranslate = ['medical_info'];
 
-            if ($data['medical_info_ka']) {
-                $data['medical_info_en'] = GoogleTranslate::trans($data['medical_info_ka'], 'en');
-                $data['medical_info_ru']  = GoogleTranslate::trans($data['medical_info_ka'], 'ru');
-            }
+        // Use the TranslationService to translate the fields
+        $translate = new TranslationService();
+        $data = $translate->translateFields($lang, $data, $fieldsToTranslate);
 
-
-
-        }elseif ($lang == 'en') {
-
-            if ($data['medical_info_en']) {
-                $data['medical_info_ka'] = GoogleTranslate::trans($data['medical_info_en'], 'ka');
-                $data['medical_info_ru']  = GoogleTranslate::trans($data['medical_info_en'], 'ru');
-            }
-
-
-        }elseif ($lang == 'ru') {
-
-            if ($data['medical_info_ru']) {
-                $data['medical_info_ka'] = GoogleTranslate::trans($data['medical_info_ru'], 'ka');
-                $data['medical_info_en']  = GoogleTranslate::trans($data['medical_info_ru'], 'en');
-            }
-
-
-        }
         return $data;
     }
 

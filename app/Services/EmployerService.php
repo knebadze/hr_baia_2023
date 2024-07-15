@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Repositories\EmployerRepository;
-use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class EmployerService{
     protected $employerRepository;
@@ -12,31 +11,16 @@ class EmployerService{
     {
         $this->employerRepository = $employerRepository;
     }
+    
     public function translate($lang, $data)
     {
-        // $tr = new GoogleTranslate();
-        if ($lang == 'ka') {
-            $data['address_en'] = GoogleTranslate::trans($data['address_ka'], 'en');
-            $data['address_ru']  = GoogleTranslate::trans($data['address_ka'], 'ru');
-            if ($data['street_ka']) {
-                $data['street_en'] = GoogleTranslate::trans($data['street_ka'], 'en');
-                $data['street_ru']  = GoogleTranslate::trans($data['street_ka'], 'ru');
-            }
-        }elseif ($lang == 'en') {
-            $data['address_ka'] = GoogleTranslate::trans($data['address_en'], 'ka');
-            $data['address_ru']  = GoogleTranslate::trans($data['address_en'], 'ru');
-            if ($data['street_en']) {
-                $data['street_ka'] = GoogleTranslate::trans($data['street_en'], 'ka');
-                $data['street_ru']  = GoogleTranslate::trans($data['street_en'], 'ru');
-            }
-        }elseif ($lang == 'ru') {
-            $data['address_ka'] = GoogleTranslate::trans($data['address_ru'], 'ka');
-            $data['address_en']  = GoogleTranslate::trans($data['address_ru'], 'en');
-            if ($data['street_ru']) {
-                $data['street_ka'] = GoogleTranslate::trans($data['street_ru'], 'ka');
-                $data['street_en']  = GoogleTranslate::trans($data['street_ru'], 'en');
-            }
-        }
+        // Specify the fields you want to translate
+        $fieldsToTranslate = ['address', 'street'];
+
+        // Use the TranslationService to translate the fields
+        $translate = new TranslationService();
+        $data = $translate->translateFields($lang, $data, $fieldsToTranslate);
+
         return $data;
     }
     public function saveData($data)

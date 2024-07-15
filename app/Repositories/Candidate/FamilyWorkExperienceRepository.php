@@ -4,29 +4,21 @@ namespace App\Repositories\Candidate;
 
 use App\Models\Candidate;
 use App\Models\FamilyWorkExperience;
+use App\Services\TranslationService;
 use Illuminate\Support\Facades\Auth;
-use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class FamilyWorkExperienceRepository
 {
-    function translate($lang, $data) {
-        if ($lang == 'ka') {
-            if (isset($data['no_reason_info_ka'])) {
-                $data['no_reason_info_en'] = GoogleTranslate::trans($data['no_reason_info_ka'], 'en');
-                $data['no_reason_info_ru']  = GoogleTranslate::trans($data['no_reason_info_ka'], 'ru');
-            }
-        }elseif ($lang == 'en') {
-            if ($data['no_reason_info_en']) {
-                $data['no_reason_info_ka'] = GoogleTranslate::trans($data['no_reason_info_en'], 'ka');
-                $data['no_reason_info_ru']  = GoogleTranslate::trans($data['no_reason_info_en'], 'ru');
-            }
 
-        }elseif ($lang == 'ru') {
-            if ($data['no_reason_info_ru']) {
-                $data['no_reason_info_ka'] = GoogleTranslate::trans($data['no_reason_info_ru'], 'ka');
-                $data['no_reason_info_en']  = GoogleTranslate::trans($data['no_reason_info_ru'], 'en');
-            }
-        }
+    public function translate($lang, $data)
+    {
+        // Specify the fields you want to translate
+        $fieldsToTranslate = ['no_reason_info'];
+
+        // Use the TranslationService to translate the fields
+        $translate = new TranslationService();
+        $data = $translate->translateFields($lang, $data, $fieldsToTranslate);
+
         return $data;
     }
     function updateOrCreate($data){

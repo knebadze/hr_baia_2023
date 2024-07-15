@@ -3,30 +3,29 @@
 namespace App\Repositories\Candidate;
 
 use App\Models\Candidate;
+use App\Services\TranslationService;
 use App\Models\General_work_experience;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class GeneralWorkExperienceRepository
 {
-    function saveTranslate($data) {
-        if (isset($data['position_ka'])) {
-            $data['position_en'] = GoogleTranslate::trans($data['position_ka'], 'en');
-            $data['position_ru']  = GoogleTranslate::trans($data['position_ka'], 'ru');
-        }
-        if (isset($data['object_ka'])) {
-            $data['object_en'] = GoogleTranslate::trans($data['object_ka'], 'en');
-            $data['object_ru']  = GoogleTranslate::trans($data['object_ka'], 'ru');
-        }
-        if (isset($data['no_reason_info_ka'])) {
-            $data['no_reason_info_en'] = GoogleTranslate::trans($data['no_reason_info_ka'], 'en');
-            $data['no_reason_info_ru']  = GoogleTranslate::trans($data['no_reason_info_ka'], 'ru');
-        }
+   
+    public function saveTranslate($lang, $data)
+    {
+        // Specify the fields you want to translate
+        $fieldsToTranslate = ['position', 'no_reason_info'];
+
+        // Use the TranslationService to translate the fields
+        $translate = new TranslationService();
+        $data = $translate->translateFields($lang, $data, $fieldsToTranslate);
+
         return $data;
     }
 
     function save($data, $user_id) {
         try{
-            $data = $this->saveTranslate($data);
+            $lang = (array_key_exists('lang', $data))?$data['lang']:app()->getLocale();
+            $data = $this->saveTranslate($lang, $data);
             $candidate = Candidate::where('user_id', $user_id)->first();
             if (General_work_experience::where('candidate_id', $candidate->id)->exists()) {
                 $work = General_work_experience::where('candidate_id', $candidate->id)->first();
