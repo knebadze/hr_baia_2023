@@ -28,6 +28,11 @@ class VacancyRepository{
             DB::beginTransaction();
             $employer = $this->addEmployer($data['employer']);
             $hr_id = $this->findHr($employer->number, $data['vacancy']['payment']);
+            if (!$hr_id) {
+                // Return an error or throw an exception
+                Log::error("HR ID not found for employer number: {$employer->number}");
+                throw new \Exception("Error: HR ID not found.");
+            }
             // ვამატებ დღის სამუშაოში ჰრ ის გრაფაში პლიუს ერთ ვაკანსიას
             $this->dailyWorkEvent($hr_id);
             $vacancyData = $this->prepareVacancyData($data, $employer->id, $hr_id);

@@ -122,6 +122,9 @@ trait FindHrTrait
             $nextHr->whereHas('hr', function ($query) use ($auth) {
                 $query->where('parent_id', $auth->id);
             });
+            if (!$nextHr->exists()) {
+                $nextHr = $this->getAuthAdminHrs($auth);
+            }
         }
 
         $nextHr->when($payment > $internship, function ($query) {
@@ -138,7 +141,11 @@ trait FindHrTrait
         return $findNext->hr_id;
     }
 
-
+    private function getAuthAdminHrs ($auth) {
+        return HrHasVacancy::whereHas('hr', function ($query) use ($auth) {
+            $query->where('parent_id', $auth->id);
+        })->where('re_write', '<=', 0)->where('is_active', 1)->orderBy('id', 'ASC');
+    }
 
     private function hrHasVacancyUpdate()
     {
