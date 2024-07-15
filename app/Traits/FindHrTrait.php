@@ -84,7 +84,8 @@ trait FindHrTrait
         if ($auth) {
             $query = $query->whereHas('hr', function ($subQuery) use ($auth) {
                 if ($auth->role_id == 2 || $auth->role_id == 1) {
-                    $subQuery->where('parent_id', $auth->id);
+                    $parent_id = $auth->role_id == 1 ? $auth->id : $auth->parent_id;
+                    $subQuery->where('parent_id', $parent_id);
                 }
             });
         }
@@ -119,11 +120,12 @@ trait FindHrTrait
             ->where('is_active', 1);
 
         if ($auth && ($auth->role_id == 1 || $auth->role_id == 2)) {
-            $nextHr->whereHas('hr', function ($query) use ($auth) {
-                $query->where('parent_id', $auth->id);
+            $parent_id = $auth->role_id == 1 ? $auth->id : $auth->parent_id;
+            $nextHr->whereHas('hr', function ($query) use ($parent_id) {
+                $query->where('parent_id', $parent_id);
             });
             if (!$nextHr->exists()) {
-                $nextHr = $this->getAuthAdminHrs($auth);
+                $nextHr = $this->getAuthAdminHrs($parent_id );
             }
         }
 
@@ -141,9 +143,9 @@ trait FindHrTrait
         return $findNext->hr_id;
     }
 
-    private function getAuthAdminHrs ($auth) {
-        return HrHasVacancy::whereHas('hr', function ($query) use ($auth) {
-            $query->where('parent_id', $auth->id);
+    private function getAuthAdminHrs ($parent_id ) {
+        return HrHasVacancy::whereHas('hr', function ($query) use ($parent_id ) {
+            $query->where('parent_id', $parent_id );
         })->where('re_write', '<=', 0)->where('is_active', 1)->orderBy('id', 'ASC');
     }
 
