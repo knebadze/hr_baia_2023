@@ -230,7 +230,7 @@ const getLang = computed(() => {
                     </div> -->
                 </form>
 
-                <div
+                <!-- <div
                     class="twm-advertisment"
                     style="background-image: url(/images/add-bg.jpg)"
                 >
@@ -239,7 +239,7 @@ const getLang = computed(() => {
                     <a href="about-1.html" class="site-button white">{{
                         $t("lang.candidate_page_leftside_box_read_more")
                     }}</a>
-                </div>
+                </div> -->
             </div>
 
             <!-- <div class="widget tw-sidebar-tags-wrap">

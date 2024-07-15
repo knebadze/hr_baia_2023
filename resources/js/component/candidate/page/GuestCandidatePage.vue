@@ -212,7 +212,7 @@ onMounted(async () => {
                         </div>
                     </div>
 
-                    <div
+                    <!-- <div
                         class="twm-advertisment"
                         style="background-image: url(/images/add-bg.jpg)"
                     >
@@ -223,7 +223,7 @@ onMounted(async () => {
                         <a href="about-1.html" class="site-button white">{{
                             $t("lang.candidate_page_leftside_box_read_more")
                         }}</a>
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="col-lg-8 col-md-12">
