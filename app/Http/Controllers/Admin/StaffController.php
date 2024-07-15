@@ -33,7 +33,7 @@ class StaffController extends Controller
                 $user->refresh(); // Refresh the user instance to get the updated is_active status
 
                 if ($user->role_id == 2) {
-                    HrHasVacancy::where('hr_id', $request->hr_id)->update(['is_active' => $request->is_active]);
+                    HrHasVacancy::where('hr_id', $user->id)->update(['is_active' => $request->is_active]);
                 }
                 $result['is_active'] = $user->is_active;
                 $result['message'] = ($user->is_active == 1) ? $user->name_ka . ' აქტიურია' : $user->name_ka . ' არა აქტიურია';
