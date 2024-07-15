@@ -16752,3 +16752,15 @@ strong {
 }
 
 /*Msg style 2*//*# sourceMappingURL=style.css.map */
+
+@media (max-width: 768px) {
+  .swal-popup {
+    width: 90% !important; /* Adjust width on mobile */
+  }
+  .swal-title {
+    font-size: 16px !important; /* Adjust title font size on mobile */
+  }
+  .swal-text {
+    font-size: 14px !important; /* Adjust content font size on mobile */
+  }
+}

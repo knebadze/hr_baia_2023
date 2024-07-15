@@ -146,9 +146,9 @@ class VacancyRepository{
             $demand->max_age = $demands['max_age'];
             $demand->education_id = isset($demands['education']['id']) ? $demands['education']['id'] : null;
             $demand->profession_id = isset($demands['specialty']['id']) ? $demands['specialty']['id'] : null;
-            $demand->additional_duty_ka = $demands['additional_duty_ka'];
-            $demand->additional_duty_en = $demands['additional_duty_en'];
-            $demand->additional_duty_ru = $demands['additional_duty_ru'];
+            $demand->additional_duty_ka = isset($demands['additional_duty_ka'])?$demands['additional_duty_ka']:null;
+            $demand->additional_duty_en = isset($demands['additional_duty_en'])?$demands['additional_duty_en']:null;
+            $demand->additional_duty_ru = isset($demands['additional_duty_ru'])?$demands['additional_duty_ru']:null;
             $demand->language_id = isset($demands['language']['id']) ? $demands['language']['id'] : null;
             $demand->language_level_id = isset($demands['language_level']['id']) ? $demands['language_level']['id'] : null;
             $demand->has_experience = isset($demands['has_experience']) && $demands['has_experience'] == 1 ? 1 : 0;

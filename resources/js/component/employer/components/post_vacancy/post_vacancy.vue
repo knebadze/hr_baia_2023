@@ -77,10 +77,11 @@
                             />
                             <span
                                 v-if="
-                                    send && !v.employer.name.required.$response
+                                    showError &&
+                                    !v.employer.name.required.$response
                                 "
                                 style="color: red"
-                                >*
+                                >{{ errorMessage("required") }}
                             </span>
                         </div>
                     </div>
@@ -104,9 +105,12 @@
                                 @blur="v.employer.email.$touch"
                             />
                             <span
-                                v-if="send && !v.employer.email.email.$response"
+                                v-if="
+                                    showError &&
+                                    !v.employer.email.email.$response
+                                "
                                 style="color: red"
-                                >*
+                                >{{ errorMessage("required") }}
                             </span>
                         </div>
                     </div>
@@ -166,15 +170,24 @@
                                 placeholder="555666777"
                                 onkeypress="return /[0-9]/i.test(event.key)"
                             />
-                            <!-- <span v-if="send && !v.employer.number.required.$response" style='color:red'>* </span>
-                                        <span v-if="send && !v.employer.number.numeric.$response" style='color:red'>* </span> -->
+
+                            <!-- <span v-if="showError && !v.employer.number.numeric.$response" style='color:red'>* </span> -->
                         </div>
+                        <span
+                            v-if="
+                                showError &&
+                                !v.employer.number.required.$response
+                            "
+                            style="color: red"
+                            >{{ errorMessage("required") }}</span
+                        >
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-12">
                     <div class="form-group">
                         <label
-                            ><span class="text-danger">* </span>ქალაქი, დაბა, უბანი ან სოფელი</label
+                            ><span class="text-danger">* </span>ქალაქი, დაბა,
+                            უბანი ან სოფელი</label
                         >
                         <div class="ls-inputicon-box">
                             <input
@@ -192,11 +205,11 @@
                             />
                             <span
                                 v-if="
-                                    send &&
+                                    showError &&
                                     !v.employer.address.required.$response
                                 "
                                 style="color: red"
-                                >*
+                                >{{ errorMessage("required") }}
                             </span>
                         </div>
                     </div>
@@ -235,8 +248,8 @@
                                             :placeholder="$t('lang.employer_add_job_vacancy_name_placeholder')"
                                             @blur="v.vacancy.title.$touch"
                                         >
-                                        <span v-if="send && !v.vacancy.title.required.$response" style='color:red'>* </span>
-                                        <span v-if="send && !v.vacancy.title.maxLength.$response" style='color:red'>* </span>
+                                        <span v-if="showError && !v.vacancy.title.required.$response" style='color:red'>* </span>
+                                        <span v-if="showError && !v.vacancy.title.maxLength.$response" style='color:red'>* </span>
                                     </div>
                                 </div>
                             </div> -->
@@ -265,11 +278,12 @@
                             </multiselect>
                             <span
                                 v-if="
-                                    send &&
+                                    showError &&
                                     !v.vacancy.category.required.$response
                                 "
                                 style="color: red"
-                                >*
+                            >
+                                {{ errorMessage("required") }}
                             </span>
                         </div>
                     </div>
@@ -309,10 +323,11 @@
                             />
                             <span
                                 v-if="
-                                    send && !v.for_who_need.required.$response
+                                    showError &&
+                                    !v.for_who_need.required.$response
                                 "
                                 style="color: red"
-                                >*
+                                >{{ errorMessage("required") }}
                             </span>
                         </div>
                     </div>
@@ -368,11 +383,11 @@
                             </multiselect>
                             <span
                                 v-if="
-                                    send &&
+                                    showError &&
                                     !v.vacancy.work_schedule.required.$response
                                 "
                                 style="color: red"
-                                >*
+                                >{{ errorMessage("required") }}
                             </span>
                         </div>
                     </div>
@@ -401,11 +416,11 @@
                             />
                             <span
                                 v-if="
-                                    send &&
+                                    showError &&
                                     !v.vacancy.payment.required.$response
                                 "
                                 style="color: red"
-                                >*
+                                >{{ errorMessage("required") }}
                             </span>
                         </div>
                     </div>
@@ -438,11 +453,11 @@
                             </multiselect>
                             <span
                                 v-if="
-                                    send &&
+                                    showError &&
                                     !v.vacancy.currency.required.$response
                                 "
                                 style="color: red"
-                                >*
+                                >{{ errorMessage("required") }}
                             </span>
                         </div>
                     </div>
@@ -478,12 +493,12 @@
                             ></textarea>
                             <span
                                 v-if="
-                                    send &&
+                                    showError &&
                                     !v.vacancy.additional_schedule.required
                                         .$response
                                 "
                                 style="color: red"
-                                >*
+                                >{{ errorMessage("required") }}
                             </span>
                         </div>
                     </div>
@@ -566,11 +581,11 @@
                             />
                             <span
                                 v-if="
-                                    send &&
+                                    showError &&
                                     !v.vacancy.start_date.required.$response
                                 "
                                 style="color: red"
-                                >*
+                                >{{ errorMessage("required") }}
                             </span>
                         </div>
                     </div>
@@ -601,10 +616,11 @@
                             </multiselect>
                             <span
                                 v-if="
-                                    send && !v.vacancy.term.required.$response
+                                    showError &&
+                                    !v.vacancy.term.required.$response
                                 "
                                 style="color: red"
-                                >*
+                                >{{ errorMessage("required") }}
                             </span>
                         </div>
                     </div>
@@ -1079,6 +1095,7 @@ import moment from "moment";
 import Loading from "vue3-loading-overlay";
 // Import stylesheet
 import "vue3-loading-overlay/dist/vue3-loading-overlay.css";
+import { errorMessage } from "../../../../plugins/vuelidate/validationMessages";
 export default {
     components: {
         Loading,
@@ -1098,6 +1115,7 @@ export default {
         const loader = ref(false);
         const fullPage = ref(true);
         const send = ref(false);
+        const showError = ref(false);
         const cla = ref(_.cloneDeep(props.data.classificatory));
         const termDisable = ref(false);
         var currentDate = moment();
@@ -1124,7 +1142,7 @@ export default {
 
         // Computed properties
         const customClasses = computed(() => ({
-            'is-invalid': isCategoryInvalid.value,
+            "is-invalid": isCategoryInvalid.value,
         }));
 
         const trackBy = computed(() => `name_${getLang.value}`);
@@ -1192,7 +1210,7 @@ export default {
         const rules = {
             employer: {
                 name: { required },
-                // number: { required, numeric },
+                number: { required },
                 address: { required },
                 email: { email },
             },
@@ -1208,6 +1226,16 @@ export default {
             },
             for_who_need: { required },
         };
+
+        // const errorMessage = (validator) => {
+        //     // Handle validators that require parameters (e.g., minLength)
+        //     if (typeof validationMessages[validator] === "function") {
+        //         return validationMessages[
+        //             validator
+        //         ](/* pass required parameters */);
+        //     }
+        //     return validationMessages[validator];
+        // };
         const v = useVuelidate(rules, m);
         const watchWorkSchedule = () => m.value.vacancy.work_schedule;
         watch(watchWorkSchedule, (newVal) => {
@@ -1313,18 +1341,22 @@ export default {
                 m.value.demand.max_age = max_age;
             }
         };
-        const checkStartDate = (data) =>{
+        const checkStartDate = (data) => {
             if (data.vacancy.start_date < startDateMin.value) {
-                toast.error("როდის გჭირდებათ კადრი თარიღი არ შეიძლება იყოს მიმდინარე თარიღზე ნაკლები", {
-                    theme: "colored",
-                    autoClose: 2000,
-                });
+                toast.error(
+                    "როდის გჭირდებათ კადრი თარიღი არ შეიძლება იყოს მიმდინარე თარიღზე ნაკლები",
+                    {
+                        theme: "colored",
+                        autoClose: 2000,
+                    }
+                );
                 return false;
             }
             return true;
-        }
+        };
         const add = (item) => {
             let data = { ...item };
+            showError.value = true;
             // if (file.value != null && file.value.type !== 'application/pdf') {
             //     toast.error("გთხოვთ ფაილი ატვირთეთ pdf ფორმატში", {
             //         theme: 'colored',
@@ -1394,6 +1426,9 @@ export default {
                     customClass: {
                         confirmButton: "btn btn-success",
                         cancelButton: "btn btn-danger",
+                        popup: "swal-popup", // Custom class for the popup
+                        title: "swal-title", // Custom class for the title
+                        content: "swal-text", // Custom class for the content
                     },
                     width: "60%",
                 }).then((result) => {
@@ -1404,6 +1439,7 @@ export default {
                 });
             } else {
                 loader.value = false;
+
                 toast.warning("აუცილებელია სავალდებულო ველები იყოს შევსებული", {
                     theme: "colored",
                     autoClose: 2000,
@@ -1411,6 +1447,7 @@ export default {
             }
         };
         const validateAndSubmit = (data) => {
+            showError.value = false;
             send.value = true;
             loader.value = true;
             const csrfToken = document.head.querySelector(
@@ -1505,7 +1542,9 @@ export default {
             customClasses,
             trackBy,
             label,
-            isCategoryInvalid
+            isCategoryInvalid,
+            showError,
+            errorMessage,
         };
     },
 };
@@ -1537,4 +1576,15 @@ export default {
         width: 100%;
     }
 }
+/* @media (max-width: 768px) {
+    .swal-popup {
+        width: 90% !important;
+    }
+    .swal-title {
+        font-size: 16px !important;
+    }
+    .swal-text {
+        font-size: 12px !important;
+    }
+} */
 </style>
