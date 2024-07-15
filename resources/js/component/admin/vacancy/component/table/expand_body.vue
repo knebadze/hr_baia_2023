@@ -60,6 +60,8 @@
         <div class="row">
             <div class="col-md-6">
                 <dl class="row">
+                    <dt class="col-sm-4">მისამართი:</dt>
+                    <dd class="col-sm-8">{{ `${item.employer.address_ka} ${item.employer.street_ka}` }}</dd>
                     <dt class="col-sm-4">HR:</dt>
                     <dd class="col-sm-8">{{ item.hr.name_ka }}</dd>
                     <dt class="col-sm-4">სათაური:</dt>

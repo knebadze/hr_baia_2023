@@ -2,11 +2,11 @@
 
 namespace App\Filters\Vacancy\Admin;
 
-class vacancyStayNightFilter
+class VacancyGoVacationFilter
 {
     function __invoke($query, $request)
     {
-        return $query->where('stay_night', $request);
+        return $query->where('go_vacation', $request);
 
     }
 }

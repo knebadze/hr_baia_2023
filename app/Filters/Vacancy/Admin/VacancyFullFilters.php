@@ -5,10 +5,10 @@ namespace App\Filters\Vacancy\Admin;
 class VacancyFullFilters
 {
     protected $filters = [
-        'name' => vacancyEmployerNameFilter::class,
+        'name' => VacancyEmployerNameFilter::class,
         'number' => VacancyEmployerNumberFilter::class,
         // // 'address' => '',
-        'code' => vacancyCodeFilter::class,
+        'code' => VacancyCodeFilter::class,
         'category' => VacancyCategoryFilter::class,
         'work_schedule' => VacancyWorkScheduleFilter::class,
         'payment' => VacancyPaymentFilter::class,
@@ -26,9 +26,9 @@ class VacancyFullFilters
         'interview_place' => VacancyInterviewPlaceFilter::class,
         'start_date' => VacancyStartDateFilter::class,
         'term' => VacancyTermFilter::class,
-        'go_vacation' => vacancyGoVacationFilter::class,
-        'stay_night' => vacancyStayNightFilter::class,
-        'work_additional_hours' => vacancyWorkAdditionalHoursFilter::class,
+        'go_vacation' => VacancyGoVacationFilter::class,
+        'stay_night' => VacancyStayNightFilter::class,
+        'work_additional_hours' => VacancyWorkAdditionalHoursFilter::class,
         'has_family_work_experience' => VacancyHasFamilyWorkExperienceFilter::class,
         'has_recommendation' => VacancyHasRecommendationFilter::class,
         'hr' => VacancyHrFilter::class,

@@ -39,6 +39,7 @@ Route::post('delete_vacancy', [VacancyActionController::class, 'delete']);
 // F
 Route::post('vacancy_filter', [VacancyController::class, 'filter']);
 Route::post('admin_vacancy_filter', [VacancyActionController::class, 'filter']);
+Route::post('vacancy_dashboard_filter', [VacancyActionController::class, 'vacancyDashboardFilter']);
 
 // SMS
 Route::post('send_sms_add_vacancy', [PostVacancyController::class, 'sendSms'])->middleware('csrf.custom');

@@ -269,7 +269,7 @@
 
                     </ul>
                     <div class="text-center m-b30">
-                            <a href="job-list.html" class=" site-button">{{ __('lang.welcome_current_vacancies_button') }}</a>
+                            <a href="{{ route('job' , App()->getLocale())  }}" class=" site-button">{{ __('lang.welcome_current_vacancies_button') }}</a>
                     </div>
                 </div>
                 </div>

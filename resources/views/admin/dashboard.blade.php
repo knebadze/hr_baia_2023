@@ -99,8 +99,13 @@
                 <section class="col-lg-12 connectedSortable">
                     <hr-daily-work :data='@json($data["staffDailyWork"])' :role_id='@json($role_id)'></hr-daily-work>
                 </section>
+                
             @endif
-
+            @if ($role_id == 2)
+                <section class="col-lg-12 connectedSortable">
+                    <find-vacancy></find-vacancy>
+                </section>
+            @endif
             @if ($role_id == 1 || $role_id == 4)
                 <section class="col-lg-12 connectedSortable">
                     <administrator-daily-work :data='@json($data["staffDailyWork"])' :role_id='@json($role_id)'></administrator-daily-work>

@@ -152,5 +152,14 @@ class VacancyActionController extends Controller
         return response()->json($result, $result['status']);
     }
 
+    function vacancyDashboardFilter(VacancyFullFilters $filters) {
+        $vacancy = Vacancy::filter($filters)->orderby('carry_in_head_date', 'DESC')->with([
+            'employer', 'currency','category', 'status', 'hr'
+            ])->paginate(25);
+
+        $totalVacancies = $vacancy->total();
+
+        return response()->json(['vacancy' => $vacancy, 'count' => $totalVacancies]);
+    }
 
 }

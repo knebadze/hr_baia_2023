@@ -63,6 +63,7 @@ const importComponents = async () => {
         dailyReminder,
         hrDailyWork,
         administratorDailyWork,
+        findVacancy,
 
         AdministratorPage,
 
@@ -125,7 +126,7 @@ const importComponents = async () => {
         import("./component/admin/dashboard/dailyReminder.vue"),
         import("./component/admin/dashboard/hr_daily_work.vue"),
         import("./component/admin/dashboard/AdministratorDailyWork.vue"),
-
+        import("./component/admin/dashboard/FindVacancy.vue"),
         import("./component/admin/staff/administrator/page/AdministratorPage.vue"),
 
         import("./component/admin/candidate/page/candidate_page.vue"),
@@ -198,6 +199,7 @@ const importComponents = async () => {
     app.component("daily-reminder", dailyReminder.default);
     app.component("hr-daily-work", hrDailyWork.default);
     app.component("administrator-daily-work", administratorDailyWork.default);
+    app.component('find-vacancy', findVacancy.default)
 
     app.component("administrator-page", AdministratorPage.default);
     // page

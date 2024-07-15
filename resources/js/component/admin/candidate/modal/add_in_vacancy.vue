@@ -40,6 +40,7 @@
                                 placeholder="ID:"
                                 @input="searchEvent(searchId)"
                                 onkeypress="return /[0-9]/i.test(event.key)"
+                                maxLength="10"
                             />
                         </div>
                     </div>
@@ -82,7 +83,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <p v-else class="text-center text-danger">
+                    <p v-if="send && items.length == 0" class="text-center text-danger">
                         საძიებო კოდით ვერ მოიძებნა ვერცერთი ვაკანსია რომელიც ამ
                         ეტაპზე წარმოებაშია!!!
                     </p>
@@ -124,6 +125,7 @@ export default {
             items: [],
             showAddPersonalModal: false,
             modalItem: {},
+            send: false
         };
     },
     created() {
@@ -142,11 +144,13 @@ export default {
             this.showConfirm = false;
         },
         searchEvent(newVal) {
-            if (!newVal.length > 3) {
+            if (newVal.length < 4) {
+                this.send = false
                 return;
             }
             // alert()
             let currentObj = this;
+            
             axios
                 .post("/find_vacancy", {
                     data: newVal,
@@ -154,6 +158,7 @@ export default {
                 .then(function (response) {
                     // handle success
                     currentObj.items = response.data;
+                    currentObj.send = true;
                 })
                 .catch(function (error) {
                     // handle error

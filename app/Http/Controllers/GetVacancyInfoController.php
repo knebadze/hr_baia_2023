@@ -66,7 +66,7 @@ class GetVacancyInfoController extends Controller
             ->with([
                 'vacancyDuty', 'vacancyBenefit', 'vacancyForWhoNeed', 'characteristic', 'employer', 'currency','category', 'status',
                 'workSchedule', 'vacancyInterest', 'interviewPlace','term', 'demand', 'demand.language', 'demand.education', 'demand.languageLevel','demand.specialty',
-                'employer.numberCode','deposit','hr', 'vacancyDrivingLicense'
+                'employer.numberCode','deposit','hr', 'vacancyDrivingLicense', 'reasonForCancel'
             ])->first();
 
         $role_id = Auth::guard('staff')->user()->role_id;

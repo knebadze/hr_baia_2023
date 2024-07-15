@@ -2,7 +2,7 @@
 
 namespace App\Filters\Vacancy\Admin;
 
-class vacancyWorkAdditionalHoursFilter
+class VacancyWorkAdditionalHoursFilter
 {
     function __invoke($query, $request)
     {

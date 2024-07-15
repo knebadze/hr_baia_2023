@@ -33,6 +33,7 @@ const headers = ref([
     { text: "სტატუსი", value: "status" },
     { text: "ანაზღაურება", value: "payment", sortable: true },
     { text: "საჭიროება", value: "start_date", sortable: true },
+    { text: "მისამართი", value: "address" },
     { text: "Operation", value: "operation" },
 ]);
 const data = ref(props.data);
@@ -163,6 +164,9 @@ const bodyRowClassNameFunction = (item, number) => {
                         ? item.reason_for_cancel.name_ka
                         : item.status.name_ka
                 }}</span>
+            </template>
+            <template #item-address="item">
+                {{  `${item.employer.address_ka} ${item.employer.street_ka}`  }}
             </template>
             <template #expand="item">
                 <expand_body :item="item" :hr_id="hr_id" :roleId="role_id" />
