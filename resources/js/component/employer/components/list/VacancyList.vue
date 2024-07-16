@@ -1,11 +1,9 @@
 <template lang="">
     <li>
         <div class="twm-jobs-list-style1 mb-4">
-            
             <div class="row w-100">
                 <div class="col-md-12 mb-1">
                     <span>ID: {{ item.code }}</span>
-                    
                 </div>
                 <div class="col-12 mb-1">
                     <div class="row">
@@ -37,7 +35,25 @@
                     <div class="row">
                         <div class="col-md-8">
                             <p class="twm-job-address">
+                                <i class="flaticon-map-1"></i>
                                 {{ item.author[`address_${getLang}`] }}.
+                            </p>
+                        </div>
+                        <div class="col-md-4 right_section">
+                            <div class="twm-jobs-amount">
+                                <i class="fa fa-money-bill"></i>
+                                {{ item.payment }} {{ item.currency.icon }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 mb-1">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <p class="twm-job-address">
+                                <span v-if="checkCategoryId(item.category_id)">
+                                    ვისთვის:
+                                </span>
                                 <span
                                     v-for="(
                                         need, index
@@ -46,32 +62,6 @@
                                 >
                                     {{ need[`name_${getLang}`] }} </span
                                 >.
-                            </p>
-                        </div>
-                        <div class="col-md-4 right_section">
-                            <div class="twm-jobs-amount">
-                                {{ item.payment }} {{ item.currency.icon }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-12">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <p class="twm-job-address">
-                                გრაფიკი:
-                                {{
-                                    `${item.work_schedule[`name_${getLang}`]}${
-                                        item[`additional_schedule_${getLang}`]
-                                            ? `, ${
-                                                  item[
-                                                      `additional_schedule_${getLang}`
-                                                  ]
-                                              }`
-                                            : ""
-                                    }.`
-                                }}
                             </p>
                         </div>
                         <div class="col-md-4 right_section">
@@ -87,6 +77,25 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="col-md-9">
+                    <!-- <div class="row">
+                        <div class="col-md-8"> -->
+                    <p class="twm-job-address">
+                        <!-- <i class="fa fa-calendar"></i> -->
+                        გრაფიკი:
+                        {{
+                            `${item.work_schedule[`name_${getLang}`]}${
+                                item[`additional_schedule_${getLang}`]
+                                    ? `, ${
+                                          item[`additional_schedule_${getLang}`]
+                                      }`
+                                    : ""
+                            }.`
+                        }}
+                    </p>
+                    <!-- </div>
+                    </div> -->
                 </div>
 
                 <div class="col-12 mb-1">
@@ -222,6 +231,10 @@ const iconClass = computed(() => {
 
     return "";
 });
+
+const checkCategoryId = (id) => {
+    return _.includes([1, 2, 3, 5], id);
+};
 
 const viewDetails = (id, slug) => {
     const url = `${detailUrl.value}/${id}/${slug}`;
