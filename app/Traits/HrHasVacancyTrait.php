@@ -20,7 +20,7 @@ trait HrHasVacancyTrait
         // არააქტიური
         $is_no_active = $hasVacancyControl->where('is_active', 0);
         // ვაკანსია მიიღო
-        $has_vacancy  = $hasVacancyControl->whereNot('has_vacancy', 0)->where('re_write', 0);
+        $has_vacancy  = $hasVacancyControl->where('has_vacancy', '>', 0)->where('re_write', 0);
         // რიგშია
         $is_active = $hasVacancyControl->where('is_active', 1);
         $is_in_line = $is_active->where('re_write', '<', 0)->where('re_write', $is_active->min('re_write'))->first();

@@ -33,7 +33,7 @@ class PostVacancyController extends Controller
             $vacancy = Vacancy::where('id', $id)->where('code', $code)->with([
                 'vacancyDuty', 'vacancyBenefit', 'vacancyForWhoNeed', 'characteristic', 'employer', 'currency','category', 'status',
                 'workSchedule', 'vacancyInterest', 'interviewPlace','term', 'demand', 'demand.language', 'demand.education', 'demand.languageLevel','demand.specialty',
-                'employer.numberCode','deposit','hr', 'vacancyDrivingLicense', 'reasonForCancel'
+                'employer.numberCode','deposit','hr', 'vacancyDrivingLicense', 'reasonForCancel', 'additionalNumbers'
                 ])->first();
             $employer = $vacancy->employer;
             $demand = $vacancy->demand;
@@ -44,7 +44,7 @@ class PostVacancyController extends Controller
         }
 
         $classificatoryArr = ['category', 'currency', 'workSchedule', 'educations', 'characteristic', 'duty',
-        'languages', 'languageLevels', 'interviewPlace', 'term', 'benefit','forWhoNeed', 'numberCode', 'drivingLicense', 'vacancy_profession'];
+        'languages', 'languageLevels', 'interviewPlace', 'term', 'benefit','forWhoNeed', 'numberCode', 'drivingLicense', 'vacancy_profession', 'numberOwner'];
         $classificatory = $this->classificatoryService->get($classificatoryArr);
         $classificatory['specialties'] = $classificatory['vacancy_profession'];
 

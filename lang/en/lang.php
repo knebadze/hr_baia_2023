@@ -613,7 +613,7 @@ return [
     'user_profile_page_number_owner' => 'Owner',
     'user_profile_page_number_owner_name' => 'Name / Lastname',
     'user_profile_page_work_number_code' => 'Code',
-    'user_profile_page_work_number_actions' => 'Actions',
+    'user_profile_page_work_number_actions' => 'Action',
 
     // Social Network Block Lang
     'user_profile_page_social_title' => 'Social Network',

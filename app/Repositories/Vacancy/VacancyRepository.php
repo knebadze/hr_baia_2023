@@ -6,9 +6,9 @@ use Exception;
 use App\Models\Staff;
 use App\Models\Vacancy;
 use App\Models\Employer;
-use App\Events\staffDailyJob;
 use App\Traits\FindHrTrait;
 use Illuminate\Support\Str;
+use App\Events\staffDailyJob;
 use App\Models\RepeatHistory;
 use App\Models\VacancyDemand;
 use Illuminate\Support\Carbon;
@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Events\SmsNotificationEvent;
 use Illuminate\Support\Facades\Auth;
+use App\Models\EmployerAdditionalNumber;
 
 class VacancyRepository{
     use HrHasVacancyTrait;
@@ -26,6 +27,7 @@ class VacancyRepository{
     {
         try {
             DB::beginTransaction();
+            // dd($data);
             $employer = $this->addEmployer($data['employer']);
             $hr_id = $this->findHr($employer->number, $data['vacancy']['payment']);
             if (!$hr_id) {
@@ -86,6 +88,24 @@ class VacancyRepository{
                     'email' => $data['email'] ?? null,
                 ]
             );
+            // Check if additional_numbers is present and not empty
+            if (!empty($data['additional_numbers'])) {
+                foreach ($data['additional_numbers'] as $additionalNumber) {
+                    EmployerAdditionalNumber::updateOrCreate(
+                        [
+                            // Assuming 'employer_id' and 'number' uniquely identify an additional number
+                            'employer_id' => $employer->id,
+                            'number' => $additionalNumber['number'],
+                        ],
+                        [
+                            'number_code_id' => $additionalNumber['number_code']['id'],
+                            'number_owner_id' => $additionalNumber['number_owner']['id'],
+                            // Add other fields you need to save or update
+                            'comment' => $additionalNumber['comment'] ?? null,
+                        ]
+                    );
+                }
+            }
             return $employer;
         } catch (Exception $e) {
             // Log the error or handle it as needed

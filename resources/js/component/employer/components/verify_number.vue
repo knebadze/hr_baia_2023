@@ -64,6 +64,16 @@
                                 @keyup.enter="send"
                             />
                         </div>
+                        <span
+                            v-if="showError && !v.number.required.$response"
+                            style="color: red"
+                            >{{ errorMessage("required") }}</span
+                        >
+                        <span
+                            v-if="showError && !v.number.numeric.$response"
+                            style="color: red"
+                            >{{ errorMessage("numeric") }}</span
+                        >
                     </div>
                 </div>
 
@@ -118,11 +128,17 @@ import Loading from "vue3-loading-overlay";
 import { I18n } from "laravel-vue-i18n";
 import { useLoadingStore } from "../../../store/loaderStore";
 import { storeToRefs } from "pinia";
+import { useVuelidate } from "@vuelidate/core";
+import { required, numeric } from "@vuelidate/validators";
+import { errorMessage } from "../../../plugins/vuelidate/validationMessages";
 const props = defineProps({
     cla: Object,
 });
 const emit = defineEmits(["verifyEmit"]);
-const m = ref({});
+const m = ref({
+    number: null,
+    number_code: null,
+});
 const showVerifyCodeInput = ref(false);
 const verifyNumber = ref(null);
 const checkNumberData = ref(null);
@@ -135,14 +151,22 @@ const loadingStore = useLoadingStore();
 const { loadingActive } = storeToRefs(loadingStore);
 
 const chooseNumberCode = (item) => {
-    model.value.number_code = item;
+    m.value.number_code = item;
 };
 
 const getLang = computed(() => {
     return I18n.getSharedInstance().options.lang;
 });
-
+const rules = {
+    number: { required, numeric },
+};
+const v = useVuelidate(rules, m.value);
 const send = () => {
+    showError.value = true;
+    v.value.$touch();
+    if (v.value.$invalid) {
+        return;
+    }
     loadingActive.value = true;
     showVerifyCodeInput.value = false;
     repeatKey.value++;
@@ -157,6 +181,7 @@ const send = () => {
     })
         .then(function (response) {
             if (response.status == 200) {
+                showError.value = false;
                 toast.success("ნომერზე გაიგზავნა ვერიფიკაციის კოდი", {
                     theme: "colored",
                     autoClose: 2000,
@@ -169,6 +194,7 @@ const send = () => {
         })
         .catch(function (error) {
             // handle error
+            showError.value = false;
             loadingActive.value = false;
             console.log(error);
         });

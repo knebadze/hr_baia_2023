@@ -221,9 +221,8 @@ class Vacancy extends Model
         return $this->hasMany(Enrollment::class, 'vacancy_id', 'id');
 
     }
-
-
-
+    
+    
      // This is the scope we added
     public function scopeFilter($query, $filters)
     {

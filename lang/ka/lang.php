@@ -620,7 +620,8 @@ return [
     'user_profile_page_number_owner' => 'მფლობელი',
     'user_profile_page_number_owner_name' => 'სახელი / გვარი',
     'user_profile_page_work_number_code' => 'კოდი',
-    'user_profile_page_work_number_actions' => 'მოქმედებები',
+    'user_profile_page_work_number_actions' => 'მოქმედება',
+    'user_profile_page_number_comment' => 'დამატებით ინფორმაცია',
 
     // Social Network Block Lang
     'user_profile_page_social_title' => 'სოციალური ქსელი',

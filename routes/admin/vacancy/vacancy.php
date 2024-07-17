@@ -35,6 +35,7 @@ Route::post('/end_work', [VacancyAttachedController::class, 'endWork']);
 
 // D
 Route::post('delete_vacancy', [VacancyActionController::class, 'delete']);
+Route::post('delete_additional_number/{id}', [VacancyActionController::class, 'deleteAdditionalNumber']);
 
 // F
 Route::post('vacancy_filter', [VacancyController::class, 'filter']);

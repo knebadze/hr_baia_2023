@@ -67,6 +67,9 @@ import post_vacancy from '../components/post_vacancy/post_vacancy.vue';
                     interviewDate:'',
                     interviewTime:'',
                 };
+                if(!_.has(obj.employer, 'additional_numbers')){
+                    obj.employer.additional_numbers = [];
+                }
                 obj.employer.number_code = cla.value.numberCode.find(element => element.phonecode == 995);
                 obj.vacancy.payment = 0;
                 obj.vacancy['go_vacation'] = 0;
@@ -93,10 +96,9 @@ import post_vacancy from '../components/post_vacancy/post_vacancy.vue';
         post_vacancy_data.value.model = makeData();
 
         const handlerVerify = (item) =>{
-            console.log('item', item);
             showVerifySection.value = false
             showPostSection.value = item.active
-            post_vacancy_data.value.model.employer = item.employer
+            post_vacancy_data.value.model.employer.number = item.employer.number
             post_vacancy_data.value.model.employer.name = item.employer[`name_${getLang.value}`];
             post_vacancy_data.value.model.employer.address = item.employer[`address_${getLang.value}`];
             post_vacancy_data.value.model.employer.street = item.employer[`street_${getLang.value}`];

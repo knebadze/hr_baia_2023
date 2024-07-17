@@ -181,6 +181,14 @@
                             style="color: red"
                             >{{ errorMessage("required") }}</span
                         >
+                        <span
+                            v-if="
+                                showError &&
+                                !v.employer.number.numeric.$response
+                            "
+                            style="color: red"
+                            >{{ errorMessage("numeric") }}</span
+                        >
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-12">
@@ -1028,7 +1036,52 @@
                         </div>
                     </div>
                 </div>
+                <div
+                    class="panel-heading wt-panel-heading p-a20 my-3 d-flex justify-content-between"
+                >
+                    <h4 class="panel-tittle m-a0">
+                        <i class="fa fa-phone"></i> დამატებითი საკონტაქტო
+                        ნომრები
+                    </h4>
+                    <button
+                        class="btn btn-info"
+                        @click="openAdditionalNumberModal"
+                    >
+                        <i class="fa fa-plus"></i> ნომრის დამატება
+                    </button>
+                </div>
+                <div v-if="m.employer.additional_numbers.length > 0" class="col-lg-12 col-md-12">
+                    <div class="panel-body wt-panel-body">
+                        <div class="p-a20 table-responsive">
+                            <table class="table twm-table table-striped table-borderless">
+                                <thead>
+                                    <tr>
+                                    <th>N</th>
+                                    <th>{{ $t('lang.user_profile_page_number') }}</th>
+                                    <th>{{ $t('lang.user_profile_page_number_owner') }}</th>
+                                    <th>{{ $t('lang.user_profile_page_number_comment') }}</th>
+                                    <th>{{ $t('lang.user_profile_page_work_number_actions') }}</th>
+                                    </tr>
+                                </thead>
 
+                                <tbody>
+                                    <tr v-for="(item, index) in m.employer.additional_numbers">
+                                        <td>{{ index + 1 }}</td>
+                                        <td>{{ `+${item.number_code.phonecode} ${item.number}` }}</td>
+                                        <td>{{ item.number_owner[`name_${getLang}`] }}</td>
+                                        <td>{{ item.comment }}</td>
+                                        <td>
+                                            <button @click="removeAdditionalNumber(index, item.id)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
+                                                <i class="fa fa-trash-alt"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <hr v-if="m.employer.additional_numbers.length > 0"/>
                 <div class="col-lg-12 col-md-12">
                     <div class="text-left">
                         <button
@@ -1081,6 +1134,13 @@
                     </div>
                 </div>
             </div> -->
+        <AdditionalNumberModal
+            ref="additionalNumberModal"
+            :visible="showAdditionalNumberModal"
+            :cla="modalCla"
+            @closeModal="handelModalClose"
+            @sendData="handelModalData"
+        />
     </div>
 </template>
 <script>
@@ -1096,9 +1156,11 @@ import Loading from "vue3-loading-overlay";
 // Import stylesheet
 import "vue3-loading-overlay/dist/vue3-loading-overlay.css";
 import { errorMessage } from "../../../../plugins/vuelidate/validationMessages";
+import AdditionalNumberModal from "../../modal/AdditionalNumberModal.vue";
 export default {
     components: {
         Loading,
+        AdditionalNumberModal,
     },
     props: {
         data: Object,
@@ -1117,6 +1179,7 @@ export default {
         const send = ref(false);
         const showError = ref(false);
         const cla = ref(_.cloneDeep(props.data.classificatory));
+        console.log(cla.value);
         const termDisable = ref(false);
         var currentDate = moment();
         const startDateMin = ref(
@@ -1136,7 +1199,12 @@ export default {
         const searchData = props.data.model.vacancy.id;
         const formData = { ...props.data.model };
         const m = ref(formData);
-
+        console.log('m.value', props.data.model);
+        const showAdditionalNumberModal = ref(false);
+        const modalCla = ref({
+            numberCode: props.data.classificatory.numberCode,
+            numberOwner: props.data.classificatory.numberOwner,
+        });
         // formData.getLang = getLang;
         // formData.number_code = cla.value.numberCode.find(element => element.phonecode == 995);
 
@@ -1210,7 +1278,7 @@ export default {
         const rules = {
             employer: {
                 name: { required },
-                number: { required },
+                // number: props.data.model.role_id && props.data.model.role_id == 3 ? { required, numeric } : {required},
                 address: { required },
                 email: { email },
             },
@@ -1354,6 +1422,11 @@ export default {
             }
             return true;
         };
+
+        const handelModalData = (item) =>{
+            console.log('item', item);
+            m.value.employer.additional_numbers.push(item);
+        }
         const add = (item) => {
             let data = { ...item };
             showError.value = true;
@@ -1386,6 +1459,7 @@ export default {
             data.vacancy[`title_${getLang.value}`] = data.vacancy.title;
             data.lang = getLang.value;
             v.value.$touch();
+            console.log('v.value.$invalid', v.value);
             if (!v.value.$invalid && checkStartDate(data)) {
                 let html = `
                     ${data.vacancy.start_date}_დან ${
@@ -1504,6 +1578,48 @@ export default {
                 }
             });
         };
+        const removeAdditionalNumber = (index, id) => {
+            Swal.fire({
+                title: "ნომრის წაშლა",
+                text: "ნამდვილად გსურთ ნომრის წაშლა?",
+                showCancelButton: true,
+                confirmButtonText: "დიახ",
+                cancelButtonText: "არა",
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    
+                    if (id) {
+                        axios
+                        .post(`/delete_additional_number/${id}`)
+                        .then((response) => {
+                            m.value.employer.additional_numbers.splice(index, 1);
+                            if (response.data.status == 200) {
+                                toast.success('წარმატებით წაიშალა', {
+                                    theme: "colored",
+                                    autoClose: 1000,
+                                });
+                            }
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });
+                    }else{
+                        m.value.employer.additional_numbers.splice(index, 1);
+                    }
+                  
+                }
+            });
+        };
+        
+        const openAdditionalNumberModal = () => {
+            console.log(
+                "openAdditionalNumberModal",
+                showAdditionalNumberModal.value
+            );
+            showAdditionalNumberModal.value = !showAdditionalNumberModal.value;
+        };
         onMounted(() => {
             if (
                 m.value.vacancy &&
@@ -1545,6 +1661,14 @@ export default {
             isCategoryInvalid,
             showError,
             errorMessage,
+            showAdditionalNumberModal,
+            modalCla,
+            openAdditionalNumberModal,
+            handelModalClose: () => {
+                showAdditionalNumberModal.value = false;
+            },
+            handelModalData,
+            removeAdditionalNumber
         };
     },
 };

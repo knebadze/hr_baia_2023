@@ -13,6 +13,7 @@ use App\Services\VacancyStatusService;
 use App\Services\VacancyUpdateService;
 use App\Traits\HandlesAdminDataViewCaching;
 use App\Filters\Vacancy\Admin\VacancyFullFilters;
+use App\Models\EmployerAdditionalNumber;
 
 class VacancyActionController extends Controller
 {
@@ -126,6 +127,21 @@ class VacancyActionController extends Controller
                 $result['data'] = [];
             }
 
+        } catch (Exception $e) {
+            $result = [
+                'status' => 500,
+                'error' => $e->getMessage()
+            ];
+        }
+
+        return response()->json($result, $result['status']);
+    }
+
+    function deleteAdditionalNumber($id) {
+        $result = ['status' => 200];
+
+        try {
+            $result['data'] = EmployerAdditionalNumber::find($id)->delete();
         } catch (Exception $e) {
             $result = [
                 'status' => 500,
