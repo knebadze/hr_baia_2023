@@ -49,7 +49,7 @@ trait FindHrTrait
         if ($vacancy) {
             $hrHasVacancy = HrHasVacancy::where('hr_id', $vacancy->hr_id)->first();
             if ($hrHasVacancy) {
-                $this->UpdateHrHasVacancy($hrHasVacancy, ['has_vacancy' => 1]);
+                $this->UpdateHrHasVacancy($hrHasVacancy, 'has_vacancy');
                 return $vacancy->hr_id;
             }
 
@@ -64,7 +64,7 @@ trait FindHrTrait
 
     private function UpdateHrHasVacancy($hrHasVacancy, $attributes)
     {
-        return $hrHasVacancy->update($attributes);
+        return $hrHasVacancy->increment($attributes);
     }
 
     private function auth()
@@ -100,7 +100,7 @@ trait FindHrTrait
             return null;
         }
         $findLessReWrite->increment('re_write');
-        $findLessReWrite->update(['has_vacancy' => 1]);
+        $findLessReWrite->increment('has_vacancy');
         return $findLessReWrite->hr_id;
 
     }
@@ -115,8 +115,7 @@ trait FindHrTrait
 
     private function nextHr($auth, $payment, $internship)
     {
-        $nextHr = HrHasVacancy::orderBy('id', 'ASC')
-            ->where('has_vacancy', 0)
+        $nextHr = HrHasVacancy::orderBy('has_vacancy', 'ASC')
             ->where('is_active', 1);
 
         if ($auth && ($auth->role_id == 1 || $auth->role_id == 2)) {
@@ -139,14 +138,14 @@ trait FindHrTrait
         if (!$findNext) {
             return null;
         }
-        $findNext->update(['has_vacancy'=> 1]);
+        $findNext->increment('has_vacancy');
         return $findNext->hr_id;
     }
 
     private function getAuthAdminHrs ($parent_id ) {
         return HrHasVacancy::whereHas('hr', function ($query) use ($parent_id ) {
             $query->where('parent_id', $parent_id );
-        })->where('re_write', '<=', 0)->where('is_active', 1)->orderBy('id', 'ASC');
+        })->where('re_write', '<=', 0)->where('is_active', 1)->orderBy('has_vacancy', 'ASC');
     }
 
     private function hrHasVacancyUpdate()

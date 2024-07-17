@@ -16,10 +16,16 @@ class VacancyHrUpdateRepository
         $vacancy->update(['hr_id' => $data['new_hr']['id']]);
 
         $findNewHr = HrHasVacancy::where('hr_id', $data['new_hr']['id'])->first();
-        $findNewHr->update(['has_vacancy' => 1, 're_write' => $findNewHr->re_write + 1 ]);
+        if ($findNewHr) {
+            $findNewHr->increment('re_write'); // Increment re_write by 1
+            $findNewHr->increment('has_vacancy'); // Directly set has_vacancy to 1
+        }
 
         $findOldHr = HrHasVacancy::where('hr_id', $data['hr']['id'])->first();
-        $findOldHr->update(['has_vacancy' => 0, 're_write' => $findOldHr->re_write - 1 ]);
+        if ($findOldHr) {
+            $findOldHr->decrement('re_write'); // Decrement re_write by 1
+            $findOldHr->decrement('has_vacancy'); // Directly set has_vacancy to 0
+        }
 
 
 
