@@ -5,6 +5,7 @@ namespace App\Repositories\Vacancy;
 use Carbon\Carbon;
 use App\Models\Vacancy;
 use App\Models\Employer;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Models\VacancyDemand;
 use App\Models\VacancyDeposit;
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use OwenIt\Auditing\Contracts\Auditor;
+use App\Models\EmployerAdditionalNumber;
 use OwenIt\Auditing\Resolvers\IpAddressResolver;
 
 class VacancyUpdateRepository
@@ -21,6 +23,7 @@ class VacancyUpdateRepository
 
     public function update($data, $ip)
     {
+        // dd($data);
         DB::beginTransaction();
         try {
             // Assuming validation is done elsewhere or using request validation
@@ -34,8 +37,26 @@ class VacancyUpdateRepository
             // Update Employer
             if (isset($data['employer']) && isset($data['employer']['id'])) {
                 $employer = Employer::findOrFail($data['employer']['id']);
-                $employer->fill($data['employer']);
+                $filteredData = Arr::except($data['employer'], ['additional_numbers']);
+                $employer->fill($filteredData);
                 $employer->save();
+                if (!empty($data['employer']['additional_numbers'])) {
+                    foreach ($data['employer']['additional_numbers'] as $additionalNumber) {
+                        EmployerAdditionalNumber::updateOrCreate(
+                            [
+                                // Assuming 'employer_id' and 'number' uniquely identify an additional number
+                                'employer_id' => $employer->id,
+                                'number' => $additionalNumber['number'],
+                            ],
+                            [
+                                'number_code_id' => $additionalNumber['number_code']['id'],
+                                'number_owner_id' => $additionalNumber['number_owner']['id'],
+                                // Add other fields you need to save or update
+                                'comment' => $additionalNumber['comment'] ?? null,
+                            ]
+                        );
+                    }
+                }
             } else {
                 // Handle the case where 'employer' or 'employer.id' is not set or is null
                 Log::error("Employer data is missing or incomplete.");

@@ -986,6 +986,7 @@
                                                             item.id
                                                         )
                                                     "
+                                                    class="btn btn-danger"
                                                     title="delete"
                                                 >
                                                     <i
@@ -1019,6 +1020,13 @@
                 </div>
             </div>
         </div>
+        <AdditionalNumberModal
+            ref="additionalNumberModal"
+            :visible="showAdditionalNumberModal"
+            :cla="modalCla"
+            @closeModal="handelModalClose"
+            @sendData="handelModalData"
+        />
     </div>
 </template>
 <script setup>
@@ -1053,7 +1061,7 @@ const editedFields = ref([]);
 const showError = ref(false);
 const buttonDisabled = ref(false);
 const showAdditionalNumberModal = ref(false);
-
+const modalCla = ref({});
 const getLang = computed(() => {
     const instance = I18n.getSharedInstance(); // Ensure I18n is imported or defined if used
     return instance.options.lang;
@@ -1073,6 +1081,7 @@ async function show() {
         classificatory.value = { ...result.data };
         cla.value = result.data;
         let item = props.item;
+        console.log('cla.value', cla.value);
         cla.value.forWhoNeed = _.filter(
             classificatory.value.forWhoNeed,
             function (o) {
@@ -1082,6 +1091,9 @@ async function show() {
         cla.value.duty = _.filter(classificatory.value.duty, function (o) {
             return o.category_id == item.category_id;
         });
+        modalCla.value.numberCode = classificatory.value.numberCode;
+        modalCla.value.numberOwner = classificatory.value.numberOwner;
+        console.log('modalCla', modalCla);
         m.value = makeModel(props.item);
         console.log(m.value);
         showConfirm.value = true;
@@ -1120,6 +1132,10 @@ function chooseNumberCode(item) {
         phonecode: item.phonecode,
         iso: item.iso,
     };
+}
+const handelModalData = (item) =>{
+    console.log('item', item);
+    m.value.employer.additional_numbers.push(item);
 }
 const checkStartDate = (data) => {
     if (data.vacancy.start_date < startDateMin.value) {
@@ -1215,13 +1231,18 @@ function save() {
                 });
         }
     });
-    const openAdditionalNumberModal = () => {
+    
+}
+const openAdditionalNumberModal = () => {
         console.log(
             "openAdditionalNumberModal",
             showAdditionalNumberModal.value
         );
         showAdditionalNumberModal.value = !showAdditionalNumberModal.value;
     };
+    const handelModalClose =  () => {
+        showAdditionalNumberModal.value = false;
+    }
     const removeAdditionalNumber = (index, id) => {
         Swal.fire({
             title: "ნომრის წაშლა",
@@ -1257,7 +1278,6 @@ function save() {
             }
         });
     };
-}
 
 // Define other methods like `save` similarly
 </script>

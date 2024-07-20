@@ -83,7 +83,7 @@
                                     item.employer.additional_numbers
                                         .map(
                                             (i) =>
-                                                `+${i.number_code.phonecode} ${i.number} - ${i.number_owner.name_ka} (${i.comment})`
+                                                `+${i.number_code.phonecode} ${i.number} - ${i.number_owner.name_ka} ${i.comment?`(${i.comment})`:''}`
                                         )
                                         .join(", ")
                                 }}</span
