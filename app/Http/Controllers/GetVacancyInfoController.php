@@ -51,9 +51,9 @@ class GetVacancyInfoController extends Controller
             ->get()
             ->toArray();
         $data = [
-            'history' => $history, 
-            'status' => Status::whereNotIn('id', [1, 4, 13])->where('status_type_id', 1)->get()->toArray(), 
-            'role_id' => Auth::guard('staff')->user()->role_id, 
+            'history' => $history,
+            'status' => Status::whereNotIn('id', [1, 4, 13])->where('status_type_id', 1)->get()->toArray(),
+            'role_id' => Auth::guard('staff')->user()->role_id,
             'reasonForCancel' => $classificatory['reasonForCancel']];
         return response()->json($data);
     }
@@ -66,7 +66,7 @@ class GetVacancyInfoController extends Controller
             ->with([
                 'vacancyDuty', 'vacancyBenefit', 'vacancyForWhoNeed', 'characteristic', 'employer', 'currency','category', 'status',
                 'workSchedule', 'vacancyInterest', 'interviewPlace','term', 'demand', 'demand.language', 'demand.education', 'demand.languageLevel','demand.specialty',
-                'employer.numberCode','deposit','hr', 'vacancyDrivingLicense', 'reasonForCancel'
+                'employer.numberCode','deposit','hr', 'vacancyDrivingLicense', 'reasonForCancel', 'registrant'
             ])->first();
 
         $role_id = Auth::guard('staff')->user()->role_id;
@@ -81,14 +81,14 @@ class GetVacancyInfoController extends Controller
         $vacancy = Vacancy::with('employer', 'demand', 'deposit')
             ->where('id', $request->data)
             ->firstOrFail();
-    
+
         $auditableIds = [
             $vacancy->id,
             optional($vacancy->employer)->id,
             optional($vacancy->demand)->id,
             optional($vacancy->deposit)->id,
         ];
-    
+
         $data = Activity::orderBy('activity_log.id', 'DESC')
             // ->whereNot('event', 'created')
             ->whereIn('subject_id', array_filter($auditableIds))
@@ -103,17 +103,17 @@ class GetVacancyInfoController extends Controller
                     'Sync_characteristic' => [GeneralCharacteristic::class, 'name_ka'],
                     'Sync_benefit' => [Benefit::class, 'name_ka'],
                 ];
-    
+
                 if (isset($models[$value['description']])) {
                     [$model, $columnName] = $models[$value['description']];
                     $value['properties']['old'] = $model::whereIn('id', $value['properties']['old'])->pluck($columnName)->toArray();
                     $value['properties']['attributes'] = $model::whereIn('id', $value['properties']['attributes'])->pluck($columnName)->toArray();
                 }
-    
+
                 return $value;
             })
             ->toArray();
-    
+
         return response()->json($data);
     }
     // function vacancyRedactedHistory(Request $request) {

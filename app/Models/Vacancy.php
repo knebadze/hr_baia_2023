@@ -40,6 +40,7 @@ class Vacancy extends Model
         'view',
         'carry_in_head_date',
         'reason_for_cancel_id',
+        'registrant_id',
     ];
     protected $casts = [
         'created_at' => 'datetime:m-d-Y H:i',
@@ -221,8 +222,11 @@ class Vacancy extends Model
         return $this->hasMany(Enrollment::class, 'vacancy_id', 'id');
 
     }
-    
-    
+    public function registrant()
+    {
+        return $this->belongsTo(Staff::class, 'registrant_id');
+    }
+
      // This is the scope we added
     public function scopeFilter($query, $filters)
     {

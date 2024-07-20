@@ -55,7 +55,7 @@ class AdminVacancyController extends Controller
                 'vacancyInterest', 'interviewPlace', 'term', 'demand',
                 'demand.language', 'demand.education', 'demand.languageLevel',
                 'demand.specialty', 'employer.numberCode', 'deposit', 'hr',
-                'vacancyDrivingLicense', 'reasonForCancel'
+                'vacancyDrivingLicense', 'reasonForCancel', 'registrant'
             ])
             ->when($role_id == 2, function ($query) use ($authId) {
                 $query->where('hr_id', $authId);

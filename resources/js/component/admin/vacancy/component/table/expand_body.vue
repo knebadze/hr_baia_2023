@@ -68,6 +68,8 @@
                     </dd>
                     <dt class="col-sm-4">HR:</dt>
                     <dd class="col-sm-8">{{ item.hr.name_ka }}</dd>
+                    <dt class="col-sm-4">რეგისტრატორი:</dt>
+                    <dd class="col-sm-8">{{ item.registrant?item.registrant.name_ka:'--' }}</dd>
                     <dt class="col-sm-4">სათაური:</dt>
                     <dd class="col-sm-8">{{ item.title_ka }}</dd>
                     <dt class="col-sm-4">სამუშაო დღეები:</dt>
@@ -284,7 +286,7 @@
                                         ? item.demand.min_age
                                         : "--"
                                 }}
-                                - 
+                                -
                                 {{
                                     item.demand.max_age
                                         ? item.demand.max_age

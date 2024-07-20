@@ -145,6 +145,7 @@ class VacancyRepository{
             'term_id' => $data['vacancy']['term']['id'],
             'carry_in_head_date' => Carbon::now()->toDateTimeString(),
             'slug' => $slug, // Assuming a slug is needed
+            'registrant_id' => Auth::guard('staff')->id() ?? null,
         ];
     }
 
