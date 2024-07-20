@@ -61,7 +61,11 @@
             <div class="col-md-6">
                 <dl class="row">
                     <dt class="col-sm-4">მისამართი:</dt>
-                    <dd class="col-sm-8">{{ `${item.employer.address_ka} ${item.employer.street_ka}` }}</dd>
+                    <dd class="col-sm-8">
+                        {{
+                            `${item.employer.address_ka} ${item.employer.street_ka}`
+                        }}
+                    </dd>
                     <dt class="col-sm-4">HR:</dt>
                     <dd class="col-sm-8">{{ item.hr.name_ka }}</dd>
                     <dt class="col-sm-4">სათაური:</dt>
@@ -209,40 +213,62 @@
                     <dd class="col-sm-8">{{ item.created_at }}</dd>
                     <dt class="col-sm-4">განახლების თარიღი:</dt>
                     <dd class="col-sm-8">{{ item.updated_at }}</dd>
-                    <div class="row col-12" v-if="item.interview_date">
+                    <div class="row col-12">
                         <dt class="col-sm-4">გასაუბრების თარიღი:</dt>
-                        <dd class="col-sm-8">{{ item.interview_date }}</dd>
-                    </div>
-
-                    <div class="row col-12" v-if="item.interview_place">
-                        <dt class="col-sm-4">გასაუბრების ადგილი:</dt>
                         <dd class="col-sm-8">
-                            {{ item.interview_place.name_ka }}
+                            {{
+                                item.interview_date ? item.interview_date : "--"
+                            }}
                         </dd>
                     </div>
 
-                    <div class="row col-12" v-if="item.term">
+                    <div class="row col-12">
+                        <dt class="col-sm-4">გასაუბრების ადგილი:</dt>
+                        <dd class="col-sm-8">
+                            {{
+                                item.interview_place
+                                    ? item.interview_place.name_ka
+                                    : "--"
+                            }}
+                        </dd>
+                    </div>
+
+                    <div class="row col-12">
                         <dt class="col-sm-4">ვადა:</dt>
-                        <dd class="col-sm-8">{{ item.term.name_ka }}</dd>
+                        <dd class="col-sm-8">
+                            {{ item.term ? item.term.name_ka : "--" }}
+                        </dd>
                     </div>
 
                     <div class="row col-12" v-if="item.demand">
-                        <div class="row col-12" v-if="item.demand.education">
+                        <div class="row col-12">
                             <dt class="col-sm-4">განათლება:</dt>
                             <dd class="col-sm-8">
-                                {{ item.demand.education.name_ka }}
+                                {{
+                                    item.demand.education
+                                        ? item.demand.education.name_ka
+                                        : "--"
+                                }}
                             </dd>
                         </div>
-                        <div class="row col-12" v-if="item.demand.specialty">
+                        <div class="row col-12">
                             <dt class="col-sm-4">პროფესია:</dt>
                             <dd class="col-sm-8">
-                                {{ item.demand.specialty.name_ka }}
+                                {{
+                                    item.demand.specialty
+                                        ? item.demand.specialty.name_ka
+                                        : "--"
+                                }}
                             </dd>
                         </div>
-                        <div class="row col-12" v-if="item.demand.language">
+                        <div class="row col-12">
                             <dt class="col-sm-4">უცხო ენა:</dt>
                             <dd class="col-sm-8">
-                                {{ item.demand.language.name_ka + " -" }}
+                                {{
+                                    item.demand.language
+                                        ? `${item.demand.language.name_ka} - `
+                                        : "--"
+                                }}
                                 {{
                                     item.demand.language_level
                                         ? item.demand.language_level.name_ka
@@ -250,17 +276,20 @@
                                 }}
                             </dd>
                         </div>
-                        <div
-                            class="row col-12"
-                            v-if="item.demand.min_age || item.demand.max_age"
-                        >
+                        <div class="row col-12">
                             <dt class="col-sm-4">ასაკი:</dt>
                             <dd class="col-sm-8">
                                 {{
-                                    item.demand.min_age +
-                                    " - " +
-                                    item.demand.max_age
+                                    item.demand.min_age
+                                        ? item.demand.min_age
+                                        : "--"
                                 }}
+                                - 
+                                {{
+                                    item.demand.max_age
+                                        ? item.demand.max_age
+                                        : "--"
+                                 }}
                             </dd>
                         </div>
                     </div>
@@ -338,7 +367,15 @@ export default {
         hr_id: Number,
         roleId: Number,
     },
-    setup(props) {},
+    setup(props) {
+        const displayWithFallback = (check, showParam, elseParam = "--") => {
+            return check ? showParam : elseParam;
+        };
+
+        return {
+            displayWithFallback,
+        };
+    },
 };
 </script>
 <style lang=""></style>

@@ -157,6 +157,7 @@
         <vacancyUpdate
             :visible="state.showUpdateModal"
             :item="state.modalData"
+            @closeModal="handelModalClose"
         />
 
         <changeStatus :visible="state.showStatusModal" />
@@ -341,5 +342,8 @@ const sendDeleteAxios = (id) => {
             console.log(error);
         });
 };
+const handelModalClose =  () => {
+    state.showUpdateModal = false;
+}
 </script>
 <style lang=""></style>

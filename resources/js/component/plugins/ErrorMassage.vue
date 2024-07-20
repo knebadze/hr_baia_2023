@@ -1,19 +1,17 @@
 <script setup>
 import { ref } from "vue";
+import { errorMessage } from "../../plugins/vuelidate/validationMessages";
 const props = defineProps({
-    v: {
-        type: Object,
+   
+    name: {
+        type: String,
         required: true,
     },
 });
-const errors = ref([
-    { validation: "required", message: "This field is required." },
-    { validation: "numeric", message: "Please enter a valid number." },
-    { validation: "maxLength", message: "The number cannot exceed 9 digits." },
-]);
+
 </script>
 <template>
     <div>
-        <span v-if="!v.number.required.$response" style='color:red'>* </span>
+        <span  style='color:red'>* {{ errorMessage(name) }}</span>
     </div>
 </template>

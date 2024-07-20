@@ -31,17 +31,27 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-6 mb-1">
+                            <span class="text-danger">* </span>
                             <label for="exampleInputEmail1">სახელი გვარი</label>
                             <input
                                 class="form-control"
-                                v-model="m.employer['name_ka']"
-                                type="text"
-                                :placeholder="
-                                    $t(
-                                        'lang.employer_add_job_vacancy_name_placeholder'
-                                    )
+                                :class="
+                                    showError &&
+                                    !v.employer.name_ka.required.$response
+                                        ? 'border border-danger'
+                                        : ''
                                 "
+                                v-model="m.employer.name_ka"
+                                type="text"
+                                placeholder="საახელი გვარი "
+                            />
+                            <ErrorMassage
+                                v-if="
+                                    showError &&
+                                    !v.employer.name_ka.required.$response
+                                "
+                                name="required"
                             />
                         </div>
                         <div class="col-6">
@@ -54,6 +64,7 @@
                             />
                         </div>
                         <div class="col-6">
+                            <span class="text-danger">* </span>
                             <label>{{ "ტელეფონის ნომერი" }}</label>
                             <div class="input-group input-group mb-3">
                                 <div class="input-group-prepend">
@@ -92,21 +103,52 @@
                                 <input
                                     type="text"
                                     class="form-control"
+                                    :class="
+                                        showError &&
+                                        (!v.employer.number.required
+                                            .$response ||
+                                            !v.employer.number.numeric
+                                                .$response)
+                                            ? 'border border-danger'
+                                            : ''
+                                    "
                                     aria-label="Text input with dropdown button"
                                     v-model="m.employer.number"
                                     placeholder="555666777"
                                     onkeypress="return /[0-9]/i.test(event.key)"
                                 />
                             </div>
+                            <ErrorMassage
+                                v-if="
+                                    showError &&
+                                    !v.employer.number.required.$response
+                                "
+                                name="required"
+                            />
+                            <ErrorMassage
+                                v-if="
+                                    showError &&
+                                    !v.employer.number.numeric.$response
+                                "
+                                name="numeric"
+                            />
                         </div>
                         <div class="col-6">
+                            <span class="text-danger">* </span>
                             <label for="exampleInputEmail1"
                                 >ქალაქი, დაბა, უბანი ან სოფელი</label
                             >
                             <input
                                 class="form-control"
-                                v-model="m.employer['address_ka']"
+                                v-model="m.employer.address_ka"
                                 type="text"
+                            />
+                            <ErrorMassage
+                                v-if="
+                                    showError &&
+                                    !v.employer.address_ka.required.$response
+                                "
+                                name="required"
                             />
                         </div>
                         <div class="col-6">
@@ -126,6 +168,7 @@
                     <hr />
                     <div class="row">
                         <div class="col-4">
+                            <span class="text-danger">* </span>
                             <label for="exampleInputEmail1">სათაური</label>
                             <input
                                 class="form-control"
@@ -140,8 +183,15 @@
                                     )
                                 "
                             />
+                            <ErrorMassage
+                                v-if="
+                                    showError && !v.title_ka.required.$response
+                                "
+                                name="required"
+                            />
                         </div>
                         <div class="col-4">
+                            <span class="text-danger">* </span>
                             <label>კატეგორია</label>
                             <div class="ls-inputicon-box">
                                 <multiselect
@@ -153,14 +203,17 @@
                                     placeholder="Select one"
                                     :searchable="true"
                                     :allow-empty="false"
+                                    @blur="v.category.$touch"
                                     disabled
                                 >
-                                    <template
-                                        slot="singleLabel"
-                                        slot-scope="{ option }"
-                                    ></template>
                                 </multiselect>
                             </div>
+                            <ErrorMassage
+                                v-if="
+                                    showError && !v.category.required.$response
+                                "
+                                name="required"
+                            />
                         </div>
                         <div class="col-xl-4 col-lg-6 col-md-12">
                             <div class="form-group">
@@ -188,27 +241,16 @@
                                                 : ''
                                         "
                                     >
-                                        <template
-                                            slot="selection"
-                                            slot-scope="{
-                                                values,
-                                                search,
-                                                isOpen,
-                                            }"
-                                        >
-                                            <span
-                                                v-if="values.length && !isOpen"
-                                                class="multiselect__single"
-                                            >
-                                                {{ values.length }} option{{
-                                                    values.length > 1 ? "s" : ""
-                                                }}
-                                                selected
-                                            </span>
-                                        </template>
                                     </multiselect>
-                                    <!-- <span v-if="v$.m.candidate.personal_number.required.$invalid && v$.m.candidate.personal_number.$dirty" style='color:red'>* {{ v$.m.candidate.personal_number.required.$message}}</span> -->
                                 </div>
+                                <ErrorMassage
+                                    v-if="
+                                        showError &&
+                                        !v.vacancy_for_who_need.required
+                                            .$response
+                                    "
+                                    name="required"
+                                />
                             </div>
                         </div>
                         <div class="col-xl-4 col-lg-6 col-md-12">
@@ -235,12 +277,16 @@
                                         :searchable="false"
                                         :allow-empty="false"
                                     >
-                                        <template
-                                            slot="singleLabel"
-                                            slot-scope="{ option }"
-                                        ></template>
                                     </multiselect>
                                 </div>
+                                <ErrorMassage
+                                    v-if="
+                                        showError &&
+                                        !v.work_schedule.required
+                                            .$response
+                                    "
+                                    name="required"
+                                />
                             </div>
                         </div>
 
@@ -261,9 +307,15 @@
                                         type="number"
                                         step="50"
                                     />
-                                    <!-- <i class="fs-input-icon fa fa-money"></i> -->
-                                    <!-- <span v-if="v$.m.getWorkInformation.payment.numeric.$invalid && v$.m.getWorkInformation.payment.$dirty" style='color:red'>* {{ v$.m.getWorkInformation.payment.numeric.$message}}</span> -->
                                 </div>
+                                <ErrorMassage
+                                    v-if="
+                                        showError &&
+                                        !v.payment.required
+                                            .$response
+                                    "
+                                    name="required"
+                                />
                             </div>
                         </div>
 
@@ -288,13 +340,16 @@
                                         :searchable="false"
                                         :allow-empty="false"
                                     >
-                                        <template
-                                            slot="singleLabel"
-                                            slot-scope="{ option }"
-                                        ></template>
                                     </multiselect>
-                                    <!-- <span v-if="v$.m.getWorkInformation.currency_id.required.$invalid && v$.m.getWorkInformation.currency_id.$dirty" style='color:red'>* {{ v$.m.getWorkInformation.currency_id.required.$message}}</span> -->
                                 </div>
+                                <ErrorMassage
+                                    v-if="
+                                        showError &&
+                                        !v.currency.required
+                                            .$response
+                                    "
+                                    name="required"
+                                />
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -308,13 +363,20 @@
                                 <div class="ls-inputicon-box">
                                     <textarea
                                         class="form-control"
-                                        v-model="m['additional_schedule_ka']"
+                                        v-model="m.additional_schedule_ka"
                                         type="text"
                                         placeholder=""
                                         rows="3"
                                     ></textarea>
-                                    <!-- <span v-if="v$.m.candidate.personal_number.required.$invalid && v$.m.candidate.personal_number.$dirty" style='color:red'>* {{ v$.m.candidate.personal_number.required.$message}}</span> -->
                                 </div>
+                                <ErrorMassage
+                                    v-if="
+                                        showError &&
+                                        !v.additional_schedule_ka.required
+                                            .$response
+                                    "
+                                    name="required"
+                                />
                             </div>
                         </div>
                     </div>
@@ -399,6 +461,14 @@
                                         placeholder=""
                                     />
                                 </div>
+                                <ErrorMassage
+                                    v-if="
+                                        showError &&
+                                        !v.start_date.required
+                                            .$response
+                                    "
+                                    name="required"
+                                />
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-12">
@@ -420,12 +490,16 @@
                                         :searchable="true"
                                         :allow-empty="false"
                                     >
-                                        <template
-                                            slot="singleLabel"
-                                            slot-scope="{ option }"
-                                        ></template>
                                     </multiselect>
                                 </div>
+                                <ErrorMassage
+                                    v-if="
+                                        showError &&
+                                        !v.term.required
+                                            .$response
+                                    "
+                                    name="required"
+                                />
                             </div>
                         </div>
                         <div class="col-xl-12 col-lg-12 col-md-12">
@@ -885,194 +959,202 @@
         </div>
     </div>
 </template>
-<script>
+<script setup>
+import { ref, watch, computed, onMounted } from "vue";
+import { useVuelidate } from "@vuelidate/core";
+import { required, numeric, maxLength, email } from "@vuelidate/validators";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 import _ from "lodash";
-import { ref, watch, computed } from "vue";
-export default {
-    props: {
-        visible: Boolean,
-        item: Object,
-    },
-    data() {
-        return {
-            showConfirm: false,
-            m: null,
-            cla: [],
-            classificatory: {},
-            numberCode: {
-                phonecode: "",
-                iso: "",
-            },
-            editedFields: [],
-            buttonDisabled: false,
-        };
-    },
-    created() {
-        // this.showConfirm = this.visible
-    },
-    computed: {
-        getLang() {
-            const instance = I18n.getSharedInstance();
-            return instance.options.lang;
-        },
-    },
-    methods: {
-        async show() {
-            try {
-                let result = await this.getClassificatory();
-                this.classificatory = { ...result.data };
-                this.cla = result.data;
-                let item = this.item;
-                this.cla.forWhoNeed = _.filter(
-                    this.classificatory.forWhoNeed,
-                    function (o) {
-                        return o.category_id == item.category_id;
-                    }
-                );
-                this.cla.duty = _.filter(
-                    this.classificatory.duty,
-                    function (o) {
-                        return o.category_id == item.category_id;
-                    }
-                );
-                this.m = this.makeModel(this.item);
-                // {...this.item}
-                // (this.m.stay_night == 1)? this.m.stay_night = true: this.m.stay_night = false
-                // this.makeModel()
-                this.showConfirm = true;
-            } catch (error) {
-                console.log(error);
-            }
-        },
-        hide() {
-            this.showConfirm = false;
-        },
-        getClassificatory() {
-            return axios.post("/get_classificatory", {
-                //   data: updateData,
-            });
-        },
-        makeModel(item) {
-            let [datePart, timePart] = item.interview_date.split(" ");
-            const data = item;
-            data.demand = !data.demand ? { vacancy_id: data.id } : data.demand;
-            (data.interviewDate = datePart),
-                (data.interviewTime = timePart),
-                (data.go_vacation = Boolean(data.go_vacation));
-            data.stay_night = Boolean(data.stay_night);
-            data.work_additional_hours = Boolean(data.work_additional_hours);
+import AdditionalNumberModal from "../../../employer/modal/AdditionalNumberModal.vue";
+import axios from "axios"; // Ensure axios is imported if used for HTTP requests
+import Swal from "sweetalert2";
+import moment from "moment";
+import ErrorMassage from "../../../plugins/ErrorMassage.vue";
+const props = defineProps({
+    visible: Boolean,
+    item: Object,
+});
+const emit = defineEmits(["closeModal"]);
+const showConfirm = ref(false);
+const m = ref({
+    category: {},
+});
+// const item = ref({});
+const cla = ref([]);
+const classificatory = ref({});
+const numberCode = ref({
+    phonecode: "",
+    iso: "",
+});
+const editedFields = ref([]);
+const showError = ref(false);
+const buttonDisabled = ref(false);
 
-            data.demand.has_experience = Boolean(data.demand.has_experience);
-            data.demand.has_recommendation = Boolean(
-                data.demand.has_recommendation
-            );
+const getLang = computed(() => {
+    const instance = I18n.getSharedInstance(); // Ensure I18n is imported or defined if used
+    return instance.options.lang;
+});
+let currentDate = moment();
+const startDateMin = ref(currentDate.add(1, "days").format("YYYY-MM-DD"));
+watch(
+    () => props.visible,
+    (newValue) => {
+        if (newValue) show();
+    }
+);
 
-            data.lang = this.getLang;
-            return { ...data };
-        },
-        chooseNumberCode(item) {
-            this.m.employer.number_code = item;
-            this.numberCode = {
-                phonecode: item.phonecode,
-                iso: item.iso,
-            };
-        },
+async function show() {
+    try {
+        let result = await getClassificatory();
+        classificatory.value = { ...result.data };
+        cla.value = result.data;
+        let item = props.item;
+        cla.value.forWhoNeed = _.filter(
+            classificatory.value.forWhoNeed,
+            function (o) {
+                return o.category_id == item.category_id;
+            }
+        );
+        cla.value.duty = _.filter(classificatory.value.duty, function (o) {
+            return o.category_id == item.category_id;
+        });
+        m.value = makeModel(props.item);
+        showConfirm.value = true;
+    } catch (error) {
+        console.log(error);
+    }
+}
 
-        save() {
-            if (
-                this.m.title_ka == null ||
-                this.m.vacancy_for_who_need == null
-            ) {
-                toast.error("აუცილებელია გაწითლებული ველების შევსება", {
-                    theme: "colored",
-                    autoClose: 1000,
-                });
-                return;
+function hide() {
+    showConfirm.value = false;
+    emit("closeModal", false);
+}
+
+function getClassificatory() {
+    return axios.post("/get_classificatory", {});
+}
+
+function makeModel(item) {
+    let [datePart, timePart] = item.interview_date.split(" ");
+    const data = item;
+    data.demand = !data.demand ? { vacancy_id: data.id } : data.demand;
+    data.interviewDate = datePart;
+    data.interviewTime = timePart;
+    data.go_vacation = Boolean(data.go_vacation);
+    data.stay_night = Boolean(data.stay_night);
+    data.work_additional_hours = Boolean(data.work_additional_hours);
+    data.demand.has_experience = Boolean(data.demand.has_experience);
+    data.demand.has_recommendation = Boolean(data.demand.has_recommendation);
+    data.lang = getLang.value;
+    return { ...data };
+}
+
+function chooseNumberCode(item) {
+    m.value.employer.number_code = item;
+    numberCode.value = {
+        phonecode: item.phonecode,
+        iso: item.iso,
+    };
+}
+const checkStartDate = (data) => {
+    if (data.vacancy.start_date < startDateMin.value) {
+        toast.error(
+            "როდის გჭირდებათ კადრი თარიღი არ შეიძლება იყოს მიმდინარე თარიღზე ნაკლები",
+            {
+                theme: "colored",
+                autoClose: 2000,
             }
-            // var editedFields = this.forItem(this.m)
-            // return
-            this.m.go_vacation = this.m.go_vacation ? 1 : 0;
-            this.m.stay_night = this.m.stay_night ? 1 : 0;
-            this.m.work_additional_hours = this.m.work_additional_hours ? 1 : 0;
-            this.m.demand.has_experience = this.m.demand.has_experience ? 1 : 0;
-            this.m.demand.has_recommendation = this.m.demand.has_recommendation
-                ? 1
-                : 0;
-            let currentObj = this;
-            this.$swal({
-                title: "ნამდვილად გსურთ ვაკანსიის რედაქტირება?",
-                //   showDenyButton: true,
-                cancelButtonText: "არა",
-                confirmButtonText: "კი",
-                showCancelButton: true,
-            }).then((result) => {
-                /* Read more about isConfirmed, isDenied below */
-                if (result.isConfirmed) {
-                    this.buttonDisabled = true;
-                    axios
-                        .post("/update_vacancy", {
-                            data: { model: this.m },
-                        })
-                        .then(function (response) {
-                            // handle success
-                            if (response.status == 200) {
-                                currentObj.hide();
-                                toast.success("წარმატებით დარედაქტირდა", {
-                                    theme: "colored",
-                                    autoClose: 1000,
-                                });
-                                setTimeout(() => {
-                                    document.location.reload();
-                                }, 2000);
-                            }
-                            this.buttonDisabled = false;
-                        })
-                        .catch(function (error) {
-                            // handle error
-                            this.buttonDisabled = false;
-                            console.log(error);
-                        });
-                    // this.hide()
-                } else if (result.isDenied) {
-                    return;
-                }
-            });
-        },
-    },
-    watch: {
-        visible: function () {
-            this.show();
-        },
-        m: {
-            deep: true,
-            handler(newValue, oldValue) {},
-        },
-        "m.category": function (newValue, oldValue) {
-            if (
-                newValue != this.item.vacancy_for_who_need &&
-                oldValue != null
-            ) {
-                this.m.title_ka = null;
-                this.m.vacancy_for_who_need = null;
-                this.m.vacancy_duty = null;
-                this.cla.forWhoNeed = _.filter(
-                    this.classificatory.forWhoNeed,
-                    function (o) {
-                        return o.category_id == newValue.id;
-                    }
-                );
-                this.cla.duty = _.filter(
-                    this.classificatory.duty,
-                    function (o) {
-                        return o.category_id == newValue.id;
-                    }
-                );
-            }
-        },
-    },
+        );
+        return false;
+    }
+    return true;
 };
+// const customClasses = computed(() => ({
+//     "is-invalid": isCategoryInvalid.value,
+// }));
+const rules = {
+    employer: {
+        name_ka: { required },
+        number: { required, numeric },
+        address_ka: { required },
+        email: { email },
+    },
+    // title: { required, maxLength:maxLength(50) },
+    title_ka: { required },
+    category: { required },
+    payment: { required },
+    currency: { required },
+    work_schedule: { required },
+    additional_schedule_ka: { required },
+    start_date: { required },
+    term: { required },
+    vacancy_for_who_need: { required },
+};
+
+const v = useVuelidate(rules, m);
+function save() {
+    if (m.value.title_ka == null || m.value.vacancy_for_who_need == null) {
+        toast.error("აუცილებელია გაწითლებული ველების შევსება", {
+            theme: "colored",
+            autoClose: 1000,
+        });
+        return;
+    }
+
+    // Convert boolean values to 1 or 0
+    m.value.go_vacation = m.value.go_vacation ? 1 : 0;
+    m.value.stay_night = m.value.stay_night ? 1 : 0;
+    m.value.work_additional_hours = m.value.work_additional_hours ? 1 : 0;
+    m.value.demand.has_experience = m.value.demand.has_experience ? 1 : 0;
+    m.value.demand.has_recommendation = m.value.demand.has_recommendation
+        ? 1
+        : 0;
+    v.value.$touch();
+
+    showError.value = false;
+    if (v.value.$invalid) {
+        showError.value = true;
+        toast.error("აუცილებელია გაწითლებული ველების შევსება", {
+            theme: "colored",
+            autoClose: 1000,
+        });
+        return;
+    }
+    Swal.fire({
+        title: "ნამდვილად გსურთ ვაკანსიის რედაქტირება?",
+        cancelButtonText: "არა",
+        confirmButtonText: "კი",
+        showCancelButton: true,
+    }).then((result) => {
+        if (result.isConfirmed) {
+            buttonDisabled.value = true;
+            axios
+                .post("/update_vacancy", {
+                    data: { model: m.value },
+                })
+                .then(function (response) {
+                    if (response.status == 200) {
+                        toast.success("წარმატებით დარედაქტირდა", {
+                            theme: "colored",
+                            autoClose: 1000,
+                        });
+                        setTimeout(() => {
+                            document.location.reload();
+                        }, 2000);
+                    }
+                    buttonDisabled.value = false;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                    buttonDisabled.value = false;
+                });
+        }
+    });
+}
+
+
+// Define other methods like `save` similarly
 </script>
 <style scoped>
 .modal-body {

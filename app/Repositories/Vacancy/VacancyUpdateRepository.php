@@ -32,15 +32,22 @@ class VacancyUpdateRepository
             $this->updateVacancyDemand($data['demand']);
 
             // Update Employer
-            $employer = Employer::findOrFail($data['employer']['id']);
-            $employer->fill($data['employer']);
-            $employer->save();
+            if (isset($data['employer']) && isset($data['employer']['id'])) {
+                $employer = Employer::findOrFail($data['employer']['id']);
+                $employer->fill($data['employer']);
+                $employer->save();
+            } else {
+                // Handle the case where 'employer' or 'employer.id' is not set or is null
+                Log::error("Employer data is missing or incomplete.");
+                throw new \Exception("Employer data is missing or incomplete.");
+            }
 
             // Sync relationships
             $this->syncRelationships($vacancy, $data);
 
             DB::commit();
         } catch (\Exception $e) {
+            Log::error("Error updating vacancy error: " . $e->getMessage());
             DB::rollback();
             // Handle error, log it or return a response
             throw $e;
@@ -63,7 +70,11 @@ class VacancyUpdateRepository
         $preparedData['category_id'] = $data['category']['id'];
         $preparedData['status_id'] = $data['status']['id'];
         $preparedData['currency_id'] = $data['currency']['id'];
-        $preparedData['interview_place_id'] = $data['interview_place']['id'];
+        if (isset($data['interview_place']) && is_array($data['interview_place']) && isset($data['interview_place']['id'])) {
+            $preparedData['interview_place_id'] = $data['interview_place']['id'];
+        } else {
+            $preparedData['interview_place_id'] = null;
+        }
         $preparedData['term_id'] = $data['term']['id'];
 
         return $preparedData;
@@ -113,45 +124,96 @@ class VacancyUpdateRepository
         ];
 
         foreach ($relations as $key => $method) {
-            if (isset($data[$key])) {
-                $ids = collect($data[$key])->pluck('id')->toArray();
-                $vacancy->$method($ids);
+            try {
+                if (isset($data[$key])) {
+                    $ids = collect($data[$key])->pluck('id')->toArray();
+                    $vacancy->$method($ids);
+                }
+            } catch (\Exception $e) {
+                // Handle the exception
+                // For example, log the error and continue with the next iteration
+                Log::error("Error syncing relationship {$key}: " . $e->getMessage());
+                // Optionally, you can also rethrow the exception if you want to stop the execution
+                // throw $e;
             }
         }
+    }
+    function calculateMustEnrollAmount($initialAmount, $newAmount, $currentMustEnroll) {
+        if ($initialAmount != $newAmount) {
+            if ($initialAmount > $newAmount) {
+                return $currentMustEnroll - ($initialAmount - $newAmount);
+            } else {
+                return $currentMustEnroll + ($newAmount - $initialAmount);
+            }
+        }
+        return $currentMustEnroll;
     }
     function updateDeposit($data) {
-        $deposit = VacancyDeposit::findOrFail($data['id']);
-        if ($deposit->employer_initial_amount != $data['employer_initial_amount']) {
-            if ($deposit->employer_initial_amount > $data['employer_initial_amount']) {
-                $mustEmployer = $deposit->must_be_enrolled_employer - ($deposit->employer_initial_amount - $data['employer_initial_amount']);
-            }else{
-                $mustEmployer = $deposit->must_be_enrolled_employer + ($data['employer_initial_amount'] - $deposit->employer_initial_amount);
-            }
-        }else{
-            $mustEmployer = $data['must_be_enrolled_employer'];
-        }
+        try {
+            $deposit = VacancyDeposit::findOrFail($data['id']);
 
-        if ($deposit->candidate_initial_amount != $data['candidate_initial_amount']) {
-            if ($deposit->candidate_initial_amount > $data['candidate_initial_amount']) {
-                $mustCandidate = $deposit->must_be_enrolled_candidate - ($deposit->candidate_initial_amount - $data['candidate_initial_amount']);
-            }else{
-                $mustCandidate = $deposit->must_be_enrolled_candidate + ($data['candidate_initial_amount'] - $deposit->candidate_initial_amount);
-            }
-        }else{
-            $mustCandidate = $data['must_be_enrolled_employer'];
+            $mustEmployer = $this->calculateMustEnrollAmount(
+                $deposit->employer_initial_amount,
+                $data['employer_initial_amount'],
+                $deposit->must_be_enrolled_employer
+            );
+
+            $mustCandidate = $this->calculateMustEnrollAmount(
+                $deposit->candidate_initial_amount,
+                $data['candidate_initial_amount'],
+                $deposit->must_be_enrolled_candidate
+            );
+
+            VacancyDeposit::updateOrCreate(
+                ['vacancy_id' => $data['vacancy_id']],
+                [
+                    'employer_initial_amount' => $data['employer_initial_amount'],
+                    'must_be_enrolled_employer' => $mustEmployer,
+                    'must_be_enrolled_employer_date' => $data['must_be_enrolled_employer_date'],
+                    'candidate_initial_amount' => $data['candidate_initial_amount'],
+                    'must_be_enrolled_candidate' => $mustCandidate,
+                    'must_be_enrolled_candidate_date' => $data['must_be_enrolled_candidate_date'],
+                ]
+            );
+        } catch (\Exception $e) {
+            // Handle exception, e.g., log it or return an error message
+            Log::error("Error updating deposit: " . $e->getMessage());
+            // Optionally, rethrow or handle differently
         }
-        VacancyDeposit::updateOrCreate(
-            ['vacancy_id' => $data['vacancy_id']],
-            [
-                'employer_initial_amount' => $data['employer_initial_amount'],
-                'must_be_enrolled_employer' => $mustEmployer,
-                'must_be_enrolled_employer_date' => $data['must_be_enrolled_employer_date'],
-                'candidate_initial_amount' => $data['candidate_initial_amount'],
-                'must_be_enrolled_candidate' => $mustCandidate,
-                'must_be_enrolled_candidate_date' => $data['must_be_enrolled_candidate_date'],
-            ]
-        );
     }
+    // function updateDeposit($data) {
+    //     $deposit = VacancyDeposit::findOrFail($data['id']);
+    //     if ($deposit->employer_initial_amount != $data['employer_initial_amount']) {
+    //         if ($deposit->employer_initial_amount > $data['employer_initial_amount']) {
+    //             $mustEmployer = $deposit->must_be_enrolled_employer - ($deposit->employer_initial_amount - $data['employer_initial_amount']);
+    //         }else{
+    //             $mustEmployer = $deposit->must_be_enrolled_employer + ($data['employer_initial_amount'] - $deposit->employer_initial_amount);
+    //         }
+    //     }else{
+    //         $mustEmployer = $data['must_be_enrolled_employer'];
+    //     }
+
+    //     if ($deposit->candidate_initial_amount != $data['candidate_initial_amount']) {
+    //         if ($deposit->candidate_initial_amount > $data['candidate_initial_amount']) {
+    //             $mustCandidate = $deposit->must_be_enrolled_candidate - ($deposit->candidate_initial_amount - $data['candidate_initial_amount']);
+    //         }else{
+    //             $mustCandidate = $deposit->must_be_enrolled_candidate + ($data['candidate_initial_amount'] - $deposit->candidate_initial_amount);
+    //         }
+    //     }else{
+    //         $mustCandidate = $data['must_be_enrolled_employer'];
+    //     }
+    //     VacancyDeposit::updateOrCreate(
+    //         ['vacancy_id' => $data['vacancy_id']],
+    //         [
+    //             'employer_initial_amount' => $data['employer_initial_amount'],
+    //             'must_be_enrolled_employer' => $mustEmployer,
+    //             'must_be_enrolled_employer_date' => $data['must_be_enrolled_employer_date'],
+    //             'candidate_initial_amount' => $data['candidate_initial_amount'],
+    //             'must_be_enrolled_candidate' => $mustCandidate,
+    //             'must_be_enrolled_candidate_date' => $data['must_be_enrolled_candidate_date'],
+    //         ]
+    //     );
+    // }
 
 
 

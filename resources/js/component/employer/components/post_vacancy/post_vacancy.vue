@@ -1278,7 +1278,7 @@ export default {
         const rules = {
             employer: {
                 name: { required },
-                // number: props.data.model.role_id && props.data.model.role_id == 3 ? { required, numeric } : {required},
+                number:  { required, numeric },
                 address: { required },
                 email: { email },
             },
@@ -1459,7 +1459,7 @@ export default {
             data.vacancy[`title_${getLang.value}`] = data.vacancy.title;
             data.lang = getLang.value;
             v.value.$touch();
-            console.log('v.value.$invalid', v.value);
+            console.log("Validation state:", v.value.$invalid, v.value);
             if (!v.value.$invalid && checkStartDate(data)) {
                 let html = `
                     ${data.vacancy.start_date}_დან ${
@@ -1589,7 +1589,7 @@ export default {
                 cancelButtonColor: "#3085d6",
             }).then((result) => {
                 if (result.isConfirmed) {
-                    
+
                     if (id) {
                         axios
                         .post(`/delete_additional_number/${id}`)
@@ -1608,11 +1608,11 @@ export default {
                     }else{
                         m.value.employer.additional_numbers.splice(index, 1);
                     }
-                  
+
                 }
             });
         };
-        
+
         const openAdditionalNumberModal = () => {
             console.log(
                 "openAdditionalNumberModal",
