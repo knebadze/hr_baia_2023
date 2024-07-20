@@ -4,9 +4,11 @@ namespace App\Services;
 
 use App\Models\Vacancy;
 use App\Models\Employer;
+use App\Models\EmployerAdditionalNumber;
 use App\Services\TranslationService;
 use App\Repositories\Vacancy\VacancyRepository;
 use App\Repositories\Vacancy\FindVacancyRepository;
+use App\Services\CandidateModel\AdditionalNumber;
 
 class VacancyService{
     protected VacancyRepository $vacancyRepository;
@@ -32,14 +34,22 @@ class VacancyService{
     }
 
     function checkNumber($data) {
-        $employer = Employer::where('number', $data['number'])->first();
-        $vacancy = [];
-        if ($employer) {
-            $vacancy = Vacancy::where('author_id', $employer->id)->with(['hr', 'category', 'status', 'employer'])->orderBy('id', 'DESC')->get();
+        // Attempt to find the employer directly or through an additional number
+        $employer = Employer::where('number', $data['number'])->first() ?? null;
+                    // EmployerAdditionalNumber::where('number', $data['number'])->first()->employer ?? null;
+        // dd($employer);
+        // If no employer is found, return an empty collection early
+        if (!$employer) {
+            return collect();
         }
+    
+        // Fetch vacancies related to the employer
+        $vacancy = Vacancy::where('author_id', $employer->id)
+            ->with(['hr', 'category', 'status', 'employer'])
+            ->orderBy('id', 'DESC')
+            ->get();
 
         return $vacancy;
-
     }
 
     public function saveData($data)

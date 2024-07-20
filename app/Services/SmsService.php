@@ -19,11 +19,11 @@ class  SmsService
             $to = $phone_number;
             $encodedMessage = urlencode($message);
 
-            $generatedUrl = "{$apiUrl}?username={$username}&password={$password}&client_id={$client_id}&service_id={$service_id}&to=+995{$to}&text={$encodedMessage}&utf=8";
+            // $generatedUrl = "{$apiUrl}?username={$username}&password={$password}&client_id={$client_id}&service_id={$service_id}&to=+995{$to}&text={$encodedMessage}&utf=8";
 
-            $response = Http::get($generatedUrl);
+            // $response = Http::get($generatedUrl);
             $this->createLog($phone_number, $message, $type);
-            return $response->status();
+            return [];
         } catch (\Exception $e) {
             // Log the error message
             Log::error('Error sending SMS: ' . $e->getMessage());

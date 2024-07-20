@@ -19,7 +19,7 @@ class EmployerAdditionalNumber extends Model
 
     public function employer()
     {
-        return $this->belongsTo(Employer::class, 'employer_id');
+        return $this->hasOne(Employer::class, 'id','employer_id');
     }
 
     public function numberCode()

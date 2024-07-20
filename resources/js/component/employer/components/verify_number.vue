@@ -10,7 +10,7 @@
         <div class="main">
             <div class="row parent">
                 <div class="col-md-12 text-center">
-                    <h2 class="pb-2 pt-2">ვაკანსიის დამატება</h2>
+                    <h3 class="pb-2 pt-2">ვაკანსიის დამატება</h3>
                     <h5>ნომრის ვერიფიკაცია</h5>
                 </div>
                 <div class="col-xl-6 col-lg-8 col-md-12">
@@ -376,7 +376,7 @@ const handlerAction = () => {
     background-position: center;
     background-repeat: no-repeat;
     width: 100%;
-    height: 100vh;
+    height: 70vh;
     border-radius: 5px;
     position: relative;
 }

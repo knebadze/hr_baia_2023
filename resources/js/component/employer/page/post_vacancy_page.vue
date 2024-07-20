@@ -18,8 +18,8 @@ import post_vacancy from '../components/post_vacancy/post_vacancy.vue';
             return I18n.getSharedInstance().options.lang;
         });
         const cla = ref(_.cloneDeep(props.data.classificatory));
-        const showVerifySection = ref(props.data.model.role_id == 3);
-        const showPostSection = ref(props.data.model.role_id != 3);
+        const showVerifySection = ref(true);
+        const showPostSection = ref(false);
         const post_vacancy_data = ref({...props.data})
 
         // გამეორების დროს იგზავნება ობიექტი

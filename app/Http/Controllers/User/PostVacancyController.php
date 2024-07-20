@@ -62,11 +62,12 @@ class PostVacancyController extends Controller
 
     function verifyNumber(Request $request) {
         $data = $request->model;
-        $randomNumber = null;
+        $randomNumber = Auth::guard('staff')->check() ? 11111 : rand(10000, 99999);
+        $result = $this->vacancyService->checkNumber($data);
         if ($data['number_code']['iso'] == "GE" && strlen($data['number']) == 9) {
             $employer = Employer::where('number', $data['number'])->first();
             $sendSms = new SmsService();
-            $randomNumber = rand(10000, 99999);
+            
             $sendSms->sendSms($data['number'], 'verify code:'.$randomNumber);
             if ($employer) {
                 $employer->update(['verify_code' => $randomNumber]);
@@ -81,8 +82,7 @@ class PostVacancyController extends Controller
 
 
         }
-        $result = $this->vacancyService->checkNumber($data);
-
+        
         return response()->json($result);
     }
 

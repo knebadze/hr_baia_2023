@@ -1050,28 +1050,80 @@
                         <i class="fa fa-plus"></i> ნომრის დამატება
                     </button>
                 </div>
-                <div v-if="m.employer.additional_numbers.length > 0" class="col-lg-12 col-md-12">
+                <div
+                    v-if="m.employer.additional_numbers.length > 0"
+                    class="col-lg-12 col-md-12"
+                >
                     <div class="panel-body wt-panel-body">
                         <div class="p-a20 table-responsive">
-                            <table class="table twm-table table-striped table-borderless">
+                            <table
+                                class="table twm-table table-striped table-borderless"
+                            >
                                 <thead>
                                     <tr>
-                                    <th>N</th>
-                                    <th>{{ $t('lang.user_profile_page_number') }}</th>
-                                    <th>{{ $t('lang.user_profile_page_number_owner') }}</th>
-                                    <th>{{ $t('lang.user_profile_page_number_comment') }}</th>
-                                    <th>{{ $t('lang.user_profile_page_work_number_actions') }}</th>
+                                        <th>N</th>
+                                        <th>
+                                            {{
+                                                $t(
+                                                    "lang.user_profile_page_number"
+                                                )
+                                            }}
+                                        </th>
+                                        <th>
+                                            {{
+                                                $t(
+                                                    "lang.user_profile_page_number_owner"
+                                                )
+                                            }}
+                                        </th>
+                                        <th>
+                                            {{
+                                                $t(
+                                                    "lang.user_profile_page_number_comment"
+                                                )
+                                            }}
+                                        </th>
+                                        <th>
+                                            {{
+                                                $t(
+                                                    "lang.user_profile_page_work_number_actions"
+                                                )
+                                            }}
+                                        </th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
-                                    <tr v-for="(item, index) in m.employer.additional_numbers">
+                                    <tr
+                                        v-for="(item, index) in m.employer
+                                            .additional_numbers"
+                                    >
                                         <td>{{ index + 1 }}</td>
-                                        <td>{{ `+${item.number_code.phonecode} ${item.number}` }}</td>
-                                        <td>{{ item.number_owner[`name_${getLang}`] }}</td>
+                                        <td>
+                                            {{
+                                                `+${item.number_code.phonecode} ${item.number}`
+                                            }}
+                                        </td>
+                                        <td>
+                                            {{
+                                                item.number_owner[
+                                                    `name_${getLang}`
+                                                ]
+                                            }}
+                                        </td>
                                         <td>{{ item.comment }}</td>
                                         <td>
-                                            <button @click="removeAdditionalNumber(index, item.id)" title="delete" data-bs-toggle="tooltip" data-bs-placement="top">
+                                            <button
+                                                @click="
+                                                    removeAdditionalNumber(
+                                                        index,
+                                                        item.id
+                                                    )
+                                                "
+                                                title="delete"
+                                                data-bs-toggle="tooltip"
+                                                data-bs-placement="top"
+                                            >
                                                 <i class="fa fa-trash-alt"></i>
                                             </button>
                                         </td>
@@ -1081,7 +1133,7 @@
                         </div>
                     </div>
                 </div>
-                <hr v-if="m.employer.additional_numbers.length > 0"/>
+                <hr v-if="m.employer.additional_numbers.length > 0" />
                 <div class="col-lg-12 col-md-12">
                     <div class="text-left">
                         <button
@@ -1200,7 +1252,7 @@ export default {
         const searchData = props.data.model.vacancy.id;
         const formData = { ...props.data.model };
         const m = ref(formData);
-        console.log('m.value', props.data.model);
+        console.log("m.value", props.data.model);
         const showAdditionalNumberModal = ref(false);
         const modalCla = ref({
             numberCode: props.data.classificatory.numberCode,
@@ -1280,7 +1332,7 @@ export default {
         const rules = {
             employer: {
                 name: { required },
-                number:  { required, numeric },
+                number: { required, numeric },
                 address: { required },
                 email: { email },
             },
@@ -1427,19 +1479,13 @@ export default {
         const openAdditionalNumberModal = () => {
             showAdditionalNumberModal.value = !showAdditionalNumberModal.value;
         };
-        const handelModalData = (item) =>{
-            console.log('item', item);
+        const handelModalData = (item) => {
+            console.log("item", item);
             m.value.employer.additional_numbers.push(item);
-        }
+        };
         const additionalNumberQuestion = ref(false);
         const add = (item) => {
             let data = { ...item };
-            if (item.employer.additional_numbers.length == 0 && props.data.model.role_idd != 3 && !additionalNumberQuestion.value) {
-                additionalModalMessage.value = "კითხეთ შემკვეთს დამატებით საკონტაქტო ნომერი";
-                openAdditionalNumberModal();
-                additionalNumberQuestion.value = true;
-                return;
-            }
             showError.value = true;
             // if (file.value != null && file.value.type !== 'application/pdf') {
             //     toast.error("გთხოვთ ფაილი ატვირთეთ pdf ფორმატში", {
@@ -1472,6 +1518,17 @@ export default {
             v.value.$touch();
             console.log("Validation state:", v.value.$invalid, v.value);
             if (!v.value.$invalid && checkStartDate(data)) {
+                if (
+                    item.employer.additional_numbers.length == 0 &&
+                    props.data.model.role_idd != 3 &&
+                    !additionalNumberQuestion.value
+                ) {
+                    additionalModalMessage.value =
+                        "კითხეთ შემკვეთს დამატებით საკონტაქტო ნომერი";
+                    openAdditionalNumberModal();
+                    additionalNumberQuestion.value = true;
+                    return;
+                }
                 let html = `
                     ${data.vacancy.start_date}_დან ${
                     data.vacancy.term[`name_${getLang.value}`]
@@ -1525,7 +1582,7 @@ export default {
             } else {
                 loader.value = false;
 
-                toast.warning("აუცილებელია სავალდებულო ველები იყოს შევსებული", {
+                toast.error("აუცილებელია სავალდებულო ველები იყოს შევსებული", {
                     theme: "colored",
                     autoClose: 2000,
                 });
@@ -1600,31 +1657,31 @@ export default {
                 cancelButtonColor: "#3085d6",
             }).then((result) => {
                 if (result.isConfirmed) {
-
                     if (id) {
                         axios
-                        .post(`/delete_additional_number/${id}`)
-                        .then((response) => {
-                            m.value.employer.additional_numbers.splice(index, 1);
-                            if (response.data.status == 200) {
-                                toast.success('წარმატებით წაიშალა', {
-                                    theme: "colored",
-                                    autoClose: 1000,
-                                });
-                            }
-                        })
-                        .catch((error) => {
-                            console.log(error);
-                        });
-                    }else{
+                            .post(`/delete_additional_number/${id}`)
+                            .then((response) => {
+                                m.value.employer.additional_numbers.splice(
+                                    index,
+                                    1
+                                );
+                                if (response.data.status == 200) {
+                                    toast.success("წარმატებით წაიშალა", {
+                                        theme: "colored",
+                                        autoClose: 1000,
+                                    });
+                                }
+                            })
+                            .catch((error) => {
+                                console.log(error);
+                            });
+                    } else {
                         m.value.employer.additional_numbers.splice(index, 1);
                     }
-
                 }
             });
         };
 
-        
         onMounted(() => {
             if (
                 m.value.vacancy &&
@@ -1674,7 +1731,7 @@ export default {
                 showAdditionalNumberModal.value = false;
             },
             handelModalData,
-            removeAdditionalNumber
+            removeAdditionalNumber,
         };
     },
 };
