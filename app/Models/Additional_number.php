@@ -16,7 +16,7 @@ class Additional_number extends Model
     ];
     public function numberCode()
     {
-        return $this->belongsTo(numberCode::class);
+        return $this->belongsTo(NumberCode::class);
     }
     public function numberOwner()
     {

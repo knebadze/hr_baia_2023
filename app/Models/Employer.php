@@ -49,7 +49,7 @@ class Employer extends Model
 
     public function numberCode()
     {
-        return $this->belongsTo(numberCode::class, 'number_code_id', 'id');
+        return $this->belongsTo(NumberCode::class, 'number_code_id', 'id');
     }
     public function additionalNumbers()
     {

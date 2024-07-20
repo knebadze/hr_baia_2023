@@ -60,16 +60,42 @@
         <div class="row">
             <div class="col-md-6">
                 <dl class="row">
+                    <dt class="col-sm-4">HR:</dt>
+                    <dd class="col-sm-8">{{ item.hr.name_ka }}</dd>
+                    <dt class="col-sm-4">რეგისტრატორი:</dt>
+                    <dd class="col-sm-8">
+                        {{ item.registrant ? item.registrant.name_ka : "--" }}
+                    </dd>
                     <dt class="col-sm-4">მისამართი:</dt>
                     <dd class="col-sm-8">
                         {{
                             `${item.employer.address_ka} ${item.employer.street_ka}`
                         }}
                     </dd>
-                    <dt class="col-sm-4">HR:</dt>
-                    <dd class="col-sm-8">{{ item.hr.name_ka }}</dd>
-                    <dt class="col-sm-4">რეგისტრატორი:</dt>
-                    <dd class="col-sm-8">{{ item.registrant?item.registrant.name_ka:'--' }}</dd>
+                    <div
+                        class="row col-12"
+                        v-if="item.employer.additional_numbers.length > 0"
+                    >
+                        <dt class="col-sm-4">დამატებით ნომრები:</dt>
+                        <dd class="col-sm-8">
+                            <span>
+                                {{
+                                    item.employer.additional_numbers
+                                        .map(
+                                            (i) =>
+                                                `+${i.number_code.phonecode} ${i.number} - ${i.number_owner.name_ka} (${i.comment})`
+                                        )
+                                        .join(", ")
+                                }}</span
+                            >
+                        </dd>
+                    </div>
+                    <div class="row col-12" v-ielse>
+                        <dt class="col-sm-4">დამატებით ნომრები:</dt>
+                        <dd class="col-sm-8">
+                            <span> --</span>
+                        </dd>
+                    </div>
                     <dt class="col-sm-4">სათაური:</dt>
                     <dd class="col-sm-8">{{ item.title_ka }}</dd>
                     <dt class="col-sm-4">სამუშაო დღეები:</dt>
@@ -291,7 +317,7 @@
                                     item.demand.max_age
                                         ? item.demand.max_age
                                         : "--"
-                                 }}
+                                }}
                             </dd>
                         </div>
                     </div>

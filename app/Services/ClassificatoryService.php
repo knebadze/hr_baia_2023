@@ -20,13 +20,13 @@ use App\Models\Religion;
 use App\Models\Education;
 use App\Models\Specialty;
 use App\Models\ForWhoNeed;
-use App\Models\numberCode;
+use App\Models\NumberCode;
 use App\Models\Profession;
 use App\Models\Citizenship;
 use App\Models\Nationality;
 use App\Models\NumberOwner;
-use App\Models\WorkSchedule;
 
+use App\Models\WorkSchedule;
 use App\Models\CandidateDuty;
 use App\Models\MaritalStatus;
 use App\Models\DrivingLicense;
@@ -61,7 +61,7 @@ class ClassificatoryService
                 'workExperiences' => Work_experience::all()->toArray(),
                 'noExperienceReason' => NoReason::where('category', 1)->get()->toArray(),
                 'drivingLicense' => DrivingLicense::all()->toArray(),
-                'numberCode' => numberCode::get()->toArray(),
+                'numberCode' => NumberCode::get()->toArray(),
                 'characteristic' => GeneralCharacteristic::all()->toArray(),
                 'yesNo' => YesNo::all()->toArray(),
                 'numberOwner' => NumberOwner::all()->toArray(),

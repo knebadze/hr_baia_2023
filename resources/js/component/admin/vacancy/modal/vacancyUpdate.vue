@@ -282,8 +282,7 @@
                                 <ErrorMassage
                                     v-if="
                                         showError &&
-                                        !v.work_schedule.required
-                                            .$response
+                                        !v.work_schedule.required.$response
                                     "
                                     name="required"
                                 />
@@ -311,8 +310,7 @@
                                 <ErrorMassage
                                     v-if="
                                         showError &&
-                                        !v.payment.required
-                                            .$response
+                                        !v.payment.required.$response
                                     "
                                     name="required"
                                 />
@@ -345,8 +343,7 @@
                                 <ErrorMassage
                                     v-if="
                                         showError &&
-                                        !v.currency.required
-                                            .$response
+                                        !v.currency.required.$response
                                     "
                                     name="required"
                                 />
@@ -464,8 +461,7 @@
                                 <ErrorMassage
                                     v-if="
                                         showError &&
-                                        !v.start_date.required
-                                            .$response
+                                        !v.start_date.required.$response
                                     "
                                     name="required"
                                 />
@@ -494,9 +490,7 @@
                                 </div>
                                 <ErrorMassage
                                     v-if="
-                                        showError &&
-                                        !v.term.required
-                                            .$response
+                                        showError && !v.term.required.$response
                                     "
                                     name="required"
                                 />
@@ -937,6 +931,74 @@
                             </div>
                         </div>
                     </div>
+                    <hr />
+                    <div class="p-a20 my-3 d-flex justify-content-between">
+                        <h6 class="m-a0">
+                            <i class="fa fa-phone"></i> დამატებითი საკონტაქტო
+                            ნომრები
+                        </h6>
+                        <button
+                            class="btn btn-info"
+                            @click="openAdditionalNumberModal"
+                        >
+                            <i class="fa fa-plus"></i> ნომრის დამატება
+                        </button>
+                    </div>
+                    <div
+                        v-if="m.employer.additional_numbers.length > 0"
+                        class="col-lg-12 col-md-12"
+                    >
+                        <div class="panel-body wt-panel-body">
+                            <div class="p-a20 table-responsive">
+                                <table
+                                    class="table twm-table table-striped table-borderless"
+                                >
+                                    <thead>
+                                        <tr>
+                                            <th>N</th>
+                                            <th>ნომერეი</th>
+                                            <th>მფლობელი</th>
+                                            <th>კომენტარი</th>
+                                            <th>მოქმედება</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr
+                                            v-for="(item, index) in m.employer
+                                                .additional_numbers"
+                                        >
+                                            <td>{{ index + 1 }}</td>
+                                            <td>
+                                                {{
+                                                    `+${item.number_code.phonecode} ${item.number}`
+                                                }}
+                                            </td>
+                                            <td>
+                                                {{ item.number_owner.name_ka }}
+                                            </td>
+                                            <td>{{ item.comment }}</td>
+                                            <td>
+                                                <button
+                                                    @click="
+                                                        removeAdditionalNumber(
+                                                            index,
+                                                            item.id
+                                                        )
+                                                    "
+                                                    title="delete"
+                                                >
+                                                    <i
+                                                        class="fa fa-trash-alt"
+                                                    ></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button
@@ -990,6 +1052,7 @@ const numberCode = ref({
 const editedFields = ref([]);
 const showError = ref(false);
 const buttonDisabled = ref(false);
+const showAdditionalNumberModal = ref(false);
 
 const getLang = computed(() => {
     const instance = I18n.getSharedInstance(); // Ensure I18n is imported or defined if used
@@ -1020,6 +1083,7 @@ async function show() {
             return o.category_id == item.category_id;
         });
         m.value = makeModel(props.item);
+        console.log(m.value);
         showConfirm.value = true;
     } catch (error) {
         console.log(error);
@@ -1151,8 +1215,49 @@ function save() {
                 });
         }
     });
+    const openAdditionalNumberModal = () => {
+        console.log(
+            "openAdditionalNumberModal",
+            showAdditionalNumberModal.value
+        );
+        showAdditionalNumberModal.value = !showAdditionalNumberModal.value;
+    };
+    const removeAdditionalNumber = (index, id) => {
+        Swal.fire({
+            title: "ნომრის წაშლა",
+            text: "ნამდვილად გსურთ ნომრის წაშლა?",
+            showCancelButton: true,
+            confirmButtonText: "დიახ",
+            cancelButtonText: "არა",
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                if (id) {
+                    axios
+                        .post(`/delete_additional_number/${id}`)
+                        .then((response) => {
+                            m.value.employer.additional_numbers.splice(
+                                index,
+                                1
+                            );
+                            if (response.data.status == 200) {
+                                toast.success("წარმატებით წაიშალა", {
+                                    theme: "colored",
+                                    autoClose: 1000,
+                                });
+                            }
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });
+                } else {
+                    m.value.employer.additional_numbers.splice(index, 1);
+                }
+            }
+        });
+    };
 }
-
 
 // Define other methods like `save` similarly
 </script>

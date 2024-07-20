@@ -51,7 +51,7 @@ class AdminVacancyController extends Controller
         $vacancyQuery = Vacancy::orderBy('carry_in_head_date', 'DESC')
             ->with([
                 'vacancyDuty', 'vacancyBenefit', 'vacancyForWhoNeed', 'characteristic',
-                'employer', 'currency', 'category', 'status', 'workSchedule',
+                'employer.additionalNumbers.numberCode', 'employer.additionalNumbers.numberOwner', 'currency', 'category', 'status', 'workSchedule',
                 'vacancyInterest', 'interviewPlace', 'term', 'demand',
                 'demand.language', 'demand.education', 'demand.languageLevel',
                 'demand.specialty', 'employer.numberCode', 'deposit', 'hr',

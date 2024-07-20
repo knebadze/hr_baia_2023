@@ -43,6 +43,6 @@ class CandidateRecommendation extends Model
 
     public function numberCode()
     {
-        return $this->belongsTo(numberCode::class);
+        return $this->belongsTo(NumberCode::class);
     }
 }

@@ -31,7 +31,7 @@ class PostVacancyController extends Controller
 
         if ($id && $code) {
             $vacancy = Vacancy::where('id', $id)->where('code', $code)->with([
-                'vacancyDuty', 'vacancyBenefit', 'vacancyForWhoNeed', 'characteristic', 'employer.additionalNumbers', 'currency','category', 'status',
+                'vacancyDuty', 'vacancyBenefit', 'vacancyForWhoNeed', 'characteristic', 'employer.additionalNumbers.numberCode', 'employer.additionalNumbers.numberOwner', 'currency','category', 'status',
                 'workSchedule', 'vacancyInterest', 'interviewPlace','term', 'demand', 'demand.language', 'demand.education', 'demand.languageLevel','demand.specialty',
                 'employer.numberCode','deposit','hr', 'vacancyDrivingLicense', 'reasonForCancel'
                 ])->first();
