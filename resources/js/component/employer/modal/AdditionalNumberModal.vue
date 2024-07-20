@@ -5,6 +5,10 @@ import { cloneDeep } from "lodash";
 const props = defineProps({
     visible: Boolean,
     cla: Object,
+    message:{
+        type: String,
+        default: null
+    }
 });
 const emit = defineEmits(["closeModal", "sendData"]);
 const showConfirm = ref(false);
@@ -122,6 +126,9 @@ watch(
                     ></button>
                 </div>
                 <div class="modal-body">
+                    <div v-if="message" class="d-flex justify-content-center">
+                        <p class="text-danger">{{ message }}!!!</p>
+                    </div>
                     <div class="row">
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group">

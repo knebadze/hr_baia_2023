@@ -1138,6 +1138,7 @@
             ref="additionalNumberModal"
             :visible="showAdditionalNumberModal"
             :cla="modalCla"
+            :message="additionalModalMessage"
             @closeModal="handelModalClose"
             @sendData="handelModalData"
         />
@@ -1205,6 +1206,7 @@ export default {
             numberCode: props.data.classificatory.numberCode,
             numberOwner: props.data.classificatory.numberOwner,
         });
+        const additionalModalMessage = ref(null);
         // formData.getLang = getLang;
         // formData.number_code = cla.value.numberCode.find(element => element.phonecode == 995);
 
@@ -1422,13 +1424,22 @@ export default {
             }
             return true;
         };
-
+        const openAdditionalNumberModal = () => {
+            showAdditionalNumberModal.value = !showAdditionalNumberModal.value;
+        };
         const handelModalData = (item) =>{
             console.log('item', item);
             m.value.employer.additional_numbers.push(item);
         }
+        const additionalNumberQuestion = ref(false);
         const add = (item) => {
             let data = { ...item };
+            if (item.employer.additional_numbers.length == 0 && props.data.model.role_idd != 3 && !additionalNumberQuestion.value) {
+                additionalModalMessage.value = "კითხეთ შემკვეთს დამატებით საკონტაქტო ნომერი";
+                openAdditionalNumberModal();
+                additionalNumberQuestion.value = true;
+                return;
+            }
             showError.value = true;
             // if (file.value != null && file.value.type !== 'application/pdf') {
             //     toast.error("გთხოვთ ფაილი ატვირთეთ pdf ფორმატში", {
@@ -1613,13 +1624,7 @@ export default {
             });
         };
 
-        const openAdditionalNumberModal = () => {
-            console.log(
-                "openAdditionalNumberModal",
-                showAdditionalNumberModal.value
-            );
-            showAdditionalNumberModal.value = !showAdditionalNumberModal.value;
-        };
+        
         onMounted(() => {
             if (
                 m.value.vacancy &&
@@ -1664,6 +1669,7 @@ export default {
             showAdditionalNumberModal,
             modalCla,
             openAdditionalNumberModal,
+            additionalModalMessage,
             handelModalClose: () => {
                 showAdditionalNumberModal.value = false;
             },
