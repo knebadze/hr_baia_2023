@@ -1520,7 +1520,7 @@ export default {
             if (!v.value.$invalid && checkStartDate(data)) {
                 if (
                     item.employer.additional_numbers.length == 0 &&
-                    props.data.model.role_idd != 3 &&
+                    props.data.model.role_id != 3 &&
                     !additionalNumberQuestion.value
                 ) {
                     additionalModalMessage.value =
