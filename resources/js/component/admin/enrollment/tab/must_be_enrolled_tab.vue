@@ -314,7 +314,6 @@ export default {
     created() {
         this.getData();
         this.role_id = this.auth.role_id;
-        console.log(this.data);
         // this.role_id = this.data.role_id
     },
     methods: {

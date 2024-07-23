@@ -33,13 +33,13 @@ class VacancyUpdateRepository
 
             // Update VacancyDemand
             $this->updateVacancyDemand($data['demand']);
-
             // Update Employer
             if (isset($data['employer']) && isset($data['employer']['id'])) {
                 $employer = Employer::findOrFail($data['employer']['id']);
                 $filteredData = Arr::except($data['employer'], ['additional_numbers']);
                 $employer->fill($filteredData);
                 $employer->save();
+
                 if (!empty($data['employer']['additional_numbers'])) {
                     foreach ($data['employer']['additional_numbers'] as $additionalNumber) {
                         EmployerAdditionalNumber::updateOrCreate(

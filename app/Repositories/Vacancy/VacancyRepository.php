@@ -91,6 +91,7 @@ class VacancyRepository{
             // Check if additional_numbers is present and not empty
             if (!empty($data['additional_numbers'])) {
                 foreach ($data['additional_numbers'] as $additionalNumber) {
+                   
                     EmployerAdditionalNumber::updateOrCreate(
                         [
                             // Assuming 'employer_id' and 'number' uniquely identify an additional number
@@ -118,7 +119,10 @@ class VacancyRepository{
     {
         // Assuming slug generation and interview date formatting are required
         $slug = Str::slug($data['vacancy']['title_en'], '-'); // Example slug generation based on vacancy title
-        $dateTime = $data['interviewDate'] . ' ' . $data['interviewTime']; // Combining date and time for interview
+        $dateTime = null;
+        if (isset($data['interviewDate']) && isset($data['interviewTime'])){
+            $data['interviewDate'] . ' ' . $data['interviewTime'];
+        } // Combining date and time for interview
         $code = random_int(100000, 999999999);
         return [
             'code' => $code,

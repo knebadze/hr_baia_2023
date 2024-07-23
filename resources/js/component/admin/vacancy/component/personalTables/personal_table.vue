@@ -115,7 +115,6 @@ export default {
     setup(props) {
         const data = ref(props.items.data);
         const type = ref(props.items.type);
-        console.log(data.value);
         const candidateFullInfoModalShow = ref(false);
         const candidate_id = ref(null);
 

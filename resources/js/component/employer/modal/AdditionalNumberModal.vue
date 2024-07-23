@@ -26,9 +26,7 @@ const show = async () => {
         showConfirm.value = true;
         const georgianNumber = _.find(props.cla.numberCode, { iso: "GE" });
         m.number_code = georgianNumber;
-        console.log("m", m);
         // m.value.id = props.id
-        console.log("cla", props.cla);
     } catch (error) {}
 };
 const numberError = ref('');
@@ -82,7 +80,6 @@ const getLang = computed(() => {
     return I18n.getSharedInstance().options.lang;
 });
 
-console.log("m", m);
 const chooseNumberCode = (item) => {
     m.number_code = item;
 };
@@ -90,7 +87,6 @@ const chooseNumberCode = (item) => {
 watch(
     () => props.visible,
     (value) => {
-        console.log(value);
         if (value) {
             show();
         }

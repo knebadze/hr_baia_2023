@@ -53,7 +53,6 @@ export const useUnfinishedRegistrationStore = defineStore(
                 option.value = data.option;
                 cla.value = makeCla(data.classificatory, data.option.childeFilter, data.option.admin_id);
                 
-                console.log("option", option.value);
             } catch (error) {
                 console.error(
                     "Error fetching unfinished registrations:",

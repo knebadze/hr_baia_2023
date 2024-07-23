@@ -105,7 +105,7 @@ export default {
                 let result = await getClassificatory();
                 let item = props.item;
                 cla.value = _.filter(result.data, function (o) {
-                    return o.id != item.id;
+                    return o.id != item.hr_id;
                 });
                 m.value = props.item;
                 edit.value = {
@@ -161,9 +161,9 @@ export default {
         watch(() => props.visible, (newValue) => {
             show()
         });
-        
-        
-        
+
+
+
         return {
             showConfirm,
             data,

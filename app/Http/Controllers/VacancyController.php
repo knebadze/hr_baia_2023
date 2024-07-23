@@ -13,6 +13,7 @@ use App\Models\QualifyingCandidate;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use App\Filters\Vacancy\VacancyFilters;
+use App\Models\Staff;
 use App\Services\ClassificatoryService;
 use App\Services\InterestCandidateService;
 
@@ -48,13 +49,16 @@ class VacancyController extends Controller
                     'vacancyInterest'
                 ]);
 
-            $vacancy = $query->paginate(25)->toArray();
-            $total = $query->count();
+                $paginatedVacancies = $query->paginate(25);
+                $vacancy = $paginatedVacancies->toArray();
 
-            $data = [
-                'vacancy' => $vacancy,
-                'total' => $total,
-            ];
+                // Use the total from the paginator instead of counting the query again
+                $total = $paginatedVacancies->total();
+
+                $data = [
+                    'vacancy' => $vacancy,
+                    'total' => $total,
+                ];
             $data = array_merge($data, $this->addData());
             return response()->json($data, 200);
         } catch (\Throwable $th) {
@@ -65,25 +69,52 @@ class VacancyController extends Controller
     function addData()  {
         $classificatoryArr = ['category', 'workSchedule'];
         $classificatory = $this->classificatoryService->get($classificatoryArr);
-        $auth = User::where('id', Auth::id())->with('candidate')->first();
+        $auth = null;
+        $check = Auth::guard('web')->check();
+        if ($check) {
+            $auth = User::where('id', Auth::guard('web')->id())->with('candidate')->first();
+        }
+        $checkStaff = Auth::guard('staff')->check();
+        if ($checkStaff) {
+            $auth = Staff::where('id', Auth::guard('staff')->id())->first();
+        }
         return ['classificatory' => $classificatory, 'authUser' => $auth];
     }
 
     public function filter(VacancyFilters $filters)
     {
         try {
-            $query = Vacancy::filter($filters)->orderby('updated_at', 'DESC')
-            ->whereIn('status_id', [2, 6])
-            ->with(['author','currency', 'category', 'workSchedule', 'vacancyForWhoNeed', 'vacancyBenefit', 'qualifyingCandidate', 'hr']);
+            // Build the query with filters and necessary relationships
+            $query = Vacancy::filter($filters)
+                            ->orderby('updated_at', 'DESC')
+                            ->whereIn('status_id', [2, 6])
+                            ->with([
+                                'author',
+                                'currency',
+                                'category',
+                                'workSchedule',
+                                'vacancyForWhoNeed',
+                                'vacancyBenefit',
+                                'qualifyingCandidate',
+                                'hr'
+                            ]);
 
-            $vacancy = $query->paginate(25)->toArray();
-            $total = $query->count();
+            // Use Laravel's built-in pagination and get the total count from the paginator
+            $paginatedVacancies = $query->paginate(25);
+            $vacancy = $paginatedVacancies->toArray();
+
+            // The total count is obtained directly from the paginator
+            $total = $paginatedVacancies->total();
+
+            // Prepare the data for the response
             $data = [
                 'vacancy' => $vacancy,
                 'total' => $total
             ];
+
             return response()->json($data, 200);
         } catch (\Throwable $th) {
+            // Handle exceptions and return an appropriate error response
             return response()->json(['error' => $th->getMessage()], 500);
         }
     }

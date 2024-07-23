@@ -10,13 +10,11 @@ const m = reactive({
 const vacancies = ref([]);
 const count = ref(0);
 const filter = async () => {
-    console.log(m);
     const result = await axios.post("/vacancy_dashboard_filter", m);
     const { data } = result;
     if (result.status == 200) {
         vacancies.value = data.vacancy.data;
     }
-    console.log("result", result);
 };
 const vacancyFullInfoModalShow = ref(false);
 const vacancyId = ref(null);

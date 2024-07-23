@@ -114,7 +114,7 @@
                 <div class="col-12">
                     <div class="row">
                         <div class="col-md-8">
-                            <div v-if="auth && auth.role_id === 3">
+                            <div v-if="(auth && auth.role_id === 3) || !auth">
                                 <span
                                     v-if="isCandidateInterested"
                                     style="font-size: 20px"

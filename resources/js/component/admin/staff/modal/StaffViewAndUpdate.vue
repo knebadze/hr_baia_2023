@@ -20,7 +20,7 @@ const show = () => {
     if (formModel.value.date_of_birth) {
         formModel.value.date_of_birth = moment(formModel.value.date_of_birth, 'MM-DD-YYYY').format('YYYY-MM-DD');
     }
-    
+
     imgName.value = data.avatar;
     showConfirm.value = true;
 };
@@ -57,7 +57,7 @@ const updateHR = (data) => {
     Object.keys(formModel.value).forEach((key) => {
         formData.append(key, formModel.value[key]);
     });
-    
+
     if (avatar.value != null) {
         formData.append("avatar", avatar.value);
     } else {
@@ -68,7 +68,6 @@ const updateHR = (data) => {
         .post("/update_staff", formData, config)
         .then(function (response) {
             // handle success
-            console.log(response);
             if (response.status == 200) {
                 hide();
                 toast.success("ინფორმაცია წარმატებით განახლდა", {

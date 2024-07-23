@@ -1048,7 +1048,6 @@ const findCandidate = () => {
         )
         .then(function (response) {
             // handle success
-            console.log(response.data);
             const data = response.data;
             const { candidates, total } = data;
             candidate.value = candidates.data;

@@ -49,7 +49,6 @@ export default {
         const moveModalShow = ref(false);
         const endWorkModalShow = ref(false);
         const scheduleModalShow = ref(false);
-        console.log('props',props.item)
         const modalItem = ref(null);
         const qualifying_id = ref(null)
 

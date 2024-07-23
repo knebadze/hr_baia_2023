@@ -1232,7 +1232,6 @@ export default {
         const send = ref(false);
         const showError = ref(false);
         const cla = ref(_.cloneDeep(props.data.classificatory));
-        console.log(cla.value);
         const termDisable = ref(false);
         var currentDate = moment();
         const startDateMin = ref(
@@ -1252,7 +1251,6 @@ export default {
         const searchData = props.data.model.vacancy.id;
         const formData = { ...props.data.model };
         const m = ref(formData);
-        console.log("m.value", props.data.model);
         const showAdditionalNumberModal = ref(false);
         const modalCla = ref({
             numberCode: props.data.classificatory.numberCode,
@@ -1480,7 +1478,6 @@ export default {
             showAdditionalNumberModal.value = !showAdditionalNumberModal.value;
         };
         const handelModalData = (item) => {
-            console.log("item", item);
             m.value.employer.additional_numbers.push(item);
         };
         const additionalNumberQuestion = ref(false);
@@ -1516,7 +1513,6 @@ export default {
             data.vacancy[`title_${getLang.value}`] = data.vacancy.title;
             data.lang = getLang.value;
             v.value.$touch();
-            console.log("Validation state:", v.value.$invalid, v.value);
             if (!v.value.$invalid && checkStartDate(data)) {
                 if (
                     item.employer.additional_numbers.length == 0 &&

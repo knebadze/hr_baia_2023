@@ -1,5 +1,5 @@
 <template lang="">
-        <button class="site-button" @click="interest(item)">
+        <button class="site-button p-2" @click="interest(item)">
             {{ $t('lang.individual_vacancies_page_middle_interest_button') }}
         </button>
 </template>

@@ -1081,7 +1081,6 @@ async function show() {
         classificatory.value = { ...result.data };
         cla.value = result.data;
         let item = props.item;
-        console.log('cla.value', cla.value);
         cla.value.forWhoNeed = _.filter(
             classificatory.value.forWhoNeed,
             function (o) {
@@ -1093,9 +1092,7 @@ async function show() {
         });
         modalCla.value.numberCode = classificatory.value.numberCode;
         modalCla.value.numberOwner = classificatory.value.numberOwner;
-        console.log('modalCla', modalCla);
         m.value = makeModel(props.item);
-        console.log(m.value);
         showConfirm.value = true;
     } catch (error) {
         console.log(error);
@@ -1134,7 +1131,6 @@ function chooseNumberCode(item) {
     };
 }
 const handelModalData = (item) =>{
-    console.log('item', item);
     m.value.employer.additional_numbers.push(item);
 }
 const checkStartDate = (data) => {
@@ -1231,13 +1227,9 @@ function save() {
                 });
         }
     });
-    
+
 }
 const openAdditionalNumberModal = () => {
-        console.log(
-            "openAdditionalNumberModal",
-            showAdditionalNumberModal.value
-        );
         showAdditionalNumberModal.value = !showAdditionalNumberModal.value;
     };
     const handelModalClose =  () => {

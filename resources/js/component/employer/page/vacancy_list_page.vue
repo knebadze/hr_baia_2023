@@ -92,7 +92,7 @@ onMounted(async () => {
                         </div>
                     </div>
 
-                    <div class="pagination-outer" v-if="vacancies.length > 25">
+                    <div class="pagination-outer" >
                         <div class="pagination-style1">
                             <paginate
                                 v-model="pagination.current_page"
