@@ -86,7 +86,7 @@ class VacancyUpdateRepository
 
         // Manually set attributes for nested array elements and transformations
         $preparedData['slug'] = str()->slug($data['title_en']); // Assuming str() is a valid helper
-        $preparedData['interview_date'] = $data['interviewDate'].' '.$data['interviewTime'];
+        $preparedData['interview_date'] = $data['interviewDate']?$data['interviewDate'].' '.$data['interviewTime']:null;
         $preparedData['work_schedule_id'] = $data['work_schedule']['id'];
         $preparedData['category_id'] = $data['category']['id'];
         $preparedData['status_id'] = $data['status']['id'];

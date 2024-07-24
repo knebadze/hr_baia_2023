@@ -1109,7 +1109,7 @@ function getClassificatory() {
 }
 
 function makeModel(item) {
-    let [datePart, timePart] = item.interview_date.split(" ");
+    let [datePart, timePart] = item.interview_date?item.interview_date.split(" "):[null, null];
     const data = item;
     data.demand = !data.demand ? { vacancy_id: data.id } : data.demand;
     data.interviewDate = datePart;
