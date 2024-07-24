@@ -85,9 +85,8 @@
 
                     <div class="col-xl-6 col-lg-6 col-md-12">
                         <div class="form-group">
-                            <label
-                                ><span class="text-danger">* </span
-                                >{{
+                            <label>
+                                {{
                                     $t("lang.user_profile_page_input_email")
                                 }}</label
                             >
@@ -95,7 +94,7 @@
                                 <input
                                     class="form-control"
                                     :class="
-                                        m.email == null || v.email.$error
+                                         v.email.$error
                                             ? 'is-invalid'
                                             : ''
                                     "
@@ -235,10 +234,10 @@ export default {
                 maxLength: maxLength(9),
             },
             email: {
-                required: helpers.withMessage(
-                    "lang.validation_error.required",
-                    required
-                ),
+                // required: helpers.withMessage(
+                //     "lang.validation_error.required",
+                //     required
+                // ),
                 email: helpers.withMessage(
                     "lang.validation_error.email",
                     email

@@ -23,6 +23,7 @@ class UnfinishedRegistrationController extends Controller
 
     function fetch() {
         list($authId, $childView, $childeFilter, $childePermission, $adminViewAndPermission) = $this->viewAndPermission();
+        // dd($authId, $childView, $childeFilter, $childePermission, $adminViewAndPermission);
         $query = UnfinishedRegistration::where('status_id', 2)
             ->when(Auth::guard('staff')->user()->role_id != 1, function ($query) {
                 $query->where('was_assigned_id', '=', Auth::guard('staff')->id());
@@ -44,7 +45,7 @@ class UnfinishedRegistrationController extends Controller
             'option' => [
                 'childeFilter' => $childeFilter,
                 'childePermission' => $childePermission,
-                'admin_id' => $adminViewAndPermission->admin_id
+                'admin_id' => optional($adminViewAndPermission)->admin_id
             ]
             
         ];
