@@ -62,7 +62,9 @@
                                 placeholder="555666777"
                                 onkeypress="return /[0-9]/i.test(event.key)"
                                 @keyup.enter="send"
-                                :maxlength="m.number_code.phonecode == 995 ? 9 : 15"
+                                :maxlength="
+                                    m.number_code.phonecode == 995 ? 9 : 15
+                                "
                             />
                         </div>
                         <span
@@ -82,8 +84,15 @@
                     <div class="form-group">
                         <label for=""></label>
                         <div class="input-group mb-3">
-                            <button class="site-button" @click="send">
+                            <button
+                                class="site-button"
+                                @click="send"
+                                :disabled="sendButtonDisabled"
+                            >
                                 გაგზავნა
+                                <span v-if="sendButtonDisabled">{{
+                                    countdown
+                                }}</span>
                             </button>
                         </div>
                     </div>
@@ -150,7 +159,7 @@ let repeatKey = ref(0);
 let activeVacancyIds = ref([]);
 const loadingStore = useLoadingStore();
 const { loadingActive } = storeToRefs(loadingStore);
-
+const sendButtonDisabled = ref(false);
 const chooseNumberCode = (item) => {
     m.value.number_code = item;
 };
@@ -161,8 +170,13 @@ const getLang = computed(() => {
 const rules = {
     number: { required, numeric },
 };
+const countdown = ref(60);
 const v = useVuelidate(rules, m.value);
 const send = () => {
+    console.log("countdown.value", countdown.value);
+    if (countdown.value != 0 && countdown.value != 60) {
+        return;
+    }
     showError.value = true;
     v.value.$touch();
     if (v.value.$invalid) {
@@ -170,6 +184,8 @@ const send = () => {
     }
     loadingActive.value = true;
     showVerifyCodeInput.value = false;
+    countdown.value = 60;
+    sendButtonDisabled.value = true;
     repeatKey.value++;
     checkData.value = {
         type: "employer",
@@ -187,11 +203,20 @@ const send = () => {
                     theme: "colored",
                     autoClose: 2000,
                 });
+
+                setInterval(() => {
+                    if (countdown.value > 0) {
+                        countdown.value--;
+                    }
+                    if (countdown.value == 0) {
+                        sendButtonDisabled.value = false;
+                    }
+                }, 1000);
                 // verifyNumber.value = response.data.randomNumber
                 checkNumberData.value = response.data.data;
                 // if (!response.data.has_sms) {
                 //     getSwal()
-                    
+
                 // }
                 showVerifyCodeInput.value = !showVerifyCodeInput.value;
                 loadingActive.value = false;

@@ -59,4 +59,12 @@ class Employer extends Model
     {
         return $filters->apply($query);
     }
+
+    public function scopeWithNumber($query, $number)
+    {
+        return $query->where('number', $number)
+                    ->orWhereHas('additionalNumbers', function ($query) use ($number) {
+                        $query->where('number', $number);
+                    });
+    }
 }

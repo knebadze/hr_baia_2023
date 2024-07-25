@@ -35,21 +35,21 @@ class VacancyService{
 
     function checkNumber($data) {
         // Attempt to find the employer directly or through an additional number
-        $employer = Employer::where('number', $data['number'])->first() ?? null;
+        $employer = Employer::withNumber($data['number'])->first();
                     // EmployerAdditionalNumber::where('number', $data['number'])->first()->employer ?? null;
         // dd($employer);
         // If no employer is found, return an empty collection early
         if (!$employer) {
             return collect();
         }
-    
+
         // Fetch vacancies related to the employer
         $vacancy = Vacancy::where('author_id', $employer->id)
-            ->with(['hr', 'category', 'status', 'employer'])
+            ->with(['hr', 'category', 'status', 'employer.numberCode'])
             ->orderBy('id', 'DESC')
             ->get();
 
-        return $vacancy;
+        return [$employer, $vacancy];
     }
 
     public function saveData($data)

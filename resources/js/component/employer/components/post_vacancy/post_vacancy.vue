@@ -1251,6 +1251,7 @@ export default {
         const searchData = props.data.model.vacancy.id;
         const formData = { ...props.data.model };
         const m = ref(formData);
+        console.log('m.value');
         const showAdditionalNumberModal = ref(false);
         const modalCla = ref({
             numberCode: props.data.classificatory.numberCode,
