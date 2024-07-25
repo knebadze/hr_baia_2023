@@ -86,6 +86,10 @@
                                             max-height: calc(100vh - 550px);
                                         "
                                     >
+                                        <NumberCodeSearchInput
+                                            :classificatory="classificatory.numberCode"
+                                            @search="handleNumberCodeSearch"
+                                        />
                                         <li
                                             v-for="item in cla.numberCode"
                                             @click="chooseNumberCode(item)"
@@ -1041,6 +1045,7 @@ import axios from "axios"; // Ensure axios is imported if used for HTTP requests
 import Swal from "sweetalert2";
 import moment from "moment";
 import ErrorMassage from "../../../plugins/ErrorMassage.vue";
+import NumberCodeSearchInput from "../../../input/NumberCodeSearchInput.vue";
 const props = defineProps({
     visible: Boolean,
     item: Object,
@@ -1092,7 +1097,12 @@ async function show() {
         });
         modalCla.value.numberCode = classificatory.value.numberCode;
         modalCla.value.numberOwner = classificatory.value.numberOwner;
+        numberCode.value = _.find(
+            classificatory.value.numberCode,
+            (o) => o.id == item.employer.number_code_id
+        );
         m.value = makeModel(props.item);
+        console.log(m.value);
         showConfirm.value = true;
     } catch (error) {
         console.log(error);
@@ -1270,6 +1280,11 @@ const openAdditionalNumberModal = () => {
             }
         });
     };
+
+    const handleNumberCodeSearch = (value) => {
+        cla.value.numberCode = value;
+    };
+
 
 // Define other methods like `save` similarly
 </script>

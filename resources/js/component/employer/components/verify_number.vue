@@ -43,7 +43,10 @@
                                     max-height: calc(100vh - 550px);
                                 "
                             >
-                                <NumberCodeSearchInput :classificatory="cla" @search="handleNumberCodeSearch"/>
+                                <NumberCodeSearchInput
+                                    :classificatory="cla"
+                                    @search="handleNumberCodeSearch"
+                                />
                                 <li
                                     v-for="item in phoneCodeCla"
                                     @click="chooseNumberCode(item)"
@@ -132,7 +135,7 @@
     </div>
 </template>
 <script setup>
-import { ref, defineComponent, computed, watch  } from "vue";
+import { ref, defineComponent, computed, watch } from "vue";
 // import CodeInput from "./CodeInput.vue";
 import Swal from "sweetalert2";
 import verify_code_div from "./verify_code_div.vue";
@@ -388,9 +391,8 @@ const getSwal = () => {
     }
 };
 const handleNumberCodeSearch = (value) => {
-    phoneCodeCla.value = value
+    phoneCodeCla.value = value;
 };
-
 
 const handlerAction = () => {
     getSwal();

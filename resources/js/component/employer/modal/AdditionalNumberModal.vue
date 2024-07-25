@@ -2,13 +2,14 @@
 import { ref, computed, watch, reactive } from "vue";
 import { errorMessage } from "../../../plugins/vuelidate/validationMessages";
 import { cloneDeep } from "lodash";
+import NumberCodeSearchInput from "../../input/NumberCodeSearchInput.vue";
 const props = defineProps({
     visible: Boolean,
     cla: Object,
-    message:{
+    message: {
         type: String,
-        default: null
-    }
+        default: null,
+    },
 });
 const emit = defineEmits(["closeModal", "sendData"]);
 const showConfirm = ref(false);
@@ -19,18 +20,20 @@ const m = reactive({
     number_owner: null,
     comment: null,
 });
+const classificatory = ref({})
 const show = async () => {
     try {
         // let result = await getData();
         // interest.value = result.data
         showConfirm.value = true;
+        classificatory.value = {...props.cla};
         const georgianNumber = _.find(props.cla.numberCode, { iso: "GE" });
         m.number_code = georgianNumber;
         // m.value.id = props.id
     } catch (error) {}
 };
-const numberError = ref('');
-const numberOwnerError = ref('');
+const numberError = ref("");
+const numberOwnerError = ref("");
 const validateData = (model) => {
     let isValid = true;
 
@@ -82,6 +85,9 @@ const getLang = computed(() => {
 
 const chooseNumberCode = (item) => {
     m.number_code = item;
+};
+const handleNumberCodeSearch = (value) => {
+    classificatory.value.numberCode = value;
 };
 
 watch(
@@ -153,8 +159,12 @@ watch(
                                             max-height: 30vh;
                                         "
                                     >
+                                        <NumberCodeSearchInput
+                                            :classificatory="cla.numberCode"
+                                            @search="handleNumberCodeSearch"
+                                        />
                                         <li
-                                            v-for="item in cla.numberCode"
+                                            v-for="item in classificatory.numberCode"
                                             @click="chooseNumberCode(item)"
                                             :key="item.id"
                                         >
@@ -179,12 +189,9 @@ watch(
                                         "
                                         onkeypress="return /[0-9]/i.test(event.key)"
                                     />
-
                                 </div>
                                 <span
-                                    v-if="
-                                        showError && numberError !== ''
-                                    "
+                                    v-if="showError && numberError !== ''"
                                     style="color: red"
                                     >{{ numberError }}</span
                                 >
@@ -212,9 +219,7 @@ watch(
                                 </div>
                             </div>
                             <span
-                                v-if="
-                                    showError && numberOwnerError !== ''
-                                "
+                                v-if="showError && numberOwnerError !== ''"
                                 style="color: red"
                                 >{{ numberOwnerError }}</span
                             >
