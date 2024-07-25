@@ -91,7 +91,7 @@ class VacancyRepository{
             // Check if additional_numbers is present and not empty
             if (!empty($data['additional_numbers'])) {
                 foreach ($data['additional_numbers'] as $additionalNumber) {
-                   
+
                     EmployerAdditionalNumber::updateOrCreate(
                         [
                             // Assuming 'employer_id' and 'number' uniquely identify an additional number
@@ -268,11 +268,13 @@ class VacancyRepository{
     function sendSms($data)
     {
         $hr = Staff::where('id', $data['hr_id'])->first();
+        $link = route('admin.vacancy');
         $HData = ['name' => $hr->name_ka, 'number' => $hr->number, 'to' => $data['number']];
         $data['to'] = $hr->number;
+        $data['link'] = $link;
         $admin = Staff::where('id', $hr->parent_id)->first();
         $getHasVacancyControl = $this->getHasVacancyControl();
-        $adminData = ['to' => $admin->number, 'code' => $data['code'], 'hr1' => $hr->name_ka, 'hr2' => $getHasVacancyControl['is_in_line']->hr_name];
+        $adminData = ['to' => $admin->number, 'code' => $data['code'], 'hr1' => $hr->name_ka, 'hr2' => $getHasVacancyControl['is_in_line']->hr_name, 'link' => $link];
         event(new SmsNotificationEvent($HData, 'add_vacancy_send_employer'));
         event(new SmsNotificationEvent($data, 'add_vacancy_send_hr'));
         event(new SmsNotificationEvent($adminData, 'add_vacancy_send_admin'));
