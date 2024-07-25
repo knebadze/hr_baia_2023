@@ -62,6 +62,7 @@
                                 placeholder="555666777"
                                 onkeypress="return /[0-9]/i.test(event.key)"
                                 @keyup.enter="send"
+                                :maxlength="m.number_code.phonecode == 995 ? 9 : 15"
                             />
                         </div>
                         <span
@@ -187,7 +188,11 @@ const send = () => {
                     autoClose: 2000,
                 });
                 // verifyNumber.value = response.data.randomNumber
-                checkNumberData.value = response.data;
+                checkNumberData.value = response.data.data;
+                // if (!response.data.has_sms) {
+                //     getSwal()
+                    
+                // }
                 showVerifyCodeInput.value = !showVerifyCodeInput.value;
                 loadingActive.value = false;
             }

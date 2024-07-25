@@ -99,6 +99,7 @@ import post_vacancy from '../components/post_vacancy/post_vacancy.vue';
             showVerifySection.value = false
             showPostSection.value = item.active
             post_vacancy_data.value.model.employer.number = item.employer.number
+            post_vacancy_data.value.model.employer.number_code = item.employer.number_code??null
             post_vacancy_data.value.model.employer.name = item.employer[`name_${getLang.value}`];
             post_vacancy_data.value.model.employer.address = item.employer[`address_${getLang.value}`];
             post_vacancy_data.value.model.employer.street = item.employer[`street_${getLang.value}`];
