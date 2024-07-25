@@ -173,6 +173,10 @@
                                         max-height: calc(100vh - 550px);
                                     "
                                 >
+                                    <NumberCodeSearchInput
+                                        :classificatory="data.cla.numberCode"
+                                        @search="handleNumberCodeSearch"
+                                    />
                                     <li
                                         v-for="item in cla.numberCode"
                                         @click="chooseNumberCode(item)"
@@ -450,7 +454,11 @@ import { useVuelidate } from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
 import _ from "lodash";
 import Swal from "sweetalert2";
+import NumberCodeSearchInput from "../../input/NumberCodeSearchInput.vue";
 export default {
+    components: {
+        NumberCodeSearchInput,
+    },
     emits: ["validateAndEmit"],
     props: {
         data: Object,
@@ -643,6 +651,10 @@ export default {
             });
         };
 
+        const handleNumberCodeSearch = (value) => {
+            cla.value.numberCode = value;
+        };
+
         return {
             m,
             model,
@@ -658,6 +670,7 @@ export default {
             openPDF,
             send,
             remove,
+            handleNumberCodeSearch,
         };
     },
     methods: {},

@@ -146,6 +146,12 @@
                                     max-height: calc(100vh - 550px);
                                 "
                             >
+                                <NumberCodeSearchInput
+                                    :classificatory="
+                                        data.classificatory.numberCode
+                                    "
+                                    @search="handleNumberCodeSearch"
+                                />
                                 <li
                                     v-for="item in cla.numberCode"
                                     @click="chooseNumberCode(item)"
@@ -1210,10 +1216,12 @@ import Loading from "vue3-loading-overlay";
 import "vue3-loading-overlay/dist/vue3-loading-overlay.css";
 import { errorMessage } from "../../../../plugins/vuelidate/validationMessages";
 import AdditionalNumberModal from "../../modal/AdditionalNumberModal.vue";
+import NumberCodeSearchInput from "../../../input/NumberCodeSearchInput.vue";
 export default {
     components: {
         Loading,
         AdditionalNumberModal,
+        NumberCodeSearchInput,
     },
     props: {
         data: Object,
@@ -1251,7 +1259,7 @@ export default {
         const searchData = props.data.model.vacancy.id;
         const formData = { ...props.data.model };
         const m = ref(formData);
-        console.log('m.value');
+        console.log("m.value");
         const showAdditionalNumberModal = ref(false);
         const modalCla = ref({
             numberCode: props.data.classificatory.numberCode,
@@ -1679,6 +1687,9 @@ export default {
             });
         };
 
+        const handleNumberCodeSearch = (value) => {
+            cla.value.numberCode = value;
+        };
         onMounted(() => {
             if (
                 m.value.vacancy &&
@@ -1729,6 +1740,7 @@ export default {
             },
             handelModalData,
             removeAdditionalNumber,
+            handleNumberCodeSearch,
         };
     },
 };

@@ -34,6 +34,7 @@
                                     >+{{ m.number_code.phonecode }}</span
                                 >
                             </button>
+
                             <ul
                                 class="dropdown-menu"
                                 style="
@@ -42,8 +43,9 @@
                                     max-height: calc(100vh - 550px);
                                 "
                             >
+                                <NumberCodeSearchInput :classificatory="cla" @search="handleNumberCodeSearch"/>
                                 <li
-                                    v-for="item in cla"
+                                    v-for="item in phoneCodeCla"
                                     @click="chooseNumberCode(item)"
                                 >
                                     <a class="dropdown-item"
@@ -130,7 +132,7 @@
     </div>
 </template>
 <script setup>
-import { ref, defineComponent, computed } from "vue";
+import { ref, defineComponent, computed, watch  } from "vue";
 // import CodeInput from "./CodeInput.vue";
 import Swal from "sweetalert2";
 import verify_code_div from "./verify_code_div.vue";
@@ -141,6 +143,7 @@ import { storeToRefs } from "pinia";
 import { useVuelidate } from "@vuelidate/core";
 import { required, numeric } from "@vuelidate/validators";
 import { errorMessage } from "../../../plugins/vuelidate/validationMessages";
+import NumberCodeSearchInput from "../../input/NumberCodeSearchInput.vue";
 const props = defineProps({
     cla: Object,
 });
@@ -149,6 +152,7 @@ const m = ref({
     number: null,
     number_code: null,
 });
+const phoneCodeCla = ref(props.cla);
 const showVerifyCodeInput = ref(false);
 const verifyNumber = ref(null);
 const checkNumberData = ref(null);
@@ -163,7 +167,7 @@ const sendButtonDisabled = ref(false);
 const chooseNumberCode = (item) => {
     m.value.number_code = item;
 };
-
+const search_number_code = ref(null);
 const getLang = computed(() => {
     return I18n.getSharedInstance().options.lang;
 });
@@ -383,6 +387,10 @@ const getSwal = () => {
         emit("verifyEmit", postVacancyData);
     }
 };
+const handleNumberCodeSearch = (value) => {
+    phoneCodeCla.value = value
+};
+
 
 const handlerAction = () => {
     getSwal();

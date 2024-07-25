@@ -66,9 +66,9 @@
                                                 >
                                                     <interest_button
                                                         v-if="
-                                                            auth &&
+                                                            (auth &&
                                                             auth.role_id == 3 &&
-                                                            !isCandidateInterested
+                                                            !isCandidateInterested) || !auth
                                                         "
                                                         :item="vacancy"
                                                         :auth="auth"
@@ -507,6 +507,7 @@ export default {
     created() {
         this.vacancy = this.data.vacancy;
         this.auth = this.data.auth;
+        console.log(this.data);
         this.vacancy.created_at = moment(this.data.vacancy.created_at).format(
             "YYYY-MM-DD HH:mm"
         );

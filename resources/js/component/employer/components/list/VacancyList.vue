@@ -171,11 +171,11 @@ const getTimeAgo = (created_at) => {
         // For example, calculate how far in the future it is
         const futureMinutes = moment.duration(-diff).asMinutes();
         if (futureMinutes < 60) {
-            return `${Math.round(futureMinutes)} წუთში`; // minutes in the future
+            return `${Math.round(futureMinutes)} წუითის წინ`; // minutes in the future
         }
         const futureHours = moment.duration(-diff).asHours();
         if (futureHours < 24) {
-            return `${Math.round(futureHours)} საათში`; // hours in the future
+            return `${Math.round(futureHours)} საათის წინ`; // hours in the future
         }
         // Add more conditions as needed for days, etc.
         return "in the future";

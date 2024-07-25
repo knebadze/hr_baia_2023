@@ -145,10 +145,11 @@ class VacancyController extends Controller
                 ])
             ->first();
         $isWebGuard = Auth::guard('web')->check();
-        $role_id = ($isWebGuard)?Auth::guard('web')->user()->role_id:null;
+        $auth = ($isWebGuard)?User::where('id', Auth::guard('web')->id())->with('candidate')->first():Auth::guard('staff')->user();
+        $role_id = $auth?$auth->role_id:null;
         $findCandidate = ($isWebGuard && $role_id == 3)?QualifyingCandidate::where('vacancy_id', $vacancy->id)->where('candidate_id', Auth::guard('web')->user()->candidate->id)->first():null;
         $statusThisVacancy = ($findCandidate)?$findCandidate->qualifyingType:null;
-        $auth = ($isWebGuard)?User::where('id', Auth::guard('web')->id())->with('candidate')->first():null;
+
         $data = ['vacancy' => $vacancy, 'statusThisVacancy' => $statusThisVacancy, 'applicants' => count($vacancy->vacancyInterest), 'auth' => $auth];
         if ($isWebGuard || $role_id == 3) {
             $vacancy->increment('view', 1);

@@ -12,13 +12,13 @@ const detailUrl = computed(() => {
     let url = new URL(location.href);
     return url.origin + "/" + getLang.value + "/candidate-detail";
 });
-
+const AddJobUrl = computed(() => {
+    let url = new URL(location.href);
+    return url.origin + "/" + getLang.value + "/post_job";
+});
 </script>
 <template lang="">
-    <div
-        class="col-lg-6 col-md-6"
-
-    >
+    <div class="col-lg-6 col-md-6">
         <div
             class="twm-candidates-grid-style1 mb-5"
             style="background-color: #fdfff5"
@@ -31,7 +31,7 @@ const detailUrl = computed(() => {
             </div>
             <div class="twm-mid-content">
                 <a href="#" class="twm-job-title">
-                    <h4>{{ split(item.user[`name_${getLang}`], ' ')[0] }}</h4>
+                    <h4>{{ split(item.user[`name_${getLang}`], " ")[0] }}</h4>
                 </a>
                 <p>
                     <span>{{
@@ -47,14 +47,19 @@ const detailUrl = computed(() => {
                         )
                     }}</a
                 >
+                <p>
+                    <a
+                        :href="AddJobUrl"
+                        class="twm-view-prifile site-text-primary"
+                        >დავინტერესდი</a
+                    >
+                </p>
 
                 <div class="twm-fot-content">
                     <div class="twm-left-info">
                         <p class="twm-candidate-address">
                             <i class="feather-map-pin"></i
-                            >{{
-                                trimEnd(get(item, `address_${getLang}`), ' ')
-                            }}
+                            >{{ trimEnd(get(item, `address_${getLang}`), " ") }}
                         </p>
                         <!-- <span><i class="fa fa-clock pe-1"> </i>{{ item.created_at }}</span> -->
 

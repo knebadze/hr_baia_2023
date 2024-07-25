@@ -199,7 +199,6 @@ import {
     maxLength,
     helpers,
 } from "@vuelidate/validators";
-
 export default {
     emits: ["validateAndEmit", "validateAndSubmit"],
     props: {
