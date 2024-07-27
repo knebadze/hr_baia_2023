@@ -141,7 +141,8 @@ class VacancyController extends Controller
                 'demand.language',
                 'vacancyBenefit',
                 'vacancyDuty',
-                'qualifyingCandidate'
+                'qualifyingCandidate',
+                'term',
                 ])
             ->first();
         $isWebGuard = Auth::guard('web')->check();

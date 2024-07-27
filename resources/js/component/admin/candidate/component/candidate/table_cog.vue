@@ -13,6 +13,7 @@
         <div
             class="dropdown-menu dropdown-menu-right"
             aria-labelledby="dropdownMenuButton"
+            style="z-index: 10"
         >
             <a class="dropdown-item" :href="`${updateUrl}${item.user.id}`"
                 >რედაქტირება</a

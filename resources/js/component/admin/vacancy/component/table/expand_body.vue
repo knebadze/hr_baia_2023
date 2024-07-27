@@ -27,7 +27,13 @@
                         v-if="item.hr_id == hr_id || roleId == 1"
                     >
                         <dt class="col-sm-4">ნომერი:</dt>
-                        <dd class="col-sm-8">{{ item.employer.number }}</dd>
+                        <dd class="col-sm-8">
+                            {{
+                                item.employer.number_code.id != 79
+                                    ? `+${item.employer.number_code.numcode} ${item.employer.number}`
+                                    : item.employer.number
+                            }}
+                        </dd>
                     </div>
 
                     <dt class="col-sm-4">სტატუსი:</dt>
@@ -49,7 +55,11 @@
                     <div class="col-md-12" v-if="item.status.id == 5">
                         <dt class="col-sm-4">მიზეზი:</dt>
                         <dd class="col-sm-8">
-                            {{ item.reason_for_cancel.name_ka }}
+                            {{
+                                item.reason_for_cancel
+                                    ? item.reason_for_cancel.name_ka
+                                    : ""
+                            }}
                         </dd>
                     </div>
                 </dl>
@@ -83,14 +93,20 @@
                                     item.employer.additional_numbers
                                         .map(
                                             (i) =>
-                                                `+${i.number_code.phonecode} ${i.number} - ${i.number_owner.name_ka} ${i.comment?`(${i.comment})`:''}`
+                                                `+${i.number_code.phonecode} ${
+                                                    i.number
+                                                } - ${i.number_owner.name_ka} ${
+                                                    i.comment
+                                                        ? `(${i.comment})`
+                                                        : ""
+                                                }`
                                         )
                                         .join(", ")
                                 }}</span
                             >
                         </dd>
                     </div>
-                    <div class="row col-12" v-ielse>
+                    <div class="row col-12" v-else>
                         <dt class="col-sm-4">დამატებით ნომრები:</dt>
                         <dd class="col-sm-8">
                             <span> --</span>

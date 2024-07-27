@@ -65,6 +65,12 @@
                                     : "უფასო რეგისტრაცია"
                             }}
                         </dd>
+                        <dt class="col-sm-4">დაარეგისტრირა:</dt>
+                        <dd class="col-sm-8">
+                            {{
+                                item.user.register_log.creator.name_ka
+                            }}
+                        </dd>
                     </div>
                     <dt class="col-sm-4">პირადი ნომერი:</dt>
                     <dd
@@ -310,6 +316,7 @@ export default {
         item: Object,
     },
     setup(props) {
+        console.log(props.item);
         const modalType = ref(null);
         const modalItem = ref(null);
         const showInfoModal = ref(false);

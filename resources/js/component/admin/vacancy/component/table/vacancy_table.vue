@@ -97,8 +97,9 @@ const filterOptions = computed(() => {
 });
 
 const bodyRowClassNameFunction = (item, number) => {
-    if (props.fullView && item.hr.parent_id ==  props.adminId) return "my-vacancy-row";
-}
+    if (props.fullView && item.hr.parent_id == props.adminId)
+        return "my-vacancy-row";
+};
 
 // const myVacancySwitch = () =>{
 //     if (!myVacancy.value) {
@@ -129,7 +130,7 @@ const bodyRowClassNameFunction = (item, number) => {
             :headers="headers"
             :items="items"
             table-class-name="customize-table"
-             :body-row-class-name="bodyRowClassNameFunction"
+            :body-row-class-name="bodyRowClassNameFunction"
             border-cell
             :filter-options="filterOptions"
             :hide-footer="true"
@@ -166,7 +167,7 @@ const bodyRowClassNameFunction = (item, number) => {
                 }}</span>
             </template>
             <template #item-address="item">
-                {{  `${item.employer.address_ka} ${item.employer.street_ka}`  }}
+                {{ `${item.employer.address_ka} ${item.employer.street_ka}` }}
             </template>
             <template #expand="item">
                 <expand_body :item="item" :hr_id="hr_id" :roleId="role_id" />
@@ -176,7 +177,11 @@ const bodyRowClassNameFunction = (item, number) => {
                     ref="codeDisplay"
                     role="button"
                     @click="copyToClipboard(item.employer.number)"
-                    >{{ item.employer.number }}</span
+                    >{{
+                        item.employer.number_code.id != 79
+                            ? `+${item.employer.number_code.numcode} ${item.employer.number}`
+                            : item.employer.number
+                    }}</span
                 >
             </template>
             <template #header-status.name_ka="header">
@@ -314,6 +319,7 @@ const bodyRowClassNameFunction = (item, number) => {
     --easy-table-header-height: 50px;
     --easy-table-body-row-font-size: 14px;
     --easy-table-body-row-height: 50px;
+    --da0d4328: 400px !important;
 }
 .my-vacancy-row {
     --easy-table-body-row-background-color: #befdc1;

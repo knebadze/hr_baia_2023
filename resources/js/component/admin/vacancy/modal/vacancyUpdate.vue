@@ -87,7 +87,9 @@
                                         "
                                     >
                                         <NumberCodeSearchInput
-                                            :classificatory="classificatory.numberCode"
+                                            :classificatory="
+                                                classificatory.numberCode
+                                            "
                                             @search="handleNumberCodeSearch"
                                         />
                                         <li
@@ -353,6 +355,38 @@
                                 />
                             </div>
                         </div>
+                        <div class="col-xl-12 col-lg-121 col-md-12 mt-2">
+                            <div class="form-group">
+                                <label>{{
+                                    $t("lang.employer_add_job_duties")
+                                }}</label>
+                                <div class="ls-inputicon-box">
+                                    <multiselect
+                                        v-model="m.vacancy_duty"
+                                        :options="cla.duty"
+                                        :multiple="true"
+                                        :close-on-select="false"
+                                        :clear-on-select="false"
+                                        :preserve-search="true"
+                                        :placeholder="
+                                            $t('lang.employer_add_job_select')
+                                        "
+                                        label="name_ka"
+                                        track-by="name_ka"
+                                        :preselect-first="false"
+                                        @blur="v.vacancy_duty.$touch"
+                                    >
+                                    </multiselect>
+                                </div>
+                                <ErrorMassage
+                                    v-if="
+                                        showError &&
+                                        !v.vacancy_duty.required.$response
+                                    "
+                                    name="required"
+                                />
+                            </div>
+                        </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label
@@ -460,6 +494,7 @@
                                         v-model="m.start_date"
                                         type="date"
                                         placeholder=""
+                                        :min="startDateMin"
                                     />
                                 </div>
                                 <ErrorMassage
@@ -782,51 +817,7 @@
                             </div>
                         </div>
 
-                        <div class="col-xl-12 col-lg-121 col-md-12 mt-2">
-                            <div class="form-group">
-                                <label>{{
-                                    $t("lang.employer_add_job_duties")
-                                }}</label>
-                                <div class="ls-inputicon-box">
-                                    <multiselect
-                                        v-model="m.vacancy_duty"
-                                        :options="cla.duty"
-                                        :multiple="true"
-                                        :close-on-select="false"
-                                        :clear-on-select="false"
-                                        :preserve-search="true"
-                                        :placeholder="
-                                            $t('lang.employer_add_job_select')
-                                        "
-                                        label="name_ka"
-                                        track-by="name_ka"
-                                        :preselect-first="false"
-                                        :class="
-                                            !m.vacancy_duty
-                                                ? 'border border-danger'
-                                                : ''
-                                        "
-                                    >
-                                        <template
-                                            slot="selection"
-                                            slot-scope="{
-                                                values,
-                                                search,
-                                                isOpen,
-                                            }"
-                                            ><span
-                                                class="multiselect__single"
-                                                v-if="values.length"
-                                                v-show="!isOpen"
-                                                >{{ values.length }} options
-                                                selected</span
-                                            ></template
-                                        >
-                                    </multiselect>
-                                    <!-- <span v-if="v$.m.familyWorkedSelected.required.$invalid && v$.m.familyWorkedSelected.$dirty" style='color:red'>* {{ v$.m.candidateFamilyWorkSkill.required.$message}}</span> -->
-                                </div>
-                            </div>
-                        </div>
+
 
                         <div class="col-md-12">
                             <div class="form-group">
@@ -860,8 +851,18 @@
                                         class="form-control"
                                         v-model="m.interviewDate"
                                         type="date"
+                                         :min="minDate"
+                                        :max="maxDate"
+                                        @blur="v.interviewDate.$touch"
                                     />
                                 </div>
+                                <ErrorMassage
+                                    v-if="
+                                        showError &&
+                                        !v.interviewDate.required.$response
+                                    "
+                                    name="required"
+                                />
                             </div>
                         </div>
                         <div class="col-xl-4 col-lg-6 col-md-12">
@@ -872,8 +873,16 @@
                                         class="form-control"
                                         v-model="m.interviewTime"
                                         type="time"
+                                        @blur="v.interviewTime.$touch"
                                     />
                                 </div>
+                                <ErrorMassage
+                                    v-if="
+                                        showError &&
+                                        !v.interviewTime.required.$response
+                                    "
+                                    name="required"
+                                />
                             </div>
                         </div>
                         <div class="col-xl-4 col-lg-6 col-md-12">
@@ -891,13 +900,17 @@
                                         "
                                         :searchable="true"
                                         :allow-empty="false"
+                                        @blur="v.interview_place.$touch"
                                     >
-                                        <template
-                                            slot="singleLabel"
-                                            slot-scope="{ option }"
-                                        ></template>
                                     </multiselect>
                                 </div>
+                                <ErrorMassage
+                                    v-if="
+                                        showError &&
+                                        !v.interview_place.required.$response
+                                    "
+                                    name="required"
+                                />
                             </div>
                         </div>
                     </div>
@@ -1065,6 +1078,8 @@ const numberCode = ref({
 const editedFields = ref([]);
 const showError = ref(false);
 const buttonDisabled = ref(false);
+const minDate = computed(() => moment().format("YYYY-MM-DD"));
+const maxDate = computed(() => m.value && m.value.start_date);
 const showAdditionalNumberModal = ref(false);
 const modalCla = ref({});
 const getLang = computed(() => {
@@ -1079,6 +1094,9 @@ watch(
         if (newValue) show();
     }
 );
+// const startDate = (item) => {
+//     maxDate.value = item;
+// };
 
 async function show() {
     try {
@@ -1119,7 +1137,9 @@ function getClassificatory() {
 }
 
 function makeModel(item) {
-    let [datePart, timePart] = item.interview_date?item.interview_date.split(" "):[null, null];
+    let [datePart, timePart] = item.interview_date
+        ? item.interview_date.split(" ")
+        : [null, null];
     const data = item;
     data.demand = !data.demand ? { vacancy_id: data.id } : data.demand;
     data.interviewDate = datePart;
@@ -1140,22 +1160,10 @@ function chooseNumberCode(item) {
         iso: item.iso,
     };
 }
-const handelModalData = (item) =>{
+const handelModalData = (item) => {
     m.value.employer.additional_numbers.push(item);
-}
-const checkStartDate = (data) => {
-    if (data.vacancy.start_date < startDateMin.value) {
-        toast.error(
-            "როდის გჭირდებათ კადრი თარიღი არ შეიძლება იყოს მიმდინარე თარიღზე ნაკლები",
-            {
-                theme: "colored",
-                autoClose: 2000,
-            }
-        );
-        return false;
-    }
-    return true;
 };
+
 // const customClasses = computed(() => ({
 //     "is-invalid": isCategoryInvalid.value,
 // }));
@@ -1176,8 +1184,25 @@ const rules = {
     start_date: { required },
     term: { required },
     vacancy_for_who_need: { required },
+    interviewDate: { required },
+    interviewTime: { required },
+    interview_place: { required },
+    vacancy_duty: { required },
 };
 
+const checkStartDate = (date) => {
+    if (date < startDateMin.value) {
+        toast.error(
+            "როდის გჭირდებათ კადრი თარიღი არ შეიძლება იყოს მიმდინარე თარიღზე ნაკლები",
+            {
+                theme: "colored",
+                autoClose: 2000,
+            }
+        );
+        return false;
+    }
+    return true;
+};
 const v = useVuelidate(rules, m);
 function save() {
     if (m.value.title_ka == null || m.value.vacancy_for_who_need == null) {
@@ -1199,7 +1224,7 @@ function save() {
     v.value.$touch();
 
     showError.value = false;
-    if (v.value.$invalid) {
+    if (v.value.$invalid && checkStartDate(m.value.start_date)) {
         showError.value = true;
         toast.error("აუცილებელია გაწითლებული ველების შევსება", {
             theme: "colored",
@@ -1237,54 +1262,49 @@ function save() {
                 });
         }
     });
-
 }
 const openAdditionalNumberModal = () => {
-        showAdditionalNumberModal.value = !showAdditionalNumberModal.value;
-    };
-    const handelModalClose =  () => {
-        showAdditionalNumberModal.value = false;
-    }
-    const removeAdditionalNumber = (index, id) => {
-        Swal.fire({
-            title: "ნომრის წაშლა",
-            text: "ნამდვილად გსურთ ნომრის წაშლა?",
-            showCancelButton: true,
-            confirmButtonText: "დიახ",
-            cancelButtonText: "არა",
-            confirmButtonColor: "#d33",
-            cancelButtonColor: "#3085d6",
-        }).then((result) => {
-            if (result.isConfirmed) {
-                if (id) {
-                    axios
-                        .post(`/delete_additional_number/${id}`)
-                        .then((response) => {
-                            m.value.employer.additional_numbers.splice(
-                                index,
-                                1
-                            );
-                            if (response.data.status == 200) {
-                                toast.success("წარმატებით წაიშალა", {
-                                    theme: "colored",
-                                    autoClose: 1000,
-                                });
-                            }
-                        })
-                        .catch((error) => {
-                            console.log(error);
-                        });
-                } else {
-                    m.value.employer.additional_numbers.splice(index, 1);
-                }
+    showAdditionalNumberModal.value = !showAdditionalNumberModal.value;
+};
+const handelModalClose = () => {
+    showAdditionalNumberModal.value = false;
+};
+const removeAdditionalNumber = (index, id) => {
+    Swal.fire({
+        title: "ნომრის წაშლა",
+        text: "ნამდვილად გსურთ ნომრის წაშლა?",
+        showCancelButton: true,
+        confirmButtonText: "დიახ",
+        cancelButtonText: "არა",
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            if (id) {
+                axios
+                    .post(`/delete_additional_number/${id}`)
+                    .then((response) => {
+                        m.value.employer.additional_numbers.splice(index, 1);
+                        if (response.data.status == 200) {
+                            toast.success("წარმატებით წაიშალა", {
+                                theme: "colored",
+                                autoClose: 1000,
+                            });
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            } else {
+                m.value.employer.additional_numbers.splice(index, 1);
             }
-        });
-    };
+        }
+    });
+};
 
-    const handleNumberCodeSearch = (value) => {
-        cla.value.numberCode = value;
-    };
-
+const handleNumberCodeSearch = (value) => {
+    cla.value.numberCode = value;
+};
 
 // Define other methods like `save` similarly
 </script>

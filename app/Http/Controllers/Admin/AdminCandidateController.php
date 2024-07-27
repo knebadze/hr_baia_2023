@@ -51,7 +51,7 @@ class AdminCandidateController extends Controller
             $query = Candidate::orderBy('id', 'DESC')->with(
                 [
                     'user.gender',
-                    'user.registerLog',
+                    'user.registerLog.creator',
                     'user.registerFee',
                     'user.blacklist.ground',
                     'getWorkInformation.category',
@@ -95,7 +95,7 @@ class AdminCandidateController extends Controller
         $query =  Candidate::filter($filters)->orderBy('id', 'DESC')->with(
             [
                 'user.gender',
-                'user.registerLog',
+                'user.registerLog.creator',
                 'user.registerFee',
                 'user.blacklist.ground',
                 'getWorkInformation.category',
@@ -243,7 +243,7 @@ class AdminCandidateController extends Controller
         $candidate = Candidate::where('id', $request->data)->with(
             [
                 'user.gender',
-                'user.registerLog',
+                'user.registerLog.creator',
                 'user.registerFee',
                 'user.blacklist.ground',
                 'getWorkInformation.category',

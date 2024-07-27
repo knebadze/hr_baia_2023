@@ -460,10 +460,6 @@
                                 :allow-empty="false"
                                 @blur="v.vacancy.currency.$touch"
                             >
-                                <template
-                                    slot="singleLabel"
-                                    slot-scope="{ option }"
-                                ></template>
                             </multiselect>
                             <span
                                 v-if="
@@ -474,6 +470,37 @@
                                 >{{ errorMessage("required") }}
                             </span>
                         </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-md-12">
+                    <div class="form-group">
+                        <label
+                            ><span class="text-danger">* </span
+                            >{{ $t("lang.employer_add_job_duties") }}</label
+                        >
+                        <div class="ls-inputicon-box">
+                            <multiselect
+                                v-model="m.duty"
+                                :options="cla.duty"
+                                :multiple="true"
+                                :close-on-select="false"
+                                :clear-on-select="false"
+                                :preserve-search="true"
+                                :placeholder="
+                                    $t('lang.employer_add_job_select')
+                                "
+                                :label="`name_${getLang}`"
+                                :track-by="`name_${getLang}`"
+                                :preselect-first="false"
+                                @blur="v.duty.$touch"
+                            >
+                            </multiselect>
+                        </div>
+                        <span
+                            v-if="showError && !v.duty.required.$response"
+                            style="color: red"
+                            >{{ errorMessage("required") }}
+                        </span>
                     </div>
                 </div>
 
@@ -800,10 +827,6 @@
                                 :searchable="true"
                                 :allow-empty="true"
                             >
-                                <template
-                                    slot="singleLabel"
-                                    slot-scope="{ option }"
-                                ></template>
                             </multiselect>
                         </div>
                     </div>
@@ -827,10 +850,6 @@
                                 :searchable="true"
                                 :allow-empty="true"
                             >
-                                <template
-                                    slot="singleLabel"
-                                    slot-scope="{ option }"
-                                ></template>
                             </multiselect>
                         </div>
                     </div>
@@ -856,56 +875,11 @@
                                 :track-by="`name_${getLang}`"
                                 :preselect-first="false"
                             >
-                                <template
-                                    slot="selection"
-                                    slot-scope="{ values, search, isOpen }"
-                                    ><span
-                                        class="multiselect__single"
-                                        v-if="values.length"
-                                        v-show="!isOpen"
-                                        >{{ values.length }} options
-                                        selected</span
-                                    ></template
-                                >
                             </multiselect>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-xl-4 col-lg-6 col-md-12">
-                    <div class="form-group">
-                        <label>{{ $t("lang.employer_add_job_duties") }}</label>
-                        <div class="ls-inputicon-box">
-                            <multiselect
-                                v-model="m.duty"
-                                :options="cla.duty"
-                                :multiple="true"
-                                :close-on-select="false"
-                                :clear-on-select="false"
-                                :preserve-search="true"
-                                :placeholder="
-                                    $t('lang.employer_add_job_select')
-                                "
-                                :label="`name_${getLang}`"
-                                :track-by="`name_${getLang}`"
-                                :preselect-first="false"
-                            >
-                                <template
-                                    slot="selection"
-                                    slot-scope="{ values, search, isOpen }"
-                                    ><span
-                                        class="multiselect__single"
-                                        v-if="values.length"
-                                        v-show="!isOpen"
-                                        >{{ values.length }} options
-                                        selected</span
-                                    ></template
-                                >
-                            </multiselect>
-                            <!-- <span v-if="v.m.familyWorkedSelected.required.$invalid && v.m.familyWorkedSelected.$dirty" style='color:red'>* {{ v.m.candidateFamilyWorkSkill.required.$message}}</span> -->
-                        </div>
-                    </div>
-                </div>
                 <div
                     class="col-xl-4 col-lg-6 col-md-12"
                     v-if="m.vacancy.category && m.vacancy.category.id != 7"
@@ -927,17 +901,6 @@
                                 track-by="name"
                                 :preselect-first="false"
                             >
-                                <template
-                                    slot="selection"
-                                    slot-scope="{ values, search, isOpen }"
-                                    ><span
-                                        class="multiselect__single"
-                                        v-if="values.length"
-                                        v-show="!isOpen"
-                                        >{{ values.length }} options
-                                        selected</span
-                                    ></template
-                                >
                             </multiselect>
                             <!-- <span v-if="v.m.familyWorkedSelected.required.$invalid && v.m.familyWorkedSelected.$dirty" style='color:red'>* {{ v.m.candidateFamilyWorkSkill.required.$message}}</span> -->
                         </div>
@@ -994,7 +957,10 @@
                 </div>
                 <div class="col-xl-4 col-lg-6 col-md-12">
                     <div class="form-group">
-                        <label>{{ $t("გასაუბრების თარიღი") }}</label>
+                        <label
+                            ><span class="text-danger">* </span
+                            >{{ $t("გასაუბრების თარიღი") }}</label
+                        >
                         <div class="ls-inputicon-box">
                             <input
                                 class="form-control"
@@ -1002,25 +968,47 @@
                                 type="date"
                                 :min="minDate"
                                 :max="maxDate"
+                                @blur="v.interviewDate.$touch"
                             />
                         </div>
+                        <span
+                            v-if="
+                                showError && !v.interviewDate.required.$response
+                            "
+                            style="color: red"
+                            >{{ errorMessage("required") }}
+                        </span>
                     </div>
                 </div>
                 <div class="col-xl-4 col-lg-6 col-md-12">
                     <div class="form-group">
-                        <label>{{ $t("გასაუბრების დრო") }}</label>
+                        <label
+                            ><span class="text-danger">* </span
+                            >{{ $t("გასაუბრების დრო") }}</label
+                        >
                         <div class="ls-inputicon-box">
                             <input
                                 class="form-control"
                                 v-model="m.interviewTime"
                                 type="time"
+                                @blur="v.interviewTime.$touch"
                             />
                         </div>
+                        <span
+                            v-if="
+                                showError && !v.interviewTime.required.$response
+                            "
+                            style="color: red"
+                            >{{ errorMessage("required") }}
+                        </span>
                     </div>
                 </div>
                 <div class="col-xl-4 col-lg-6 col-md-12">
                     <div class="form-group">
-                        <label>{{ $t("გასაუბრების ადგილი") }}</label>
+                        <label
+                            ><span class="text-danger">* </span
+                            >{{ $t("გასაუბრების ადგილი") }}</label
+                        >
                         <div class="ls-inputicon-box">
                             <multiselect
                                 v-model="m.vacancy.interview_place"
@@ -1033,13 +1021,18 @@
                                 "
                                 :searchable="true"
                                 :allow-empty="true"
+                                @blur="v.vacancy.interview_place.$touch"
                             >
-                                <template
-                                    slot="singleLabel"
-                                    slot-scope="{ option }"
-                                ></template>
                             </multiselect>
                         </div>
+                        <span
+                            v-if="
+                                showError &&
+                                !v.vacancy.interview_place.required.$response
+                            "
+                            style="color: red"
+                            >{{ errorMessage("required") }}
+                        </span>
                     </div>
                 </div>
                 <div
@@ -1241,7 +1234,7 @@ export default {
         const showError = ref(false);
         const cla = ref(_.cloneDeep(props.data.classificatory));
         const termDisable = ref(false);
-        var currentDate = moment();
+        let currentDate = moment();
         const startDateMin = ref(
             currentDate.add(1, "days").format("YYYY-MM-DD")
         );
@@ -1352,8 +1345,12 @@ export default {
                 additional_schedule: { required },
                 start_date: { required },
                 term: { required },
+                interview_place: { required },
             },
             for_who_need: { required },
+            duty: { required },
+            interviewDate: { required },
+            interviewTime: { required },
         };
 
         // const errorMessage = (validator) => {
@@ -1423,11 +1420,11 @@ export default {
         };
 
         const chooseNumberCode = (item) => {
-            model.value.number_code = item;
+            m.value.employer.number_code = item;
         };
         const handleFileChange = (event) => {
             file.value = event.target.files[0];
-            model.value.file_name = file.value.name;
+            m.value.file_name = file.value.name;
         };
         const addBenefit = (item) => {
             if (!m.value.benefit.some((benefit) => benefit.id == item.id)) {
@@ -1470,8 +1467,8 @@ export default {
                 m.value.demand.max_age = max_age;
             }
         };
-        const checkStartDate = (data) => {
-            if (data.vacancy.start_date < startDateMin.value) {
+        const checkStartDate = (date) => {
+            if (date < startDateMin.value) {
                 toast.error(
                     "როდის გჭირდებათ კადრი თარიღი არ შეიძლება იყოს მიმდინარე თარიღზე ნაკლები",
                     {
@@ -1522,7 +1519,7 @@ export default {
             data.vacancy[`title_${getLang.value}`] = data.vacancy.title;
             data.lang = getLang.value;
             v.value.$touch();
-            if (!v.value.$invalid && checkStartDate(data)) {
+            if (!v.value.$invalid && checkStartDate(data.vacancy.start_date)) {
                 if (
                     item.employer.additional_numbers.length == 0 &&
                     props.data.model.role_id != 3 &&

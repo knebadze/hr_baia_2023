@@ -322,5 +322,6 @@ export default {
     --easy-table-header-height: 50px;
     --easy-table-body-row-font-size: 14px;
     --easy-table-body-row-height: 50px;
+    --da0d4328: 400px !important;
 }
 </style>

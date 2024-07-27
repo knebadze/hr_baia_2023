@@ -78,6 +78,19 @@
                                                     />
                                                 </div>
                                             </div>
+                                            <div>
+                                                <p class="twm-job-address">
+                                                    <i
+                                                        class="feather-calendar"
+                                                    ></i
+                                                    >
+                                                    სამუშაო ხანგრძლივობა: {{
+                                                        vacancy.term[
+                                                            `name_${getLang}`
+                                                        ]
+                                                    }}
+                                                </p>
+                                            </div>
                                             <div
                                                 class="d-flex justify-content-between align-items-center"
                                             ></div>
