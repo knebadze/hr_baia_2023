@@ -4,8 +4,8 @@
         <div class="text-center">
             <p>შეიყვანეთ ვერიფიკაციის კოდი</p>
         </div>
-        <div class="form-group">
-            <div class="input-group mt-3">
+        <div class="form-group mobile-form-group">
+            <div class="input-group mt-0 mt-md-3">
                 <CodeInput
                     :fields="5"
                     :fieldWidth="32"
@@ -124,5 +124,10 @@ export default {
         margin-left: 1% !important;
 
     }
-
+    @media (max-width: 768px) {
+        .mobile-form-group {
+            margin: 0px;
+            width: 100%;
+        }
+    }
 </style>

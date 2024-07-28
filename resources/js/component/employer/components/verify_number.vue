@@ -14,12 +14,12 @@
                     <h5>ნომრის ვერიფიკაცია</h5>
                 </div>
                 <div class="col-xl-6 col-lg-8 col-md-12">
-                    <div class="form-group">
+                    <div class="form-group mobile-form-group">
                         <label
                             ><span class="text-danger">* </span
                             >{{ "ტელეფონის ნომერი" }}</label
                         >
-                        <div class="input-group mb-3">
+                        <div class="input-group mb-0 mb-md-3">
                             <button
                                 style="border-style: none"
                                 class="btn btn-outline-secondary dropdown-toggle input-d drop-btn"
@@ -85,10 +85,10 @@
                     </div>
                 </div>
 
-                <div class="col-xl-6 col-lg-4 col-md-12">
-                    <div class="form-group">
-                        <label for=""></label>
-                        <div class="input-group mb-3">
+                <div class="col-xl-6 col-lg-4 col-md-12 button-div">
+                    <div class="form-group mobile-form-group">
+                        <label for="" class="button-label"></label>
+                        <div class="input-group mb-0 mb-md-3">
                             <button
                                 class="site-button"
                                 @click="send"
@@ -461,7 +461,19 @@ const handlerAction = () => {
     }
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: 768px) {
+    .mobile-form-group {
+        margin: 10px;
+    }
+    .button-div{
+        padding: 0px;
+    }
+    .button-label{
+        display: none;
+    }
+    .main {
+        height: 100vh;
+    }
 }
 
 @media (max-width: 991.98px) {
