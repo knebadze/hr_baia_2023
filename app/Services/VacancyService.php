@@ -40,7 +40,7 @@ class VacancyService{
         // dd($employer);
         // If no employer is found, return an empty collection early
         if (!$employer) {
-            return collect();
+            return [null, []];
         }
 
         // Fetch vacancies related to the employer
