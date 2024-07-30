@@ -245,6 +245,10 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="d-flex justify-content-end">
+                            <a class="site-button" :href="AddJobUrl">დავინტერესდი</a>
+                        </div>
+                        
                     </div>
 
                     <div class="col-lg-4 col-md-12 rightSidebar">
@@ -506,6 +510,11 @@ export default {
             return extractedPart ? extractedPart[0] : null;
         });
 
+        const AddJobUrl = computed(() => {
+            let url = new URL(location.href);
+            return url.origin + "/" + getLang.value + "/post_job";
+        });
+
         return {
             backgroundImage,
             getLang,
@@ -513,6 +522,7 @@ export default {
             mapData,
             showButton,
             item,
+            AddJobUrl,
         };
     },
 };

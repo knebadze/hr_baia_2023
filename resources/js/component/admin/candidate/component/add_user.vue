@@ -302,9 +302,7 @@ export default {
                         let nextUrl = currentObj.m.was_assigned
                             ? `${url.origin}/admin/vacancy?ka`
                             : `${url.origin}/ka/user/userProfile?user=${response.data.data.id}`;
-                        window.location.replace(
-                            nextUrl
-                        );
+                        window.location.replace(nextUrl);
                         // setTimeout(() => {
                         //     document.location.reload();
                         // }, 1500);
@@ -313,13 +311,17 @@ export default {
                 .catch(function (error) {
                     console.log(error);
                     // Display an error message to the user
-                    toast.error(
-                        "შეცდომა: ინფორმაციის შენახვის პროცესში შეცდომა",
-                        {
-                            theme: "colored",
-                            autoClose: 3000, // Show the error message for 3 seconds
-                        }
-                    );
+                    let errorMessage =
+                        error.response &&
+                        error.response.data &&
+                        error.response.data.errors
+                            ? error.response.data.message
+                            : "შეცდომა: ინფორმაციის შენახვის პროცესში შეცდომა";
+                    // Display an error message to the user
+                    toast.error(errorMessage, {
+                        theme: "colored",
+                        autoClose: 3000, // Show the error message for 3 seconds
+                    });
                 });
         },
         generatePassword() {
@@ -340,7 +342,7 @@ export default {
         "m.type": function (val) {
             if (val && val.id == 1) {
                 this.m.money = 30;
-            }else{
+            } else {
                 this.m.money = null;
                 this.m.enroll_date = null;
             }

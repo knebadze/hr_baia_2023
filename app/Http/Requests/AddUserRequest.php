@@ -32,4 +32,16 @@ class AddUserRequest extends FormRequest
             'name_ka' => 'required',
         ];
     }
+        /**
+     * Get the custom messages for validator errors.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'number.unique' => 'ეს ნომერი უკვე გამოყენებულია.',
+            // Add other custom messages here if needed
+        ];
+    }
 }

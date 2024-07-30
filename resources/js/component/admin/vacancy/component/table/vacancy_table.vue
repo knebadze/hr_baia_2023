@@ -16,7 +16,6 @@ const props = defineProps({
     fullPermission: Boolean,
     fullView: Boolean,
 });
-
 const itemsSelected = ref([]);
 
 const hr_id = ref(props.hrId);
@@ -52,7 +51,7 @@ const showIdFilter = ref(false);
 const choseStatus = ref("ყველა");
 const choseCategory = ref("ყველა");
 const choseSchedule = ref("ყველა");
-const chosePayment = ref([50, 3000]);
+const chosePayment = ref([50, 5000]);
 const choseId = ref("");
 
 const filterOptions = computed(() => {
@@ -287,7 +286,7 @@ const bodyRowClassNameFunction = (item, number) => {
                     >
                         <Slider
                             v-model="chosePayment"
-                            :max="3000"
+                            :max="5000"
                             class="slider"
                         />
                     </div>
