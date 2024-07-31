@@ -61,6 +61,7 @@
                                 placeholder="555666777"
                                 onkeypress="return /[0-9]/i.test(event.key)"
                                 :disabled="m.length == limit"
+                                :maxLength="selectedOption.phonecode == 995 ? 9 : 15"
                             />
                         </div>
                         <!-- <div class="input-group mb-3">

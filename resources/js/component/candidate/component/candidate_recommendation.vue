@@ -196,6 +196,7 @@
                                     v-model="model.number"
                                     placeholder="555666777"
                                     @blur="v.number.$touch"
+                                    :maxLength="model.number_code.phonecode == 995 ? 9 : 15"
                                     onkeypress="return /[0-9]/i.test(event.key)"
                                 />
                                 <span

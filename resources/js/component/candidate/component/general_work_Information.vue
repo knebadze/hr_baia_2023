@@ -76,7 +76,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-12" v-if="model.no_reason && model.no_reason.id == 17">
                         <div class="form-group">
                             <label>დამატაბითი ინფორმაცია</label>
                             <textarea class="form-control" rows="3" v-model="model.no_reason_info" :placeholder="$t('lang.user_profile_page_medical_please_info')"></textarea>

@@ -339,7 +339,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div v-if="m.no_reason" class="col-md-12">
+                            <div v-if="m.no_reason && m.no_reason.id == 17" class="col-md-12">
                                 <div class="form-group">
                                     <label>დამატაბითი ინფორმაცია</label>
                                     <textarea

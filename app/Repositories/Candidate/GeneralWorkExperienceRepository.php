@@ -9,11 +9,11 @@ use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class GeneralWorkExperienceRepository
 {
-   
+
     public function saveTranslate($lang, $data)
     {
         // Specify the fields you want to translate
-        $fieldsToTranslate = ['position', 'no_reason_info'];
+        $fieldsToTranslate = ['position', 'object', 'no_reason_info'];
 
         // Use the TranslationService to translate the fields
         $translate = new TranslationService();

@@ -159,7 +159,20 @@ const getLang = computed(() => {
 let url = new URL(location.href);
 const detailUrl = ref(`${url.origin}/${getLang.value}/job_detail`);
 // const checkInterest = ref(false);
-
+const monthName = {
+    january: "იანვარი",
+    february: "თებერვალი",
+    march: "მარტი",
+    april: "აპრილი",
+    may: "მაისი",
+    june: "ივნისი",
+    july: "ივლისი",
+    august: "აგვისტო",
+    september: "სექტემბერი",
+    october: "ოქტომბერი",
+    november: "ნოემბერი",
+    december: "დეკემბერი",
+}
 const getTimeAgo = (created_at) => {
     const time = moment(created_at, "YYYY-MM-DD HH:mm"); // Explicit format
     const now = moment();
@@ -181,7 +194,7 @@ const getTimeAgo = (created_at) => {
         return "in the future";
     } else if (diff < 60000) {
         // less than 1 minute
-        return "now";
+        return "ახლა";
     } else if (diff < 3600000) {
         // less than 1 hour
         const minutes = moment.duration(diff).asMinutes();
@@ -198,7 +211,14 @@ const getTimeAgo = (created_at) => {
         const days = moment.duration(diff).asDays();
         return `${Math.round(days)} დღის წინ`;
     } else {
-        return time.format("D MMMM");
+        const dayAndMonth = time.format("D MMMM");
+        if (getLang.value !== "ka") {
+            return dayAndMonth;
+
+        }
+        const [day, month] = dayAndMonth.split(" ");
+        const monthInGeorgian = monthName[month.toLowerCase()];
+        return `${day} ${monthInGeorgian}`;
     }
 };
 const isCandidateInterested = computed(() => {

@@ -11,7 +11,7 @@
                 <h2 style="text-align: center;">კანდიდატის სრული მონაცემები</h2>
             </td>
             <td class="w-half">
-              <img src="{{ public_path('images/user-avatar/' . $user['avatar']) }}" alt="" width="200">
+                <img src="{{ $user['avatar_url'] }}" alt="" width="200">
             </td>
         </tr>
     </table>
@@ -74,19 +74,19 @@
           <tr>
             <td>პროფესია</td>
             <td class="rightText">
-                {{ $professions[0]['name_ka'] }}
+                {{ $professions?$professions[0]['name_ka']:'' }}
             </td>
           </tr>
           <tr>
             <td>სპეციალობა</td>
             <td class="rightText">
-                {{ $specialty[0]['name_ka'] }}
+                {{ $specialty?$specialty[0]['name_ka']:'' }}
             </td>
           </tr>
           <tr>
             <td>ზოგადი მახასიათებლები</td>
             <td class="rightText">
-                {{ $characteristic[0]['name_ka'] }}
+                {{ $characteristic?$characteristic[0]['name_ka']:'' }}
             </td>
           </tr>
           <tr>
@@ -230,7 +230,7 @@
     <hr>
 
     <div class="footer margin-top">
-        <div>პატივისცემით &copy; hrbaia.ge <a class="interested" href="https://hrbaia.ge/ka">დავინტერესდი</a></div>
+        <div class="d-flex justify-content-between"><span>პატივისცემით &copy; hrbaia.ge</span> <a class="interested" href="https://hrbaia.ge/ka">დავინტერესდი</a></div>
     </div>
 
 
