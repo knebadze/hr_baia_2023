@@ -308,14 +308,7 @@
                         <label
                             ><span class="text-danger">* </span
                             >{{
-                                $t(
-                                    !m.vacancy.category
-                                        ? "ვისთვის გესაჭიროებათ?"
-                                        : m.vacancy.category.id != 4 &&
-                                          m.vacancy.category.id != 6
-                                        ? "ვისთვის გესაჭიროებათ?"
-                                        : "ფართის მოცულობა"
-                                )
+                                whoNeedTitle(m.vacancy.category)
                             }}</label
                         >
                         <div class="ls-inputicon-box">
@@ -1282,7 +1275,7 @@ export default {
         const localText = () => {
             return {
                 1: {
-                    ka: "ორშაბათი_დან პარასკევის ჩათლით, 09:00_დან 18:00_მდე",
+                    ka: "ორშაბათი_დან პარასკევის ჩათლით, 10:00_დან 19:00_მდე",
                     en: "",
                     ru: "",
                 },
@@ -1328,6 +1321,14 @@ export default {
                 },
             };
         };
+        const whoNeedTitle = (category = null) =>{
+            if(category && category.id == 4){
+                return "ფართის მოცულობა"
+            }else if(category && category.id == 6){
+                return "სად გესაჭიროებათ"
+            }
+            return 'ვისთვის გესაჭიროებათ?'
+        }
         // loader.value = false
         const rules = {
             employer: {
@@ -1408,6 +1409,17 @@ export default {
                     return o.category_id == category_id;
                 }
             );
+            if (category_id < 6) {
+                cla.value.interviewPlace = _.filter(
+                    props.data.classificatory.interviewPlace,
+                    function (o) {
+                        return o.id != 4;
+                    }
+                );
+            }else{
+                cla.value.interviewPlace = props.data.classificatory.interviewPlace
+            }
+            
         };
 
         const watchCategory = () => m.value.vacancy.category;
@@ -1738,6 +1750,7 @@ export default {
             handelModalData,
             removeAdditionalNumber,
             handleNumberCodeSearch,
+            whoNeedTitle,
         };
     },
 };

@@ -357,9 +357,7 @@
                         </div>
                         <div class="col-xl-12 col-lg-121 col-md-12 mt-2">
                             <div class="form-group">
-                                <label>{{
-                                    $t("lang.employer_add_job_duties")
-                                }}</label>
+                                <label><span class="text-danger">* </span>მოვალეობები</label>
                                 <div class="ls-inputicon-box">
                                     <multiselect
                                         v-model="m.vacancy_duty"
@@ -391,9 +389,7 @@
                             <div class="form-group">
                                 <label
                                     ><span class="text-danger">* </span
-                                    >{{
-                                        $t("lang.employer_add_job_jobs_day")
-                                    }}</label
+                                    >სამუშაო დღეები და საათები</label
                                 >
                                 <div class="ls-inputicon-box">
                                     <textarea
@@ -817,8 +813,6 @@
                             </div>
                         </div>
 
-
-
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>{{
@@ -845,13 +839,16 @@
                     <div class="row">
                         <div class="col-xl-4 col-lg-6 col-md-12">
                             <div class="form-group">
-                                <label>{{ $t("გასაუბრების თარიღი") }}</label>
+                                <label
+                                    ><span class="text-danger">* </span
+                                    >{{ $t("გასაუბრების თარიღი") }}</label
+                                >
                                 <div class="ls-inputicon-box">
                                     <input
                                         class="form-control"
                                         v-model="m.interviewDate"
                                         type="date"
-                                         :min="minDate"
+                                        :min="minDate"
                                         :max="maxDate"
                                         @blur="v.interviewDate.$touch"
                                     />
@@ -867,7 +864,10 @@
                         </div>
                         <div class="col-xl-4 col-lg-6 col-md-12">
                             <div class="form-group">
-                                <label>{{ $t("გასაუბრების დრო") }}</label>
+                                <label
+                                    ><span class="text-danger">* </span
+                                    >{{ $t("გასაუბრების დრო") }}</label
+                                >
                                 <div class="ls-inputicon-box">
                                     <input
                                         class="form-control"
@@ -887,7 +887,10 @@
                         </div>
                         <div class="col-xl-4 col-lg-6 col-md-12">
                             <div class="form-group">
-                                <label>{{ $t("გასაუბრების ადგილი") }}</label>
+                                <label
+                                    ><span class="text-danger">* </span
+                                    >{{ $t("გასაუბრების ადგილი") }}</label
+                                >
                                 <div class="ls-inputicon-box">
                                     <multiselect
                                         v-model="m.interview_place"

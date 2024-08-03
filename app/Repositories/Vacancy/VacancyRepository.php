@@ -25,6 +25,7 @@ class VacancyRepository{
     use FindHrTrait;
     public function save($data)
     {
+        // dd($data);
         try {
             DB::beginTransaction();
             // dd($data);
@@ -120,8 +121,8 @@ class VacancyRepository{
         // Assuming slug generation and interview date formatting are required
         $slug = Str::slug($data['vacancy']['title_en'], '-'); // Example slug generation based on vacancy title
         $dateTime = null;
-        if (isset($data['interviewDate']) && isset($data['interviewTime'])){
-            $data['interviewDate'] . ' ' . $data['interviewTime'];
+        if (isset($data['interviewDate'])){
+            $dateTime = $data['interviewDate'] . ' ' . $data['interviewTime'];
         } // Combining date and time for interview
         $code = random_int(100000, 999999999);
         return [
