@@ -127,12 +127,10 @@
                 <a
                     v-if="
                         roleId == 1 &&
+                        adminId == item.hr.parent_id &&
                         (item.status.id == 1 ||
                             item.status.id == 2 ||
-                            item.status.id == 6) &&
-                        (fullPermission ||
-                            adminId == item.hr.parent_id ||
-                            roleId == 2)
+                            item.status.id == 6)
                     "
                     class="dropdown-item"
                     href="#"
@@ -141,12 +139,7 @@
                     გადაწერა</a
                 >
                 <a
-                    v-if="
-                        roleId == 1 &&
-                        (fullPermission ||
-                            adminId == item.hr.parent_id ||
-                            roleId == 2)
-                    "
+                    v-if="roleId == 1 && adminId == item.hr.parent_id"
                     class="dropdown-item bg-danger"
                     href="#"
                     @click="vacancyDelete(item.id)"
@@ -342,8 +335,8 @@ const sendDeleteAxios = (id) => {
             console.log(error);
         });
 };
-const handelModalClose =  () => {
+const handelModalClose = () => {
     state.showUpdateModal = false;
-}
+};
 </script>
 <style lang=""></style>

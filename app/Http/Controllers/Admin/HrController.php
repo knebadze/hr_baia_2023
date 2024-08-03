@@ -9,6 +9,7 @@ use App\Models\Branch;
 use Illuminate\Http\Request;
 use App\Traits\HrHasVacancyTrait;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use App\Http\Resources\Admin\StaffResource;
 use App\Traits\HandlesAdminDataViewCaching;
@@ -52,7 +53,7 @@ class HrController extends Controller
 
     function getHr(Request $request) {
         try {
-            $result = Staff::where('role_id', 2)->whereNot('is_active', 2)->get();
+            $result = Staff::where('parent_id', Auth::guard('staff')->id())->where('role_id', 2)->whereNot('is_active', 2)->get();
         } catch (Exception $e) {
             $result = [
                 'status' => 500,
