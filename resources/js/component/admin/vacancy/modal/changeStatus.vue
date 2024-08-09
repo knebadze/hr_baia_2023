@@ -53,10 +53,6 @@
                                     :allow-empty="false"
                                     :disabled="!vacancy.title_en"
                                 >
-                                    <template
-                                        slot="singleLabel"
-                                        slot-scope="{ option }"
-                                    ></template>
                                 </multiselect>
                             </div>
                         </div>

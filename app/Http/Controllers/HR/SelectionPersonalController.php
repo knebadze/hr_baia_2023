@@ -114,6 +114,41 @@ class SelectionPersonalController extends Controller
         ];
     }
 
+    public function findCandidate(CandidateFilters $filters) {
+        $relationships = [
+            'user.gender',
+            'user.registerLog',
+            'user.registerFee',
+            'getWorkInformation.category',
+            'getWorkInformation.currency',
+            'getWorkInformation.getWorkSchedule.workSchedule',
+            'nationality',
+            'citizenship',
+            'religion',
+            'education',
+            'getLanguage.language',
+            'getLanguage.level',
+            'professions',
+            'specialty',
+            'recommendation',
+            'generalWorkExperience',
+            'familyWorkExperience.noReason',
+            'familyWorkExperience.familyWorkDuty',
+            'characteristic',
+            'allergy',
+            'maritalStatus',
+            'drivingLicense',
+            'status',
+            'number.numberOwner',
+            'qualifyingCandidate'
+        ];
+
+        return Candidate::filter($filters)
+            ->whereIn('status_id', [9, 11, 14, 15])
+            ->with($relationships)
+            ->take(3)->get();
+    }
+
     function addPersonalInfo(Request $request) {
         $findCandidate['this_vacancy'] = QualifyingCandidate::where('candidate_id', $request->data['candidate_id'])
             ->where('vacancy_id', $request->data['vacancy_id'])

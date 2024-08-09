@@ -81,6 +81,7 @@
                         <button  type="button" class="btn btn-info" @click.prevent="find()" ><i class="fa fa-search"></i> ძებნა</button>
                     </div>
                 </div>
+                <!-- {{ candidate }} -->
                 <div class="mt-2" v-if="candidate.length > 0">
                     <div class=" col-md-12 border mb-3"></div>
                     <h6><i class="fa fa-users"></i> მოიძებნა {{ candidate.length }} კანდიდატი</h6>
@@ -290,7 +291,7 @@
                 let currentObj = this;
                 axios({
                         method: "post",
-                        url: '/find_personal',
+                        url: '/find_candidate',
                         data: this.search,
 
                     })

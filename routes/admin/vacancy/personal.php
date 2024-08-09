@@ -23,3 +23,5 @@ Route::post('/delete_vacancy_personal', [SelectionPersonalController::class, 'de
 
 // F
 Route::post('find_personal', [SelectionPersonalController::class, 'find']);
+
+Route::post('find_candidate', [SelectionPersonalController::class, 'findCandidate']);

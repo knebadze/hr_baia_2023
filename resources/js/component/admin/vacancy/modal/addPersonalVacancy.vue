@@ -377,11 +377,11 @@ watch(
                         <h6>ინსტრუქცია</h6>
                         <p>
                             მიმართეთ hr უთხარით
-                            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                            <i class="fa fa-arrow-right"></i>
                             კანდიდატის ID: {{ item.candidate_id }}
-                            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                            <i class="fa fa-arrow-right"></i>
                             ვაკანსიის ID: {{ item.vacancy_code }}
-                            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                            <i class="fa fa-arrow-right"></i>
                             სასურველი კატეგორია
                         </p>
                         <ul>
