@@ -15,7 +15,7 @@ use Spatie\Activitylog\LogOptions;
 // implements HasMedia
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable,LogsActivity;
+    use HasApiTokens, HasFactory, Notifiable, LogsActivity;
     // InteractsWithMedia
 
     /**
