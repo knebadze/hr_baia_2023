@@ -35,6 +35,7 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\CheckVerifyCodeController;
 use App\Http\Controllers\Employer\EmployerInfoController;
 use App\Http\Controllers\TermConditionController;
+use App\Http\Controllers\VacancyListController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,6 +68,8 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
             Route::get('/job_search/{category_id?}/{work_schedule_id?}/{address?}', [VacancyController::class, 'search'])->name('job.search');
 
             Route::get('show_vacancy/{id?}', [MyVacancyController::class, 'show'])->name('show.vacancy');
+
+            Route::get('vacancy_list/{ids}', [VacancyListController::class, 'index'])->name('list.vacancy');
 
             // Route::get('/company', [CompanyController::class, 'index'])->name('company');
             Route::get('/onmap', [MapvacancieController::class, 'index'])->name('onmap');

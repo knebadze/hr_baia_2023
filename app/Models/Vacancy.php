@@ -47,6 +47,7 @@ class Vacancy extends Model
         'updated_at' => 'datetime:m-d-Y H:i',
     ];
 
+    
     public function getCreatedAtAttribute($value)
     {
         return Carbon::parse($value)->timezone(config('app.timezone'))->format('Y-m-d H:i');
@@ -198,6 +199,24 @@ class Vacancy extends Model
     public function qualifyingCandidate()
     {
         return $this->hasMany(QualifyingCandidate::class, 'vacancy_id', 'id');
+    }
+
+    public function getEmployedCandidateAttribute()
+    {
+        // Check if the status_id is 3 or 4
+        if (in_array($this->status_id, [3, 4])) {
+            // Retrieve qualifying candidates using the relationship and filter by qualifying_type_id
+            $qualifyingCandidate = $this->qualifyingCandidate()
+                ->whereIn('qualifying_type_id', [7, 8])
+                ->first();
+
+            // Use optional chaining to safely access nested properties
+            return [
+                'name_ka' => $qualifyingCandidate?->candidate?->user?->name_ka,
+                'id' => $qualifyingCandidate?->candidate?->id
+            ] ?? null;
+        }
+        return null;
     }
 
     public function qualifyingCandidatePluckCandidateId()

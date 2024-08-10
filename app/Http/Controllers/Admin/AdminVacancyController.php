@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Services\ClassificatoryService;
 use App\Traits\HandlesAdminDataViewCaching;
+use App\Http\Resources\Collection\AdminVacancyResourceCollection;
 
 class AdminVacancyController extends Controller
 {
@@ -38,7 +39,7 @@ class AdminVacancyController extends Controller
         $auth = Auth::guard('staff')->user();
         $authId = $auth->id;
         $role_id = $auth->role_id;
-
+    
         // Simplified conditional logic
         $childView = false;
         $adminViewAndPermission = [];
@@ -46,7 +47,7 @@ class AdminVacancyController extends Controller
             $adminViewAndPermission = $this->getAdminDataViewByKeyAndUserId('Vacancy');
             $childView = $adminViewAndPermission->view == 'child';
         }
-
+    
         // Load only necessary relationships and apply conditions efficiently
         $vacancyQuery = Vacancy::orderBy('carry_in_head_date', 'DESC')
             ->with([
@@ -55,7 +56,7 @@ class AdminVacancyController extends Controller
                 'vacancyInterest', 'interviewPlace', 'term', 'demand',
                 'demand.language', 'demand.education', 'demand.languageLevel',
                 'demand.specialty', 'employer.numberCode', 'deposit', 'hr',
-                'vacancyDrivingLicense', 'reasonForCancel', 'registrant'
+                'vacancyDrivingLicense', 'reasonForCancel', 'registrant',
             ])
             ->when($role_id == 2, function ($query) use ($authId) {
                 $query->where('hr_id', $authId);
@@ -64,13 +65,12 @@ class AdminVacancyController extends Controller
                 $ids = $this->getStaffIds($authId);
                 $query->whereIn('hr_id', $ids);
             });
-
+    
         $vacancy = $vacancyQuery->paginate(20);
-        $totalVacancies = $vacancy->total();
-
+    
         return response()->json([
-            'vacancy' => $vacancy,
-            'count' => $totalVacancies,
+            'vacancy' => new AdminVacancyResourceCollection($vacancy),
+            'count' => $vacancy->total(),
             'adminViewAndPermission' => $adminViewAndPermission
         ]);
     }

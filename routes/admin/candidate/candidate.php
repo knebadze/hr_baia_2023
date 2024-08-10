@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CandidateController;
+use App\Http\Controllers\VacancyListController;
 use App\Http\Controllers\CandidateInfoController;
 use App\Http\Controllers\Admin\AdminCandidateController;
 use App\Http\Controllers\Admin\RegistrationFeeController;
@@ -43,3 +44,4 @@ Route::post('candidate_filter', [AdminCandidateController::class, 'filter']);
 
 // S
 Route::post('send_sms_candidate', [AdminCandidateController::class, 'sendSms']);
+Route::post('/send_vacancy_to_candidate', [VacancyListController::class, 'sendVacancyToCandidate']);

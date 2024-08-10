@@ -270,7 +270,7 @@
                             "
                         >
                             <u style="cursor: pointer">{{
-                                item.family_work_experience == 0
+                                item.family_work_experience.experience == 2
                                     ? "არა"
                                     : item.family_work_experience === null
                                     ? "ინფორმაცია ვერ მოიძებნა"

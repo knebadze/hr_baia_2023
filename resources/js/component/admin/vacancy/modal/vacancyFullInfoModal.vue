@@ -51,6 +51,7 @@
         methods:{
             async show(){
                 try {
+                    console.log(this.vacancyId);
                     let result = await this.getInfo();
                     this.item = result.data.vacancy
                     this.hr_id = result.data.hr_id

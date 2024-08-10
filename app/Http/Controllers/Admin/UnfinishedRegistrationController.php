@@ -11,7 +11,6 @@ use App\Services\ClassificatoryService;
 use App\Traits\HandlesAdminDataViewCaching;
 use App\Http\Resources\UnfinishedRegistrationCollection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use App\Http\Resources\Staff\UnfinishedRegistrationResource;
 use App\Filters\unFinishedRegistration\UnFinishedRegistrationFilters;
 
 class UnfinishedRegistrationController extends Controller

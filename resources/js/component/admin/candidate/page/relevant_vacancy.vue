@@ -53,7 +53,7 @@
             </div>
             <!-- /.card-body -->
         </div>
-        <relevant_vacancy_table :items="items"></relevant_vacancy_table>
+        <relevant_vacancy_table :items="items" :candidate="{number: data.candidate.user.number, email: data.candidate.user.email}"></relevant_vacancy_table>
         <div class="mt-2">
             <paginate
                 v-model="pagination.current_page"
@@ -108,12 +108,13 @@ export default {
     created() {
         // this.m.id = this.data
         // this.getData()
+        console.log(this.data)
         const { candidate } = this.data;
         this.m.payment = candidate.get_work_information.map(item => item.payment);
         this.m.work_schedule = candidate.get_work_information.flatMap(item => item.get_work_schedule.map(schedule => schedule.work_schedule_id));
         this.m.category = candidate.get_work_information.map(item => item.category_id);
         this.m.address = candidate.address_ka
-
+        this.getData();
 
     },
     methods: {

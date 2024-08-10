@@ -40,13 +40,13 @@
                     </dl>
                 </div>
             </div>
-            <div class="row" v-if="type == 'family_work'">
+            <div class="row" v-if="type == 'family_work' && items.experience == 1">
                 <div class="col-md-6" >
                     <dl>
                         <dt>რამდენ ოჯახში გიმუშავია:</dt>
                         <dd>{{ items.families_worked_count+' ოჯახში' }}</dd>
                         <dt>გამოცდილება (ჯამში):</dt>
-                        <dd>{{ items.work_experience.name_ka }}</dd>
+                        <dd>{{ items.work_experience?.name_ka }}</dd>
 
                     </dl>
                 </div>
@@ -55,7 +55,7 @@
                         <dt>ოჯახში მუშაობდით:</dt>
                         <dd><span v-for="(item, index) in familyWorkSkill.category" :key="index">{{ item+', ' }}</span></dd>
                         <dt>აქედან ყველაზე ხანგრძლივად:</dt>
-                        <dd>{{ items.longest.name_ka }}</dd>
+                        <dd>{{ items.longest?.name_ka }}</dd>
                     </dl>
                 </div>
 
@@ -69,6 +69,12 @@
                     </dl>
                 </div>
             </div>
+            <dl v-if="type == 'family_work' && items.experience == 2">
+                <dt>არ ქონის მიზეზი:</dt>
+                <dd>{{ items.no_reason.name_ka }}</dd>
+                <dt>არ ქონის მიზეზი ტექსტი:</dt>
+                <dd>{{ items.no_reason_info_ka }}</dd>
+            </dl>
 
             <div class="row" v-if="type == 'recommendation'">
                 <div class="col-md-6" v-for="(item, index) in items" :key="index">
@@ -119,6 +125,7 @@ created(){
 methods:{
     show(){
        this.showConfirm = true
+       console.log(this.items)
         // if(this.type == 'category'){
         //     let id = this.items.pivot.candidate_id
         //     let category_id = this.items.id

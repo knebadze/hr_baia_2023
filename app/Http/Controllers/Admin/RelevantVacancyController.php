@@ -14,7 +14,7 @@ class RelevantVacancyController extends Controller
 {
     function index($id){
 
-        $data['candidate'] = Candidate::where('id',$id)->with('getWorkInformation.getWorkSchedule')->first();
+        $data['candidate'] = Candidate::where('id',$id)->with('getWorkInformation.getWorkSchedule', 'user')->first();
         // $categoryIds = collect($data['candidate']->getWorkInformation)->pluck('category_id')->toArray();
         $data['role_id'] = Auth::guard('staff')->user()->role_id;
         $data['hr'] = Staff::where('role_id', 2)->whereNot('is_active', 2)->get()->toArray();
@@ -24,6 +24,8 @@ class RelevantVacancyController extends Controller
     function adminData( RelevantFilters $filters ) {
 
         // ->whereIn('category_id', $categoryIds)
-        return Vacancy::filter($filters)->whereIn('status_id', [2, 6, 7])->with(['status', 'category', 'employer'])->paginate(25);
+        return Vacancy::filter($filters)
+                ->whereIn('status_id', [2, 6, 7])
+                ->with(['status', 'category', 'employer', 'workSchedule'])->paginate(25);
     }
 }

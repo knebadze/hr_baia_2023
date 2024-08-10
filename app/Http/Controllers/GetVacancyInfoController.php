@@ -62,7 +62,7 @@ class GetVacancyInfoController extends Controller
 
     function getVacancyFullInfo(Request $request)  {
         $vacancy = Vacancy::where('id', $request->data)
-            ->orWhere('code', $request->data)
+            // ->orWhere('code', $request->data)
             ->with([
                 'vacancyDuty', 'vacancyBenefit', 'vacancyForWhoNeed', 'characteristic', 'employer.additionalNumbers.numberCode', 'employer.additionalNumbers.numberOwner', 'currency','category', 'status',
                 'workSchedule', 'vacancyInterest', 'interviewPlace','term', 'demand', 'demand.language', 'demand.education', 'demand.languageLevel','demand.specialty',
