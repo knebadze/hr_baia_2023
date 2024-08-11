@@ -127,7 +127,7 @@
                     <i class="nav-icon fa fa-coins"></i>
                     <p>
                         ჩარიცხვები
-                        <span class="badge badge-danger right">{{ \App\Models\Enrollment::where('agree', 0)->count() }}</span>
+                        {{-- <span class="badge badge-danger right">{{ \App\Models\Enrollment::where('agree', 0)->count() }}</span> --}}
                     </p>
                 </a>
             </li>

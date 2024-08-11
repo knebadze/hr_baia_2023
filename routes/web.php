@@ -69,7 +69,7 @@ Route::group(['middleware' => 'lang', 'prefix' => '{locale}', 'where' => ['local
 
             Route::get('show_vacancy/{id?}', [MyVacancyController::class, 'show'])->name('show.vacancy');
 
-            Route::get('vacancy_list/{ids}', [VacancyListController::class, 'index'])->name('list.vacancy');
+            Route::get('/vacancy_list/{ids?}', [VacancyListController::class, 'index'])->name('list.vacancy');
 
             // Route::get('/company', [CompanyController::class, 'index'])->name('company');
             Route::get('/onmap', [MapvacancieController::class, 'index'])->name('onmap');

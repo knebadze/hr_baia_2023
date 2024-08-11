@@ -7,7 +7,7 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="#" @click="sendVacancies(1)">ნომერზე</a>
-                    <a class="dropdown-item" href="#" @click="sendVacancies(2)">მაილზე</a>
+                    <!-- <a class="dropdown-item" href="#" @click="sendVacancies(2)">მაილზე</a> -->
                     <!-- <a class="dropdown-item" href="#">Something else here</a> -->
                 </div>
             </div>

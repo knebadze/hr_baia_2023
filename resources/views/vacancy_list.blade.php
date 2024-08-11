@@ -31,7 +31,7 @@
         </div>
         <!-- INNER PAGE BANNER END -->
 
-        <vacancy-list-page ></vacancy-list-page>
+        <vacancy-to-candidate :data='@json($data)'></vacancy-to-candidate>
 
     </div>
 

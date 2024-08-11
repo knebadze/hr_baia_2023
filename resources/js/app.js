@@ -52,6 +52,7 @@ const importComponents = async () => {
         vacancyDetail,
         myVacancy,
         showUpdateVacancy,
+        VacancyToCandidate,
         comingSoon,
         //_______________________ADMIN COMPONENT_____________________
         selectionPersonal,
@@ -115,6 +116,7 @@ const importComponents = async () => {
         import("./component/employer/vacancy_detail.vue"),
         import("./component/employer/page/my_vacancy.vue"),
         import("./component/employer/page/show_update_vacancy.vue"),
+        import("./component/employer/page/VacancyToCandidate.vue"),
         import("./component/page/ComingSoon.vue"),
 
         import("./component/admin/vacancy/page/selection_personal.vue"),
@@ -183,6 +185,7 @@ const importComponents = async () => {
     app.component("vacancy-detail", vacancyDetail.default);
     app.component("my-vacancy", myVacancy.default);
     app.component("show-update-vacancy", showUpdateVacancy.default);
+    app.component('vacancy-to-candidate', VacancyToCandidate.default);
     app.component("coming-soon", comingSoon.default);
     // HR
 
