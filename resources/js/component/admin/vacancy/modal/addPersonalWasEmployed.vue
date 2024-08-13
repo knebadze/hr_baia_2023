@@ -384,10 +384,15 @@ export default {
             }
         },
         save() {
-            console.log(this.m);
-            console.log(!_.has(this.m, 'candidate_id') && !this.m.candidate_id && !this.m.employ_type)
-            if (!_.has(this.m, 'candidate_id') || !this.m.candidate_id || !this.m.employ_type) {
+            if ((!_.has(this.m, 'candidate_id') || !this.m.candidate_id)) {
                 toast.error("შესანახად აირჩიეთ კანდიდატი", {
+                    theme: "colored",
+                    autoClose: 1000,
+                });
+                return;
+            }
+            if ( !this.m.employ_type) {
+                toast.error("შესანახად აირჩიეთ დასაქმების ტიპი", {
                     theme: "colored",
                     autoClose: 1000,
                 });
