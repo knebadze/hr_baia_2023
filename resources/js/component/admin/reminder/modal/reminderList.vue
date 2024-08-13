@@ -7,7 +7,6 @@
         role="dialog"
         aria-labelledby="exampleModalCenterTitle"
         id="modalMap"
-        aria-hidden="true"
         style="display: block"
     >
         <div
