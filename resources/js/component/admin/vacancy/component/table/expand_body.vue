@@ -62,6 +62,24 @@
                             }}
                         </dd>
                     </div>
+                    <dt
+                        class="col-sm-4"
+                        v-if="item.status_id == 3 || item.status_id == 4"
+                    >
+                        კანდიდატი:
+                    </dt>
+                    <dd
+                        class="col-sm-8"
+                        role="button"
+                        @click="
+                            openCandidateFullInfoModal(
+                                item.employed_candidate?.id
+                            )
+                        "
+                        v-if="item.status_id == 3 || item.status_id == 4"
+                    >
+                        {{ item.employed_candidate?.name_ka }}
+                    </dd>
                 </dl>
             </div>
         </div>
@@ -340,7 +358,10 @@
 
                     <div
                         class="row col-12"
-                        v-if="item.characteristic.length > 0"
+                        v-if="
+                            item.characteristic &&
+                            item.characteristic.length > 0
+                        "
                     >
                         <dt class="col-sm-4">მახასიათებლები:</dt>
                         <dd class="col-sm-8">
@@ -402,10 +423,19 @@
                 </dl>
             </div>
         </div>
+        <candidateFullInfoModal
+            :visible="candidateFullInfoModalShow"
+            :candidate_id="candidate_id"
+        />
     </div>
 </template>
 <script>
+import candidateFullInfoModal from "../../../candidate/modal/candidateFullInfoModal.vue";
+import { ref } from "vue";
 export default {
+    components: {
+        candidateFullInfoModal,
+    },
     props: {
         item: Object,
         hr_id: Number,
@@ -415,9 +445,18 @@ export default {
         const displayWithFallback = (check, showParam, elseParam = "--") => {
             return check ? showParam : elseParam;
         };
+        const candidateFullInfoModalShow = ref(false);
+        const candidate_id = ref(null);
+        const openCandidateFullInfoModal = (id) => {
+            candidateFullInfoModalShow.value = !candidateFullInfoModalShow.value;
+            candidate_id.value = id;
+        };
 
         return {
+            candidateFullInfoModalShow,
+            candidate_id,
             displayWithFallback,
+            openCandidateFullInfoModal
         };
     },
 };

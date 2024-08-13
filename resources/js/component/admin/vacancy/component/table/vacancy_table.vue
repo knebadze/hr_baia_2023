@@ -6,7 +6,6 @@ import _ from "lodash";
 import table_cog from "./table_cog.vue";
 import expand_body from "./expand_body.vue";
 import { copyToClipboard } from "../../../../../helper/clipboard";
-import candidateFullInfoModal from "../../../candidate/modal/candidateFullInfoModal.vue";
 
 const props = defineProps({
     data: Object,
@@ -55,8 +54,7 @@ const choseSchedule = ref("ყველა");
 const chosePayment = ref([50, 5000]);
 const choseId = ref("");
 
-const candidateFullInfoModalShow = ref(false);
-const candidate_id = ref(null);
+
 
 const filterOptions = computed(() => {
     const filterOptionsArray = [];
@@ -104,11 +102,7 @@ const bodyRowClassNameFunction = (item, number) => {
         return "my-vacancy-row";
 };
 
-const openCandidateFullInfoModal = (id) => {
-    candidateFullInfoModalShow.value =
-        !candidateFullInfoModalShow.value;
-    candidate_id.value = id;
-};
+
 
 // const myVacancySwitch = () =>{
 //     if (!myVacancy.value) {
@@ -174,7 +168,6 @@ const openCandidateFullInfoModal = (id) => {
                         ? item.reason_for_cancel.name_ka
                         : item.status.name_ka
                 }}</span>
-                <p role="button" @click="openCandidateFullInfoModal(item.employed_candidate?.id)" v-if="item.status_id == 3 || item.status_id == 4">{{ item.employed_candidate?.name_ka }}</p>
             </template>
             <template #item-address="item">
                 {{ `${item.employer.address_ka} ${item.employer.street_ka}` }}
@@ -320,10 +313,10 @@ const openCandidateFullInfoModal = (id) => {
                 </div>
             </template>
         </EasyDataTable>
-        <candidateFullInfoModal
+        <!-- <candidateFullInfoModal
             :visible="candidateFullInfoModalShow"
             :candidate_id="candidate_id"
-        />
+        /> -->
     </div>
 </template>
 <style scoped>
