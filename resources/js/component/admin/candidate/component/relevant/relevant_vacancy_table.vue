@@ -2,29 +2,44 @@
     <div class="table-responsive">
         <div class="d-flex justify-content-end" v-if="checkedRow.length > 0">
             <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button
+                    class="btn btn-secondary dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                >
                     გაგზავნა
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#" @click="sendVacancies(1)">ნომერზე</a>
-                    <!-- <a class="dropdown-item" href="#" @click="sendVacancies(2)">მაილზე</a> -->
+                    <a class="dropdown-item" href="#" @click="sendVacancies(1)"
+                        >ნომერზე</a
+                    >
+                    <!-- <a
+                        class="dropdown-item"
+                        href="#"
+                        @click="sendVacancies(2)"
+                        v-if="candidate.email"
+                        >მაილზე</a
+                    > -->
                     <!-- <a class="dropdown-item" href="#">Something else here</a> -->
                 </div>
             </div>
         </div>
-        
+
         <table class="table twm-table table-striped table-border">
             <thead>
                 <tr>
                     <th>
                         <div class="form-check" style="margin-top: -20px">
-                            <input 
-                                type="checkbox" 
-                                class="form-check-input" 
-                                id="exampleCheck1" 
+                            <input
+                                type="checkbox"
+                                class="form-check-input"
+                                id="exampleCheck1"
                                 v-model="allChecked"
                                 @change="toggleAll"
-                            >
+                            />
                         </div>
                     </th>
                     <th>ID</th>
@@ -39,20 +54,28 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-if="items.length > 0" v-for="(item, index) in items" :key="index">
+                <tr
+                    v-if="items.length > 0"
+                    v-for="(item, index) in items"
+                    :key="index"
+                >
                     <td>
                         <div class="form-check">
-                            <input 
-                                type="checkbox" 
-                                class="form-check-input" 
-                                :id="'checkbox-' + index" 
-                                :value="item.code" 
+                            <input
+                                type="checkbox"
+                                class="form-check-input"
+                                :id="'checkbox-' + index"
+                                :value="item.code"
                                 @change="handleCheckboxChange(item)"
                                 :checked="checkedRow.includes(item.code)"
-                            >
+                            />
                         </div>
                     </td>
-                    <td><u class="text-primary" @click="openModal(item.id)">{{ item.code }}</u></td>
+                    <td>
+                        <u class="text-primary" @click="openModal(item.id)">{{
+                            item.code
+                        }}</u>
+                    </td>
                     <td>{{ item.employer.name_ka }}</td>
                     <td>{{ item.category.name_ka }}</td>
                     <td>{{ item.payment }}</td>
@@ -68,59 +91,61 @@
                     </td> -->
                 </tr>
                 <tr v-else>
-                    <td colspan='6' class="text-center"> ვაკანსია ვერ მოიძებნა!!!</td>
+                    <td colspan="6" class="text-center">
+                        ვაკანსია ვერ მოიძებნა!!!
+                    </td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <vacancyFullInfoModal :visible="modalShow" :vacancyId="vacancy_id"/>
+    <vacancyFullInfoModal :visible="modalShow" :vacancyId="vacancy_id" />
 </template>
 <script>
-import vacancyFullInfoModal from '../../../vacancy/modal/vacancyFullInfoModal.vue';
+import vacancyFullInfoModal from "../../../vacancy/modal/vacancyFullInfoModal.vue";
 import Swal from "sweetalert2";
-import { ref, computed } from 'vue';
+import { ref, computed } from "vue";
 export default {
-    components:{
-        vacancyFullInfoModal
+    components: {
+        vacancyFullInfoModal,
     },
-    props:{
+    props: {
         items: Object,
-        candidate: Object
+        candidate: Object,
     },
     setup(props) {
         const modalShow = ref(false);
         const vacancy_id = ref(null);
         const checkedRow = ref([]);
-        const allChecked = ref(false)
-        const openModal = (id) =>{
-            modalShow.value = !modalShow.value
-            vacancy_id.value = id
-        }
+        const allChecked = ref(false);
+        const openModal = (id) => {
+            modalShow.value = !modalShow.value;
+            vacancy_id.value = id;
+        };
 
         const handleCheckboxChange = (item) => {
             const index = checkedRow.value.indexOf(item.code);
             if (index > -1) {
                 // If item is already in the array, remove it
                 checkedRow.value.splice(index, 1);
-            } else {
-                // If item is not in the array, add it
+            } else if (checkedRow.value.length < 25) {
+                // If item is not in the array and max length is not exceeded, add it
                 checkedRow.value.push(item.code);
             }
         };
 
         const toggleAll = () => {
             if (allChecked.value) {
-                checkedRow.value = props.items.map(item => item.code);
+                checkedRow.value = props.items.slice(0, 25).map(item => item.code);
             } else {
                 checkedRow.value = [];
             }
         };
         const sendVacancies = (type) => {
-            let typeText = 'ნომერზე'
-            let to = props.candidate.number
-            if(type == 2){
-                typeText = 'მაილზე'
-                to = props.candidate.email
+            let typeText = "ნომერზე";
+            let to = props.candidate.number;
+            if (type == 2) {
+                typeText = "მაილზე";
+                to = props.candidate.email;
             }
             console.log(checkedRow.value);
             Swal.fire({
@@ -130,23 +155,24 @@ export default {
                 showCancelButton: true,
             }).then((result) => {
                 if (result.isConfirmed) {
-                    axios.post('/send_vacancy_to_candidate', {
-                        to: to,
-                        ids: checkedRow.value,
-                        type: type
-                    })
-                    .then(response => {
-                        console.log('Vacancy sent successfully:', response);
-                    })
-                    .catch(error => {
-                        console.error('Error sending vacancy:', error);
-                    });
+                    axios
+                        .post("/send_vacancy_to_candidate", {
+                            to: to,
+                            ids: checkedRow.value,
+                            type: type,
+                        })
+                        .then((response) => {
+                            console.log("Vacancy sent successfully:", response);
+                        })
+                        .catch((error) => {
+                            console.error("Error sending vacancy:", error);
+                        });
                 } else if (result.isDismissed) {
                     return;
                 }
             });
-        }
-        return{
+        };
+        return {
             modalShow,
             vacancy_id,
             checkedRow,
@@ -154,11 +180,9 @@ export default {
             openModal,
             handleCheckboxChange,
             toggleAll,
-            sendVacancies
-        }
-    }
-}
+            sendVacancies,
+        };
+    },
+};
 </script>
-<style lang="">
-
-</style>
+<style lang=""></style>

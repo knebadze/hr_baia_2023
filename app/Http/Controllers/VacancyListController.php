@@ -8,6 +8,8 @@ use App\Models\Vacancy;
 use Illuminate\Http\Request;
 use App\Events\SmsNotificationEvent;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\VacancyListNotification;
 
 class VacancyListController extends Controller
 {
@@ -51,16 +53,24 @@ class VacancyListController extends Controller
         $ids = $request->input('ids');
         $type = $request->input('type');
 
+        if (is_array($ids)) {
+            $ids = implode(',', $ids);
+        }
+        $link = route('list.vacancy', ['locale' => app()->getLocale(), 'ids' => $ids]);
         if ($type == 1) {
             // Logic to send SMS
             $data = [
                 'to' => $to,
-                'link' => route('list.vacancy', ['locale' => app()->getLocale(), 'ids' => $ids])
+                'link' => $link
             ];
             event(new SmsNotificationEvent($data, 'send_vacancies_to_candidate'));
             return response()->json(['message' => 'SMS sent successfully']);
         } elseif ($type == 2) {
-            // Logic to send Email
+            $data = [
+                'to' => $to,
+                'link' => $link
+            ];
+            Mail::to($to)->send(new VacancyListNotification($data));
 
             return response()->json(['message' => 'Email sent successfully']);
         } else {

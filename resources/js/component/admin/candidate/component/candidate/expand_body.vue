@@ -87,6 +87,10 @@
                     <dd class="col-sm-8">
                         {{ `${item.address_ka} ${item.street_ka}` }}
                     </dd>
+                    <dt class="col-sm-4">მაილი:</dt>
+                    <dd class="col-sm-8">
+                        {{ item.user.email }}
+                    </dd>
                     <dt class="col-sm-4">ეროვნება:</dt>
                     <dd class="col-sm-8">{{ item.nationality.name_ka }}</dd>
                     <dt class="col-sm-4">მოქალაქეობა:</dt>
