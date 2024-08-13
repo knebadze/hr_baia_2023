@@ -42,19 +42,24 @@ class VacancyHrUpdateRepository
             $smsData = [
                 [
                     'type'=> 'rewrite_vacancy_to_hr',
-                    'to' => $newHr->number,
-                    'hrName' => $oldHr->name_ka,
-                    'code' => $vacancy->code,
-                    'category' => $vacancy->category->name_ka,
-                    'eNumber' => $vacancy->employer->number,
-                    'link' => route('admin.vacancy')
+                    'data' => [
+                        'to' => $newHr->number,
+                        'hrName' => $oldHr->name_ka,
+                        'code' => $vacancy->code,
+                        'category' => $vacancy->category->name_ka,
+                        'eNumber' => $vacancy->employer->number,
+                        'link' => route('admin.vacancy')
+                    ]
+                    
                 ],
                 [
                     'type'=> 'rewrite_vacancy_from_hr',
-                    'to' => $oldHr->number,
-                    'code' => $vacancy->code,
-                    'category' => $vacancy->category->name_ka,
-                    'hName' => $newHr->name_ka,
+                    'data' => [
+                        'to' => $oldHr->number,
+                        'code' => $vacancy->code,
+                        'category' => $vacancy->category->name_ka,
+                        'hName' => $newHr->name_ka,
+                    ]
                 ]
 
             ];
