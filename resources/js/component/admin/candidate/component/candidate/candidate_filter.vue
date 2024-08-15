@@ -25,24 +25,25 @@ const toggleCollapse = (item) => {
 };
 
 const filter = () => {
-    if (m.age && m.age[0] == 18 && m.age[1] == 90) {
-        delete m.age;
+    const searchData = {...m.value};
+    if (searchData.age && searchData.age[0] == 18 && searchData.age[1] == 90) {
+        delete searchData.age;
     }
-    if (m.height && m.height[0] == 140 && m.height[1] == 220) {
-        delete m.height;
+    if (searchData.height && searchData.height[0] == 140 && searchData.height[1] == 220) {
+        delete searchData.height;
     }
-    if (m.weight && m.weight[0] == 40 && m.weight[1] == 180) {
-        delete m.weight;
+    if (searchData.weight && searchData.weight[0] == 40 && searchData.weight[1] == 180) {
+        delete searchData.weight;
     }
-    if (m.payment && m.payment[0] == 50 && m.payment[1] == 5000) {
-        delete m.payment;
+    if (searchData.payment && searchData.payment[0] == 50 && searchData.payment[1] == 5000) {
+        delete searchData.payment;
     }
-    for (let i = 0; i < Object.keys(m).length; i++) {
-        if (m[i] == "") {
-            delete m[i];
+    for (let i = 0; i < Object.keys(searchData).length; i++) {
+        if (searchData[i] == "") {
+            delete searchData[i];
         }
     }
-    if (Object.keys(m).length == 0) {
+    if (Object.keys(searchData).length == 0) {
         toast.error("შეცვალეთ პარამეტრები", {
             theme: "colored",
             autoClose: 1000,
@@ -50,7 +51,7 @@ const filter = () => {
         return;
     }
     toggleCollapse("show");
-    emit("emitFilterData", m.value);
+    emit("emitFilterData", searchData);
     // emitData(m.value)
     // axios.post('/candidate_filter?page=' + 1, m.value)
     //     .then((response) => {
@@ -1017,7 +1018,7 @@ const filter = () => {
                             <button
                                 type="button"
                                 class="btn btn-success float-right"
-                                @click="filter(m)"
+                                @click="filter"
                             >
                                 <i class="fa fa-search"></i> ძებნა
                             </button>

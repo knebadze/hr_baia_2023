@@ -198,7 +198,6 @@ export default {
     created() {
         // this.m.id = this.data
         // this.getData()
-        console.log(this.data);
         const { candidate } = this.data;
         this.m.payment = candidate.get_work_information.map(
             (item) => item.payment
@@ -232,8 +231,6 @@ export default {
                 data: data,
             })
                 .then((response) => {
-                    console.log(response.data);
-
                     this.pagination = {
                         current_page: response.data.vacancy.current_page,
                         last_page: response.data.vacancy.last_page,
@@ -299,10 +296,12 @@ export default {
         hrs: {
             deep: true,
             handler(newValue, oldValue) {
+                console.log(newValue);
+
                 if (newValue.length == 0) {
                     delete this.m["hrs"];
                 } else {
-                    this.m.hrs = newValue.map((item) => item.hr.id);
+                    this.m.hrs = newValue.map((item) => item.id);
                 }
             },
         },

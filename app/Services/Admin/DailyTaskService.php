@@ -122,19 +122,19 @@ class DailyTaskService
 
     private function checkRegistrationsWithoutPersonalData()
     {
-        $twoDaysAgo = Carbon::today()->subDays(2);
+        $oneDaysAgo = Carbon::today()->subDays(1);
         // Attempt to retrieve users with a single query
         $unfinished = User::where('role_id', 3)
-            ->where(function ($query) use ($twoDaysAgo) {
-                // Users without a candidate and unfinished registration, created 2 days ago
+            ->where(function ($query) use ($oneDaysAgo) {
+                // Users without a candidate and unfinished registration, created 1 days ago
                 $query->whereDoesntHave('candidate')
                     ->whereDoesntHave('unFinishedRegistration')
-                    ->whereDate('created_at', $twoDaysAgo);
+                    ->whereDate('created_at', $oneDaysAgo);
             })
-            ->orWhereHas('candidate', function ($query) use ($twoDaysAgo) {
-                // Or users with a candidate in stage less than 7, updated 2 days ago
+            ->orWhereHas('candidate', function ($query) use ($oneDaysAgo) {
+                // Or users with a candidate in stage less than 7, updated 1 days ago
                 $query->where('stage', '<', 7)
-                    ->whereDate('updated_at', $twoDaysAgo);
+                    ->whereDate('updated_at', $oneDaysAgo);
             })
             ->get();
 
@@ -146,6 +146,13 @@ class DailyTaskService
         }
     }
     function createUnfinished($user_id)  {
+         // Check if a record with the given user_id already exists
+        $existingRecord = UnfinishedRegistration::where('user_id', $user_id)->first();
+
+        if ($existingRecord) {
+            // User already exists in the table, return false or handle as needed
+            return false;
+        }
         // Attempt to find a random active user with role_id 4
         $assignedUser = Staff::where('role_id', 4)->where('is_active', 1)->inRandomOrder()->first();
 
@@ -156,7 +163,7 @@ class DailyTaskService
         }
 
         // Proceed with creating the UnfinishedRegistration record
-        UnfinishedRegistration::firstOrCreate([
+        UnfinishedRegistration::create([
             'user_id' => $user_id,
             'was_assigned_id' => $assignedUser->id,
             'status_id' => 2

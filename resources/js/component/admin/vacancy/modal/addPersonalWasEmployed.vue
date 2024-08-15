@@ -347,6 +347,7 @@ export default {
                     start_date: this.item.start_date,
                     term: this.item.term,
                 };
+                console.log(this.item);
                 if (this.item.work_schedule_id == 8) {
                     this.m.week_day = null;
                 }
@@ -441,6 +442,7 @@ export default {
         },
         find() {
             let currentObj = this;
+            this.search.category = this.item.category;
             axios({
                 method: "post",
                 url: "/find_candidate",
