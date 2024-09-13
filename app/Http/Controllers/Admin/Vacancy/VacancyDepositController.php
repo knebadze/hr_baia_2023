@@ -173,10 +173,13 @@ class VacancyDepositController extends Controller
             }
 
             $deposit->save();
-            $checkRegisterFee = $this->checkRegisterFee($depositData['vacancy_id']);
-            if($checkRegisterFee && $check){
-                $this->updateVacancyStatus($depositData['vacancy_id']);
+            if($check){
+                $checkRegisterFee = $this->checkRegisterFee($depositData['vacancy_id']);
+                if($checkRegisterFee ){
+                    $this->updateVacancyStatus($depositData['vacancy_id']);
+                }
             }
+
             // Return a response
             return response()->json(['message' => 'Deposit cancellation saved successfully'], 200);
         } catch (\Exception $e) {
