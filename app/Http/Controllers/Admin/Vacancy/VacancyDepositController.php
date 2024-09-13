@@ -19,6 +19,7 @@ use App\Http\Resources\DepositResource;
 use App\Traits\HandlesAdminDataViewCaching;
 use App\Services\Admin\VacancyDepositService;
 use App\Http\Resources\RegistrationFeeResource;
+use App\Repositories\Enrollment\EnrollmentAgreeRepository;
 
 class VacancyDepositController extends Controller
 {
@@ -129,28 +130,100 @@ class VacancyDepositController extends Controller
 
     public function saveDepositCancel(Request $request)
     {
-        // Validate the request data
-        $validatedData = $request->validate([
-            'data' => 'required|array',
-            // Add other validation rules as needed
-        ]);
+        try {
+            // Validate the request data
+            $validatedData = $request->validate([
+                'data' => 'required|array',
+                // Add other validation rules as needed
+            ]);
 
-        // Process the deposit cancellation
-        $depositData = $validatedData['data'];
-        // Perform the necessary actions with $depositData
-        $deposit = VacancyDeposit::find($depositData['id']);
-        if($depositData['type'] == 'candidate'){
-            $deposit->candidate_cancel_other_reason = $depositData['cancel_reason'];
-            $deposit->candidate_cancel_reason_id = $depositData['cancel_reason_id']['id'];
-        }else{
-            $deposit->employer_cancel_other_reason = $depositData['cancel_reason'];
-            $deposit->employer_cancel_reason_id = $depositData['cancel_reason_id']['id'];
+            // Process the deposit cancellation
+            $depositData = $validatedData['data'];
+            if ($depositData['type'] == 'registration'){
+                $register = RegistrationFee::find($depositData['id']);
+                $register->cancel_other_reason = $depositData['cancel_reason'];
+                $register->cancel_reason_id = $depositData['cancel_reason_id']['id'];
+                $register->save();
+                $candidate = Candidate::where('id', $register->candidate_id)->first();
+                $candidate->registration_fee = 1;
+                $candidate->save();
+                $check = $this->checkDepositCancel($depositData['vacancy_id']);
+                if($check){
+                    $this->updateVacancyStatus($depositData['vacancy_id']);
+                }
+
+                return response()->json(['message' => 'Deposit cancellation saved successfully'], 200);
+            }
+            // Perform the necessary actions with $depositData
+            $deposit = VacancyDeposit::find($depositData['id']);
+            $check = false;
+            if ($depositData['type'] == 'candidate') {
+                $deposit->candidate_cancel_other_reason = $depositData['cancel_reason'];
+                $deposit->candidate_cancel_reason_id = $depositData['cancel_reason_id']['id'];
+                if($deposit->employer_cancel_reason_id !== null){
+                    $check = true;
+                    // $this->updateVacancyStatus($depositData['vacancy_id']);
+                }
+            } else {
+                $deposit->employer_cancel_other_reason = $depositData['cancel_reason'];
+                $deposit->employer_cancel_reason_id = $depositData['cancel_reason_id']['id'];
+                if($deposit->candidate_cancel_reason_id !== null){
+                    $check = true;
+                }
+            }
+
+            $deposit->save();
+            $checkRegisterFee = $this->checkRegisterFee($depositData['vacancy_id']);
+            if($checkRegisterFee && $check){
+                $this->updateVacancyStatus($depositData['vacancy_id']);
+            }
+            // Return a response
+            return response()->json(['message' => 'Deposit cancellation saved successfully'], 200);
+        } catch (\Exception $e) {
+            // Handle the exception and return an error response
+            return response()->json(['error' => 'An error occurred while saving the deposit cancellation', 'details' => $e->getMessage()], 500);
         }
+    }
 
-        $deposit->save();
+    private function checkDepositCancel($vacancy_id)
+    {
+        $deposit = VacancyDeposit::where('vacancy_id', $vacancy_id)->first();
 
-        // Return a response
-        return response()->json(['message' => 'Deposit cancellation saved successfully']);
+        if ($deposit) {
+            if ($deposit->candidate_cancel_reason_id || $deposit->employer_cancel_reason_id) {
+                return true;
+            }
+        }else{
+            return false;
+        }
+    }
+
+    private function checkRegisterFee($vacancy_id)
+    {
+        $candidate = QualifyingCandidate::where('vacancy_id', $vacancy_id)->whereIn('qualifying_type_id', [7, 8])->first();
+        if($candidate){
+            $candidate_id = $candidate->candidate_id;
+        }else{
+            return false;
+        }
+        $candidate = Candidate::where('id', $candidate_id)->first();
+
+        if ($candidate) {
+            if ($candidate->user->registration_fee->cancel_reason_id !== null) {
+                return true;
+            }
+        }else{
+            return false;
+        }
+    }
+
+    private function updateVacancyStatus($vacancy_id)
+    {
+        Vacancy::where('id', $vacancy_id)->update(['status_id' => 4]);
+
+        $enrolmentFunction = new EnrollmentAgreeRepository();
+        $enrolmentFunction->deleteReminder($vacancy_id);
+        $enrolmentFunction->deleteDeposit($vacancy_id);
     }
 
 

@@ -269,9 +269,9 @@ const handlerModalHide = (data) => {
         return;
     }
     // if (!_.has(data, "candidate_id") || !data.candidate_id) {
-       
-    // }   
-    
+
+    // }
+
 };
 const handlerWasEmployed = (item = false) => {
     if (item) {
@@ -281,12 +281,11 @@ const handlerWasEmployed = (item = false) => {
 
 const save = () => {
     console.log('m.value',m.value);
-    
+
     if(!changeStatusWasEmployed.value){
         openModal();
         return
     }
-    return
     if (m.value.status.id == 6) {
         m.value["reminder"] = reminder.value;
     }

@@ -323,7 +323,7 @@ export default {
             try {
                 let result = await getClassificatory();
                 console.log(result.data);
-                
+
                 info.value = result.data;
                 employType();
                 m.vacancy = {
@@ -357,16 +357,23 @@ export default {
         };
 
         const employType = () => {
+
+
             let period = [6, 7, 8, 9, 10];
             let work_schedule_id = props.item.work_schedule_id;
             let cla = info.value.employ_type;
+            console.log('cla', cla);
+
+            console.log('work_schedule_id', work_schedule_id);
+
+            console.log('employType', _.includes(period, work_schedule_id));
             if (_.includes(period, work_schedule_id)) {
                 m.employ_type = _.find(cla, function (o) {
                     return o.id == 8;
                 });
             } else {
                 disabled.value = true;
-                m.employ_type = _.find(cla.value, function (o) {
+                m.employ_type = _.find(cla, function (o) {
                     return o.id == 7;
                 });
             }
@@ -438,7 +445,7 @@ export default {
             })
                 .then(function (response) {
                     console.log(response.data);
-                    
+
                     if (
                         response.data.length == 0 &&
                         (search.id !== null || search.number !== null)

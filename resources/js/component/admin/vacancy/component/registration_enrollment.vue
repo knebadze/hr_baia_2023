@@ -57,6 +57,14 @@
                     </div>
                 </div>
                 <div class="col-md-12">
+                    <button
+                        v-if="m.cancel_reason_id === null && auth.role_id == 1"
+                        type="button"
+                        class="btn btn-danger mb-1"
+                        @click.prevent="cancel(m)"
+                    >
+                        <i class=""></i>გაუქმება
+                    </button>
                     <!-- <button v-if="!registerInfo" type="button" class="btn btn-success float-right" @click.prevent="redacted()" ><i class=""></i>რედაქტირების შენახვა</button> -->
                 </div>
                 <div class="col-md-12 border-top border-bottom">
@@ -137,154 +145,152 @@
                 </div>
             </div>
         </div>
+        <CancelDeposit
+            :visible="showDepositCancelModal"
+            :item="cancelDeposit"
+            :cancelDepositClassificatory="reasonsCl"
+            type="registration"
+        />
     </div>
 </template>
-<script>
-export default {
-    props: {
-        item: Object,
-        adminViewAndPermission: Object,
-        auth: Object,
-    },
-    data() {
-        return {
-            showConfirm: false,
-            m: {},
-            cla: null,
-            file: null,
-            registerInfo: null,
-        };
-    },
-    created() {
-        this.show();
-    },
-    computed: {
-        fullPermission() {
-            return this.adminViewAndPermission
-                ? this.adminViewAndPermission.permission == "full"
-                : null;
-        },
-    },
-    methods: {
-        async show() {
-            let result = await this.getInfo();
-            this.registerInfo =
-                result.data == "" ? null : result.data ? result.data : null;
-            this.showConfirm = true;
-            this.m = { ...this.item };
-            // this.min = this.item.end_date;
-        },
-        hide() {
-            this.showConfirm = false;
-        },
-        getInfo() {
-            if (this.item.hasOwnProperty("log")) {
-                return { data: null };
-            }
-            return axios.post("/get_register_enrollment_info", {
-                data: this.item.user_id,
-            });
-        },
-        handleFileChange(event) {
-            this.file = event.target.files[0];
-            // this.enrollmentEmployer.file_name = this.file.name
-        },
-        counting(m) {
-            let item = m;
-            let enrollmentType;
-            // let enrolled;
-            enrollmentType = item.money == this.item.initial_amount ? 1 : 0;
-            // enrolled = this.item.money - item.money
+<script setup>
+import { ref, computed, onMounted } from "vue";
+import CancelDeposit from "../modal/CancelDeposit.vue";
 
-            let model = {
-                id: item.id,
-                user_id: item.user_id,
-                type: enrollmentType,
-                name: item.name,
-                money: item.money,
-                vacancy_id: item.vacancy_id,
-            };
-            const formData = new FormData();
-            formData.append("data", JSON.stringify(model));
-            if (this.file) {
-                formData.append("file", this.file);
-            }
-            if (enrollmentType == 0) {
-                this.$swal({
-                    title: "ნამდვილად გსურთ თანხის არასრული ჩარიცხვა? შეიყვანე შემდეგი გადახდის თარიღი",
-                    html: '<input id="swal-input" type="date" required>',
-                    // input: 'date',
-                    showCancelButton: true,
-                    cancelButtonText: "გაუქმება",
-                    confirmButtonText: "შენახვა",
-                    showLoaderOnConfirm: true,
-                    preConfirm: () => {
-                        const date =
-                            document.getElementById("swal-input").value;
-                        if (!date) {
-                            Swal.showValidationMessage("Please enter a date."); // Display error message if date is empty
-                            return false; // Prevent the form from being submitted
-                        }
-                        return axios
-                            .post(
-                                "/register_update?id=" +
-                                    model.id +
-                                    "&date=" +
-                                    date
-                            )
-                            .then((response) => {
-                                return response.data;
-                            })
-                            .catch((error) => {
-                                this.$swal.showValidationMessage(
-                                    `Request failed: ${error}`
-                                );
-                            });
-                    },
-                    allowOutsideClick: () => !this.$swal.isLoading(),
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        this.sendAxios(formData);
-                    }
-                });
-            } else {
-                this.$swal({
-                    title: "ნამდვილად გსურთ თანხის სრულად ჩარიცხვა?",
-                    //   showDenyButton: true,
-                    cancelButtonText: "არა",
-                    confirmButtonText: "კი",
-                    showCancelButton: true,
-                }).then((result) => {
-                    /* Read more about isConfirmed, isDenied below */
-                    if (result.isConfirmed) {
-                        this.sendAxios(formData);
-                    } else if (result.isDenied) {
-                        return;
-                    }
-                });
-            }
-        },
-        sendAxios(formData) {
-            let currentObj = this;
-            axios
-                .post("/register_enrollment", formData)
-                .then(function (response) {
-                    if (response.status == 200) {
-                        toast.success("წარმატებით ჩაირიცხა", {
-                            theme: "colored",
-                            autoClose: 1000,
-                        });
-                        setTimeout(() => {
-                            document.location.reload();
-                        }, 2000);
-                    }
-                })
-                .catch(function (error) {
-                    // handle error
-                    console.log(error);
-                });
-        },
-    },
+const props = defineProps({
+    item: Object,
+    adminViewAndPermission: Object,
+    auth: Object,
+    cancelDepositClassificatory: Array,
+});
+
+const showConfirm = ref(false);
+const m = ref({});
+const cla = ref(null);
+const file = ref(null);
+const registerInfo = ref(null);
+const showDepositCancelModal = ref(false);
+const cancelDeposit = ref(null);
+const reasonsCl = computed(() => props.cancelDepositClassificatory);
+const fullPermission = computed(() => {
+    return props.adminViewAndPermission
+        ? props.adminViewAndPermission.permission == "full"
+        : null;
+});
+
+const show = async () => {
+    let result = await getInfo();
+    registerInfo.value =
+        result.data == "" ? null : result.data ? result.data : null;
+    showConfirm.value = true;
+    m.value = { ...props.item };
+    console.log("m.value", m.value);
 };
+
+const hide = () => {
+    showConfirm.value = false;
+};
+
+const getInfo = () => {
+    if (props.item.hasOwnProperty("log")) {
+        return { data: null };
+    }
+    return axios.post("/get_register_enrollment_info", {
+        data: props.item.user_id,
+    });
+};
+
+const handleFileChange = (event) => {
+    file.value = event.target.files[0];
+};
+
+const counting = (item) => {
+    let enrollmentType = item.money == props.item.initial_amount ? 1 : 0;
+
+    let model = {
+        id: item.id,
+        user_id: item.user_id,
+        type: enrollmentType,
+        name: item.name,
+        money: item.money,
+        vacancy_id: item.vacancy_id,
+    };
+    const formData = new FormData();
+    formData.append("data", JSON.stringify(model));
+    if (file.value) {
+        formData.append("file", file.value);
+    }
+    if (enrollmentType == 0) {
+        Swal.fire({
+            title: "ნამდვილად გსურთ თანხის არასრული ჩარიცხვა? შეიყვანე შემდეგი გადახდის თარიღი",
+            html: '<input id="swal-input" type="date" required>',
+            showCancelButton: true,
+            cancelButtonText: "გაუქმება",
+            confirmButtonText: "შენახვა",
+            showLoaderOnConfirm: true,
+            preConfirm: () => {
+                const date = document.getElementById("swal-input").value;
+                if (!date) {
+                    Swal.showValidationMessage("Please enter a date.");
+                    return false;
+                }
+                return axios
+                    .post("/register_update?id=" + model.id + "&date=" + date)
+                    .then((response) => {
+                        return response.data;
+                    })
+                    .catch((error) => {
+                        Swal.showValidationMessage(`Request failed: ${error}`);
+                    });
+            },
+            allowOutsideClick: () => !Swal.isLoading(),
+        }).then((result) => {
+            if (result.isConfirmed) {
+                sendAxios(formData);
+            }
+        });
+    } else {
+        Swal.fire({
+            title: "ნამდვილად გსურთ თანხის სრულად ჩარიცხვა?",
+            cancelButtonText: "არა",
+            confirmButtonText: "კი",
+            showCancelButton: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                sendAxios(formData);
+            }
+        });
+    }
+};
+
+const sendAxios = (formData) => {
+    axios
+        .post("/register_enrollment", formData)
+        .then((response) => {
+            if (response.status == 200) {
+                toast.success("წარმატებით ჩაირიცხა", {
+                    theme: "colored",
+                    autoClose: 1000,
+                });
+                setTimeout(() => {
+                    document.location.reload();
+                }, 2000);
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+};
+
+const cancel = (item) => {
+    console.log("item", item);
+
+    showDepositCancelModal.value = true;
+    cancelDeposit.value = item;
+};
+
+onMounted(() => {
+    show();
+});
 </script>
 <style lang=""></style>

@@ -33,12 +33,16 @@ export const useDepositStore = defineStore("depositStore", () => {
             const response = await axios.post("/save_deposit_cancel", {
                 data: deposit,
             });
-            if(response.data.status == 200){
+            if(response.status == 200){
                 toast.success("დეპოზიტი გაუქმებულია");
+                setTimeout(() => {
+                    document.location.reload();
+                }, 2000);
             }
             // responseData.value = response.data;
             setLoading(false);
         } catch (error) {
+            toast.error("დაფიქსირდა შეცდომა");
             console.log(error);
             setLoading(false);
         }
