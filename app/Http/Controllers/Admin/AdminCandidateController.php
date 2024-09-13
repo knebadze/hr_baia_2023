@@ -4,18 +4,19 @@ namespace App\Http\Controllers\Admin;
 
 use Exception;
 use App\Models\User;
+use App\Models\Staff;
 use App\Models\Candidate;
+use App\Services\SmsService;
 use Illuminate\Http\Request;
 use App\Models\WorkInformation;
+use App\Models\Additional_number;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Services\ClassificatoryService;
 use App\Filters\Candidate\CandidateFilters;
-use App\Models\Additional_number;
-use App\Models\Staff;
 use App\Services\Admin\CandidateUpdateService;
-use App\Services\SmsService;
+use App\Http\Resources\Collection\AdminCandidateResourceCollection;
 
 class AdminCandidateController extends Controller
 {
@@ -75,10 +76,12 @@ class AdminCandidateController extends Controller
                     'drivingLicense',
                     'status',
                     'number.numberOwner',
+                    'qualifyingCandidate.vacancy',
+                    'qualifyingCandidate.qualifyingType'
 
                 ]);
             $total = $query->count();
-            $candidates = $query->paginate(20)->toArray();
+            $candidates = $query->paginate(20);
             $data = [
                 'candidates' => $candidates,
                 'total' => $total
@@ -119,6 +122,9 @@ class AdminCandidateController extends Controller
                 'drivingLicense',
                 'status',
                 'number.numberOwner',
+                'qualifyingCandidate.vacancy',
+                'qualifyingCandidate.qualifyingType'
+                
             ]);
             $total = $query->count();
             $candidates = $query->paginate(20)->toArray();
@@ -267,6 +273,8 @@ class AdminCandidateController extends Controller
                 'drivingLicense',
                 'status',
                 'number.numberOwner',
+                'qualifyingCandidate.vacancy',
+                'qualifyingCandidate.qualifyingType'
             ])->first()->toArray();
             $data = [
                 'candidate' => $candidate,

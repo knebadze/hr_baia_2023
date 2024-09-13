@@ -211,23 +211,7 @@ onMounted(async () => {
                                                 track-by="name_ka"
                                                 :preselect-first="false"
                                             >
-                                                <template
-                                                    slot="selection"
-                                                    slot-scope="{
-                                                        values,
-                                                        search,
-                                                        isOpen,
-                                                    }"
-                                                    ><span
-                                                        class="multiselect__single"
-                                                        v-if="values.length"
-                                                        v-show="!isOpen"
-                                                        >{{
-                                                            values.length
-                                                        }}
-                                                        options selected</span
-                                                    ></template
-                                                >
+
                                             </multiselect>
                                         </div>
                                     </div>
@@ -247,23 +231,7 @@ onMounted(async () => {
                                                 track-by="name_ka"
                                                 :preselect-first="false"
                                             >
-                                                <template
-                                                    slot="selection"
-                                                    slot-scope="{
-                                                        values,
-                                                        search,
-                                                        isOpen,
-                                                    }"
-                                                    ><span
-                                                        class="multiselect__single"
-                                                        v-if="values.length"
-                                                        v-show="!isOpen"
-                                                        >{{
-                                                            values.length
-                                                        }}
-                                                        options selected</span
-                                                    ></template
-                                                >
+
                                             </multiselect>
                                         </div>
                                     </div>
@@ -294,12 +262,8 @@ onMounted(async () => {
                                                 label="name_ka"
                                                 placeholder="Select one"
                                                 :searchable="true"
-                                                :allow-empty="false"
+                                                :allow-empty="true"
                                             >
-                                                <template
-                                                    slot="singleLabel"
-                                                    slot-scope="{ option }"
-                                                ></template>
                                             </multiselect>
                                         </div>
                                     </div>
@@ -319,12 +283,8 @@ onMounted(async () => {
                                                 label="name_ka"
                                                 placeholder="Select one"
                                                 :searchable="true"
-                                                :allow-empty="false"
+                                                :preselect-first="false"
                                             >
-                                                <template
-                                                    slot="singleLabel"
-                                                    slot-scope="{ option }"
-                                                ></template>
                                             </multiselect>
                                         </div>
                                     </div>

@@ -12,6 +12,8 @@ Route::post('save_vacancy_deposit', [VacancyDepositController::class, 'save']);
 // U
 Route::post('update_vacancy_deposit', [VacancyDepositController::class, 'updateDeposit']);
 Route::post('deposit_date_update', [VacancyDepositController::class, 'updateDate']);
+Route::post('/save_deposit_cancel', [VacancyDepositController::class, 'saveDepositCancel']);
+
 
 // D
 

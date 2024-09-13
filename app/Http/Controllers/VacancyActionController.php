@@ -11,9 +11,10 @@ use App\Models\RepeatHistory;
 use Illuminate\Support\Facades\Auth;
 use App\Services\VacancyStatusService;
 use App\Services\VacancyUpdateService;
+use App\Models\EmployerAdditionalNumber;
 use App\Traits\HandlesAdminDataViewCaching;
 use App\Filters\Vacancy\Admin\VacancyFullFilters;
-use App\Models\EmployerAdditionalNumber;
+use App\Http\Resources\Collection\AdminVacancyResourceCollection;
 
 class VacancyActionController extends Controller
 {
@@ -95,9 +96,13 @@ class VacancyActionController extends Controller
             $childFilter = $adminViewAndPermission->filter == 'child';
         }
         $vacancy = Vacancy::filter($filters)->orderby('carry_in_head_date', 'DESC')->with([
-            'vacancyDuty', 'vacancyBenefit', 'vacancyForWhoNeed', 'characteristic', 'employer.additionalNumbers.numberCode', 'employer.additionalNumbers.numberOwner', 'currency','category', 'status',
-            'workSchedule', 'vacancyInterest', 'interviewPlace','term', 'demand', 'demand.language', 'demand.education', 'demand.languageLevel','demand.specialty',
-            'employer.numberCode','deposit','hr', 'vacancyDrivingLicense', 'reasonForCancel', 'registrant'
+            'vacancyDuty', 'vacancyBenefit', 'vacancyForWhoNeed', 'characteristic',
+                'employer.additionalNumbers.numberCode', 'employer.additionalNumbers.numberOwner',
+                'currency', 'category', 'status', 'workSchedule',
+                'vacancyInterest', 'interviewPlace', 'term', 'demand',
+                'demand.language', 'demand.education', 'demand.languageLevel',
+                'demand.specialty', 'employer.numberCode', 'deposit', 'hr',
+                'vacancyDrivingLicense', 'reasonForCancel', 'registrant',
             ])->when($role_id != 1, function ($query) use($authId) {
                 $query->where('hr_id', '=', $authId);
             })
@@ -108,7 +113,7 @@ class VacancyActionController extends Controller
 
         $totalVacancies = $vacancy->total();
 
-        return response()->json(['vacancy' => $vacancy, 'count' => $totalVacancies]);
+        return response()->json(['vacancy' => new AdminVacancyResourceCollection($vacancy), 'count' => $totalVacancies]);
 
     }
     private function getStaffIds($parent_id) {

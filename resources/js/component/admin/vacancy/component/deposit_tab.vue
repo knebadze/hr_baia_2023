@@ -9,6 +9,17 @@
                 <li>დასადასტურებელი თანხა: {{ enrollment.money }} ლარი</li>
             </ul>
         </div>
+        <div
+            v-if="item.cancel_reason_id"
+            class="alert alert-dismissible alert-danger"
+        >
+            <h5><i class="icon fas fa-info"></i> შეტყობინება!</h5>
+            <span
+                >ჩარიცხვა გაუქმებულია. მიზეზი:
+                <strong>{{ item.cancel_reason }}</strong>
+                </span
+            >
+        </div>
         <div class="row py-3 border border-success">
             <!-- <div class="row"></div> -->
 
@@ -64,23 +75,38 @@
                         item.hr_parent_id == auth.id
                     "
                 >
-                    <button
-                        v-if="hasDeposit"
-                        type="button"
-                        class="btn btn-success float-right"
-                        @click.prevent="emitSave"
-                    >
-                        <i class=""></i>შენახვა
-                    </button>
-                    <button
-                        v-else
-                        type="button"
-                        class="btn btn-success float-right"
-                        @click.prevent="emitRedacted"
-                        :disabled="enrollment"
-                    >
-                        <i class=""></i>რედაქტირება
-                    </button>
+                    <div class="d-flex justify-content-between">
+                        <button
+                            v-if="
+                                item.cancel_reason_id === null &&
+                                auth.role_id == 1
+                            "
+                            type="button"
+                            class="btn btn-danger"
+                            @click.prevent="cancel(m)"
+                        >
+                            <i class=""></i>გაუქმება
+                        </button>
+                        <div>
+                            <button
+                                v-if="hasDeposit && item.cancel_reason_id === null"
+                                type="button"
+                                class="btn btn-success float-right"
+                                @click.prevent="emitSave"
+                            >
+                                <i class=""></i>შენახვა
+                            </button>
+                            <button
+                                v-if="!hasDeposit && item.cancel_reason_id === null"
+                                type="button"
+                                class="btn btn-success float-right"
+                                @click.prevent="emitRedacted"
+                                :disabled="enrollment"
+                            >
+                                <i class=""></i>რედაქტირება
+                            </button>
+                        </div>
+                    </div>
                 </div>
                 <div
                     class="row col-md-12"
@@ -139,14 +165,19 @@
                             item.hr_parent_id == auth.id
                         "
                     >
-                        <button
-                            v-if="!enrollment"
-                            type="button"
-                            class="btn btn-primary float-right"
-                            @click.prevent="counting(model)"
-                        >
-                            <i class=""></i>ჩარიცხვა
-                        </button>
+                        <div class="d-flex justify-content-between">
+                            <button
+                                v-if="
+                                    !enrollment ||
+                                    item.cancel_reason_id !== null
+                                "
+                                type="button"
+                                class="btn btn-primary"
+                                @click.prevent="counting(model)"
+                            >
+                                <i class=""></i>ჩარიცხვა
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -165,12 +196,22 @@
                 </div>
             </div>
         </div>
+        <CancelDeposit
+            :visible="showDepositCancelModal"
+            :item="cancelDeposit"
+            :cancelDepositClassificatory="reasonsCl"
+            :type="type"
+        />
     </div>
 </template>
 <script>
 import { ref, computed, watch } from "vue";
 import Swal from "sweetalert2";
+import CancelDeposit from "../modal/CancelDeposit.vue";
 export default {
+    components: {
+        CancelDeposit,
+    },
     props: {
         item: Object,
         author: String,
@@ -179,8 +220,11 @@ export default {
         type: String,
         adminViewAndPermission: Object,
         auth: Object,
+        cancelDepositClassificatory: Array,
     },
     setup(props, { emit }) {
+        console.log('props.item',props.item);
+
         const m = ref({ ...props.item });
         const file = ref(null);
         const hasDeposit = ref(!m.value.must_be_enrolled ? true : false);
@@ -189,15 +233,23 @@ export default {
             name: props.author,
             file_name: null,
         });
+
+        const reasonsCl = computed(() => props.cancelDepositClassificatory);
+        console.log("reasonsCl", reasonsCl.value);
+
         const title = ref(
             props.type == "candidate" ? "კანდიდატისგან" : "დამსაქმებლისგან"
         );
+
+        const showDepositCancelModal = ref(false);
+        const cancelDeposit = ref(null);
 
         const fullPermission = computed(() => {
             return props.adminViewAndPermission
                 ? props.adminViewAndPermission.permission == "full"
                 : null;
         });
+
         const watchMoney = () => model.value.money;
         watch(watchMoney, (newVal) => {
             if (newVal > m.value.must_be_enrolled) {
@@ -312,6 +364,12 @@ export default {
             }
         };
 
+        const cancel = (item) => {
+            console.log("item", item);
+
+            showDepositCancelModal.value = true;
+            cancelDeposit.value = item;
+        };
         const emitSend = (model) => {
             emit("send", model);
         };
@@ -328,6 +386,10 @@ export default {
             counting,
             emitSend,
             fullPermission,
+            showDepositCancelModal,
+            cancel,
+            cancelDeposit,
+            reasonsCl,
         };
     },
 };

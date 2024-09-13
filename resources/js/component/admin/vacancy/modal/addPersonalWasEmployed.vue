@@ -92,10 +92,7 @@
                         </div>
                         <div
                             class="row col-md-12"
-                            v-if="
-                                item.work_schedule_id == 7 ||
-                                item.work_schedule_id == 9
-                            "
+                            v-if="isWorkScheduleInPeriod"
                         >
                             <div class="col-md-6">
                                 <label>აირჩიე სამუშაო დღეები</label>
@@ -151,6 +148,7 @@
                                     <input
                                         type="text"
                                         class="form-control"
+                                        :class="{ 'is-invalid': searchError }"
                                         id=""
                                         v-model="search.id"
                                     />
@@ -164,6 +162,7 @@
                                     <input
                                         type="text"
                                         class="form-control"
+                                        :class="{ 'is-invalid': searchError }"
                                         id=""
                                         v-model="search.name"
                                     />
@@ -177,6 +176,7 @@
                                     <input
                                         type="text"
                                         class="form-control"
+                                        :class="{ 'is-invalid': searchError }"
                                         id=""
                                         v-model="search.number"
                                     />
@@ -209,6 +209,7 @@
                                         <th>სახელი გვარი</th>
                                         <th>ნომერი</th>
                                         <th>სურათი</th>
+                                        <th>სტატუსი</th>
                                         <th>არჩევა</th>
                                     </tr>
                                 </thead>
@@ -230,6 +231,7 @@
                                                 style="height: 50px"
                                             />
                                         </td>
+                                        <td><span :class="`badge bg-${item.status.color} p-1`">{{ item.status.name_ka}}</span></td>
                                         <td>
                                             <button
                                                 v-if="m.candidate_id == item.id"
@@ -270,140 +272,124 @@
     </div>
 </template>
 <script>
+import { ref, reactive, computed, watch, onMounted } from "vue";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 import _ from "lodash";
+import axios from "axios";
+
 export default {
     props: {
         visible: Boolean,
         item: Object,
     },
-    data() {
-        return {
-            showConfirm: false,
-            cla: {},
-            m: {},
-            info: {},
-            search: {},
-            selected: null,
-            candidate: [],
-            day: [
-                {
-                    name: "ორშაბათი",
-                    name_en: "MONDAY",
-                    filter_name: "Monday",
-                },
-                {
-                    name: "სამშაბათი",
-                    name_en: "TUESDAY",
-                    filter_name: "Tuesday",
-                },
-                {
-                    name: "ოთხშაბთი",
-                    name_en: "WEDNESDAY",
-                    filter_name: "Wednesday",
-                },
-                {
-                    name: "ხუთშაბათი",
-                    name_en: "THURSDAY",
-                    filter_name: "Thursday",
-                },
-                {
-                    name: "პარასკევი",
-                    name_en: "FRIDAY",
-                    filter_name: "Friday",
-                },
-                {
-                    name: "შაბათი",
-                    name_en: "SATURDAY",
-                    filter_name: "Saturday",
-                },
-                {
-                    name: "კვირა",
-                    name_en: "SUNDAY",
-                    filter_name: "Sunday",
-                },
-            ],
-            disabled: false,
-        };
-    },
-    created() {
-        // this.showConfirm = this.visible
-    },
-    computed: {
-        getLang() {
+    setup(props, { emit }) {
+        const showConfirm = ref(false);
+        const cla = ref({});
+        const m = reactive({});
+        const info = ref({});
+        const search = reactive({
+            id: null,
+            name: null,
+            number: null,
+        });
+        const selected = ref(null);
+        const candidate = ref([]);
+        const day = ref([
+            { name: "ორშაბათი", name_en: "MONDAY", filter_name: "Monday" },
+            { name: "სამშაბათი", name_en: "TUESDAY", filter_name: "Tuesday" },
+            {
+                name: "ოთხშაბთი",
+                name_en: "WEDNESDAY",
+                filter_name: "Wednesday",
+            },
+            { name: "ხუთშაბათი", name_en: "THURSDAY", filter_name: "Thursday" },
+            { name: "პარასკევი", name_en: "FRIDAY", filter_name: "Friday" },
+            { name: "შაბათი", name_en: "SATURDAY", filter_name: "Saturday" },
+            { name: "კვირა", name_en: "SUNDAY", filter_name: "Sunday" },
+        ]);
+        const disabled = ref(false);
+        const searchError = ref(false);
+
+        const getLang = computed(() => {
             return I18n.getSharedInstance().options.lang;
-        },
-    },
-    methods: {
-        async show() {
+        });
+
+        const isWorkScheduleInPeriod = computed(() => {
+            return _.includes([6, 7, 8, 9, 10], props.item.work_schedule_id);
+        });
+
+        const show = async () => {
             try {
-                let result = await this.getClassificatory();
-                this.info = result.data;
-                this.employType();
-                this.m.vacancy = {
-                    id: this.item.id,
-                    work_schedule_id: this.item.work_schedule_id,
-                    start_date: this.item.start_date,
-                    term: this.item.term,
+                let result = await getClassificatory();
+                console.log(result.data);
+                
+                info.value = result.data;
+                employType();
+                m.vacancy = {
+                    id: props.item.id,
+                    work_schedule_id: props.item.work_schedule_id,
+                    start_date: props.item.start_date,
+                    term: props.item.term,
                 };
-                console.log(this.item);
-                if (this.item.work_schedule_id == 8) {
-                    this.m.week_day = null;
+                console.log(props.item);
+                if (props.item.work_schedule_id == 8) {
+                    m.week_day = null;
                 }
-                // if ( this.item.work_schedule_id != 7 &&  this.item.work_schedule_id != 9) {
-                //     this.m.employ_type = this.info.employ_type
-                //     this.disabled = true
-                // }
-                this.showConfirm = true;
+                showConfirm.value = true;
             } catch (error) {
                 console.log(error);
             }
-        },
-        hide() {
-            this.showConfirm = false;
-            this.search = {};
-        },
-        getClassificatory() {
+        };
+
+        const hide = () => {
+            showConfirm.value = false;
+            emit("modalHide", m);
+            search.id = null;
+            search.name = null;
+            search.number = null;
+        };
+
+        const getClassificatory = () => {
             return axios.post("/get_add_personal_was_employed_info", {
-                data: this.item.id,
+                data: props.item.id,
             });
-        },
-        employType() {
-            let period = [6, 7, 8, 9];
-            let work_schedule_id = this.item.work_schedule_id;
-            let cla = this.info.employ_type;
+        };
+
+        const employType = () => {
+            let period = [6, 7, 8, 9, 10];
+            let work_schedule_id = props.item.work_schedule_id;
+            let cla = info.value.employ_type;
             if (_.includes(period, work_schedule_id)) {
-                this.m.employ_type = _.find(cla, function (o) {
+                m.employ_type = _.find(cla, function (o) {
                     return o.id == 8;
                 });
             } else {
-                this.disabled = true;
-                this.m.employ_type = _.find(cla, function (o) {
+                disabled.value = true;
+                m.employ_type = _.find(cla.value, function (o) {
                     return o.id == 7;
                 });
             }
-        },
-        save() {
-            if ((!_.has(this.m, 'candidate_id') || !this.m.candidate_id)) {
+        };
+
+        const save = () => {
+            if (!_.has(m, "candidate_id") || !m.candidate_id) {
                 toast.error("შესანახად აირჩიეთ კანდიდატი", {
                     theme: "colored",
                     autoClose: 1000,
                 });
                 return;
             }
-            if ( !this.m.employ_type) {
+            if (!m.employ_type) {
                 toast.error("შესანახად აირჩიეთ დასაქმების ტიპი", {
                     theme: "colored",
                     autoClose: 1000,
                 });
                 return;
             }
-            // this.item.work_schedule_id == 8 ||
             if (
-                (this.item.work_schedule_id == 7 ||
-                    this.item.work_schedule_id == 9) &&
-                !this.m.week_day
+                _.includes([6, 7, 8, 9, 10], props.item.work_schedule_id) &&
+                !m.week_day
             ) {
                 toast.error("შესანახად აირჩიეთ სამუშაო დღეები", {
                     theme: "colored",
@@ -411,108 +397,154 @@ export default {
                 });
                 return;
             }
-            // return
-            this.m.candidate_id =
-                typeof this.m.candidate_id == "number"
-                    ? this.m.candidate_id
-                    : this.m.candidate_id.candidate.id;
-            let currentObj = this;
+            m.candidate_id =
+                typeof m.candidate_id == "number"
+                    ? m.candidate_id
+                    : m.candidate_id.candidate.id;
             axios
                 .post("/add_vacancy_personal_was_employed", {
-                    data: this.m,
+                    data: m,
                 })
                 .then(function (response) {
-                    // handle success
                     if (response.status == 200) {
                         toast.success("წარმატებით დაემატა", {
                             theme: "colored",
                             autoClose: 1000,
                         });
-                        currentObj.$emit("emitSave", true);
-                        currentObj.hide();
-                        // setTimeout(() => {
-                        //     document.location.reload();
-                        // }, 1500);
+                        emit("emitSave", true);
+                        hide();
                     }
                 })
                 .catch(function (error) {
-                    // handle error
                     console.log(error);
                 });
-        },
-        find() {
-            let currentObj = this;
-            this.search.category = this.item.category;
+        };
+
+        const find = () => {
+            if (!search.id && !search.name && !search.number) {
+                toast.error("შეიყვანეთ რაიმე ინფორმაცია", {
+                    theme: "colored",
+                    autoClose: 1000,
+                });
+                searchError.value = true;
+                return;
+            }
+            searchError.value = false;
+            search.category = props.item.category;
             axios({
                 method: "post",
                 url: "/find_candidate",
-                data: this.search,
+                data: search,
             })
                 .then(function (response) {
-                    // handle success
-                    currentObj.candidate = response.data;
+                    console.log(response.data);
+                    
+                    if (
+                        response.data.length == 0 &&
+                        (search.id !== null || search.number !== null)
+                    ) {
+                        toast.info(
+                            "არცერთი კანდიდატი არ მოიძებნა გადაამოწმეთ კანდიდატის სამუშაო კატეგორია ან მისი სტატუსი შესაძლოა იყოს უკვე დასაქმებული",
+                            {
+                                theme: "colored",
+                                autoClose: 4500,
+                            }
+                        );
+                    } else if (response.data.length == 0) {
+                        toast.info("არცერთი კანდიდატი არ მოიძებნა", {
+                            theme: "colored",
+                            autoClose: 1500,
+                        });
+                    }
+                    candidate.value = response.data;
                 })
                 .catch(function (error) {
-                    // handle error
                     console.log(error);
                 });
-        },
-        chose(id) {
-            if (this.m.candidate_id && this.m.vacancy_id) {
+        };
+
+        const chose = (id) => {
+            if (m.candidate_id && m.vacancy_id) {
                 toast.error("თქვენ უკვე აირჩიეთ კანდიდატი", {
                     theme: "colored",
                     autoClose: 1000,
                 });
                 return;
             }
-            this.m.candidate_id = id;
-            this.m.vacancy_id = this.item.id;
-        },
-        cancel() {
-            this.m.candidate_id = null;
-            this.m.vacancy_id = null;
-        },
-    },
-    watch: {
-        visible: function () {
-            this.show();
-        },
-        // 'selected':function (newValue, oldValue) {
-        //     this.m.candidate_id = newValue.candidate_id
-        //     this.m.vacancy_id = newValue.vacancy_id
-        // }
-        "m.candidate_id": function (newValue, oldValue) {
-            let currentObj = this;
-            if (typeof newValue == "object") {
-                axios({
-                    method: "post",
-                    url: "/get_work_day_info",
-                    data: { candidate_id: newValue.candidate_id },
-                })
-                    .then(function (response) {
-                        // handle success
-                        if (response.data.length > 0) {
-                            currentObj.day = currentObj.day.filter(
-                                (item) =>
-                                    !response.data.includes(item.filter_name)
-                            );
-                            currentObj.disabled = true;
-                        } else {
-                            // currentObj.disabled = false
-                        }
-                        toast.info("გადამოწმდა არჩეული კანდიდატის ინფორმაცია", {
-                            theme: "colored",
-                            autoClose: 1000,
-                        });
+            m.candidate_id = id;
+            m.vacancy_id = props.item.id;
+        };
 
-                        // currentObj.candidate = response.data
-                    })
-                    .catch(function (error) {
-                        // handle error
-                        console.log(error);
-                    });
+        const cancel = () => {
+            m.candidate_id = null;
+            m.vacancy_id = null;
+        };
+
+        watch(
+            () => props.visible,
+            (newVal) => {
+                if (newVal) {
+                    show();
+                }
             }
-        },
+        );
+
+        watch(
+            () => m.candidate_id,
+            (newValue) => {
+                if (typeof newValue == "object") {
+                    axios({
+                        method: "post",
+                        url: "/get_work_day_info",
+                        data: { candidate_id: newValue.candidate_id },
+                    })
+                        .then(function (response) {
+                            if (response.data.length > 0) {
+                                day.value = day.value.filter(
+                                    (item) =>
+                                        !response.data.includes(
+                                            item.filter_name
+                                        )
+                                );
+                                disabled.value = true;
+                            }
+                            toast.info(
+                                "გადამოწმდა არჩეული კანდიდატის ინფორმაცია",
+                                {
+                                    theme: "colored",
+                                    autoClose: 1000,
+                                }
+                            );
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                }
+            }
+        );
+
+        return {
+            showConfirm,
+            cla,
+            m,
+            info,
+            search,
+            selected,
+            candidate,
+            day,
+            disabled,
+            searchError,
+            getLang,
+            show,
+            hide,
+            getClassificatory,
+            employType,
+            save,
+            find,
+            chose,
+            cancel,
+            isWorkScheduleInPeriod
+        };
     },
 };
 </script>

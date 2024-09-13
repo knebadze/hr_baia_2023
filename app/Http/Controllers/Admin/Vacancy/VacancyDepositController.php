@@ -12,10 +12,13 @@ use App\Models\RegistrationFee;
 use App\Models\QualifyingCandidate;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use App\Models\EnrollmentCancelReason;
 use Illuminate\Support\Facades\Schema;
 use App\Http\Resources\DepositResource;
 use App\Traits\HandlesAdminDataViewCaching;
 use App\Services\Admin\VacancyDepositService;
+use App\Http\Resources\RegistrationFeeResource;
 
 class VacancyDepositController extends Controller
 {
@@ -32,36 +35,44 @@ class VacancyDepositController extends Controller
             'auth' => $auth,
             'adminViewAndPermission' => $auth->role_id == 1 ? $this->getAdminDataViewByKeyAndUserId('Deposit') : null,
         ];
-    
-        // Attempt to retrieve the deposit, or create a placeholder if it doesn't exist.
-        if (VacancyDeposit::where('vacancy_id', $id)->exists()) {
-            $data['deposit'] = new DepositResource(VacancyDeposit::where('vacancy_id', $id)->first());
-        }else{
-            $filed = Schema::getColumnListing('vacancy_deposits');
-            $data['deposit'] = array_map(function ($item) { return null; }, array_flip($filed));
+
+        // Retrieve or create a placeholder for the deposit
+        $vacancyDeposit = VacancyDeposit::where('vacancy_id', $id)->first();
+        if ($vacancyDeposit) {
+            $data['deposit'] = new DepositResource($vacancyDeposit);
+        } else {
+            $fields = Schema::getColumnListing('vacancy_deposits');
+            $data['deposit'] = array_fill_keys($fields, null);
             $data['deposit']['vacancy_id'] = $id;
+            $data['deposit']['cancel_reason'] = null;
         }
-    
+
         // Use Eloquent relationships to simplify data retrieval
         $vacancy = Vacancy::with(['employer', 'qualifyingCandidate', 'enrollments'])->findOrFail($id);
         $data['employer'] = $vacancy->employer->name_ka;
         $data['status'] = $vacancy->status_id;
-    
+
         // Retrieve the latest qualifying candidate of specific types
         $qualifying = $vacancy->qualifyingCandidate()
                                ->whereIn('qualifying_type_id', [7, 8])
-                               ->orderBy('id', 'DESC')
+                               ->latest('id')
                                ->first();
-    
+
         // Check if the qualifying candidate exists and has no registration fee
         $data['register'] = null;
         if ($qualifying && $qualifying->candidate->registration_fee == 0) {
-            $data['register'] = RegistrationFee::where('user_id', $qualifying->candidate->user_id)->first();
+            $registrationFee = RegistrationFee::where('user_id', $qualifying->candidate->user_id)->first();
+            $data['register'] = $registrationFee ? new RegistrationFeeResource($registrationFee) : null;
         }
-    
+
         // Retrieve enrollments that have not agreed
         $data['enrollment'] = $vacancy->enrollments()->where('agree', 0)->get()->toArray();
-    
+
+         // Cache the EnrollmentCancelReason data forever
+        $data['reasonsCl'] = Cache::rememberForever('enrollment_cancel_reasons', function () {
+            return EnrollmentCancelReason::all();
+        });
+
         return view('admin.vacancy_deposit', compact('data'));
     }
     function save(Request $request) {
@@ -114,6 +125,32 @@ class VacancyDepositController extends Controller
         }
 
         return response()->json($result, $result['status']);
+    }
+
+    public function saveDepositCancel(Request $request)
+    {
+        // Validate the request data
+        $validatedData = $request->validate([
+            'data' => 'required|array',
+            // Add other validation rules as needed
+        ]);
+
+        // Process the deposit cancellation
+        $depositData = $validatedData['data'];
+        // Perform the necessary actions with $depositData
+        $deposit = VacancyDeposit::find($depositData['id']);
+        if($depositData['type'] == 'candidate'){
+            $deposit->candidate_cancel_other_reason = $depositData['cancel_reason'];
+            $deposit->candidate_cancel_reason_id = $depositData['cancel_reason_id']['id'];
+        }else{
+            $deposit->employer_cancel_other_reason = $depositData['cancel_reason'];
+            $deposit->employer_cancel_reason_id = $depositData['cancel_reason_id']['id'];
+        }
+
+        $deposit->save();
+
+        // Return a response
+        return response()->json(['message' => 'Deposit cancellation saved successfully']);
     }
 
 

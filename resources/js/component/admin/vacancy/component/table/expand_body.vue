@@ -230,12 +230,20 @@
                                 კანდიდატისგან უნდა ჩაირიცხოს:
                             </dt>
                             <dd class="col-sm-8">
-                                {{ item.deposit.candidate_initial_amount }}
+                                {{
+                                    item.deposit.candidate_cancel_reason_id ===
+                                    null
+                                        ? item.deposit.candidate_initial_amount
+                                        : `გაუქმების მიზეზი: ${item.deposit.candidate_cancel_other_reason}`
+                                }}
                             </dd>
                         </div>
                         <div
                             class="row col-12 border-top"
-                            v-if="item.deposit.must_be_enrolled_candidate_date"
+                            v-if="
+                                item.deposit.must_be_enrolled_candidate_date &&
+                                item.deposit.candidate_cancel_reason_id === null
+                            "
                         >
                             <dt class="col-sm-4">
                                 კანდიდატისგან უნდა ჩაირიცხოს თარიღი:
@@ -383,12 +391,20 @@
                                 დამსაქმებლისგან უნდა ჩაირიცხოს:
                             </dt>
                             <dd class="col-sm-8">
-                                {{ item.deposit.employer_initial_amount }}
+                                {{
+                                    item.deposit.employer_cancel_reason_id ===
+                                    null
+                                        ? item.deposit.employer_initial_amount
+                                        : `გაუქმების მიზეზი: ${item.deposit.employer_cancel_other_reason}`
+                                }}
                             </dd>
                         </div>
                         <div
                             class="row col-12 border-top"
-                            v-if="item.deposit.must_be_enrolled_employer_date"
+                            v-if="
+                                item.deposit.must_be_enrolled_employer_date &&
+                                item.deposit.employer_cancel_reason_id === null
+                            "
                         >
                             <dt class="col-sm-4">
                                 დამსაქმებლისგან უნდა ჩაირიცხოს თარიღი:
@@ -448,7 +464,8 @@ export default {
         const candidateFullInfoModalShow = ref(false);
         const candidate_id = ref(null);
         const openCandidateFullInfoModal = (id) => {
-            candidateFullInfoModalShow.value = !candidateFullInfoModalShow.value;
+            candidateFullInfoModalShow.value =
+                !candidateFullInfoModalShow.value;
             candidate_id.value = id;
         };
 
@@ -456,7 +473,7 @@ export default {
             candidateFullInfoModalShow,
             candidate_id,
             displayWithFallback,
-            openCandidateFullInfoModal
+            openCandidateFullInfoModal,
         };
     },
 };

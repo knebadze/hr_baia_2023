@@ -38,6 +38,7 @@
                                 :type="'candidate'"
                                 :adminViewAndPermission="adminViewAndPermission"
                                 :auth="auth"
+                                :cancelDepositClassificatory="cancelDepositClassificatory"
                                 @redacted="handleRedacted"
                                 @save="handleSave"
                                 @send="handelSend"
@@ -52,6 +53,7 @@
                                 :type="'employer'"
                                 :adminViewAndPermission="adminViewAndPermission"
                                 :auth="auth"
+                                :cancelDepositClassificatory="cancelDepositClassificatory"
                                 @redacted="handleRedacted"
                                 @save="handleSave"
                                 @send="handelSend"
@@ -64,6 +66,7 @@
                                 :item="componentItem"
                                 :adminViewAndPermission="adminViewAndPermission"
                                 :auth="auth"
+                                :cancelDepositClassificatory="cancelDepositClassificatory"
                             ></component>
                         </div>
                     </div>
@@ -86,9 +89,14 @@ export default {
         data: Object,
     },
     setup(props) {
+        console.log('props.data',props.data);
+
         const model = ref({ ...props.data.deposit });
         const depositAuthor = ref(props.data.employer);
         const registerEnrollmentComponent = ref(null);
+        const cancelDepositClassificatory = ref(props.data.reasonsCl);
+        console.log('cancelDepositClassificatory', cancelDepositClassificatory.value);
+
         const componentItem = ref(null);
         const adminViewAndPermission = ref({
             ...props.data.adminViewAndPermission,
@@ -116,6 +124,8 @@ export default {
                 must_be_enrolled_candidate,
                 must_be_enrolled_candidate_date,
                 hr_parent_id,
+                candidate_cancel_reason_id,
+                candidate_cancel_reason
             } = model.value;
             return {
                 id,
@@ -124,6 +134,8 @@ export default {
                 must_be_enrolled: must_be_enrolled_candidate,
                 must_be_enrolled_date: must_be_enrolled_candidate_date,
                 hr_parent_id,
+                cancel_reason_id: candidate_cancel_reason_id,
+                cancel_reason: candidate_cancel_reason
             };
         });
         const employerModel = computed(() => {
@@ -134,6 +146,8 @@ export default {
                 must_be_enrolled_employer,
                 must_be_enrolled_employer_date,
                 hr_parent_id,
+                employer_cancel_reason_id,
+                employer_cancel_reason
             } = model.value;
             return {
                 id,
@@ -141,7 +155,10 @@ export default {
                 initial_amount: employer_initial_amount,
                 must_be_enrolled: must_be_enrolled_employer,
                 must_be_enrolled_date: must_be_enrolled_employer_date,
-                hr_parent_id
+                hr_parent_id,
+                cancel_reason_id: employer_cancel_reason_id,
+                cancel_reason: employer_cancel_reason
+
             };
         });
         const candidateEnrollment = computed(() => {
@@ -273,7 +290,8 @@ export default {
             registerEnrollmentComponent,
             componentItem,
             adminViewAndPermission,
-            auth
+            auth,
+            cancelDepositClassificatory
         };
     },
 };

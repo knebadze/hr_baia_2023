@@ -18,42 +18,42 @@ class AdminCandidateResource extends JsonResource
             'id' => $this->id,
             'user' => [
                 'gender' => $this->user->gender,
-                'registerLog' => $this->user->registerLog,
+                'registerLog' => $this->user->registerLog->creator,
                 'registerFee' => $this->user->registerFee,
+                'blacklist' => $this->user->blacklist->ground,
             ],
-           'workInformation' => $this->getWorkInformation->map(function ($workInformation) {
-                // Check if getWorkSchedule is a method and call it accordingly
-                $workSchedule = method_exists($workInformation, 'getWorkSchedule') ? $workInformation->getWorkSchedule() : null;
-
-                return [
-                    'category' => optional($workInformation->category)->name,
-                    'currency' => $workInformation->currency_id,
-                    // Now, handle $workSchedule based on what it actually returns (object, collection, etc.)
-                    'workSchedule' => optional($workSchedule)->workSchedule, // Adjust this line based on the actual structure of the work schedule data
-                    // Include other fields from WorkInformation as needed
-                ];
-            }),
+            'workInformation' => [
+                'category' => $this->getWorkInformation->category,
+                'currency' => $this->getWorkInformation->currency,
+                'workSchedule' => $this->getWorkInformation->getWorkSchedule->workSchedule,
+            ],
             'nationality' => $this->nationality,
             'citizenship' => $this->citizenship,
             'religion' => $this->religion,
             'education' => $this->education,
-            'languages' => $this->getLanguage,
+            'languages' => $this->getLanguage->map(function ($language) {
+                return [
+                    'language' => $language->language,
+                    'level' => $language->level,
+                ];
+            }),
             'professions' => $this->professions,
             'specialty' => $this->specialty,
             'recommendation' => $this->recommendation,
             'generalWorkExperience' => $this->generalWorkExperience,
-            'familyWorkExperience' => $this->familyWorkExperience,
+            'familyWorkExperience' => [
+                'noReason' => $this->familyWorkExperience->noReason,
+                'familyWorkDuty' => $this->familyWorkExperience->familyWorkDuty,
+            ],
             'characteristic' => $this->characteristic,
             'allergy' => $this->allergy,
             'maritalStatus' => $this->maritalStatus,
             'drivingLicense' => $this->drivingLicense,
             'status' => $this->status,
-            'number' => $this->number->map(function ($numberInstance) {
-                return [
-                    'numberOwner' => $numberInstance->numberOwner,
-                    // Include other fields from the number instance as needed
-                ];
-            }),
+            'number' => [
+                'numberOwner' => $this->number->numberOwner,
+            ],
+            'qualifyingCandidate' => $this->qualifyingCandidate,
         ];
     }
 }

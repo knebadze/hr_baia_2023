@@ -39,7 +39,7 @@ class AdminVacancyController extends Controller
         $auth = Auth::guard('staff')->user();
         $authId = $auth->id;
         $role_id = $auth->role_id;
-    
+
         // Simplified conditional logic
         $childView = false;
         $adminViewAndPermission = [];
@@ -47,12 +47,13 @@ class AdminVacancyController extends Controller
             $adminViewAndPermission = $this->getAdminDataViewByKeyAndUserId('Vacancy');
             $childView = $adminViewAndPermission->view == 'child';
         }
-    
+
         // Load only necessary relationships and apply conditions efficiently
         $vacancyQuery = Vacancy::orderBy('carry_in_head_date', 'DESC')
             ->with([
                 'vacancyDuty', 'vacancyBenefit', 'vacancyForWhoNeed', 'characteristic',
-                'employer.additionalNumbers.numberCode', 'employer.additionalNumbers.numberOwner', 'currency', 'category', 'status', 'workSchedule',
+                'employer.additionalNumbers.numberCode', 'employer.additionalNumbers.numberOwner',
+                'currency', 'category', 'status', 'workSchedule',
                 'vacancyInterest', 'interviewPlace', 'term', 'demand',
                 'demand.language', 'demand.education', 'demand.languageLevel',
                 'demand.specialty', 'employer.numberCode', 'deposit', 'hr',
@@ -65,9 +66,9 @@ class AdminVacancyController extends Controller
                 $ids = $this->getStaffIds($authId);
                 $query->whereIn('hr_id', $ids);
             });
-    
+
         $vacancy = $vacancyQuery->paginate(20);
-    
+
         return response()->json([
             'vacancy' => new AdminVacancyResourceCollection($vacancy),
             'count' => $vacancy->total(),

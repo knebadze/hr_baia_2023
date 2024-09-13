@@ -67,9 +67,7 @@
                         </dd>
                         <dt class="col-sm-4">დაარეგისტრირა:</dt>
                         <dd class="col-sm-8">
-                            {{
-                                item.user.register_log.creator.name_ka
-                            }}
+                            {{ item.user.register_log.creator.name_ka }}
                         </dd>
                     </div>
                     <dt class="col-sm-4">პირადი ნომერი:</dt>
@@ -181,7 +179,7 @@
                     <dd class="col-sm-8">{{ item.height + " სმ" }}</dd>
                     <dt class="col-sm-4">წონა:</dt>
                     <dd class="col-sm-8">{{ item.weight + " კგ" }}</dd>
-                    <dt class="col-sm-4">მოწევა:</dt>
+                    <dt class="col-sm-4">მწეველი:</dt>
                     <dd class="col-sm-8">
                         {{ item.smoke == 0 ? "არა" : "კი" }}
                     </dd>
@@ -297,10 +295,29 @@
                             }}
                         </dd>
                     </div>
-                    <div class="col-12 d-flex align-items-center p-0" v-if="item.status_id == 12">
+                    <div
+                        class="col-12 d-flex align-items-center p-0"
+                        v-if="item.status_id == 12"
+                    >
                         <dt class="col-sm-4">შავსიაში დამატების მიზეზი:</dt>
                         <dd class="col-sm-8">
-                            {{  `${item.user.blacklist.ground.name_ka}, ${item.user.blacklist.comment}`  }}
+                            {{
+                                `${item.user.blacklist.ground.name_ka}, ${item.user.blacklist.comment}`
+                            }}
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+            <div
+                class="col-12 border-top"
+                v-if="filteredQualifyingCandidates.length"
+            >
+                <dl>
+                    <div v-for="(item, index) in filteredQualifyingCandidates" :key="index">
+                        <dt class="col-4">აქტიურია ვაკანსიებში:</dt>
+                        <dd class="col-8">
+                            <span class="" @click="openVacancyFullModal(item.vacancy.id)">{{ item.vacancy.code }}</span> - 
+                            {{ item.qualifying_type.name }}
                         </dd>
                     </div>
                 </dl>
@@ -308,13 +325,17 @@
         </div>
     </div>
     <info_modal :visible="showInfoModal" :type="modalType" :items="modalItem" />
+    <!-- <vacancyFullInfoModal :visible="modalVacancyFullShow" :vacancyId="vacancy_id" /> -->
 </template>
 <script>
+import { ref, computed } from "vue";
 import info_modal from "../../modal/info_modal.vue";
-import { ref } from "vue";
+// import vacancy_full_info_modal from "../../../vacancy/modal/vacancyFullInfoModal.vue";
+
 export default {
     components: {
         info_modal,
+        // vacancy_full_info_modal
     },
     props: {
         item: Object,
@@ -329,12 +350,30 @@ export default {
             modalItem.value = item;
             showInfoModal.value = !showInfoModal.value;
         };
+        const modalVacancyFullShow = ref(false);
+        const vacancy_id = ref(null);
+        const openVacancyFullModal = (id) => {
+            modalVacancyFullShow.value = !modalVacancyFullShow.value;
+            vacancy_id.value = id;
+        };
+        const filteredQualifyingCandidates = computed(() => {
+            return props.item.qualifying_candidate.filter((candidate) => {
+                return (
+                    [5, 6, 7, 8].includes(candidate.qualifying_type_id) &&
+                    (candidate.status_id === 17 || candidate.status_id === null)
+                );
+            });
+        });
+
         return {
             openInfoModal,
-
             modalType,
             modalItem,
             showInfoModal,
+            filteredQualifyingCandidates,
+            modalVacancyFullShow,
+            vacancy_id,
+            openVacancyFullModal
         };
     },
 };

@@ -16,6 +16,8 @@ class RegistrationFee extends Model
         'initial_amount',
         'money',
         'enroll_date',
+        'cancel_reason_id',
+        'cancel_other_reason',  
     ];
 
     function user(){
@@ -24,6 +26,11 @@ class RegistrationFee extends Model
 
     function creator(){
         return $this->belongsTo(Staff::class);
+    }
+
+    public function cancelReason()
+    {
+        return $this->belongsTo(EnrollmentCancelReason::class, 'cancel_reason_id');
     }
 }
 

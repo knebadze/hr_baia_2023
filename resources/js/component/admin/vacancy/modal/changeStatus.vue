@@ -172,6 +172,7 @@
         :visible="showModal"
         :item="modalItem"
         @emitSave="handlerWasEmployed"
+        @modalHide="handlerModalHide"
     />
 </template>
 <script setup>
@@ -198,6 +199,7 @@ const reminder = ref({});
 const showModal = ref(false);
 const modalItem = ref(null);
 const m = ref({});
+const changeStatusWasEmployed = ref(true)
 
 const getLang = computed(() => {
     return I18n.getSharedInstance().options.lang;
@@ -224,7 +226,6 @@ const changeFormat = (time) => {
     return moment(time).format("YYYY-MM-DD HH:mm");
 };
 
-
 watch(
     () => props.visible,
     (newValue, oldValue) => {
@@ -233,7 +234,6 @@ watch(
     },
     { deep: true }
 );
-
 
 watch(
     () => m.value.status,
@@ -245,6 +245,8 @@ watch(
         }
         if (newValue.id == 3) {
             openModal();
+        }else{
+            changeStatusWasEmployed.value = true
         }
     }
 );
@@ -254,55 +256,81 @@ const openModal = () => {
     modalItem.value = vacancy.value;
 };
 
+const handlerModalHide = (data) => {
+    console.log("data", data);
+    console.log(_.has(data, "candidate_id") && data.candidate_id);
+    if(_.has(data, "candidate_id") && data.candidate_id){
+        changeStatusWasEmployed.value = true
+        showModal.value = false;
+    }else{
+        showModal.value = false;
+        toast.error("გთხოვთ აირჩიოთ კანდიდატი");
+        changeStatusWasEmployed.value = false
+        return;
+    }
+    // if (!_.has(data, "candidate_id") || !data.candidate_id) {
+       
+    // }   
+    
+};
 const handlerWasEmployed = (item = false) => {
     if (item) {
         save();
     }
 };
 
-        const save = () =>{
-            // return
-            if (m.value.status.id == 6) {
-                m.value['reminder'] = reminder.value
+const save = () => {
+    console.log('m.value',m.value);
+    
+    if(!changeStatusWasEmployed.value){
+        openModal();
+        return
+    }
+    return
+    if (m.value.status.id == 6) {
+        m.value["reminder"] = reminder.value;
+    }
+
+    axios
+        .post("/update_vacancy_status", {
+            data: { model: m.value },
+        })
+        .then(function (response) {
+            // handle success
+            if (response.status == 200 && response.data.data.type == "s") {
+                toast.success(response.data.data.message, {
+                    theme: "colored",
+                    autoClose: 1000,
+                });
+
+                // setTimeout(() => {
+                //     document.location.reload();
+                // }, 2000);
+                changeStatus(m.value);
+                hide();
+            } else if (
+                response.status == 200 &&
+                response.data.data.type == "e"
+            ) {
+                toast.error(response.data.data.message, {
+                    theme: "colored",
+                    autoClose: 1000,
+                });
+            } else if (
+                response.status == 200 &&
+                response.data.data.type == "w"
+            ) {
+                toast.error(response.data.data.message, {
+                    theme: "colored",
+                    autoClose: 1000,
+                });
+                openModal();
             }
-
-            axios.post('/update_vacancy_status' ,{
-                data: {'model':m.value},
-            })
-            .then(function (response) {
-                // handle success
-                if (response.status == 200 && response.data.data.type == 's') {
-
-                    toast.success(response.data.data.message, {
-                        theme: 'colored',
-                        autoClose: 1000,
-                    });
-
-                    // setTimeout(() => {
-                    //     document.location.reload();
-                    // }, 2000);
-                    changeStatus(m.value)
-                    hide()
-                }else if(response.status == 200 && response.data.data.type == 'e'){
-                    toast.error(response.data.data.message, {
-                        theme: 'colored',
-                        autoClose: 1000,
-                    });
-
-                }else if(response.status == 200 && response.data.data.type == 'w'){
-                    toast.error(response.data.data.message, {
-                        theme: 'colored',
-                        autoClose: 1000,
-                    });
-                    openModal()
-
-                }
-
-            })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
-            })
-        };
+        })
+        .catch(function (error) {
+            // handle error
+            console.log(error);
+        });
+};
 </script>
 <style lang=""></style>

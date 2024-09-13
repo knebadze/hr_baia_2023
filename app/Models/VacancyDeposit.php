@@ -19,6 +19,11 @@ class VacancyDeposit extends Model
         'must_be_enrolled_employer_date',
         'must_be_enrolled_candidate',
         'must_be_enrolled_candidate_date',
+        'candidate_cancel_reason_id',
+        'candidate_cancel_other_reason',
+        'employer_cancel_reason_id',
+        'employer_cancel_other_reason',
+
     ];
 
     // protected static function boot()
@@ -47,7 +52,17 @@ class VacancyDeposit extends Model
     {
         return $this->belongsTo(Vacancy::class);
     }
-    
+
+    public function candidateCancelReason()
+    {
+        return $this->belongsTo(EnrollmentCancelReason::class, 'candidate_cancel_reason_id');
+    }
+
+    public function employerCancelReason()
+    {
+        return $this->belongsTo(EnrollmentCancelReason::class, 'employer_cancel_reason_id');
+    }
+
     // protected function logActivity($action)
     // {
     //     $staff = Auth::guard('staff')->user();

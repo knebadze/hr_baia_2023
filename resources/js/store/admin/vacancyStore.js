@@ -19,6 +19,8 @@ export const useVacancyStore = defineStore("vacancy", () => {
             const data = response.data;
             const { count, vacancy } = data;
             // Update the store's state
+            console.log("vacancy", vacancy);
+
             vacancies.value = vacancy.data;
             staticVacancies.value = vacancy.data;
             countVacancy.value = count;
@@ -43,6 +45,7 @@ export const useVacancyStore = defineStore("vacancy", () => {
             );
             const data = response.data;
             const { count, vacancy } = data;
+            console.log("vacancy", vacancy);
             // Update the store's state
             vacancies.value = vacancy.data;
             countVacancy.value = count;

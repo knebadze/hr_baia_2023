@@ -16,13 +16,16 @@ console.log(props.item);
 // data
 const showConfirm = ref(false);
 const cla = ref({});
-const m = ref(null);
+const m = ref({
+    start_date: null,
+});
 const candidateInfo = ref({});
 const busy = ref(null);
 const modalShow = ref(false);
 const vacancy_id = ref(null);
 const qualifyingType = ref([]);
 const startDateMin = ref(null);
+const endDateMin = ref(null);
 const startDateMax = ref(null);
 const endDateMax = ref(null);
 
@@ -53,13 +56,14 @@ const show = async () => {
                   (o) => o.id == m.value.interview_place_id
               )
             : m.value.interview_place;
-        m.value.interview_date = moment(m.value.interview_date, "MM-DD-YYYY HH:mm").format("YYYY-MM-DDTHH:mm");
+        // m.value.interview_date = moment(m.value.interview_date, "MM-DD-YYYY HH:mm").format("YYYY-MM-DDTHH:mm");
         const currentDate = moment();
         startDateMin.value = currentDate.format("YYYY-MM-DD");
+        endDateMin.value = currentDate.format("YYYY-MM-DD");
         const startDateMoment = moment(m.value.start_date);
         const endDateMoment = moment(m.value.start_date);
         startDateMax.value = startDateMoment
-            .subtract(5, "days")
+            .subtract(2, "days")
             .format("YYYY-MM-DD");
         endDateMax.value = endDateMoment
             .subtract(1, "days")
@@ -73,6 +77,16 @@ const show = async () => {
     // m.value = { ...props.item }
 };
 
+watch(() => m.value.interview_date, (newVal, oldVal) => {
+      if (newVal) {
+        const formattedDate = moment(newVal, "MM-DD-YYYY HH:mm").format("YYYY-MM-DDTHH:mm");
+        if (formattedDate !== 'Invalid date') {
+          m.value.interview_date = formattedDate;
+        } else {
+          console.error('Invalid date format');
+        }
+      }
+    });
 const filterCla = (currentDate) => {
     let filterQualifyingType = null;
     let check =
@@ -258,6 +272,7 @@ const openModal = (id) => {
 
 const hide = () => {
     showConfirm.value = false;
+    emit('modalHide')
 };
 
 watch(
@@ -266,6 +281,14 @@ watch(
         show();
     }
 );
+watch(() => m.value.start_date, (newVal, oldVal) => {
+      console.log(`Start date changed from ${oldVal} to ${newVal}`);
+      // Add your logic here
+      if (oldVal && newVal) {
+        endDateMin.value = newVal;
+      }
+
+    });
 </script>
 <template lang="">
     <!-- Modal -->
@@ -466,7 +489,7 @@ watch(
                                     class="form-control"
                                     v-model="m.end_date"
                                     type="date"
-                                    :min="startDateMin"
+                                    :min="endDateMin"
                                     :max="endDateMax"
                                 />
                             </div>
